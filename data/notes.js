@@ -268,6 +268,28 @@ window.BDX_APPELLATION_NOTES = {
   sources: 'Taste France; The Wine Cellar Insider; Decanter; Wine With Seth'
 },
 
+'barsac': {
+  card:
+    'The flat, limestone half of the sweet-wine country, north of the Ciron. '
+    + 'Fresher and more mineral than Sauternes proper, and entitled to that '
+    + 'name as well.',
+  history:
+    'Recognised on 30 September 1936 under rules that run closely parallel to '
+    + 'Sauternes’. A grower here may label the wine Barsac or Sauternes, so '
+    + 'the Sauternes delimitation covers these vines too — which is why '
+    + 'Barsac is drawn inside it on this map. Ten of the 27 estates classified '
+    + 'in 1855 are in Barsac, Château Climens and Château Coutet at their head.',
+  terroir:
+    'Flatter than the communes south of the Ciron, on a karstified limestone '
+    + 'platform under shallow red sand and marl. The limestone is what the '
+    + 'freshness is usually credited to.',
+  wines:
+    'Sémillon with Sauvignon Blanc and a little Muscadelle, botrytised and '
+    + 'picked over successive passes, as in Sauternes. Generally held to give '
+    + 'the finer, fresher wine where the other communes give the richer one.',
+  sources: 'Conseil des Grands Crus Classés en 1855; INAO'
+},
+
 'sauternes': {
   card:
     'Cold water off the Ciron meets the warm Garonne and the morning '
@@ -276,8 +298,9 @@ window.BDX_APPELLATION_NOTES = {
   history:
     'Two appellations on one hillside. Barsac was recognised on 30 September '
     + '1936 under rules that run closely parallel to Sauternes’, and a '
-    + 'grower in Barsac may label the wine either way — which is why they '
-    + 'share a shape on this map and a classification in 1855.',
+    + 'grower in Barsac may label the wine either way — which is why the '
+    + 'Sauternes delimitation takes in Barsac’s vines, and why the two '
+    + 'share a classification in 1855.',
   terroir:
     'The Ciron runs cold out of the pine forest into the warmer Garonne, and '
     + 'the morning mists that follow are what let Botrytis cinerea take hold. '

@@ -496,7 +496,7 @@ var AP_GROUPS = [
   { title: 'Left Bank', note: 'West of the Gironde and the Garonne — gravel, Cabernet Sauvignon',
     ids: ['medoc', 'haut-medoc', 'saint-estephe', 'pauillac', 'saint-julien',
           'listrac', 'moulis', 'margaux', 'pessac-leognan', 'graves',
-          'sauternes'] },
+          'sauternes', 'barsac'] },
   { title: 'Right Bank', note: 'East of the Gironde and north of the Dordogne — clay and limestone, Merlot',
     ids: ['saint-emilion', 'pomerol', 'lalande-de-pomerol', 'fronsac',
           'canon-fronsac', 'cotes-de-bourg', 'blaye', 'castillon'] },
@@ -511,7 +511,7 @@ var AP_DISTRICT = {
   'saint-julien': 'The Médoc', 'listrac': 'The Médoc',
   'moulis': 'The Médoc', 'margaux': 'The Médoc',
   'pessac-leognan': 'Graves', 'graves': 'Graves',
-  'sauternes': 'The sweet wines',
+  'sauternes': 'The sweet wines', 'barsac': 'The sweet wines',
   'saint-emilion': 'The Libournais', 'pomerol': 'The Libournais',
   'lalande-de-pomerol': 'The Libournais', 'fronsac': 'The Libournais',
   'canon-fronsac': 'The Libournais',
@@ -962,13 +962,12 @@ function waterDefsSvg() {
    translucent shapes they darkened wherever they overlapped, which drew a
    seam across open water. */
 function waterSvg() {
-  /* The Atlantic and the Bassin d'Arcachon stay hand-drawn: BD TOPAGE is
-     inland water and stops at the coast, and neither touches a vineyard. */
-  var s = '<g class="m-water-body">' +
-    '<path d="' + smooth(G.sea, true) + '"/>' +
-    '<path d="' + smooth(G.arcachon, true) + '"/>';
+  var s = '<g class="m-water-body">';
 
   if (window.BDX_WATER && window.BDX_WATER.length) {
+    /* The Atlantic is in here too: BD TOPAGE stops at the coast and Natural
+       Earth's ocean stops at the river mouth, so the two are unioned and the
+       seam closed, which is what lets the Gironde reach the sea. */
     /* Surveyed water. Drawn as it is, with no smoothing: the whole point is
        that the bank follows the one the vineyards are delimited against. */
     decodeRings(window.BDX_WATER).forEach(function (ring) {
@@ -978,7 +977,10 @@ function waterSvg() {
     return s;
   }
 
-  s += '<path d="' + smooth(G.estuary, true) + '"/></g>';
+  /* Fallback only, if water.js is missing. */
+  s += '<path d="' + smooth(G.sea, true) + '"/>' +
+       '<path d="' + smooth(G.arcachon, true) + '"/>' +
+       '<path d="' + smooth(G.estuary, true) + '"/></g>';
   s += '<path class="m-river m-river-lg" d="' + smooth(G.garonne) + '"/>';
   s += '<path class="m-river m-river-md" d="' + smooth(G.dordogne) + '"/>';
   return s;
@@ -2013,7 +2015,7 @@ function vintageRow(ch, yr) {
    rated, so the year-by-year reading lives here now rather than being split
    into a number for each château. */
 function regionCat(r) {
-  if (r.id === 'sauternes') return 'sweet';
+  if (r.id === 'sauternes' || r.id === 'barsac') return 'sweet';
   if (r.id === 'entre-deux-mers') return 'white';
   return 'red';
 }

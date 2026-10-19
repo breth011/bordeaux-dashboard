@@ -1961,25 +1961,26 @@ function closeDrawer() {
   renderList();
 }
 
-/* What the estate itself published about this wine, in its own technical
-   sheet. Everything here is one château and one vintage — as against the
-   season block below it, which is Bordeaux-wide and identical for every
-   estate, and the phenology, which is the ISVV's reference plots. Keeping
-   the three apart is the point: a reader should never have to guess whether
-   a number describes this wine or the whole region. */
-function fichesBlock(ch, yr) {
-  var F = window.BDX_FICHES, f = F && F[ch.id + '|' + yr];
-  if (!f) return '';
+/* What the estate itself published about this wine. The estate's own words
+   take precedence over the Bordeaux-wide account: where a château describes
+   its own season or its own wine, that is what is shown, and the regional
+   text is not repeated underneath. Sourcing is kept quiet - a short grey
+   line, not a badge - because it should be checkable, not loud. */
+function fiche(ch, yr) {
+  var F = window.BDX_FICHES;
+  return (F && F[ch.id + '|' + yr]) || null;
+}
 
-  var s = '<p class="subhead">' + ch.name + ', ' + yr +
-    ' <span class="flag flag-verified">the château’s own sheet</span></p>';
+function fichesBlock(ch, yr) {
+  var f = fiche(ch, yr);
+  if (!f) return '';
+  var s = '';
 
   if (f.blend) {
-    s += blendBar(f.blend) +
+    s += '<p class="subhead">Blend, ' + yr + '</p>' +
+      blendBar(f.blend) +
       '<div class="tableview' + (state.tables ? ' on' : '') + '">' +
         blendTable(f.blend) + '</div>';
-    /* The comparison the typical blend exists for: what this year did
-       differently. Only the varieties that actually moved are listed. */
     if (ch.blend) {
       var moved = GRAPE_ORDER.filter(function (k) {
         return (f.blend[k] || 0) !== (ch.blend[k] || 0);
@@ -1987,7 +1988,7 @@ function fichesBlock(ch, yr) {
         var d = (f.blend[k] || 0) - (ch.blend[k] || 0);
         return GRAPES[k].name + ' ' + (d > 0 ? '+' : '') + Math.round(d * 10) / 10;
       });
-      s += '<p class="hint">' + (moved.length
+      s += '<p class="src">' + (moved.length
         ? 'Against the estate’s typical blend: ' + moved.join(' · ')
         : 'Exactly the estate’s typical blend.') + '</p>';
     }
@@ -2006,11 +2007,27 @@ function fichesBlock(ch, yr) {
     }).join('') + '</dl>';
   }
 
-  if (f.note) s += '<p class="notetext">' + f.note + '</p>';
-  if (f.decant) s += '<p class="notetext"><b>Decanting.</b> ' + f.decant + '</p>';
-  if (f.window && !f.wy) s += '<p class="notetext"><b>When to drink.</b> ' + f.window + '</p>';
-  if (f.src) s += '<p class="hint">Read from ' + f.src + '</p>';
+  if (f.decant) s += '<p class="notetext">' + f.decant + '</p>';
+  if (f.window && !f.wy) s += '<p class="notetext">' + f.window + '</p>';
   return s;
+}
+
+/* The season, told by the estate where it told it, and by the region where
+   it did not. Each half falls back on its own: an estate that published a
+   tasting note but no weather still gets the regional weather beneath it. */
+function seasonBlock(ch, yr, v, o) {
+  var f = fiche(ch, yr);
+  var weather = (f && f.note) ? f.note : v.weather;
+  var wSrc = (f && f.note) ? 'this estate' : 'Bordeaux';
+  var wine = (f && f.taste) ? f.taste : ((o && o.note) ? o.note : v.report);
+  var tSrc = (f && f.taste) ? 'this estate' : ((o && o.note) ? (o.src || 'reported') : 'Bordeaux');
+
+  return '<p class="subhead">The ' + yr + ' season</p>' +
+    '<p class="vintagereport">' + weather + '</p>' +
+    '<p class="src">' + wSrc + '</p>' +
+    '<p class="vintagereport">' + wine + '</p>' +
+    '<p class="src">' + tSrc + '</p>' +
+    phenologyLine(yr);
 }
 
 function vintageRow(ch, yr) {
@@ -2050,15 +2067,7 @@ function vintageRow(ch, yr) {
         : '') +
 
       fichesBlock(ch, yr) +
-
-      /* Scope matters here. Everything above this line is this château and
-         this vintage, taken from its own sheet; everything below describes
-         the year across Bordeaux and is the same for every estate. */
-      '<p class="subhead">The ' + yr + ' season <span class="hint">across Bordeaux, ' +
-        'the same for every estate</span></p>' +
-      '<p class="vintagereport"><b>Weather.</b> ' + v.weather +
-        '<br><b>The vintage.</b> ' + v.report + '</p>' +
-      phenologyLine(yr) +
+      seasonBlock(ch, yr, v, o) +
 
       '<p class="subhead">Find this exact vintage</p>' +
       '<div class="buylinks">' + buyLinks(ch, yr).map(function (l) {
@@ -2118,9 +2127,8 @@ function phenologyLine(yr) {
   if (ph.veraison) bits.push('Mid-véraison <b>' + fmtMonthDay(ph.veraison) + '</b>');
   if (!bits.length) return '';
   return '<div class="phenology">' + bits.join(' · ') +
-    '<span class="flag flag-verified">measured</span>' +
-    '<span class="hint">ISVV reference plots' +
-    (ph.n > 1 ? ', ' + ph.n + ' reports agree' : '') + '</span></div>';
+    '<span class="src" title="Institut des Sciences de la Vigne et du Vin' +
+    (ph.n > 1 ? ', ' + ph.n + ' reports agree' : '') + '">ISVV</span></div>';
 }
 
 function renderVintages() {

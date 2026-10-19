@@ -1,0 +1,1005 @@
+/* ===========================================================================
+   Bordeaux 1855 Dashboard — stylesheet
+   Palette: validated reference instance (dataviz skill), both modes.
+   Light-mode categorical slots 3/4/5 fall below 3:1 on the surface, so the
+   relief rule applies: every blend segment carries a visible direct label and
+   a table view exists. See assets/app.js.
+   =========================================================================== */
+
+:root {
+  color-scheme: light;
+
+  /* surfaces & ink */
+  --surface-0:      #f7f6f3;
+  --surface-1:      #fcfcfb;
+  --surface-2:      #f1efea;
+  --surface-sunk:   #eae7e0;
+  --border:         #ddd9d0;
+  --border-strong:  #c4bfb3;
+  --text-primary:   #0b0b0b;
+  --text-secondary: #52514e;
+  --text-muted:     #817f78;
+
+  /* categorical slots 1-6 (grape varieties) */
+  --series-1: #2a78d6;
+  --series-2: #eb6834;
+  --series-3: #1baf7a;
+  --series-4: #eda100;
+  --series-5: #e87ba4;
+  --series-6: #008300;
+
+  /* sequential blue ramp (vintage quality, score magnitude) */
+  --seq-100: #cde2fb; --seq-200: #9ec5f4; --seq-250: #86b6ef;
+  --seq-300: #6da7ec; --seq-400: #3987e5; --seq-450: #2a78d6;
+  --seq-500: #256abf; --seq-550: #1c5cab; --seq-600: #184f95;
+  --seq-650: #104281; --seq-700: #0d366b;
+
+  /* classification accent — ordinal, light mode starts no lighter than 250 */
+  --rank-0: #45101d;
+  --rank-1: #5a1526;
+  --rank-2: #7d1f31;
+  --rank-3: #9c3340;
+  --rank-4: #b85a63;
+  --rank-5: #cf8a8e;
+
+  /* drawn map */
+  --map-land:   #faf6ee;
+  --map-water:  #1b3a5c;
+  --map-wash:   #e9e2d2;
+  --map-gold:   #a8822a;
+  --map-gold-2: #c9a94e;
+  --map-ink:    #23354a;
+  --map-river-ink: #1b3a5c;
+  --map-water-ink: #faf6ee;
+
+  --good:     #008300;
+  --warning:  #eda100;
+  --critical: #e34948;
+
+  --radius: 10px;
+  --radius-sm: 6px;
+  --shadow: 0 1px 2px rgba(11,11,11,.06), 0 8px 24px rgba(11,11,11,.07);
+  --mono: ui-monospace, "SF Mono", "Cascadia Mono", Menlo, Consolas, monospace;
+  --sans: ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  --serif: "Iowan Old Style", "Palatino Linotype", Palatino, Georgia, serif;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:where(:not([data-theme="light"])) {
+    color-scheme: dark;
+    --surface-0:      #121211;
+    --surface-1:      #1a1a19;
+    --surface-2:      #242422;
+    --surface-sunk:   #0d0d0c;
+    --border:         #35352f;
+    --border-strong:  #4e4e46;
+    --text-primary:   #f0efec;
+    --text-secondary: #c3c2b7;
+    --text-muted:     #908e84;
+
+    --series-1: #3987e5;
+    --series-2: #d95926;
+    --series-3: #199e70;
+    --series-4: #c98500;
+    --series-5: #d55181;
+    --series-6: #008300;
+
+    --rank-0: #fadfe1;
+    --rank-1: #f0c2c6;
+    --rank-2: #dd949b;
+    --rank-3: #c76b76;
+    --rank-4: #ad4e5c;
+    --rank-5: #8e3443;
+
+    --map-land:   #0f1721;
+    --map-water:  #16314d;
+    --map-wash:   #18212c;
+    --map-gold:   #d8bb63;
+    --map-gold-2: #a98c3e;
+    --map-ink:    #b9c6d6;
+    --map-river-ink: #8fa8c4;
+    --map-water-ink: #c3d2e2;
+
+    --shadow: 0 1px 2px rgba(0,0,0,.4), 0 8px 28px rgba(0,0,0,.5);
+  }
+}
+:root[data-theme="dark"] {
+  color-scheme: dark;
+  --surface-0:      #121211;
+  --surface-1:      #1a1a19;
+  --surface-2:      #242422;
+  --surface-sunk:   #0d0d0c;
+  --border:         #35352f;
+  --border-strong:  #4e4e46;
+  --text-primary:   #f0efec;
+  --text-secondary: #c3c2b7;
+  --text-muted:     #908e84;
+
+  --series-1: #3987e5;
+  --series-2: #d95926;
+  --series-3: #199e70;
+  --series-4: #c98500;
+  --series-5: #d55181;
+  --series-6: #008300;
+
+  --rank-0: #fadfe1;
+  --rank-1: #f0c2c6;
+  --rank-2: #dd949b;
+  --rank-3: #c76b76;
+  --rank-4: #ad4e5c;
+  --rank-5: #8e3443;
+
+  --map-land:   #0f1721;
+  --map-water:  #16314d;
+  --map-wash:   #18212c;
+  --map-gold:   #d8bb63;
+  --map-gold-2: #a98c3e;
+  --map-ink:    #b9c6d6;
+  --map-river-ink: #8fa8c4;
+  --map-water-ink: #c3d2e2;
+
+  --shadow: 0 1px 2px rgba(0,0,0,.4), 0 8px 28px rgba(0,0,0,.5);
+}
+
+* { box-sizing: border-box; }
+
+html, body { height: 100%; }
+
+body {
+  margin: 0;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  font-family: var(--sans);
+  font-size: 14px;
+  line-height: 1.5;
+  color: var(--text-primary);
+  background: var(--surface-0);
+  -webkit-font-smoothing: antialiased;
+}
+
+h1, h2, h3, h4 { margin: 0; font-weight: 600; letter-spacing: -0.01em; }
+
+a { color: var(--seq-450); }
+/* The :not([data-theme="light"]) half matched plain light mode too, so
+   this dark-mode colour was being applied on the light surface. */
+/* A button that happens to be a link is not a link to be coloured. The
+   bare `a` here is :root[data-theme] + a = (0,2,1), which outranks
+   .buy.primary at (0,2,0), so without this exclusion the generic link
+   colour repaints the Cheapest-online button. */
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) a:not(.buy) { color: var(--seq-300); }
+}
+:root[data-theme="dark"] a:not(.buy) { color: var(--seq-300); }
+
+/* ----------------------------- header ---------------------------------- */
+.masthead {
+  flex: none;
+  background: var(--surface-1);
+  border-bottom: 1px solid var(--border);
+  padding: 9px 20px 8px;
+}
+.masthead-row { display: flex; align-items: flex-start; gap: 20px; flex-wrap: wrap; }
+.masthead h1 {
+  font-family: var(--serif);
+  font-size: 19px;
+  font-weight: 600;
+  letter-spacing: -0.02em;
+}
+.masthead h1 small {
+  display: block;
+  font-family: var(--sans);
+  font-size: 12px;
+  font-weight: 400;
+  color: var(--text-secondary);
+  letter-spacing: 0;
+  margin-top: 3px;
+}
+.masthead-spacer { flex: 1 1 auto; }
+
+.provenance-key {
+  display: flex;
+  gap: 14px;
+  align-items: center;
+  flex-wrap: wrap;
+  font-size: 11.5px;
+  color: var(--text-secondary);
+}
+.provenance-key b { color: var(--text-primary); font-weight: 600; }
+
+.flag {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  font-size: 10.5px;
+  font-weight: 600;
+  padding: 1px 6px;
+  border-radius: 20px;
+  border: 1px solid var(--border-strong);
+  white-space: nowrap;
+  vertical-align: 1px;
+}
+.flag-verified { color: var(--good); border-color: color-mix(in srgb, var(--good) 45%, var(--border)); }
+.flag-modelled { color: var(--text-secondary); border-style: dashed; }
+
+.iconbtn {
+  background: var(--surface-2);
+  border: 1px solid var(--border);
+  color: var(--text-secondary);
+  border-radius: var(--radius-sm);
+  padding: 6px 10px;
+  font: inherit;
+  font-size: 12px;
+  cursor: pointer;
+}
+.iconbtn:hover { border-color: var(--border-strong); color: var(--text-primary); }
+
+/* --------------------------- tabs & filters ----------------------------- */
+.tabbar {
+  flex: none;
+  display: flex;
+  gap: 2px;
+  padding: 0 20px;
+  background: var(--surface-1);
+  border-bottom: 1px solid var(--border);
+}
+.tab {
+  background: none;
+  border: none;
+  border-bottom: 2px solid transparent;
+  color: var(--text-secondary);
+  font: inherit;
+  font-size: 13px;
+  padding: 6px 13px;
+  cursor: pointer;
+}
+.tab:hover { color: var(--text-primary); }
+.tab[aria-selected="true"] {
+  color: var(--text-primary);
+  border-bottom-color: var(--seq-450);
+  font-weight: 600;
+}
+
+.filters {
+  flex: none;
+  display: flex;
+  gap: 10px;
+  align-items: center;
+  flex-wrap: wrap;
+  padding: 6px 20px 7px;
+  background: var(--surface-1);
+  border-bottom: 1px solid var(--border);
+}
+.filters label { font-size: 11.5px; color: var(--text-muted); display: block; margin-bottom: 3px; }
+.field { display: flex; flex-direction: column; }
+.filters input[type="search"], .filters select {
+  font: inherit;
+  font-size: 13px;
+  padding: 5px 8px;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  background: var(--surface-1);
+  color: var(--text-primary);
+  min-width: 130px;
+}
+.filters input[type="search"] { min-width: 210px; }
+.filters input:focus-visible, .filters select:focus-visible,
+.chip:focus-visible, .tab:focus-visible, .iconbtn:focus-visible,
+.pcard:focus-visible {
+  outline: 2px solid var(--seq-450);
+  outline-offset: 1px;
+}
+
+.chips { display: flex; gap: 4px; flex-wrap: wrap; }
+.chip {
+  font: inherit;
+  font-size: 12px;
+  padding: 4px 9px;
+  border-radius: 20px;
+  border: 1px solid var(--border);
+  background: var(--surface-1);
+  color: var(--text-secondary);
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+}
+.chip:hover { border-color: var(--border-strong); }
+.chip[aria-pressed="true"] {
+  background: var(--surface-sunk);
+  border-color: var(--border-strong);
+  color: var(--text-primary);
+  font-weight: 600;
+}
+.chip .dot { width: 8px; height: 8px; border-radius: 50%; flex: none; }
+
+.resultcount { font-size: 12px; color: var(--text-muted); margin-left: auto; }
+
+.crumb {
+  margin-left: auto;
+  align-self: center;
+  padding-right: 20px;
+  font-size: 12px;
+  color: var(--text-muted);
+}
+
+/* ------------------- reference pages: appellations & classifications ----- */
+.refpage { flex: 1 1 auto; min-height: 0; overflow-y: auto;
+           padding: 22px 20px 56px; max-width: 1280px; }
+
+.ref-intro { max-width: 720px; margin-bottom: 24px; }
+.ref-intro h2 { font-family: var(--serif); font-size: 21px; margin-bottom: 6px; }
+.ref-intro p { margin: 0; font-size: 13.5px; line-height: 1.6; color: var(--text-secondary); }
+
+.linkish {
+  font: inherit; background: none; border: 0; padding: 0; cursor: pointer;
+  color: var(--rank-2); text-decoration: underline; text-underline-offset: 2px;
+}
+.linkish:hover { color: var(--rank-1); }
+
+.ref-band { margin-bottom: 26px; }
+.ref-band-head {
+  display: flex; align-items: baseline; gap: 10px;
+  border-bottom: 1px solid var(--border); padding-bottom: 6px; margin-bottom: 12px;
+}
+.ref-band-head h3 { font-family: var(--serif); font-size: 15.5px; margin: 0; }
+.ref-band-head span { font-size: 11.5px; color: var(--text-muted); }
+
+.ref-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+  gap: 12px;
+}
+
+.apcard {
+  display: flex; flex-direction: column; gap: 9px;
+  text-align: left; font: inherit; cursor: pointer; color: inherit;
+  background: var(--surface-1);
+  border: 1px solid var(--border);
+  border-left: 3px solid var(--rank-3);
+  border-radius: var(--radius);
+  padding: 14px 15px 12px;
+  transition: border-color .12s, box-shadow .12s, transform .12s;
+}
+.apcard:hover {
+  border-color: var(--border-strong); border-left-color: var(--rank-1);
+  box-shadow: var(--shadow); transform: translateY(-1px);
+}
+.apcard:focus-visible { outline: 2px solid var(--seq-450); outline-offset: 2px; }
+.apcard h4 { font-family: var(--serif); font-size: 16px; margin: 0; }
+.apcard p {
+  margin: 0; font-size: 12.5px; line-height: 1.5; color: var(--text-secondary);
+  flex: 1 1 auto;
+}
+.apyear {
+  font-size: 10.5px; text-transform: uppercase; letter-spacing: .06em;
+  color: var(--text-muted); margin-top: -4px;
+}
+.apcount {
+  font-size: 11.5px; color: var(--text-muted);
+  border-top: 1px solid var(--border); padding-top: 7px;
+}
+.apcount .stale { color: var(--rank-2); font-weight: 600; }
+.apcard-quiet { border-left-color: var(--border-strong); background: var(--surface-2); }
+
+/* ---- a single appellation or classification ---- */
+.ref-head {
+  display: flex; align-items: center; flex-wrap: wrap; gap: 10px;
+  border-bottom: 1px solid var(--border); padding-bottom: 12px; margin-bottom: 20px;
+}
+.ref-head h2 { font-family: var(--serif); font-size: 23px; margin: 0; }
+.ref-sub { font-size: 12px; color: var(--text-muted); }
+.ref-head-gap { flex: 1 1 auto; }
+.ref-back, .ref-map {
+  font: inherit; font-size: 12px; cursor: pointer;
+  background: var(--surface-1); color: inherit;
+  border: 1px solid var(--border); border-radius: var(--radius);
+  padding: 5px 11px;
+}
+.ref-back:hover, .ref-map:hover { border-color: var(--border-strong); }
+.ref-map { background: var(--rank-1); color: #fcfcfb; border-color: var(--rank-1); }
+.ref-map:hover { background: var(--rank-0); border-color: var(--rank-0); }
+/* In dark mode the rank ramp inverts: --rank-1 becomes a pale pink, so the
+   near-white label on it drops out of contrast. Dark ink there instead. */
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) .ref-map { color: #14110f; }
+}
+:root[data-theme="dark"] .ref-map { color: #14110f; }
+
+.ref-prose {
+  display: grid; gap: 18px; max-width: 760px; margin-bottom: 30px;
+}
+.ref-prose h3 {
+  font-size: 11px; text-transform: uppercase; letter-spacing: .09em;
+  color: var(--rank-2); margin: 0 0 5px;
+}
+.ref-prose p { margin: 0; font-size: 14px; line-height: 1.68; }
+.ref-src { font-size: 11.5px; color: var(--text-muted); font-style: italic; }
+.ref-warn {
+  margin-top: 8px !important; font-size: 13px;
+  background: var(--surface-2); border-left: 3px solid var(--rank-2);
+  padding: 9px 12px; border-radius: 0 var(--radius) var(--radius) 0;
+}
+
+.ref-listhead {
+  font-family: var(--serif); font-size: 17px;
+  border-bottom: 1px solid var(--border); padding-bottom: 6px; margin-bottom: 14px;
+}
+.ref-group { margin-bottom: 20px; }
+.ref-group h4 {
+  font-size: 11px; text-transform: uppercase; letter-spacing: .08em;
+  color: var(--text-muted); margin: 0 0 8px;
+}
+.ref-n {
+  display: inline-block; margin-left: 4px;
+  color: var(--text-secondary); letter-spacing: 0;
+}
+.ref-cards {
+  display: grid; grid-template-columns: repeat(auto-fill, minmax(210px, 1fr)); gap: 7px;
+}
+.ref-card {
+  display: grid; gap: 2px; text-align: left; font: inherit; cursor: pointer;
+  background: var(--surface-1); color: inherit;
+  border: 1px solid var(--border);
+  border-left: 3px solid var(--rank-4);
+  border-radius: var(--radius);
+  padding: 8px 10px;
+  transition: border-color .12s, background .12s;
+}
+.ref-card:hover { border-color: var(--border-strong); background: var(--surface-2); }
+.ref-card:focus-visible { outline: 2px solid var(--seq-450); outline-offset: 2px; }
+.ref-card-name { font-size: 13px; font-weight: 600; }
+.ref-card-meta { font-size: 11px; color: var(--text-muted); }
+
+/* ------------------------------ layout ---------------------------------- */
+.workspace {
+  display: grid;
+  /* The map cannot use more width than its aspect allows, so the surplus
+     goes to the list rather than sitting empty beside the drawing. */
+  grid-template-columns: minmax(400px, 44%) 1fr;
+  gap: 0;
+  flex: 1 1 auto;
+  min-height: 0;
+}
+.pane-map { border-right: 1px solid var(--border); position: relative; min-height: 0; overflow: hidden; }
+#map { position: absolute; inset: 12px; background: var(--map-land);
+       border-radius: var(--radius-sm); }
+
+.map-legend {
+  position: absolute;
+  left: 10px;
+  bottom: 10px;
+  z-index: 500;
+  background: color-mix(in srgb, var(--surface-1) 93%, transparent);
+  backdrop-filter: blur(6px);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  padding: 8px 10px;
+  font-size: 11px;
+  color: var(--text-secondary);
+  box-shadow: var(--shadow);
+}
+.map-legend h4 { font-size: 11px; margin-bottom: 5px; color: var(--text-primary); }
+.map-legend ul { list-style: none; margin: 0; padding: 0; display: grid; gap: 3px; }
+.map-legend li { display: flex; align-items: center; gap: 6px; }
+.map-legend .swatch {
+  width: 11px; height: 11px; border-radius: 50%;
+  border: 1.5px solid var(--surface-1); flex: none;
+}
+
+.pane-list { min-height: 0; overflow-y: auto; padding: 14px 18px 40px; background: var(--surface-0); }
+
+.growth-group { margin-bottom: 22px; }
+.growth-head {
+  display: flex; align-items: baseline; gap: 9px;
+  padding-bottom: 6px; margin-bottom: 9px;
+  border-bottom: 1px solid var(--border);
+  position: sticky; top: -14px;
+  background: var(--surface-0);
+  z-index: 2;
+}
+.growth-head h2 { font-family: var(--serif); font-size: 16px; }
+.growth-head .count { font-size: 11.5px; color: var(--text-muted); }
+.growth-head .rankbar { width: 3px; height: 15px; border-radius: 2px; flex: none; }
+
+.pgrid { display: grid; grid-template-columns: repeat(auto-fill, minmax(236px, 1fr)); gap: 8px; }
+
+.pcard {
+  text-align: left;
+  font: inherit;
+  background: var(--surface-1);
+  border: 1px solid var(--border);
+  border-left: 3px solid var(--border-strong);
+  border-radius: var(--radius-sm);
+  padding: 9px 11px;
+  cursor: pointer;
+  display: grid;
+  gap: 3px;
+}
+.pcard:hover { border-color: var(--border-strong); box-shadow: var(--shadow); }
+.pcard.is-active { background: var(--surface-2); border-color: var(--seq-450); }
+.pcard .pname { font-weight: 600; font-size: 13px; line-height: 1.3; color: var(--text-primary); }
+.pcard .pmeta { font-size: 11.5px; color: var(--text-secondary); }
+.pcard .pfoot { font-size: 11px; color: var(--text-muted); display: flex; gap: 8px; flex-wrap: wrap; }
+
+.empty { color: var(--text-muted); padding: 30px 4px; font-size: 13px; }
+
+/* ----------------------------- drawer ----------------------------------- */
+.scrim {
+  position: fixed; inset: 0; z-index: 900;
+  background: rgba(11,11,11,.42);
+  opacity: 0; pointer-events: none;
+  transition: opacity .16s;
+}
+.scrim.is-open { opacity: 1; pointer-events: auto; }
+
+.drawer {
+  position: fixed; top: 0; right: 0; bottom: 0; z-index: 901;
+  width: min(880px, 100%);
+  background: var(--surface-0);
+  border-left: 1px solid var(--border);
+  box-shadow: var(--shadow);
+  transform: translateX(100%);
+  transition: transform .2s ease;
+  display: flex; flex-direction: column;
+}
+.drawer.is-open { transform: none; }
+
+.drawer-head {
+  padding: 15px 20px 12px;
+  border-bottom: 1px solid var(--border);
+  background: var(--surface-1);
+  display: flex; gap: 14px; align-items: flex-start;
+}
+.drawer-head h2 { font-family: var(--serif); font-size: 21px; line-height: 1.2; }
+.drawer-head .sub { font-size: 12.5px; color: var(--text-secondary); margin-top: 4px; }
+.drawer-body { overflow-y: auto; padding: 0 20px 48px; }
+
+.rank-pill {
+  display: inline-block;
+  font-size: 11px; font-weight: 600;
+  padding: 2px 8px; border-radius: 20px;
+  color: #fff; white-space: nowrap;
+}
+/* No mode rule here: the ink is chosen per pill from its own background,
+   in app.js, because the rank ramp inverts between modes and a single
+   mode-wide colour cannot be right for all six steps. */
+
+.factgrid {
+  display: grid; grid-template-columns: repeat(auto-fit, minmax(128px, 1fr));
+  gap: 1px; background: var(--border);
+  border: 1px solid var(--border); border-radius: var(--radius-sm);
+  overflow: hidden; margin: 16px 0;
+}
+.fact { background: var(--surface-1); padding: 8px 10px; }
+.fact dt { font-size: 10.5px; color: var(--text-muted); text-transform: uppercase; letter-spacing: .04em; }
+.fact dd { margin: 2px 0 0; font-size: 13px; font-weight: 500; }
+
+.section { margin: 22px 0 0; }
+.section > h3 {
+  font-size: 13px; display: flex; align-items: center; gap: 8px;
+  padding-bottom: 5px; margin-bottom: 10px;
+  border-bottom: 1px solid var(--border);
+}
+.section > h3 .hint { font-weight: 400; font-size: 11.5px; color: var(--text-muted); }
+
+.nodata {
+  margin: 0; font-size: 12.5px; line-height: 1.55;
+  color: var(--text-muted); font-style: italic;
+}
+
+.housestyle {
+  font-family: var(--serif); font-size: 15px; line-height: 1.55;
+  color: var(--text-primary); margin: 0;
+}
+
+/* blend bar — stacked, 2px surface gaps, direct labels (relief rule) */
+.blendbar { display: flex; gap: 2px; height: 26px; margin-bottom: 7px; }
+.blendseg {
+  border-radius: 3px; min-width: 2px;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 10.5px; font-weight: 700; color: #fff;
+  overflow: hidden; white-space: nowrap;
+}
+.blendseg.ink-dark { color: #0b0b0b; }
+.blendkey { display: flex; gap: 12px; flex-wrap: wrap; font-size: 11.5px; color: var(--text-secondary); }
+.blendkey span { display: inline-flex; align-items: center; gap: 5px; }
+.blendkey i { width: 9px; height: 9px; border-radius: 2px; flex: none; }
+
+/* critic ratings — only what was published, so a short row, not a chart */
+.critratings { display: flex; flex-wrap: wrap; gap: 8px; }
+.rating {
+  display: inline-flex; align-items: center; gap: 6px;
+  background: var(--surface-2); border: 1px solid var(--border);
+  border-radius: var(--radius-sm); padding: 4px 8px; font-size: 12px;
+}
+.rating-n {
+  font-weight: 700; font-size: 12px; border-radius: 3px; padding: 1px 5px;
+}
+.rating-src { color: var(--text-muted); font-size: 11px; }
+
+/* season by season, on the appellation */
+.vintable { width: 100%; border-collapse: collapse; font-size: 12.5px; }
+.vintable caption {
+  caption-side: top; text-align: left; color: var(--text-muted);
+  font-size: 11.5px; padding-bottom: 8px; max-width: 70ch;
+}
+.vintable th, .vintable td {
+  text-align: left; padding: 7px 10px 7px 0;
+  border-bottom: 1px solid var(--border); vertical-align: top;
+}
+.vintable thead th {
+  font-size: 10.5px; text-transform: uppercase; letter-spacing: .07em;
+  color: var(--text-muted); font-weight: 600;
+}
+.vintable tbody th { font-weight: 700; white-space: nowrap; width: 1%; }
+.vintable td:nth-child(2) { white-space: nowrap; width: 1%; }
+.vt-bar {
+  display: inline-block; width: 74px; height: 7px; border-radius: 4px;
+  background: var(--surface-sunk); overflow: hidden; vertical-align: middle;
+}
+.vt-bar > span { display: block; height: 100%; border-radius: 4px; }
+.vt-num { margin-left: 7px; }
+.vt-rep { color: var(--text-secondary); line-height: 1.55; }
+.ref-lead {
+  font-size: 13px; line-height: 1.6; color: var(--text-secondary);
+  max-width: 70ch; margin: -6px 0 14px;
+}
+
+/* vintage rows */
+.vintagelist { display: grid; gap: 7px; }
+.vrow {
+  background: var(--surface-1);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  overflow: hidden;
+}
+.vrow-head {
+  display: grid;
+  grid-template-columns: 62px 74px 1fr auto;
+  gap: 12px; align-items: center;
+  padding: 9px 12px;
+  cursor: pointer;
+  width: 100%; text-align: left; font: inherit;
+  background: none; border: none; color: inherit;
+}
+.vrow-head:hover { background: var(--surface-2); }
+.vrow .yr { font-family: var(--mono); font-size: 15px; font-weight: 600; }
+.vrow .sc {
+  font-family: var(--mono); font-size: 14px; font-weight: 700;
+  display: flex; align-items: baseline; gap: 4px;
+}
+.vrow .sc .u { font-size: 10px; font-weight: 400; color: var(--text-muted); }
+.vrow .teaser {
+  font-size: 12px; color: var(--text-secondary);
+  overflow: hidden; text-overflow: ellipsis; white-space: nowrap;
+}
+.vrow .chev { color: var(--text-muted); font-size: 11px; }
+.vrow-body { display: none; padding: 2px 12px 13px; border-top: 1px solid var(--border); }
+.vrow.open .vrow-body { display: block; }
+.vrow.open { border-color: var(--border-strong); }
+
+.notetext { font-size: 13px; line-height: 1.55; margin: 10px 0 0; }
+.vintagereport {
+  font-size: 12px; color: var(--text-secondary); line-height: 1.5;
+  margin: 9px 0 0; padding-left: 10px;
+  border-left: 2px solid var(--border-strong);
+}
+.subhead {
+  font-size: 10.5px; text-transform: uppercase; letter-spacing: .05em;
+  color: var(--text-muted); margin: 14px 0 5px;
+}
+
+.buylinks { display: flex; gap: 6px; flex-wrap: wrap; margin-top: 4px; }
+.buy {
+  display: inline-flex; align-items: center; gap: 5px;
+  font-size: 12px; text-decoration: none;
+  padding: 5px 10px; border-radius: var(--radius-sm);
+  border: 1px solid var(--border); background: var(--surface-1);
+  color: var(--text-primary);
+}
+.buy:hover { border-color: var(--border-strong); background: var(--surface-2); }
+.buy.primary {
+  border-color: var(--seq-500);
+  background: var(--seq-500);
+  color: #fff;
+  font-weight: 600;
+}
+.buy.primary:hover { background: var(--seq-600); }
+/* No mode rule: unlike the rank ramp, the sequential ramp is not redefined
+   for dark mode — --seq-500 is #256abf in both — so white ink is right in
+   both, at 5.39:1. */
+
+/* data table view (relief for low-contrast light slots) */
+.tableview { display: none; margin-top: 10px; }
+.tableview.on { display: block; }
+table.dt { width: 100%; border-collapse: collapse; font-size: 12px; }
+table.dt th, table.dt td {
+  text-align: left; padding: 5px 8px;
+  border-bottom: 1px solid var(--border);
+}
+table.dt th { font-size: 10.5px; text-transform: uppercase; letter-spacing: .04em; color: var(--text-muted); font-weight: 600; }
+table.dt td.num { font-family: var(--mono); text-align: right; }
+
+/* vintages tab */
+.vintagegrid { flex: 1 1 auto; min-height: 0; overflow-y: auto;
+               padding: 16px 20px 48px; display: grid; gap: 10px; }
+.vgcard {
+  background: var(--surface-1); border: 1px solid var(--border);
+  border-radius: var(--radius); padding: 13px 15px;
+  display: grid; grid-template-columns: 78px 1fr; gap: 16px;
+}
+.vgcard .vgyear { font-family: var(--mono); font-size: 24px; font-weight: 700; line-height: 1; }
+.vgcard .ratings { display: flex; gap: 7px; flex-wrap: wrap; margin-top: 8px; }
+.ratechip {
+  font-size: 11px; padding: 2px 7px; border-radius: 4px;
+  color: #fff; font-weight: 600; white-space: nowrap;
+}
+.ratechip.ink-dark { color: #0b0b0b; }
+.vgcard p { margin: 0 0 7px; font-size: 12.5px; line-height: 1.55; }
+.vgcard p.weather { color: var(--text-secondary); font-size: 12px; }
+
+.notice {
+  flex: none;
+  margin: 6px 20px; padding: 5px 12px;
+  background: var(--surface-2); border: 1px solid var(--border);
+  border-left: 3px solid var(--warning);
+  border-radius: var(--radius-sm);
+  font-size: 12.5px; color: var(--text-secondary); line-height: 1.55;
+}
+.notice b { color: var(--text-primary); }
+.notice summary {
+  cursor: pointer; list-style: none;
+  font-size: 12px; line-height: 1.5;
+}
+.notice summary::-webkit-details-marker { display: none; }
+.notice summary::after {
+  content: ' More ▾'; color: var(--text-muted); font-size: 11px; white-space: nowrap;
+}
+.notice[open] summary::after { content: ' Less ▴'; }
+.notice p { margin: 8px 0 2px; font-size: 12.5px; line-height: 1.55; }
+
+/* panning only when there is somewhere to pan to */
+#mapSvg { cursor: default; }
+#mapSvg.pannable { cursor: grab; }
+#mapSvg.pannable.dragging { cursor: grabbing; }
+
+/* ===========================================================================
+   The drawn map — bordeaux, dark blue and gold. No tiles, no network.
+   =========================================================================== */
+#map { background: var(--map-land); }
+#mapSvg { width: 100%; height: 100%; display: block; cursor: grab; touch-action: none; }
+#mapSvg.dragging { cursor: grabbing; }
+
+.m-land  { fill: var(--map-land); }
+.m-frame { fill: none; stroke: var(--map-gold); stroke-opacity: .7; stroke-width: 3; }
+
+/* The transparency sits on the group, so the shapes inside it are opaque
+   and overlap without compounding. */
+.m-water-body { opacity: .88; }
+.m-water-body path {
+  fill: var(--map-water);
+  stroke: var(--map-water); stroke-width: .6; stroke-linejoin: round;
+}
+
+.m-sea {
+  fill: var(--map-water); fill-opacity: .88;
+  stroke: var(--map-water); stroke-opacity: .88; stroke-width: .6;
+}
+.m-estuary {
+  fill: var(--map-water); fill-opacity: .88;
+  stroke: var(--map-water); stroke-width: .6;
+}
+.m-river { fill: none; stroke: var(--map-water); stroke-opacity: .85; stroke-linecap: round; }
+.m-river-lg { stroke-width: 4.2; }
+.m-river-md { stroke-width: 3.0; }
+.m-river-sm { stroke-width: 1.4; stroke-opacity: .5; }
+
+/* appellation outlines */
+/* An appellation is told by its wash, not by a line round it. Neighbours
+   are kept apart by a gap in the land colour, so two appellations never
+   melt into one shape without any dark rule being drawn. The width is set
+   on the element and counter-scaled, so the gap holds as you zoom. */
+.m-area {
+  fill-rule: evenodd;
+  fill: var(--rank-3); fill-opacity: .16;
+  stroke: var(--map-land); stroke-opacity: 1; stroke-width: 1.4;
+  stroke-linejoin: round; cursor: pointer;
+  transition: fill-opacity .12s;
+}
+.m-area:hover { fill-opacity: .34; }
+.m-area.empty { fill-opacity: .05; cursor: default; }
+.m-area.ghost { fill-opacity: .05; }
+.m-area.ghost:hover { fill-opacity: .16; }
+/* The chosen appellation is marked by a deeper wash, since an outline is
+   exactly what we have taken away. */
+.m-area.active {
+  fill: var(--rank-3); fill-opacity: .42;
+  pointer-events: none;
+}
+.m-leader {
+  stroke: var(--rank-3); stroke-opacity: .55; stroke-width: 1.4;
+  stroke-dasharray: 2.5 2.5;
+}
+
+.m-area-lbl { cursor: pointer; }
+.m-area-lbl .m-area-name {
+  fill: var(--rank-1); text-anchor: middle;
+  font-size: 9.5px; font-weight: 700; letter-spacing: .13em;
+  font-family: var(--sans);
+  paint-order: stroke; stroke: var(--map-land); stroke-width: 2; stroke-linejoin: round;
+}
+.m-area-lbl .m-area-count {
+  fill: var(--text-muted); text-anchor: middle;
+  font-size: 7.8px; font-family: var(--sans);
+  paint-order: stroke; stroke: var(--map-land); stroke-width: 1.6; stroke-linejoin: round;
+}
+.m-area-lbl:hover .m-area-name { fill: var(--rank-3); }
+.m-area-lbl.empty .m-area-name { fill: var(--text-muted); opacity: .6; cursor: default; }
+.m-area-lbl.ghost .m-area-name {
+  font-size: 8px; opacity: .68; letter-spacing: .1em; font-weight: 600;
+  stroke-width: 1.5;
+}
+
+.m-path-label { font-family: var(--sans); }
+.m-path-label.in-water {
+  fill: var(--map-water-ink); letter-spacing: .24em; font-weight: 600; opacity: .85;
+}
+.m-path-label.on-river {
+  fill: var(--map-river-ink); font-style: italic; font-weight: 600; letter-spacing: .06em;
+  paint-order: stroke; stroke: var(--map-land); stroke-width: 2px; stroke-linejoin: round;
+}
+
+.m-water-label {
+  fill: var(--map-water-ink); text-anchor: middle;
+  letter-spacing: .24em; font-weight: 600; opacity: .8;
+  font-family: var(--sans);
+}
+
+.m-town-dot  { fill: var(--map-gold); }
+.m-town-ring { fill: none; stroke: var(--map-gold); stroke-width: 1.1; opacity: .6; }
+.m-town-label {
+  fill: var(--map-ink); font-size: 8.8px; font-family: var(--sans);
+  paint-order: stroke; stroke: var(--map-land); stroke-width: 1.8; stroke-linejoin: round;
+}
+.m-town.t1 .m-town-label {
+  font-size: 11.5px; font-weight: 700; letter-spacing: .04em; stroke-width: 2.3;
+}
+.m-town.t2 .m-town-label { font-size: 9.8px; font-weight: 600; stroke-width: 1.9; }
+
+.m-scale line { stroke: var(--map-ink); stroke-width: 1.2; opacity: .6; }
+.m-scale text {
+  fill: var(--map-ink); font-size: 8.5px; opacity: .7; font-family: var(--sans);
+  paint-order: stroke; stroke: var(--map-land); stroke-width: 2.2px;
+  stroke-linejoin: round;
+}
+.m-compass path { fill: var(--map-gold); opacity: .8; }
+.m-compass text { fill: var(--map-ink); font-size: 9px; opacity: .7; font-family: var(--sans); }
+
+.est { stroke: var(--map-land); cursor: pointer; transition: fill-opacity .1s; }
+.est.r0 { fill: var(--rank-0); }
+.est.r1 { fill: var(--rank-1); }
+.est.r2 { fill: var(--rank-2); }
+.est.r3 { fill: var(--rank-3); }
+.est.r4 { fill: var(--rank-4); }
+.est.r5 { fill: var(--rank-5); }
+.est.approx { fill-opacity: .6; }
+.est:hover { stroke: var(--map-ink); fill-opacity: 1; }
+
+.map-tip {
+  position: absolute; z-index: 20; pointer-events: none;
+  background: var(--surface-1); border: 1px solid var(--border-strong);
+  border-radius: var(--radius-sm); box-shadow: var(--shadow);
+  padding: 7px 10px; font-size: 11.5px; max-width: 250px;
+  opacity: 0; transition: opacity .1s;
+}
+.map-tip.on { opacity: 1; }
+.map-tip b { display: block; font-size: 12.5px; margin-bottom: 2px; }
+.map-tip .r { display: block; color: var(--text-secondary); }
+.map-tip .r.i { font-style: italic; opacity: .8; margin-top: 2px; }
+
+/* header strip over the map */
+.map-head {
+  position: absolute; top: 10px; left: 46px; right: 10px; z-index: 500;
+  display: flex; align-items: center; gap: 10px; pointer-events: none;
+}
+.map-head-gap { flex: 1 1 auto; }
+
+/* ===========================================================================
+   Map as page. The map is height-constrained and never width-constrained,
+   so the only way to make it big is to give it the whole window. The
+   château list and the filters come over it when they are wanted.
+   =========================================================================== */
+/* The title and the tabs stay put; the map fills everything beneath them.
+   Only the provenance notice steps aside, and it moves to the collections
+   page rather than disappearing. */
+body.map-page #notice { display: none !important; }
+body.map-page .workspace { grid-template-columns: 1fr; position: relative; }
+body.map-page .pane-map { border-right: none; }
+body.map-page #map { inset: 14px; }
+
+/* The filter row drops down over the map when asked for. */
+body.map-page #filters {
+  position: absolute; top: 56px; left: 14px; right: 14px; z-index: 620;
+  background: color-mix(in srgb, var(--surface-1) 96%, transparent);
+  border: 1px solid var(--border); border-radius: var(--radius);
+  box-shadow: var(--shadow);
+  padding: 10px 14px;
+  display: none;
+}
+body.map-page #filters.open { display: flex; }
+
+/* The châteaux of the chosen appellation slide over the map. */
+body.map-page .pane-list {
+  position: absolute; top: 0; right: 0; bottom: 0; z-index: 610;
+  width: min(460px, 42%);
+  background: var(--surface-0);
+  border-left: 1px solid var(--border);
+  box-shadow: var(--shadow);
+  transform: translateX(101%);
+  transition: transform .2s ease;
+  padding: 52px 16px 32px;
+}
+body.map-page .pane-list.is-open { transform: none; }
+
+.list-close { display: none; }
+body.map-page .pane-list.is-open ~ .list-close {
+  display: block; position: absolute; z-index: 611;
+  top: 14px; right: 16px;
+  width: 28px; height: 28px; line-height: 1; font: inherit; font-size: 13px;
+  cursor: pointer; color: var(--text-secondary);
+  background: var(--surface-1); border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+}
+body.map-page .pane-list.is-open ~ .list-close:hover {
+  color: var(--text-primary); border-color: var(--border-strong);
+}
+.map-head > * { pointer-events: auto; }
+.map-back {
+  font: inherit; font-size: 12px; cursor: pointer;
+  padding: 4px 10px; border-radius: var(--radius-sm);
+  border: 1px solid var(--border); color: var(--text-primary);
+  background: color-mix(in srgb, var(--surface-1) 93%, transparent);
+}
+.map-back:hover { border-color: var(--border-strong); }
+.map-title {
+  font-family: var(--serif); font-size: 15px; font-weight: 600;
+  color: var(--text-primary);
+  background: color-mix(in srgb, var(--map-land) 80%, transparent);
+  padding: 2px 8px; border-radius: var(--radius-sm);
+}
+.map-hint {
+  font-size: 11.5px; color: var(--text-secondary);
+  background: color-mix(in srgb, var(--map-land) 82%, transparent);
+  padding: 3px 9px; border-radius: 20px;
+}
+
+.map-zoom {
+  position: absolute; top: 10px; left: 10px; z-index: 500;
+  display: grid; gap: 3px;
+}
+.map-zoom button {
+  width: 27px; height: 27px; font: inherit; font-size: 14px; line-height: 1;
+  cursor: pointer; color: var(--text-secondary);
+  background: color-mix(in srgb, var(--surface-1) 92%, transparent);
+  border: 1px solid var(--border); border-radius: var(--radius-sm);
+}
+.map-zoom button:hover { border-color: var(--border-strong); color: var(--text-primary); }
+
+@media (max-width: 880px) {
+  body { height: auto; overflow: visible; display: block; }
+  .workspace { grid-template-columns: 1fr; height: auto; }
+  .home, .vintagegrid { overflow: visible; }
+  .pane-map { height: 320px; border-right: none; border-bottom: 1px solid var(--border); }
+  .pane-list { overflow: visible; height: auto; }
+  .vrow-head { grid-template-columns: 52px 66px 1fr; }
+  .vrow .teaser { display: none; }
+  .drawer { width: 100%; }
+  .masthead, .filters, .tabbar, .vintagegrid, .notice { padding-left: 16px; padding-right: 16px; }
+}
+
+@media print {
+  .pane-map, .filters, .tabbar, .scrim, .buylinks { display: none; }
+  .drawer { position: static; transform: none; width: auto; }
+}

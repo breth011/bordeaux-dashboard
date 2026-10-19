@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
+  <rect width="512" height="512" rx="112" fill="#5a1526"/>
+  <defs>
+    <clipPath id="glass">
+      <path d="M174 106h164l-10 61c-8 47-34 77-72 91-38-14-64-44-72-91z"/>
+    </clipPath>
+  </defs>
+  <path d="M174 106h164l-10 61c-8 47-34 77-72 91-38-14-64-44-72-91z" fill="#f7f0e5"/>
+  <path d="M184 159c39 10 101 10 144 0l-6 9c-8 43-31 69-66 83-35-14-58-40-66-83z" fill="#a8822a" clip-path="url(#glass)"/>
+  <path d="M256 258v101m-58 34h116" fill="none" stroke="#f7f0e5" stroke-width="16" stroke-linecap="round"/>
+  <path d="M198 393h116" fill="none" stroke="#d6b86a" stroke-width="12" stroke-linecap="round"/>
+</svg>

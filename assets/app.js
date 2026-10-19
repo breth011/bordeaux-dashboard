@@ -962,14 +962,35 @@ function waterDefsSvg() {
    translucent shapes they darkened wherever they overlapped, which drew a
    seam across open water. */
 function waterSvg() {
+  /* The Atlantic and the Bassin d'Arcachon stay hand-drawn: BD TOPAGE is
+     inland water and stops at the coast, and neither touches a vineyard. */
   var s = '<g class="m-water-body">' +
     '<path d="' + smooth(G.sea, true) + '"/>' +
-    '<path d="' + smooth(G.arcachon, true) + '"/>' +
-    '<path d="' + smooth(G.estuary, true) + '"/>' +
-    '</g>';
+    '<path d="' + smooth(G.arcachon, true) + '"/>';
+
+  if (window.BDX_WATER && window.BDX_WATER.length) {
+    /* Surveyed water. Drawn as it is, with no smoothing: the whole point is
+       that the bank follows the one the vineyards are delimited against. */
+    decodeRings(window.BDX_WATER).forEach(function (ring) {
+      s += '<path d="' + polyPath(ring) + '"/>';
+    });
+    s += '</g>';
+    return s;
+  }
+
+  s += '<path d="' + smooth(G.estuary, true) + '"/></g>';
   s += '<path class="m-river m-river-lg" d="' + smooth(G.garonne) + '"/>';
   s += '<path class="m-river m-river-md" d="' + smooth(G.dordogne) + '"/>';
   return s;
+}
+
+/* A ring straight to a path, corners intact. */
+function polyPath(ring) {
+  var d = '';
+  for (var i = 0; i < ring.length; i++) {
+    d += (i ? 'L' : 'M') + px(ring[i][1]).toFixed(1) + ' ' + py(ring[i][0]).toFixed(1);
+  }
+  return d + 'Z';
 }
 
 /* --------------------------- overview map ------------------------------ */

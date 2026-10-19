@@ -1930,6 +1930,29 @@ function vintageTable(r) {
 }
 
 
+/* The season's measured dates, from the ISVV's reference plots. These are
+   observations, not a reading of consensus like the ratings beside them, so
+   they are labelled as measured and carry how many reports agreed. */
+var MONTH_NAME = ['', 'January', 'February', 'March', 'April', 'May', 'June',
+                  'July', 'August', 'September', 'October', 'November', 'December'];
+function fmtMonthDay(md) {
+  if (!md) return '';
+  var p = md.split('-');
+  return parseInt(p[1], 10) + ' ' + MONTH_NAME[parseInt(p[0], 10)];
+}
+function phenologyLine(yr) {
+  var P = window.BDX_PHENOLOGY, ph = P && P[yr];
+  if (!ph) return '';
+  var bits = [];
+  if (ph.flowering) bits.push('Mid-flowering <b>' + fmtMonthDay(ph.flowering) + '</b>');
+  if (ph.veraison) bits.push('Mid-véraison <b>' + fmtMonthDay(ph.veraison) + '</b>');
+  if (!bits.length) return '';
+  return '<div class="phenology">' + bits.join(' · ') +
+    '<span class="flag flag-verified">measured</span>' +
+    '<span class="hint">ISVV reference plots' +
+    (ph.n > 1 ? ', ' + ph.n + ' reports agree' : '') + '</span></div>';
+}
+
 function renderVintages() {
   var html = '';
   YEARS.forEach(function (yr) {
@@ -1949,6 +1972,7 @@ function renderVintages() {
         '<div style="font-size:11px;color:var(--text-muted);margin-top:4px">Drink ' +
           v.drinkFrom + '–' + v.drinkTo + '</div></div>' +
       '<div><p class="weather"><b>Weather.</b> ' + v.weather + '</p><p>' + v.report + '</p>' +
+        phenologyLine(yr) +
         '<div class="ratings">' + chips + '</div>' +
         (d.length ? '<div style="font-size:11px;color:var(--text-muted);margin-top:6px">' +
           'Commune adjustments: ' + d.join(' · ') + '</div>' : '') +

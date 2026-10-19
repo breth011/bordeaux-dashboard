@@ -2012,6 +2012,26 @@ function fichesBlock(ch, yr) {
   return s;
 }
 
+/* The appellation's yield and the region's rain. Neither is this estate:
+   the yield is every grower in the appellation, the rain is six weather
+   stations across Bordeaux. Kept beside the season rather than in the
+   château's own block for exactly that reason. */
+function appellationLine(ch, yr) {
+  var Y = window.BDX_YIELDS, R = window.BDX_RAIN;
+  var y = Y && Y[ch.appellation], yv = y && y.y[yr];
+  var r = R && R[yr];
+  var bits = [];
+  if (yv) {
+    bits.push('<b>' + yv + ' hl/ha</b> in ' +
+      (y.as || ch.appellation) + (y.ha ? ', across ' + y.ha.toLocaleString() + ' ha' : ''));
+  }
+  if (r) bits.push('<b>' + r.marSep + ' mm</b> of rain, March to September');
+  if (!bits.length) return '';
+  return '<div class="phenology">' + bits.join(' · ') +
+    '<span class="src" title="Gavin Quinney, from Customs/CIVB and six weather stations">' +
+    'Quinney</span></div>';
+}
+
 /* The season, told by the estate where it told it, and by the region where
    it did not. Each half falls back on its own: an estate that published a
    tasting note but no weather still gets the regional weather beneath it. */
@@ -2027,7 +2047,8 @@ function seasonBlock(ch, yr, v, o) {
     '<p class="src">' + wSrc + '</p>' +
     '<p class="vintagereport">' + wine + '</p>' +
     '<p class="src">' + tSrc + '</p>' +
-    phenologyLine(yr);
+    phenologyLine(yr) +
+    appellationLine(ch, yr);
 }
 
 function vintageRow(ch, yr) {

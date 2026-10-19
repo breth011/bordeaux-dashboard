@@ -111,6 +111,42 @@ function pointInPoly(lat, lng, poly) {
   }
   return inside;
 }
+/* Unpack the delta-encoded rings in appellations.js: the first point in
+   full, then each later one as a change in ten-thousandths of a degree. */
+function decodeRings(encoded) {
+  return encoded.map(function (s) {
+    var parts = s.split(';'), first = parts[0].split(',');
+    var lat = Math.round(parseFloat(first[0]) * 1e4);
+    var lng = Math.round(parseFloat(first[1]) * 1e4);
+    var ring = [[lat / 1e4, lng / 1e4]];
+    for (var i = 1; i < parts.length; i++) {
+      var d = parts[i].split(',');
+      lat += parseInt(d[0], 10);
+      lng += parseInt(d[1], 10);
+      ring.push([lat / 1e4, lng / 1e4]);
+    }
+    return ring;
+  });
+}
+
+/* Where the INAO has digitised an appellation, its official delimitation
+   replaces the drawn outline. Done before the holes are resolved below, so
+   a communal appellation is cut out of its parent using both real shapes —
+   and it has to be: the official Haut-Médoc contains every one of Pauillac,
+   Margaux, Saint-Julien, Saint-Estèphe, Listrac and Moulis in full, because
+   those parcels carry both names in law. Without the cut-out Haut-Médoc
+   would paint straight over all six. */
+(function applyOfficialOutlines() {
+  var A = window.BDX_AOC;
+  if (!A) return;
+  window.BDX_MAP.regions.forEach(function (r) {
+    if (A[r.id]) {
+      r.rings = decodeRings(A[r.id]);
+      r.official = true;
+    }
+  });
+})();
+
 /* Carve the communal appellations out of the region that contains them.
    The hole rings ARE the neighbour's rings, so the cut-out can never drift
    away from the shape it is cut from. */

@@ -6,6 +6,42 @@
    a table view exists. See assets/app.js.
    =========================================================================== */
 
+/* Fira Sans — the Commanderie de Bordeaux's own typeface, self-hosted so the
+   offline cache covers it; Google Fonts is cross-origin and the service
+   worker only caches same-origin requests. */
+@font-face {
+  font-family: "Fira Sans";
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url("fonts/firasans-400-latin.woff2") format("woff2");
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+@font-face {
+  font-family: "Fira Sans";
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url("fonts/firasans-400-latinext.woff2") format("woff2");
+  unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C4, U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
+@font-face {
+  font-family: "Fira Sans";
+  font-style: normal;
+  font-weight: 600;
+  font-display: swap;
+  src: url("fonts/firasans-600-latin.woff2") format("woff2");
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+@font-face {
+  font-family: "Fira Sans";
+  font-style: normal;
+  font-weight: 600;
+  font-display: swap;
+  src: url("fonts/firasans-600-latinext.woff2") format("woff2");
+  unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C4, U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
+
 :root {
   color-scheme: light;
 
@@ -35,12 +71,12 @@
   --seq-650: #104281; --seq-700: #0d366b;
 
   /* classification accent — ordinal, light mode starts no lighter than 250 */
-  --rank-0: #45101d;
-  --rank-1: #5a1526;
-  --rank-2: #7d1f31;
-  --rank-3: #9c3340;
-  --rank-4: #b85a63;
-  --rank-5: #cf8a8e;
+  --rank-0: #3d1113;
+  --rank-1: #5c1a1b;
+  --rank-2: #7d2822;
+  --rank-3: #a03a2c;
+  --rank-4: #c25442;
+  --rank-5: #dd8b7c;
 
   /* drawn map */
   --map-land:   #faf6ee;
@@ -56,12 +92,26 @@
   --warning:  #eda100;
   --critical: #e34948;
 
+  /* Commanderie de Bordeaux — brand chrome. Navy and gold are taken from the
+     Commanderie's own stylesheet; they dress the frame only. Every colour that
+     encodes data below is left as validated. */
+  --brand-navy:      #1e3064;
+  --brand-navy-mid:  #1a2955;
+  --brand-navy-deep: #0f1832;
+  --brand-gold:      #e0a733;
+  --brand-gold-ink:  #775612;
+  --brand-cream:     #fefefe;
+  --brand-accent:    #1e3064;
+
   --radius: 10px;
   --radius-sm: 6px;
   --shadow: 0 1px 2px rgba(11,11,11,.06), 0 8px 24px rgba(11,11,11,.07);
   --mono: ui-monospace, "SF Mono", "Cascadia Mono", Menlo, Consolas, monospace;
-  --sans: ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
-  --serif: "Iowan Old Style", "Palatino Linotype", Palatino, Georgia, serif;
+  --sans: "Fira Sans", ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  /* The Commanderie sets headings in the same Fira Sans, differentiated by
+     weight rather than by a second family. Point this back at a serif stack
+     to restore the previous editorial look. */
+  --serif: "Fira Sans", ui-sans-serif, system-ui, "Segoe UI", Roboto, sans-serif;
 }
 
 @media (prefers-color-scheme: dark) {
@@ -84,12 +134,15 @@
     --series-5: #d55181;
     --series-6: #008300;
 
-    --rank-0: #fadfe1;
-    --rank-1: #f0c2c6;
-    --rank-2: #dd949b;
-    --rank-3: #c76b76;
-    --rank-4: #ad4e5c;
-    --rank-5: #8e3443;
+    --rank-0: #fadfd8;
+    --rank-1: #f2c3b6;
+    --rank-2: #e09d8c;
+    --rank-3: #ca7563;
+    --rank-4: #ad5544;
+    --rank-5: #8c3a2c;
+
+    --brand-accent:    #d8bb63;
+    --brand-gold-ink:  #d8bb63;
 
     --map-land:   #0f1721;
     --map-water:  #16314d;
@@ -122,12 +175,15 @@
   --series-5: #d55181;
   --series-6: #008300;
 
-  --rank-0: #fadfe1;
-  --rank-1: #f0c2c6;
-  --rank-2: #dd949b;
-  --rank-3: #c76b76;
-  --rank-4: #ad4e5c;
-  --rank-5: #8e3443;
+  --rank-0: #fadfd8;
+  --rank-1: #f2c3b6;
+  --rank-2: #e09d8c;
+  --rank-3: #ca7563;
+  --rank-4: #ad5544;
+  --rank-5: #8c3a2c;
+
+  --brand-accent:    #d8bb63;
+  --brand-gold-ink:  #d8bb63;
 
   --map-land:   #0f1721;
   --map-water:  #16314d;
@@ -176,25 +232,33 @@ a { color: var(--seq-450); }
 /* ----------------------------- header ---------------------------------- */
 .masthead {
   flex: none;
-  background: var(--surface-1);
-  border-bottom: 1px solid var(--border);
+  background: var(--brand-navy);
+  border-bottom: 3px solid var(--brand-gold);
   padding: 9px 20px 8px;
+  color: var(--brand-cream);
 }
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) .masthead { background: var(--brand-navy-deep); }
+}
+:root[data-theme="dark"] .masthead { background: var(--brand-navy-deep); }
 .masthead-row { display: flex; align-items: flex-start; gap: 20px; flex-wrap: wrap; }
 .masthead h1 {
   font-family: var(--serif);
   font-size: 19px;
   font-weight: 600;
-  letter-spacing: -0.02em;
+  letter-spacing: 0.01em;
+  color: var(--brand-cream);
+  text-transform: uppercase;
 }
 .masthead h1 small {
   display: block;
   font-family: var(--sans);
   font-size: 12px;
   font-weight: 400;
-  color: var(--text-secondary);
+  color: #c8d0e4;              /* 8.2:1 on the navy band */
   letter-spacing: 0;
   margin-top: 3px;
+  text-transform: none;
 }
 .masthead-spacer { flex: 1 1 auto; }
 
@@ -235,6 +299,18 @@ a { color: var(--seq-450); }
 }
 .iconbtn:hover { border-color: var(--border-strong); color: var(--text-primary); }
 
+/* On the navy masthead the default grey chip disappears; these wear the gold. */
+.masthead .iconbtn {
+  background: transparent;
+  border-color: color-mix(in srgb, var(--brand-gold) 55%, transparent);
+  color: var(--brand-gold);
+}
+.masthead .iconbtn:hover {
+  border-color: var(--brand-gold);
+  background: color-mix(in srgb, var(--brand-gold) 14%, transparent);
+  color: #f0c868;
+}
+
 /* --------------------------- tabs & filters ----------------------------- */
 .tabbar {
   flex: none;
@@ -257,7 +333,7 @@ a { color: var(--seq-450); }
 .tab:hover { color: var(--text-primary); }
 .tab[aria-selected="true"] {
   color: var(--text-primary);
-  border-bottom-color: var(--seq-450);
+  border-bottom-color: var(--brand-accent);
   font-weight: 600;
 }
 

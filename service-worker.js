@@ -1,12 +1,16 @@
 'use strict';
 
-var CACHE_NAME = 'bordeaux-classified-v1';
+var CACHE_NAME = 'bordeaux-classified-v2';
 var APP_SHELL = [
   './',
   './index.html',
   './manifest.webmanifest',
   './assets/app.js',
   './assets/styles.css',
+  './assets/fonts/firasans-400-latin.woff2',
+  './assets/fonts/firasans-400-latinext.woff2',
+  './assets/fonts/firasans-600-latin.woff2',
+  './assets/fonts/firasans-600-latinext.woff2',
   './assets/icon-192.png',
   './assets/icon-512.png',
   './assets/icon.svg',

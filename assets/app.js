@@ -331,6 +331,21 @@ function ratingsSection(ch) {
 function deaccent(s) {
   return s.normalize ? s.normalize('NFD').replace(/[̀-ͯ]/g, '') : s;
 }
+
+/* websites.js is keyed on the estate name stripped of its accents, its
+   Château/Clos/Domaine prefix and its punctuation, because the growers' own
+   register and Wikidata spell the same property three different ways. The
+   key is built here exactly as it was built when the file was generated. */
+function siteKey(name) {
+  return deaccent(name).toLowerCase()
+    .replace(/^(chateau|ch\.|clos|domaine|le|la|les)\s+/, '')
+    .replace(/[^a-z0-9]+/g, ' ')
+    .replace(/^ +| +$/g, '');
+}
+function siteFor(ch) {
+  var S = window.BDX_SITES;
+  return (S && S[siteKey(ch.name)]) || null;
+}
 function slugPlus(s) {
   return deaccent(s).toLowerCase().replace(/[^a-z0-9]+/g, '+').replace(/^\+|\+$/g, '');
 }
@@ -1756,6 +1771,12 @@ function openDrawer(id) {
   if (ch.owner) fx.push(['Proprietor', ch.owner]);
   if (ch.second) fx.push(['Second wine', ch.second]);
   if (ch.wine) fx.push(['Classified for', ch.wine]);
+  var site = siteFor(ch);
+  if (site) {
+    fx.push(['Website', '<a href="' + site[0] + '" target="_blank" rel="noopener noreferrer"' +
+      ' title="from ' + (site[1] === 'ugcb' ? 'the UGCB register' : 'Wikidata') + '">' +
+      site[0].replace(/^https?:\/\//, '') + '</a>']);
+  }
 
   var facts = '<dl class="factgrid">' + fx.map(function (f) {
     return '<div class="fact"><dt>' + f[0] + '</dt><dd>' + f[1] + '</dd></div>';

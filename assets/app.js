@@ -170,6 +170,18 @@ function regionForAppellation(app) {
   for (var i = 0; i < R.length; i++) if (R[i].apps.indexOf(app) !== -1) return R[i];
   return null;
 }
+/* Corrected positions, laid over the master data before anything is placed.
+   Only estates whose own coordinate fell outside the appellation as the INAO
+   delimits it are listed, and only where the replacement falls inside it. */
+(function applyCorrectedCoords() {
+  var C = window.BDX_COORDS;
+  if (!C) return;
+  CH.forEach(function (ch) {
+    var c = C[ch.id];
+    if (c) { ch.lat = c[0]; ch.lng = c[1]; ch.coordFixed = true; }
+  });
+})();
+
 CH.forEach(function (ch) {
   if (ch.lat !== undefined) return;
   var reg = regionForAppellation(ch.appellation);
@@ -896,6 +908,14 @@ function ringsPath(r) {
   (r.holes || []).forEach(function (ring) { parts.push(smooth(ring, true)); });
   return parts.join(' ');
 }
+
+/* The same shape with the communal appellations left in. Haut-Médoc is drawn
+   with Pauillac, Margaux, Saint-Julien, Saint-Estèphe, Listrac and Moulis cut
+   out of it, because on the map they are their own places — but in law those
+   parcels are Haut-Médoc too, so pointing at the name shows the whole of it. */
+function wholeRingsPath(r) {
+  return r.rings.map(function (ring) { return smooth(ring, true); }).join(' ');
+}
 function regionBBox(r) {
   var x0 = Infinity, y0 = Infinity, x1 = -Infinity, y1 = -Infinity;
   r.rings.forEach(function (ring) {
@@ -963,6 +983,10 @@ function overviewSvg() {
          '" d="' + ringsPath(r) + '"><title>' + r.name +
          ' — ' + n + ' château' + (n === 1 ? '' : 'x') + '</title></path>';
   });
+
+  /* One shape that the hover fills in, drawn over the outlines and under the
+     type. Empty until a name or an outline is pointed at. */
+  s += '<path class="m-area-hot" id="mapHot" d=""/>';
 
   /* Leader lines from the narrow riverside communes out to open country. */
   G.regions.forEach(function (r) {
@@ -1125,13 +1149,41 @@ function renderMap() {
     el.paneList.classList.toggle('is-open');
   });
 
+  /* Pointing at a name lights up the ground it belongs to, and the other way
+     round. The name is the easier target of the two: the riverside communes
+     are slivers a few pixels wide, while their labels sit out in open
+     country on a leader line. */
+  var hot = zoomG.querySelector('#mapHot');
+  function regionById2(id) {
+    var R = window.BDX_MAP.regions;
+    for (var i = 0; i < R.length; i++) if (R[i].id === id) return R[i];
+    return null;
+  }
+  function setHot(id) {
+    if (!hot) return;
+    var reg = id && regionById2(id);
+    hot.setAttribute('d', reg ? wholeRingsPath(reg) : '');
+    Array.prototype.forEach.call(zoomG.querySelectorAll('.m-area-lbl'), function (l) {
+      l.classList.toggle('is-hot', !!id && l.getAttribute('data-region') === id);
+    });
+  }
+
   Array.prototype.forEach.call(zoomG.querySelectorAll('[data-region]'), function (node) {
+    var id = node.getAttribute('data-region');
     node.addEventListener('click', function (e) {
       if (mapDragged()) return;
       e.stopPropagation();
-      enterRegion(node.getAttribute('data-region'));
+      setHot(null);
+      enterRegion(id);
     });
+    node.addEventListener('mouseenter', function () { setHot(id); });
+    node.addEventListener('mouseleave', function () { setHot(null); });
+    /* Touch has no hover, so the first tap lights the area and the click
+       that follows enters it — the highlight is the feedback for the tap. */
+    node.addEventListener('pointerdown', function () { setHot(id); });
   });
+  var hostEl = document.getElementById('map');
+  if (hostEl) hostEl.addEventListener('pointerleave', function () { setHot(null); });
 
   if (r) fitTo(regionBBox(r), 46); else fitTo({ x0: 0, y0: 0, x1: MS.w, y1: MS.h }, 0);
   rescaleLabels();

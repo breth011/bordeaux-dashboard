@@ -1597,6 +1597,51 @@ function wireMapInteraction() {
     box.style.display = inRegionShape(ll[0], ll[1], r) ? '' : 'none';
   });
 
+  /* Pinch to zoom. The wheel handler below is a mouse affordance and a
+     phone has no wheel, which left the +/- buttons as the only way to get
+     closer — a map that does not answer two fingers reads as broken. The
+     drag above is single-pointer, so a second finger cancels it rather than
+     yanking the map sideways, and marks the gesture as moved so the click
+     that follows a pinch does not open an appellation. */
+  var pts = Object.create(null), pinching = null;
+  function pointerCount() { return Object.keys(pts).length; }
+  function pinchPair() {
+    var k = Object.keys(pts);
+    return [pts[k[0]], pts[k[1]]];
+  }
+  svgEl.addEventListener('pointerdown', function (e) {
+    pts[e.pointerId] = { x: e.clientX, y: e.clientY };
+    if (pointerCount() === 2) {
+      var pair = pinchPair();
+      pinching = {
+        d: Math.hypot(pair[0].x - pair[1].x, pair[0].y - pair[1].y) || 1,
+        k: view.k
+      };
+      down = null;
+      moved = true;
+      svgEl.classList.remove('dragging');
+    }
+  });
+  svgEl.addEventListener('pointermove', function (e) {
+    if (!pts[e.pointerId]) return;
+    pts[e.pointerId] = { x: e.clientX, y: e.clientY };
+    if (!pinching || pointerCount() !== 2) return;
+    var pair = pinchPair();
+    var d = Math.hypot(pair[0].x - pair[1].x, pair[0].y - pair[1].y) || 1;
+    var mid = svgPoint({
+      clientX: (pair[0].x + pair[1].x) / 2,
+      clientY: (pair[0].y + pair[1].y) / 2
+    });
+    setZoom(pinching.k * (d / pinching.d), mid.x, mid.y);
+  });
+  /* Listened for on window: a finger can leave the <svg> before it lifts. */
+  function releasePointer(e) {
+    delete pts[e.pointerId];
+    if (pointerCount() < 2) pinching = null;
+  }
+  window.addEventListener('pointerup', releasePointer);
+  window.addEventListener('pointercancel', releasePointer);
+
   svgEl.addEventListener('wheel', function (e) {
     e.preventDefault();
     var p = svgPoint(e);

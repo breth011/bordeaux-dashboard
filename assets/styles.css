@@ -262,6 +262,15 @@ a { color: var(--seq-450); }
 }
 .masthead-spacer { flex: 1 1 auto; }
 
+/* The crest carries its own white scrollwork and black line, so it needs no
+   plate behind it on the navy; the file is transparent and sized for 3x. */
+.crest {
+  flex: none;
+  align-self: center;
+  height: 38px;
+  width: auto;
+}
+
 .provenance-key {
   display: flex;
   gap: 14px;
@@ -1067,12 +1076,46 @@ body.map-page .pane-list.is-open ~ .list-close:hover {
   body { height: auto; overflow: visible; display: block; }
   .workspace { grid-template-columns: 1fr; height: auto; }
   .home, .vintagegrid { overflow: visible; }
-  .pane-map { height: 320px; border-right: none; border-bottom: 1px solid var(--border); }
+  /* The map is drawn in a portrait 1080x1230 frame. A fixed 320px band
+     letterboxed it down to roughly a 260px-wide thumbnail with dead space
+     either side, so instead the pane takes the full width and lets its
+     height follow the drawing's own proportion. */
+  .pane-map {
+    height: auto;
+    aspect-ratio: 1080 / 1230;
+    max-height: 70dvh;
+    border-right: none;
+    border-bottom: 1px solid var(--border);
+  }
   .pane-list { overflow: visible; height: auto; }
   .vrow-head { grid-template-columns: 52px 66px 1fr; }
   .vrow .teaser { display: none; }
   .drawer { width: 100%; }
   .masthead, .filters, .tabbar, .vintagegrid, .notice { padding-left: 16px; padding-right: 16px; }
+}
+
+/* ------------------------------- phone --------------------------------- */
+@media (max-width: 620px) {
+  /* Four tabs need about 510px; the bar scrolls rather than pushing the
+     whole page sideways. The crumb is dropped here because the map has its
+     own back control and the drawer carries its own title. */
+  .tabbar { overflow-x: auto; scrollbar-width: none; }
+  .tabbar::-webkit-scrollbar { display: none; }
+  .tab { flex: none; padding: 6px 11px; font-size: 12.5px; }
+  .crumb { display: none; }
+
+  .crest { height: 30px; }
+  .masthead h1 { font-size: 16px; }
+  .masthead h1 small { font-size: 11px; }
+  .masthead-row { gap: 10px; }
+
+  .pane-map { max-height: 62dvh; }
+  #map { inset: 8px; }
+
+  /* 42% of a phone is a 160px sliver; the list takes the screen and is
+     dismissed with the close button it already has. */
+  body.map-page .pane-list { width: 100%; }
+  body.map-page #filters { top: 50px; left: 8px; right: 8px; padding: 9px 11px; }
 }
 
 @media print {

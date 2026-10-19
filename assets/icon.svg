@@ -1,5 +1,5 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
-  <rect width="512" height="512" rx="112" fill="#5a1526"/>
+  <rect width="512" height="512" rx="112" fill="#1e3064"/>
   <defs>
     <clipPath id="glass">
       <path d="M174 106h164l-10 61c-8 47-34 77-72 91-38-14-64-44-72-91z"/>

@@ -1088,6 +1088,22 @@ body.map-page .pane-list.is-open ~ .list-close:hover {
     border-bottom: 1px solid var(--border);
   }
   .pane-list { overflow: visible; height: auto; }
+  /* The map page is a window-filling layout, not a document. Left to the
+     aspect-ratio rule above it kept a document's height and left a dead
+     band below the map, while the closed château list — absolutely
+     positioned and translated one width to the right — stretched the page
+     to 754px on a 375px screen and let you swipe sideways into nothing. */
+  body.map-page { height: 100dvh; overflow: hidden; display: flex; flex-direction: column; }
+  body.map-page .workspace { flex: 1 1 auto; min-height: 0; overflow-x: clip; }
+  body.map-page .pane-map {
+    flex: 1 1 auto;
+    height: auto;
+    aspect-ratio: auto;
+    max-height: none;
+    border-bottom: 0;
+  }
+  body.map-page .pane-list { overflow-y: auto; }
+
   .vrow-head { grid-template-columns: 52px 66px 1fr; }
   .vrow .teaser { display: none; }
   .drawer { width: 100%; }
@@ -1115,6 +1131,12 @@ body.map-page .pane-list.is-open ~ .list-close:hover {
   /* 42% of a phone is a 160px sliver; the list takes the screen and is
      dismissed with the close button it already has. */
   body.map-page .pane-list { width: 100%; }
+
+  /* Five items in one unwrapped row pushed the Châteaux button off the
+     screen. The hint goes first: it says "click" to someone tapping. */
+  .map-hint { display: none; }
+  .map-head { left: 42px; gap: 6px; flex-wrap: wrap; }
+  .map-back { font-size: 11.5px; padding: 3px 8px; }
   body.map-page #filters { top: 50px; left: 8px; right: 8px; padding: 9px 11px; }
 }
 

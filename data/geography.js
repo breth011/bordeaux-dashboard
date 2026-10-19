@@ -116,6 +116,11 @@ window.BDX_MAP = {
   regions: [
     { id:'medoc', name:'Médoc', apps:['Médoc'],
       label:[45.408,-0.968],
+      /* The Médoc delimitation runs the length of the peninsula and covers
+         Haut-Médoc entirely, which in turn covers the six communal
+         appellations: a Pauillac parcel may be declassified to either name.
+         Cutting Haut-Médoc out takes all six with it. */
+      holesOf:['haut-medoc'],
       rings:[
         [
           [45.580,-1.070],[45.555,-1.050],[45.530,-1.028],[45.505,-1.002],[45.480,-0.974],
@@ -206,7 +211,8 @@ window.BDX_MAP = {
           [44.790,-0.660],[44.801,-0.652],[44.811,-0.640],[44.818,-0.622]]]
     },
     { id:'graves', name:'Graves', apps:['Graves'],
-      label:[44.610,-0.529], leader:[44.590,-0.470],
+      label:[44.610,-0.529],
+      holesOf:['pessac-leognan'], leader:[44.590,-0.470],
       rings:[
         [
           [44.700,-0.464],[44.684,-0.440],[44.668,-0.416],[44.652,-0.392],[44.638,-0.374],

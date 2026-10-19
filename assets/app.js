@@ -1961,6 +1961,58 @@ function closeDrawer() {
   renderList();
 }
 
+/* What the estate itself published about this wine, in its own technical
+   sheet. Everything here is one château and one vintage — as against the
+   season block below it, which is Bordeaux-wide and identical for every
+   estate, and the phenology, which is the ISVV's reference plots. Keeping
+   the three apart is the point: a reader should never have to guess whether
+   a number describes this wine or the whole region. */
+function fichesBlock(ch, yr) {
+  var F = window.BDX_FICHES, f = F && F[ch.id + '|' + yr];
+  if (!f) return '';
+
+  var s = '<p class="subhead">' + ch.name + ', ' + yr +
+    ' <span class="flag flag-verified">the château’s own sheet</span></p>';
+
+  if (f.blend) {
+    s += blendBar(f.blend) +
+      '<div class="tableview' + (state.tables ? ' on' : '') + '">' +
+        blendTable(f.blend) + '</div>';
+    /* The comparison the typical blend exists for: what this year did
+       differently. Only the varieties that actually moved are listed. */
+    if (ch.blend) {
+      var moved = GRAPE_ORDER.filter(function (k) {
+        return (f.blend[k] || 0) !== (ch.blend[k] || 0);
+      }).map(function (k) {
+        var d = (f.blend[k] || 0) - (ch.blend[k] || 0);
+        return GRAPES[k].name + ' ' + (d > 0 ? '+' : '') + Math.round(d * 10) / 10;
+      });
+      s += '<p class="hint">' + (moved.length
+        ? 'Against the estate’s typical blend: ' + moved.join(' · ')
+        : 'Exactly the estate’s typical blend.') + '</p>';
+    }
+  }
+
+  var fx = [];
+  if (f.harvest) fx.push(['Picking from', f.harvest]);
+  if (f.yld) fx.push(['Yield', f.yld + ' hl/ha']);
+  if (f.alc) fx.push(['Alcohol', f.alc + '% vol']);
+  if (f.ph) fx.push(['pH', f.ph]);
+  if (f.temp) fx.push(['Serve at', f.temp.join('–') + ' °C']);
+  if (f.wy) fx.push(['Drink', f.wy[0] + '–' + f.wy[1]]);
+  if (fx.length) {
+    s += '<dl class="factgrid">' + fx.map(function (p) {
+      return '<div class="fact"><dt>' + p[0] + '</dt><dd>' + p[1] + '</dd></div>';
+    }).join('') + '</dl>';
+  }
+
+  if (f.note) s += '<p class="notetext">' + f.note + '</p>';
+  if (f.decant) s += '<p class="notetext"><b>Decanting.</b> ' + f.decant + '</p>';
+  if (f.window && !f.wy) s += '<p class="notetext"><b>When to drink.</b> ' + f.window + '</p>';
+  if (f.src) s += '<p class="hint">Read from ' + f.src + '</p>';
+  return s;
+}
+
 function vintageRow(ch, yr) {
   var r = scoreFor(ch, yr), v = V[yr];
   var o = SCORES[ch.id + '|' + yr];
@@ -1997,9 +2049,16 @@ function vintageRow(ch, yr) {
             blendTable(o.blend) + '</div>'
         : '') +
 
-      '<p class="subhead">The ' + yr + ' season</p>' +
+      fichesBlock(ch, yr) +
+
+      /* Scope matters here. Everything above this line is this château and
+         this vintage, taken from its own sheet; everything below describes
+         the year across Bordeaux and is the same for every estate. */
+      '<p class="subhead">The ' + yr + ' season <span class="hint">across Bordeaux, ' +
+        'the same for every estate</span></p>' +
       '<p class="vintagereport"><b>Weather.</b> ' + v.weather +
         '<br><b>The vintage.</b> ' + v.report + '</p>' +
+      phenologyLine(yr) +
 
       '<p class="subhead">Find this exact vintage</p>' +
       '<div class="buylinks">' + buyLinks(ch, yr).map(function (l) {

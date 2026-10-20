@@ -820,6 +820,29 @@ table.dt td.num { font-family: var(--mono); text-align: right; }
 
 /* Measured dates sit apart from the prose above them: this is the one line
    on the card that is an observation rather than a judgement. */
+/* The critics behind a derived rating, on hover. It stays out of the way
+   until asked for: the score is the answer, this is the working. */
+.ratingwrap { position: relative; display: inline-block; }
+.ratingwrap .src { margin-left: 8px; }
+.ratingwrap:hover b { text-decoration: underline dotted; text-underline-offset: 3px; }
+.ratingpanel {
+  position: absolute; z-index: 40; left: 0; top: calc(100% + 6px);
+  min-width: 230px; padding: 9px 11px;
+  background: var(--surface-1);
+  border: 1px solid var(--border-strong);
+  border-radius: var(--radius-sm);
+  box-shadow: var(--shadow);
+  opacity: 0; visibility: hidden;
+  transition: opacity .12s;
+}
+.ratingwrap:hover .ratingpanel,
+.ratingwrap:focus-within .ratingpanel { opacity: 1; visibility: visible; }
+.ratingpanel table { width: 100%; border-collapse: collapse; font-size: 12px; }
+.ratingpanel td { padding: 2px 0; white-space: nowrap; }
+.ratingpanel td.num { text-align: right; font-family: var(--mono); font-weight: 600; }
+.ratingpanel .of { color: var(--text-muted); font-weight: 400; font-size: 10.5px; }
+.ratingpanel .src { margin: 6px 0 0; }
+
 /* Sourcing. It should be checkable at a glance and ignorable the rest of
    the time, so it sits small and grey under what it refers to rather than
    wearing a badge beside it. */

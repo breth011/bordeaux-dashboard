@@ -337,11 +337,52 @@ function notProduced(ch, year) {
    modelled score any more: the old one was derived from the estate's rank
    and the quality of the season, which is a plausible number and not a
    rating. Where no rating was published, the dashboard says so. */
+var RATINGS = window.BDX_RATINGS || {};
+
+/* A hand-entered score is a single critic's published figure and stands as
+   written. Everything else falls back to the derived rating: the mean of the
+   critics who rated that wine, which is a reading of the consensus rather
+   than anyone's verdict, and is labelled as such. */
 function scoreFor(ch, year) {
   if (notProduced(ch, year)) return { none: true, notMade: true };
   var o = SCORES[ch.id + '|' + year];
   if (o && o.score) return { score: o.score, verified: true, src: o.src };
+  var r = RATINGS[ch.id + '|' + year];
+  if (r) {
+    return { score: Math.round(r[0]), exact: r[0], derived: true,
+             n: r[1], spread: r[2], panel: r[3],
+             src: r[1] + ' critics' };
+  }
   return { none: true };
+}
+
+/* Who each column is. The figures are shown as each critic published them,
+   on their own scale, because converting them for display would misquote
+   them — the conversion exists only to take the average. */
+var CRITIC_NAMES = {
+  RP: ['Wine Advocate', 100], NM: ['Neal Martin, Vinous', 100],
+  JR: ['Jancis Robinson', 20], TA: ['Tim Atkin', 100],
+  BD: ['Bettane & Desseauve', 20], WS: ['James Suckling', 100],
+  JL: ['Jeff Leve', 100], De: ['Decanter', 0],
+  RVF: ['La Revue du Vin de France', 20], JA: ['Jane Anson', 100],
+  LeP: ['Le Point', 20], PW: ['Perswijn', 5],
+  RG: ['René Gabriel', 20], CK: ['Chris Kissack', 100]
+};
+
+function ratingPanel(r) {
+  if (!r || !r.panel) return '';
+  var rows = r.panel.split('|').map(function (bit) {
+    var p = bit.split(':'), who = CRITIC_NAMES[p[0]] || [p[0], 0];
+    var outOf = who[1];
+    /* Decanter changed scale twice; read it off the value as the build did. */
+    if (!outOf) outOf = parseFloat(p[1]) <= 5 ? 5 : (parseFloat(p[1]) <= 20 ? 20 : 100);
+    return '<tr><td>' + who[0] + '</td><td class="num">' + p[1] +
+           '<span class="of">/' + outOf + '</span></td></tr>';
+  }).join('');
+  return '<div class="ratingpanel"><table><tbody>' + rows + '</tbody></table>' +
+    '<p class="src">' + r.n + ' critics, averaging ' + r.exact +
+    (r.spread ? ' · they differ by ' + r.spread + ' points' : '') +
+    '<br>gathered by bordoverview.com</p></div>';
 }
 
 /* Every published rating this dashboard holds for one estate. */
@@ -2075,8 +2116,10 @@ function vintageRow(ch, yr) {
     '<div class="vrow-body">' +
 
       (rated
-        ? '<p class="subhead">Rating · ' + (r.src || 'reported') + '</p>' +
-          '<div style="font-size:12.5px"><b>' + r.score + '/100</b></div>' +
+        ? '<p class="subhead">Rating</p>' +
+          '<div class="ratingwrap" style="font-size:12.5px"><b>' + r.score + '/100</b>' +
+            '<span class="src">' + (r.src || 'reported') + '</span>' +
+            ratingPanel(r) + '</div>' +
           (o && o.note ? '<p class="notetext">' + o.note + '</p>' : '')
         : '') +
 

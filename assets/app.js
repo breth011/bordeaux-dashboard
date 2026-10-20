@@ -2768,6 +2768,63 @@ function fiche(ch, yr) {
   return out;
 }
 
+/* How this vintage departed from the estate's usual blend.
+
+   This used to be a sentence - "Cabernet Sauvignon +2.2 · Merlot -4.5 ·
+   Cabernet Franc +2.3" - which is three numbers the reader has to hold
+   in their head to see the shape. The shape is the point: the estate
+   reached for more Cabernet and less Merlot this year. A bar either
+   side of the estate's norm says that at a glance.
+
+   The grape colours are the ones the blend bar above uses, so the two
+   read together. Everything is scaled to whichever variety moved most,
+   so a year that barely moved looks like one. Varieties that did not
+   move are still shown, at the line, because "the Petit Verdot is
+   exactly as usual" is part of the picture. */
+function driftChart(vintage, usual) {
+  var keys = GRAPE_ORDER.filter(function (k) {
+    return (vintage[k] || 0) > 0 || (usual[k] || 0) > 0;
+  });
+  if (!keys.length) return '';
+
+  var max = 0;
+  keys.forEach(function (k) {
+    var d = Math.abs((vintage[k] || 0) - (usual[k] || 0));
+    if (d > max) max = d;
+  });
+  if (max < 0.05) {
+    return '<p class="src">Exactly the estate\u2019s typical blend.</p>';
+  }
+
+  var rows = keys.map(function (k) {
+    var d = Math.round(((vintage[k] || 0) - (usual[k] || 0)) * 10) / 10;
+    var w = Math.min(50, Math.abs(d) / max * 50);
+    var c = grapeColor(k);
+    var bar = Math.abs(d) < 0.05
+      ? '<i class="drift-none"></i>'
+      : '<i class="drift-bar" style="' +
+        (d > 0 ? 'left:50%;' : 'right:50%;') + 'width:' + w + '%;' +
+        'background:' + c + '"></i>';
+    return '<div class="drift-row">' +
+        '<span class="drift-name">' + GRAPES[k].name + '</span>' +
+        '<span class="drift-track">' + bar + '</span>' +
+        '<span class="drift-val' + (d > 0 ? ' up' : d < 0 ? ' down' : '') +
+          '">' + (d > 0 ? '+' : '') + (d || 0) + '</span>' +
+      '</div>';
+  }).join('');
+
+  return '<p class="subhead">Against the estate\u2019s usual blend</p>' +
+    '<div class="drift" role="img" aria-label="' +
+      keys.map(function (k) {
+        var d = Math.round(((vintage[k] || 0) - (usual[k] || 0)) * 10) / 10;
+        return GRAPES[k].name + ' ' + (d > 0 ? 'plus ' : d < 0 ? 'minus ' : '')
+               + Math.abs(d);
+      }).join(', ') + '">' +
+      '<div class="drift-head"><span>less</span><span>more</span></div>' +
+      rows +
+    '</div>';
+}
+
 function fichesBlock(ch, yr) {
   var f = fiche(ch, yr);
   if (!f) return '';
@@ -2778,17 +2835,7 @@ function fichesBlock(ch, yr) {
       blendBar(f.blend) +
       '<div class="tableview' + (state.tables ? ' on' : '') + '">' +
         blendTable(f.blend) + '</div>';
-    if (ch.blend) {
-      var moved = GRAPE_ORDER.filter(function (k) {
-        return (f.blend[k] || 0) !== (ch.blend[k] || 0);
-      }).map(function (k) {
-        var d = (f.blend[k] || 0) - (ch.blend[k] || 0);
-        return GRAPES[k].name + ' ' + (d > 0 ? '+' : '') + Math.round(d * 10) / 10;
-      });
-      s += '<p class="src">' + (moved.length
-        ? 'Against the estate’s typical blend: ' + moved.join(' · ')
-        : 'Exactly the estate’s typical blend.') + '</p>';
-    }
+    if (ch.blend) s += driftChart(f.blend, ch.blend);
   }
 
   var fx = [];

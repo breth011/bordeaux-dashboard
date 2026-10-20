@@ -1478,6 +1478,43 @@ body.map-page .pane-list.is-open ~ .list-close:hover {
 }
 .b-sum:empty { display: none; }
 
+/* The vintage against the estate's usual blend: a bar either side of a
+   line, right for more of that grape than usual and left for less. */
+.drift { margin: 2px 0 10px; }
+.drift-head {
+  display: flex; justify-content: space-between;
+  font-size: 10.5px; color: var(--text-muted);
+  text-transform: lowercase; letter-spacing: .04em;
+  padding: 0 0 3px 118px;
+}
+.drift-row { display: flex; align-items: center; gap: 8px; margin-bottom: 3px; }
+.drift-name {
+  width: 110px; flex: none; font-size: 11.5px; color: var(--text-secondary);
+  text-align: right; white-space: nowrap; overflow: hidden;
+  text-overflow: ellipsis;
+}
+.drift-track {
+  position: relative; flex: 1; height: 13px;
+  background: linear-gradient(var(--border), var(--border)) no-repeat
+              center / 1px 100%;
+}
+.drift-bar { position: absolute; top: 2px; height: 9px; border-radius: 2px; }
+.drift-none {
+  position: absolute; left: 50%; top: 2px; width: 3px; height: 9px;
+  margin-left: -1px; border-radius: 2px; background: var(--border-strong);
+}
+.drift-val {
+  width: 40px; flex: none; font-family: var(--mono); font-size: 11px;
+  font-weight: 600; color: var(--text-muted);
+}
+.drift-val.up { color: var(--brand-navy); }
+.drift-val.down { color: var(--text-secondary); }
+
+@media (max-width: 520px) {
+  .drift-name { width: 74px; font-size: 10.5px; }
+  .drift-head { padding-left: 82px; }
+}
+
 /* A wine you hold, marked on the collapsed row. */
 .heldmark {
   display: inline-block; min-width: 16px; padding: 0 5px; margin-right: 7px;

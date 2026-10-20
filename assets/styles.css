@@ -1121,21 +1121,16 @@ body.map-page .pane-map { border-right: none; }
 body.map-page #map { inset: 14px; }
 
 /* The filter row drops down over the map when asked for. */
-body.map-page #filters {
-  position: absolute; top: 56px; left: 14px; right: 14px; z-index: 620;
-  background: color-mix(in srgb, var(--surface-1) 96%, transparent);
-  border: 1px solid var(--border); border-radius: var(--radius);
-  box-shadow: var(--shadow);
-  padding: 10px 14px;
-  display: none;
-}
+/* The filter row was an overlay here; it is now an ordinary row and the
+   rule that floated it has gone, so there is one description of it rather
+   than two that have to be read in order. */
 /* Finding an estate by name should not be behind a toggle. On the map page
    the panel stays on screen but shows only the search field until Filters is
    pressed, when the rest of the controls unfold beside it. */
 body.map-page #filters {
-  /* Collapsed, it is an ordinary row under the tabs. Absolutely positioned
-     it was measured from the page, not the map, and floated over the tab
-     bar. Only the opened panel overlays the map. */
+  /* An ordinary row under the tabs, open or closed. It used to be an
+     overlay positioned against the page rather than the map, which put it
+     across the tab bar; nothing here floats over anything now. */
   position: static;
   display: flex;
   max-width: none;
@@ -1280,7 +1275,7 @@ body.map-page .pane-list.is-open ~ .list-close:hover {
   .map-hint { display: none; }
   .map-head { left: 42px; gap: 6px; flex-wrap: wrap; }
   .map-back { font-size: 11.5px; padding: 3px 8px; }
-  body.map-page #filters { top: 50px; left: 8px; right: 8px; padding: 9px 11px; }
+  body.map-page #filters { padding: 6px 16px 7px; }   /* no longer an overlay to place */
 }
 
 @media print {

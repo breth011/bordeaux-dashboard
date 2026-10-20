@@ -2108,7 +2108,8 @@ function openDrawer(id) {
   var site = siteFor(ch);
   if (site) {
     fx.push(['Website', '<a href="' + site[0] + '" target="_blank" rel="noopener noreferrer"' +
-      ' title="from ' + (site[1] === 'ugcb' ? 'the UGCB register' : 'Wikidata') + '">' +
+      ' title="from ' + (site[1] === 'ugcb' ? 'the UGCB register'
+                        : site[1] === 'osm' ? 'OpenStreetMap' : 'Wikidata') + '">' +
       site[0].replace(/^https?:\/\//, '') + '</a>']);
   }
 

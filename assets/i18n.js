@@ -137,8 +137,26 @@
     'All merchants': 'Alle handelaren',
     'Web search': 'Zoeken op het web',
 
-    /* sourcing */
+    /* sourcing - these live in title attributes, which the first pass over
+       the interface never looked at because it only collected short text */
     'gathered by bordoverview.com': 'verzameld door bordoverview.com',
+    'Gavin Quinney, from Customs/CIVB and six weather stations':
+      'Gavin Quinney, uit gegevens van de douane/CIVB en zes weerstations',
+    'from the UGCB register': 'uit het UGCB-register',
+    'from Wikidata': 'uit Wikidata',
+    'from OpenStreetMap': 'uit OpenStreetMap',
+    'positions: OpenStreetMap contributors, ODbL · INAO · Wikidata':
+      'posities: OpenStreetMap-bijdragers, ODbL · INAO · Wikidata',
+    'To install this app, tap Share in Safari, then choose "Add to Home Screen".':
+      'Tik in Safari op Deel en kies daarna “Zet op beginscherm” om deze app ' +
+      'te installeren.',
+
+    /* the 1855 ranks as the notes name them */
+    'First Growths': 'Premiers Crus',
+    'Second Growths': 'Deuxièmes Crus',
+    'Third Growths': 'Troisièmes Crus',
+    'Fourth Growths': 'Quatrièmes Crus',
+    'Fifth Growths': 'Cinquièmes Crus',
     'this estate': 'dit domein',
     'this estate, translated': 'dit domein, vertaald',
     'reported': 'gerapporteerd',
@@ -201,7 +219,12 @@
     ['The interface. What the châteaux and the vintage reports say is left ' +
      'in the language it was published in.',
      'De interface. Wat de châteaux en de jaargangverslagen zeggen, blijft ' +
-     'in de taal waarin het gepubliceerd is.']
+     'in de taal waarin het gepubliceerd is.'],
+
+    ['The rank shown above is this dashboard’s editorial grouping by ' +
+     'critical and market standing — it carries no official weight.',
+     'De rang hierboven is de redactionele indeling van dit dashboard naar ' +
+     'kritische en commerciële reputatie — ze heeft geen officiële status.']
   ];
   LONG.forEach(function (pair) { NL[pair[0]] = pair[1]; });
 
@@ -215,7 +238,14 @@
     [/^(\d+) estates · no classification$/, '$1 domeinen · geen classificatie'],
     [/^(\d+) hectares$/, '$1 hectare'],
     [/^Classification of (\d+)$/, 'Classificatie van $1'],
-    [/^Classification of (\d+) · (.+)$/, 'Classificatie van $1 · $2'],
+    /* The tail is a note of its own - "First Growths", "editorial
+       grouping" - so it goes through the table too. As a plain
+       replacement this rule matched first and carried its tail through
+       untranslated, leaving "Classificatie van 1855 · First Growths". */
+    [/^Classification of (\d+) · (.+)$/, function (m) {
+      var tail = say(DICTS.nl, m[2]);
+      return 'Classificatie van ' + m[1] + ' · ' + (tail === null ? m[2] : tail);
+    }],
     [/^(\d+) of (\d+) rated · each with its own price link$/,
      '$1 van $2 beoordeeld · elk met een eigen prijslink'],
     [/^All vintages, (\d+)–(\d+)$/, 'Alle jaargangen, $1–$2'],
@@ -258,6 +288,12 @@
       if (a === null && b === null) return null;
       return (a || m[1]) + ' · ' + (b || m[2]);
     }],
+
+    /* The phenology tooltip, whose tail counts the reports that agree. */
+    [/^Flowering and véraison: Institut des Sciences de la Vigne et du Vin reference plots$/,
+     'Bloei en véraison: referentiepercelen van het Institut des Sciences de la Vigne et du Vin'],
+    [/^Flowering and véraison: Institut des Sciences de la Vigne et du Vin reference plots, (\d+) reports agree$/,
+     'Bloei en véraison: referentiepercelen van het Institut des Sciences de la Vigne et du Vin, $1 rapporten komen overeen'],
 
     /* a date the way Dutch writes it */
     [new RegExp('^(\\d+) (' + MON + ')$'),

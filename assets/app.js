@@ -1120,15 +1120,39 @@ function paintCellarCount() {
   el.cellarCount.textContent = n ? n : '';
 }
 
+/* The grouping, kept apart from the rendering because the sums have to be
+   recomputed after an edit without the page being rebuilt around them. */
+var CELLAR_ORDER = [
+  ['late', 'Drink up', 'running out of time'],
+  ['peak', 'At peak', 'worth opening now'],
+  ['opening', 'Opening', 'ready, and will keep'],
+  ['young', 'Too young', 'not yet'],
+  ['none', 'No window', 'the other wines, which are not on the window model'],
+  ['past', 'Past', 'past the window the dashboard gives them']
+];
+
+function cellarGroups() {
+  var groups = { late: [], peak: [], opening: [], young: [], past: [], none: [] };
+  cellarRows().forEach(function (r) {
+    var m = r.win ? maturity(r.win) : null;
+    groups[m ? m.k : 'none'].push(r);
+  });
+  return groups;
+}
+
+function bottleLine(n) {
+  return n + (n === 1 ? ' bottle' : ' bottles');
+}
+
 function renderCellar() {
   var rows = cellarRows();
-  var total = cellarCount();
 
   var head = '<div class="ref-head"><h2>My cellar</h2>' +
-    '<p>What you hold, counted from the bottle marks on the vintage rows. ' +
-    'It is kept in this browser on this machine and is sent nowhere, which ' +
-    'means it will not follow you to another device and will go if the ' +
-    'browser is cleared — so take a copy.</p></div>';
+    '<p>What you hold, in the sizes you hold it in, and editable here as ' +
+    'well as on the vintage rows. It is kept in this browser on this ' +
+    'machine and is sent nowhere, which means it will not follow you to ' +
+    'another device and will go if the browser is cleared — so take a ' +
+    'copy.</p></div>';
 
   if (!rows.length) {
     el.cellar.innerHTML = head +
@@ -1138,53 +1162,75 @@ function renderCellar() {
     return;
   }
 
-  var groups = { late: [], peak: [], opening: [], young: [], past: [], none: [] };
-  rows.forEach(function (r) {
-    var m = r.win ? maturity(r.win) : null;
-    groups[m ? m.k : 'none'].push(r);
-  });
-
-  var ORDER = [
-    ['late', 'Drink up', 'running out of time'],
-    ['peak', 'At peak', 'worth opening now'],
-    ['opening', 'Opening', 'ready, and will keep'],
-    ['young', 'Too young', 'not yet'],
-    ['none', 'No window', 'the other wines, which are not on the window model'],
-    ['past', 'Past', 'past the window the dashboard gives them']
-  ];
-
+  var groups = cellarGroups();
   var body = '';
-  ORDER.forEach(function (g) {
+  CELLAR_ORDER.forEach(function (g) {
     var list = groups[g[0]];
     if (!list.length) return;
     var bottles = list.reduce(function (a, r) { return a + r.n; }, 0);
-    body += '<section class="cellar-group"><h3><span class="mat mat-' + g[0] +
-      '">' + g[1] + '</span>' + bottles +
-      (bottles === 1 ? ' bottle' : ' bottles') +
+    body += '<section class="cellar-group" data-grp="' + g[0] +
+      '"><h3><span class="mat mat-' + g[0] + '">' + g[1] + '</span>' +
+      '<span class="grp-n">' + bottleLine(bottles) + '</span>' +
       '<span class="hint">' + g[2] + '</span></h3>' +
       '<table class="cmp cellar-table"><thead><tr>' +
         '<th scope="col">Wine</th><th scope="col">Vintage</th>' +
-        '<th scope="col">Bottles</th><th scope="col">Drink</th>' +
+        '<th scope="col">Size</th><th scope="col">Bottles</th>' +
+        '<th scope="col">Drink</th>' +
         '<th scope="col">Appellation</th></tr></thead><tbody>' +
       list.map(function (r) {
-        return '<tr><td><button class="cmp-head" data-ch="' + r.ch.id + '">' +
+        return '<tr data-rowkey="' + r.key + '|' + r.ml + '">' +
+          '<td><button class="cmp-head" data-ch="' + r.ch.id + '">' +
             r.wine.name + '</button>' +
             (r.slug === 'grand' ? '' :
               '<span class="cmp-sub">' + (ROLE_LABEL[r.wine.role] || '') + '</span>') +
           '</td>' +
           '<td class="cel-yr">' + r.yr + '</td>' +
-          '<td class="cel-n">' + r.n + '</td>' +
+          '<td class="cel-sz">' + sizeOf(r.ml).name + '</td>' +
+          '<td class="cel-n">' + stepper(r.ch, r.slug, r.yr, r.ml, r.n) + '</div></td>' +
           '<td>' + (r.win ? r.win.from + '–' + r.win.to : '—') + '</td>' +
           '<td>' + r.ch.appellation + '</td></tr>';
       }).join('') +
       '</tbody></table></section>';
   });
 
-  el.cellar.innerHTML = head +
-    '<p class="cellar-total">' + total + (total === 1 ? ' bottle' : ' bottles') +
-    ' · ' + rows.length + (rows.length === 1 ? ' wine' : ' different wines') +
-    '</p>' + body + cellarPorch();
+  el.cellar.innerHTML = head + cellarTotalLine() + body + cellarPorch();
   wireCellar();
+}
+
+/* Three readings of the same cellar, in three elements rather than one
+   sentence, so each is short enough to be translated on its own. */
+function cellarTotalLine() {
+  var n = cellarCount(), w = cellarWines();
+  return '<p class="cellar-total"><span class="ct-b">' + bottleLine(n) +
+    '</span> · <span class="ct-w">' + w +
+    (w === 1 ? ' wine' : ' different wines') +
+    '</span> · <span class="ct-l">' + cellarLitres() + ' litres</span></p>';
+}
+
+/* After an edit on the cellar page. The row keeps its place - a number
+   being corrected should not jump away - but it is struck through once it
+   reaches nothing, and the sums above it are brought back into line. */
+function paintCellarSums() {
+  var groups = cellarGroups();
+  Array.prototype.forEach.call(el.cellar.querySelectorAll('.cellar-group'),
+    function (sec) {
+      var list = groups[sec.getAttribute('data-grp')] || [];
+      var n = list.reduce(function (a, r) { return a + r.n; }, 0);
+      var c = sec.querySelector('.grp-n');
+      if (c) c.textContent = bottleLine(n);
+      sec.classList.toggle('is-gone', !n);
+    });
+  Array.prototype.forEach.call(el.cellar.querySelectorAll('tr[data-rowkey]'),
+    function (tr) {
+      var f = tr.querySelector('.b-n');
+      tr.classList.toggle('cel-gone', !(f && Number(f.value) > 0));
+    });
+  var t = el.cellar.querySelector('.cellar-total');
+  if (t) {
+    var d = document.createElement('div');
+    d.innerHTML = cellarTotalLine();
+    t.parentNode.replaceChild(d.firstChild, t);
+  }
 }
 
 /* Taking it away and bringing it back. A cellar held in one browser is
@@ -1204,6 +1250,8 @@ function wireCellar() {
   Array.prototype.forEach.call(el.cellar.querySelectorAll('.cmp-head'), function (b) {
     b.addEventListener('click', function () { openDrawer(b.getAttribute('data-ch')); });
   });
+
+  wireBottles(el.cellar, function () { paintCellarSums(); });
 
   var out = document.getElementById('cellarOut');
   if (out) out.addEventListener('click', function () {
@@ -1236,17 +1284,29 @@ function wireCellar() {
         if (msg) msg.textContent = 'That file could not be read as a cellar.';
         return;
       }
-      /* Merged rather than replaced, and the larger count wins: loading a
-         copy should never be the thing that loses a bottle. */
+      /* Merged rather than replaced, and the larger count wins, size by
+         size: loading a copy should never be the thing that loses a
+         bottle. A file saved before sizes existed reads as 750s, the
+         same way the store itself does. */
       var added = 0;
       for (var k in data) {
-        var e = data[k];
-        if (!e || typeof e.n !== 'number' || e.n <= 0) continue;
         if (k.split('|').length !== 3) continue;
-        if (!cellar[k] || cellar[k].n < e.n) {
-          cellar[k] = { n: Math.min(999, Math.round(e.n)) };
-          added++;
+        var e = data[k], s = {};
+        if (e && e.s && typeof e.s === 'object') {
+          for (var ml in e.s) {
+            var m = Math.round(Number(ml)), q = Math.round(Number(e.s[ml]) || 0);
+            if (SIZE_BY_ML[m] && q > 0) s[m] = Math.min(999, q);
+          }
+        } else if (e && typeof e.n === 'number' && e.n > 0) {
+          s[ML] = Math.min(999, Math.round(e.n));
         }
+        var mine = cellar[k] && cellar[k].s ? cellar[k].s : {};
+        var merged = {}, touched = false;
+        for (var m2 in mine) merged[m2] = mine[m2];
+        for (var m3 in s) {
+          if (!(merged[m3] >= s[m3])) { merged[m3] = s[m3]; touched = true; }
+        }
+        if (touched) { cellar[k] = { s: merged }; added++; }
       }
       cellarSave();
       renderCellar();
@@ -2644,56 +2704,7 @@ function openDrawer(id) {
 
   document.getElementById('closeDrawer').addEventListener('click', closeDrawer);
 
-  /* The bottle controls. The row is not re-rendered on a change: the
-     count is written, the line beside it is updated and the tab count
-     follows. Re-rendering would collapse the row you are reading. */
-  Array.prototype.forEach.call(el.drawerBody.querySelectorAll('.bottles'), function (box) {
-    var cid = box.getAttribute('data-bch'), slug = box.getAttribute('data-bslug');
-    var yr = Number(box.getAttribute('data-byr'));
-    var input = box.querySelector('.b-n');
-    var note = box.querySelector('.b-note');
-
-    function paint(n) {
-      input.value = n;
-      box.classList.toggle('has', n > 0);
-      note.textContent = n ? (n === 1 ? 'one bottle' : n + ' bottles') : 'none';
-      var row = box.closest('.vrow');
-      var teaser = row && row.querySelector('.teaser');
-      if (teaser) {
-        var mark = teaser.querySelector('.heldmark');
-        if (n && !mark) {
-          mark = document.createElement('span');
-          mark.className = 'heldmark';
-          teaser.insertBefore(mark, teaser.firstChild);
-        }
-        if (mark) {
-          if (n) {
-            mark.textContent = n;
-            mark.title = n + (n === 1 ? ' bottle' : ' bottles') + ' in your cellar';
-          } else {
-            mark.parentNode.removeChild(mark);
-          }
-        }
-      }
-      paintCellarCount();
-    }
-
-    Array.prototype.forEach.call(box.querySelectorAll('[data-bstep]'), function (b) {
-      b.addEventListener('click', function () {
-        var ch = chateauById(cid);
-        var n = held(ch, slug, yr) + Number(b.getAttribute('data-bstep'));
-        n = Math.max(0, Math.min(999, n));
-        setHeld(ch, slug, yr, n);
-        paint(n);
-      });
-    });
-    input.addEventListener('change', function () {
-      var ch = chateauById(cid);
-      var n = Math.max(0, Math.min(999, Math.round(Number(input.value) || 0)));
-      setHeld(ch, slug, yr, n);
-      paint(n);
-    });
-  });
+  wireBottles(el.drawerBody);
 
   var ws = document.getElementById('wineSel');
   if (ws) ws.addEventListener('change', function () {
@@ -2869,12 +2880,72 @@ function seasonBlock(ch, yr, v, o) {
 var CELLAR_KEY = 'bdx-cellar';
 var cellar = {};
 
+/* Bordeaux is not sold in one size, and a cellar that can only count
+   bottles cannot hold what is actually in it. The magnums are usually
+   the ones being kept, and they keep longer than the bottles beside
+   them, so the size is not a detail - it changes when the wine is due.
+
+   What is stored is the millilitres. A name can be argued over and a
+   Jéroboam means three litres in Champagne and five here; 5000 does
+   not move. */
+var SIZES = [
+  { ml: 375,  name: 'Half bottle',   one: 'half bottle',   many: 'half bottles' },
+  { ml: 750,  name: 'Bottle',        one: 'bottle',        many: 'bottles' },
+  { ml: 1500, name: 'Magnum',        one: 'magnum',        many: 'magnums' },
+  { ml: 2250, name: 'Marie-Jeanne',  one: 'Marie-Jeanne',  many: 'Marie-Jeannes' },
+  { ml: 3000, name: 'Double magnum', one: 'double magnum', many: 'double magnums' },
+  { ml: 5000, name: 'Jéroboam',      one: 'jéroboam',      many: 'jéroboams' },
+  { ml: 6000, name: 'Impériale',     one: 'impériale',     many: 'impériales' }
+];
+var ML = 750;        /* what "a bottle" means, and what an old cellar held */
+var SIZE_BY_ML = {};
+SIZES.forEach(function (s) { SIZE_BY_ML[s.ml] = s; });
+
+function sizeOf(ml) { return SIZE_BY_ML[ml] || SIZE_BY_ML[ML]; }
+
+/* "6 bottles", "2 magnums". The unit carries the size, so no line about
+   a cellar has to print millilitres to be unambiguous. */
+function bottleWords(ml, n) {
+  var s = sizeOf(ml);
+  return n === 1 ? 'one ' + s.one : n + ' ' + s.many;
+}
+
 function cellarLoad() {
   try {
     cellar = JSON.parse(localStorage.getItem(CELLAR_KEY) || '{}') || {};
   } catch (e) {
     cellar = {};
   }
+  cellarNormalise();
+}
+
+/* A cellar written before sizes existed holds {n: 6} and meant six
+   ordinary bottles, so that is how it is read - and it is written back
+   in the new shape, which means this runs once and thereafter has
+   nothing to do. A size this app does not know is dropped rather than
+   carried along as a number nobody can put a name to. */
+function cellarNormalise() {
+  var clean = {};
+  for (var k in cellar) {
+    if (k.split('|').length !== 3) continue;
+    var e = cellar[k], s = {}, any = false;
+    if (e && e.s && typeof e.s === 'object') {
+      for (var ml in e.s) {
+        var m = Math.round(Number(ml)), n = Math.round(Number(e.s[ml]) || 0);
+        if (SIZE_BY_ML[m] && n > 0) s[m] = Math.min(999, n);
+      }
+    } else if (e && typeof e.n === 'number' && e.n > 0) {
+      s[ML] = Math.min(999, Math.round(e.n));
+    }
+    for (var a in s) { any = true; break; }
+    if (any) clean[k] = { s: s };
+  }
+  /* Written back only if reading it changed it, so the old shape is
+     converted once and a cellar already in the new shape is not
+     rewritten on every load. */
+  var before = JSON.stringify(cellar);
+  cellar = clean;
+  if (JSON.stringify(clean) !== before) cellarSave();
 }
 
 function cellarSave() {
@@ -2890,23 +2961,50 @@ function cellarKey(ch, slug, yr) {
   return ch.id + '|' + (slug || 'grand') + '|' + yr;
 }
 
-function held(ch, slug, yr) {
+/* The sizes held of one wine of one year, as {ml: count}. */
+function heldMap(ch, slug, yr) {
   var e = cellar[cellarKey(ch, slug, yr)];
-  return e && e.n > 0 ? e.n : 0;
+  return e && e.s ? e.s : {};
 }
 
-function setHeld(ch, slug, yr, n) {
-  var k = cellarKey(ch, slug, yr);
+/* With a size, the count of that size. Without one, every bottle of the
+   wine whatever its size - which is what the mark on a collapsed row
+   means, and what the tab counts. */
+function held(ch, slug, yr, ml) {
+  var s = heldMap(ch, slug, yr);
+  if (ml) return s[ml] > 0 ? s[ml] : 0;
+  var n = 0;
+  for (var k in s) n += s[k];
+  return n;
+}
+
+function setHeld(ch, slug, yr, ml, n) {
+  var k = cellarKey(ch, slug, yr), old = heldMap(ch, slug, yr);
+  var s = {}, any = false;
   n = Math.max(0, Math.min(999, n));
-  if (!n) delete cellar[k];
-  else {
-    var e = cellar[k] || {};
-    e.n = n;
-    cellar[k] = e;
-  }
+  for (var m in old) s[m] = old[m];
+  if (n) s[ml || ML] = n;
+  else delete s[ml || ML];
+  for (var m2 in s) { any = true; break; }
+  if (any) cellar[k] = { s: s };
+  else delete cellar[k];
   cellarSave();
 }
 
+/* "6 bottles . 2 magnums" - what is held of one wine, in the sizes it is
+   held in, which is the whole answer to "have I got any of this?". */
+function heldSummary(ch, slug, yr) {
+  var s = heldMap(ch, slug, yr), bits = [];
+  SIZES.forEach(function (sz) {
+    if (s[sz.ml]) bits.push(bottleWords(sz.ml, s[sz.ml]));
+  });
+  return bits.join(' · ');
+}
+
+/* One row per size rather than per wine. Six bottles and two magnums of
+   the same vintage are two things in a cellar: they are drunk on
+   different occasions and they come ready at different times, and a
+   line you cannot edit separately is a line you cannot correct. */
 function cellarRows() {
   var out = [];
   for (var k in cellar) {
@@ -2915,21 +3013,49 @@ function cellarRows() {
     var ch = chateauById(bits[0]);
     if (!ch) continue;
     var yr = Number(bits[2]);
-    out.push({ key: k, ch: ch, slug: bits[1], yr: yr,
-               wine: wineById(ch, bits[1]), n: cellar[k].n,
-               win: bits[1] === 'grand' ? drinkWindow(ch, yr) : null });
+    var slug = bits[1];
+    var win = slug === 'grand' ? drinkWindow(ch, yr) : null;
+    var wine = wineById(ch, slug);
+    var s = cellar[k].s;
+    SIZES.forEach(function (sz) {
+      if (!s[sz.ml]) return;
+      out.push({ key: k, ch: ch, slug: slug, yr: yr, ml: sz.ml,
+                 n: s[sz.ml], wine: wine, win: win });
+    });
   }
   out.sort(function (a, b) {
-    return a.ch.name === b.ch.name ? a.yr - b.yr
-         : a.ch.name.localeCompare(b.ch.name);
+    return a.ch.name !== b.ch.name ? a.ch.name.localeCompare(b.ch.name)
+         : a.yr !== b.yr ? a.yr - b.yr : a.ml - b.ml;
   });
   return out;
 }
 
 function cellarCount() {
   var n = 0;
-  for (var k in cellar) n += cellar[k].n || 0;
+  for (var k in cellar) {
+    var s = cellar[k].s;
+    for (var m in s) n += s[m];
+  }
   return n;
+}
+
+/* Distinct wine-vintages, which is not the number of rows any more. */
+function cellarWines() {
+  var n = 0;
+  for (var k in cellar) n++;
+  return n;
+}
+
+/* Volume, because a cellar of magnums holds twice the wine its bottle
+   count suggests. */
+function cellarLitres() {
+  var ml = 0;
+  for (var k in cellar) {
+    var s = cellar[k].s;
+    for (var m in s) ml += Number(m) * s[m];
+  }
+  var l = ml / 1000;
+  return (l < 10 ? l.toFixed(1) : String(Math.round(l))).replace(/\.0$/, '');
 }
 
 /* ------------------------- the estate's other wines ---------------------- */
@@ -3110,22 +3236,117 @@ function wineSwitcher(ch) {
    be read off the list of years without opening anything. */
 function heldMark(ch, slug, yr) {
   var n = held(ch, slug, yr);
-  return n ? '<span class="heldmark" title="' + n +
-    (n === 1 ? ' bottle' : ' bottles') + ' in your cellar">' + n + '</span>' : '';
+  return n ? '<span class="heldmark" title="' + heldSummary(ch, slug, yr) +
+    ' in your cellar">' + n + '</span>' : '';
 }
 
-function bottleControl(ch, slug, yr) {
-  var n = held(ch, slug, yr);
-  return '<p class="subhead">In my cellar</p>' +
-    '<div class="bottles' + (n ? ' has' : '') + '" data-bch="' + ch.id +
-      '" data-bslug="' + (slug || 'grand') + '" data-byr="' + yr + '">' +
+/* The minus, the number and the plus, with nothing else. The cellar page
+   puts the size in a column of its own, so there it needs no selector;
+   the drawer wraps this in one. */
+function stepper(ch, slug, yr, ml, n) {
+  return '<div class="bottles' + (n ? ' has' : '') + '" data-bch="' + ch.id +
+      '" data-bslug="' + (slug || 'grand') + '" data-byr="' + yr +
+      '" data-bml="' + ml + '">' +
       '<button class="btn-b" data-bstep="-1" aria-label="One fewer bottle">−</button>' +
       '<input class="b-n" type="number" min="0" max="999" value="' + n +
         '" aria-label="Bottles held">' +
-      '<button class="btn-b" data-bstep="1" aria-label="One more bottle">+</button>' +
-      '<span class="b-note">' + (n ? (n === 1 ? 'one bottle' : n + ' bottles')
-                                   : 'none') + '</span>' +
-    '</div>';
+      '<button class="btn-b" data-bstep="1" aria-label="One more bottle">+</button>';
+}
+
+function bottleControl(ch, slug, yr) {
+  var sm = heldMap(ch, slug, yr);
+
+  /* Which size the control starts on. An estate's wine held in exactly
+     one size opens on that size: a cellar of magnums should not make you
+     choose "magnum" from a list before you can take one out. */
+  var only = null, kinds = 0;
+  SIZES.forEach(function (s) { if (sm[s.ml]) { only = s.ml; kinds++; } });
+  var cur = kinds === 1 ? only : ML;
+  var n = sm[cur] || 0;
+
+  return '<p class="subhead">In my cellar</p>' +
+    stepper(ch, slug, yr, cur, n) +
+      '<select class="b-size" aria-label="Bottle size">' +
+        SIZES.map(function (s) {
+          return '<option value="' + s.ml + '"' +
+            (s.ml === cur ? ' selected' : '') + '>' + s.name + '</option>';
+        }).join('') +
+      '</select>' +
+      '<span class="b-note">' + (n ? bottleWords(cur, n) : 'none') + '</span>' +
+    '</div>' +
+    '<p class="src b-sum">' + heldSummary(ch, slug, yr) + '</p>';
+}
+
+/* One wiring for both places the control appears. Nothing is re-rendered
+   on a change: the number is written, the line beside it follows and the
+   tab count with it. A re-render would collapse the row being read, or
+   move the row being edited out from under the cursor. */
+function wireBottles(root, after) {
+  Array.prototype.forEach.call(root.querySelectorAll('.bottles'), function (box) {
+    var cid = box.getAttribute('data-bch'), slug = box.getAttribute('data-bslug');
+    var yr = Number(box.getAttribute('data-byr'));
+    var ch = chateauById(cid);
+    if (!ch) return;
+    var input = box.querySelector('.b-n');
+    var note = box.querySelector('.b-note');
+    var sel = box.querySelector('.b-size');
+    var sum = box.nextElementSibling;
+    if (sum && !sum.classList.contains('b-sum')) sum = null;
+
+    function ml() { return Number(box.getAttribute('data-bml')) || ML; }
+
+    function paint(n) {
+      input.value = n;
+      box.classList.toggle('has', n > 0);
+      if (note) note.textContent = n ? bottleWords(ml(), n) : 'none';
+      if (sum) sum.textContent = heldSummary(ch, slug, yr);
+
+      /* The mark on the collapsed row counts the wine, not the size. */
+      var row = box.closest('.vrow');
+      var teaser = row && row.querySelector('.teaser');
+      if (teaser) {
+        var tot = held(ch, slug, yr);
+        var mark = teaser.querySelector('.heldmark');
+        if (tot && !mark) {
+          mark = document.createElement('span');
+          mark.className = 'heldmark';
+          teaser.insertBefore(mark, teaser.firstChild);
+        }
+        if (mark) {
+          if (tot) {
+            mark.textContent = tot;
+            mark.title = heldSummary(ch, slug, yr) + ' in your cellar';
+          } else {
+            mark.parentNode.removeChild(mark);
+          }
+        }
+      }
+      paintCellarCount();
+      if (after) after(box, n);
+    }
+
+    Array.prototype.forEach.call(box.querySelectorAll('[data-bstep]'), function (b) {
+      b.addEventListener('click', function () {
+        var n = held(ch, slug, yr, ml()) + Number(b.getAttribute('data-bstep'));
+        n = Math.max(0, Math.min(999, n));
+        setHeld(ch, slug, yr, ml(), n);
+        paint(n);
+      });
+    });
+
+    input.addEventListener('change', function () {
+      var n = Math.max(0, Math.min(999, Math.round(Number(input.value) || 0)));
+      setHeld(ch, slug, yr, ml(), n);
+      paint(n);
+    });
+
+    /* Changing the size does not move any bottles. It points the control
+       at a different shelf, and shows what is on it. */
+    if (sel) sel.addEventListener('change', function () {
+      box.setAttribute('data-bml', sel.value);
+      paint(held(ch, slug, yr, Number(sel.value)));
+    });
+  });
 }
 
 function drinkBlock(ch, yr) {

@@ -188,6 +188,26 @@
     'One fewer bottle': 'Eén fles minder',
     'One more bottle': 'Eén fles meer',
     'Bottles held': 'Flessen in bezit',
+    'Bottle size': 'Flesformaat',
+    'Size': 'Formaat',
+    'litres': 'liter',
+
+    /* The sizes. The name is what the list shows; the two forms below it
+       are what a count reads as, and Dutch does not always inflect the
+       way English does - a magnum stays a magnum. */
+    'Half bottle': 'Halve fles',
+    'Bottle': 'Fles',
+    'Magnum': 'Magnum',
+    'Marie-Jeanne': 'Marie-Jeanne',
+    'Double magnum': 'Dubbele magnum',
+    'Jéroboam': 'Jéroboam',
+    'Impériale': 'Impériale',
+    'one half bottle': 'één halve fles',
+    'one magnum': 'één magnum',
+    'one Marie-Jeanne': 'één Marie-Jeanne',
+    'one double magnum': 'één dubbele magnum',
+    'one jéroboam': 'één jéroboam',
+    'one impériale': 'één impériale',
 
     /* Side by side. */
     'Compare': 'Vergelijken',
@@ -259,15 +279,16 @@
   /* Whole paragraphs. These live in a list rather than in the table above
      because an object literal cannot have a key built up across lines. */
   var LONG = [
-    ['What you hold, counted from the bottle marks on the vintage rows. It ' +
-     'is kept in this browser on this machine and is sent nowhere, which ' +
-     'means it will not follow you to another device and will go if the ' +
-     'browser is cleared — so take a copy.',
-     'Wat u in bezit hebt, geteld van de flesmarkeringen op de ' +
-     'jaargangregels. Het wordt in deze browser op deze machine bewaard en ' +
-     'wordt nergens heen gestuurd, wat betekent dat het u niet naar een ' +
-     'ander apparaat volgt en verdwijnt als de browser wordt gewist — ' +
-     'maak dus een kopie.'],
+    ['What you hold, in the sizes you hold it in, and editable here as ' +
+     'well as on the vintage rows. It is kept in this browser on this ' +
+     'machine and is sent nowhere, which means it will not follow you to ' +
+     'another device and will go if the browser is cleared — so take ' +
+     'a copy.',
+     'Wat u in bezit hebt, in de formaten waarin u het hebt, en hier net ' +
+     'zo goed te wijzigen als op de jaargangregels. Het wordt in deze ' +
+     'browser op deze machine bewaard en wordt nergens heen gestuurd, wat ' +
+     'betekent dat het u niet naar een ander apparaat volgt en verdwijnt ' +
+     'als de browser wordt gewist — maak dus een kopie.'],
 
     ['Nothing in it yet. Open any château, open a vintage, and set the ' +
      'number of bottles.',
@@ -346,6 +367,20 @@
     [/^Choose up to (\d+) vintages\.$/, 'Kies maximaal $1 jaargangen.'],
     [/^(\d+(?:-\d+)?) months$/, '$1 maanden'],
     [/^(\d+) bottles$/, '$1 flessen'],
+    [/^1 bottle$/, '1 fles'],
+    [/^(\d+) half bottles$/, '$1 halve flessen'],
+    [/^(\d+) magnums$/, '$1 magnums'],
+    [/^(\d+) Marie-Jeannes$/, '$1 Marie-Jeannes'],
+    [/^(\d+) double magnums$/, '$1 dubbele magnums'],
+    [/^(\d+) jéroboams$/, '$1 jéroboams'],
+    [/^(\d+) impériales$/, '$1 impériales'],
+    [/^(\d+) different wines$/, '$1 verschillende wijnen'],
+    [/^1 wine$/, '1 wijn'],
+    /* Dutch writes a decimal with a comma, and litres do not take a
+       plural after a number. */
+    [/^([\d.]+) litres$/, function (m) {
+      return m[1].replace('.', ',') + ' liter';
+    }],
     [/^(\d+) bottles · (\d+) different wines$/, '$1 flessen · $2 verschillende wijnen'],
     [/^(\d+) bottles · 1 wine$/, '$1 flessen · 1 wijn'],
     [/^1 bottle · 1 wine$/, '1 fles · 1 wijn'],

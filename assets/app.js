@@ -464,6 +464,7 @@ var SITE_SOURCE = {
   cag: 'the Crus Artisans register — the owning family’s other property',
   dom: 'the estate’s own site, confirmed by reading it',
   domr: 'the estate’s own site, checked by hand',
+  domg: 'the owning house’s site',
   cbg: 'the Crus Bourgeois register — the owning group, not the estate',
   hand: 'the estate, checked by hand',
   osm: 'OpenStreetMap',

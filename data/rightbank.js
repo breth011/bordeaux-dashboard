@@ -1,5 +1,5 @@
 /* ===========================================================================
-   Bordeaux Dashboard — Right Bank vintage ratings, 1982–2024
+   Bordeaux Dashboard — Right Bank vintage ratings, 1982–2025
    ---------------------------------------------------------------------------
    Saint-Émilion and Pomerol are Merlot country on clay and limestone, and
    their vintages diverge sharply from the Médoc's. 1998 is a great Pomerol
@@ -58,5 +58,7 @@ window.BDX_RIGHTBANK = {
 2021: { r: 84 },
 2022: { r: 96 },
 2023: { r: 92 },
-2024: { r: 80 }
+2024: { r: 80 },
+/* Provisional, from barrel: see the note on 2025 in vintages.js. */
+2025: { r: 90 }
 };

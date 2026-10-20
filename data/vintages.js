@@ -1,5 +1,5 @@
 /* ===========================================================================
-   Bordeaux Dashboard — Vintage reference, 1982–2024
+   Bordeaux Dashboard — Vintage reference, 1982–2025
    ---------------------------------------------------------------------------
    PROVENANCE: the weather accounts and vintage characterisations below are
    VERIFIED — they describe documented growing seasons and the settled
@@ -197,6 +197,17 @@ window.BDX_VINTAGES = {
 
 2024:{medoc:83,pessac:82,sauternes:85,drinkFrom:2028,drinkTo:2038,
  weather:'A cold, exceptionally wet spring caused poor flowering and coulure, mildew pressure persisted all season, and the summer was among the dullest and coolest in years.',
- report:'A difficult, small vintage in the old style. Cabernet Sauvignon on the best-drained Médoc gravel ripened adequately and the leading estates, through severe selection, made light, fresh, early-drinking wines with genuine classical charm. Merlot suffered. Expectations should be modest, and prices reflect it.'}
+ report:'A difficult, small vintage in the old style. Cabernet Sauvignon on the best-drained Médoc gravel ripened adequately and the leading estates, through severe selection, made light, fresh, early-drinking wines with genuine classical charm. Merlot suffered. Expectations should be modest, and prices reflect it.'},
+
+/* 2025 is the one year here whose ratings are not yet settled. The wines
+   were tasted from barrel in the spring of 2026 and are not in bottle, so
+   these figures summarise the en primeur consensus rather than a verdict,
+   and should be expected to move. The weather is on firmer ground: it is
+   drawn from what fourteen estates wrote on their own 2025 sheets, which
+   agree closely with one another. */
+2025:{medoc:91,pessac:94,sauternes:89,drinkFrom:2029,drinkTo:2050,
+ app:{'Pauillac':2,'Saint-Julien':2,'Saint-Estèphe':2},
+ weather:'A dry, cold winter gave a slightly early budbreak, and a bright spring carried the vine quickly through an even flowering. Water was short from flowering onwards and the summer was hot and dry, with real stress on the lighter soils. Rain at the end of August released the block, and a September of exceptionally cool nights let ripening finish slowly. Picking began in late August and ran to the third week of September.',
+ report:'A fresh vintage with the alcohols back where they used to be, mostly between 12.5 and 13.5 degrees, and no trace of overripeness. Pessac-Léognan is the surprise and by common consent the best of it, the reds bright and precise and markedly true to their terroir. The Médoc is good but uneven, strongest in the Cabernet communes of Pauillac, Saint-Julien and Saint-Estèphe, where the cool September nights held the acidity. Sauternes made rich, powerful wines that are solid rather than exceptional, a few of them short of freshness. Judgements are provisional: these wines were tasted from barrel.'}
 
 };

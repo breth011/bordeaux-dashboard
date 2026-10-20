@@ -11,6 +11,7 @@
    ========================================================================= */
 
 window.BDX_CUVEE_WINES = {
+'stem-chateau-badette':[{slug:'fleur-de-badette',name:'La Fleur de Badette',role:'second',colour:'red'}],
 'cantemerle':[{slug:'all-es-de-cantemerle',name:'Les Allées de Cantemerle',role:'second',colour:'red'}],
 'guiraud':[{slug:'g-de-ch-teau-guiraud-white',name:'Le G de Château Guiraud Blanc',role:'other',colour:'white'},{slug:'petit-guiraud-sweet',name:'Petit Guiraud Blanc',role:'second',colour:'sweet'}],
 'kirwan':[{slug:'ch-teau-kirwan-blanc',name:'Château Kirwan Blanc',role:'other',colour:'white'},{slug:'charmes-de-kirwan',name:'Les Charmes de Kirwan',role:'second',colour:'red'}],
@@ -34,6 +35,22 @@ window.BDX_CUVEE_WINES = {
 };
 
 window.BDX_CUVEES = {
+'dauzac|ch-teau-dauzac-blanc|2025':{alc:12.5,food:'Viande blanche, poisson, crustacés, fromages type Comté.',src:'FT-D-DE-DAUZAC-BLANC-2025-FR.pdf'},
+'dauzac|haut-m-doc-de-dauzac|2015':{blend:{CS:66,ME:34},src:'FT_HAUT-MEDOC-DE-DAUZAC-2015.pdf'},
+'la-mission-haut-brion|clart-de-haut-brion-blanc|2010':{blend:{SEM:81,SB:19},alc:14,src:'Fiche-technique_ClarteHB_2010_EN.pdf'},
+'stem-chateau-badette|fleur-de-badette|2012':{blend:{ME:85,CF:10,PV:5},yld:45,ph:3.74,food:'idéal : viandes rôties ou grillées, gibiers tendres, volaille et fromages affinés.',src:'Fleur-de-Badette-2012-FR.pdf'},
+'stem-chateau-badette|fleur-de-badette|2013':{blend:{ME:85,CF:10,PV:5},yld:45,ph:3.57,src:'Fleur-de-Badette-2013-FR.pdf'},
+'stem-chateau-badette|fleur-de-badette|2015':{blend:{ME:85,CF:10,PV:5},yld:45,ph:3.59,food:'viandes rôties ou grillées, gibiers tendres, volailles et fromages affinés.',src:'Fleur-de-Badette-2015-FR.pdf'},
+'stem-chateau-badette|fleur-de-badette|2016':{blend:{ME:85,CF:10,PV:5},yld:45,ph:3.47,src:'Fleur-de-Badette-2016-FR.pdf'},
+'stem-chateau-badette|fleur-de-badette|2017':{blend:{ME:85,CF:10,PV:5},yld:45,ph:3.67,src:'Fleur-de-Badette-2017-FR.pdf'},
+'stem-chateau-badette|fleur-de-badette|2018':{blend:{ME:85,CF:10,PV:5},yld:45,ph:3.62,src:'Fleur-de-Badette-2018-FR.pdf'},
+'stem-chateau-badette|fleur-de-badette|2019':{blend:{ME:85,CF:10,PV:5},yld:45,ph:3.62,src:'Fleur-de-Badette-2019-FR.pdf'},
+'stem-chateau-badette|fleur-de-badette|2020':{blend:{ME:85,CF:10,PV:5},yld:45,ph:3.64,src:'Fleur-de-Badette-2020-FR.pdf'},
+'stem-chateau-badette|fleur-de-badette|2021':{blend:{ME:85,CF:10,PV:5},yld:45,ph:3.53,src:'Fleur-de-Badette-2021-FR.pdf'},
+'stem-chateau-badette|fleur-de-badette|2022':{blend:{ME:85,CF:10,PV:5},yld:45,ph:3.53,src:'Fleur-de-Badette-2022-FR.pdf'},
+'stem-chateau-badette|fleur-de-badette|2023':{blend:{ME:75,CF:20,PV:5},yld:45,ph:3.71,src:'Fleur-de-Badette-2023-FR.pdf'},
+'stem-chateau-badette|fleur-de-badette|2024':{blend:{ME:75,CF:20,PV:5},yld:45,ph:3.58,src:'Fleur-de-Badette-2024-FR.pdf'},
+'stem-chateau-badette|fleur-de-badette|2025':{blend:{ME:65,CF:30,PV:5},yld:45,src:'Fleur-de-Badette-2025-FR.pdf'},
 'cantemerle|all-es-de-cantemerle|2022':{blend:{CS:78,ME:17,PV:5},months:'12',src:'FT-Les-Allees-de-Cantemerle-2022-FR.pdf'},
 'guiraud|g-de-ch-teau-guiraud-white|2022':{oak:20,yld:30,ph:3.39,months:'10',press:{'James Suckling':'93'},src:'chateau-guiraud-grand-vin-blanc-sec-2022_fr.pdf'},
 'guiraud|petit-guiraud-sweet|2022':{blend:{SEM:65,SB:35},ph:3.97,months:'12',press:{'James Suckling':'91'},src:'petit-guiraud-2022_fr.pdf'},

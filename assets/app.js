@@ -18,6 +18,9 @@ var GEO = window.BDX_APPELLATION_GEO;
 var SCORES  = window.BDX_SCORES || {};
 var SKIPPED = window.BDX_NOT_PRODUCED || {};
 var YEARS = Object.keys(V).map(Number).sort(function (a, b) { return b - a; });
+/* Written once, from the data, so that adding a vintage does not leave
+   the headings claiming a span that ended years ago. */
+var SPAN = YEARS[YEARS.length - 1] + '–' + YEARS[0];
 
 /* ===========================================================================
    1. BUILD THE ESTATE LIST
@@ -2623,8 +2626,8 @@ function openDrawer(id) {
     : onFile + ' of ' + YEARS.length + ' with a sheet on file';
   body +=
     '<div class="section"><h3>' +
-      (state.wine === 'grand' ? 'All vintages, 1982–2024'
-                              : sel.name + ', 1982–2024') +
+      (state.wine === 'grand' ? 'All vintages, ' + SPAN
+                              : sel.name + ', ' + SPAN) +
       '<span class="hint">' + hint + '</span></h3>' +
       '<div class="vintagelist">' +
         YEARS.map(function (yr) {
@@ -3355,7 +3358,7 @@ function vintageTable(r) {
         (open ? vintageRoster(r, yr) : '') + '</td></tr>';
   }).join('');
   return '<table class="vintable"><caption>Season by season in ' + r.name +
-    ', 1982–2024 — the documented character of each year, not a rating of ' +
+    ', ' + SPAN + ' — the documented character of each year, not a rating of ' +
     'any one wine.</caption><thead><tr><th>Vintage</th><th>Season</th>' +
     '<th>What happened</th></tr></thead><tbody>' + rows + '</tbody></table>';
 }

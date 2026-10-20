@@ -160,6 +160,35 @@
     'this estate': 'dit domein',
     'this estate, translated': 'dit domein, vertaald',
 
+    /* The cellar. */
+    'My cellar': 'Mijn kelder',
+    'In my cellar': 'In mijn kelder',
+    'none': 'geen',
+    'one bottle': 'één fles',
+    'Wine': 'Wijn',
+    'Bottles': 'Flessen',
+    'Drink': 'Drinken',
+    'No window': 'Geen venster',
+    'running out of time': 'de tijd raakt op',
+    'worth opening now': 'nu de moeite waard om te openen',
+    'ready, and will keep': 'klaar, en kan nog blijven liggen',
+    'not yet': 'nog niet',
+    'the other wines, which are not on the window model':
+      'de andere wijnen, die niet op het venstermodel staan',
+    'past the window the dashboard gives them':
+      'voorbij het venster dat het dashboard hun geeft',
+    'Keeping a copy': 'Een kopie bewaren',
+    'The file is plain text and holds nothing but what you have entered.':
+      'Het bestand is platte tekst en bevat niets anders dan wat u hebt ingevoerd.',
+    'Save to a file': 'Opslaan naar een bestand',
+    'Load from a file': 'Laden uit een bestand',
+    'That file could not be read as a cellar.':
+      'Dat bestand kon niet als kelder gelezen worden.',
+    'Nothing in that file was new.': 'Niets in dat bestand was nieuw.',
+    'One fewer bottle': 'Eén fles minder',
+    'One more bottle': 'Eén fles meer',
+    'Bottles held': 'Flessen in bezit',
+
     /* Side by side. */
     'Compare': 'Vergelijken',
     'Side by side': 'Naast elkaar',
@@ -230,6 +259,21 @@
   /* Whole paragraphs. These live in a list rather than in the table above
      because an object literal cannot have a key built up across lines. */
   var LONG = [
+    ['What you hold, counted from the bottle marks on the vintage rows. It ' +
+     'is kept in this browser on this machine and is sent nowhere, which ' +
+     'means it will not follow you to another device and will go if the ' +
+     'browser is cleared — so take a copy.',
+     'Wat u in bezit hebt, geteld van de flesmarkeringen op de ' +
+     'jaargangregels. Het wordt in deze browser op deze machine bewaard en ' +
+     'wordt nergens heen gestuurd, wat betekent dat het u niet naar een ' +
+     'ander apparaat volgt en verdwijnt als de browser wordt gewist — ' +
+     'maak dus een kopie.'],
+
+    ['Nothing in it yet. Open any château, open a vintage, and set the ' +
+     'number of bottles.',
+     'Nog niets. Open een château, open een jaargang en stel het aantal ' +
+     'flessen in.'],
+
     ['A vertical reads one estate down its vintages; a horizontal reads ' +
      'one vintage across its estates. Everything here is what the rest of ' +
      'the dashboard holds, arranged so that two wines can be read against ' +
@@ -301,6 +345,12 @@
      '$1 van $2 beoordeeld · $3 nu te drinken'],
     [/^Choose up to (\d+) vintages\.$/, 'Kies maximaal $1 jaargangen.'],
     [/^(\d+(?:-\d+)?) months$/, '$1 maanden'],
+    [/^(\d+) bottles$/, '$1 flessen'],
+    [/^(\d+) bottles · (\d+) different wines$/, '$1 flessen · $2 verschillende wijnen'],
+    [/^(\d+) bottles · 1 wine$/, '$1 flessen · 1 wijn'],
+    [/^1 bottle · 1 wine$/, '1 fles · 1 wijn'],
+    [/^(\d+) wines merged in\.$/, '$1 wijnen samengevoegd.'],
+    [/^1 wine merged in\.$/, '1 wijn samengevoegd.'],
     [/^Add up to (\d+) estates\.$/, 'Voeg maximaal $1 domeinen toe.'],
     [/^(\d+) hl\/ha$/, '$1 hl/ha'],
     [/^All vintages, (\d+)–(\d+)$/, 'Alle jaargangen, $1–$2'],

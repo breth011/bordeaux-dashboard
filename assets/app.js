@@ -693,6 +693,7 @@ function renderAppellationPage(id) {
     showRegionOnMap(id);
   });
   wireEstateCards(el.appellations);
+  wireVintageRows();
 }
 
 function showRegionOnMap(id) {
@@ -1903,6 +1904,110 @@ function blendTable(parts) {
    12. SCORE-BY-VINTAGE COLUMN CHART
    =========================================================================== */
 
+
+/* ===========================================================================
+   Type-ahead on the search box.
+
+   The box already filters the list; this lets you go straight to one estate
+   without reading the list at all. Matching ignores accents and punctuation
+   in both directions, so "leglise" finds Clos l'Église and "petrus" finds
+   Pétrus, and a match on the start of any word ranks above one in the middle
+   — typing "lafite" should not offer Lafite's neighbours first.
+   =========================================================================== */
+var acItems = [], acIndex = -1, acBox = null;
+
+function acKey(s) {
+  return deaccent(String(s)).toLowerCase().replace(/[^a-z0-9]+/g, ' ').trim();
+}
+/* The same thing with the gaps closed up, so a name written L’Église can be
+   found by typing leglise - the apostrophe becomes a space in acKey, and a
+   query without one would never match across it. */
+function acTight(s) {
+  return deaccent(String(s)).toLowerCase().replace(/[^a-z0-9]+/g, '');
+}
+
+function acSearch(q) {
+  var k = acKey(q), t = acTight(q);
+  if (t.length < 2) return [];
+  var starts = [], words = [], inside = [];
+  for (var i = 0; i < CH.length; i++) {
+    var ch = CH[i], name = acKey(ch.name), tight = acTight(ch.name);
+    var at = name.indexOf(k);
+    if (at === 0) starts.push(ch);
+    else if (at > 0 && name.charAt(at - 1) === ' ') words.push(ch);
+    else if (at > 0 || tight.indexOf(t) >= 0) inside.push(ch);
+    else if (acKey(ch.appellation).indexOf(k) === 0) inside.push(ch);
+  }
+  return starts.concat(words, inside).slice(0, 8);
+}
+
+function acClose() {
+  acItems = []; acIndex = -1;
+  if (acBox) { acBox.style.display = 'none'; acBox.innerHTML = ''; }
+}
+
+function acRender(list) {
+  if (!acBox) return;
+  acItems = list;
+  acIndex = -1;
+  if (!list.length) { acClose(); return; }
+  acBox.innerHTML = list.map(function (ch, i) {
+    var def = clsDef(ch.cls);
+    return '<button type="button" class="acrow" data-i="' + i + '" data-ch="' + ch.id + '">' +
+      '<span class="acname">' + ch.name + '</span>' +
+      '<span class="acwhere">' + ch.appellation +
+      (def && def.name ? ' · ' + rankLabel(ch) : '') + '</span></button>';
+  }).join('');
+  acBox.style.display = '';
+}
+
+function acChoose(i) {
+  var ch = acItems[i];
+  if (!ch) return;
+  acClose();
+  if (el.search) el.search.value = '';
+  state.q = '';
+  refresh();
+  openDrawer(ch.id);
+}
+
+function acMove(d) {
+  if (!acItems.length) return;
+  acIndex = (acIndex + d + acItems.length) % acItems.length;
+  Array.prototype.forEach.call(acBox.querySelectorAll('.acrow'), function (b, i) {
+    b.classList.toggle('on', i === acIndex);
+  });
+}
+
+function wireTypeahead() {
+  if (!el.search) return;
+  var field = el.search.parentNode;
+  field.style.position = 'relative';
+  acBox = document.createElement('div');
+  acBox.className = 'acbox';
+  acBox.style.display = 'none';
+  field.appendChild(acBox);
+
+  el.search.setAttribute('autocomplete', 'off');
+  el.search.addEventListener('input', function () {
+    acRender(acSearch(el.search.value));
+  });
+  el.search.addEventListener('keydown', function (e) {
+    if (e.key === 'ArrowDown') { e.preventDefault(); acMove(1); }
+    else if (e.key === 'ArrowUp') { e.preventDefault(); acMove(-1); }
+    else if (e.key === 'Enter') {
+      if (acItems.length) { e.preventDefault(); acChoose(acIndex >= 0 ? acIndex : 0); }
+    } else if (e.key === 'Escape') { acClose(); }
+  });
+  acBox.addEventListener('mousedown', function (e) {
+    var b = e.target.closest ? e.target.closest('.acrow') : null;
+    if (!b) return;
+    e.preventDefault();
+    acChoose(parseInt(b.getAttribute('data-i'), 10));
+  });
+  el.search.addEventListener('blur', function () { setTimeout(acClose, 120); });
+}
+
 function openDrawer(id) {
   var ch = null;
   for (var i = 0; i < CH.length; i++) if (CH[i].id === id) { ch = CH[i]; break; }
@@ -2159,15 +2264,67 @@ function regionVintageRating(r, year) {
   return vintageRating({ cat: regionCat(r), appellation: r.apps[0] }, year);
 }
 
+
+/* Every estate of one appellation in one year, best first. The rating is the
+   same derived figure the drawer shows, and carries the same panel of critics
+   on hover, so the ranking can be questioned without leaving the page. */
+/* The vintage table only exists on a single appellation's page, so its rows
+   are wired there rather than beside the card list. */
+function wireVintageRows() {
+  Array.prototype.forEach.call(el.appellations.querySelectorAll('.vt-row'), function (tr) {
+    tr.addEventListener('click', function (e) {
+      var name = e.target.closest ? e.target.closest('.vr-name') : null;
+      if (name) { openDrawer(name.getAttribute('data-ch')); return; }
+      if (e.target.closest && e.target.closest('.ratingpanel')) return;
+      var yr = parseInt(tr.getAttribute('data-vt'), 10);
+      state.apVintage = (state.apVintage === yr) ? null : yr;
+      renderAppellationPage(state.apPage);
+      var open = el.appellations.querySelector('.vt-row.on');
+      if (open) open.scrollIntoView({ block: 'center' });
+    });
+  });
+}
+
+function vintageRoster(r, yr) {
+  var list = CH.filter(function (ch) { return inRegion(ch, r); });
+  var rated = [], unrated = [];
+  list.forEach(function (ch) {
+    var sc = scoreFor(ch, yr);
+    if (sc.none) unrated.push(ch); else rated.push({ ch: ch, sc: sc });
+  });
+  rated.sort(function (a, b) { return (b.sc.exact || b.sc.score) - (a.sc.exact || a.sc.score); });
+  if (!rated.length && !unrated.length) return '';
+
+  var rows = rated.map(function (x) {
+    var col = scoreColor(x.sc.score);
+    return '<li><span class="vr-score' + (x.sc.panel ? ' ratingwrap' : '') +
+      '" style="background:' + col + ';color:' + (inkOn(col) ? '#121211' : '#fff') + '">' +
+      x.sc.score + (x.sc.panel ? ratingPanel(x.sc) : '') + '</span>' +
+      '<button class="vr-name" data-ch="' + x.ch.id + '">' + x.ch.name + '</button>' +
+      '<span class="vr-rank">' + rankLabel(x.ch) + '</span></li>';
+  }).join('');
+
+  return '<div class="vroster"><h5>' + r.name + ' in ' + yr + ' · ' +
+    rated.length + ' rated' + (unrated.length ? ', ' + unrated.length + ' without a rating' : '') +
+    '</h5><ol class="vrlist">' + rows + '</ol>' +
+    (unrated.length ? '<p class="src">No published rating for ' + yr + ': ' +
+      unrated.slice(0, 12).map(function (c) { return c.name; }).join(' · ') +
+      (unrated.length > 12 ? ' and ' + (unrated.length - 12) + ' more' : '') + '</p>' : '') +
+    '</div>';
+}
+
 function vintageTable(r) {
   var rows = YEARS.map(function (yr) {
     var v = V[yr], rt = regionVintageRating(r, yr);
-    return '<tr><th scope="row">' + yr + '</th>' +
+    var open = state.apVintage === yr;
+    return '<tr class="vt-row' + (open ? ' on' : '') + '" data-vt="' + yr + '">' +
+      '<th scope="row">' + yr + '</th>' +
       '<td><span class="vt-bar"><span style="width:' +
         Math.max(0, Math.min(100, (rt - 60) * 2.5)).toFixed(0) +
         '%;background:' + ratingColor(rt) + '"></span></span>' +
         '<b class="vt-num">' + rt + '</b></td>' +
-      '<td class="vt-rep">' + v.report + '</td></tr>';
+      '<td class="vt-rep">' + v.report +
+        (open ? vintageRoster(r, yr) : '') + '</td></tr>';
   }).join('');
   return '<table class="vintable"><caption>Season by season in ' + r.name +
     ', 1982–2024 — the documented character of each year, not a rating of ' +
@@ -2383,6 +2540,7 @@ function init() {
   initAppInstall();
 
   el.search.addEventListener('input', function () { state.q = el.search.value; refresh(); });
+  wireTypeahead();
   el.appellation.addEventListener('change', function () { state.appellation = el.appellation.value; refresh(); });
   el.vintage.addEventListener('change', function () { state.vintage = el.vintage.value; refresh(); });
   el.resetBtn.addEventListener('click', function () {

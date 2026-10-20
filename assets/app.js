@@ -292,9 +292,13 @@ var GRAPES = {
   MA:  { name: 'Malbec',             slot: 6 },
   SEM: { name: 'Sémillon',           slot: 1 },
   SB:  { name: 'Sauvignon Blanc',    slot: 2 },
+  SG:  { name: 'Sauvignon Gris',     slot: 5 },
   MU:  { name: 'Muscadelle',         slot: 3 }
 };
-var GRAPE_ORDER = ['CS', 'ME', 'CF', 'PV', 'CA', 'MA', 'SEM', 'SB', 'MU'];
+/* A blend is drawn from this list, so a variety missing from it is
+   silently dropped and the bar stops adding up to a hundred. Sauvignon
+   Gris was missing, which is why Opalie de Château Coutet showed 93%. */
+var GRAPE_ORDER = ['CS', 'ME', 'CF', 'PV', 'CA', 'MA', 'SEM', 'SB', 'SG', 'MU'];
 
 function cssVar(n) {
   return getComputedStyle(document.documentElement).getPropertyValue(n).trim();

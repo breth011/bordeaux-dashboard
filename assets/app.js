@@ -369,6 +369,35 @@ var CRITIC_NAMES = {
   RG: ['René Gabriel', 20], CK: ['Chris Kissack', 100]
 };
 
+
+/* The panel opens below and to the right by default. Near the edge of the
+   box that scrolls it, that puts it outside and the box clips it — so
+   measure once on entry and flip. Done in script because CSS cannot know
+   how much room is left. */
+function placeRatingPanel(wrap) {
+  var panel = wrap.querySelector('.ratingpanel');
+  if (!panel) return;
+  panel.classList.remove('up', 'leftward');
+  var bound = wrap.closest('.refpage, .drawer-body, .pane-list, .vintagegrid');
+  var b = bound ? bound.getBoundingClientRect()
+                : { top: 0, left: 0,
+                    bottom: window.innerHeight, right: window.innerWidth };
+  var r = panel.getBoundingClientRect();
+  if (r.bottom > b.bottom - 6 && (r.height + 12) < (wrap.getBoundingClientRect().top - b.top)) {
+    panel.classList.add('up');
+  }
+  if (r.right > b.right - 6) panel.classList.add('leftward');
+}
+
+(function wireRatingPanels() {
+  function hit(e) {
+    var w = e.target && e.target.closest ? e.target.closest('.ratingwrap') : null;
+    if (w) placeRatingPanel(w);
+  }
+  document.addEventListener('mouseover', hit, true);
+  document.addEventListener('focusin', hit, true);
+})();
+
 function ratingPanel(r) {
   if (!r || !r.panel) return '';
   /* Spans, not a table: the collapsed row's score lives inside a <button>,

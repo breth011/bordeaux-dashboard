@@ -844,6 +844,11 @@ table.dt td.num { font-family: var(--mono); text-align: right; }
 }
 .ratingwrap:hover .ratingpanel,
 .ratingwrap:focus-within .ratingpanel { opacity: 1; visibility: visible; }
+/* Flipped by placeRatingPanel() when there is no room the usual way. */
+.ratingpanel.up { top: auto; bottom: calc(100% + 6px); }
+.ratingpanel.leftward { left: auto; right: 0; }
+/* and never taller than the room it has */
+.ratingpanel { max-height: 60vh; overflow-y: auto; }
 .ratingpanel .rprow {
   display: flex; justify-content: space-between; gap: 14px;
   font-size: 12px; font-weight: 400; font-family: var(--sans);

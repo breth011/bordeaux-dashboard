@@ -184,6 +184,12 @@ function regionForAppellation(app) {
 
 CH.forEach(function (ch) {
   if (ch.lat !== undefined) return;
+  /* A position worked out from the appellation is approximate by
+     definition, so say so here rather than trusting that it was said
+     earlier. Until the Doisy estates lost their wrong coordinates, every
+     estate reaching this point had already been flagged by addSparse and
+     the two could not come apart. */
+  ch.approx = true;
   var reg = regionForAppellation(ch.appellation);
   var rnd = mulberry(hash(ch.id));
   if (reg) {

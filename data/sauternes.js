@@ -91,20 +91,27 @@ window.BDX_CHATEAUX = (window.BDX_CHATEAUX || []).concat([
  blend:{SEM:88,SB:8,MU:4}, perf:-0.5,
  style:'The vines were grubbed up entirely in 1976 and replanted in 1988; production resumed in 1991. Light, fresh, honest Barsac.'},
 
+/* The three Doisy estates have no position here. The value this file
+   carried put all three a kilometre and a half south of Barsac, inside
+   Sauternes, along with the other seven Barsac estates that came from
+   the same source; those seven are corrected in coords.js, these three
+   are in no open register that was found. Left out, they are placed
+   inside Barsac and marked as placed by appellation, which is true,
+   rather than shown as surveyed in the wrong appellation. */
 {id:'doisy-daene', name:'Château Doisy-Daëne', growth:2, cat:'sweet',
- appellation:'Barsac', commune:'Barsac', lat:44.5640, lng:-0.3150, ha:17,
+ appellation:'Barsac', commune:'Barsac', ha:17,
  second:'—', owner:'Dubourdieu family',
  blend:{SEM:85,SB:15}, perf:1.5,
  style:'Made by the Dubourdieus, Bordeaux’s most influential white-wine family. Pure, precise and vibrant; the L’Extravagant cuvée is one of the most concentrated wines in Bordeaux.'},
 
 {id:'doisy-dubroca', name:'Château Doisy-Dubroca', growth:2, cat:'sweet',
- appellation:'Barsac', commune:'Barsac', lat:44.5635, lng:-0.3160, ha:9,
+ appellation:'Barsac', commune:'Barsac', ha:9,
  second:'—', owner:'Gonzague Lurton',
  blend:{SEM:100}, perf:0.5,
  style:'The smallest of the three Doisy estates, long farmed alongside Climens and all Sémillon. Delicate and floral.'},
 
 {id:'doisy-vedrines', name:'Château Doisy-Védrines', growth:2, cat:'sweet',
- appellation:'Barsac', commune:'Barsac', lat:44.5660, lng:-0.3140, ha:28,
+ appellation:'Barsac', commune:'Barsac', ha:28,
  second:'Petit Védrines', owner:'Castéja family',
  blend:{SEM:80,SB:15,MU:5}, perf:1,
  style:'The richest and most structured of the Doisy trio — fuller-bodied, oak-aged and closer to a Sauternes in weight.'},

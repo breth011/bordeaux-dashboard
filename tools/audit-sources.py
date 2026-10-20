@@ -36,13 +36,22 @@ GRANDISH = ('grand', 'skip', 'page', 'combined')
 txt = io.open(ROOT + 'data/fiches.js', encoding='utf-8').read()
 bad = collections.defaultdict(list)
 checked = 0
+pages = 0
 for m in re.finditer(r"^'([a-z0-9-]+)\|(\d{4})':\{(.*)\},$", txt, re.M):
     eid, yr, body = m.group(1), m.group(2), m.group(3)
     sm = re.search(r"src:'([^']*)'", body)
     if not sm:
         continue
     checked += 1
-    s = sheets.get(sm.group(1))
+    ref = sm.group(1)
+    # A source can be a page rather than a file. Latour publishes no
+    # technical sheets at all - its archive is seventy-five vintages of
+    # prose on one page - so those records cite the page they came from.
+    # That is a source, not a missing file.
+    if '/' in ref and not ref.lower().endswith('.pdf'):
+        pages += 1
+        continue
+    s = sheets.get(ref)
     has = [f for f in OWNED if re.search(r'(?:^|,)' + f + r"[:']", body)]
     if not s:
         bad['the sheet is not on disk'].append((eid, yr, sm.group(1), has))

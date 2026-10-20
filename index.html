@@ -24,6 +24,16 @@
 
     <button class="iconbtn" id="installBtn" hidden>Install app</button>
     <button class="iconbtn" id="themeBtn">☾ Dark</button>
+    <div class="settings-wrap">
+      <button class="iconbtn" id="settingsBtn" aria-expanded="false"
+              aria-controls="settings">⚙ Settings</button>
+      <div class="settings" id="settings" hidden>
+        <p class="settings-head">Language</p>
+        <div class="settings-opts" id="langOpts"></div>
+        <p class="settings-note">The interface. What the châteaux and the
+          vintage reports say is left in the language it was published in.</p>
+      </div>
+    </div>
   </div>
 </header>
 
@@ -99,6 +109,7 @@
 <script src="data/phenology.js"></script>
 <script src="data/websites.js"></script>
 <script src="data/overrides.js"></script>
+<script src="assets/i18n.js"></script>
 <script src="assets/app.js"></script>
 </body>
 </html>

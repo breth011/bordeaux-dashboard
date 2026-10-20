@@ -1,11 +1,12 @@
 'use strict';
 
-var CACHE_NAME = 'bordeaux-classified-v31';
+var CACHE_NAME = 'bordeaux-classified-v32';
 var APP_SHELL = [
   './',
   './index.html',
   './manifest.webmanifest',
   './assets/app.js',
+  './assets/i18n.js',
   './assets/styles.css',
   './assets/fonts/firasans-400-latin.woff2',
   './assets/fonts/firasans-400-latinext.woff2',

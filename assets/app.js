@@ -2627,6 +2627,64 @@ function initAppInstall() {
   });
 }
 
+
+/* ===========================================================================
+   The settings panel.
+
+   One setting so far, the interface language. Switching it puts the written
+   English back, rebuilds every view from source and then says the result in
+   the chosen language - see assets/i18n.js, which matches whole phrases and
+   so leaves the estates' own words alone.
+   =========================================================================== */
+function rerenderEverything() {
+  renderReference();
+  renderVintages();
+  buildAppellationSelect();
+  refresh();
+  buildChips();
+  if (state.active) openDrawer(state.active);
+}
+
+function wireSettings() {
+  var btn = document.getElementById('settingsBtn');
+  var panel = document.getElementById('settings');
+  var opts = document.getElementById('langOpts');
+  if (!btn || !panel || !opts || !window.BDX_LANG) return;
+
+  function paint() {
+    opts.innerHTML = BDX_LANG.list.map(function (l) {
+      return '<button type="button" class="langbtn' +
+        (BDX_LANG.get() === l[0] ? ' on' : '') + '" data-lang="' + l[0] +
+        '" aria-pressed="' + (BDX_LANG.get() === l[0]) + '">' + l[1] + '</button>';
+    }).join('');
+  }
+  paint();
+
+  function shut() {
+    panel.hidden = true;
+    btn.setAttribute('aria-expanded', 'false');
+  }
+  btn.addEventListener('click', function () {
+    panel.hidden = !panel.hidden;
+    btn.setAttribute('aria-expanded', String(!panel.hidden));
+  });
+  opts.addEventListener('click', function (e) {
+    var b = e.target.closest ? e.target.closest('.langbtn') : null;
+    if (!b) return;
+    BDX_LANG.set(b.getAttribute('data-lang'), rerenderEverything);
+    paint();
+    shut();
+  });
+  document.addEventListener('click', function (e) {
+    if (panel.hidden) return;
+    if (e.target.closest && e.target.closest('.settings-wrap')) return;
+    shut();
+  });
+  document.addEventListener('keydown', function (e) {
+    if (e.key === 'Escape' && !panel.hidden) shut();
+  });
+}
+
 function init() {
   try {
     var saved = localStorage.getItem('bdx-theme');
@@ -2646,6 +2704,10 @@ function init() {
   el.themeBtn.textContent = isDark() ? '☀ Light' : '☾ Dark';
   el.themeBtn.addEventListener('click', function () { applyTheme(isDark() ? 'light' : 'dark'); });
   initAppInstall();
+
+  /* Last, so the first render is already on screen to be translated. */
+  wireSettings();
+  if (window.BDX_LANG) BDX_LANG.start();
 
   el.search.addEventListener('input', function () { state.q = el.search.value; refresh(); });
   wireTypeahead();

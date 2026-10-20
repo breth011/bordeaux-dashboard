@@ -1093,6 +1093,13 @@ table.dt td.num { font-family: var(--mono); text-align: right; }
   stroke-width: 1.5;
 }
 
+/* The map credit. Required by the ODbL for the OpenStreetMap positions,
+   and sized to be read when looked for rather than to be noticed. */
+.m-credit {
+  font-family: var(--sans); font-size: 7.5px; fill: var(--map-river-ink);
+  opacity: .55; letter-spacing: .02em;
+}
+
 .m-path-label { font-family: var(--sans); }
 .m-path-label.in-water {
   fill: var(--map-water-ink); letter-spacing: .24em; font-weight: 600; opacity: .85;

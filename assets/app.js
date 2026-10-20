@@ -178,7 +178,16 @@ function regionForAppellation(app) {
   if (!C) return;
   CH.forEach(function (ch) {
     var c = C[ch.id];
-    if (c) { ch.lat = c[0]; ch.lng = c[1]; ch.coordFixed = true; }
+    if (!c) return;
+    ch.lat = c[0];
+    ch.lng = c[1];
+    ch.coordFixed = true;
+    /* "Approximate" means the dashboard does not know where the estate is.
+       Once a surveyed position is supplied it does, so the flag goes - the
+       marker stops being faded and the drawer stops saying "Placed by
+       appellation". The estate may still be sparse in every other field;
+       that is a different thing and keeps its own flag. */
+    ch.approx = false;
   });
 })();
 
@@ -1714,7 +1723,12 @@ function updateScaleBar() {
   /* The bottom-left corner is open water now, and dark ink on dark water
      cannot be read. The bar hangs from the right-hand edge instead. */
   var x0 = MS.w - 22 - len, y0 = MS.h - 26;
-  g.innerHTML =
+  /* Seventy-one estate positions come from OpenStreetMap, which is ODbL
+     and asks to be credited where the data is shown. */
+  var credit = '<text class="m-credit" x="' + (MS.w - 22) + '" y="' +
+    (MS.h - 10) + '" text-anchor="end">positions: OpenStreetMap contributors, ' +
+    'ODbL · INAO · Wikidata</text>';
+  g.innerHTML = credit +
     '<line x1="' + x0 + '" y1="' + y0 + '" x2="' + (x0 + len).toFixed(1) + '" y2="' + y0 + '"/>' +
     '<line x1="' + x0 + '" y1="' + (y0 - 4) + '" x2="' + x0 + '" y2="' + (y0 + 4) + '"/>' +
     '<line x1="' + (x0 + len).toFixed(1) + '" y1="' + (y0 - 4) + '" x2="' + (x0 + len).toFixed(1) +

@@ -1,24 +1,65 @@
 /* =========================================================================
-   Bordeaux Dashboard — corrected estate positions
+   Bordeaux Dashboard — corrected and supplied estate positions
    -------------------------------------------------------------------------
-   PROVENANCE: VERIFIED. Coordinates from Wikidata (P625), CC0.
+   PROVENANCE: two sources, marked per entry.
 
-   Applied only where the dashboard’s own position fell outside the
-   estate’s appellation as the INAO delimits it, and the Wikidata
-   position falls inside it. A coordinate that merely moves an estate,
-   or that would push a correctly placed one out, is not used here.
+     (no marker)  Wikidata (P625), CC0. Applied only where the dashboard's
+                  own position fell outside the estate's appellation as the
+                  INAO delimits it, and the Wikidata position falls inside.
 
-   The Barsac estates were a block of their own: ten of them were
-   plotted three to four kilometres south of the commune, inside
-   Sauternes, from before Barsac was drawn as its own appellation.
-   Seven are corrected here; the three Doisy estates are in no open
-   register that was found, and inventing a position would be worse
-   than keeping an imprecise one.
+     'osm'        OpenStreetMap, © OpenStreetMap contributors, ODbL 1.0.
+                  Used for estates that had no position at all and were
+                  previously placed at random inside their appellation.
+
+   Every entry of either kind had to land inside the official delimitation
+   of the appellation the estate declares. That single test is what makes
+   matching on a name safe: it rejected the Saint-Émilion Coutet offered
+   for the Barsac one, the Médoc Lamothe offered for the Sauternes one,
+   the Capian Suau offered for the Barsac one, and a Château La
+   Commanderie whose OSM entry is the Pomerol estate, not the
+   Saint-Émilion one.
+
+   The Barsac estates were a block of their own: ten of them were plotted
+   three to four kilometres south of the commune, inside Sauternes, from
+   before Barsac was drawn as its own appellation. Seven are corrected
+   here; the three Doisy estates are in no open register that was found,
+   and are placed by appellation and marked approximate instead.
 
    Keyed by estate id; app.js applies these over the master data.
    ========================================================================= */
 
 window.BDX_COORDS = {
+'artisan-chateau-gadet-terrefort':[45.33713,-0.99322,'osm'],
+'artisan-chateau-haut-gravat':[45.41817,-0.97861,'osm'],
+'artisan-chateau-marceline':[45.26558,-0.77204,'osm'],
+'bourgeois-chateau-barateau':[45.15271,-0.80635,'osm'],
+'bourgeois-chateau-beaumont':[45.10876,-0.74435,'osm'],
+'bourgeois-chateau-bellegrave':[45.18332,-0.75182,'osm'],
+'bourgeois-chateau-biston-brillette':[45.05415,-0.76609,'osm'],
+'bourgeois-chateau-castera':[45.29170,-0.86759,'osm'],
+'bourgeois-chateau-chantemerle':[45.33526,-0.98498,'osm'],
+'bourgeois-chateau-de-la-croix':[45.30631,-0.85278,'osm'],
+'bourgeois-chateau-de-malleret':[44.96832,-0.64052,'osm'],
+'bourgeois-chateau-des-granges-d-or':[45.33407,-0.86387,'osm'],
+'bourgeois-chateau-devise-d-ardilley':[45.15745,-0.82349,'osm'],
+'bourgeois-chateau-grand-clapeau-olivier':[44.93265,-0.65406,'osm'],
+'bourgeois-chateau-la-branne':[45.37730,-0.93205,'osm'],
+'bourgeois-chateau-la-cardonne':[45.30876,-0.88247,'osm'],
+'bourgeois-chateau-la-fon-du-berger':[45.19374,-0.80216,'osm'],
+'bourgeois-chateau-labadie':[45.35051,-0.88643,'osm'],
+'bourgeois-chateau-laffitte-carcasset':[45.25237,-0.78054,'osm'],
+'bourgeois-chateau-mazails':[45.34276,-0.80648,'osm'],
+'bourgeois-chateau-noaillac':[45.40341,-0.99338,'osm'],
+'bourgeois-chateau-paloumey':[44.98534,-0.63287,'osm'],
+'bourgeois-chateau-paveil-de-luze':[45.05474,-0.72459,'osm'],
+'bourgeois-chateau-pey-de-pont':[45.34609,-0.91648,'osm'],
+'bourgeois-chateau-pierre-de-montignac':[45.33608,-0.92093,'osm'],
+'bourgeois-chateau-preuillac':[45.30651,-0.89138,'osm'],
+'bourgeois-chateau-puy-castera':[45.22724,-0.80131,'osm'],
+'bourgeois-chateau-roquegrave':[45.39177,-0.88850,'osm'],
+'bourgeois-chateau-rousseau-de-sipian':[45.39156,-0.91441,'osm'],
+'bourgeois-chateau-tour-des-termes':[45.26682,-0.79073,'osm'],
+'bourgeois-chateau-tour-saint-fort':[45.25012,-0.80305,'osm'],
 'broustet':[44.60340,-0.32497],
 'caillou':[44.59416,-0.34100],
 'calon-segur':[45.26697,-0.77766],
@@ -44,8 +85,48 @@ window.BDX_COORDS = {
 'montrose':[45.24634,-0.76182],
 'mouton':[45.21530,-0.76860],
 'nairac':[44.61151,-0.31768],
+'pomerol-chateau-beauregard':[44.92296,-0.20204,'osm'],
+'pomerol-chateau-gazin':[44.93197,-0.18748,'osm'],
+'pomerol-chateau-gombaude-guillot':[44.93208,-0.20405,'osm'],
+'pomerol-chateau-la-croix-de-gay':[44.93519,-0.19968,'osm'],
+'pomerol-chateau-le-bon-pasteur':[44.92927,-0.18104,'osm'],
+'pomerol-chateau-mazeyres':[44.93210,-0.23524,'osm'],
+'pomerol-chateau-nenin':[44.92259,-0.21078,'osm'],
+'pomerol-chateau-petit-village':[44.92386,-0.20048,'osm'],
+'pomerol-chateau-plince':[44.92093,-0.21574,'osm'],
+'pomerol-chateau-taillefer':[44.91389,-0.21408,'osm'],
+'pomerol-chateau-vray-croix-de-gay':[44.93355,-0.19737,'osm'],
 'pontet-canet':[45.20837,-0.77056],
 'romer-du-hayot':[44.59284,-0.34265],
+'stem-chateau-barde-haut':[44.89192,-0.13264,'osm'],
+'stem-chateau-bellefont-belcier':[44.88056,-0.13840,'osm'],
+'stem-chateau-bellevue':[44.89495,-0.17258,'osm'],
+'stem-chateau-cadet-bon':[44.90166,-0.15323,'osm'],
+'stem-chateau-corbin-michotte':[44.92314,-0.18114,'osm'],
+'stem-chateau-cote-de-baleau':[44.90587,-0.16415,'osm'],
+'stem-chateau-fleur-cardinale':[44.88987,-0.08287,'osm'],
+'stem-chateau-fombrauge':[44.89677,-0.11409,'osm'],
+'stem-chateau-fonplegade':[44.88534,-0.16602,'osm'],
+'stem-chateau-fonroque':[44.90440,-0.15971,'osm'],
+'stem-chateau-grand-corbin':[44.92028,-0.16966,'osm'],
+'stem-chateau-grand-corbin-despagne':[44.92349,-0.17783,'osm'],
+'stem-chateau-grand-mayne':[44.89965,-0.17459,'osm'],
+'stem-chateau-guadet':[44.89695,-0.15454,'osm'],
+'stem-chateau-haut-sarpe':[44.89702,-0.13846,'osm'],
+'stem-chateau-jean-faure':[44.92023,-0.18267,'osm'],
+'stem-chateau-la-croizille':[44.88445,-0.13493,'osm'],
+'stem-chateau-la-dominique':[44.92051,-0.18686,'osm'],
+'stem-chateau-la-marzelle':[44.90837,-0.19172,'osm'],
+'stem-chateau-la-tour-figeac':[44.92065,-0.19419,'osm'],
+'stem-chateau-laroque':[44.89139,-0.11895,'osm'],
+'stem-chateau-laroze':[44.90814,-0.17881,'osm'],
+'stem-chateau-le-chatelet':[44.89553,-0.16250,'osm'],
+'stem-chateau-monbousquet':[44.87346,-0.17635,'osm'],
+'stem-chateau-montlabert':[44.91236,-0.18118,'osm'],
+'stem-chateau-moulin-du-cadet':[44.90426,-0.15500,'osm'],
+'stem-chateau-soutard':[44.90155,-0.14887,'osm'],
+'stem-chateau-villemaurine':[44.89533,-0.15380,'osm'],
+'stem-clos-des-jacobins':[44.90308,-0.17207,'osm'],
 'suau':[44.60430,-0.31490],
 'suduiraut':[44.55639,-0.32000],
 };

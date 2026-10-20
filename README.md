@@ -88,6 +88,27 @@ château and year, ordered cheapest-first; then Google Shopping, Vivino and a ge
 - **Those critic scores and tasting notes that entered the public record.** Each carries its
   attribution. See `data/overrides.js`.
 
+### Where the map comes from
+
+| What | Source | Licence |
+| --- | --- | --- |
+| Appellation outlines | INAO parcel delimitations | Licence Ouverte |
+| Rivers, estuary, lakes | BD TOPAGE® (SANDRE / eaufrance) | Licence Ouverte |
+| The Atlantic | Natural Earth | public domain |
+| 29 corrected estate positions | Wikidata (P625) | CC0 |
+| 71 supplied estate positions | © OpenStreetMap contributors | ODbL 1.0 |
+
+The coordinate set in `data/coords.js` draws on OpenStreetMap and is therefore offered
+under the **ODbL**, the licence OpenStreetMap itself uses; the rest of this repository is
+unaffected. Each entry is marked with the source it came from.
+
+Every position from either source had to land inside the official delimitation of the
+appellation the estate declares before it was accepted. That one test is what makes
+matching on a name safe — it rejected the Saint-Émilion *Coutet* offered for the Barsac
+one, the Médoc *Lamothe* for the Sauternes one, the Capian *Suau* for the Barsac one, and
+a *Château La Commanderie* whose OpenStreetMap entry is the Pomerol estate rather than the
+Saint-Émilion one.
+
 ### ≈ modelled — derived, not sourced
 
 - **Score** = the estate's rank baseline moved by how good that season was *in that specific
@@ -110,8 +131,9 @@ For the 204:
 - **no blend is shown at all.** An appellation average is not this château's blend, so the
   dashboard shows the gap instead of a guess — and the tasting notes for those estates say
   nothing about grape character either;
-- the map position is **scattered within the appellation**, so several hundred markers stay
-  legible. Faded markers mean "this is the appellation, not the property". Do not navigate by them;
+- the map position is **scattered within the appellation** unless a surveyed one was found,
+  so the markers stay legible. 238 estates now carry a real position and 230 do not; a faded
+  marker means "this is the appellation, not the property". Do not navigate by a faded one;
 - the drawer says all of this before you read anything else.
 
 Everything else — the 43 vintages, the scores, the notes, the drinking windows and all four

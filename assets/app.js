@@ -2530,6 +2530,7 @@ function fiche(ch, yr) {
   if (alt.taste) out.taste = alt.taste;
   if (alt.decant) out.decant = alt.decant;
   if (alt.window) out.window = alt.window;
+  if (alt.food) out.food = alt.food;
   return out;
 }
 
@@ -2576,7 +2577,8 @@ function fichesBlock(ch, yr) {
   if (f.food) {
     s += '<p class="subhead">Serve it with</p>' +
       '<p class="notetext">' + f.food + '</p>' +
-      '<p class="src">this estate’s own suggestion</p>';
+      '<p class="src">this estate’s own suggestion' +
+        (f.ftl ? ', translated' : '') + '</p>';
   }
 
   /* Scores the château reprints on its own sheet. Kept apart from the

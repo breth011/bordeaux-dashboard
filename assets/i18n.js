@@ -182,6 +182,8 @@
     'In barrel': 'Op hout',
     'Serve it with': 'Serveren met',
     'this estate’s own suggestion': 'de eigen suggestie van dit domein',
+    'this estate’s own suggestion, translated':
+      'de eigen suggestie van dit domein, vertaald',
     'Scores on the estate’s sheet': 'Scores op de fiche van het domein',
     'reprinted by this estate, on each critic’s own scale':
       'overgenomen door dit domein, op de eigen schaal van elke criticus',

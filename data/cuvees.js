@@ -134,7 +134,7 @@ window.BDX_CUVEES = {
 'branaire-ducru|duluc-de-branaire-ducru|2011':{blend:{CS:39,ME:56,PV:5},src:'DULUC_DE_BRANAIRE_DUCRU_2011_FR.pdf'},
 'branaire-ducru|duluc-de-branaire-ducru|2012':{blend:{CS:54,ME:44,CF:1,PV:1},months:'12',src:'DULUC_DE_BRANAIRE_DUCRU_2012_FR.pdf'},
 'branaire-ducru|duluc-de-branaire-ducru|2013':{blend:{CS:67,ME:27,CF:3,PV:3},months:'12',src:'DULUC_DE_BRANAIRE_DUCRU_2013_FR.pdf'},
-'branaire-ducru|duluc-de-branaire-ducru|2014':{blend:{CS:54,ME:43,CF:1,PV:2},months:'12',food:'poultry, white meat, grilled red meat, cured meats, fish in sauce or soft cheese.',src:'DULUC_DE_BRANAIRE_DUCRU_2014_FR_EN.pdf'},
+'branaire-ducru|duluc-de-branaire-ducru|2014':{blend:{CS:54,ME:43,CF:1,PV:2},months:'12',food:'Poultry, white meat, grilled red meat, cured meats, fish in sauce or a soft cheese.',src:'DULUC_DE_BRANAIRE_DUCRU_2014_FR_EN.pdf'},
 'branaire-ducru|duluc-de-branaire-ducru|2015':{blend:{CS:53,ME:44,CF:1,PV:2},months:'12',src:'DULUC_DE_BRANAIRE_DUCRU_2015_FR_EN.pdf'},
 'branaire-ducru|duluc-de-branaire-ducru|2016':{blend:{CS:54,ME:44,CF:1.5,PV:0.5},months:'12',src:'DULUC_DE_BRANAIRE_DUCRU_2016_FR_EN.pdf'},
 'branaire-ducru|duluc-de-branaire-ducru|2017':{blend:{CS:50,ME:43,CF:2,PV:5},yld:39.6,months:'12',src:'DULUC_DE_BRANAIRE_DUCRU_2017_FR_EN.pdf'},

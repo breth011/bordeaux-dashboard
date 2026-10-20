@@ -8,7 +8,9 @@
 (function () {
 'use strict';
 
-var NOW = 2026;
+/* Read once, and read from the clock: the drinking windows are judged
+   against it, so a hardcoded year would quietly rot. */
+var NOW = new Date().getFullYear();
 var V   = window.BDX_VINTAGES;
 var RB  = window.BDX_RIGHTBANK;
 var CLS = window.BDX_CLASSIFICATIONS;
@@ -2193,10 +2195,17 @@ function openDrawer(id) {
      table of hand-entered figures the strip used: that said 4 of 43 for an
      estate whose rows show ratings for most of them. */
   var ratedYears = YEARS.filter(function (yr) { return !scoreFor(ch, yr).none; }).length;
+  /* How many of the forty-three are worth opening this year. It is the first
+     thing anyone standing in front of a cellar wants to know, so it goes in
+     the heading rather than waiting to be counted off the rows. */
+  var readyNow = YEARS.filter(function (yr) {
+    var m = maturity(drinkWindow(ch, yr));
+    return m && (m.k === 'peak' || m.k === 'late');
+  }).length;
   body +=
     '<div class="section"><h3>All vintages, 1982–2024' +
       '<span class="hint">' + ratedYears + ' of ' + YEARS.length +
-      ' rated · each with its own price link</span></h3>' +
+      ' rated · ' + readyNow + ' ready to drink now</span></h3>' +
       '<div class="vintagelist">' +
         YEARS.map(function (yr) { return vintageRow(ch, yr); }).join('') +
       '</div></div>';
@@ -2243,6 +2252,7 @@ function fiche(ch, yr) {
   if (alt.note) out.note = alt.note;
   if (alt.taste) out.taste = alt.taste;
   if (alt.decant) out.decant = alt.decant;
+  if (alt.window) out.window = alt.window;
   return out;
 }
 
@@ -2275,15 +2285,14 @@ function fichesBlock(ch, yr) {
   if (f.oak) fx.push(['New oak', f.oak + '%']);
   if (f.ph) fx.push(['pH', f.ph]);
   if (f.temp) fx.push(['Serve at', f.temp.join('–') + ' °C']);
-  if (f.wy) fx.push(['Drink', f.wy[0] + '–' + f.wy[1]]);
   if (fx.length) {
     s += '<dl class="factgrid">' + fx.map(function (p) {
       return '<div class="fact"><dt>' + p[0] + '</dt><dd>' + p[1] + '</dd></div>';
     }).join('') + '</dl>';
   }
 
-  if (f.decant) s += '<p class="notetext">' + f.decant + '</p>';
-  if (f.window && !f.wy) s += '<p class="notetext">' + f.window + '</p>';
+  /* The decanting advice and the keeping remark are shown by drinkBlock,
+     with the window they belong beside. */
   return s;
 }
 
@@ -2331,6 +2340,147 @@ function seasonBlock(ch, yr, v, o) {
     appellationLine(ch, yr);
 }
 
+/* ----------------------------- when to drink ----------------------------- */
+/* The vintage file carries one window per year, for "a classified-growth red
+   of that year". That is the right place to start and the wrong answer for
+   any one bottle: a fifth growth of 2016 is not on Latour's schedule, and a
+   Merlot-led Pomerol is not on a Cabernet-led Pauillac's.
+
+   So the window shown against an estate is the vintage's window moved by the
+   two things this dashboard actually knows about the wine - where it ranks
+   and what it is made of - and it says, wherever it appears, that it was
+   derived that way. Where the estate published a window of its own, that one
+   is used instead and is marked as the estate's.
+
+   This is indicative in the same sense as the vintage ratings: it is not a
+   critic's drinking window and does not stand in for one. Unlike a score,
+   though, a window is advice rather than a measurement, which is why it is
+   offered at all - the question "is this ready?" has no published answer for
+   most of these 472 wines. */
+
+/* What a rank is worth, in years, as [opens later, holds longer]. A first
+   growth asks for more patience and then repays it for far longer; the lower
+   tiers come round sooner and do not keep as well.
+
+   Deliberately gentle, because for the Médoc this is a ranking of 1855
+   prices and the fifth growths contain some of the longest-lived wines on
+   the left bank. The score below is allowed to matter more than this does. */
+var TIER_SHIFT = {
+  0: [1, 6], 1: [1, 5], 2: [1, 3], 3: [0, 1], 4: [0, 0], 5: [0, -2]
+};
+
+function drinkWindow(ch, yr) {
+  if (notProduced(ch, yr)) return null;
+  var f = fiche(ch, yr);
+  if (f && f.wy) return { from: f.wy[0], to: f.wy[1], src: 'estate' };
+
+  var v = V[yr];
+  if (!v) return null;
+  var q = vintageRating(ch, yr);
+  var t = TIER_SHIFT[ch.growth] || [0, 0];
+  var from, to, floor = 3;
+
+  if (ch.cat === 'sweet') {
+    /* Sauternes runs on another clock altogether: a great year is barely
+       awake at ten and can still be alive at seventy. Rank counts for more
+       here than anywhere else, so it carries double weight on the far end. */
+    from = yr + (q >= 95 ? 12 : q >= 88 ? 10 : 8) + t[0];
+    to = yr + Math.max(15, Math.round(18 + (q - 70) * 1.15)) + t[1] * 2;
+    floor = 5;
+  } else if (ch.cat === 'white') {
+    /* The dry whites of Pessac-Léognan keep far longer than their reputation
+       allows, and nothing like as long as the reds beside them. */
+    from = yr + 2;
+    to = yr + Math.max(5, Math.round(7 + (q - 88) * 0.7)) + Math.round(t[1] / 2);
+    floor = 1;
+  } else {
+    from = v.drinkFrom + t[0];
+    to = v.drinkTo + t[1];
+
+    /* Cabernet asks to be waited for and then lasts; Merlot gives earlier
+       and is done sooner. Only the gap between the two carries any signal,
+       so an estate with no blend on file stays on the vintage's own clock. */
+    if (ch.blend) {
+      var g = Math.round(((ch.blend.CS || 0) - (ch.blend.ME || 0)) / 30);
+      from += g;
+      to += g;
+    }
+
+    /* A year that went badly in this estate's own appellation does not hold
+       as long as the vintage's headline suggests, and the reverse. */
+    to += Math.round((q - 90) / 5);
+  }
+
+  /* And what the critics actually said about this wine in this year, where
+     they said anything - the one piece of evidence here that knows what the
+     estate is doing now rather than in 1855.
+
+     What counts is the margin over the wine's own vintage, not the score in
+     the absolute. A 92 in an 85-point year is an estate that rose above a
+     difficult season, and those are the wines that outlast the window their
+     vintage is given; the same 92 in a 97-point year is an estate that fell
+     short of an easy one. Measured against a fixed number instead, every
+     wine in a weak year came out short-lived together, which is the one
+     thing a drinking window must not do - it is in the weak years that
+     knowing which estate rose above it is worth anything at all. */
+  var r = scoreFor(ch, yr);
+  if (!r.none) {
+    var over = r.score - q;
+    to += Math.round(over / 1.5);
+    from += Math.round(over / 4);
+  }
+
+  from = Math.max(yr + floor, from);
+  to = Math.max(from + 2, to);
+  return { from: from, to: to, src: 'derived' };
+}
+
+/* Where this year falls inside that window. The middle is where a bottle is
+   worth opening; both edges are a warning, in opposite directions.
+
+   The edges are measured in years left rather than as a share of the window,
+   because a share gets it wrong at both extremes: a fifty-year window read
+   proportionally calls a wine "drink up" with fifteen good years in hand,
+   and a six-year window never warns at all. */
+function maturity(w) {
+  if (!w) return null;
+  if (NOW < w.from) return { k: 'young', label: 'Too young' };
+  if (NOW > w.to) return { k: 'past', label: 'Past' };
+  var span = w.to - w.from;
+  if (w.to - NOW <= Math.max(3, span * 0.12)) return { k: 'late', label: 'Drink up' };
+  if (NOW - w.from <= Math.max(2, span * 0.15)) return { k: 'opening', label: 'Opening' };
+  return { k: 'peak', label: 'At peak' };
+}
+
+function drinkBlock(ch, yr) {
+  var w = drinkWindow(ch, yr);
+  if (!w) return '';
+  var m = maturity(w);
+  var f = fiche(ch, yr);
+  var s = '<p class="subhead">When to drink</p>' +
+    '<div class="drink">' +
+      '<span class="drinkspan">' + w.from + '–' + w.to + '</span>' +
+      '<span class="mat mat-' + m.k + '">' + m.label + '</span>' +
+      '<span class="flag ' + (w.src === 'estate' ? 'flag-verified' : 'flag-modelled') +
+        '">' + (w.src === 'estate' ? 'the estate’s own' : 'derived') + '</span>' +
+    '</div>' +
+    '<p class="src">' + (w.src === 'estate'
+      ? 'the window this estate published for this vintage'
+      : 'the vintage’s window, moved for this estate’s rank and blend') + '</p>';
+
+  /* Where the estate said something about keeping without naming years, it
+     belongs here next to the window rather than loose further down. */
+  if (f && f.window && !f.wy) {
+    s += '<p class="notetext">' + f.window + '</p>' +
+      '<p class="src">this estate' + (f.wtl ? ', translated' : '') + '</p>';
+  }
+  if (f && f.decant) {
+    s += '<p class="notetext">' + f.decant + '</p>' +
+      '<p class="src">this estate' + (f.dtl ? ', translated' : '') + '</p>';
+  }
+  return s;
+}
+
 function vintageRow(ch, yr) {
   var r = scoreFor(ch, yr), v = V[yr];
   var o = SCORES[ch.id + '|' + yr];
@@ -2346,11 +2496,17 @@ function vintageRow(ch, yr) {
   var rated = !r.none;
   var edge = rated ? scoreColor(r.score) : 'var(--border)';
   var teaser = rated && o && o.note ? o.note : v.report;
+  /* The maturity sits in the collapsed head so that the question these rows
+     are really asked - which of these should I open? - can be answered by
+     running an eye down the list, without opening any of them. */
+  var m = maturity(drinkWindow(ch, yr));
 
   return '<div class="vrow" data-year="' + yr + '" style="border-left:3px solid ' + edge + '">' +
     '<button class="vrow-head"><span class="yr">' + yr + '</span>' +
       '<span class="sc' + (rated && r.panel ? ' ratingwrap' : '') + '">' +
         (rated ? r.score : '—') + (rated ? ratingPanel(r) : '') + '</span>' +
+      (m ? '<span class="mat mat-' + m.k + '">' + m.label + '</span>'
+         : '<span class="mat mat-none"></span>') +
       '<span class="teaser">' + teaser + '</span>' +
       '<span class="chev">▾</span></button>' +
     '<div class="vrow-body">' +
@@ -2370,6 +2526,7 @@ function vintageRow(ch, yr) {
             blendTable(o.blend) + '</div>'
         : '') +
 
+      drinkBlock(ch, yr) +
       fichesBlock(ch, yr) +
       seasonBlock(ch, yr, v, o) +
 

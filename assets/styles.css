@@ -792,7 +792,7 @@ a { color: var(--seq-450); }
 .vrow:hover, .vrow:focus-within { overflow: visible; z-index: 5; }
 .vrow-head {
   display: grid;
-  grid-template-columns: 62px 74px 1fr auto;
+  grid-template-columns: 62px 74px 76px 1fr auto;
   gap: 12px; align-items: center;
   padding: 9px 12px;
   cursor: pointer;
@@ -811,6 +811,28 @@ a { color: var(--seq-450); }
   overflow: hidden; text-overflow: ellipsis; white-space: nowrap;
 }
 .vrow .chev { color: var(--text-muted); font-size: 11px; }
+
+/* Maturity. Five states, and the colour has to carry the reading down a list
+   of forty-three rows, so it runs cool for the years that are not ready yet
+   and warm for the ones running out. "At peak" is the only one that fills,
+   because it is the only one that is an answer rather than a caution. */
+.mat {
+  font-size: 10px; font-weight: 600; letter-spacing: .02em;
+  text-align: center; white-space: nowrap;
+  padding: 2px 0; border-radius: 20px;
+  border: 1px solid transparent;
+}
+.mat-young   { color: var(--text-muted); border-color: var(--border); }
+.mat-opening { color: var(--series-1); border-color: color-mix(in srgb, var(--series-1) 40%, var(--border)); }
+.mat-peak    { color: #fff; background: var(--good); border-color: var(--good); }
+.mat-late    { color: var(--series-4); border-color: color-mix(in srgb, var(--series-4) 50%, var(--border)); }
+.mat-past    { color: var(--text-muted); border-color: var(--border); opacity: .65; }
+.mat-none    { border: none; }
+
+/* The window itself, in the opened row. */
+.drink { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; margin-top: 2px; }
+.drinkspan { font-family: var(--mono); font-size: 15px; font-weight: 600; }
+.drink .mat { padding: 2px 8px; }
 .vrow-body { display: none; padding: 2px 12px 13px; border-top: 1px solid var(--border); }
 .vrow.open .vrow-body { display: block; }
 .vrow.open { border-color: var(--border-strong); }
@@ -1282,7 +1304,10 @@ body.map-page .pane-list.is-open ~ .list-close:hover {
   }
   body.map-page .pane-list { overflow-y: auto; }
 
-  .vrow-head { grid-template-columns: 52px 66px 1fr; }
+  /* The teaser goes before the maturity does: on a narrow screen the first
+     line of the vintage report is the least useful of the three, and the
+     whole point of the chip is to be read without opening anything. */
+  .vrow-head { grid-template-columns: 52px 66px 1fr auto; }
   .vrow .teaser { display: none; }
   .drawer { width: 100%; }
   .masthead, .filters, .tabbar, .vintagegrid, .notice { padding-left: 16px; padding-right: 16px; }

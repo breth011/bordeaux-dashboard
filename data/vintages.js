@@ -14,7 +14,11 @@
                 communes very differently (e.g. 2003, 2015, 1996)
      drinkFrom / drinkTo
                 indicative maturity window for a classified-growth red
-                of that year; adjusted per estate tier in app.js
+                of that year. drinkWindow() in app.js moves it per estate,
+                by rank, blend and whatever the critics scored that wine,
+                and shows it against the estate as derived. Sweet and dry
+                white wines are not on this clock at all and are worked
+                out there rather than here.
    =========================================================================== */
 
 window.BDX_VINTAGES = {

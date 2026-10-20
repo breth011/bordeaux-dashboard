@@ -159,6 +159,21 @@
     'Fifth Growths': 'Cinquièmes Crus',
     'this estate': 'dit domein',
     'this estate, translated': 'dit domein, vertaald',
+
+    /* When to drink. The five maturity states are read off a list of
+       forty-three rows, so they stay as short in Dutch as in English. */
+    'When to drink': 'Wanneer te drinken',
+    'Too young': 'Te jong',
+    'Opening': 'Opent zich',
+    'At peak': 'Op zijn top',
+    'Drink up': 'Opdrinken',
+    'Past': 'Voorbij',
+    'the estate’s own': 'van het domein zelf',
+    'derived': 'afgeleid',
+    'the window this estate published for this vintage':
+      'het venster dat dit domein voor deze jaargang publiceerde',
+    'the vintage’s window, moved for this estate’s rank and blend':
+      'het venster van de jaargang, verschoven naar de rang en de samenstelling van dit domein',
     'reported': 'gerapporteerd',
     'Weather.': 'Weer.',
     'Pavie and Figeac': 'Pavie en Figeac',
@@ -248,6 +263,8 @@
     }],
     [/^(\d+) of (\d+) rated · each with its own price link$/,
      '$1 van $2 beoordeeld · elk met een eigen prijslink'],
+    [/^(\d+) of (\d+) rated · (\d+) ready to drink now$/,
+     '$1 van $2 beoordeeld · $3 nu te drinken'],
     [/^All vintages, (\d+)–(\d+)$/, 'Alle jaargangen, $1–$2'],
     [/^(\d+) critics, averaging ([\d.]+) · they differ by ([\d.]+) points$/,
      '$1 critici, gemiddeld $2 · ze verschillen $3 punten'],

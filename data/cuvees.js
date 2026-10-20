@@ -35,12 +35,12 @@ window.BDX_CUVEE_WINES = {
 };
 
 window.BDX_CUVEES = {
-'dauzac|ch-teau-dauzac-blanc|2025':{alc:12.5,food:'Viande blanche, poisson, crustacés, fromages type Comté.',src:'FT-D-DE-DAUZAC-BLANC-2025-FR.pdf'},
+'dauzac|ch-teau-dauzac-blanc|2025':{alc:12.5,food:'White meat, fish, shellfish and Comté-style cheeses.',src:'FT-D-DE-DAUZAC-BLANC-2025-FR.pdf',ftl:1},
 'dauzac|haut-m-doc-de-dauzac|2015':{blend:{CS:66,ME:34},src:'FT_HAUT-MEDOC-DE-DAUZAC-2015.pdf'},
 'la-mission-haut-brion|clart-de-haut-brion-blanc|2010':{blend:{SEM:81,SB:19},alc:14,src:'Fiche-technique_ClarteHB_2010_EN.pdf'},
-'stem-chateau-badette|fleur-de-badette|2012':{blend:{ME:85,CF:10,PV:5},yld:45,ph:3.74,food:'idéal : viandes rôties ou grillées, gibiers tendres, volaille et fromages affinés.',src:'Fleur-de-Badette-2012-FR.pdf'},
+'stem-chateau-badette|fleur-de-badette|2012':{blend:{ME:85,CF:10,PV:5},yld:45,ph:3.74,food:'Ideal with roast or grilled meats, tender game, poultry and mature cheeses.',src:'Fleur-de-Badette-2012-FR.pdf',ftl:1},
 'stem-chateau-badette|fleur-de-badette|2013':{blend:{ME:85,CF:10,PV:5},yld:45,ph:3.57,src:'Fleur-de-Badette-2013-FR.pdf'},
-'stem-chateau-badette|fleur-de-badette|2015':{blend:{ME:85,CF:10,PV:5},yld:45,ph:3.59,food:'viandes rôties ou grillées, gibiers tendres, volailles et fromages affinés.',src:'Fleur-de-Badette-2015-FR.pdf'},
+'stem-chateau-badette|fleur-de-badette|2015':{blend:{ME:85,CF:10,PV:5},yld:45,ph:3.59,food:'Roast or grilled meats, tender game, poultry and mature cheeses.',src:'Fleur-de-Badette-2015-FR.pdf',ftl:1},
 'stem-chateau-badette|fleur-de-badette|2016':{blend:{ME:85,CF:10,PV:5},yld:45,ph:3.47,src:'Fleur-de-Badette-2016-FR.pdf'},
 'stem-chateau-badette|fleur-de-badette|2017':{blend:{ME:85,CF:10,PV:5},yld:45,ph:3.67,src:'Fleur-de-Badette-2017-FR.pdf'},
 'stem-chateau-badette|fleur-de-badette|2018':{blend:{ME:85,CF:10,PV:5},yld:45,ph:3.62,src:'Fleur-de-Badette-2018-FR.pdf'},

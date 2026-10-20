@@ -1419,3 +1419,15 @@ body.map-page .pane-list.is-open ~ .list-close:hover {
   .pane-map, .filters, .tabbar, .scrim, .buylinks { display: none; }
   .drawer { position: static; transform: none; width: auto; }
 }
+
+/* Which wine of the estate the drawer is showing. */
+.winepick { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; }
+.winepick label {
+  font-size: 10.5px; text-transform: uppercase; letter-spacing: .05em;
+  color: var(--text-muted);
+}
+.winepick select { flex: 1; min-width: 240px; }
+/* A year with no sheet for this wine: present, so the run of years stays
+   unbroken, but plainly nothing to open. */
+.vrow-thin { opacity: .5; }
+.vrow-thin .vrow-head { cursor: default; grid-template-columns: 62px 1fr; }

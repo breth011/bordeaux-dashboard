@@ -495,6 +495,10 @@ var state = {
   cls: null,          /* active collection id, or null for everything */
   region: null,
   q: '', appellation: '', vintage: '',
+  /* Which of the estate's wines the drawer is showing. Always reset to the
+     grand vin when a drawer opens: the grand vin is what the estate is
+     known for, and is the thing anyone opening a château came to see. */
+  wine: 'grand',
   tiers: {}, active: null, tables: false,
   /* The comparison opens on something rather than on nothing: a vertical of
      the four most recent vintages worth the name, which is a reading the
@@ -2365,6 +2369,9 @@ function openDrawer(id) {
   var ch = null;
   for (var i = 0; i < CH.length; i++) if (CH[i].id === id) { ch = CH[i]; break; }
   if (!ch) return;
+  /* openDrawer is also how the wine selector redraws, so it keeps the
+     choice when reopening the same estate and resets it on a new one. */
+  if (state.active !== id) state.wine = 'grand';
   state.active = id;
   hideMapTip();
   var def = clsDef(ch.cls);
@@ -2438,6 +2445,8 @@ function openDrawer(id) {
      has to be counted the way the rows below are scored, not off the small
      table of hand-entered figures the strip used: that said 4 of 43 for an
      estate whose rows show ratings for most of them. */
+  body += wineSwitcher(ch);
+
   var ratedYears = YEARS.filter(function (yr) { return !scoreFor(ch, yr).none; }).length;
   /* How many of the forty-three are worth opening this year. It is the first
      thing anyone standing in front of a cellar wants to know, so it goes in
@@ -2446,12 +2455,25 @@ function openDrawer(id) {
     var m = maturity(drinkWindow(ch, yr));
     return m && (m.k === 'peak' || m.k === 'late');
   }).length;
+  /* The other wines carry no critic score and no window, so the heading
+     counts what they do have: the years with a sheet on file. */
+  var sel = wineById(ch, state.wine);
+  var onFile = YEARS.filter(function (yr) {
+    return wineFiche(ch, state.wine, yr);
+  }).length;
+  var hint = state.wine === 'grand'
+    ? ratedYears + ' of ' + YEARS.length + ' rated · ' + readyNow + ' ready to drink now'
+    : onFile + ' of ' + YEARS.length + ' with a sheet on file';
   body +=
-    '<div class="section"><h3>All vintages, 1982–2024' +
-      '<span class="hint">' + ratedYears + ' of ' + YEARS.length +
-      ' rated · ' + readyNow + ' ready to drink now</span></h3>' +
+    '<div class="section"><h3>' +
+      (state.wine === 'grand' ? 'All vintages, 1982–2024'
+                              : sel.name + ', 1982–2024') +
+      '<span class="hint">' + hint + '</span></h3>' +
       '<div class="vintagelist">' +
-        YEARS.map(function (yr) { return vintageRow(ch, yr); }).join('') +
+        YEARS.map(function (yr) {
+          return state.wine === 'grand' ? vintageRow(ch, yr)
+                                        : cuveeRow(ch, state.wine, yr);
+        }).join('') +
       '</div></div>';
 
   el.drawerBody.innerHTML = body;
@@ -2461,6 +2483,13 @@ function openDrawer(id) {
   el.drawer.setAttribute('aria-hidden', 'false');
 
   document.getElementById('closeDrawer').addEventListener('click', closeDrawer);
+
+  var ws = document.getElementById('wineSel');
+  if (ws) ws.addEventListener('change', function () {
+    state.wine = ws.value;
+    openDrawer(ch.id);
+    el.drawerBody.scrollTop = 0;
+  });
 
   Array.prototype.forEach.call(el.drawerBody.querySelectorAll('.vrow-head'), function (b) {
     b.addEventListener('click', function () { b.parentNode.classList.toggle('open'); });
@@ -2584,6 +2613,41 @@ function seasonBlock(ch, yr, v, o) {
     appellationLine(ch, yr);
 }
 
+/* ------------------------- the estate's other wines ---------------------- */
+/* An estate is not one wine. fiches.js holds the grand vin, the wine it is
+   judged on, and cuvees.js holds the rest: the second wine, the dry white,
+   the occasional odd cuvee. The drawer opens on the grand vin always, and
+   offers the others beside it - the question "what else do they make?" is
+   a real one, and until now the dashboard could not answer it. */
+
+var CUVEES = window.BDX_CUVEES || {};
+var CUVEE_WINES = window.BDX_CUVEE_WINES || {};
+
+/* The grand vin is always first, and always present. */
+function winesOf(ch) {
+  var list = [{ slug: 'grand', name: ch.name, role: 'grand',
+                colour: ch.cat === 'sweet' ? 'sweet'
+                        : ch.cat === 'white' ? 'white' : 'red' }];
+  var more = CUVEE_WINES[ch.id] || [];
+  for (var i = 0; i < more.length; i++) list.push(more[i]);
+  return list;
+}
+
+function wineById(ch, slug) {
+  var list = winesOf(ch);
+  for (var i = 0; i < list.length; i++) if (list[i].slug === slug) return list[i];
+  return list[0];
+}
+
+/* The record for one wine in one year, whichever store it lives in. */
+function wineFiche(ch, slug, yr) {
+  if (!slug || slug === 'grand') return fiche(ch, yr);
+  return CUVEES[ch.id + '|' + slug + '|' + yr] || null;
+}
+
+var ROLE_LABEL = { grand: 'the grand vin', second: 'second wine',
+                   other: 'another cuvée' };
+
 /* ----------------------------- when to drink ----------------------------- */
 /* The vintage file carries one window per year, for "a classified-growth red
    of that year". That is the right place to start and the wrong answer for
@@ -2696,6 +2760,26 @@ function maturity(w) {
   return { k: 'peak', label: 'At peak' };
 }
 
+/* The selector only appears where there is something to select. One wine
+   needs no dropdown, and an estate with nothing but its grand vin on file
+   should not be made to look as though something is missing. */
+function wineSwitcher(ch) {
+  var list = winesOf(ch);
+  if (list.length < 2) return '';
+  var opts = list.map(function (w) {
+    var n = YEARS.filter(function (yr) {
+      return wineFiche(ch, w.slug, yr);
+    }).length;
+    return '<option value="' + w.slug + '"' +
+      (w.slug === state.wine ? ' selected' : '') + '>' + w.name +
+      ' — ' + (ROLE_LABEL[w.role] || w.role) +
+      (n ? ' · ' + n + ' vintages on file' : '') + '</option>';
+  }).join('');
+  return '<div class="section winepick">' +
+    '<label for="wineSel">Which wine</label>' +
+    '<select id="wineSel">' + opts + '</select></div>';
+}
+
 function drinkBlock(ch, yr) {
   var w = drinkWindow(ch, yr);
   if (!w) return '';
@@ -2780,6 +2864,56 @@ function vintageRow(ch, yr) {
                '" target="_blank" rel="noopener noreferrer" href="' + l.url + '">' +
                l.label + ' <span style="opacity:.7;font-size:11px">' + l.host + '</span></a>';
       }).join('') + '</div>' +
+    '</div></div>';
+}
+
+/* A year of one of the estate's other wines.
+
+   Deliberately plainer than the grand vin's row. The critics rate the
+   grand vin, so there is no score to show here and none is invented; the
+   vintage report belongs to the appellation and is already one tap away
+   on the grand vin. What a second wine's sheet does carry - its own
+   blend, its alcohol, its time in wood - is what this shows, and a year
+   with no sheet says so rather than pretending to be empty. */
+function cuveeRow(ch, slug, yr) {
+  var f = wineFiche(ch, slug, yr);
+  var v = V[yr];
+  if (!f) {
+    return '<div class="vrow vrow-thin" data-year="' + yr + '">' +
+      '<button class="vrow-head" disabled><span class="yr">' + yr + '</span>' +
+      '<span class="teaser">No sheet on file for this wine</span></button></div>';
+  }
+  var bits = [];
+  if (f.alc) bits.push(f.alc + '%');
+  if (f.oak) bits.push(f.oak);
+  if (f.yld) bits.push(f.yld + ' hl/ha');
+
+  return '<div class="vrow" data-year="' + yr + '" ' +
+      'style="border-left:3px solid ' + ratingColor(vintageRating(ch, yr)) + '">' +
+    '<button class="vrow-head"><span class="yr">' + yr + '</span>' +
+      '<span class="sc"></span>' +
+      '<span class="mat mat-none"></span>' +
+      '<span class="teaser">' + (bits.join(' · ') || v.report) + '</span>' +
+      '<span class="chev">▾</span></button>' +
+    '<div class="vrow-body">' +
+      (f.blend
+        ? '<p class="subhead">Blend, ' + yr + '</p>' + blendBar(f.blend) +
+          '<div class="tableview' + (state.tables ? ' on' : '') + '">' +
+            blendTable(f.blend) + '</div>'
+        : '') +
+      (bits.length
+        ? '<dl class="factgrid">' +
+            (f.alc ? '<div class="fact"><dt>Alcohol</dt><dd>' + f.alc + '%</dd></div>' : '') +
+            (f.oak ? '<div class="fact"><dt>Ageing</dt><dd>' + f.oak + '</dd></div>' : '') +
+            (f.yld ? '<div class="fact"><dt>Yield</dt><dd>' + f.yld + ' hl/ha</dd></div>' : '') +
+            (f.harvest ? '<div class="fact"><dt>Picked</dt><dd>' + f.harvest + '</dd></div>' : '') +
+          '</dl>'
+        : '') +
+      (f.note ? '<p class="subhead">The estate on the year</p>' +
+                '<p class="notetext">' + f.note + '</p>' : '') +
+      (f.taste ? '<p class="subhead">The estate on the wine</p>' +
+                 '<p class="notetext">' + f.taste + '</p>' : '') +
+      '<p class="src">this estate’s own sheet for this wine</p>' +
     '</div></div>';
 }
 

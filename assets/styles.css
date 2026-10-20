@@ -900,6 +900,7 @@ table.dt td.num { font-family: var(--mono); text-align: right; }
 }
 .acrow:hover, .acrow.on { background: var(--surface-2); }
 .acname { display: block; font-size: 12.5px; font-weight: 600; }
+.acrow.acplace .acname { color: var(--rank-1); }
 .acwhere { display: block; font-size: 11px; color: var(--text-muted); }
 
 /* Sourcing. It should be checkable at a glance and ignorable the rest of
@@ -1128,7 +1129,34 @@ body.map-page #filters {
   padding: 10px 14px;
   display: none;
 }
-body.map-page #filters.open { display: flex; }
+/* Finding an estate by name should not be behind a toggle. On the map page
+   the panel stays on screen but shows only the search field until Filters is
+   pressed, when the rest of the controls unfold beside it. */
+body.map-page #filters {
+  /* Collapsed, it is an ordinary row under the tabs. Absolutely positioned
+     it was measured from the page, not the map, and floated over the tab
+     bar. Only the opened panel overlays the map. */
+  position: static;
+  display: flex;
+  max-width: none;
+  background: var(--surface-1);
+  border: none; border-bottom: 1px solid var(--border);
+  border-radius: 0; box-shadow: none;
+  padding: 6px 20px 7px;
+}
+/* Scope the collapsing to the collapsed state. Hiding everything and then
+   un-hiding it when open loses on specificity, and the panel opened with
+   only the search field in it. */
+body.map-page #filters:not(.open) > *:not(.field:first-of-type) { display: none; }
+/* Opened, it unfolds in place rather than floating over the map. A panel
+   that covers the thing you are filtering is a popup; this is a row. */
+body.map-page #filters.open {
+  position: static;
+  background: var(--surface-1);
+  border: none; border-bottom: 1px solid var(--border);
+  border-radius: 0; box-shadow: none;
+  padding: 6px 20px 7px;
+}
 
 /* The châteaux of the chosen appellation slide over the map. */
 body.map-page .pane-list {

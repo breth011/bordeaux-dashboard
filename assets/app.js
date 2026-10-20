@@ -857,6 +857,18 @@ function renderList() {
       return inCollection(ch, g.cls) && ch.growth === g.growth;
     });
     if (!members.length) return;
+    /* Picking a vintage puts a score on every card, so order by it: a list
+       of that year's wines that is not in that year's order is a puzzle. */
+    if (state.vintage) {
+      var yr = Number(state.vintage);
+      members = members.slice().sort(function (a, b) {
+        var sa = scoreFor(a, yr), sb = scoreFor(b, yr);
+        var va = sa.none ? -1 : (sa.exact || sa.score);
+        var vb = sb.none ? -1 : (sb.exact || sb.score);
+        if (vb !== va) return vb - va;
+        return a.name.localeCompare(b.name);
+      });
+    }
     var swatch = cssVar('--rank-' + Math.min(5, g.growth));
     html += '<section class="growth-group">' +
       '<div class="growth-head">' +
@@ -872,7 +884,10 @@ function renderList() {
         '<span class="pmeta">' + ch.appellation +
           (ch.commune && ch.commune !== ch.appellation ? ' · ' + ch.commune : '') + '</span>' +
         '<span class="pfoot">' + (ch.ha ? ch.ha + ' ha' : '') +
-          (sub && !sub.none ? ' · <b>' + sub.score + '</b> in ' + state.vintage : '') +
+          (sub && !sub.none
+            ? ' · <span class="' + (sub.panel ? 'ratingwrap' : '') + '"><b>' + sub.score +
+              '</b>' + (sub.panel ? ratingPanel(sub) : '') + '</span> in ' + state.vintage
+            : '') +
         '</span></button>';
     });
     html += '</div></section>';
@@ -1929,6 +1944,19 @@ function acTight(s) {
 function acSearch(q) {
   var k = acKey(q), t = acTight(q);
   if (t.length < 2) return [];
+
+  /* Appellations first. Typing "paui" should offer the place as readily as
+     the estates in it, and there are only twenty-odd of them, so they never
+     crowd the list. */
+  var places = [];
+  window.BDX_MAP.regions.forEach(function (r) {
+    var name = acKey(r.name), at = name.indexOf(k);
+    if (at === 0 || (at > 0 && name.charAt(at - 1) === ' ') || acTight(r.name).indexOf(t) === 0) {
+      places.push({ region: r, n: chateauxInRegion(r).length });
+    }
+  });
+  places.sort(function (a, b) { return acKey(a.region.name).indexOf(k) - acKey(b.region.name).indexOf(k); });
+
   var starts = [], words = [], inside = [];
   for (var i = 0; i < CH.length; i++) {
     var ch = CH[i], name = acKey(ch.name), tight = acTight(ch.name);
@@ -1936,9 +1964,8 @@ function acSearch(q) {
     if (at === 0) starts.push(ch);
     else if (at > 0 && name.charAt(at - 1) === ' ') words.push(ch);
     else if (at > 0 || tight.indexOf(t) >= 0) inside.push(ch);
-    else if (acKey(ch.appellation).indexOf(k) === 0) inside.push(ch);
   }
-  return starts.concat(words, inside).slice(0, 8);
+  return places.slice(0, 3).concat(starts, words, inside).slice(0, 9);
 }
 
 function acClose() {
@@ -1951,24 +1978,35 @@ function acRender(list) {
   acItems = list;
   acIndex = -1;
   if (!list.length) { acClose(); return; }
-  acBox.innerHTML = list.map(function (ch, i) {
-    var def = clsDef(ch.cls);
-    return '<button type="button" class="acrow" data-i="' + i + '" data-ch="' + ch.id + '">' +
-      '<span class="acname">' + ch.name + '</span>' +
-      '<span class="acwhere">' + ch.appellation +
-      (def && def.name ? ' · ' + rankLabel(ch) : '') + '</span></button>';
+  acBox.innerHTML = list.map(function (item, i) {
+    if (item.region) {
+      return '<button type="button" class="acrow acplace" data-i="' + i + '">' +
+        '<span class="acname">' + item.region.name + '</span>' +
+        '<span class="acwhere">Appellation · ' + item.n + ' château' +
+        (item.n === 1 ? '' : 'x') + '</span></button>';
+    }
+    var def = clsDef(item.cls);
+    return '<button type="button" class="acrow" data-i="' + i + '" data-ch="' + item.id + '">' +
+      '<span class="acname">' + item.name + '</span>' +
+      '<span class="acwhere">' + item.appellation +
+      (def && def.name ? ' · ' + rankLabel(item) : '') + '</span></button>';
   }).join('');
   acBox.style.display = '';
 }
 
 function acChoose(i) {
-  var ch = acItems[i];
-  if (!ch) return;
+  var item = acItems[i];
+  if (!item) return;
   acClose();
   if (el.search) el.search.value = '';
   state.q = '';
+  /* An appellation takes you to its ground; an estate opens its drawer. */
+  if (item.region) {
+    enterRegion(item.region.id);
+    return;
+  }
   refresh();
-  openDrawer(ch.id);
+  openDrawer(item.id);
 }
 
 function acMove(d) {

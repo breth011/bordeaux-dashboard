@@ -1,6 +1,6 @@
 'use strict';
 
-var CACHE_NAME = 'bordeaux-classified-v45';
+var CACHE_NAME = 'bordeaux-classified-v46';
 var APP_SHELL = [
   './',
   './index.html',
@@ -40,6 +40,7 @@ var APP_SHELL = [
   './data/coords.js',
   './data/phenology.js',
   './data/websites.js',
+  './data/vintages-nl.js',
   './data/vintages.js'
 ];
 

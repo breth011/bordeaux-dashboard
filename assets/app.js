@@ -584,6 +584,24 @@ var AP_DISTRICT = {
 /* The appellation notes in the language being read. The Dutch file holds
    the same fields; anything it has not got yet falls back to the English,
    so a half-finished translation shows as English rather than as a gap. */
+/* The vintage as it should be read: the Dutch weather and report where
+   they exist, the English where they do not. Everything else about the
+   year - the ratings, the drinking window, the commune adjustments - is
+   numbers and is shared. */
+function vintage(yr) {
+  var en = V[yr];
+  if (!en) return en;
+  var lang = window.BDX_LANG ? BDX_LANG.get() : 'en';
+  if (lang === 'en') return en;
+  var alt = (window.BDX_VINTAGES_NL || {})[yr];
+  if (!alt) return en;
+  var out = {};
+  for (var k in en) out[k] = en[k];
+  if (alt.weather) out.weather = alt.weather;
+  if (alt.report) out.report = alt.report;
+  return out;
+}
+
 function apNote(id) {
   var en = AP_NOTES[id] || null;
   if (!en) return null;
@@ -2281,13 +2299,13 @@ function appellationLine(ch, yr) {
    tasting note but no weather still gets the regional weather beneath it. */
 function seasonBlock(ch, yr, v, o) {
   var f = fiche(ch, yr);
-  var weather = (f && f.note) ? f.note : v.weather;
+  var weather = (f && f.note) ? f.note : vintage(yr).weather;
   /* ntl and ttl mark a passage the estate published in French and that is
      shown here in English. It is still the estate's note, so it is said on
      the line that was already there rather than announced separately. */
   var wSrc = (f && f.note) ? (f.ntl ? 'this estate, translated' : 'this estate')
                            : 'Bordeaux';
-  var wine = (f && f.taste) ? f.taste : ((o && o.note) ? o.note : v.report);
+  var wine = (f && f.taste) ? f.taste : ((o && o.note) ? o.note : vintage(yr).report);
   var tSrc = (f && f.taste) ? (f.ttl ? 'this estate, translated' : 'this estate')
                             : ((o && o.note) ? (o.src || 'reported') : 'Bordeaux');
 
@@ -2421,7 +2439,7 @@ function rosterHtml(list, label, yr) {
 
 function vintageTable(r) {
   var rows = YEARS.map(function (yr) {
-    var v = V[yr], rt = regionVintageRating(r, yr);
+    var v = vintage(yr), rt = regionVintageRating(r, yr);
     var open = state.apVintage === yr;
     return '<tr class="vt-row' + (open ? ' on' : '') + '" data-vt="' + yr + '">' +
       '<th scope="row">' + yr + '</th>' +
@@ -2484,7 +2502,7 @@ var VG_GROUPS = {
 function renderVintages() {
   var html = '';
   YEARS.forEach(function (yr) {
-    var v = V[yr], rb = RB[yr], open = null;
+    var v = vintage(yr), rb = RB[yr], open = null;
     var defs = [['medoc', 'Médoc', v.medoc], ['pessac', 'Pessac-Léognan', v.pessac],
                 ['rightbank', 'Saint-Émilion & Pomerol', rb.r],
                 ['sauternes', 'Sauternes & Barsac', v.sauternes]];

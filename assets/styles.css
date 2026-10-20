@@ -1485,6 +1485,11 @@ body.map-page .pane-list.is-open ~ .list-close:hover {
   font-family: var(--mono); font-size: 10px; font-weight: 700; text-align: center;
 }
 
+/* An address that goes to the owning group rather than the estate. */
+.sitenote {
+  display: block; font-size: 11px; color: var(--text-muted); margin-top: 2px;
+}
+
 .cellar-total { font-size: 13px; color: var(--text-secondary); margin: 0 0 18px; }
 .cellar-group { margin-bottom: 26px; }
 .cellar-group h3 {

@@ -189,6 +189,7 @@
     'One more bottle': 'Eén fles meer',
     'Bottles held': 'Flessen in bezit',
     'Bottle size': 'Flesformaat',
+    'the owning group’s site': 'de site van de eigenaarsgroep',
     'Size': 'Formaat',
     'litres': 'liter',
 

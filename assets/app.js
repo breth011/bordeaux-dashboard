@@ -460,6 +460,15 @@ function siteKey(name) {
     .replace(/[^a-z0-9]+/g, ' ')
     .replace(/^ +| +$/g, '');
 }
+var SITE_SOURCE = {
+  ugcb: 'the UGCB register',
+  cb: 'the Crus Bourgeois register',
+  cbg: 'the Crus Bourgeois register — the owning group, not the estate',
+  hand: 'the estate, checked by hand',
+  osm: 'OpenStreetMap',
+  wikidata: 'Wikidata'
+};
+
 function siteFor(ch) {
   var S = window.BDX_SITES;
   return (S && S[siteKey(ch.name)]) || null;
@@ -2612,10 +2621,15 @@ function openDrawer(id) {
   if (ch.wine) fx.push(['Classified for', ch.wine]);
   var site = siteFor(ch);
   if (site) {
+    /* Where the address came from, because they are not all equal. An
+       estate's own register entry is worth more than a map note, and an
+       address that lands on the owning group rather than on the estate
+       is worth saying out loud before anyone clicks it. */
+    var where = SITE_SOURCE[site[1]] || 'Wikidata';
     fx.push(['Website', '<a href="' + site[0] + '" target="_blank" rel="noopener noreferrer"' +
-      ' title="from ' + (site[1] === 'ugcb' ? 'the UGCB register'
-                        : site[1] === 'osm' ? 'OpenStreetMap' : 'Wikidata') + '">' +
-      site[0].replace(/^https?:\/\//, '') + '</a>']);
+      ' title="from ' + where + '">' +
+      site[0].replace(/^https?:\/\//, '') + '</a>' +
+      (site[1] === 'cbg' ? '<span class="sitenote">the owning group’s site</span>' : '')]);
   }
 
   var facts = '<dl class="factgrid">' + fx.map(function (f) {

@@ -2444,7 +2444,44 @@ function fitToVisible() {
 /* ===========================================================================
    11. BLEND BAR — stacked, 2px gaps, direct labels + key + table (relief rule)
    =========================================================================== */
-function blendBar(parts) {
+/* The estate's usual blend, drawn under the vintage's own at half the
+   height and under half the opacity. Same flex total, same gaps, same
+   colours, so the two bars line up percent for percent and the eye
+   reads the difference off the segment boundaries. */
+function ghostBar(vintage, usual) {
+  if (!usual) return '';
+  var keys = GRAPE_ORDER.filter(function (k) { return usual[k] > 0; });
+  if (!keys.length) return '';
+
+  var moved = [];
+  GRAPE_ORDER.forEach(function (k) {
+    var d = Math.round(((vintage[k] || 0) - (usual[k] || 0)) * 10) / 10;
+    if (Math.abs(d) >= 0.05) {
+      moved.push(GRAPES[k].name + ' ' + (d > 0 ? 'plus ' : 'minus ') +
+                 Math.abs(d));
+    }
+  });
+
+  var bar = '';
+  keys.forEach(function (k) {
+    bar += '<div class="blendseg" style="flex:' + usual[k] +
+      ';background:' + grapeColor(k) + '" title="' + GRAPES[k].name + ' ' +
+      usual[k] + '% usually, ' + (vintage[k] || 0) + '% this year"></div>';
+  });
+
+  return '<div class="blendghost" role="img" aria-label="' +
+      (moved.length ? 'Against the estate\u2019s usual blend: ' +
+                      moved.join(', ')
+                    : 'Exactly the estate\u2019s usual blend') + '">' +
+      '<div class="blendbar">' + bar + '</div>' +
+      '<span class="ghost-cap">' +
+        (moved.length ? 'the estate\u2019s usual blend'
+                      : 'the estate\u2019s usual blend, unchanged this year') +
+      '</span>' +
+    '</div>';
+}
+
+function blendBar(parts, usual) {
   var keys = GRAPE_ORDER.filter(function (k) { return parts[k] > 0; });
   var bar = '<div class="blendbar">', key = '<div class="blendkey">';
   keys.forEach(function (k) {
@@ -2454,7 +2491,7 @@ function blendBar(parts) {
            GRAPES[k].name + ' ' + pct + '%">' + (pct >= 8 ? pct + '%' : '') + '</div>';
     key += '<span><i style="background:' + c + '"></i>' + GRAPES[k].name + ' ' + pct + '%</span>';
   });
-  return bar + '</div>' + key + '</div>';
+  return bar + '</div>' + ghostBar(parts, usual) + key + '</div>';
 }
 function blendTable(parts) {
   var keys = GRAPE_ORDER.filter(function (k) { return parts[k] > 0; });
@@ -2768,63 +2805,6 @@ function fiche(ch, yr) {
   return out;
 }
 
-/* How this vintage departed from the estate's usual blend.
-
-   This used to be a sentence - "Cabernet Sauvignon +2.2 · Merlot -4.5 ·
-   Cabernet Franc +2.3" - which is three numbers the reader has to hold
-   in their head to see the shape. The shape is the point: the estate
-   reached for more Cabernet and less Merlot this year. A bar either
-   side of the estate's norm says that at a glance.
-
-   The grape colours are the ones the blend bar above uses, so the two
-   read together. Everything is scaled to whichever variety moved most,
-   so a year that barely moved looks like one. Varieties that did not
-   move are still shown, at the line, because "the Petit Verdot is
-   exactly as usual" is part of the picture. */
-function driftChart(vintage, usual) {
-  var keys = GRAPE_ORDER.filter(function (k) {
-    return (vintage[k] || 0) > 0 || (usual[k] || 0) > 0;
-  });
-  if (!keys.length) return '';
-
-  var max = 0;
-  keys.forEach(function (k) {
-    var d = Math.abs((vintage[k] || 0) - (usual[k] || 0));
-    if (d > max) max = d;
-  });
-  if (max < 0.05) {
-    return '<p class="src">Exactly the estate\u2019s typical blend.</p>';
-  }
-
-  var rows = keys.map(function (k) {
-    var d = Math.round(((vintage[k] || 0) - (usual[k] || 0)) * 10) / 10;
-    var w = Math.min(50, Math.abs(d) / max * 50);
-    var c = grapeColor(k);
-    var bar = Math.abs(d) < 0.05
-      ? '<i class="drift-none"></i>'
-      : '<i class="drift-bar" style="' +
-        (d > 0 ? 'left:50%;' : 'right:50%;') + 'width:' + w + '%;' +
-        'background:' + c + '"></i>';
-    return '<div class="drift-row">' +
-        '<span class="drift-name">' + GRAPES[k].name + '</span>' +
-        '<span class="drift-track">' + bar + '</span>' +
-        '<span class="drift-val' + (d > 0 ? ' up' : d < 0 ? ' down' : '') +
-          '">' + (d > 0 ? '+' : '') + (d || 0) + '</span>' +
-      '</div>';
-  }).join('');
-
-  return '<p class="subhead">Against the estate\u2019s usual blend</p>' +
-    '<div class="drift" role="img" aria-label="' +
-      keys.map(function (k) {
-        var d = Math.round(((vintage[k] || 0) - (usual[k] || 0)) * 10) / 10;
-        return GRAPES[k].name + ' ' + (d > 0 ? 'plus ' : d < 0 ? 'minus ' : '')
-               + Math.abs(d);
-      }).join(', ') + '">' +
-      '<div class="drift-head"><span>less</span><span>more</span></div>' +
-      rows +
-    '</div>';
-}
-
 function fichesBlock(ch, yr) {
   var f = fiche(ch, yr);
   if (!f) return '';
@@ -2832,10 +2812,9 @@ function fichesBlock(ch, yr) {
 
   if (f.blend) {
     s += '<p class="subhead">Blend, ' + yr + '</p>' +
-      blendBar(f.blend) +
+      blendBar(f.blend, ch.blend) +
       '<div class="tableview' + (state.tables ? ' on' : '') + '">' +
         blendTable(f.blend) + '</div>';
-    if (ch.blend) s += driftChart(f.blend, ch.blend);
   }
 
   var fx = [];
@@ -3662,6 +3641,43 @@ function fmtMonthDay(md) {
    as the ISVV measured them on its reference plots, then the day this estate
    says it started picking. Two sources, one timeline, because that is how
    the year reads — and the source line says which is which. */
+/* A picking span, written the way the rest of the timeline is: one
+   month named when both ends share it, two when they do not, and a
+   bare start or end where the estate gave only one. */
+function fmtSpan(v) {
+  var p = String(v || '').split('|'), a = p[0], b = p[1];
+  if (a && b) {
+    return a.slice(0, 2) === b.slice(0, 2)
+      ? parseInt(b.slice(3), 10) === parseInt(a.slice(3), 10)
+        ? fmtMonthDay(a)
+        : parseInt(a.slice(3), 10) + '\u2013' + fmtMonthDay(b)
+      : fmtMonthDay(a) + ' \u2013 ' + fmtMonthDay(b);
+  }
+  return a ? 'from ' + fmtMonthDay(a) : 'to ' + fmtMonthDay(b);
+}
+
+/* What the estate said about picking, variety by variety where it said
+   so. The word Picking rides on the first span only - "Picking Merlot
+   13-23 September · Cabernet Sauvignon 21 September - 5 October" reads
+   as one statement, and repeating the word would make it three. */
+function pickBits(f) {
+  var p = f && f.pick, out = [];
+  if (!p) return out;
+  if (p.ALL) out.push([' ', 'Picking <b>' + fmtSpan(p.ALL) + '</b>']);
+  GRAPE_ORDER.forEach(function (k) {
+    if (!p[k]) return;
+    out.push([String(p[k]).split('|')[0] || 'zz',
+              GRAPES[k].name + ' <b>' + fmtSpan(p[k]) + '</b>']);
+  });
+  /* In the order they were picked, not the order of the blend: a
+     timeline that runs Cabernet then Merlot when the Merlot came in
+     first is a timeline read backwards. */
+  out.sort(function (a, b) { return a[0] < b[0] ? -1 : a[0] > b[0] ? 1 : 0; });
+  return out.map(function (x, i) {
+    return (i || /^Picking/.test(x[1]) ? '' : 'Picking ') + x[1];
+  });
+}
+
 function phenologyLine(yr, ch) {
   var P = window.BDX_PHENOLOGY, ph = P && P[yr];
   var f = ch ? fiche(ch, yr) : null;
@@ -3669,8 +3685,9 @@ function phenologyLine(yr, ch) {
   if (ph && ph.flowering) bits.push('Flowering <b>' + fmtMonthDay(ph.flowering) + '</b>');
   if (ph && ph.veraison) bits.push('Véraison <b>' + fmtMonthDay(ph.veraison) + '</b>');
   if (bits.length) src.push('ISVV');
-  if (f && f.harvest) {
-    bits.push('Picking from <b>' + f.harvest + '</b>');
+  var picks = pickBits(f);
+  if (picks.length) {
+    bits = bits.concat(picks);
     src.push('this estate');
   }
   if (!bits.length) return '';

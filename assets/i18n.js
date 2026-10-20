@@ -112,9 +112,11 @@
     'Variety': 'Druif',
     'Share': 'Aandeel',
     'Rating': 'Score',
-    'Blend, this vintage': 'Samenstelling, deze jaargang',
-    'Exactly the estate’s typical blend.':
-      'Precies de typische samenstelling van het domein.',
+    'Blend, this vintage': 'Samenstelling, deze jaargang',    'the estate’s usual blend':
+        'de gebruikelijke assemblage van het domein',
+    'the estate’s usual blend, unchanged this year':
+        'de gebruikelijke assemblage van het domein, dit jaar onveranderd',
+    'Picking': 'Pluk',
     'Flowering': 'Bloei',
     'Véraison': 'Véraison',
     '· Véraison': '· Véraison',
@@ -189,10 +191,6 @@
     'One more bottle': 'Eén fles meer',
     'Bottles held': 'Flessen in bezit',
     'Bottle size': 'Flesformaat',
-    'Against the estate\u2019s usual blend': 'Tegenover de gebruikelijke assemblage van het domein',
-    'less': 'minder',
-    'more': 'meer',
-    'Exactly the estate\u2019s typical blend.': 'Precies de gebruikelijke assemblage van het domein.',
     'the owning group’s site': 'de site van de eigenaarsgroep',
     'Size': 'Formaat',
     'litres': 'liter',
@@ -416,10 +414,7 @@
     [/^No estate matches these filters\. Try clearing the search box or lowering the minimum score\.$/,
      'Geen domein past bij deze filters. Maak het zoekveld leeg of verlaag de minimumscore.'],
     [/^Season by season in (.+), (\d+)–(\d+) — the documented character of each year, not a rating of any one wine\.$/,
-     'Seizoen na seizoen in $1, $2–$3 — het gedocumenteerde karakter van elk jaar, geen beoordeling van een afzonderlijke wijn.'],
-    [/^Against the estate’s typical blend: (.+)$/,
-     'Tegenover de typische samenstelling van het domein: $1'],
-    /* A group heading is a name, a note and a count, and only the middle
+     'Seizoen na seizoen in $1, $2–$3 — het gedocumenteerde karakter van elk jaar, geen beoordeling van een afzonderlijke wijn.'],    /* A group heading is a name, a note and a count, and only the middle
        part is ours to say differently - so ask the table about that part
        and leave the name alone. Last in the list: the specific rules above
        must have their turn first. */
@@ -434,11 +429,31 @@
       return (a || m[1]) + ' · ' + (b || m[2]);
     }],
 
+    /* A segment of the usual-blend bar: what the variety usually is,
+       and what it was this year. */
+    [/^(.+) ([\d.]+)% usually, ([\d.]+)% this year$/,
+     function (m) { return m[1] + ' ' + m[2] + '% gebruikelijk, ' + m[3] +
+                           '% dit jaar'; }],
     /* The phenology tooltip, whose tail counts the reports that agree. */
     [/^Flowering and véraison: Institut des Sciences de la Vigne et du Vin reference plots$/,
      'Bloei en véraison: referentiepercelen van het Institut des Sciences de la Vigne et du Vin'],
     [/^Flowering and véraison: Institut des Sciences de la Vigne et du Vin reference plots, (\d+) reports agree$/,
      'Bloei en véraison: referentiepercelen van het Institut des Sciences de la Vigne et du Vin, $1 rapporten komen overeen'],
+
+    /* the word for picking, which arrives with the variety it
+       introduces, the grape names being left as they are */
+    [/^Picking (.+)$/, function (m) { return 'Pluk ' + m[1]; }],
+
+    /* a picking span, the way Dutch writes it */
+    [new RegExp('^(\\d+)\u2013(\\d+) (' + MON + ')$'),
+     function (m) { return m[1] + '\u2013' + m[2] + ' ' + MONTHS[m[3]]; }],
+    [new RegExp('^(\\d+) (' + MON + ') \u2013 (\\d+) (' + MON + ')$'),
+     function (m) { return m[1] + ' ' + MONTHS[m[2]] + ' \u2013 ' + m[3] +
+                           ' ' + MONTHS[m[4]]; }],
+    [new RegExp('^from (\\d+) (' + MON + ')$'),
+     function (m) { return 'vanaf ' + m[1] + ' ' + MONTHS[m[2]]; }],
+    [new RegExp('^to (\\d+) (' + MON + ')$'),
+     function (m) { return 'tot ' + m[1] + ' ' + MONTHS[m[2]]; }],
 
     /* a date the way Dutch writes it */
     [new RegExp('^(\\d+) (' + MON + ')$'),
@@ -454,9 +469,7 @@
   var undo = [];
   var ATTRS = ['placeholder', 'aria-label', 'title', 'alt'];
 
-  function say(d, raw) {
-    var t = raw.replace(/\s+/g, ' ').trim();
-    if (!t) return null;
+  function phrase(d, t) {
     if (d.exact[t]) return d.exact[t];
     for (var i = 0; i < d.re.length; i++) {
       var m = t.match(d.re[i][0]);
@@ -466,6 +479,18 @@
         : out.replace(/\$(\d)/g, function (_, n) { return m[+n]; });
     }
     return null;
+  }
+
+  /* A phrase is looked up trimmed, because "Flowering " and "Flowering"
+     are the same phrase, and then given back the space it was found
+     with. Without that, a label in its own element arrives against the
+     number beside it: "Bloei4 juni". */
+  function say(d, raw) {
+    var t = raw.replace(/\s+/g, ' ').trim();
+    if (!t) return null;
+    var out = phrase(d, t);
+    if (out === null) return null;
+    return raw.match(/^\s*/)[0] + out + raw.match(/\s*$/)[0];
   }
 
   function walk(root, d) {

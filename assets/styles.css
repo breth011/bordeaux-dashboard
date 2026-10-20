@@ -827,6 +827,7 @@ table.dt td.num { font-family: var(--mono); text-align: right; }
 .ratingwrap:hover b { text-decoration: underline dotted; text-underline-offset: 3px; }
 .ratingpanel {
   position: absolute; z-index: 40; left: 0; top: calc(100% + 6px);
+  display: block; text-align: left; cursor: default;
   min-width: 230px; padding: 9px 11px;
   background: var(--surface-1);
   border: 1px solid var(--border-strong);
@@ -837,11 +838,20 @@ table.dt td.num { font-family: var(--mono); text-align: right; }
 }
 .ratingwrap:hover .ratingpanel,
 .ratingwrap:focus-within .ratingpanel { opacity: 1; visibility: visible; }
-.ratingpanel table { width: 100%; border-collapse: collapse; font-size: 12px; }
-.ratingpanel td { padding: 2px 0; white-space: nowrap; }
-.ratingpanel td.num { text-align: right; font-family: var(--mono); font-weight: 600; }
+.ratingpanel .rprow {
+  display: flex; justify-content: space-between; gap: 14px;
+  font-size: 12px; font-weight: 400; font-family: var(--sans);
+  padding: 2px 0; white-space: nowrap; color: var(--text-secondary);
+}
+.ratingpanel .who { text-align: left; }
+.ratingpanel .num { font-family: var(--mono); font-weight: 600; color: var(--text-primary); }
 .ratingpanel .of { color: var(--text-muted); font-weight: 400; font-size: 10.5px; }
-.ratingpanel .src { margin: 6px 0 0; }
+.ratingpanel .rpfoot {
+  display: block; margin-top: 6px; padding-top: 6px;
+  border-top: 1px solid var(--border);
+  font-size: 10.5px; font-weight: 400; font-family: var(--sans);
+  color: var(--text-muted); white-space: normal;
+}
 
 /* Sourcing. It should be checkable at a glance and ignorable the rest of
    the time, so it sits small and grey under what it refers to rather than

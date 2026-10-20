@@ -371,18 +371,20 @@ var CRITIC_NAMES = {
 
 function ratingPanel(r) {
   if (!r || !r.panel) return '';
+  /* Spans, not a table: the collapsed row's score lives inside a <button>,
+     where a table is not valid content. */
   var rows = r.panel.split('|').map(function (bit) {
     var p = bit.split(':'), who = CRITIC_NAMES[p[0]] || [p[0], 0];
     var outOf = who[1];
     /* Decanter changed scale twice; read it off the value as the build did. */
     if (!outOf) outOf = parseFloat(p[1]) <= 5 ? 5 : (parseFloat(p[1]) <= 20 ? 20 : 100);
-    return '<tr><td>' + who[0] + '</td><td class="num">' + p[1] +
-           '<span class="of">/' + outOf + '</span></td></tr>';
+    return '<span class="rprow"><span class="who">' + who[0] + '</span>' +
+           '<span class="num">' + p[1] + '<span class="of">/' + outOf + '</span></span></span>';
   }).join('');
-  return '<div class="ratingpanel"><table><tbody>' + rows + '</tbody></table>' +
-    '<p class="src">' + r.n + ' critics, averaging ' + r.exact +
-    (r.spread ? ' · they differ by ' + r.spread + ' points' : '') +
-    '<br>gathered by bordoverview.com</p></div>';
+  return '<span class="ratingpanel">' + rows +
+    '<span class="rpfoot">' + r.n + ' critics, averaging ' + r.exact +
+    (r.spread ? ' \u00b7 they differ by ' + r.spread + ' points' : '') +
+    '<br>gathered by bordoverview.com</span></span>';
 }
 
 /* Every published rating this dashboard holds for one estate. */
@@ -2110,7 +2112,8 @@ function vintageRow(ch, yr) {
 
   return '<div class="vrow" data-year="' + yr + '" style="border-left:3px solid ' + edge + '">' +
     '<button class="vrow-head"><span class="yr">' + yr + '</span>' +
-      '<span class="sc">' + (rated ? r.score : '—') + '</span>' +
+      '<span class="sc' + (rated && r.panel ? ' ratingwrap' : '') + '">' +
+        (rated ? r.score : '—') + (rated ? ratingPanel(r) : '') + '</span>' +
       '<span class="teaser">' + teaser + '</span>' +
       '<span class="chev">▾</span></button>' +
     '<div class="vrow-body">' +

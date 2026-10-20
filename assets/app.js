@@ -2247,9 +2247,14 @@ function appellationLine(ch, yr) {
 function seasonBlock(ch, yr, v, o) {
   var f = fiche(ch, yr);
   var weather = (f && f.note) ? f.note : v.weather;
-  var wSrc = (f && f.note) ? 'this estate' : 'Bordeaux';
+  /* ntl and ttl mark a passage the estate published in French and that is
+     shown here in English. It is still the estate's note, so it is said on
+     the line that was already there rather than announced separately. */
+  var wSrc = (f && f.note) ? (f.ntl ? 'this estate, translated' : 'this estate')
+                           : 'Bordeaux';
   var wine = (f && f.taste) ? f.taste : ((o && o.note) ? o.note : v.report);
-  var tSrc = (f && f.taste) ? 'this estate' : ((o && o.note) ? (o.src || 'reported') : 'Bordeaux');
+  var tSrc = (f && f.taste) ? (f.ttl ? 'this estate, translated' : 'this estate')
+                            : ((o && o.note) ? (o.src || 'reported') : 'Bordeaux');
 
   return '<p class="subhead">The ' + yr + ' season</p>' +
     '<p class="vintagereport">' + weather + '</p>' +

@@ -139,6 +139,9 @@
 
     /* sourcing */
     'gathered by bordoverview.com': 'verzameld door bordoverview.com',
+    'this estate': 'dit domein',
+    'this estate, translated': 'dit domein, vertaald',
+    'reported': 'gerapporteerd',
     'Weather.': 'Weer.',
     'Pavie and Figeac': 'Pavie en Figeac',
 

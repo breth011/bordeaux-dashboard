@@ -1,6 +1,6 @@
 'use strict';
 
-var CACHE_NAME = 'bordeaux-classified-v32';
+var CACHE_NAME = 'bordeaux-classified-v33';
 var APP_SHELL = [
   './',
   './index.html',
@@ -90,9 +90,47 @@ self.addEventListener('fetch', function (event) {
     return;
   }
 
+  /* The app's own code and styles follow the page: served from the network
+     when there is one, from the cache when there is not. Cache-first here
+     was a mistake - the page came off the network and its JavaScript came
+     out of the previous deploy's cache, so new markup was driven by old
+     code and anything newly added quietly did nothing. */
+  if (/\.(?:js|css|webmanifest)$/.test(url.pathname) &&
+      url.pathname.indexOf('/data/') === -1) {
+    event.respondWith(
+      fetch(request).then(function (response) {
+        if (response.ok) {
+          var copy = response.clone();
+          event.waitUntil(caches.open(CACHE_NAME).then(function (cache) {
+            return cache.put(request, copy);
+          }));
+        }
+        return response;
+      }).catch(function () {
+        return caches.match(request);
+      })
+    );
+    return;
+  }
+
+  /* Everything else - the data files, the fonts, the images - is large and
+     changes rarely, so it is served from the cache at once and refreshed
+     behind the back of the page. A change lands on the next visit rather
+     than holding this one up. */
   event.respondWith(
     caches.match(request).then(function (cached) {
-      return cached || fetch(request);
+      if (cached) {
+        event.waitUntil(
+          fetch(request).then(function (response) {
+            if (!response.ok) return;
+            return caches.open(CACHE_NAME).then(function (cache) {
+              return cache.put(request, response);
+            });
+          }).catch(function () {})
+        );
+        return cached;
+      }
+      return fetch(request);
     })
   );
 });

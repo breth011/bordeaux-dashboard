@@ -417,32 +417,6 @@ function ratingPanel(r) {
 }
 
 /* Every published rating this dashboard holds for one estate. */
-function publishedRatings(ch) {
-  var rows = [];
-  YEARS.forEach(function (yr) {
-    var o = SCORES[ch.id + '|' + yr];
-    if (o && o.score) rows.push({ yr: yr, score: o.score, src: o.src });
-  });
-  return rows;
-}
-
-function ratingsSection(ch) {
-  var rows = publishedRatings(ch);
-  /* Nothing published means no section at all. The absence is the fact; it
-     does not need announcing on every estate. */
-  if (!rows.length) return '';
-  return '<div class="section"><h3>Critic ratings ' +
-    '<span class="hint">' + rows.length + ' of ' + YEARS.length +
-    ' vintages on record</span></h3>' +
-    '<div class="critratings">' + rows.map(function (r) {
-      return '<span class="rating"><b>' + r.yr + '</b>' +
-        '<span class="rating-n" style="background:' + scoreColor(r.score) +
-        ';color:' + (inkOn(scoreColor(r.score)) ? '#121211' : '#fff') + '">' +
-        r.score + '</span>' +
-        '<span class="rating-src">' + (r.src || 'reported') + '</span></span>';
-    }).join('') + '</div></div>';
-}
-
 /* The estate's typical encépagement, unchanged. It used to be shifted year
    by year towards Cabernet in the warm vintages, which produced a blend no
    estate ever declared; a vintage blend now appears only where one was
@@ -2141,10 +2115,16 @@ function openDrawer(id) {
         blendBar(ch.blend) +
         '<div class="tableview' + (state.tables ? ' on' : '') + '">' + blendTable(ch.blend) + '</div></div>'
     : '';
-  body += ratingsSection(ch) +
-
+  /* How many of the years actually carry a rating - the one fact the old
+     Critic ratings strip knew that this list does not say for itself. It
+     has to be counted the way the rows below are scored, not off the small
+     table of hand-entered figures the strip used: that said 4 of 43 for an
+     estate whose rows show ratings for most of them. */
+  var ratedYears = YEARS.filter(function (yr) { return !scoreFor(ch, yr).none; }).length;
+  body +=
     '<div class="section"><h3>All vintages, 1982–2024' +
-      '<span class="hint">' + YEARS.length + ' vintages · each with its own price link</span></h3>' +
+      '<span class="hint">' + ratedYears + ' of ' + YEARS.length +
+      ' rated · each with its own price link</span></h3>' +
       '<div class="vintagelist">' +
         YEARS.map(function (yr) { return vintageRow(ch, yr); }).join('') +
       '</div></div>';

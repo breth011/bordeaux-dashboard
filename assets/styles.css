@@ -952,7 +952,79 @@ table.dt td.num { font-family: var(--mono); text-align: right; }
 }
 .vr-name:hover { text-decoration: underline; }
 .vr-rank { margin-left: auto; font-size: 10.5px; color: var(--text-muted); white-space: nowrap; }
+/* In the roster the chip sits inline beside the name rather than filling a
+   column of its own, so it takes its width from its text. */
+.vrlist .mat { flex: none; padding: 1px 6px; font-size: 9.5px; }
 @media (max-width: 620px) { .vrlist { columns: 1; } }
+
+/* --------------------------- side by side -------------------------------- */
+.cmp-modes { display: flex; gap: 6px; flex-wrap: wrap; margin: 0 0 14px; }
+.cmp-pick { display: flex; gap: 14px; flex-wrap: wrap; align-items: flex-end; }
+.cmp-help { font-size: 11.5px; color: var(--text-muted); margin: 12px 0 6px; }
+
+/* Forty-three years is a lot of buttons, so they are small, dense and wrap
+   like a calendar rather than filling a column each. */
+.cmp-years { display: flex; flex-wrap: wrap; gap: 4px; margin-bottom: 18px; }
+.cmp-year {
+  font-family: var(--mono); font-size: 11.5px;
+  padding: 3px 7px; border-radius: var(--radius-sm);
+  background: var(--surface-1); border: 1px solid var(--border);
+  color: inherit; cursor: pointer;
+}
+.cmp-year:hover:not(:disabled) { border-color: var(--border-strong); }
+.cmp-year.on {
+  background: var(--brand-navy); border-color: var(--brand-navy);
+  color: var(--brand-cream); font-weight: 600;
+}
+.cmp-year:disabled { opacity: .35; cursor: default; }
+
+.cmp-chosenrow { display: flex; flex-wrap: wrap; gap: 6px; margin: 14px 0 18px; }
+.cmp-chosen {
+  font-size: 12px; padding: 3px 9px; border-radius: 20px;
+  background: var(--surface-2); border: 1px solid var(--border-strong);
+  color: inherit; cursor: pointer;
+}
+.cmp-chosen:hover { border-color: var(--brand-accent); }
+.cmp-chosen span { color: var(--text-muted); margin-left: 3px; }
+
+/* The table scrolls sideways rather than squeezing: six wines will not fit a
+   phone, and a column narrower than its prose is no comparison at all. */
+.cmp-scroll { overflow-x: auto; margin-top: 4px; }
+.cmp { border-collapse: collapse; width: 100%; }
+.cmp th, .cmp td {
+  border: 1px solid var(--border);
+  padding: 9px 11px; vertical-align: top; text-align: left;
+}
+.cmp thead th { background: var(--surface-2); min-width: 190px; }
+.cmp-corner { border: none !important; background: none !important; }
+.cmp tbody th {
+  background: var(--surface-2); font-size: 11px; font-weight: 600;
+  text-transform: uppercase; letter-spacing: .04em; color: var(--text-muted);
+  white-space: nowrap; width: 1%; position: sticky; left: 0; z-index: 2;
+}
+.cmp-head {
+  background: none; border: none; padding: 0; cursor: pointer;
+  font: inherit; font-size: 15px; font-weight: 700; color: inherit; text-align: left;
+}
+.cmp-head:hover { text-decoration: underline; }
+.cmp-sub { display: block; font-size: 11px; font-weight: 400; color: var(--text-muted); }
+.cmp td { font-size: 12.5px; }
+.cmp-score {
+  display: inline-block; min-width: 30px; padding: 1px 6px; border-radius: 4px;
+  font-family: var(--mono); font-size: 12px; font-weight: 700; text-align: center;
+}
+.cmp-win { font-family: var(--mono); font-weight: 600; margin-right: 7px; }
+.cmp-nil { color: var(--text-muted); }
+/* A fact that is the same for every wine is stated once, quietly: it is
+   context for the comparison rather than part of it. */
+.cmp-same { color: var(--text-secondary); background: var(--surface-1); }
+.cmp-note { display: block; font-size: 10.5px; color: var(--text-muted); margin-top: 4px; }
+.cmp-prose { font-size: 12px; line-height: 1.5; }
+.cmp-empty { color: var(--text-muted); margin-top: 18px; }
+@media (max-width: 620px) {
+  .cmp thead th { min-width: 150px; }
+  .cmp th, .cmp td { padding: 7px 8px; }
+}
 
 /* The type-ahead under the search box. */
 .acbox {
@@ -1315,7 +1387,7 @@ body.map-page .pane-list.is-open ~ .list-close:hover {
 
 /* ------------------------------- phone --------------------------------- */
 @media (max-width: 620px) {
-  /* Four tabs need about 510px; the bar scrolls rather than pushing the
+  /* Five tabs need about 620px; the bar scrolls rather than pushing the
      whole page sideways. The crumb is dropped here because the map has its
      own back control and the drawer carries its own title. */
   .tabbar { overflow-x: auto; scrollbar-width: none; }

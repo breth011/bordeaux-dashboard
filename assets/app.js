@@ -495,13 +495,18 @@ var state = {
   cls: null,          /* active collection id, or null for everything */
   region: null,
   q: '', appellation: '', vintage: '',
-  tiers: {}, active: null, tables: false
+  tiers: {}, active: null, tables: false,
+  /* The comparison opens on something rather than on nothing: a vertical of
+     the four most recent vintages worth the name, which is a reading the
+     moment the tab is pressed. */
+  cmp: { mode: 'vertical', estate: 'lynch-bages', years: [2010, 2015, 2016, 2019],
+         vintage: 2016, estates: [] }
 };
 
 var el = {};
-['tabAppellations','tabClassifications','tabProducers','tabVintages',
+['tabAppellations','tabClassifications','tabProducers','tabVintages','tabCompare',
  'search','appellation','vintage',
- 'chips','resultcount','appellations','classifications','workspace','paneList',
+ 'chips','resultcount','appellations','classifications','compare','workspace','paneList',
  'vintageGrid','drawer','scrim',
  'drawerHead','drawerBody','themeBtn','resetBtn','filters','crumb'
 ].forEach(function (id) { el[id] = document.getElementById(id); });
@@ -853,9 +858,248 @@ function renderClassificationPage(id) {
 }
 
 /* Both reference pages, rebuilt — used on load and on a theme change. */
+/* ------------------------------- comparison ------------------------------ */
+/* Two wines next to each other is how this society actually tastes: a
+   vertical, one estate down its vintages, and a horizontal, one vintage
+   across its estates. The dashboard held everything needed for both and
+   would only show it one drawer at a time, which is the one arrangement in
+   which no comparison can be made.
+
+   Columns rather than rows, because the columns are the wines - that is how
+   they stand on the table - and reading down a column is reading one glass. */
+
+var CMP_MAX = 6;
+
+function cmpWines() {
+  var c = state.cmp;
+  if (c.mode === 'vertical') {
+    var ch = chateauById(c.estate);
+    if (!ch) return [];
+    return c.years.map(function (yr) { return { ch: ch, yr: yr }; });
+  }
+  return c.estates.map(function (id) {
+    return { ch: chateauById(id), yr: c.vintage };
+  }).filter(function (w) { return w.ch; });
+}
+
+function chateauById(id) {
+  for (var i = 0; i < CH.length; i++) if (CH[i].id === id) return CH[i];
+  return null;
+}
+
+/* One row of the table. value() is given the wine and returns a cell, or
+   null when that wine has nothing to say; a row where every wine returns
+   null is left out entirely rather than printed as a line of dashes.
+
+   Where every wine gives the same answer the row collapses into one cell
+   across the width. A vertical repeats its estate's appellation and rank in
+   every column otherwise, which is four copies of a fact that is not what
+   is being compared - but dropping the row would lose the fact, and it is
+   worth stating once. */
+function cmpRow(label, wines, value) {
+  var cells = wines.map(value);
+  var any = cells.some(function (c) { return c !== null && c !== ''; });
+  if (!any) return '';
+  var same = wines.length > 1 && cells.every(function (c) { return c === cells[0]; });
+  var body = same
+    ? '<td class="cmp-same" colspan="' + wines.length + '">' + cells[0] + '</td>'
+    : cells.map(function (c) {
+        return '<td>' + (c === null || c === '' ? '<span class="cmp-nil">—</span>' : c) + '</td>';
+      }).join('');
+  return '<tr><th scope="row">' + label + '</th>' + body + '</tr>';
+}
+
+function cmpTable(wines) {
+  if (!wines.length) {
+    return '<p class="cmp-empty">Pick two or more wines to put them side by side.</p>';
+  }
+  var vertical = state.cmp.mode === 'vertical';
+
+  var head = '<tr><td class="cmp-corner"></td>' + wines.map(function (w) {
+    return '<th scope="col"><button class="cmp-head" data-ch="' + w.ch.id + '">' +
+      (vertical ? w.yr : w.ch.name) + '</button>' +
+      '<span class="cmp-sub">' + (vertical ? w.ch.name : w.yr) + '</span></th>';
+  }).join('') + '</tr>';
+
+  var body =
+    cmpRow('Appellation', wines, function (w) { return w.ch.appellation; }) +
+    cmpRow('Rank', wines, function (w) { return rankLabel(w.ch); }) +
+    cmpRow('Rating', wines, function (w) {
+      var r = scoreFor(w.ch, w.yr);
+      if (r.notMade) return '<span class="cmp-nil">not made</span>';
+      if (r.none) return null;
+      var col = scoreColor(r.score);
+      return '<span class="cmp-score" style="background:' + col + ';color:' +
+        (inkOn(col) ? '#121211' : '#fff') + '">' + r.score + '</span>';
+    }) +
+    cmpRow('When to drink', wines, function (w) {
+      var win = drinkWindow(w.ch, w.yr);
+      if (!win) return null;
+      var m = maturity(win);
+      return '<span class="cmp-win">' + win.from + '–' + win.to + '</span>' +
+        '<span class="mat mat-' + m.k + '">' + m.label + '</span>';
+    }) +
+    cmpRow('The season', wines, function (w) {
+      var rt = vintageRating(w.ch, w.yr);
+      var col = ratingColor(rt);
+      return '<span class="cmp-score" style="background:' + col + ';color:' +
+        (inkOn(col) ? '#121211' : '#fff') + '">' + rt + '</span>';
+    }) +
+    cmpRow('Blend', wines, function (w) {
+      var f = fiche(w.ch, w.yr);
+      var b = (f && f.blend) || w.ch.blend;
+      if (!b) return null;
+      return blendBar(b) + (f && f.blend ? '' :
+        '<span class="cmp-note">the estate’s usual</span>');
+    }) +
+    cmpRow('Picked', wines, function (w) {
+      var f = fiche(w.ch, w.yr);
+      return (f && f.harvest) || null;
+    }) +
+    cmpRow('Yield', wines, function (w) {
+      var f = fiche(w.ch, w.yr);
+      return f && f.yld ? f.yld + ' hl/ha' : null;
+    }) +
+    cmpRow('The estate on the year', wines, function (w) {
+      var f = fiche(w.ch, w.yr);
+      return f && f.note ? '<span class="cmp-prose">' + f.note + '</span>' : null;
+    }) +
+    cmpRow('The estate on the wine', wines, function (w) {
+      var f = fiche(w.ch, w.yr);
+      return f && f.taste ? '<span class="cmp-prose">' + f.taste + '</span>' : null;
+    });
+
+  return '<div class="cmp-scroll"><table class="cmp cmp-' + wines.length + '">' +
+    '<thead>' + head + '</thead><tbody>' + body + '</tbody></table></div>';
+}
+
+function renderCompare() {
+  var c = state.cmp;
+  var vertical = c.mode === 'vertical';
+
+  var modes = '<div class="cmp-modes">' +
+    '<button class="chip" aria-pressed="' + vertical + '" data-cmode="vertical">' +
+      'One estate, several vintages</button>' +
+    '<button class="chip" aria-pressed="' + !vertical + '" data-cmode="horizontal">' +
+      'One vintage, several estates</button>' +
+    '</div>';
+
+  var picker;
+  if (vertical) {
+    /* Only the estates that have something to compare: an estate with no
+       rating in any year would open onto an empty table. */
+    var opts = CH.slice().sort(function (a, b) { return a.name.localeCompare(b.name); })
+      .map(function (ch) {
+        return '<option value="' + ch.id + '"' + (ch.id === c.estate ? ' selected' : '') +
+          '>' + ch.name + '</option>';
+      }).join('');
+    picker = '<div class="cmp-pick"><div class="field"><label for="cmpEstate">Estate</label>' +
+      '<select id="cmpEstate">' + opts + '</select></div></div>' +
+      '<p class="cmp-help">Choose up to ' + CMP_MAX + ' vintages.</p>' +
+      '<div class="cmp-years">' + YEARS.map(function (yr) {
+        var on = c.years.indexOf(yr) !== -1;
+        var full = !on && c.years.length >= CMP_MAX;
+        return '<button class="cmp-year' + (on ? ' on' : '') + '"' +
+          (full ? ' disabled' : '') + ' data-cyear="' + yr + '">' + yr + '</button>';
+      }).join('') + '</div>';
+  } else {
+    var yopts = YEARS.map(function (yr) {
+      return '<option value="' + yr + '"' + (yr === c.vintage ? ' selected' : '') +
+        '>' + yr + '</option>';
+    }).join('');
+    var chosen = c.estates.map(function (id) {
+      var ch = chateauById(id);
+      return ch ? '<button class="cmp-chosen" data-cdrop="' + id + '">' + ch.name +
+        ' <span aria-hidden="true">✕</span></button>' : '';
+    }).join('');
+    var addable = CH.slice().sort(function (a, b) { return a.name.localeCompare(b.name); })
+      .filter(function (ch) { return c.estates.indexOf(ch.id) === -1; })
+      .map(function (ch) { return '<option value="' + ch.id + '">' + ch.name + '</option>'; })
+      .join('');
+    picker = '<div class="cmp-pick">' +
+      '<div class="field"><label for="cmpVintage">Vintage</label>' +
+        '<select id="cmpVintage">' + yopts + '</select></div>' +
+      '<div class="field"><label for="cmpAdd">Add an estate</label>' +
+        '<select id="cmpAdd"' + (c.estates.length >= CMP_MAX ? ' disabled' : '') + '>' +
+        '<option value="">Choose…</option>' + addable + '</select></div>' +
+      '</div>' +
+      (chosen ? '<div class="cmp-chosenrow">' + chosen + '</div>'
+              : '<p class="cmp-help">Add up to ' + CMP_MAX + ' estates.</p>');
+  }
+
+  el.compare.innerHTML =
+    '<div class="ref-head"><h2>Side by side</h2>' +
+      '<p>A vertical reads one estate down its vintages; a horizontal reads one ' +
+      'vintage across its estates. Everything here is what the rest of the ' +
+      'dashboard holds, arranged so that two wines can be read against each ' +
+      'other instead of one at a time.</p></div>' +
+    modes + picker + cmpTable(cmpWines());
+
+  wireCompare();
+}
+
+function wireCompare() {
+  var root = el.compare;
+
+  Array.prototype.forEach.call(root.querySelectorAll('[data-cmode]'), function (b) {
+    b.addEventListener('click', function () {
+      state.cmp.mode = b.getAttribute('data-cmode');
+      renderCompare();
+    });
+  });
+
+  var est = root.querySelector('#cmpEstate');
+  if (est) est.addEventListener('change', function () {
+    state.cmp.estate = est.value;
+    renderCompare();
+  });
+
+  Array.prototype.forEach.call(root.querySelectorAll('[data-cyear]'), function (b) {
+    b.addEventListener('click', function () {
+      var yr = Number(b.getAttribute('data-cyear'));
+      var at = state.cmp.years.indexOf(yr);
+      if (at !== -1) state.cmp.years.splice(at, 1);
+      else if (state.cmp.years.length < CMP_MAX) state.cmp.years.push(yr);
+      /* Oldest first, left to right: a vertical is read as a sequence. */
+      state.cmp.years.sort(function (a, b2) { return a - b2; });
+      renderCompare();
+    });
+  });
+
+  var vin = root.querySelector('#cmpVintage');
+  if (vin) vin.addEventListener('change', function () {
+    state.cmp.vintage = Number(vin.value);
+    renderCompare();
+  });
+
+  var add = root.querySelector('#cmpAdd');
+  if (add) add.addEventListener('change', function () {
+    if (add.value && state.cmp.estates.length < CMP_MAX) {
+      state.cmp.estates.push(add.value);
+      renderCompare();
+    }
+  });
+
+  Array.prototype.forEach.call(root.querySelectorAll('[data-cdrop]'), function (b) {
+    b.addEventListener('click', function () {
+      var id = b.getAttribute('data-cdrop');
+      var at = state.cmp.estates.indexOf(id);
+      if (at !== -1) state.cmp.estates.splice(at, 1);
+      renderCompare();
+    });
+  });
+
+  /* A column heading opens that estate, so a comparison can be left for the
+     full reading and come back to. */
+  Array.prototype.forEach.call(root.querySelectorAll('.cmp-head'), function (b) {
+    b.addEventListener('click', function () { openDrawer(b.getAttribute('data-ch')); });
+  });
+}
+
 function renderReference() {
   renderAppellations();
   renderClassifications();
+  renderCompare();
 }
 
 function openCollection(id) {
@@ -2589,12 +2833,17 @@ function rosterHtml(list, label, yr) {
   rated.sort(function (a, b) { return (b.sc.exact || b.sc.score) - (a.sc.exact || a.sc.score); });
   if (!rated.length && !unrated.length) return '';
 
+  /* This is the other place the dashboard lists individual wines - every
+     estate of one appellation in one year - so it answers the same question
+     the estate's own rows do, and in the same words. */
   var rows = rated.map(function (x) {
     var col = scoreColor(x.sc.score);
+    var m = maturity(drinkWindow(x.ch, yr));
     return '<li><span class="vr-score' + (x.sc.panel ? ' ratingwrap' : '') +
       '" style="background:' + col + ';color:' + (inkOn(col) ? '#121211' : '#fff') + '">' +
       x.sc.score + (x.sc.panel ? ratingPanel(x.sc) : '') + '</span>' +
       '<button class="vr-name" data-ch="' + x.ch.id + '">' + x.ch.name + '</button>' +
+      (m ? '<span class="mat mat-' + m.k + '">' + m.label + '</span>' : '') +
       '<span class="vr-rank">' + rankLabel(x.ch) + '</span></li>';
   }).join('');
 
@@ -2785,12 +3034,14 @@ function setView(v) {
   el.tabClassifications.setAttribute('aria-selected', v === 'classifications');
   el.tabProducers.setAttribute('aria-selected', v === 'producers');
   el.tabVintages.setAttribute('aria-selected', v === 'vintages');
+  el.tabCompare.setAttribute('aria-selected', v === 'compare');
   document.body.classList.toggle('map-page', v === 'producers');
   if (v !== 'producers') {
     el.paneList.classList.remove('is-open');
   }
   el.appellations.style.display    = v === 'appellations' ? '' : 'none';
   el.classifications.style.display = v === 'classifications' ? '' : 'none';
+  el.compare.style.display         = v === 'compare' ? '' : 'none';
   el.workspace.style.display = v === 'producers' ? '' : 'none';
   el.vintageGrid.style.display = v === 'vintages' ? '' : 'none';
   el.filters.style.display   = v === 'producers' ? '' : 'none';
@@ -2955,6 +3206,10 @@ function init() {
   });
   el.tabProducers.addEventListener('click', function () { setView('producers'); refresh(); });
   el.tabVintages.addEventListener('click', function () { setView('vintages'); });
+  el.tabCompare.addEventListener('click', function () {
+    setView('compare');
+    renderCompare();
+  });
   el.scrim.addEventListener('click', closeDrawer);
   var lc = document.getElementById('listClose');
   if (lc) lc.addEventListener('click', function () {

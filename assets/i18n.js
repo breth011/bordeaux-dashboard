@@ -160,6 +160,23 @@
     'this estate': 'dit domein',
     'this estate, translated': 'dit domein, vertaald',
 
+    /* Side by side. */
+    'Compare': 'Vergelijken',
+    'Side by side': 'Naast elkaar',
+    'One estate, several vintages': 'Eén domein, meerdere jaargangen',
+    'One vintage, several estates': 'Eén jaargang, meerdere domeinen',
+    'Estate': 'Domein',
+    'Add an estate': 'Voeg een domein toe',
+    'Choose…': 'Kies…',
+    'Rank': 'Rang',
+    'The season': 'Het seizoen',
+    'The estate on the year': 'Het domein over het jaar',
+    'The estate on the wine': 'Het domein over de wijn',
+    'the estate’s usual': 'de gebruikelijke van het domein',
+    'not made': 'niet gemaakt',
+    'Pick two or more wines to put them side by side.':
+      'Kies twee of meer wijnen om ze naast elkaar te zetten.',
+
     /* When to drink. The five maturity states are read off a list of
        forty-three rows, so they stay as short in Dutch as in English. */
     'When to drink': 'Wanneer te drinken',
@@ -205,6 +222,15 @@
   /* Whole paragraphs. These live in a list rather than in the table above
      because an object literal cannot have a key built up across lines. */
   var LONG = [
+    ['A vertical reads one estate down its vintages; a horizontal reads ' +
+     'one vintage across its estates. Everything here is what the rest of ' +
+     'the dashboard holds, arranged so that two wines can be read against ' +
+     'each other instead of one at a time.',
+     'Een verticale leest één domein door zijn jaargangen heen; een ' +
+     'horizontale leest één jaargang over zijn domeinen heen. Alles hier ' +
+     'is wat de rest van het dashboard bevat, zo gerangschikt dat twee ' +
+     'wijnen tegen elkaar gelezen kunnen worden in plaats van één voor één.'],
+
     ['Twenty pieces of ground, each with its own rules about what may be ' +
      'planted and how. An appellation says where a wine is from. It does ' +
      'not say how good anyone thinks it is — for that, see',
@@ -265,6 +291,9 @@
      '$1 van $2 beoordeeld · elk met een eigen prijslink'],
     [/^(\d+) of (\d+) rated · (\d+) ready to drink now$/,
      '$1 van $2 beoordeeld · $3 nu te drinken'],
+    [/^Choose up to (\d+) vintages\.$/, 'Kies maximaal $1 jaargangen.'],
+    [/^Add up to (\d+) estates\.$/, 'Voeg maximaal $1 domeinen toe.'],
+    [/^(\d+) hl\/ha$/, '$1 hl/ha'],
     [/^All vintages, (\d+)–(\d+)$/, 'Alle jaargangen, $1–$2'],
     [/^(\d+) critics, averaging ([\d.]+) · they differ by ([\d.]+) points$/,
      '$1 critici, gemiddeld $2 · ze verschillen $3 punten'],

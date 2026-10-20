@@ -2555,6 +2555,10 @@ function fichesBlock(ch, yr) {
   var fx = [];
   if (f.yld) fx.push(['Yield', f.yld + ' hl/ha']);
   if (f.alc) fx.push(['Alcohol', f.alc + '% vol']);
+  /* How long it sat in wood, and how much of that wood was new. Two
+     different facts that were briefly one field, which is how a record
+     saying "18 months" came to be rendered as "18 months%". */
+  if (f.months) fx.push(['In barrel', f.months + ' months']);
   if (f.oak) fx.push(['New oak', f.oak + '%']);
   if (f.ph) fx.push(['pH', f.ph]);
   if (f.temp) fx.push(['Serve at', f.temp.join('–') + ' °C']);
@@ -2562,6 +2566,29 @@ function fichesBlock(ch, yr) {
     s += '<dl class="factgrid">' + fx.map(function (p) {
       return '<div class="fact"><dt>' + p[0] + '</dt><dd>' + p[1] + '</dd></div>';
     }).join('') + '</dl>';
+  }
+
+  /* What the château suggests drinking it with. */
+  if (f.food) {
+    s += '<p class="subhead">Serve it with</p>' +
+      '<p class="notetext">' + f.food + '</p>' +
+      '<p class="src">this estate’s own suggestion</p>';
+  }
+
+  /* Scores the château reprints on its own sheet. Kept apart from the
+     ratings panel above, which is gathered independently: these are the
+     estate quoting its own press, and are shown as that. */
+  if (f.press) {
+    var who = [];
+    for (var critic in f.press) who.push([critic, f.press[critic]]);
+    if (who.length) {
+      s += '<p class="subhead">Scores on the estate’s sheet</p>' +
+        '<ul class="presslist">' + who.map(function (p) {
+          return '<li><span class="who">' + p[0] + '</span>' +
+                 '<span class="num">' + p[1] + '</span></li>';
+        }).join('') + '</ul>' +
+        '<p class="src">reprinted by this estate, on each critic’s own scale</p>';
+    }
   }
 
   /* The decanting advice and the keeping remark are shown by drinkBlock,
@@ -2885,7 +2912,7 @@ function cuveeRow(ch, slug, yr) {
   }
   var bits = [];
   if (f.alc) bits.push(f.alc + '%');
-  if (f.oak) bits.push(f.oak);
+  if (f.months) bits.push(f.months + ' months in barrel');
   if (f.yld) bits.push(f.yld + ' hl/ha');
 
   return '<div class="vrow" data-year="' + yr + '" ' +
@@ -2904,7 +2931,8 @@ function cuveeRow(ch, slug, yr) {
       (bits.length
         ? '<dl class="factgrid">' +
             (f.alc ? '<div class="fact"><dt>Alcohol</dt><dd>' + f.alc + '%</dd></div>' : '') +
-            (f.oak ? '<div class="fact"><dt>Ageing</dt><dd>' + f.oak + '</dd></div>' : '') +
+            (f.months ? '<div class="fact"><dt>In barrel</dt><dd>' + f.months + ' months</dd></div>' : '') +
+            (f.oak ? '<div class="fact"><dt>New oak</dt><dd>' + f.oak + '%</dd></div>' : '') +
             (f.yld ? '<div class="fact"><dt>Yield</dt><dd>' + f.yld + ' hl/ha</dd></div>' : '') +
             (f.harvest ? '<div class="fact"><dt>Picked</dt><dd>' + f.harvest + '</dd></div>' : '') +
           '</dl>'
@@ -2913,6 +2941,8 @@ function cuveeRow(ch, slug, yr) {
                 '<p class="notetext">' + f.note + '</p>' : '') +
       (f.taste ? '<p class="subhead">The estate on the wine</p>' +
                  '<p class="notetext">' + f.taste + '</p>' : '') +
+      (f.food ? '<p class="subhead">Serve it with</p>' +
+                '<p class="notetext">' + f.food + '</p>' : '') +
       '<p class="src">this estate’s own sheet for this wine</p>' +
     '</div></div>';
 }

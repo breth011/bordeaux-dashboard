@@ -179,6 +179,12 @@
 
     /* When to drink. The five maturity states are read off a list of
        forty-three rows, so they stay as short in Dutch as in English. */
+    'In barrel': 'Op hout',
+    'Serve it with': 'Serveren met',
+    'this estate’s own suggestion': 'de eigen suggestie van dit domein',
+    'Scores on the estate’s sheet': 'Scores op de fiche van het domein',
+    'reprinted by this estate, on each critic’s own scale':
+      'overgenomen door dit domein, op de eigen schaal van elke criticus',
     'When to drink': 'Wanneer te drinken',
     'Too young': 'Te jong',
     'Opening': 'Opent zich',
@@ -292,6 +298,7 @@
     [/^(\d+) of (\d+) rated · (\d+) ready to drink now$/,
      '$1 van $2 beoordeeld · $3 nu te drinken'],
     [/^Choose up to (\d+) vintages\.$/, 'Kies maximaal $1 jaargangen.'],
+    [/^(\d+(?:-\d+)?) months$/, '$1 maanden'],
     [/^Add up to (\d+) estates\.$/, 'Voeg maximaal $1 domeinen toe.'],
     [/^(\d+) hl\/ha$/, '$1 hl/ha'],
     [/^All vintages, (\d+)–(\d+)$/, 'Alle jaargangen, $1–$2'],

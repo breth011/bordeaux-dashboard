@@ -1512,6 +1512,17 @@ function placePathLabels() {
       if (r.width) taken.push(r);
     });
 
+  /* The appellation names are obstacles as well - Dordogne used to settle
+     across Fronsac - but only on the first attempt. If honouring them would
+     leave no room on the river at all, the name is better slightly over one
+     of them than missing. */
+  var alsoTaken = [];
+  Array.prototype.forEach.call(zoomG.querySelectorAll('.m-area-lbl'), function (e) {
+    if (e.style.display === 'none') return;
+    var r = e.getBoundingClientRect();
+    if (r.width) alsoTaken.push(r);
+  });
+
   Array.prototype.forEach.call(zoomG.querySelectorAll('.m-path-label'), function (t) {
     var tp = t.querySelector('textPath');
     if (!tp) return;
@@ -1531,18 +1542,26 @@ function placePathLabels() {
       if (home + d <= 99) tries.push(home + d);
       if (home - d >= 1) tries.push(home - d);
     }
-    for (var i = 0; i < tries.length; i++) {
-      tp.setAttribute('startOffset', tries[i] + '%');
-      var r = t.getBoundingClientRect();
-      if (!r.width) continue;
-      if (r.left < fr.left + 8 || r.right > fr.right - 8 ||
-          r.top < fr.top + 8 || r.bottom > fr.bottom - 8) continue;
-      var clash = false;
-      for (var m = 0; m < taken.length; m++) if (overlapArea(r, taken[m]) > 0) { clash = true; break; }
-      if (clash) continue;
-      taken.push(r);
-      return;
+    function settle(obstacles) {
+      for (var i = 0; i < tries.length; i++) {
+        tp.setAttribute('startOffset', tries[i] + '%');
+        var r = t.getBoundingClientRect();
+        if (!r.width) continue;
+        if (r.left < fr.left + 8 || r.right > fr.right - 8 ||
+            r.top < fr.top + 8 || r.bottom > fr.bottom - 8) continue;
+        var clash = false;
+        for (var m = 0; m < obstacles.length; m++) {
+          if (overlapArea(r, obstacles[m]) > 0) { clash = true; break; }
+        }
+        if (clash) continue;
+        taken.push(r);
+        return true;
+      }
+      return false;
     }
+
+    if (settle(taken.concat(alsoTaken))) return;
+    if (settle(taken)) return;
     tp.setAttribute('startOffset', home + '%');
     t.style.display = 'none';
   });

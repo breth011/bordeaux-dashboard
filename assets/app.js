@@ -2242,6 +2242,7 @@ function fiche(ch, yr) {
   for (var k in en) out[k] = en[k];
   if (alt.note) out.note = alt.note;
   if (alt.taste) out.taste = alt.taste;
+  if (alt.decant) out.decant = alt.decant;
   return out;
 }
 

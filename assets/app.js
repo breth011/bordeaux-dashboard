@@ -2230,7 +2230,19 @@ function closeDrawer() {
    line, not a badge - because it should be checkable, not loud. */
 function fiche(ch, yr) {
   var F = window.BDX_FICHES;
-  return (F && F[ch.id + '|' + yr]) || null;
+  var en = (F && F[ch.id + '|' + yr]) || null;
+  if (!en) return null;
+  var lang = window.BDX_LANG ? BDX_LANG.get() : 'en';
+  if (lang === 'en') return en;
+  var alt = (window.BDX_FICHES_NL || {})[ch.id + '|' + yr];
+  if (!alt) return en;
+  /* Field by field, so a tasting note that has been translated shows in
+     Dutch even when the vintage note beside it has not. */
+  var out = {};
+  for (var k in en) out[k] = en[k];
+  if (alt.note) out.note = alt.note;
+  if (alt.taste) out.taste = alt.taste;
+  return out;
 }
 
 function fichesBlock(ch, yr) {

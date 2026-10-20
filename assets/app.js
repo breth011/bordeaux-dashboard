@@ -581,7 +581,21 @@ var AP_DISTRICT = {
   'entre-deux-mers': 'Entre-Deux-Mers'
 };
 
-function apNote(id) { return AP_NOTES[id] || null; }
+/* The appellation notes in the language being read. The Dutch file holds
+   the same fields; anything it has not got yet falls back to the English,
+   so a half-finished translation shows as English rather than as a gap. */
+function apNote(id) {
+  var en = AP_NOTES[id] || null;
+  if (!en) return null;
+  var lang = window.BDX_LANG ? BDX_LANG.get() : 'en';
+  if (lang === 'en') return en;
+  var alt = (window.BDX_APPELLATION_NOTES_NL || {})[id];
+  if (!alt) return en;
+  var out = {};
+  for (var k in en) out[k] = en[k];
+  for (var k2 in alt) if (alt[k2]) out[k2] = alt[k2];
+  return out;
+}
 
 /* A card wants a line, not a paragraph. Take whole sentences while they
    fit, and only fall back to cutting mid-sentence when the first one is

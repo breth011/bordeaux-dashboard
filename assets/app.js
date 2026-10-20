@@ -464,6 +464,8 @@ var SITE_SOURCE = {
   ugcb: 'the UGCB register',
   cb: 'the Crus Bourgeois register',
   cve: 'the Saint-Émilion register',
+  ca: 'the Crus Artisans register',
+  cag: 'the Crus Artisans register — the owning family’s other property',
   cbg: 'the Crus Bourgeois register — the owning group, not the estate',
   hand: 'the estate, checked by hand',
   osm: 'OpenStreetMap',

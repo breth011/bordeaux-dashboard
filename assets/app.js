@@ -1239,7 +1239,6 @@ function renderMap() {
        : '<span class="map-title">' + (d ? d.name : 'All of Bordeaux') + '</span>' +
          '<span class="map-hint">Click an appellation to see its châteaux</span>') +
     '<span class="map-head-gap"></span>' +
-    '<button class="map-back" id="mapFilters">Filters</button>' +
     '<button class="map-back" id="mapList">Châteaux ' + shown + '</button>';
 
   var back = document.getElementById('mapBack');
@@ -1250,10 +1249,6 @@ function renderMap() {
     setView('appellations');
     renderAppellations();
     window.scrollTo(0, 0);
-  });
-  var filtBtn = document.getElementById('mapFilters');
-  if (filtBtn) filtBtn.addEventListener('click', function () {
-    el.filters.classList.toggle('open');
   });
   var listBtn = document.getElementById('mapList');
   if (listBtn) listBtn.addEventListener('click', function () {
@@ -2353,7 +2348,12 @@ function wireVintageRows() {
 }
 
 function vintageRoster(r, yr) {
-  var list = CH.filter(function (ch) { return inRegion(ch, r); });
+  return rosterHtml(CH.filter(function (ch) { return inRegion(ch, r); }), r.name, yr);
+}
+
+/* The same ranked list for any set of estates, so the vintage-report chips -
+   which each stand for several appellations - can open one too. */
+function rosterHtml(list, label, yr) {
   var rated = [], unrated = [];
   list.forEach(function (ch) {
     var sc = scoreFor(ch, yr);
@@ -2371,7 +2371,7 @@ function vintageRoster(r, yr) {
       '<span class="vr-rank">' + rankLabel(x.ch) + '</span></li>';
   }).join('');
 
-  return '<div class="vroster"><h5>' + r.name + ' in ' + yr + ' · ' +
+  return '<div class="vroster"><h5>' + label + ' in ' + yr + ' · ' +
     rated.length + ' rated' + (unrated.length ? ', ' + unrated.length + ' without a rating' : '') +
     '</h5><ol class="vrlist">' + rows + '</ol>' +
     (unrated.length ? '<p class="src">No published rating for ' + yr + ': ' +
@@ -2432,17 +2432,30 @@ function phenologyLine(yr, ch) {
     '">' + src.join(' · ') + '</span></div>';
 }
 
+/* Each chip on a vintage card is a score for a stretch of ground, so it can
+   be asked which wines earned it. The appellations behind each one: */
+var VG_GROUPS = {
+  medoc:     ['medoc', 'haut-medoc', 'saint-estephe', 'pauillac', 'saint-julien',
+              'listrac', 'moulis', 'margaux'],
+  pessac:    ['pessac-leognan', 'graves'],
+  rightbank: ['saint-emilion', 'pomerol'],
+  sauternes: ['sauternes', 'barsac']
+};
+
 function renderVintages() {
   var html = '';
   YEARS.forEach(function (yr) {
-    var v = V[yr], rb = RB[yr];
-    var chips = [['Médoc', v.medoc], ['Pessac-Léognan', v.pessac],
-                 ['Saint-Émilion & Pomerol', rb.r], ['Sauternes & Barsac', v.sauternes]]
-      .map(function (c) {
-        var col = ratingColor(c[1]);
-        return '<span class="ratechip' + (inkOn(col) ? ' ink-dark' : '') +
-               '" style="background:' + col + '">' + c[0] + ' ' + c[1] + '</span>';
-      }).join('');
+    var v = V[yr], rb = RB[yr], open = null;
+    var defs = [['medoc', 'Médoc', v.medoc], ['pessac', 'Pessac-Léognan', v.pessac],
+                ['rightbank', 'Saint-Émilion & Pomerol', rb.r],
+                ['sauternes', 'Sauternes & Barsac', v.sauternes]];
+    var chips = defs.map(function (c) {
+      var col = ratingColor(c[2]), on = state.vgOpen === yr + '|' + c[0];
+      if (on) open = c;
+      return '<button type="button" class="ratechip' + (inkOn(col) ? ' ink-dark' : '') +
+             (on ? ' on' : '') + '" data-grp="' + c[0] + '" data-yr="' + yr +
+             '" style="background:' + col + '">' + c[1] + ' ' + c[2] + '</button>';
+    }).join('');
     var d = [];
     if (v.app) Object.keys(v.app).forEach(function (k) { d.push(k + ' ' + (v.app[k] > 0 ? '+' : '') + v.app[k]); });
     if (rb.app) Object.keys(rb.app).forEach(function (k) { d.push(k + ' ' + (rb.app[k] > 0 ? '+' : '') + rb.app[k]); });
@@ -2453,11 +2466,40 @@ function renderVintages() {
       '<div><p class="weather"><b>Weather.</b> ' + v.weather + '</p><p>' + v.report + '</p>' +
         phenologyLine(yr) +
         '<div class="ratings">' + chips + '</div>' +
+        (open ? rosterHtml(CH.filter(function (ch) {
+            return VG_GROUPS[open[0]].indexOf(regionIdOf(ch)) >= 0;
+          }), open[1], yr) : '') +
         (d.length ? '<div style="font-size:11px;color:var(--text-muted);margin-top:6px">' +
           'Commune adjustments: ' + d.join(' · ') + '</div>' : '') +
       '</div></article>';
   });
   el.vintageGrid.innerHTML = html;
+
+  /* The grid element survives each render, so the listener goes on once.
+     Adding it per render would stack handlers and a chip would toggle itself
+     back shut. */
+  if (!el.vintageGrid.dataset.wired) {
+    el.vintageGrid.dataset.wired = '1';
+    el.vintageGrid.addEventListener('click', vgClick);
+  }
+}
+
+function vgClick(e) {
+  var name = e.target.closest ? e.target.closest('.vr-name') : null;
+  if (name) { openDrawer(name.getAttribute('data-ch')); return; }
+  if (e.target.closest && e.target.closest('.ratingpanel')) return;
+  var chip = e.target.closest ? e.target.closest('.ratechip') : null;
+  if (!chip) return;
+  var key = chip.getAttribute('data-yr') + '|' + chip.getAttribute('data-grp');
+  state.vgOpen = (state.vgOpen === key) ? null : key;
+  renderVintages();
+}
+
+/* Which appellation an estate sits in, by id rather than by printed name. */
+function regionIdOf(ch) {
+  var R = window.BDX_MAP.regions;
+  for (var i = 0; i < R.length; i++) if (inRegion(ch, R[i])) return R[i].id;
+  return '';
 }
 
 /* ===========================================================================
@@ -2519,7 +2561,6 @@ function setView(v) {
   document.body.classList.toggle('map-page', v === 'producers');
   if (v !== 'producers') {
     el.paneList.classList.remove('is-open');
-    el.filters.classList.remove('open');
   }
   el.appellations.style.display    = v === 'appellations' ? '' : 'none';
   el.classifications.style.display = v === 'classifications' ? '' : 'none';
@@ -2639,7 +2680,6 @@ function init() {
   document.addEventListener('keydown', function (e) {
     if (e.key !== 'Escape') return;
     if (el.drawer.classList.contains('is-open')) closeDrawer();
-    else if (el.filters.classList.contains('open')) el.filters.classList.remove('open');
     else if (el.paneList.classList.contains('is-open')) el.paneList.classList.remove('is-open');
     else if (state.region) exitRegion();
   });

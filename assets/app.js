@@ -450,16 +450,12 @@ function deaccent(s) {
   return s.normalize ? s.normalize('NFD').replace(/[̀-ͯ]/g, '') : s;
 }
 
-/* websites.js is keyed on the estate name stripped of its accents, its
-   Château/Clos/Domaine prefix and its punctuation, because the growers' own
-   register and Wikidata spell the same property three different ways. The
-   key is built here exactly as it was built when the file was generated. */
-function siteKey(name) {
-  return deaccent(name).toLowerCase()
-    .replace(/^(chateau|ch\.|clos|domaine|le|la|les)\s+/, '')
-    .replace(/[^a-z0-9]+/g, ' ')
-    .replace(/^ +| +$/g, '');
-}
+/* websites.js is keyed on the estate's id. It used to be keyed on the
+   name reduced to ASCII without its Château/Clos/Domaine prefix, which
+   held up until the dashboard carried two Château Bellevues and two
+   Château La Commanderies: they reduce to the same string, so neither of
+   either pair could be given an address without risking its neighbour's.
+   An id belongs to one estate and to no other. */
 var SITE_SOURCE = {
   ugcb: 'the UGCB register',
   cb: 'the Crus Bourgeois register',
@@ -476,7 +472,7 @@ var SITE_SOURCE = {
 
 function siteFor(ch) {
   var S = window.BDX_SITES;
-  return (S && S[siteKey(ch.name)]) || null;
+  return (S && S[ch.id]) || null;
 }
 function slugPlus(s) {
   return deaccent(s).toLowerCase().replace(/[^a-z0-9]+/g, '+').replace(/^\+|\+$/g, '');

@@ -10,23 +10,26 @@ For local desktop testing, run this in the project folder and open the printed l
 python -m http.server 8000
 ```
 
-**570 estates across ten collections and 43 vintages (1982–2024)**, on a map and in depth.
+**374 estates across ten collections and 43 vintages (1982–2024)**, on a map and in depth.
 You start by choosing a collection; the map and the producer list follow from that.
+
+Some collections hold the whole published roster; others hold its upper tiers only, which the
+table below states outright rather than implying.
 
 ---
 
-## The seven collections
+## The ten collections
 
-| Collection | Region | Estates | Tiers |
+| Collection | Region | Estates here | Tiers |
 |---|---|---|---|
-| **Classification of 1855** | Médoc & Graves | 61 | Premiers → Cinquièmes Crus |
-| **Sauternes & Barsac 1855** | Sauternes | 27 | Premier Cru Supérieur, Premiers, Deuxièmes |
-| **Saint-Émilion 2022** | Right Bank | 85 | 1er Grand Cru Classé A / B, Grands Crus Classés |
-| **Pomerol** | Right Bank | 40 | *editorial grouping — no classification exists* |
-| **Crus Classés de Graves** | Pessac-Léognan | 16 | flat list; red, white, or both |
-| **Crus Bourgeois du Médoc 2020** | Médoc | 249 | Exceptionnel, Supérieur, Cru Bourgeois |
-| **Crus Artisans du Médoc** | Médoc | 49 | flat list |
-| **Fronsac & the Libournais satellites** | Right Bank | 27 | appellations, not ranks |
+| **Classification of 1855** | Médoc & Graves | 61 — the full list | Premiers → Cinquièmes Crus |
+| **Sauternes & Barsac 1855** | Sauternes | 27 — the full list | Premier Cru Supérieur, Premiers, Deuxièmes |
+| **Saint-Émilion 2022** | Right Bank | 14 of the 85 — the Premiers Grands Crus Classés | 1er Grand Cru Classé A / B |
+| **Pomerol** | Right Bank | 17 leading estates | *editorial grouping — no classification exists* |
+| **Crus Classés de Graves** | Pessac-Léognan | 16 — the full list | flat list; red, white, or both |
+| **Crus Bourgeois du Médoc 2025** | Médoc | 170 — the full list | Exceptionnel (14), Supérieur (36), Cru Bourgeois (120) |
+| **Crus Artisans du Médoc** | Médoc | 34 | flat list |
+| **Fronsac & the Libournais satellites** | Right Bank | 15 | appellations, not ranks |
 | **The Côtes de Bordeaux** | Both banks | 12 | appellations, not ranks |
 | **Graves & Entre-Deux-Mers** | Left Bank | 9 | appellations, not ranks |
 
@@ -34,8 +37,8 @@ Plus **All of Bordeaux** — every estate on one map, which is the only way to s
 Bourgeois and a First Growth are often three kilometres apart on the same gravel.
 
 Château Haut-Brion is classified under both the 1855 list and the 1959 Graves list — the only
-estate in Bordeaux in two systems. It is stored once and appears in both, so 61 + 27 + 85 + 40 +
-16 + 249 + 49 = 527 entries but 526 distinct estates.
+estate in Bordeaux in two systems. It is stored once and appears in both, so the ten collections
+list 375 entries between them but 374 distinct estates.
 
 ---
 
@@ -73,9 +76,9 @@ château and year, ordered cheapest-first; then Google Shopping, Vivino and a ge
 
 ### ✓ verified — from the record
 
-- **Every château name, rank, classification and appellation.** The Saint-Émilion 85, the Cru
-  Bourgeois 249 and the Cru Artisan roster were taken from the published classifications, not
-  from memory.
+- **Every château name, rank, classification and appellation.** The Saint-Émilion 2022 list, the
+  Cru Bourgeois 2025 list of 170 and the Cru Artisan roster were taken from the published
+  classifications, not from memory.
 - Blends, hectares, proprietors, second wines and house styles **for the estates that have
   them here** (the 1855 lists, the Graves 16, the Saint-Émilion top 14, the Pomerol top 17).
 - The weather and character of all 43 vintages, and the season ratings — including a separate
@@ -98,10 +101,11 @@ château and year, ordered cheapest-first; then Google Shopping, Vivino and a ge
 
 ### Gaps shown as gaps
 
-The 249 Crus Bourgeois, the 49 Crus Artisans, the 71 Saint-Émilion Grands Crus Classés and the
-23 further Pomerol estates carry a **verified name, rank and appellation and nothing else**.
-Per-property blends, hectarage, proprietors and house styles for those 392 estates are not in
-this dataset, and inventing them would have been worse than leaving them out. For those estates:
+The 170 Crus Bourgeois and the 34 Crus Artisans carry a **verified name, rank and appellation
+and nothing else**. Per-property blends, hectarage, proprietors and house styles for those 204
+estates are not in this dataset, and inventing them would have been worse than leaving them
+out. Of the other 170 estates, every one has its hectarage and 139 carry a typical blend.
+For the 204:
 
 - **no blend is shown at all.** An appellation average is not this château's blend, so the
   dashboard shows the gap instead of a guess — and the tasting notes for those estates say
@@ -137,14 +141,14 @@ assets/app.js              derivation model, map, charts, price links
 assets/icon-192.png        install icon for phones and tablets
 assets/icon-512.png        install icon for high-resolution displays
 assets/icon.svg            scalable browser icon
-data/classifications.js    the seven collections, tiers, appellation geography and norms
+data/classifications.js    the ten collections, tiers, appellation geography and norms
 data/geography.js          the drawn map: estuary, rivers, towns, region names
 data/chateaux.js           61 classified reds (1855)
 data/sauternes.js          27 classified Sauternes & Barsac (1855)
 data/saintemilion.js       85 (14 full records + the 71 Grands Crus Classés)
 data/pomerol.js            40 (17 full records + 23 further estates)
 data/graves.js             16 Crus Classés de Graves
-data/crubourgeois.js       249 Crus Bourgeois, name + tier + appellation
+data/crubourgeois.js       170 Crus Bourgeois, name + tier + appellation
 data/cruartisan.js         49 Crus Artisans
 data/vintages.js           43 vintage reports with Médoc/Pessac/Sauternes ratings
 data/rightbank.js          Saint-Émilion & Pomerol season ratings
@@ -211,10 +215,13 @@ data/overrides.js          verified critic scores, notes, and no-vintage years
   drift from the shape it is cut from. Sauternes & Barsac is two parts that share the line of the
   Ciron the same way. Checked by grid sampling at roughly 65 m, in two passes — region against
   region, and the separate parts of a single region against each other, since two overlapping
-  parts of one shape would punch a hole through it under the even-odd fill. Both pass at zero,
-  and all 526 estates sit inside their own appellation. The Sauternes geometry splits 10 / 17
-  between the Barsac and Sauternes parts, matching the estates' actual communes. Every one of the 526 estates is
-  checked to fall inside its own appellation outline; estates without a surveyed position are
-  placed by sampling a deterministic point inside that polygon, so a dot never lands in the wrong
-  region — but it still shows the appellation, not the property.
+  parts of one shape would punch a hole through it under the even-odd fill. Both pass at zero.
+  Estates without a surveyed position are placed by sampling a deterministic point inside
+  their appellation's polygon, so such a dot never lands in the wrong region — but it shows
+  the appellation, not the property. The 170 estates that do carry coordinates are checked
+  against the official delimitation, and **125 of them fall inside it**. The rest are a known
+  gap rather than a surprise: those coordinates are commune-level, roughly ±400 m, while the
+  boundaries they are now drawn against are surveyed. Some of the misses are real — a
+  château's buildings can stand outside the delimited vineyard, since the house is not
+  planted — and Lafite is one of those.
 - Dark mode follows your OS and can be overridden with the toggle; the choice persists.

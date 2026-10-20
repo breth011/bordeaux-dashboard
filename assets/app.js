@@ -1995,9 +1995,9 @@ function fichesBlock(ch, yr) {
   }
 
   var fx = [];
-  if (f.harvest) fx.push(['Picking from', f.harvest]);
   if (f.yld) fx.push(['Yield', f.yld + ' hl/ha']);
   if (f.alc) fx.push(['Alcohol', f.alc + '% vol']);
+  if (f.oak) fx.push(['New oak', f.oak + '%']);
   if (f.ph) fx.push(['pH', f.ph]);
   if (f.temp) fx.push(['Serve at', f.temp.join('–') + ' °C']);
   if (f.wy) fx.push(['Drink', f.wy[0] + '–' + f.wy[1]]);
@@ -2047,7 +2047,7 @@ function seasonBlock(ch, yr, v, o) {
     '<p class="src">' + wSrc + '</p>' +
     '<p class="vintagereport">' + wine + '</p>' +
     '<p class="src">' + tSrc + '</p>' +
-    phenologyLine(yr) +
+    phenologyLine(yr, ch) +
     appellationLine(ch, yr);
 }
 
@@ -2140,16 +2140,26 @@ function fmtMonthDay(md) {
   var p = md.split('-');
   return parseInt(p[1], 10) + ' ' + MONTH_NAME[parseInt(p[0], 10)];
 }
-function phenologyLine(yr) {
+/* The season's three dates in the order they happen: flowering and véraison
+   as the ISVV measured them on its reference plots, then the day this estate
+   says it started picking. Two sources, one timeline, because that is how
+   the year reads — and the source line says which is which. */
+function phenologyLine(yr, ch) {
   var P = window.BDX_PHENOLOGY, ph = P && P[yr];
-  if (!ph) return '';
-  var bits = [];
-  if (ph.flowering) bits.push('Mid-flowering <b>' + fmtMonthDay(ph.flowering) + '</b>');
-  if (ph.veraison) bits.push('Mid-véraison <b>' + fmtMonthDay(ph.veraison) + '</b>');
+  var f = ch ? fiche(ch, yr) : null;
+  var bits = [], src = [];
+  if (ph && ph.flowering) bits.push('Flowering <b>' + fmtMonthDay(ph.flowering) + '</b>');
+  if (ph && ph.veraison) bits.push('Véraison <b>' + fmtMonthDay(ph.veraison) + '</b>');
+  if (bits.length) src.push('ISVV');
+  if (f && f.harvest) {
+    bits.push('Picking from <b>' + f.harvest + '</b>');
+    src.push('this estate');
+  }
   if (!bits.length) return '';
   return '<div class="phenology">' + bits.join(' · ') +
-    '<span class="src" title="Institut des Sciences de la Vigne et du Vin' +
-    (ph.n > 1 ? ', ' + ph.n + ' reports agree' : '') + '">ISVV</span></div>';
+    '<span class="src" title="Flowering and véraison: Institut des Sciences de la ' +
+    'Vigne et du Vin reference plots' + (ph && ph.n > 1 ? ', ' + ph.n + ' reports agree' : '') +
+    '">' + src.join(' · ') + '</span></div>';
 }
 
 function renderVintages() {

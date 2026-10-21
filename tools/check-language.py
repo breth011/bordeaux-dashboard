@@ -38,13 +38,20 @@ ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__))) + os.sep
 # tour", "clos du" - so the test is how many.
 FRENCH = re.compile(
     r'(?i)(?<![a-zà-ÿ])('
-    r'le|la|les|des|du|qui|nous|très|avec|dans|sur|sont|cette|cet|'
-    r'ces|aux|leur|leurs|nos|notre|pour|plus|bien|tout|toute|toutes|ainsi|'
+    r'le|la|les|des|du|qui|nous|très|avec|dans|sont|cette|cet|'
+    r'ces|aux|leur|leurs|nos|notre|pour|bien|toute|toutes|ainsi|'
     r'puis|après|dès|chez|entre|alors|encore|depuis|pendant|'
-    r'lors|comme|mais|donc|car|où|est|ont|été|fait|peu|'
-    r'déjà|tandis|lorsque|afin|sans|sous|vers|elle|il|ils|'
-    r'elles|on|se|ne|pas|plutôt'
+    r'lors|comme|mais|donc|où|ont|été|'
+    r'déjà|tandis|lorsque|afin|sous|elle|'
+    r'elles|plutôt|ainsi|lorsqu|jusqu|étaient|avaient'
     r')(?![a-zà-ÿ])')
+# Words taken out again because they are English too, and between them
+# they flagged Latour's 2019 note - which is written in English - on
+# "on 21st March", "on 28th March", "set in", "est":
+#   on, en, est, y, car, se, ne, pas, il, ils, plus, tout, fait, peu,
+#   sans, vers, sur
+# A guard that cries wolf is worse than no guard, because the next
+# person stops reading it.
 FRENCH_MIN = 6
 
 # The fields the dashboard shows as prose, and the key that says a Dutch
@@ -154,6 +161,26 @@ if E:
                      '%-26s %-6s says "%s": %s'
                      % (key, f, said[:26],
                         ' '.join(v[:46].split())))
+                break
+
+# ------------------------------------- typographic ligatures
+#
+# A PDF writes "confirme" as conﬁrme, one character for the fi, and
+# the reader will never find it by searching for confirme. The aroma
+# wheel, which matches words out of the tasting note, misses any word
+# carrying one, and the Dutch files have none - so the two languages
+# disagree about the same word. Found when one of them crashed a script
+# that was printing French fields.
+LIGATURES = {'ﬀ': 'ff', 'ﬁ': 'fi', 'ﬂ': 'fl',
+             'ﬃ': 'ffi', 'ﬄ': 'ffl', 'ﬅ': 'st',
+             'Œ': 'OE', 'œ': 'oe'}
+for name, recs in (('fiches.js', en), ('fiches-nl.js', nl)):
+    for key, body in sorted(recs.items()):
+        for lig, plain in LIGATURES.items():
+            if lig in body:
+                note('a typographic ligature from a PDF',
+                     '%-26s %s has U+%04X, which should be "%s"'
+                     % (key, name, ord(lig), plain))
                 break
 
 # ------------------------------------------------ Dutch coverage

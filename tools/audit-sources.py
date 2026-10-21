@@ -43,25 +43,34 @@ for m in re.finditer(r"^'([a-z0-9-]+)\|(\d{4})':\{(.*)\},$", txt, re.M):
     if not sm:
         continue
     checked += 1
-    ref = sm.group(1)
-    # A source can be a page rather than a file. Latour publishes no
-    # technical sheets at all - its archive is seventy-five vintages of
-    # prose on one page - so those records cite the page they came from.
-    # That is a source, not a missing file.
-    if '/' in ref and not ref.lower().endswith('.pdf'):
-        pages += 1
-        continue
-    s = sheets.get(ref)
     has = [f for f in OWNED if re.search(r'(?:^|,)' + f + r"[:']", body)]
-    if not s:
-        bad['the sheet is not on disk'].append((eid, yr, sm.group(1), has))
-        continue
-    if s['estate'] and s['estate'] != eid:
-        bad['the sheet belongs to another estate'].append(
-            (eid, yr, '%s -> %s' % (sm.group(1)[:40], s['estate']), has))
-    elif s['role'] not in GRANDISH and has:
-        bad["the sheet is this estate's %s" % s['role']].append(
-            (eid, yr, '%s (%s)' % (sm.group(1)[:40], s.get('wine') or '?'), has))
+    # src can name several sheets, comma-separated, where a record was
+    # read from more than one - Giscours 2025 cites six. Testing the
+    # joined string as a single filename reported four records as having
+    # no sheet on disk when every sheet they named was there, and hid
+    # whatever those sheets were for. A filename could itself contain a
+    # comma, so an src that is a sheet in its own right is left whole.
+    ref = sm.group(1)
+    refs = ([ref] if ref in sheets
+            else [r.strip() for r in ref.split(',') if r.strip()])
+    for ref in refs:
+        # A source can be a page rather than a file. Latour publishes no
+        # technical sheets at all - its archive is seventy-five vintages
+        # of prose on one page - so those records cite the page they came
+        # from. That is a source, not a missing file.
+        if '/' in ref and not ref.lower().endswith('.pdf'):
+            pages += 1
+            continue
+        s = sheets.get(ref)
+        if not s:
+            bad['the sheet is not on disk'].append((eid, yr, ref, has))
+            continue
+        if s['estate'] and s['estate'] != eid:
+            bad['the sheet belongs to another estate'].append(
+                (eid, yr, '%s -> %s' % (ref[:40], s['estate']), has))
+        elif s['role'] not in GRANDISH and has:
+            bad["the sheet is this estate's %s" % s['role']].append(
+                (eid, yr, '%s (%s)' % (ref[:40], s.get('wine') or '?'), has))
 
 print('%d records name a sheet\n' % checked)
 tot = 0

@@ -257,9 +257,9 @@ window.BDX_CHATEAUX = (window.BDX_CHATEAUX || []).concat([
  style:'The smallest and least known of the classified Margaux; firm, old-fashioned and made together with Boyd-Cantenac.'},
 
 {id:'la-tour-carnet', name:'Château La Tour Carnet', growth:4, cat:'red',
- appellation:'Haut-Médoc', commune:'Saint-Laurent-Médoc', lat:45.1180, lng:-0.8150, ha:79,
+ appellation:'Haut-Médoc', commune:'Saint-Laurent-Médoc', lat:45.1180, lng:-0.8150, ha:119,
  second:'Les Douves de Carnet', owner:'Bernard Magrez',
- blend:{CS:60,ME:35,CF:3,PV:2}, perf:0,
+ blend:{ME:62,CS:35,PV:2,CF:1}, perf:0,
  style:'A genuine moated medieval fortress, parts of it 12th-century. Modern, ripe and oak-framed under Magrez ownership.'},
 
 {id:'lafon-rochet', name:'Château Lafon-Rochet', growth:4, cat:'red',

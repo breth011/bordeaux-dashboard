@@ -1209,7 +1209,17 @@ PROSE_STOP = re.compile(
     r'technical\s+(?:manager|director)\s*[-–]|'
     r'date\s+de\s+mise\s+en\s+bouteille|mise\s+en\s+bouteille\s*:|'
     r'bottling\s+date|analyse\s|analyses\s*:|'
-    r'harvest\s+time|dates?\s+de\s+vendanges?\s*:|'
+    r'harvest\s+time|dates?\s+de\s+vendanges?|'
+    # Coutet prints its whole technical block under the season heading,
+    # with no colons anywhere: "VENDANGES ... DATES DE VENDANGES 14
+    # septembre au 3 octobre 2011 NOMBRE DE PASSAGES 4 tries ...
+    # ASSEMBLAGE 75 % Semillon ... FERMENTATION en barriques ELEVAGE 18
+    # mois ... MISE EN BOUTEILLES Juin 2013 COMMENTAIRES DE
+    # DEGUSTATION". Requiring the colon let all of it into the note.
+    r'nombre\s+de\s+(?:passages|jours)|'
+    r'mise\s+en\s+bouteilles?|fermentation\s+en\s+barriques?|'
+    r'commentaires?\s+de\s+d[eé]gustation|'
+    r'[eé]levage\s+\d+\s+mois|assemblage\s+\d{1,3}\s*%|'
     r'surface\s+area|viticulture\s+by\s+plot|'
     r'enc[eé]pagement|grape\s+varieties|'
     r'\d{13}|'                              # an EAN barcode

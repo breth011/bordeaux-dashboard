@@ -95,6 +95,8 @@ def main():
     ap.add_argument('--estate', action='append', default=[])
     ap.add_argument('--year', type=int)
     ap.add_argument('--apply', action='store_true')
+    ap.add_argument('--redo', action='store_true',
+                    help='take back what this reader wrote, then re-read')
     ap.add_argument('--prose', action='store_true',
                     help='also merge taste and note, which have no gate')
     ap.add_argument('--limit', type=int, default=0)
@@ -223,10 +225,16 @@ def main():
 
     # one proposal per record: the first sheet that offers each field,
     # so provenance is a filename and not a guess
+    # Built from everything the sheet states, not from the fields the
+    # record was missing when it was read. Those two differ once --redo
+    # is in play: the "new" list is computed before the taking-back, so
+    # a field just taken back is not in it and would never be written
+    # again. Whether to write is decided at write time, against the line
+    # as it then stands.
     best = {}
     for r in sorted(found, key=lambda x: (x['estate'], x['year'], x['src'])):
         key = (r['estate'], r['year'])
-        for f in r['new']:
+        for f in r['got']:
             if f not in fields:
                 continue
             best.setdefault(key, {}).setdefault(f, (r['got'][f], r['src']))
@@ -241,6 +249,47 @@ def main():
             if m:
                 prov[m.group(1)] = dict(
                     re.findall(r"([a-z]+[a-z0-9]*):'([^']*)'", m.group(2)))
+
+    # --redo: take back what this reader wrote, so a corrected rule can
+    # write it again. --apply never overwrites, which is right - a field
+    # entered from somewhere this tool cannot see must not be replaced
+    # by a guess. But it also means a reader bug is permanent, and there
+    # was one: Coutet prints "DATES DE VENDANGES" with no colon, the
+    # stop-list wanted a colon, and six season notes swallowed the whole
+    # technical block down to "MISE EN BOUTEILLES Juin 2013".
+    #
+    # This is only safe because data/field-src.js says, field by field,
+    # which ones came from the reader. Nothing else is touched.
+    # Scoped to the records this run actually read, and not to every
+    # record provenance knows about. Run as --estate coutet --redo the
+    # unscoped version took back 1,842 fields across all 468 estates and
+    # then wrote back only Coutet's, because the read was scoped and the
+    # taking-back was not. A repair that is wider than the thing being
+    # repaired is not a repair.
+    in_scope = set('%s|%s' % (eid, yr) for eid, yr, f, p in todo)
+    undone = collections.Counter()
+    if a.redo:
+        for i, line in enumerate(lines):
+            m = re.match(r"^'([a-z0-9-]+\|\d{4})':\{(.*)\},$", line)
+            if not m or m.group(1) not in prov:
+                continue
+            if m.group(1) not in in_scope:
+                continue
+            key, body = m.group(1), m.group(2)
+            for f in sorted(prov[key]):
+                if f not in fields:
+                    continue
+                v = re.search(r'(?:^|,)' + f + r"(?::'(?:[^'\\]|\\.)*'"
+                              r"|:\{[^}]*\}|:[\d.]+|:\[[^\]]*\])", body)
+                if v:
+                    body = (body[:v.start()] + body[v.end():]).lstrip(',')
+                    undone[f] += 1
+                    prov[key].pop(f, None) if isinstance(
+                        prov[key], dict) else prov[key].discard(f)
+            if body != m.group(2):
+                lines[i] = "'%s':{%s}," % (key, body)
+        print('%d field values taken back for re-reading' % sum(
+            undone.values()))
 
     wrote = collections.Counter()
     for i, line in enumerate(lines):

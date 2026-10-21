@@ -40,6 +40,7 @@ window.BDX_CUVEE_WINES = {
 'la-conseillante':[{slug:'duo-de-conseillante',name:'Duo de Conseillante',role:'second',colour:'red'}],
 'la-mission-haut-brion':[{slug:'la-chapelle-de-la-mission-haut-brion',name:'La Chapelle de La Mission Haut-Brion',role:'second',colour:'red'},{slug:'la-clarte-de-haut-brion-blanc',name:'La Clarté de Haut-Brion Blanc',role:'other',colour:'white'},{slug:'la-mission-haut-brion-blanc',name:'La Mission Haut-Brion Blanc',role:'other',colour:'white'}],
 'lafon-rochet':[{slug:'les-pelerins-de-lafon-rochet',name:'Les Pèlerins de Lafon-Rochet',role:'second',colour:'red'}],
+'larcis-ducasse':[{slug:'murmure-de-larcis-ducasse',name:'Murmure de Larcis Ducasse',role:'second',colour:'red'}],
 'lascombes':[{slug:'chevalier-de-lascombes',name:'Chevalier de Lascombes',role:'second',colour:'red'},{slug:'haut-m-doc-de-lascombes',name:'Haut-Médoc de Lascombes',role:'other',colour:'red'}],
 'leoville-poyferre':[{slug:'moulin-riche',name:'Moulin Riche',role:'other',colour:'red'}],
 'lynch-bages':[{slug:'blanc-de-lynch-bages',name:'Blanc de Lynch-Bages',role:'other',colour:'white'}],
@@ -743,4 +744,9 @@ window.BDX_CUVEES = {
 'trotte-vieille|la-vieille-dame-de-trottevieille|2008':{months:'18',src:'vieilledamedetrottevieille2008-web_en.pdf'},
 'trotte-vieille|la-vieille-dame-de-trottevieille|2009':{months:'18',src:'vieilledamedetrottevieille2009-web_en.pdf'},
 'trotte-vieille|la-vieille-dame-de-trottevieille|2010':{months:'18',src:'vieilledamedetrottevieille2010-web_en.pdf'},
+'larcis-ducasse|murmure-de-larcis-ducasse|2015':{blend:{ME:95,CF:5},alc:14,ph:3.55,yld:37,months:'16',src:'Murmure-de-LD-2015-FR.pdf'},
+'larcis-ducasse|murmure-de-larcis-ducasse|2016':{blend:{ME:92,CF:8},alc:14,ph:3.43,yld:43,months:'16',src:'Murmure-de-LD-2016-FR.pdf'},
+'larcis-ducasse|murmure-de-larcis-ducasse|2017':{blend:{ME:98,CF:2},alc:14.5,ph:3.52,yld:34,months:'16',src:'Murmure-de-LD-2017-FR.pdf'},
+'larcis-ducasse|murmure-de-larcis-ducasse|2018':{blend:{ME:97,CF:3},alc:14,ph:3.46,yld:33,months:'16',src:'Murmure-de-LD-2018-FR.pdf'},
+'larcis-ducasse|murmure-de-larcis-ducasse|2020':{blend:{ME:98,CF:2},alc:14.5,ph:3.55,yld:38.8,months:'12',src:'Murmure-de-LD-2020-FR.pdf'},
 };

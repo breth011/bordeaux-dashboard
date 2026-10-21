@@ -239,7 +239,7 @@ prop = ROOT + 'reports/proposed.json'
 # they were read - but the gate went on quoting them, because the
 # snapshot predates the correction. A gate that reports settled
 # questions trains people to ignore it.
-NOT_GRAND = ('skip', 'second', 'other', 'page')
+NOT_GRAND = ('skip', 'second', 'other', 'page', 'group report')
 if os.path.exists(prop):
     said = collections.defaultdict(set)
     for r in json.load(io.open(prop, encoding='utf-8')):

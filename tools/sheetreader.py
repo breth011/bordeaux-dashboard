@@ -12,7 +12,7 @@ published none, 6,227 PDFs where a media library showed 83, a blend
 that was the estate's own figures with the varieties shuffled. The
 number is never the evidence.
 """
-import io, os, re, collections, warnings
+import io, os, re, collections, difflib, warnings
 warnings.filterwarnings('ignore')
 import pymupdf
 
@@ -1217,6 +1217,14 @@ PROSE_STOP = re.compile(
     # mois ... MISE EN BOUTEILLES Juin 2013 COMMENTAIRES DE
     # DEGUSTATION". Requiring the colon let all of it into the note.
     r'nombre\s+de\s+(?:passages|jours)|'
+    # La Tour Blanche appends its drinking advice to the tasting note:
+    # "Mars 2010 Periode de degustation recommandee : Des aujourd'hui.
+    # Apogee vers 2020. Decantation : de quelques minutes a plusieurs
+    # heures selon l'age du vin." Those belong in window and decant,
+    # which this file has fields for, and the reader does not read them
+    # yet - so for now the prose stops there rather than swallowing them.
+    r'p[eé]riode\s+de\s+d[eé]gustation|d[eé]cantation\s*:|'
+    r'apog[eé]e\s+vers|drinking\s+window|'
     r'mise\s+en\s+bouteilles?|fermentation\s+en\s+barriques?|'
     r'commentaires?\s+de\s+d[eé]gustation|'
     r'[eé]levage\s+\d+\s+mois|assemblage\s+\d{1,3}\s*%|'
@@ -1565,8 +1573,289 @@ def read_prose(text):
     return out, how
 
 
+# The three short advisory fields, each behind its own label. They were
+# being thrown away: the stop-list was taught to halt the tasting note
+# at "Periode de degustation recommandee" and "Decantation", which kept
+# the advice out of the description and did not put it anywhere. Sampled
+# over 150 sheets, about 104 of the 1,962 vintages state a drinking
+# window, 156 a decanting instruction and 13 a food pairing, against
+# coverage of 18, 11 and 8.
+ADVICE = (
+    # "garde" and "apogee" alone came out: both are ordinary French and
+    # matched inside prose, which is how Kirwan's drinking window became
+    # "downy mildew at bay Though catastrophe had been avoided".
+    ('window', re.compile(
+        r'(?i)(?:p[eé]riode\s+de\s+d[eé]gustation(?:\s+recommand[eé]e)?|'
+        r'potentiel\s+de\s+garde|apog[eé]e\s+vers|drinking\s+window|'
+        r'[aà]\s+boire\s+(?:entre|de|avant|d[eè]s)|'
+        r'cellar(?:ing)?\s+potential)\s*:?\s*')),
+    ('decant', re.compile(
+        r'(?i)(?:d[eé]cantation|carafage|decanting)\s*:?\s*')),
+    # The label has to swallow its own tail or the window opens on it:
+    # "Food pairings:" left "es:", and "Accords mets/vin :" left
+    # "/vin : gibier, plats en sauce".
+    ('food', re.compile(
+        r'(?i)(?:accords?\s+(?:mets|gourmands?)(?:\s*[-/&]\s*|\s+)?'
+        r'(?:vins?|et\s+vins?)?|food\s*(?:and\s*wine\s*)?'
+        r'(?:pairings?|match(?:es)?|matching)|'
+        r'[aà]\s+servir\s+avec|suggestions?\s+d[\'e]\s*accompagnement|'
+        r'to\s+be\s+served\s+with)\s*[:–—-]*\s*')),
+)
+# Where a piece of advice ends: at the next label of any kind.
+#
+# The first version stopped only at the next advisory label, so the
+# advice ran on into whatever the sheet printed next - a press review
+# ("2022 - 2038 April 2017 The Wine Doctor 91 A really enticing nose
+# here"), the estate block ("10 a 15 ans SECOND VIN : Les Angelots de
+# Villemaurine PROPRIETAIRE : Justin Onclin"), or the tasting note
+# itself ("2023 et 2042. Le 2020 Badette presente une robe grenat").
+ADVICE_STOP = re.compile(
+    r'(?i)(p[eé]riode\s+de\s+d[eé]gustation|d[eé]cantation|carafage|'
+    r'accords?\s+mets|temp[eé]rature|best\s+between|'
+    r'conditions?\s+climatiques?|somme\s+des\s+|'
+    r'commentaires?\s+de\s+d[eé]gustation|assemblage|enc[eé]pagement|'
+    r'[eé]levage|mise\s+en\s+bouteille|analyse|www\.|@|t[eé]l\.|'
+    r'propri[eé]taire|second\s+vin|œnologue|oenologue|'
+    r'vendanges?|ramassage|fermentation|cueillette|'
+    r'notes?\s*:|degr[eé]\s*:|production\s*:|score\s*:|'
+    r'parker|suckling|galloni|jane\s+anson|neal\s+martin|'
+    r'jancis\s+robinson|decanter|vinous|wine\s+doctor|le\s+monde|'
+    r'\d{2,3}\s*/\s*100|\brobe\b|\bnez\b|'
+    r'(?:janvier|f[eé]vrier|mars|avril|juin|juillet|septembre|octobre|'
+    r'novembre|d[eé]cembre|january|february|april|june|july|august|'
+    r'september|october|november|december)\s+\d{4})')
+
+# A drinking window is really two years. Where the sheet gives them -
+# "2026-2046", "2012 et 2024", "a boire entre 2006 a 2015" - they go to
+# wy, which is the field this file already has for exactly that, and the
+# prose is kept only when no pair can be read.
+WY = re.compile(r'\b(19[89]\d|20[0-5]\d)\s*(?:-|–|—|/|[aà]|et|'
+                r'to|and)\s*(19[89]\d|20[0-6]\d)\b')
+
+
+def read_advice(text):
+    """The drinking window, the decanting and the food, where stated."""
+    out, how = {}, {}
+    for field, lab in ADVICE:
+        m = None
+        for cand in lab.finditer(text):
+            if _is_heading(text, cand):
+                m = cand
+                break
+        if not m:
+            continue
+        win = text[m.end():m.end() + 320]
+        s = ADVICE_STOP.search(win)
+        if s:
+            win = win[:s.start()]
+        win = ' '.join(win.split()).lstrip(' :-–—/&.,')
+        # Dot leaders: Beau-Sejour Becot's sheet rules a line of them
+        # under the heading, which is a form to be filled in and not a
+        # pairing.
+        if len(re.findall(r'[.…]', win)) > len(win) * 0.2:
+            continue
+        cut = max(win.rfind('. '), win.rfind('! '), win.rfind('? '))
+        if cut >= 20:
+            win = win[:cut + 1]
+        # Short by nature, and the connective test that guards a
+        # paragraph is wrong here. La Tour Blanche's whole drinking
+        # window is "Des aujourd'hui. Apogee vers 2020." - thirty-four
+        # characters with not one of "de la et the and" in it - and
+        # requiring a small word threw every window away. Length bounds
+        # and a cap on digits are enough for a line of advice; what
+        # matters is that it is a line and not a table.
+        if field == 'window':
+            y = WY.search(win)
+            if y:
+                a, b = int(y.group(1)), int(y.group(2))
+                if 1980 <= a < b <= 2070:
+                    out['wy'] = [a, b]
+                    how['wy'] = (m.group(0) + y.group(0))[:48]
+                    continue
+        digits = sum(c.isdigit() for c in win)
+        words = len([w for w in win.split() if len(w) > 2])
+        if 12 <= len(win) <= 300 and digits <= len(win) * 0.3 \
+                and words >= 3:
+            out[field] = win
+            how[field] = m.group(0)[:36]
+    return out, how
+
+
+# Words a filename uses for the paperwork rather than the wine.
+FILING = set("""fiche fiches technique techniques sheet technical fact
+millesime vintage vin vins chateau clos domaine grand grands cru crus
+classe fra fre eng ang anglais francais english french web pdf doc
+primeur primeurs bordeaux rouge blanc rose red white sec dry""".split())
+
+
+def abbreviates_other_wine(filename, grand, others=()):
+    """Does the filename shorten one of the estate's other wines?
+
+    A cuvee is often filed under the first letters of its name - VIB
+    for Vibrato - which no name matching will find, because the name
+    is not there to match. What is there is a word that begins it.
+
+    The estate's own name comes first: Kirwan files its sheets as
+    ChateauKirwan, and that begins "Chateau Kirwan Blanc" too.
+
+    Returns the wine, or None.
+    """
+    def wds(s):
+        return [w for w in re.split(r'[^a-z0-9]+', norm(s or '')) if w]
+
+    mine = set(w for w in wds(grand) if len(w) > 2)
+    fw = [w for w in wds(filename)
+          if len(w) > 2 and not w.isdigit() and w not in FILING]
+    if not fw or (mine & set(fw)):
+        return None
+    nb = bare_name(grand)
+    if nb and nb in bare_name(filename):
+        return None
+    for nm in others or ():
+        mark = mark_of(nm, grand)
+        if not mark:
+            continue
+        mk = ''.join(wds(mark))
+        if len(mk) < 4:
+            continue
+        for w in fw:
+            if len(w) >= 3 and w != mk and mk.startswith(w):
+                return nm
+    return None
+
+
+# A long run of hex is a hash, and four digits inside one are not a
+# year. Croix de Labrie "2079" is the tail of
+# 266fad379e514e6c8dabd7d076602079.
+HASHRUN = re.compile(r'(?i)[0-9a-f]{16,}')
+
+
+def year_said(year, filename, text=None):
+    """Does the filename or the document state this vintage?
+
+    The vintage does not come from the filename - that rule this
+    project has paid for, and harvest.py keeps it when it decides what
+    a document is. This is the weaker question asked afterwards, of a
+    sheet already filed under an estate and a year by hand: does
+    anything at all say that year? A year nothing states is a year
+    somebody's regular expression found in a hash.
+    """
+    if not year:
+        return None
+    rx = re.compile(r'(?<!\d)%d(?!\d)' % int(year))
+    clean = HASHRUN.sub(lambda m: '#' * len(m.group(0)), filename or '')
+    if rx.search(clean):
+        return 'the filename'
+    if text and rx.search(text):
+        return 'the document'
+    return None
+
+
+# A filename that says the document is press. is_dossier reads the body
+# and catches a press pack by its contents; this catches the ones whose
+# contents are a magazine page - a review, a listing, a clipping - and
+# whose only tell is the name they were filed under.
+PRESS_NAME = re.compile(r'(?i)(?<![a-z])('
+                        r'revue[-_ ]?de[-_ ]?presse|press[-_ ]?review|'
+                        r'tv[-_ ]?magazine|magazine|gault|millau|'
+                        r'figaro|sud[-_ ]?ouest|terre[-_ ]?de[-_ ]?vins|'
+                        r'rvf|wine[-_ ]?spectator|wine[-_ ]?enthusiast|'
+                        r'decanter|bettane|desseauve|jancis|parker|'
+                        r'suckling|galloni|vinous|france\s?[0-9]|'
+                        r'journal|presse|article|interview|communique'
+                        r')(?![a-z])')
+
+
+def is_press_name(filename):
+    """Does the filename say this is press rather than a sheet?"""
+    m = PRESS_NAME.search(filename or '')
+    return m.group(1) if m else None
+
+
+# Words that belong to every name in Bordeaux and so distinguish none.
+NAME_COMMON = set("""chateau ch clos domaine de du des la le les et en
+aux au vin vins grand grands cru crus classe classes bordeaux fiche
+technique sheet technical millesime vintage fiches pdf web site uk
+gb fr en es nl rouge blanc rose red white dry sec""".split())
+NAME_LEAD = re.compile(r'(?i)^(?:chateau|clos|domaine|ch)(?=[a-z])')
+NAME_ART = re.compile(r'^(?:de|du|des|la|le|les|l|d)(?=[a-z]{4})')
+# "chateau beau secret 2014" - the name a filename spells out.
+NAME_SPELLS = re.compile(
+    r'(?<![a-z])(?:chateau|clos|domaine)'
+    r'[^a-z0-9]*([a-z0-9]+(?:[^a-z0-9]+[a-z0-9]+){0,3})')
+
+
+def bare_name(s):
+    """The letters of a name, separators and leading articles gone.
+
+    Filenames drop the apostrophe and run the article into the name -
+    levangile, daiguilhe, loratoire, couhinslurton, grandcorbin - so a
+    word-by-word comparison with Chateau L'Evangile finds nothing in
+    common. Compared as letters, levangile contains evangile.
+    """
+    b = re.sub(r'[^a-z0-9]+', '', norm(s or ''))
+    was = None
+    while was != b:
+        was = b
+        b = NAME_ART.sub('', NAME_LEAD.sub('', b))
+    return b
+
+
+def names_other_chateau(filename, grand, others=(), second=None):
+    """Does the filename spell a chateau that is none of this estate's?
+
+    Chateau du Moulin Rouge's folder holds Beau-Secret, Moulin de
+    Bayron, L'Ecuyer du Moulin Rouge and L'Aventurine: one owner's
+    whole range, as Chateau d'Argan's did. Beau-Secret is not the
+    recorded second wine and not a sibling estate in the data, so
+    neither names_another_wine nor confirms_estate had anything to
+    test it against, and technical-sheet-chateau-beau-secret-2014.pdf
+    gave Moulin Rouge 2014 its tasting note.
+
+    All that is left to go on is the filename, and the filename says
+    whose wine it is. Where it spells out "chateau X" and the estate's
+    own name is nowhere in it, the sheet is another property's.
+
+    The allowances are the three ways a filename writes a name it does
+    own: the elided article (levangile for L'Evangile), the estate's
+    own misspelling (comensac for Camensac), and the house
+    abbreviation - Haut-Brion files thirty-seven vintages as
+    Chateau-HBR-2010 and its neighbours' as Carmes-Haut-Brion.
+
+    Returns the other name, or None.
+    """
+    m = NAME_SPELLS.search(norm(filename or ''))
+    if not m:
+        return None
+    spelled = [w for w in re.split(r'[^a-z0-9]+', norm(m.group(1)))
+               if w and w not in NAME_COMMON and not w.isdigit()]
+    if not spelled or max(len(w) for w in spelled) < 4:
+        return None
+    sp = bare_name(' '.join(spelled))
+    fb = bare_name(filename)
+    for nm in (grand, second) + tuple(others or ()):
+        nb = bare_name(nm)
+        if not nb or len(nb) < 4:
+            continue
+        if nb in fb or fb in nb:
+            return None
+        # A long name need not be spelled in full: Smith Haut Lafitte's
+        # filenames say smith-haut-lafitte, Rauzan-Segla's rauzansegla,
+        # Malartic-Lagraviere's malartic. One word of the estate's own
+        # name, four letters or more, is enough.
+        for w in re.split(r'[^a-z0-9]+', norm(nm)):
+            if len(w) > 3 and w not in NAME_COMMON and w in fb:
+                return None
+        if difflib.SequenceMatcher(None, sp, nb).ratio() >= 0.8:
+            return None
+        if len(sp) <= 4 and re.search('.*?'.join(re.escape(c)
+                                                 for c in sp), nb):
+            return None
+    return ' '.join(spelled)
+
+
 def fields_of(path, grand=None, others=(), second=None, cat=None,
-              filename=None):
+              filename=None, year=None):
     """Everything a sheet states, or nothing if it is not this wine's.
 
     The guards run first and in the order that has earned its place:
@@ -1581,11 +1870,35 @@ def fields_of(path, grand=None, others=(), second=None, cat=None,
     """
     filename = filename or os.path.basename(path)
     try:
+        if year and not year_said(year, filename):
+            try:
+                if not year_said(year, filename,
+                                 ' '.join(flat(path).split())):
+                    return {}, {'refused': 'nothing states this vintage'}
+            except Exception:
+                return {}, {'refused': 'nothing states this vintage'}
+        if is_press_name(filename):
+            return {}, {'refused': 'the filename says it is press'}
         if is_dossier(path):
             return {}, {'refused': 'a press dossier, not a vintage’s sheet'}
-        if names_another_wine(path, filename, grand, second):
-            return {}, {'refused': 'the sheet names another of the '
-                                   'estate’s wines'}
+        # Every wine the estate is recorded as making, not only the
+        # second. This tested `second` alone, and Clos Puy Arnaud's
+        # Fiche-technique-VIB-2024-FR.pdf - "CLOS PUY ARNAUD VIBRATO
+        # 2024 VIN DE FRANCE" - gave the grand vin its pH and its
+        # picking date, although Vibrato has been in the estate's
+        # cuvees all along. The blend reader has looped over them since
+        # it was written; this one never did.
+        for nm in (second,) + tuple(others or ()):
+            if nm and names_another_wine(path, filename, grand, nm):
+                return {}, {'refused': 'the sheet names another of the '
+                                       'estate’s wines'}
+        other_wine = abbreviates_other_wine(filename, grand, others)
+        if other_wine:
+            return {}, {'refused': 'the filename abbreviates another of '
+                                   'the estate’s wines'}
+        if names_other_chateau(filename, grand, others, second):
+            return {}, {'refused': 'the filename names another '
+                                   'château'}
         if wrong_colour(filename, None, cat):
             return {}, {'refused': 'the filename says another colour'}
         if confirms_estate(path, filename, grand, others) == 'other':
@@ -1599,7 +1912,8 @@ def fields_of(path, grand=None, others=(), second=None, cat=None,
         return {}, {'refused': 'unreadable'}
 
     got, how = read_numbers(text)
-    pro, howp = read_prose(text)
-    got.update(pro)
-    how.update(howp)
+    for fn in (read_prose, read_advice):
+        more, howm = fn(text)
+        got.update(more)
+        how.update(howm)
     return got, how

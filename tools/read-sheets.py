@@ -182,6 +182,11 @@ for s, path in todo:
     if sr.role_is_reasoned(s):
         why['a role already decided, with the reason recorded'] += 1
         continue
+    press = sr.is_press_name(s['file'])
+    if press:
+        why['the filename says it is press'] += 1
+        s['role'], s['how'] = 'skip', 'the filename says ' + press
+        continue
     if sr.is_dossier(path):
         why['a press dossier, not a vintage’s sheet'] += 1
         s['role'] = 'skip'
@@ -191,6 +196,14 @@ for s, path in todo:
         s['role'] = 'second'
         continue
     g = grand.get(s['estate'], '')
+    spells = sr.names_other_chateau(s['file'], g,
+                                    others.get(s['estate'], []),
+                                    second.get(s['estate']))
+    if spells:
+        why['the filename names another château'] += 1
+        s['role'], s['how'] = 'other', 'the filename says ' + spells
+        s['wine'] = spells
+        continue
     whose = sr.confirms_estate(path, s['file'], g,
                                others.get(s['estate'], []))
     if whose == 'other':

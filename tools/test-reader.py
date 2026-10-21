@@ -198,8 +198,30 @@ FIELDS = [
     ('beychevelle', 'Beychevelle-2008-francais.pdf', 'alc',
      'the alcohol is read and gated',
      lambda v: v is not None and 10.0 <= v <= 17.0),
+    ('bourgeois-chateau-du-moulin-rouge',
+     'technical-sheet-chateau-beau-secret-2014.pdf', 'taste',
+     'Beau-Secret is another chateau of the same owner',
+     lambda v: v is None),
+    ('haut-brion', 'Fiche-technique_ChateauHBR_1990_EN.pdf', 'alc',
+     'ChateauHBR is Haut-Brion’s own abbreviation',
+     lambda v: v is not None),
+    ('levangile', 'Chateau-LEvangile-2015.pdf', 'alc',
+     'levangile is L’Evangile with the article elided',
+     lambda v: v is not None),
+    ('artisan-chateau-des-graviers',
+     'Chateau-la-Bessane-Margaux-2022-fr-1.pdf', 'months',
+     'la Bessane is the owner’s other Margaux',
+     lambda v: v is None),
+    ('stem-chateau-grand-corbin-despagne', 'presse_2009.pdf', 'alc',
+     'a press roundup is not the vintage’s sheet',
+     lambda v: v is None),
+    ('clos-puy-arnaud', 'Fiche-technique-VIB-2024-FR.pdf', 'ph',
+     'VIB is Vibrato, a Vin de France, not the grand vin',
+     lambda v: v is None),
+    ('kirwan', '2020-FACT-SHEET-ENG-ChateauKirwan.pdf', 'alc',
+     'ChateauKirwan begins Kirwan Blanc but is Kirwan’s own sheet',
+     lambda v: v is not None),
 ]
-
 
 def find(eid, name):
     hit = glob.glob(os.path.join(ROOT, 'sources/fiches', eid, name))

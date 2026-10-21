@@ -143,7 +143,8 @@ def main():
         # sibling property's.
         got, how = sr.fields_of(
             p, grand=e.get('name'), others=list(e.get('cuvees') or ()),
-            second=e.get('second'), cat=e.get('cat'), filename=f)
+            second=e.get('second'), cat=e.get('cat'), filename=f,
+            year=yr)
         if 'refused' in how:
             why[how['refused']] += 1
             continue
@@ -206,8 +207,9 @@ def main():
     # plausibly whatever it says, which is how a German wine review, a
     # phenology table and a description of a park all got as far as they
     # did. So prose is opt-in and the report is there to be read first.
-    NUMERIC = ('alc', 'ph', 'yld', 'months', 'oak', 'temp', 'pick')
-    PROSE = ('taste', 'note')
+    NUMERIC = ('alc', 'ph', 'yld', 'months', 'oak', 'temp', 'pick',
+               'wy')
+    PROSE = ('taste', 'note', 'window', 'decant', 'food')
     fields = NUMERIC + (PROSE if a.prose else ())
 
     def render(f, v):
@@ -216,6 +218,8 @@ def main():
                 "%s:'%s'" % kv for kv in sorted(v.items()))
         if f == 'temp':
             return 'temp:[%s]' % ','.join('%g' % x for x in v)
+        if f == 'wy':
+            return 'wy:[%d,%d]' % (v[0], v[1])
         if f == 'months':
             return "months:'%s'" % v
         if f in PROSE:
@@ -312,6 +316,30 @@ def main():
             continue
         lines[i] = "'%s':{%s,%s}," % (pk, body, ','.join(add))
 
+    # NEW RECORDS. A vintage with a sheet and no record was read and
+    # dropped: 106 of them, holding 224 values. The record is created
+    # from what the sheet states, with src naming the sheet that gave
+    # the most of it - the same provenance any other record carries.
+    seen = set()
+    for line in lines:
+        m = re.match(r"^'([a-z0-9-]+)\|(\d{4})':\{", line)
+        if m:
+            seen.add((m.group(1), m.group(2)))
+    fresh = sorted(k for k in best if k not in seen)
+    made = []
+    for key in fresh:
+        pk = '%s|%s' % key
+        who = collections.Counter(s for v, s in best[key].values())
+        add = [render(f, v) for f, (v, s) in sorted(best[key].items())]
+        add.append("src:'%s'" % who.most_common(1)[0][0])
+        made.append("'%s':{%s}," % (pk, ','.join(add)))
+        for f, (v, s) in best[key].items():
+            prov.setdefault(pk, {})[f] = s
+            wrote[f] += 1
+    if made:
+        at = max(i for i, l in enumerate(lines) if l.strip() == '};')
+        lines[at:at] = made
+
     io.open(ROOT + 'data/fiches.js', 'w', encoding='utf-8',
             newline='').write('\n'.join(lines))
 
@@ -339,6 +367,9 @@ def main():
     o.write('};\n')
     o.close()
 
+    if made:
+        print('\n%d records created for vintages that had none'
+              % len(made))
     print('\n%d field values written into data/fiches.js:'
           % sum(wrote.values()))
     for f, n in wrote.most_common():

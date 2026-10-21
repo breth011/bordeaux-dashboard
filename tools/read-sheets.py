@@ -28,6 +28,16 @@ ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__))) + os.sep
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 import sheetreader as sr
 
+WHY_HB = (
+    'the sheet has the two Cabernets transposed. Proven for Haut-Brion '
+    '2016: Fiche-technique_ChateauHBR_2016_EN.pdf reads "Cabernet '
+    'Sauvignon: 6,5% Cabernet Franc: 37,5%" where the estate’s own '
+    'FR sheet, its GB sheet and its own vintage page all read "Cabernet '
+    'Franc : 6,5 % Cabernet Sauvignon : 37,5 %". The other three have no '
+    'second source on disk, and are inferred from the same pattern at '
+    'the same two estates, where Cabernet Franc is a few per cent of the '
+    'planting and never forty')
+
 # Records the reader must not overwrite, because the estate's own sheet
 # is wrong and the record holds the corrected reading. Each entry needs
 # the sentence from the sheet and the reason it cannot be right.
@@ -39,10 +49,10 @@ import sheetreader as sr
 # have been swapped in the typesetting. The figures are right and the
 # labels are not.
 PINNED = {
-    'la-mission-haut-brion|2024':
-        'the sheet gives Cabernet Franc 51% and Cabernet Sauvignon 2.5%, '
-        'which is the two Cabernets swapped: La Mission is roughly half '
-        'Cabernet Sauvignon and a few per cent Franc',
+    'haut-brion|2016': WHY_HB,
+    'haut-brion|2018': WHY_HB,
+    'haut-brion|2019': WHY_HB,
+    'la-mission-haut-brion|2024': WHY_HB,
 }
 
 ap = argparse.ArgumentParser()
@@ -64,39 +74,20 @@ for line in io.open(ROOT + 'data/fiches.js', encoding='utf-8'):
         held[m.group(1)] = dict((k, float(v)) for k, v in
                                 re.findall(r'(\w+):([\d.]+)', b.group(1)))
 
-known, grand, second = set(), {}, {}
-for f in ('chateaux.js', 'crubourgeois.js', 'cruartisan.js', 'graves.js',
-          'sauternes.js', 'saintemilion.js', 'pomerol.js', 'rightbank.js',
-          'libournais.js'):
-    q = ROOT + 'data/' + f
-    if not os.path.exists(q):
-        continue
-    txt = io.open(q, encoding='utf-8').read()
-    known |= set(re.findall(r"id:'([a-z0-9-]+)'", txt))
-    # Each estate's own block, so the name and the second wine stay together.
-    for blk in re.finditer(r"\{id:'([a-z0-9-]+)'(.{0,900}?)\}(?=,\s*$|,\s*\{)",
-                           txt, re.S | re.M):
-        eid, body = blk.group(1), blk.group(2)
-        nm = re.search(r"name:'([^']+)'", body)
-        sc = re.search(r"second:'([^']+)'", body)
-        if nm:
-            grand.setdefault(eid, nm.group(1))
-        if sc:
-            second.setdefault(eid, sc.group(1))
-
+# One loader, in sheetreader, rather than each tool parsing data/*.js its
+# own way. The version that lived here used a regex for a whole estate
+# block that matched almost none of them, and another that broke on the
+# escaped apostrophe in 'Chateau Lalande d\'Auvion' - which silently
+# dropped every estate after it in the list.
+E = sr.estates(ROOT)
+known = set(E)
+grand = dict((k, v['name'] or '') for k, v in E.items())
+second = dict((k, v['second']) for k, v in E.items() if v['second'])
+cat = dict((k, v['cat']) for k, v in E.items())
 # Every other wine the estate makes, so a sheet for one of them is not
 # read as the grand vin's. D de Dauzac is a white Bordeaux; the Giscours
 # Carnet Primeurs carries La Sirene's blend beside Giscours' own.
-others = collections.defaultdict(list)
-cv = ROOT + 'data/cuvees.js'
-if os.path.exists(cv):
-    txt = io.open(cv, encoding='utf-8').read()
-    for m in re.finditer(r"^'([a-z0-9-]+)':\[(.*)\],?$", txt, re.M):
-        for nm in re.findall(r"name:'([^']+)'", m.group(2)):
-            others[m.group(1)].append(nm)
-for eid, nm in second.items():
-    if nm not in others[eid]:
-        others[eid].append(nm)
+others = dict((k, v['cuvees']) for k, v in E.items())
 
 # A role this tool set on an earlier run is never un-set by a later one,
 # so a role set by a rule that was later found wrong stays wrong. Those
@@ -104,9 +95,11 @@ for eid, nm in second.items():
 # manifest is the record, and something that writes it both ways without
 # saying so is not a record.
 recheck = []
+twoways = []
 todo = []
 for s in man['sheets']:
-    if s.get('role') in ('second', 'other') and s.get('estate'):
+    if (s.get('role') in ('second', 'other') and s.get('estate')
+            and not sr.role_is_reasoned(s)):
         recheck.append(s)
     if s.get('role') in ('skip', 'second', 'other', 'page'):
         continue
@@ -132,6 +125,9 @@ print('%d sheets to read' % len(todo))
 out, why = [], collections.Counter()
 for s, path in todo:
     key = '%s|%d' % (s['estate'], s['year'])
+    if sr.role_is_reasoned(s):
+        why['a role already decided, with the reason recorded'] += 1
+        continue
     if sr.is_dossier(path):
         why['a press dossier, not a vintage’s sheet'] += 1
         s['role'] = 'skip'
@@ -166,9 +162,20 @@ for s, path in todo:
     if key in PINNED:
         why['pinned: the sheet is wrong and the record is right'] += 1
         continue
-    b = sr.blend_of(path, g, others.get(s['estate'], []))
+    b, alt = sr.blend_of(path, g, others.get(s['estate'], []), both=True)
+    if b and alt and b != alt:
+        # The two readings of the page disagree, so which is right
+        # depends on a layout no rule here can judge. The flat reading
+        # is proposed, because it is right more often, and the
+        # disagreement is listed so that someone can look.
+        twoways.append((s['estate'], s.get('year'), s['file'], b, alt))
     if not b:
         why['no blend in a window the sheet labels'] += 1
+        continue
+    bad = sr.wrong_colour(s['file'], b, cat.get(s['estate']))
+    if bad:
+        why['a different wine of this estate: ' + bad] += 1
+        s['role'] = 'other'
         continue
     if abs(sum(b.values()) - 100) > 1.5:
         why['a blend that does not sum to 100'] += 1
@@ -199,6 +206,9 @@ for s in recheck:
             still = nm
             break
     if not still and not sr.is_second_wine(path):
+        b = sr.blend_of(path, g, others.get(s['estate'], []))
+        if sr.wrong_colour(s['file'], b, cat.get(s['estate'])):
+            continue
         conflict.append((s['estate'], s.get('year'), s['file'],
                          s.get('role'), s.get('wine')))
 
@@ -207,6 +217,20 @@ rep = ['%d sheets read, %d propose a blend, %d of them for a vintage with no '
        '']
 for k, n in why.most_common():
     rep.append('   %-52s %d' % (k[:52], n))
+if twoways:
+    rep.append('')
+    rep.append('%d sheets read differently flat and column by column - the '
+               'flat reading is proposed, the other is here to check:'
+               % len(twoways))
+    for e, y, f, b, alt in sorted(twoways)[:40]:
+        rep.append('   %-24s %s  flat %-24s cols %-24s %s'
+                   % (str(e)[:24], y,
+                      ','.join('%s%g' % kv for kv in sorted(b.items())),
+                      ','.join('%s%g' % kv for kv in sorted(alt.items())),
+                      f[:34]))
+    if len(twoways) > 40:
+        rep.append('   ... and %d more' % (len(twoways) - 40))
+
 if conflict:
     rep.append('')
     rep.append('%d sheets are filed as another wine but no longer read as one '
@@ -240,14 +264,30 @@ for r in sorted(out, key=lambda r: r['key']):
                                      for kv in sorted(r['blend'].items())),
                   'NEW  ' if r['new'] else 'exists',
                   r['src'][:46]))
+# A scoped run writes a scoped report, so that running one estate does
+# not quietly replace the report for all of them - which it did once,
+# and the full report had taken forty minutes to produce.
+scope = ''
+if a.estate:
+    scope = '-' + '-'.join(sorted(a.estate))[:40]
+elif a.year:
+    scope = '-%d' % a.year
+# A scoped run writes a scoped report, so that reading one estate does
+# not quietly replace the report for all of them - which it did once,
+# after the full report had taken the better part of an hour to produce.
+scope = ''
+if a.estate:
+    scope = '-' + '-'.join(sorted(a.estate))[:40]
+elif a.year:
+    scope = '-%d' % a.year
 if not os.path.isdir(ROOT + 'reports'):
     os.makedirs(ROOT + 'reports')
-io.open(ROOT + 'reports/proposed.txt', 'w', encoding='utf-8',
+io.open(ROOT + 'reports/proposed%s.txt' % scope, 'w', encoding='utf-8',
         newline='').write('\n'.join(rep))
-json.dump(out, io.open(ROOT + 'reports/proposed.json', 'w', encoding='utf-8'),
-          ensure_ascii=False, indent=1)
+json.dump(out, io.open(ROOT + 'reports/proposed%s.json' % scope, 'w',
+                       encoding='utf-8'), ensure_ascii=False, indent=1)
 print('\n'.join(rep[:24]))
-print('\nfull report in reports/proposed.txt')
+print('\nfull report in reports/proposed%s.txt' % scope)
 
 if not a.apply:
     print('nothing written to fiches.js; pass --apply to merge')

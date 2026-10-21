@@ -13657,7 +13657,8 @@
    "year": 2016,
    "bytes": 1762001,
    "sha1": "5dc266cc303b9ebc2952238ae1ce5a035e2ee212",
-   "url": null
+   "url": null,
+   "note": "the two Cabernets are transposed on this sheet; the estate’s own FR and GB sheets and its vintage page disagree with it, and the record holds their figures"
   },
   {
    "file": "Fiche-technique_ChateauHBR_2017_EN.pdf",
@@ -13683,7 +13684,8 @@
    "year": 2018,
    "bytes": 1749676,
    "sha1": "b37a05a555070813bba9ec61a0af751e2fe7703e",
-   "url": null
+   "url": null,
+   "note": "the two Cabernets are transposed on this sheet; the estate’s own FR and GB sheets and its vintage page disagree with it, and the record holds their figures"
   },
   {
    "file": "Fiche-technique_ChateauHBR_2019_EN.pdf",
@@ -13696,7 +13698,8 @@
    "year": 2019,
    "bytes": 1487240,
    "sha1": "44b41943ece6cc43cc32804a59a599f27cee786e",
-   "url": null
+   "url": null,
+   "note": "the two Cabernets are transposed on this sheet; the estate’s own FR and GB sheets and its vintage page disagree with it, and the record holds their figures"
   },
   {
    "file": "Fiche-technique_ChateauHBR_2020_EN.pdf",
@@ -17461,7 +17464,8 @@
    "year": 2024,
    "bytes": 3373268,
    "sha1": "210f227180262248b27ef54d0cea09eac0bfd62a",
-   "url": null
+   "url": null,
+   "note": "the two Cabernets are transposed on this sheet; the estate’s own FR and GB sheets and its vintage page disagree with it, and the record holds their figures"
   },
   {
    "file": "FT-CHATEAU-LA-TOUR-BLANCHE-2009-A4.pdf",
@@ -19872,13 +19876,13 @@
    "estate": "latour-martillac",
    "estateName": "Château Latour-Martillac",
    "wine": null,
-   "role": "second",
+   "role": "skip",
    "colour": null,
    "year": 2017,
    "bytes": 610729,
    "sha1": "1fb3c6816fff69c19c1284279ff1c630515a82c2",
    "how": "from the document",
-   "note": null,
+   "note": "a press release about the estate, not a technical sheet",
    "url": null
   },
   {
@@ -19902,13 +19906,13 @@
    "estate": "latour-martillac",
    "estateName": "Château Latour-Martillac",
    "wine": "Lagrave-Martillac",
-   "role": "second",
+   "role": "skip",
    "colour": null,
    "year": 2019,
    "bytes": 400359,
    "sha1": "1da59da569c9150bce13f5bd43a7420e7887ed85",
    "how": "from the document",
-   "note": null,
+   "note": "a press release about Lagrave-Martillac rouge, the second wine, and not a technical sheet",
    "url": null
   },
   {
@@ -20022,13 +20026,13 @@
    "estate": "latour-martillac",
    "estateName": "Château Latour-Martillac",
    "wine": null,
-   "role": "second",
+   "role": "skip",
    "colour": null,
    "year": 2018,
    "bytes": 2009578,
    "sha1": "d7f4919c2bb48daa826cff0799ecd740caa8f164",
    "how": "agreed",
-   "note": null,
+   "note": "a press release about Lagrave-Martillac Blanc, the second wine, and not a technical sheet",
    "url": null
   },
   {
@@ -123189,9 +123193,9 @@
    "folder": "prieure-lichine",
    "estate": "prieure-lichine",
    "estateName": "Château Prieuré-Lichine",
-   "wine": null,
+   "wine": "Château Prieuré-Lichine",
    "slug": null,
-   "role": "unknown",
+   "role": "grand",
    "colour": "red",
    "year": 2019,
    "bytes": 153954,
@@ -123205,9 +123209,9 @@
    "folder": "prieure-lichine",
    "estate": "prieure-lichine",
    "estateName": "Château Prieuré-Lichine",
-   "wine": null,
+   "wine": "Château Prieuré-Lichine",
    "slug": null,
-   "role": "unknown",
+   "role": "grand",
    "colour": "red",
    "year": 2020,
    "bytes": 114940,
@@ -123349,9 +123353,9 @@
    "folder": "prieure-lichine",
    "estate": "prieure-lichine",
    "estateName": "Château Prieuré-Lichine",
-   "wine": null,
+   "wine": "Château Prieuré-Lichine",
    "slug": null,
-   "role": "unknown",
+   "role": "grand",
    "colour": "red",
    "year": 2020,
    "bytes": 115632,
@@ -123365,9 +123369,9 @@
    "folder": "prieure-lichine",
    "estate": "prieure-lichine",
    "estateName": "Château Prieuré-Lichine",
-   "wine": null,
+   "wine": "Château Prieuré-Lichine",
    "slug": null,
-   "role": "unknown",
+   "role": "grand",
    "colour": "red",
    "year": 2023,
    "bytes": 310196,

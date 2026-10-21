@@ -150,35 +150,52 @@ for eid, yr, body in recs:
                  '%s %s  usually %s %g%%, here %s %g%%%s'
                  % (eid, yr, lu, u[lu], lg, got[lg], where))
 
-# One blend under several vintages.
+# A blend that appears in none of the estate's own sheets for that
+# vintage.
 #
-# An estate varies its blend with the weather; that is what a vintage
-# is. The same multi-variety blend to the decimal across four or more
-# years is a standing figure that has been copied onto each of them -
-# the encépagement, or the blend as of whenever one document was
-# written.
+# I first wrote this as "one blend repeated under four or more
+# vintages", reasoning that an estate varies its blend with the weather.
+# It flagged 22 estates and nearly all of them were right: La
+# Conseillante really did land on 20% Cabernet Franc in five separate
+# years, and Pontet-Canet on 65/30/4/1 in eight, and their records match
+# their own sheets exactly. Repetition is not the defect.
 #
-# Found three times before this was a gate. Clos Floridène had one
-# dossier's figures on twenty years, including years in which its red
-# did not exist. Batailley held "ENCEPAGEMENT : 70 % Cabernet Sauvignon
-# 25 % Merlot 3 % Cabernet Franc 2 % Petit Verdot" under 2019, 2021 and
-# 2023, while each of those sheets gives the vintage lower down -
-# 74/25/1, 76/20/2/2, 79/19/2. Prieuré-Lichine held 50/45/5 across ten
-# vintages and Siaurac 74/19/6/1 across two, both the same way.
+# The defect is a figure with no sheet behind it. Prieuré-Lichine held
+# 50/45/5 across ten vintages and not one of its sheets says that: each
+# gives "ENCÉPAGEMENT VIGNOBLE : Cabernet Sauvignon : 50% Merlot : 45%
+# Petit Verdot : 5%", which is the vineyard and the same every year, and
+# then "ASSEMBLAGE GRAND VIN MILLÉSIME 2013 : Cabernet Sauvignon : 70%
+# ...", which is the wine. Batailley and Clos Floridène were the same
+# shape. Comparing the record against the sheet catches all of them and
+# accuses none of the innocent.
 #
-# A single variety is exempt: Doisy-Dubroca really is Sémillon alone
-# every year, and Pétrus Merlot.
-byblend = collections.defaultdict(list)
-for (eid, yr), got in blends.items():
-    if len(got) > 1:
-        byblend[(eid, tuple(sorted(got.items())))].append(yr)
-for (eid, key), yrs in sorted(byblend.items()):
-    if len(yrs) >= 4:
-        note('one blend repeated under four or more vintages, which is a '
-             'standing figure and not a vintage’s',
-             '%s  %s  across %d vintages %s-%s'
-             % (eid, ','.join('%s%g' % kv for kv in key), len(yrs),
-                min(yrs), max(yrs)))
+# This needs what the sheets say, which means reports/proposed.json from
+# tools/read-sheets.py. Without it the check is skipped and says so,
+# rather than passing quietly.
+prop = ROOT + 'reports/proposed.json'
+if os.path.exists(prop):
+    said = collections.defaultdict(set)
+    for r in json.load(io.open(prop, encoding='utf-8')):
+        said[(r['estate'], str(r['year']))].add(
+            tuple(sorted((k, float(v)) for k, v in r['blend'].items())))
+    checked = 0
+    for (eid, yr), got in sorted(blends.items()):
+        if (eid, yr) not in said:
+            continue
+        checked += 1
+        if tuple(sorted(got.items())) not in said[(eid, yr)]:
+            note('a blend that appears in none of the estate’s own '
+                 'sheets for that vintage',
+                 '%s %s  record %s  sheets %s'
+                 % (eid, yr, ','.join('%s%g' % kv
+                                      for kv in sorted(got.items())),
+                    ' | '.join(','.join('%s%g' % kv for kv in s)
+                               for s in sorted(said[(eid, yr)]))[:70]))
+    print('%d records compared against a sheet for the same vintage'
+          % checked)
+else:
+    print('reports/proposed.json is not here, so records were not compared '
+          'against their sheets - run tools/read-sheets.py first')
 
 # The usual blend, against the vintages that are supposed to vary round it.
 for eid in sorted(set(e for e, y in blends)):

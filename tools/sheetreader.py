@@ -25,7 +25,13 @@ VARS = [('CS', r'cabernets?[\s\-]*sauvignons?'),
         ('SB', r'sauvignons?[\s\-]*blancs?'),
         ('SG', r'sauvignons?[\s\-]*gris'),
         ('MU', r'muscadelles?'),
-        ('ME', r'merlots?')]
+        # The Haut-Brion group writes "Merlot Noir: 54%". Without the
+        # suffix, "Merlot" matched but the colon and figure did not
+        # follow it, so the variety-first reading failed and the
+        # share-first one paired each figure with the variety after it:
+        # 54% to Cabernet Sauvignon, 45% to Cabernet Franc, reaching 99
+        # and passing the tolerance with Merlot absent altogether.
+        ('ME', r'merlots?(?:\s+noirs?)?')]
 NAMES = '|'.join(p for _, p in VARS)
 NUM = r'\d{1,3}(?:[.,]\d{1,2})?'
 
@@ -39,8 +45,15 @@ VAR_FIRST = re.compile(r'(?i)(' + NAMES + r')\s*[:\-–]?\s*(' + NUM
 # at the top and "Grape varieties 56% Merlot" under the estate's
 # description, and a reader that takes the first figures it finds takes
 # the plantings.
+# Varietals and Cepages belong here, not with the vineyard: the Domaines
+# Barons de Rothschild sheets - Lafite, Duhart-Milon, L'Evangile,
+# Rieussec - give the wine's blend as "TECHNICAL INFORMATION Varietals :
+# Semillon 75%, Sauvignon 25%" and nothing else, so without them those
+# sheets yielded no blend at all. Encepagement and Grape varieties stay
+# with the vineyard below, which is where they belong.
 WINE_LABEL = re.compile(r'(?i)\b(assemblage(?:\s+du\s+vin)?|blend|'
-                        r'composition\s+du\s+vin)\b')
+                        r'composition\s+du\s+vin|varietals?|'
+                        r'c[eé]pages?)\b')
 VINE_LABEL = re.compile(r'(?i)\b(enc[eé]pagement(?:\s+du\s+vignoble)?|'
                         r'grape\s+varieties|vineyard|plantation|'
                         r'the\s+domaine|le\s+domaine)\b')
@@ -77,11 +90,26 @@ TITLE = 180
 # Pessac-Léognan château of the same owners, and its sheet does name
 # Malartic - 244 characters in, where it credits the owner - so being
 # mentioned is not enough to be the wine.
+# Vignobles K keeps all its properties in one library, and 104 of the
+# 144 sheets filed under Tour Saint-Christophe are not Tour
+# Saint-Christophe: Chateau La Patache and its Badine, Enclos
+# Tourmaline, Enclos de Viaud, Chateau Le Rey in three cuvees, Chateau
+# Haut-Brisson. Each names itself in its filename and none is in this
+# dashboard.
 SIBLINGS = {
     'diamandes': None,
     'perlita': None,
     'gazinrocquencourt': None,
     'rocquencourt': None,
+    'lapatache': None,
+    'badine': None,
+    'enclostourmaline': None,
+    'tourmaline': None,
+    'enclosdeviaud': None,
+    'viaud': None,
+    'lerey': None,
+    'hautbrisson': None,
+    'labegorce': None,
 }
 
 
@@ -97,6 +125,29 @@ DOSSIER = re.compile(r'(?i)(dossier\s+de\s+presse|press\s+(kit|pack)|'
 ESTATE_FILES = ('chateaux.js', 'crubourgeois.js', 'cruartisan.js',
                 'graves.js', 'sauternes.js', 'saintemilion.js', 'pomerol.js',
                 'rightbank.js', 'libournais.js', 'batch2.js', 'batch3.js')
+
+
+# A single-quoted JavaScript string, escapes and all.
+#
+# Reading these files with [^']+ looked fine and was not. "Château
+# Lalande d\'Auvion" ends the match at the escaped apostrophe, and the
+# scan then resumes inside the string - so every estate after the first
+# escaped apostrophe in the list was lost. That silently dropped 7 Cru
+# Bourgeois estates, and because their records had nothing to attach to,
+# a check I had just written reported them as estates the dashboard no
+# longer lists. The data was right the whole time.
+JSSTR = re.compile(r"'((?:[^'\\]|\\.)*)'")
+
+
+def js_strings(text):
+    """Every single-quoted string in some JavaScript, unescaped."""
+    return [re.sub(r'\\(.)', r'\1', m.group(1)) for m in JSSTR.finditer(text)]
+
+
+def js_strings_after(key, text):
+    """The strings assigned to a given key, as in name:'Les Cyprès'."""
+    rx = re.compile(re.escape(key) + JSSTR.pattern)
+    return [re.sub(r'\\(.)', r'\1', m.group(1)) for m in rx.finditer(text)]
 
 
 def slug(s):
@@ -132,13 +183,16 @@ def estates(root):
             if nxt:
                 win = win[:nxt.start()]
             e = out.setdefault(m.group(1), {'name': None, 'second': None,
-                                            'cuvees': []})
-            nm = re.search(r"name:'([^']+)'", win)
-            sc = re.search(r"second:'([^']+)'", win)
+                                            'cuvees': [], 'cat': None})
+            nm = js_strings_after('name:', win)
+            sc = js_strings_after('second:', win)
+            ct = js_strings_after('cat:', win)
             if nm and not e['name']:
-                e['name'] = nm.group(1)
+                e['name'] = nm[0]
             if sc and not e['second']:
-                e['second'] = sc.group(1)
+                e['second'] = sc[0]
+            if ct and not e['cat']:
+                e['cat'] = ct[0]
     # The sparse lists. app.js builds these estates' ids itself, from
     # `cls + '-' + slug(name)` - so most of the dashboard's estates are
     # named nowhere as `id:'...', name:'...'`, and a loader that only
@@ -169,25 +223,34 @@ def estates(root):
                     break
             i += 1
         body = t[m.end(1):i]
-        # A row is either a bare name or ['name','appellation'] - either
-        # way the estate's name is the first string of the row.
-        for row in re.finditer(r"\[\s*'([^']+)'|'([^']+)'", body):
-            nm = row.group(1) or row.group(2)
-            if not nm or len(nm) < 5 or nm[0].islower():
-                continue
-            e = out.setdefault(cls + '-' + slug(nm),
-                               {'name': None, 'second': None, 'cuvees': []})
-            if not e['name']:
-                e['name'] = nm
+        # A row is either a bare name or ['name','appellation']. Where
+        # there are rows, the estate's name is the first string of each;
+        # where the list is flat, every string is an estate.
+        rows = re.findall(r'\[([^\[\]]*)\]', body)
+        names = ([js_strings(r)[:1] for r in rows] if rows
+                 else [[n] for n in js_strings(body)])
+        for pair in names:
+            for nm in pair:
+                if not nm or len(nm) < 5 or nm[0].islower():
+                    continue
+                e = out.setdefault(cls + '-' + slug(nm),
+                                   {'name': None, 'second': None,
+                                    'cuvees': [], 'cat': None})
+                if not e['name']:
+                    e['name'] = nm
 
     p = os.path.join(root, 'data', 'cuvees.js')
     if os.path.exists(p):
         t = io.open(p, encoding='utf-8').read()
         for m in re.finditer(r"^'([a-z0-9-]+)':\[(.*)\],?$", t, re.M):
             e = out.setdefault(m.group(1), {'name': None, 'second': None,
-                                            'cuvees': []})
-            e['cuvees'] = re.findall(r"name:'([^']+)'", m.group(2))
+                                            'cuvees': [], 'cat': None})
+            # Built from JSSTR rather than written out again, so the
+            # escape handling lives in one place and cannot drift.
+            e['cuvees'] = js_strings_after('name:', m.group(2))
     for e in out.values():
+        if not e['cat']:
+            e['cat'] = 'red'
         if e['second'] and e['second'] not in e['cuvees']:
             e['cuvees'].append(e['second'])
     return out
@@ -346,6 +409,49 @@ def says(text, name):
     return bool(re.search(pat, norm(text)))
 
 
+# A filename that says CHATEAU, CLOS or DOMAINE is naming its wine, and
+# the words after it are that name:
+# FICHE-PRODUIT-CHATEAU-HAUT-BRISSON-2018.pdf, which sat under Chateau
+# Saint-Christophe in the Medoc and gave it a 90% Merlot right-bank
+# blend. The name runs until a year, a language tag, or anything that is
+# not a word.
+HOUSE_IN_NAME = re.compile(
+    r'(?i)(?<![a-z])(?:ch[aâ]teau|clos|domaine)[\s_\-]+'
+    r'((?:(?!\d)(?:[a-zÀ-ÿ]{2,})[\s_\-]*){1,4})')
+NOT_A_NAME = re.compile(r'(?i)^(fr|en|gb|eng|ang|de|es|it|zh|cn|ro|bl|'
+                        r'rouge|blanc|rge|red|white|web|print|ft|td|cp|'
+                        r'fiche|technique|produit|product|sheet|primeur|'
+                        r'primeurs|millesime|vintage|final|version|vf|va)$')
+
+
+def property_in_filename(filename):
+    """The wine a filename names after the word Chateau, if any."""
+    m = HOUSE_IN_NAME.search(filename or '')
+    if not m:
+        return None
+    words = [w for w in re.split(r'[\s_\-]+', m.group(1)) if w]
+    kept = []
+    for w in words:
+        if NOT_A_NAME.match(w):
+            break
+        kept.append(w)
+    name = ' '.join(kept)
+    return name if len(packed(name)) >= 5 else None
+
+
+def says_in_name(filename, name):
+    """The same test, loosened for a filename.
+
+    A filename is a slug, not prose: lionsdebatailley2014-web_fr.pdf
+    runs the words together, and requiring a boundary between them
+    reported 424 correctly-filed second wines as misfiled. Prose is
+    where the boundary matters - "marqué par des conditions" - and a
+    filename does not contain prose, so there both forms count.
+    """
+    return (says(filename, name)
+            or packed(name) in packed(filename or ''))
+
+
 def mark_of(other, grand):
     """What a wine's name has that the grand vin's name does not.
 
@@ -386,7 +492,7 @@ def packed(s):
     return re.sub(r'[^a-z0-9]+', '', s.lower())
 
 
-def blend_of(path, grand=None, others=()):
+def blend_of(path, grand=None, others=(), both=False):
     """The blend, from the window the sheet labels as this wine's.
 
     A sheet often carries more than one blend. Haut-Bailly's 2021 sheet
@@ -407,7 +513,7 @@ def blend_of(path, grand=None, others=()):
     # figures that belong to it, which is what Haut-Bailly's 2021 sheet
     # does. A window that names its wine is believed from either.
     texts = []
-    for fn in (lambda: by_columns(path, 3), lambda: flat(path)):
+    for fn in (lambda: flat(path), lambda: by_columns(path, 3)):
         try:
             t = re.sub(r'\s+', ' ', unspace(fn()))
         except Exception:
@@ -423,15 +529,36 @@ def blend_of(path, grand=None, others=()):
                       grand)
         gmark = norm(bare).strip()
 
-    # Which reading of the page is coherent? The one that resolves more
-    # of the windows it found. Haut-Bailly's 2022 sheet carries two
-    # labelled blends; read flat, both resolve, and read column by
-    # column only one does - because the reorder attached Haut-Bailly
-    # II's figures to Château Haut-Bailly's label, which is a wrong
-    # answer that looks like a right one. Grand-Puy-Ducasse is the
-    # opposite case, where the flat reading resolves nothing because the
-    # two columns interleave into nonsense.
-    scored = []
+    # The flat reading first, and the column reading only if the flat
+    # one finds nothing.
+    #
+    # I had this the other way round, with a score to break the tie, and
+    # measured it: across 1,401 sheets the two readings disagree 16
+    # times, and the record that was checked by hand agrees with the
+    # flat reading 13 of those and the column reading twice. On
+    # Grand-Puy-Ducasse, the estate by_columns was written for, they no
+    # longer disagree at all.
+    #
+    # The reorder's failure is the more dangerous one, because it joins
+    # a label to another label's figures and the result looks right:
+    # Lacour-Jacquet's "Assemblage 55% Cabernet Sauvignon ...
+    # Encepagement 50% Cabernet Sauvignon" becomes Assemblage 50%, and
+    # Badette's bare "Assemblage" table heading acquires a 90/7/3 block
+    # from a neighbouring column while the prose says 95/5.
+    #
+    # Columns still earn their place: on 66 of those sheets the flat
+    # reading found nothing and the column reading found the blend.
+    #
+    # And where both readings resolve but disagree, neither is believed.
+    # Ferriere's 2019 sheet is a table: read flat, "Assemblage" is
+    # followed by "Elevage Second vin Claire VILLARS LURTON" and the
+    # figures picked up belong to another section; read column by
+    # column it says "Assemblage 70 % cabernet sauvignon, 25 % merlot,
+    # 5 % petit verdot", which is right. Trotte Vieille and Pape Clement
+    # are the other way round. There is no order that is right for both,
+    # so the sheet is reported rather than guessed at - which is what
+    # the report is for.
+    found = []
     for text in texts:
         wins = []
         for m in WINE_LABEL.finditer(text):
@@ -447,53 +574,79 @@ def blend_of(path, grand=None, others=()):
             # figures, so a label followed by "of" or "de" goes second.
             prose = bool(re.match(r'(?i)\s*(of|de)\s', win))
             wins.append((lead_in, _from_window(win), prose))
-        resolved = sum(1 for l, g, pr in wins if g)
-        # A window that names another of the estate's wines is not this
-        # wine's. Counting the ones that are left breaks the tie when
-        # both readings resolve everything they found: Haut-Bailly's
-        # 2021 sheet read column by column runs the grand vin's label
-        # straight into "Assemblage Haut-Bailly II", so every window it
-        # finds belongs to the second wine and none is usable.
-        usable = sum(1 for l, g, pr in wins
-                     if g and not any(says(l, k) for k in marks))
-        scored.append((resolved, usable, wins))
-    scored.sort(key=lambda s: (-s[0], -s[1]))
-    if not scored or not scored[0][0]:
-        return None
 
-    # Best first: the data block that names this wine, then any data
-    # block, then the prose that names it, then any prose.
-    ranked = []
-    for lead_in, got, prose in scored[0][2]:
-        if not got or any(says(lead_in, k) for k in marks):
+        # Best first: the data block that names this wine, then any data
+        # block, then the prose that names it, then any prose.
+        ranked = []
+        for lead_in, got, prose in wins:
+            if not got or any(says(lead_in, k) for k in marks):
+                continue
+            named = bool(gmark and says(lead_in, gmark))
+            ranked.append(((1 if prose else 0, 0 if named else 1), got))
+        if not ranked:
             continue
-        named = bool(gmark and says(lead_in, gmark))
-        ranked.append(((1 if prose else 0, 0 if named else 1), got))
-    if not ranked:
-        return None
-    ranked.sort(key=lambda r: r[0])
+        ranked.sort(key=lambda r: r[0])
 
-    # If several data blocks give different blends and not one of them
-    # names this wine, the document has not said which is which and
-    # there is nothing to choose between them. Giscours' Carnet
-    # Primeurs 2025 carries "ASSEMBLAGE - BLEND 60 % Merlot 35 %
-    # Cabernet Sauvignon 5 % Cabernet Franc" and "ASSEMBLAGE - BLEND
-    # 86 % Cabernet Sauvignon 7 % Merlot 7 % Petit Verdot" - the second
-    # wine and the grand vin, in that order, under identical headings.
-    # Refuse it. A coin toss recorded as a fact is worse than a gap.
-    blocks = [g for (pr, nmd), g in ranked if pr == 0]
-    named_any = any(nmd == 0 for (pr, nmd), g in ranked)
-    distinct = []
-    for b in blocks:
-        if not any(b == d for d in distinct):
-            distinct.append(b)
-    if len(distinct) > 1 and not named_any:
-        return None
-    return ranked[0][1]
+        # If several data blocks give different blends and not one of
+        # them names this wine, the document has not said which is
+        # which and there is nothing to choose between them. Giscours'
+        # Carnet Primeurs 2025 carries "ASSEMBLAGE - BLEND 60 % Merlot
+        # 35 % Cabernet Sauvignon 5 % Cabernet Franc" and "ASSEMBLAGE -
+        # BLEND 86 % Cabernet Sauvignon 7 % Merlot 7 % Petit Verdot" -
+        # the second wine and the grand vin, in that order, under
+        # identical headings. Refuse it. A coin toss recorded as a fact
+        # is worse than a gap.
+        blocks = [g for (pr, nmd), g in ranked if pr == 0]
+        named_any = any(nmd == 0 for (pr, nmd), g in ranked)
+        distinct = []
+        for b in blocks:
+            if not any(b == d for d in distinct):
+                distinct.append(b)
+        if len(distinct) > 1 and not named_any:
+            return (None, None) if both else None
+        found.append(ranked[0][1])
+
+    if not found:
+        return (None, None) if both else None
+    if both:
+        return (found[0], found[1] if len(found) > 1 else None)
+    return found[0]
+
+
+WHITE_CTX = re.compile(r'(?i)(s[eé]millon|muscadelle)')
+RED_CTX = re.compile(r'(?i)(merlot|cabernet[\s\-]*franc|petit[\s\-]*verdot|'
+                     r'malbec|carm[eé]n[eè]re)')
+BARE_SAUV = re.compile(r'(?i)(?<!cabernet )(?<!cabernet-)'
+                       r'(?<![a-zà-ÿ])sauvignons?'
+                       r'(?![\s\-]*(?:blanc|gris))')
+BARE_CAB = re.compile(r'(?i)(?<![a-zà-ÿ])cabernets?'
+                      r'(?![\s\-]*(?:sauvignon|franc))')
+
+
+def disambiguate(win):
+    """Say which grape a bare name means, from the company it keeps.
+
+    "Sauvignon 25%" is Sauvignon Blanc beside Semillon and Cabernet
+    Sauvignon beside Merlot, and the sheets write it both ways. Guessing
+    one of them would have been wrong half the time, so it is read from
+    the other varieties in the same window; where the window has both a
+    white and a red variety it is left alone, because then it genuinely
+    is not clear.
+
+    "Cabernet 31%" is always Cabernet Sauvignon - no Bordeaux sheet
+    abbreviates Cabernet Franc to Cabernet.
+    """
+    white, red = bool(WHITE_CTX.search(win)), bool(RED_CTX.search(win))
+    if white and not red:
+        win = BARE_SAUV.sub('Sauvignon Blanc', win)
+    elif red and not white:
+        win = BARE_SAUV.sub('Cabernet Sauvignon', win)
+    return BARE_CAB.sub('Cabernet Sauvignon', win)
 
 
 def _from_window(win):
     """The figures in one labelled window."""
+    win = disambiguate(win)
     s = STOP.search(win)
     if s and s.start() > 10:
         win = win[:s.start()]
@@ -611,7 +764,7 @@ def names_another_wine(path, filename, grand, second):
     # sheet as much as the second wine's. So the body only decides when
     # the grand vin is not in it at all - which is true of Duluc's own
     # sheet, where Branaire-Ducru appears solely in the address.
-    if says(filename, mark):
+    if says_in_name(filename, mark):
         return second
     # Otherwise it comes down to the title: whichever wine the document
     # names first is the one it is for. "HAUT-CARLES 2017 LE VIGNOBLE"
@@ -627,6 +780,54 @@ def names_another_wine(path, filename, grand, second):
     if gbare and says(title, gbare):
         return None
     return second
+
+
+WHITE_VARS = set(['SEM', 'SB', 'SG', 'MU'])
+# How a sheet says in its own filename which wine it is for.
+SAYS_WHITE = re.compile(r'(?i)(?<![a-z])(blanc|blanche|blc|bl|white|blanco)'
+                        r'(?![a-z])')
+SAYS_RED = re.compile(r'(?i)(?<![a-z])(rouge|rge|ro|red|tinto)(?![a-z])')
+SAYS_DRY = re.compile(r'(?i)(?<![a-z])(sec|s[eè]che|dry|'
+                      r'grand\s*vin\s*sec)(?![a-z])')
+
+
+def wrong_colour(filename, blend, cat):
+    """Is this a different-coloured wine from the one it is filed under?
+
+    Nearly every classified red estate also makes a white, and the two
+    sheets sit in the same folder with almost the same name:
+    Olivier-2012-FT-FR and Olivier-Blc-2014-FT-FR,
+    Cos-dEstournel-Blanc-2015-FT-FR, Haut-Brion-Blanc-2016-FT-GB,
+    ft_pape-clement-blanc-2018. Read as the grand vin they put Sauvignon
+    Blanc and Sémillon on a Pauillac or a Pessac red.
+
+    Two independent signals, either of which is enough: the filename
+    says which colour it is, or the blend is made of varieties the
+    estate's wine is not made of. The second catches a white sheet whose
+    filename does not say so, which is why it is not simply left to the
+    gate at merge time.
+    """
+    share = (sum(v for k, v in (blend or {}).items() if k in WHITE_VARS)
+             if blend else None)
+    if cat == 'red':
+        if SAYS_WHITE.search(filename or ''):
+            return 'the filename says it is the white'
+        if share is not None and share > 50:
+            return 'the blend is a white wine’s'
+    elif cat == 'sweet':
+        # A Sauternes is made of white grapes, so the share says nothing
+        # about it - treating "sweet" as a red estate rejected every
+        # Sauternes sheet in the archive as a white wine's. What does
+        # distinguish these estates' two wines is dry against sweet:
+        # the Grand Vin Sec de Doisy Daene, R de Rieussec, Y d'Yquem.
+        if SAYS_DRY.search(filename or ''):
+            return 'the filename says it is the dry white'
+        if share is not None and share < 50:
+            return 'the blend is a red wine’s'
+    elif cat == 'white':
+        if share is not None and share < 50:
+            return 'the blend is a red wine’s'
+    return None
 
 
 def confirms_estate(path, filename, grand, cuvees=()):
@@ -670,7 +871,7 @@ def confirms_estate(path, filename, grand, cuvees=()):
       'other'   it names a sibling property, so it is not this wine's
     """
     for mark, owner in SIBLINGS.items():
-        if says(filename, mark) and owner != grand:
+        if says_in_name(filename, mark) and owner != grand:
             return 'other'
     if not grand:
         return 'folder'
@@ -699,12 +900,35 @@ def confirms_estate(path, filename, grand, cuvees=()):
                 marks.append(p)
     if not marks:
         return 'folder'
-    if any(says(filename, k) for k in marks):
+    if any(says_in_name(filename, k) for k in marks):
         return 'named'
     body = body_without_letterhead(path, 1)
     if any(says(body, k) for k in marks):
         return 'named'
     return 'folder'
+
+
+# A role whose note says why it was given. Those reasons were reached by
+# reading the documents, and no rule here knows them, so no rule here
+# may overturn them.
+#
+# The Dubourdieu dossiers are the case in point. They are press dossiers
+# - history, plantings, standing practice, clippings - and is_dossier()
+# cannot tell, because each one does carry a "Millésime : 2016" label at
+# the top. What identified them was the shape of the whole set: one
+# document per property, with the same text under every year. A
+# re-judging pass that did not know that put 27 of them back as grand
+# vins in one go.
+REASONED = re.compile(r'(?i)(press dossier|press release|another property|'
+                      r'the estate’s dry white|'
+                      r'hectares of new planting|'
+                      r'not in this dashboard|'
+                      r'not a technical sheet|'
+                      r'calls itself the second wine)')
+
+
+def role_is_reasoned(sheet):
+    return bool(REASONED.search(sheet.get('note') or ''))
 
 
 def is_dossier(path):

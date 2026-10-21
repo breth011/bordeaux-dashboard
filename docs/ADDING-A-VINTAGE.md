@@ -13,8 +13,44 @@ python tools/check-data.py                 # every gate, over everything
 python tools/audit-sources.py              # every record against its sheet
 ```
 
+And before changing anything in `sheetreader.py`:
+
+```sh
+python tools/test-reader.py                # 30 documents, and what they say
+```
+
+Those thirty are every sheet I have had to reason about. They are
+written down because fixing one of them quietly broke another: making
+name matching boundary-aware fixed `parde` inside "marqué **par des**"
+and broke `lionsdebatailley2014`, and I noticed only because an
+unrelated count jumped. When a document surprises you, add it.
+
 Then bump `CACHE_NAME` in `sw.js` — the service worker caches `data/`,
 so without the bump nobody gets the new vintage — and commit.
+
+## The defect that keeps recurring
+
+**The vineyard's plantings recorded as the wine's blend.** Most sheets
+print both, and they are not the same thing: the plantings do not change
+from year to year and the blend is the whole point of a vintage. Every
+one of these was found that way:
+
+| estate | the sheet says |
+| --- | --- |
+| Prieuré-Lichine | `ENCÉPAGEMENT VIGNOBLE : Cabernet Sauvignon : 50% Merlot : 45% Petit Verdot : 5%` — then `ASSEMBLAGE GRAND VIN MILLÉSIME 2013 : 70% / 25% / 5%` |
+| Batailley | `ENCÉPAGEMENT : Graves 70 % Cabernet Sauvignon 25 % Merlot…` — then `ASSEMBLAGE 2021 : 76 % / 20 % / 2 % / 2 %` |
+| Villemaurine | `ENCÉPAGEMENT : 80% Merlot 20% Cabernet-Franc ASSEMBLAGE : 95% Merlot 5% Cabernet-Franc` |
+| Ripeau | `Encépagement : 65 % Merlot, 30 % Cabernet Franc…` — then `LE MILLÉSIME 2015 — Assemblage : 90 % Merlot 10 % Cabernet Franc` |
+| Léoville-Poyferré | `Encépagement des propriétés : 61% cabernet sauvignon…` — then `Assemblage : 64% / 30% / 3% / 3%` |
+| Pape Clément | `Encépagement : 54% Cabernet Sauvignon, 44% Merlot…` — then `ASSEMBLAGE 2018 66% / 30% / 4%` |
+| Clos Floridène | one press dossier's figures on twenty vintages, including years in which its red did not exist |
+
+The reader takes the labelled `ASSEMBLAGE` / `BLEND` window and refuses
+the `ENCÉPAGEMENT` / `Grape varieties` one. The second-commonest defect
+is the shares landing on the wrong varieties — Laroque's `3% CABERNET
+FRANC ET 97% MERLOT` recorded as 97% Cabernet Franc, Trotte Vieille's
+`54 % Cabernet Franc 45 % Merlot 1 % Cabernet Sauvignon` recorded as 1%
+Franc and 45% Sauvignon.
 
 ## The one piece of reading
 
@@ -121,6 +157,23 @@ label, which is how Haut-Bailly's 2022 sheet yielded Haut-Bailly II's
 blend under Château Haut-Bailly's heading. The second is the more
 dangerous, because it is a wrong answer that looks like a right one.
 
+### A role with a recorded reason is never overturned
+
+`sheetreader.role_is_reasoned` — if a sheet's `note` says *why* it has
+the role it has, no rule in these tools may change it.
+
+This exists because a re-judging pass put 27 of the Dubourdieu press
+dossiers back as grand vins in one go. `is_dossier()` cannot recognise
+them: each one *does* carry a `Millésime : 2016` label at the top, and
+looks like a vintage's sheet. What identified them was the shape of the
+whole set — one document per property, the same standing text under
+every year, and figures for wines that did not exist in the years they
+were filed under. No per-document rule knows that, so no per-document
+rule gets to decide it.
+
+The note is the evidence. Write the reason down and it is protected;
+leave it blank and the next pass will re-derive the role from scratch.
+
 ### Roles, once set, are not un-set
 
 `read-sheets.py` writes a sheet's `role` into the manifest when it
@@ -147,6 +200,21 @@ La Mission is about half Cabernet Sauvignon with a few per cent Franc.
 The record holds the corrected reading and the pin stops the reader
 putting the sheet's version back. Each entry carries the sentence from
 the sheet and why it cannot be right.
+
+Its sharpest test is **a blend that appears in none of the estate's own
+sheets for that vintage**, which needs `reports/proposed.json` and so
+runs `read-sheets.py` first. Of 905 records with a sheet to compare
+against, 46 failed it — including all ten Prieuré-Lichine vintages,
+which held `50/45/5` while every one of its sheets gives that as
+`ENCÉPAGEMENT VIGNOBLE` and the vintage separately as `ASSEMBLAGE GRAND
+VIN MILLÉSIME 2013 : 70/25/5`.
+
+I first wrote that test as "one blend repeated across four or more
+vintages", which sounds equivalent and is not. It flagged 22 estates and
+nearly all were innocent: La Conseillante genuinely landed on 20%
+Cabernet Franc in five separate years and Pontet-Canet on 65/30/4/1 in
+eight, each matching its own sheets exactly. Repetition is not the
+defect; a figure with no sheet behind it is.
 
 **`tools/check-data.py`** is every gate, over the whole dataset and not
 the batch. Running it only over the batch is what let Château Margaux
@@ -218,6 +286,20 @@ Every one of these cost a wrong blend before it was a rule.
   with the year run onto it.
 - **A parenthetical is a note, not a name.** `Haut-Carles (prestige
   cuvée)` is called Haut-Carles on its own sheet.
+- **A filename is a slug; a document is prose.** Match a name with word
+  boundaries in a document and both ways in a filename, because
+  `lionsdebatailley2014-web_fr.pdf` runs the words together. Requiring a
+  boundary in filenames too reported 424 correctly-filed second wines as
+  misfiled.
+- **Handle the escaped apostrophe.** `'Château Lalande d\'Auvion'` ends
+  a `[^']+` match at the backslash-quote, and the scan then resumes
+  *inside* the string — so every estate after the first escaped
+  apostrophe in the list is silently lost. That dropped 7 Cru Bourgeois
+  estates and every cuvée of Cos d'Estournel, d'Issan and Olivier, which
+  in turn meant their white-wine sheets were read as their reds'. Use
+  `sheetreader.js_strings`, and if a count looks low, check it against
+  the number the data file's own header states: crubourgeois.js says 170
+  and that is what the loader should find.
 - **Resist the tempting general rule.** I tried "reject a filename
   carrying any long word that belongs to no wine of this estate", which
   sounds right and rejected 59 correctly-filed sheets: filenames are

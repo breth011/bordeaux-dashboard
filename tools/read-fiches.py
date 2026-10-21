@@ -280,8 +280,21 @@ def main():
             if m.group(1) not in in_scope:
                 continue
             key, body = m.group(1), m.group(2)
+            # A field the reader wrote and a translator then rewrote is
+            # still, to field-src, the reader's - so a --redo took back
+            # La Tour Blanche's eighteen tasting notes and Coutet's
+            # season notes and read the French in again, and French in
+            # an English field went from 146 to 186 in one run. The
+            # records already say which fields were translated: ttl for
+            # taste, ntl for note, wtl, dtl, ftl for the rest. Those are
+            # not the reader's to take back.
+            TRANSLATED = {'taste': 'ttl', 'note': 'ntl', 'window': 'wtl',
+                          'decant': 'dtl', 'food': 'ftl'}
             for f in sorted(prov[key]):
                 if f not in fields:
+                    continue
+                flag = TRANSLATED.get(f)
+                if flag and re.search(r'(?:^|,)' + flag + r':1\b', body):
                     continue
                 v = re.search(r'(?:^|,)' + f + r"(?::'(?:[^'\\]|\\.)*'"
                               r"|:\{[^}]*\}|:[\d.]+|:\[[^\]]*\])", body)

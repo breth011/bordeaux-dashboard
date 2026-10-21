@@ -1458,4 +1458,7 @@ window.BDX_FICHES = {
 'stem-chateau-rol-valentin|2015':{yld:35,months:'14-16',src:'Chateau-Rol-Valentin-2015-FR.pdf'},
 'stem-chateau-rol-valentin|2016':{yld:35,months:'14-16',src:'Chateau-Rol-Valentin-2016-FR.pdf'},
 'stem-chateau-rol-valentin|2018':{yld:35,months:'14-16',src:'Chateau-Rol-Valentin-2018-FR.pdf'},
+'calon-segur|2025':{blend:{CS:57,ME:34,CF:7,PV:2},yld:35,months:'18',oak:60,src:'CS_Calon_Mill2025.pdf'},
+'ducru-beaucaillou|2022':{blend:{CS:82,ME:18},ph:3.8,months:'18',src:'FT_DUCRU_MILL_2022_F2_0.pdf'},
+'stem-chateau-la-confession|2016':{blend:{ME:72,CF:28},alc:14.3,yld:42,months:'6',oak:50,src:'TECHNICAL-INFORMATIONS-CH.-LA-CONFESSION-2016-FBD.pdf'},
 };

@@ -58,6 +58,7 @@ window.BDX_CUVEE_WINES = {
 'stem-chateau-badette':[{slug:'fleur-de-badette',name:'La Fleur de Badette',role:'second',colour:'red'}],
 'stem-chateau-bellefont-belcier':[{slug:'les-tours-de-belcier',name:'Les Tours de Belcier',role:'second',colour:'red'}],
 'stem-chateau-boutisse':[{slug:'baron-de-boutisse',name:'Baron de Boutisse',role:'second',colour:'red'}],
+'stem-chateau-fleur-cardinale':[{slug:'fleur-cardinale-blanc',name:'Fleur Cardinale Blanc',role:'other',colour:'red'},{slug:'intuition-de-fleur-cardinale',name:'Intuition de Fleur Cardinale',role:'second',colour:'red'}],
 'stem-chateau-grand-corbin':[{slug:'les-charmes-de-grand-corbin',name:'Les Charmes de Grand Corbin',role:'second',colour:'red'}],
 'stem-chateau-laroque':[{slug:'les-tours-de-laroque',name:'Les Tours de Laroque',role:'second',colour:'red'}],
 'stem-chateau-ripeau':[{slug:'tour-de-ripeau',name:'Tour de Ripeau',role:'second',colour:'red'}],
@@ -749,4 +750,8 @@ window.BDX_CUVEES = {
 'larcis-ducasse|murmure-de-larcis-ducasse|2017':{blend:{ME:98,CF:2},alc:14.5,ph:3.52,yld:34,months:'16',src:'Murmure-de-LD-2017-FR.pdf'},
 'larcis-ducasse|murmure-de-larcis-ducasse|2018':{blend:{ME:97,CF:3},alc:14,ph:3.46,yld:33,months:'16',src:'Murmure-de-LD-2018-FR.pdf'},
 'larcis-ducasse|murmure-de-larcis-ducasse|2020':{blend:{ME:98,CF:2},alc:14.5,ph:3.55,yld:38.8,months:'12',src:'Murmure-de-LD-2020-FR.pdf'},
+'stem-chateau-fleur-cardinale|fleur-cardinale-blanc|2024':{yld:38,src:'Fleur-Cardinale-blanc-2024-Fiche-Technique.pdf'},
+'stem-chateau-fleur-cardinale|intuition-de-fleur-cardinale|2023':{blend:{ME:72,CF:28},yld:15,months:'13',src:'Intuition-de-Fleur-Cardinale-2023-Fiche-Technique.pdf'},
+'stem-chateau-fleur-cardinale|intuition-de-fleur-cardinale|2024':{yld:38,src:'Intuition-de-Fleur-Cardinale-blanc-2024-Fiche-Technique.pdf'},
+'stem-chateau-fleur-cardinale|intuition-de-fleur-cardinale|2025':{yld:6,src:'Intuition-de-Fleur-Cardinale-blanc-2025_Fiche-Technique-Primeurs.pdf'},
 };

@@ -68,6 +68,9 @@ LEAD_OK = {
     ('haut-brion', '2004'): "the estate’s own pages give a Merlot lead",
     ('haut-brion', '2012'): "the estate’s own pages give a Merlot lead",
     ('haut-brion', '2025'): "the estate’s own pages give a Merlot lead",
+    ('siaurac', '2021'):
+        'the April frost destroyed the Merlot: "ASSEMBLAGE : 51% '
+        'Cabernet-franc, 38% Malbec, 10% Merlot, 1% Cabernet Sauvignon"',
 }
 
 
@@ -226,6 +229,41 @@ if os.path.exists(prop):
 else:
     print('reports/proposed.json is not here, so records were not compared '
           'against their sheets - run tools/read-sheets.py first')
+
+# A vintage out of line with the estate's own other vintages.
+#
+# The lead check above needs a declared usual blend, and only 139
+# estates have one - so for the three hundred-odd that do not, nothing
+# was watching. This asks the same question of the estate's own
+# records: where every other vintage leads on one variety and this one
+# leads on another by a wide margin, something is wrong with one of
+# them.
+#
+# It matters most for a vintage being added, because the gate that
+# compares a record against its sheet cannot help there: a new record
+# comes from its sheet by definition.
+byestate = collections.defaultdict(dict)
+for (eid, yr), got in blends.items():
+    byestate[eid][yr] = got
+for eid, yrs in sorted(byestate.items()):
+    if len(yrs) < 4:
+        continue
+    leads = collections.Counter(lead(v) for v in yrs.values())
+    top, n = leads.most_common(1)[0]
+    if n < len(yrs) - 1:
+        continue        # the estate genuinely varies; nothing to compare
+    for yr, got in sorted(yrs.items()):
+        if lead(got) == top or (eid, yr) in LEAD_OK:
+            continue
+        others = [v[top] for y, v in yrs.items() if y != yr and top in v]
+        if not others:
+            continue
+        usual_top = sum(others) / len(others)
+        if usual_top >= 55 and got.get(top, 0) + 12 < got[lead(got)]:
+            note('a vintage leading on a variety none of the estate’s '
+                 'others lead on',
+                 '%s %s  %s %g%% where its other vintages average %s %g%%'
+                 % (eid, yr, lead(got), got[lead(got)], top, usual_top))
 
 # The usual blend, against the vintages that are supposed to vary round it.
 for eid in sorted(set(e for e, y in blends)):

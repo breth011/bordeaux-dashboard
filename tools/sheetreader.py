@@ -363,7 +363,8 @@ COMMON = set((
     'hauts hautes clos vieux vieille vieilles cuvee reserve prestige '
     'chateau domaine blanc blanche rouge rose selection tradition '
     'merlot cabernet sauvignon semillon verdot franc malbec muscadelle '
-    'carmenere').split())
+    'carmenere cote cotes coteaux terrasses hauts bas fleur fleurs '
+    'tour tours croix mont monts').split())
 
 
 # "Second vin /Second wine : Les Chênes de Macquin" is a fact about the
@@ -735,8 +736,15 @@ def is_second_wine(path):
         i = s.find(phrase)
         if i < 0 or i > 120:
             continue
-        if s[i + len(phrase):i + len(phrase) + 1] == ':':
+        after = s[i + len(phrase):i + len(phrase) + 1]
+        if after == ':':
             continue        # a label naming another wine, not a title
+        if after == 's':
+            # "mapping of the first and second wines - 2025", which is
+            # Pedesclaux's own sheet talking about both of them.
+            continue
+        if s[max(0, i - 3):i] in ('and', 'et'):
+            continue
         return True
     return False
 
@@ -771,6 +779,21 @@ def names_another_wine(path, filename, grand, second):
     # the grand vin is not in it at all - which is true of Duluc's own
     # sheet, where Branaire-Ducru appears solely in the address.
     if says_in_name(filename, mark):
+        return second
+    # Bordeaux names a good many wines with a single letter and the
+    # estate's name: Y d'Yquem, G d'Estournel, R de Rieussec, D de
+    # Dauzac. The letter carries all the meaning and no name-matching
+    # will find it, because one letter matches everything. But the
+    # filename writes it the same way every time - Y2022_Fiche-
+    # Millesime_Chateau-dYquem.pdf - with the letter first and a year
+    # or a separator after it.
+    #
+    # Yquem 2022 held Y's blend and Y's tasting note, read off
+    # Y2022_Fiche-Millesime, and Y is the dry white.
+    initial = re.match(r'(?i)^([a-z])\s+(?:d’|d\'|de\s+|du\s+)',
+                       re.sub(r'\s*\([^)]*\)', '', second or '').strip())
+    if initial and re.match(r'(?i)^%s[\d_\-]' % re.escape(initial.group(1)),
+                            filename or ''):
         return second
     # Otherwise it comes down to the title: whichever wine the document
     # names first is the one it is for. "HAUT-CARLES 2017 LE VIGNOBLE"
@@ -815,6 +838,14 @@ def wrong_colour(filename, blend, cat):
     """
     share = (sum(v for k, v in (blend or {}).items() if k in WHITE_VARS)
              if blend else None)
+    # Carbonnieux-Rge-Blc-2018-FT-FR.pdf is one sheet for the red and
+    # the white, and the manifest already has a word for that - role
+    # combined, "one sheet covering both the red and the white, so
+    # either may cite it". Saying both colours is not saying the wrong
+    # one.
+    if (SAYS_WHITE.search(filename or '')
+            and SAYS_RED.search(filename or '')):
+        return None
     if cat == 'red':
         if SAYS_WHITE.search(filename or ''):
             return 'the filename says it is the white'

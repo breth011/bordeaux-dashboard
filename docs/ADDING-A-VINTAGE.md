@@ -249,6 +249,23 @@ A season note is exempt, as it is in `audit-sources.py`: one weather
 falls on one vineyard, so an estate's cuvées share a season. Everything
 else on a record belongs to one wine.
 
+**Château Lafleur is the worst single case in the archive.** It holds
+six sheets and not one of them is Lafleur's:
+
+- two are **Château La Fleur de Boüard**, in Lalande-de-Pomerol — the
+  names contain each other, and its 85/12/3 was recorded as Lafleur's
+- one is **Fieuzal Blanc 2013**, which says so in its first sentence
+- two are some white wine, attributed to Lafleur by the French word for
+  *flower*: one tasting note says "la **fleur** d'acacia", the other
+  "la **fleur** de lys"
+- one extracts as `z z z z z`, being an image with no text in it
+
+It was the colour rule that found the thread, by noticing a 52%
+Sauvignon blend on a Pomerol. Lafleur now holds no blend at all, which
+is the right answer. `fleur`, `tour`, `croix`, `mont` and `côte` are in
+`COMMON` now, so none of them can ever be the one distinctive word that
+identifies a wine.
+
 Sheets that genuinely cover two wines are listed by name in `TWO_WINES`
 — `2024-Fiche-technique-Grand-Puy-Lacoste-et-Lacoste-Borie.pdf` is one
 sheet for both. I tried to infer that instead, by stripping the other

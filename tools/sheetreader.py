@@ -499,6 +499,16 @@ def says_in_name(filename, name):
 
 
 def mark_of(other, grand):
+    mark = _mark_of(other, grand)
+    # A mark has to be a word. "Cuvee 1762" reduced to 1762, which is
+    # the founding year Marquis de Terme prints in its history, so the
+    # estate's own 2011 sheet was filed as that cuvee's.
+    if mark and not re.search(r'[a-z]{3}', mark):
+        return None
+    return mark
+
+
+def _mark_of(other, grand):
     """What a wine's name has that the grand vin's name does not.
 
     Returned as words, not run together, so that says() can require
@@ -513,10 +523,14 @@ def mark_of(other, grand):
     words = [w for w in re.split(r'[^A-Za-z0-9À-ÿ]+', other) if w]
     if not words:
         return None
-    # One distinctive word is the best mark there is.
+    # One distinctive word is the best mark there is - but it has to be
+    # a word. "Cuvee 1762" reduced to 1762, which is the founding year
+    # Marquis de Terme prints in its history, so its own 2011 sheet was
+    # filed as that cuvee's.
     for w in words:
         p = packed(w)
-        if len(p) >= 4 and p not in g and p not in COMMON:
+        if (len(p) >= 4 and p not in g and p not in COMMON
+                and re.search(r'[a-z]{3}', p)):
             return p
     # Otherwise the whole name, less the words that distinguish nothing,
     # since those are the ones a filename drops. "D de Dauzac Blanc"
@@ -845,9 +859,31 @@ def names_another_wine(path, filename, grand, second):
         return None
     gbare = re.sub(r'(?i)^(château|chateau|clos|domaine)\s+', '',
                    grand or '')
-    if gbare and says(title, gbare):
-        return None
-    return second
+    if not (gbare and says(title, gbare)):
+        return second
+
+    # Both names are in the title, which happens whenever the other
+    # wine's name contains the estate's - L'Abeille de Fieuzal, Le
+    # Marquis de Calon-Segur, Pavillon Rouge du Chateau Margaux, Les
+    # Pensees de Lafleur. Then the one named first is the one the
+    # document is for: "L'Abeille rouge devoile une robe rouge rubis"
+    # opens a sheet for the second wine even though Fieuzal follows two
+    # words later.
+    flat_title = norm(title)
+    where = {}
+    for nm, label in ((mark, 'other'), (gbare, 'grand')):
+        words = [w for w in re.split(r'[^a-z0-9]+', norm(nm)) if w]
+        if not words:
+            continue
+        m = re.search(r'(?<![a-z])' + r'\s*'.join(re.escape(w)
+                                                  for w in words)
+                      + r'(?![a-z])', flat_title)
+        if m:
+            where[label] = m.start()
+    if ('other' in where and 'grand' in where
+            and where['other'] < where['grand']):
+        return second
+    return None
 
 
 WHITE_VARS = set(['SEM', 'SB', 'SG', 'MU'])

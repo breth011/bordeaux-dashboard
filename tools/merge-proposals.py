@@ -145,5 +145,25 @@ for i in range(len(lines) - 1, -1, -1):
 else:
     lines.extend(tail)
 io.open(p, 'w', encoding='utf-8', newline='').write(chr(10).join(lines))
-print('\n%d records added' % len(add))
+
+# A sheet this merge has just read as the grand vin's is the grand vin's,
+# and the manifest should say so. Left at role unknown it made the audit
+# complain about every record added - correctly, since nothing in the
+# manifest vouched for them, and the merge was the thing that could.
+named = 0
+for key, blend, src in add:
+    eid = key.split('|')[0]
+    sh = sheets.get(src)
+    if sh and sh.get('role') == 'unknown':
+        sh['role'] = 'grand'
+        sh['wine'] = (E.get(eid) or {}).get('name')
+        sh['note'] = ((sh.get('note') or '') + '; read as this estate’s '
+                      'grand vin when its blend was merged').lstrip('; ')
+        named += 1
+if named:
+    io.open(ROOT + 'data/sources.json', 'w', encoding='utf-8',
+            newline='').write(json.dumps(man, ensure_ascii=False, indent=1))
+
+print('\n%d records added, %d sheets named as the grand vin’s'
+      % (len(add), named))
 print('now run: python tools/check-data.py  and  python tools/audit-sources.py')

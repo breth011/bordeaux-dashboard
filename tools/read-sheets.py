@@ -208,8 +208,34 @@ for s, path in todo:
                 'new': key not in have,
                 'held': held.get(key)})
 
+# Write back by re-reading first, and changing only the sheets this run
+# decided something about.
+#
+# A full pass takes the better part of an hour, and writing the copy
+# loaded at the start of it threw away everything written meanwhile:
+# 132 sheets refiled out of five owner-group libraries and nine
+# Cailleteau Bergeron cuvees named, all silently reverted by a run that
+# had been reading PDFs since before any of it happened. The work looked
+# done and was not, which is the worst way to lose it.
+touched = {}
+for s in man['sheets']:
+    touched[(s['folder'], s['file'])] = s
+
+fresh = json.load(io.open(ROOT + 'data/sources.json', encoding='utf-8'))
+restored = 0
+for s in fresh['sheets']:
+    mine = touched.get((s['folder'], s['file']))
+    if mine is None:
+        continue
+    for key in ('role', 'wine', 'how', 'note'):
+        if mine.get(key) != s.get(key) and mine.get(key) is not None:
+            s[key] = mine[key]
+            restored += 1
 io.open(ROOT + 'data/sources.json', 'w', encoding='utf-8', newline='').write(
-    json.dumps(man, ensure_ascii=False, indent=1))
+    json.dumps(fresh, ensure_ascii=False, indent=1))
+if restored:
+    print('%d fields written back into the manifest as it now stands'
+          % restored)
 
 # Does anything still hold the role it was given?
 conflict = []

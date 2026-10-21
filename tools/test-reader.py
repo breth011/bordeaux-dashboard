@@ -106,6 +106,14 @@ OTHER = [
      'D DE DAUZAC is the title'),
     ('batailley', 'lionsdebatailley2014-web_fr.pdf', 'Lions de Batailley',
      'the filename runs the words together'),
+    # The other wine's name contains the estate's, so both are in the
+    # title and the one named first is the one the sheet is for.
+    ('de-fieuzal', '003d410c755fdc615477e63b5647c43599a4cb1f.pdf',
+     'L’Abeille de Fieuzal',
+     'opens "L’Abeille rouge devoile..." - Fieuzal follows two words '
+     'later, so being mentioned does not make it Fieuzal’s'),
+    ('de-fieuzal', 'de-fieuzal-2009-1bcbad9f.pdf', None,
+     'the grand vin, in the same folder as 57 Abeille sheets'),
 ]
 
 # (estate, filename, expected answer of confirms_estate, note)

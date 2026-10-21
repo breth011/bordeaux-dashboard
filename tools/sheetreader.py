@@ -1094,3 +1094,379 @@ def body_without_letterhead(path, pages=2):
             if not CONTACT.search(line):
                 keep.append(line)
     return re.sub(r'\s+', ' ', ' '.join(keep))
+
+
+# ===========================================================================
+#   WHAT A FICHE STATES, FIELD BY FIELD
+#
+#   read-sheets.py proposed a blend and nothing else, so every other
+#   figure in fiches.js was typed in by hand: barrel months on 48% of
+#   records, yield 35%, new oak 27%, alcohol 25%, pH 11%, harvest dates
+#   7%. Sampling 158 sheets of vintages that already had a record showed
+#   what that costs - 59 of them state a tasting note the record lacks,
+#   48 a season, 46 harvest dates, 45 an alcohol - about 3,500 field
+#   values across the 1,806 vintages that have both a sheet and a
+#   record.
+#
+#   These are the rules for reading them. They live here and not in the
+#   tool for the same reason every other reading rule does: there is one
+#   library, and a pattern that is wrong is wrong everywhere at once.
+# ===========================================================================
+
+# --------------------------------------------------------------- gates
+#
+# A range a Bordeaux fiche can actually state. Outside it the figure was
+# misread - a pH of 13.5 is an alcohol, an alcohol of 45 is a yield, a
+# yield of 7200 is a planting density - and is dropped.
+GATES = {
+    'alc': (10.0, 17.0),
+    'ph': (2.8, 4.2),
+    'yld': (5.0, 70.0),
+    'months': (6.0, 36.0),
+    'oak': (0.0, 100.0),
+}
+
+MONTH = {'janvier': 1, 'january': 1, 'février': 2, 'fevrier': 2,
+         'february': 2, 'mars': 3, 'march': 3, 'avril': 4, 'april': 4,
+         'mai': 5, 'may': 5, 'juin': 6, 'june': 6, 'juillet': 7,
+         'july': 7, 'août': 8, 'aout': 8, 'august': 8,
+         'septembre': 9, 'september': 9, 'octobre': 10, 'october': 10,
+         'novembre': 11, 'november': 11, 'décembre': 12,
+         'decembre': 12, 'december': 12}
+MON = '|'.join(sorted(MONTH, key=len, reverse=True))
+
+# --------------------------------------------------------- the patterns
+#
+# Each is anchored on a label the sheet prints. Nothing is read from
+# position alone, for the same reason blend_of refuses an unlabelled
+# window: a fiche is a form, and a number with no label beside it
+# belongs to whatever happens to be next to it on the page.
+
+# "Alcool : 13,5 % vol." / "Alcohol 14% vol" / "Degre alcoolique 13,5"
+# "potentiel" is excluded on purpose. Siaurac prints "DEGRE D'ALCOOL
+# POTENTIEL : 14,5%", which is the sugar in the grapes at harvest
+# expressed as the alcohol it could become - not the alcohol in the
+# bottle. Thirteen readings came from that line and they are a different
+# measurement, so they are refused rather than filed as alc.
+RX_ALC = re.compile(
+    r'(?i)(?:alcool|alcohol(?:\s+content|\s+by\s+volume)?|'
+    r'degr[eé]\s*(?:alcoolique)?|teneur\s+en\s+alcool|titre\s+alcoom)'
+    r'(?![^0-9%]{0,24}potentiel)'
+    r'(?:(?!potentiel|potential)[^0-9%]){0,24}(\d{1,2}[,.]?\d?)\s*%?\s*'
+    r'(?:vol|%)')
+# a bare "13,5 % vol." with no label, which many sheets print
+RX_ALC2 = re.compile(r'(?<![\d,.])(\d{2}[,.]\d)\s*%\s*vol')
+
+RX_PH = re.compile(r'(?i)\bph\b[^0-9]{0,12}(\d[,.]\d{1,2})')
+
+RX_YLD = re.compile(
+    r'(?i)(?:rendement|yield)s?[^0-9]{0,24}(\d{1,2}(?:[,.]\d)?)\s*'
+    r'(?:hl\s*/\s*ha|hl/ha|hectolitres)')
+RX_YLD2 = re.compile(
+    r'(?i)(\d{1,2}(?:[,.]\d)?)\s*(?:hl\s*/\s*ha|hl/ha)')
+
+# "18 mois en barriques" / "ageing 16 months" / "Elevage : 12 mois"
+RX_MONTHS = re.compile(
+    r'(?i)(?:[eé]levage|ageing|aging|matur(?:ation|ing)|barrel\s+ag)'
+    r'[^0-9]{0,40}(\d{1,2})(?:\s*(?:-|to|à|a)\s*(\d{1,2}))?\s*'
+    r'(?:mois|months)')
+RX_MONTHS2 = re.compile(
+    r'(?i)(\d{1,2})(?:\s*(?:-|to|à)\s*(\d{1,2}))?\s*(?:mois|months)\s+'
+    r'(?:en\s+)?(?:barriques?|f[uû]ts?|barrels?|oak)')
+
+# "65 % de barriques neuves" / "new barrels 69%" / "60% new oak"
+RX_OAK = re.compile(
+    r'(?i)(\d{1,3})\s*%\s*(?:de\s+|of\s+)?(?:barriques?\s+|f[uû]ts?\s+|'
+    r'barrels?\s+|oak\s+)?(?:neuves?|neufs?|new)')
+RX_OAK2 = re.compile(
+    r'(?i)(?:barriques?\s+neuves?|f[uû]ts?\s+neufs?|new\s+(?:oak|barrels?|'
+    r'wood))[^0-9%]{0,16}(\d{1,3})\s*%')
+
+# "Vendanges : du 18 septembre au 2 octobre" / "Harvest 25th September
+# to 8th October" / "Vendanges le 17 septembre"
+RX_HARV = re.compile(
+    r'(?i)(?:vendanges?|r[eé]colte|harvest(?:ing|ed)?(?:\s+dates?)?|'
+    r'picking)[^0-9]{0,30}'
+    r'(?:du\s+|from\s+|le\s+)?(\d{1,2})(?:st|nd|rd|th|er)?\s*'
+    r'(?:(' + MON + r')\s*)?'
+    r'(?:\s*(?:au|to|-|jusqu’au|jusqu\'au)\s*'
+    r'(\d{1,2})(?:st|nd|rd|th|er)?\s*(' + MON + r')?)?')
+
+RX_TEMP = re.compile(
+    r'(?i)(?:temp[eé]rature\s+(?:de\s+)?service|servir\s+(?:entre\s+)?'
+    r'[aà]?|serve\s+(?:it\s+)?at|service\s+temperature)'
+    r'[^0-9]{0,16}(\d{1,2})(?:\s*(?:-|to|à|et)\s*(\d{1,2}))?\s*'
+    r'(?:°|degr|c\b)')
+
+# ---------------------------------------------------- the stop-list
+#
+# Where the prose must not run on to. Each of these was trimmed out of a
+# description by hand this week, which is the only reason the list is
+# this specific.
+PROSE_STOP = re.compile(
+    r'(?i)('
+    r'jean-ren[eé]\s+matignon|pierre\s+mont[eé]gut|directeur\s+technique|'
+    r'technical\s+(?:manager|director)\s*[-–]|'
+    r'date\s+de\s+mise\s+en\s+bouteille|mise\s+en\s+bouteille\s*:|'
+    r'bottling\s+date|analyse\s|analyses\s*:|'
+    r'harvest\s+time|dates?\s+de\s+vendanges?\s*:|'
+    r'surface\s+area|viticulture\s+by\s+plot|'
+    r'enc[eé]pagement|grape\s+varieties|'
+    r'\d{13}|'                              # an EAN barcode
+    r'www\.|@|t[eé]l\.|\+\s*33|'            # contact details
+    r'\d{5}\s+[A-Z][a-z]|'                  # a postcode and town
+    r'scea\b|earl\b|sas\b|gfa\b|'           # the company
+    r'accords?\s+mets|food\s+pairing|'      # belongs in food
+    r'\d+\s*€|\d+\s*euros?|'           # a price list
+    r'suivez-nous|follow\s+us|instagram|'
+    # A critic's name starts a press citation, and press scores have
+    # their own field. Beychevelle's 2010 note ran on into "La Revue
+    # des Vins de France" and would have carried the review with it.
+    r'la\s+revue\s+d(?:u|es)\s+vins?|wine\s+advocate|robert\s+parker|'
+    r'james\s+suckling|jancis\s+robinson|neal\s+martin|vinous|'
+    r'decanter|falstaff|wine\s+spectator|yves\s+beck|'
+    r'bettane|antonio\s+galloni|\d{2,3}\s*/\s*100'
+    r')')
+
+# A tasting note talks about tasting. Beychevelle's 2007 sheet puts
+# "Prolonge d'un vaste parc qu'anime une piece d'eau, ce magnifique
+# chateau est un paradis pour le promeneur" under DEGUSTATIONS, which is
+# a description of the park. It has a heading, it is prose, and it is not
+# about the wine - so the window must also say one of the things a
+# tasting note says.
+TASTES_OF = re.compile(
+    r'(?i)(?<![a-zà-ÿ])'
+    r'(nez|bouche|robe|palais|tanins?|tannins?|ar[oô]mes?|'
+    r'attaque|finale|fruit|fruits?\s+(?:rouges?|noirs?)|'
+    r'nose|palate|tannins?|aromas?|finish|attack|texture|'
+    r'bouquet|colour|color|velout|soyeu|dense|frais|fra[iî]che)'
+    r'(?![a-zà-ÿ])')
+
+LABEL_TASTE = re.compile(
+    r'(?i)(commentaire\s+de\s+d[eé]gustation|notes?\s+de\s+d[eé]gustation|'
+    r'tasting\s+(?:notes?|comments?)|d[eé]gustations?|'
+    r'fiche\s+de\s+d[eé]gustation)')
+# The plural mattered. Beychevelle prints "DEGUSTATIONS 2004" and a
+# pattern ending at "DEGUSTATION" left the S behind, so every tasting
+# note it proposed began "S 2004 Sous sa robe grenat...".
+LEADING_YEAR = re.compile(r'^(?:19|20)\d{2}\s*[-:–]?\s*')
+
+# Is this prose, or is it a table that happens to sit under a heading?
+#
+# "filters keep passing fax numbers and phenology tables as tasting
+# notes" is a lesson this project has already paid for, and here it is
+# again: under MILLESIME 2018 Beychevelle prints "LES CONDITIONS
+# CLIMATIQUES STADES CEPAGES Merlot Cab. Sauvignon Debourrement 30/03
+# 5/04 Floraison...", which is a phenology table. It has a heading, it
+# is long enough, and it is not a description of anything.
+#
+# A sentence has small words in it - de, la, and, the, is - and few
+# digits. A table has dates, slashes and capitals and almost no
+# connectives. Those two facts separate them.
+_SMALL = re.compile(r'(?i)(?<![a-zà-ÿ])'
+                    r'(?:de|du|des|la|le|les|un|une|et|est|sont|dans|'
+                    r'avec|sur|pour|plus|tr[eè]s|the|a|an|of|and|is|'
+                    r'are|in|with|on|for|its|this|that)'
+                    r'(?![a-zà-ÿ])')
+
+
+def looks_like_prose(s):
+    if len(s) < 80:
+        return False
+    digits = sum(c.isdigit() for c in s)
+    if digits > len(s) * 0.12:
+        return False
+    if len(re.findall(r'\d{1,2}\s*/\s*\d{1,2}', s)) >= 2:
+        return False          # a column of dates
+    small = len(_SMALL.findall(s))
+    return small >= max(4, len(s) // 90)
+# "le millesime" was in this list and had to come out. It is not a
+# heading, it is ordinary French - "un fruite plus mur que le millesime
+# precedent" - and matching it took the window from the middle of a
+# sentence, so Beychevelle 2003's season note began "precedent. La
+# floraison s'est deroulee". Worse, Beychevelle 2012's matched "Le
+# millesime 2012 du Chateau Beychevelle est elegant et fruite, avec des
+# tanins fins soyeux", which is a tasting note and not a season at all.
+# Same mistake as putting "fine" in the French word list: a word that is
+# also prose cannot mark a section.
+LABEL_NOTE = re.compile(
+    r'(?i)(climatologie|conditions?\s+climatiques|'
+    r'the\s+\d{4}\s+vintage|mill[eé]sime\s+\d{4}|'
+    r'cycle\s+v[eé]g[eé]tatif|growing\s+season|'
+    r'notes?\s+sur\s+le\s+mill[eé]sime|'
+    r'l[’\']ann[eé]e\s+viticole|the\s+(?:growing\s+)?year)')
+
+# A label only counts where it stands as a heading, which on a fiche
+# means one of three things: printed in capitals, followed by a colon,
+# or starting a sentence. Without this the window opens wherever the
+# words happen to appear, and a description that begins in the middle of
+# somebody else's sentence is worse than no description.
+def _is_heading(text, m):
+    got = m.group(0)
+    if got.isupper() and len(got) > 3:
+        return True
+    after = text[m.end():m.end() + 3]
+    if after.lstrip().startswith(':'):
+        return True
+    before = text[max(0, m.start() - 2):m.start()]
+    return m.start() == 0 or before.strip() in ('.', '!', '?', '')
+
+
+def num(s):
+    return float(s.replace(',', '.'))
+
+
+def gated(field, v):
+    lo, hi = GATES[field]
+    return v if lo <= v <= hi else None
+
+
+def first(text, *rxs):
+    for rx in rxs:
+        m = rx.search(text)
+        if m:
+            return m
+    return None
+
+
+def read_numbers(text):
+    """Every gated figure the sheet states, with the words it said it in."""
+    out, how = {}, {}
+
+    m = first(text, RX_ALC, RX_ALC2)
+    if m:
+        v = gated('alc', num(m.group(1)))
+        if v is not None:
+            out['alc'], how['alc'] = v, m.group(0)[:60]
+
+    m = RX_PH.search(text)
+    if m:
+        v = gated('ph', num(m.group(1)))
+        if v is not None:
+            out['ph'], how['ph'] = v, m.group(0)[:60]
+
+    m = first(text, RX_YLD, RX_YLD2)
+    if m:
+        v = gated('yld', num(m.group(1)))
+        if v is not None:
+            out['yld'], how['yld'] = v, m.group(0)[:60]
+
+    m = first(text, RX_MONTHS, RX_MONTHS2)
+    if m:
+        a = gated('months', num(m.group(1)))
+        b = gated('months', num(m.group(2))) if m.group(2) else None
+        if a is not None:
+            out['months'] = ('%g-%g' % (a, b)) if b else '%g' % a
+            how['months'] = m.group(0)[:60]
+
+    m = first(text, RX_OAK, RX_OAK2)
+    if m:
+        v = gated('oak', num(m.group(1)))
+        if v is not None:
+            out['oak'], how['oak'] = v, m.group(0)[:60]
+
+    m = RX_TEMP.search(text)
+    if m:
+        a, b = num(m.group(1)), num(m.group(2)) if m.group(2) else None
+        if 12 <= a <= 22 and (b is None or 12 <= b <= 22):
+            out['temp'] = [a, b] if b else [a]
+            how['temp'] = m.group(0)[:60]
+
+    m = RX_HARV.search(text)
+    if m:
+        d1, mo1, d2, mo2 = m.group(1), m.group(2), m.group(3), m.group(4)
+        mo1 = MONTH.get((mo1 or '').lower())
+        mo2 = MONTH.get((mo2 or '').lower()) or mo1
+        # A harvest happens between August and November. Anything else
+        # is a bottling date, a frost in April or a page number.
+        if mo1 and 8 <= mo1 <= 11 and 1 <= int(d1) <= 31:
+            a = '%02d-%02d' % (mo1, int(d1))
+            b = ''
+            if d2 and mo2 and 8 <= mo2 <= 11 and 1 <= int(d2) <= 31:
+                b = '%02d-%02d' % (mo2, int(d2))
+            out['pick'] = {'ALL': '%s|%s' % (a, b)}
+            how['pick'] = m.group(0)[:60]
+    return out, how
+
+
+def read_prose(text):
+    """The labelled tasting and season windows, cut at the stop-list."""
+    out, how = {}, {}
+    for field, lab in (('taste', LABEL_TASTE), ('note', LABEL_NOTE)):
+        m = None
+        for cand in lab.finditer(text):
+            if _is_heading(text, cand):
+                m = cand
+                break
+        if not m:
+            continue
+        win = text[m.end():m.end() + 1400].lstrip(' :–-—')
+        # And it must then begin a sentence of its own. A window opening
+        # on a lower-case word is the tail of the label's own sentence,
+        # not the start of the section.
+        if win[:1].islower():
+            nxt = re.search(r'[.!?]\s+(?=[A-ZÀ-Ý])', win)
+            if not nxt:
+                continue
+            win = win[nxt.end():]
+        s = PROSE_STOP.search(win)
+        if s:
+            win = win[:s.start()]
+        # to a sentence end, so a description never stops mid-word
+        cut = max(win.rfind('. '), win.rfind('! '), win.rfind('? '))
+        if cut > 120:
+            win = win[:cut + 1]
+        win = LEADING_YEAR.sub('', ' '.join(win.split()))
+        # The opening has to stand on its own, not be rescued by prose
+        # further down. A window is up to 1,400 characters, so a
+        # phenology table or a cloud of brand words - "Elegance
+        # Fraicheur Finesse Soyeux Fruite Exigence Passion Engagement
+        # Generosite Precision" - passed the test on the strength of the
+        # paragraphs behind it, and Beychevelle's 2007 tasting note
+        # opened on a description of the park.
+        if not (looks_like_prose(win) and looks_like_prose(win[:190])):
+            continue
+        if field == 'taste' and not TASTES_OF.search(win[:260]):
+            continue
+        out[field], how[field] = win, m.group(0)[:40]
+    return out, how
+
+
+def fields_of(path, grand=None, others=(), second=None, cat=None,
+              filename=None):
+    """Everything a sheet states, or nothing if it is not this wine's.
+
+    The guards run first and in the order that has earned its place:
+    a press dossier describes a property and not a vintage; a sheet
+    naming another of the estate's wines is that wine's; a filename
+    naming the other colour is the other colour; a sheet naming a
+    sibling property is the sibling's. Only then is anything read.
+
+    Returns (fields, how) where `how` holds, for each field, the words
+    the sheet said it in - so a figure can be checked against its own
+    sentence without opening the document again.
+    """
+    filename = filename or os.path.basename(path)
+    try:
+        if is_dossier(path):
+            return {}, {'refused': 'a press dossier, not a vintage’s sheet'}
+        if names_another_wine(path, filename, grand, second):
+            return {}, {'refused': 'the sheet names another of the '
+                                   'estate’s wines'}
+        if wrong_colour(filename, None, cat):
+            return {}, {'refused': 'the filename says another colour'}
+        if confirms_estate(path, filename, grand, others) == 'other':
+            return {}, {'refused': 'the sheet names a sibling property'}
+    except Exception as e:
+        return {}, {'refused': 'a guard could not read it: %s' % str(e)[:40]}
+
+    try:
+        text = ' '.join(flat(path).split())
+    except Exception:
+        return {}, {'refused': 'unreadable'}
+
+    got, how = read_numbers(text)
+    pro, howp = read_prose(text)
+    got.update(pro)
+    how.update(howp)
+    return got, how

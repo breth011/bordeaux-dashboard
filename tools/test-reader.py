@@ -156,6 +156,51 @@ SECOND = [
 ]
 
 
+# ---------------------------------------------------------------------
+# The field reader: what a fiche states beyond its blend.
+#
+# Six documents surprised me in the hour it took to write it, and each
+# one is here because the obvious version of the rule got it wrong:
+#
+#   DEGUSTATIONS is plural, and a pattern ending at DEGUSTATION left the
+#   S behind, so every Beychevelle tasting note began "S 2004 Sous sa
+#   robe".
+#   "le millesime" is not a heading. It is ordinary French - "plus mur
+#   que le millesime precedent" - and matching it opened the window in
+#   the middle of somebody else's sentence.
+#   Under MILLESIME 2018 Beychevelle prints a phenology table:
+#   "STADES CEPAGES Merlot Cab. Sauvignon Debourrement 30/03 5/04".
+#   Under the same heading in another year it prints a cloud of brand
+#   words: "Elegance Fraicheur Finesse Soyeux Fruite Exigence Passion".
+#   Under DEGUSTATIONS in 2007 it prints a description of the park:
+#   "Prolonge d'un vaste parc qu'anime une piece d'eau".
+#   And the 2010 tasting note runs straight on into "La Revue des Vins
+#   de France", which is a press citation and has its own field.
+#
+# (estate, filename, field, what must be true of what comes back)
+FIELDS = [
+    ('beychevelle', 'Beychevelle-2004-francais.pdf', 'taste',
+     'starts with the wine, not with a stray S from DEGUSTATIONS',
+     lambda v: v and not v.startswith('S ') and 'robe' in v.lower()),
+    ('beychevelle', 'Beychevelle-2007-francais.pdf', 'taste',
+     'the park description is refused',
+     lambda v: v is None or 'paradis' not in v.lower()),
+    ('beychevelle', 'Beychevelle-2010-francais.pdf', 'taste',
+     'cut before the press citation',
+     lambda v: v is None or 'revue des vins' not in v.lower()),
+    ('beychevelle', 'Beychevelle-2018_FR.pdf', 'note',
+     'the phenology table is not a season note',
+     lambda v: v is None or 'debourrement' not in
+     v.lower().replace('é', 'e')),
+    ('beychevelle', 'Beychevelle-2003-francais.pdf', 'note',
+     'no window opened mid-sentence on "le millesime"',
+     lambda v: v is None or not v.startswith('précédent')),
+    ('beychevelle', 'Beychevelle-2008-francais.pdf', 'alc',
+     'the alcohol is read and gated',
+     lambda v: v is not None and 10.0 <= v <= 17.0),
+]
+
+
 def find(eid, name):
     hit = glob.glob(os.path.join(ROOT, 'sources/fiches', eid, name))
     return hit[0] if hit else (glob.glob(
@@ -235,6 +280,24 @@ for name, want, note in SECOND:
     print('%-4s second  %-46s %-22s %s'
           % ('ok' if ok else 'FAIL', name[:46], got, '' if ok
              else '!= ' + str(want)))
+
+for eid, name, field, why, test in FIELDS:
+    p = find(eid, name)
+    if not p:
+        print('MISSING  %s' % name)
+        continue
+    e = E.get(eid) or {}
+    got, how = sr.fields_of(p, grand=e.get('name'),
+                            others=list(e.get('cuvees') or ()),
+                            second=e.get('second'), cat=e.get('cat'),
+                            filename=os.path.basename(p))
+    v = got.get(field)
+    ok = bool(test(v))
+    fails += 0 if ok else 1
+    shown = v if not isinstance(v, str) else (v[:34] + '...')
+    print('%-4s field   %-40s %-6s %-26s %s'
+          % ('ok' if ok else 'FAIL', name[:40], field,
+             str(shown)[:26], '' if ok else '<- ' + why))
 
 print('\n%s' % ('all pass' if not fails else '%d FAILED' % fails))
 sys.exit(1 if fails else 0)

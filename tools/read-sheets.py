@@ -48,7 +48,37 @@ WHY_HB = (
 # every year, with Cabernet Franc a few per cent - so the two Cabernets
 # have been swapped in the typesetting. The figures are right and the
 # labels are not.
+WHY_BLOCK_OVER_PROSE = (
+    'the sheet states its blend twice and the two disagree. Its data '
+    'block gives one figure and the tasting paragraph below it gives '
+    'another, and a data block beats prose - the same rule that settles '
+    'La Conseillante 2020, Dauzac 2010 and d’Issan 2009. The flat '
+    'reading finds the paragraph first, so the proposal is the prose and '
+    'the record holds the block')
+
 PINNED = {
+    'stem-chateau-badette|2015': WHY_BLOCK_OVER_PROSE +
+        ': the block reads "Assemblage Merlot : 90 % Cabernet franc : '
+        '7 % Petit Verdot : 3 %" and the paragraph "Assemblage de 95 % '
+        'Merlot et 5 % Cabernet Franc"',
+    'stem-chateau-badette|2019': WHY_BLOCK_OVER_PROSE +
+        ': the block reads "Merlot : 80 % Cabernet franc : 15 % Petit '
+        'Verdot : 5 %" and the paragraph "Assemblage de 85 % Merlot, '
+        '10 % Cabernet Franc et 5 % Petit Verdot"',
+    'bourgeois-chateau-paloumey|2022':
+        'the flat reading takes the planting. The sheet prints '
+        '"Encépagement ... Cabernet Sauvignon 50% Merlot 44% / Cabernet '
+        'Franc 3% Petit Verdot 3%" above "Assemblage Cabernet Sauvignon '
+        ': 53 % Merlot : 44 % Cabernet franc : 1 % Petit Verdot : 2 %", '
+        'and only the column reading reaches the second',
+    'stem-chateau-de-pressac|2016':
+        'the sheet is one document for every vintage from 2012 to 2024, '
+        'each with its own ASSEMBLAGE FINAL, and both readings '
+        'interleave the years - which is why one of them proposed 87% '
+        'Malbec and the other 85% Cabernet Franc for the same wine. '
+        '2016’s own line reads "Merlot : 90% Malbec : 10% Le millésime '
+        '2016 fait partie de ces millésimes exceptionnels". The sheet is '
+        'filed as a group report',
     'haut-brion|2016': WHY_HB,
     'haut-brion|2017': WHY_HB,
     'haut-brion|2018': WHY_HB,

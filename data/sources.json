@@ -166699,14 +166699,14 @@
    "estateName": null,
    "wine": null,
    "slug": null,
-   "role": "unknown",
+   "role": "group report",
    "colour": null,
-   "year": 2016,
+   "year": null,
    "bytes": 230491,
    "sha1": "f5f9c217e20af0b3d1a4e5d57a65d645f9fe82fd",
    "url": "https://chateaudepressac.com/wp-content/uploads/2026/01/FICHE-TECHNIQUE-TOUR-DE-PRESSAC-MAJ-1.pdf",
    "how": "from the site’s own media library",
-   "note": "the vintage came from the millésime label"
+   "note": "one document for every vintage from 2012 to 2024, each with its own ASSEMBLAGE FINAL; both readings interleaved the years, so nothing is taken from it without naming the vintage by hand"
   },
   {
    "file": "FICHE-TECHNIQUE-TOUR-DE-PRESSAC-MAJ.pdf",
@@ -166715,14 +166715,14 @@
    "estateName": null,
    "wine": null,
    "slug": null,
-   "role": "unknown",
+   "role": "group report",
    "colour": null,
-   "year": 2016,
+   "year": null,
    "bytes": 259045,
    "sha1": "3003234f7ea0274fc4fffea055e0ab9adf8043f1",
    "url": "https://chateaudepressac.com/wp-content/uploads/2026/01/FICHE-TECHNIQUE-TOUR-DE-PRESSAC-MAJ.pdf",
    "how": "from the site’s own media library",
-   "note": "the vintage came from the millésime label"
+   "note": "one document for every vintage from 2012 to 2024, each with its own ASSEMBLAGE FINAL; both readings interleaved the years, so nothing is taken from it without naming the vintage by hand"
   },
   {
    "file": "MAJ-Fiche-presse-Millesime-2013.pdf",

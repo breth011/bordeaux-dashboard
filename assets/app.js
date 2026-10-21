@@ -3013,8 +3013,14 @@ function seasonBlock(ch, yr, v, o) {
   var wSrc = (f && f.note) ? (f.ntl ? 'this estate, translated' : 'this estate')
                            : 'Bordeaux';
   var wine = (f && f.taste) ? f.taste : ((o && o.note) ? o.note : vintage(yr).report);
-  var tSrc = (f && f.taste) ? (f.ttl ? 'this estate, translated' : 'this estate')
-                            : ((o && o.note) ? (o.src || 'reported') : 'Bordeaux');
+  /* The sheet is the estate's own either way; what changes is where it
+     was got. A sheet a chateau does not publish, taken from the house
+     that sells its wine, is still the chateau's words - but saying so
+     is the difference between showing the working and rounding it off. */
+  var tVia = (f && f.via === 'trade') ? ', via the trade' : '';
+  var tSrc = (f && f.taste)
+    ? (f.ttl ? 'this estate, translated' + tVia : 'this estate' + tVia)
+    : ((o && o.note) ? (o.src || 'reported') : 'Bordeaux');
 
   return '<p class="subhead">The ' + yr + ' season</p>' +
     '<p class="vintagereport">' + weather + '</p>' +

@@ -264,6 +264,9 @@
     'Orchard fruit': 'Steen- en pitfruit',
     'Honey and candied': 'Honing en gekonfijt',
     'Nuts and dried fruit': 'Noten en gedroogd fruit',
+    'this estate, via the trade': 'dit domein, via de handel',
+    'this estate, translated, via the trade':
+        'dit domein, vertaald, via de handel',
     'Picking': 'Pluk',
     'Flowering': 'Bloei',
     'Véraison': 'Véraison',

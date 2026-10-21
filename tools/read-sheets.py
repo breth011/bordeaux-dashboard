@@ -53,6 +53,29 @@ PINNED = {
     'haut-brion|2018': WHY_HB,
     'haut-brion|2019': WHY_HB,
     'la-mission-haut-brion|2024': WHY_HB,
+    'giscours|2021':
+        'the sheet states no assemblage. Its "65 % Cabernet Sauvignon - '
+        '32 % Merlot - 3% Petit Verdot" follows "95 ha en production" and '
+        'is the planted area, and the English edition prints no label '
+        'beside it at all - the labels are in one column of the table and '
+        'the values in another',
+    'ferriere|2019':
+        'the sheet says "Assemblage 70 % cabernet sauvignon, 25 % merlot, '
+        '5 % petit verdot", which is the record, and only the column '
+        'reading finds it: read flat, the heading is followed by "Elevage '
+        'Second vin Claire VILLARS LURTON"',
+    'montrose|2019':
+        'the record sums to 100 with 1% Petit Verdot where the sheet’s '
+        'prose reaches only 99 without it',
+    'stem-chateau-jean-faure|2021':
+        'the only source is a carnet de notes, whose prose gives 67% '
+        'Cabernet Franc and 33% Merlot; the record gives 60/7/33 with the '
+        'Malbec this estate does grow, and neither is better evidence '
+        'than the other',
+    'stem-chateau-destieux|2020':
+        'the sheet says "assemblage de 70% de merlots ... et de 30% de '
+        'Cabernets Franc et Sauvignon" - the two Cabernets lumped, so no '
+        'split exists to read',
 }
 
 ap = argparse.ArgumentParser()

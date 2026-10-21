@@ -229,6 +229,48 @@ than loosening a gate, so the check stays loud.
 what wine the sheet in `src` is actually for, and complains when the
 answer is not this estate's grand vin.
 
+### The estate's own other wines are the commonest wrong source
+
+Not another estate's — its own. `check-data.py` asks whether a record's
+`src` names another wine of the same estate, which is cheap and found
+eighteen:
+
+- **Château Margaux**: five vintages whose blend came off *Pavillon
+  Rouge*'s page, one off *Margaux du Château Margaux*'s, one off
+  **Château Labégorce**'s sheet — Labégorce being a different Margaux
+  estate whose filename reads `FT_Chateau_Labegorce_Margaux`, the
+  appellation following the name, which is how it got there
+- **Calon-Ségur**: six vintages off *Le Marquis de Calon-Ségur*
+- **Lafon-Rochet**: two off *Les Pèlerins*; **Léoville-Poyferré** 2024
+  off *Pavillon de Poyferré*; **Domaine de Chevalier** two off its own
+  white
+
+A season note is exempt, as it is in `audit-sources.py`: one weather
+falls on one vineyard, so an estate's cuvées share a season. Everything
+else on a record belongs to one wine.
+
+Sheets that genuinely cover two wines are listed by name in `TWO_WINES`
+— `2024-Fiche-technique-Grand-Puy-Lacoste-et-Lacoste-Borie.pdf` is one
+sheet for both. I tried to infer that instead, by stripping the other
+wine's name from the filename and asking whether the estate was still
+named; it skipped *Le Marquis de Calon-Ségur*, whose name contains the
+estate's, while flagging *Lacoste-Borie*, whose name shares a word with
+it. Every fix for one broke the other.
+
+### And one tool that reports but does not act
+
+`tools/refile.py` reads the estate out of each filename and finds real
+misfilings — 61 sheets of BriO de Cantenac Brown filed as Cantenac
+Brown's grand vin, 36 belonging to nobody that are Bellefont-Belcier's,
+104 of the 144 under Tour Saint-Christophe that are Vignobles K's other
+properties. Its `--apply` is **off**: with it on, it moved 218 sheets
+and took the audit from 4 complaints to 79, two of them a grand vin's
+own sheet relabelled as its second wine's. It still offers to move La
+Mondotte's sheets to Troplong Mondot on the strength of "Mondot".
+
+Read what it finds; move things by hand until the name matching earns
+the switch back.
+
 ## Still by hand
 
 Two discovery methods are not in `harvest.py`, because both need a

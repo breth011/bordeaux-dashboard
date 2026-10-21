@@ -71,6 +71,29 @@ LEAD_OK = {
 }
 
 
+# Records whose source names another wine because the document covers
+# both, or because the record cites several documents of which the
+# estate's own is one.
+#
+# A named list rather than a rule. I tried a rule - strip the other
+# wine's name from the filename and ask whether the estate is still
+# named - and it skipped Le Marquis de Calon-Segur, whose name contains
+# the estate's, while flagging Lacoste-Borie, whose name shares a word
+# with it. Each attempt to fix one broke the other, which is the sign
+# of a rule shaped wrong, so these are listed with their reasons.
+TWO_WINES = {
+    ('grand-puy-lacoste', '2024'):
+        '2024-Fiche-technique-Grand-Puy-Lacoste-et-Lacoste-Borie.pdf is '
+        'one sheet for both wines',
+    ('giscours', '2024'):
+        'four sources, of which CH.-GISCOURS-2024-FR-1.pdf is the grand '
+        'vin’s own',
+    ('giscours', '2025'):
+        'six sources, of which FT-Chateau-Giscours-2025.pdf is the grand '
+        'vin’s own',
+}
+
+
 def nums(s):
     return dict((k, float(v)) for k, v in re.findall(r'(\w+):([\d.]+)', s))
 
@@ -105,6 +128,13 @@ man = json.load(io.open(ROOT + 'data/sources.json', encoding='utf-8'))
 sheets = {}
 for s in man['sheets']:
     sheets.setdefault(s['file'], s)
+
+sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+try:
+    import sheetreader as _sr
+    known = _sr.estates(ROOT)
+except Exception:
+    known = None
 
 fail = collections.OrderedDict()
 
@@ -229,6 +259,41 @@ for eid, yrs in bymonths.items():
              '%s  months=%s across %d vintages from %d document(s)'
              % (eid, list(vals)[0], len(yrs), len(srcs)))
 
+# A record whose source names another of the estate's wines.
+#
+# Cheap, and it found eighteen. Château Margaux had five vintages whose
+# blend came off Pavillon Rouge's page and one off Château Labégorce's
+# sheet; Calon-Ségur six off Le Marquis de Calon-Ségur; Lafon-Rochet two
+# off Les Pèlerins; Léoville-Poyferré 2024 off Pavillon de Poyferré;
+# Domaine de Chevalier two off its own white.
+#
+# A season note is exempt, as it is in tools/audit-sources.py: one
+# weather falls on one vineyard, so an estate's cuvées share a season
+# and a note that crossed from one to another is still true. Everything
+# else on a record is one wine's.
+if known:
+    SEASON_ONLY = set(['note', 'ntl', 'src', 'xsrc', 'url'])
+    for eid, yr, body in recs:
+        src = re.search(r"src:'([^']*)'", body)
+        e = known.get(eid)
+        if not (src and e and e.get('name')):
+            continue
+        fields = set(re.findall(r'([a-z]+):', body)) - SEASON_ONLY
+        if not fields:
+            continue
+        for nm in e.get('cuvees') or ():
+            mark = _sr.mark_of(nm, e['name'])
+            if not (mark and _sr.says_in_name(src.group(1), mark)):
+                continue
+            if (eid, yr) in TWO_WINES:
+                break
+            note('a record whose source names another of the estate’s '
+                 'wines',
+                 '%s %s  %s  <- %s  fields=%s'
+                 % (eid, yr, nm[:28], src.group(1)[:44],
+                    ','.join(sorted(fields))[:34]))
+            break
+
 print('%d records, %d with a blend, %d sheets in the manifest'
       % (len(recs), len(blends), len(sheets)))
 
@@ -237,12 +302,6 @@ print('%d records, %d with a blend, %d sheets in the manifest'
 # and the sheets harvested while they were members are still here. The
 # records are sound; there is simply nothing to show them against. Keep
 # them against a re-listing or drop them - but know they are there.
-sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
-try:
-    import sheetreader as _sr
-    known = _sr.estates(ROOT)
-except Exception:
-    known = None
 if known:
     orph = collections.Counter(e for e, y, b in recs if e not in known)
     if orph:

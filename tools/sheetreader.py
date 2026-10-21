@@ -54,8 +54,14 @@ VAR_FIRST = re.compile(r'(?i)(' + NAMES + r')\s*[:\-–]?\s*(' + NUM
 WINE_LABEL = re.compile(r'(?i)\b(assemblage(?:\s+du\s+vin)?|blend|'
                         r'composition\s+du\s+vin|varietals?|'
                         r'c[eé]pages?)\b')
+# Giscours writes its plantings as "SURFACE EN PRODUCTION 65 % Cabernet
+# Sauvignon - 32 % Merlot - 3% Petit Verdot" and gives no assemblage
+# figure at all, so without that label the plantings were read as the
+# 2021 blend.
 VINE_LABEL = re.compile(r'(?i)\b(enc[eé]pagement(?:\s+du\s+vignoble)?|'
                         r'grape\s+varieties|vineyard|plantation|'
+                        r'surface\s+en\s+production|surface\s+du\s+vignoble|'
+                        r'area\s+under\s+vines?|varieties\s+planted|'
                         r'the\s+domaine|le\s+domaine)\b')
 STOP = re.compile(r'(?i)\b(rendement|yield|analyse|vinification|'
                   r'[eé]levage|ageing|aging|vendange|harvest|mise\s+en|'
@@ -521,7 +527,7 @@ def blend_of(path, grand=None, others=(), both=False):
         if t and WINE_LABEL.search(t):
             texts.append(t)
     if not texts:
-        return None
+        return (None, None) if both else None
     marks = [m for m in (mark_of(o, grand or '') for o in (others or ())) if m]
     gmark = None
     if grand:

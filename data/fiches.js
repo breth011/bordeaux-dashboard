@@ -1467,7 +1467,6 @@ window.BDX_FICHES = {
 'bourgeois-chateau-haut-queyran|2018':{blend:{CS:40,ME:60},src:'Haut-Queyran-2018-FT-FR-2.pdf',via:'trade'},
 'bourgeois-chateau-haut-queyran|2019':{blend:{CS:30,ME:70},src:'ft_haut-queyran-2019_haut-queyran-2019-ft-fr.pdf',via:'trade'},
 'bourgeois-chateau-haut-queyran|2020':{blend:{CS:30,ME:70},src:'ft_haut-queyran-2020_EN-1.pdf',via:'trade'},
-'bourgeois-chateau-lalande|2013':{blend:{CS:38,ME:52,CF:2,PV:8},src:'Tronquoy-Lalande-2013-FR.pdf',via:'trade',taste:'La robe est rouge foncé assortie de belles nuances violines. Le nez, sur les fruits rouges, est fin et élégant.'},
 'bourgeois-chateau-lalande|2019':{blend:{CS:45,ME:55},yld:50,months:'12',src:'CHATEAU_LALANDE_2019_FT-FR.pdf',via:'trade'},
 'bourgeois-chateau-lalande|2020':{blend:{CS:50,ME:50},yld:39,months:'12',src:'Fiche_Technique_CHATEAU_LALANDE_STJ_RO_2020_Francais.pdf',via:'trade'},
 'bourgeois-chateau-lalande|2021':{blend:{CS:55,ME:45},alc:13,yld:35,months:'12',src:'Fiche_Technique_Chateau_LALANDE_STJ_RO_2021_Francais.pdf',via:'trade'},

@@ -273,6 +273,29 @@ def code(label):
     return None
 
 
+# Extracted text, by path. Reading one sheet asks the same document
+# five or six questions - is it a dossier, does it call itself a second
+# wine, does it name another of the estate's wines, whose is it, what is
+# its blend - and each one was opening the PDF again. Across the archive
+# that is thirty thousand opens for five thousand sheets, and the full
+# pass took longer than the ten minutes a command is allowed.
+#
+# The cache is per process and keyed on the path, so nothing survives a
+# run. A sheet's text does not change while a run is reading it.
+_TEXT = {}
+_CACHE_LIMIT = 2000
+
+
+def _cached(key, make):
+    if key in _TEXT:
+        return _TEXT[key]
+    val = make()
+    if len(_TEXT) >= _CACHE_LIMIT:
+        _TEXT.clear()
+    _TEXT[key] = val
+    return val
+
+
 def by_columns(path, pages=3):
     """The page's text, column by column, each read top to bottom.
 
@@ -283,6 +306,10 @@ def by_columns(path, pages=3):
     Pauillac". Sorting by position is not enough, because position is
     two-dimensional. The columns have to be found first.
     """
+    return _cached(('cols', path, pages), lambda: _by_columns(path, pages))
+
+
+def _by_columns(path, pages):
     out = []
     d = pymupdf.open(path)
     for i in range(min(pages, d.page_count)):
@@ -308,6 +335,10 @@ def by_columns(path, pages=3):
 
 
 def flat(path, pages=0):
+    return _cached(('flat', path, pages), lambda: _flat(path, pages))
+
+
+def _flat(path, pages):
     d = pymupdf.open(path)
     n = d.page_count if not pages else min(pages, d.page_count)
     t = ' '.join(d[i].get_text() for i in range(n))
@@ -961,6 +992,7 @@ REASONED = re.compile(r'(?i)(press dossier|press release|another property|'
                       r'hectares of new planting|'
                       r'not in this dashboard|'
                       r'not a technical sheet|'
+                      r'one sheet for the|covers both|'
                       r'calls itself the second wine)')
 
 

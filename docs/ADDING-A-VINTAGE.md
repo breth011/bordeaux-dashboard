@@ -2,7 +2,7 @@
 
 Once a year the estates publish their new sheets and this dashboard
 needs to grow by one vintage. This is that job, start to finish. It is
-five commands and one piece of reading.
+seven commands and one piece of reading.
 
 ```sh
 python tools/harvest.py --year 2026        # find and fetch the new sheets
@@ -11,7 +11,20 @@ less reports/proposed.txt                  # READ THIS
 python tools/read-sheets.py --year 2026 --apply
 python tools/check-data.py                 # every gate, over everything
 python tools/audit-sources.py              # every record against its sheet
+python tools/build-workbook.py             # rebuild the coverage workbook
 ```
+
+The workbook is `reports/bordeaux-coverage.xlsx`, and rebuilding it is
+part of the run, not an afterthought. Its builder used to live in a
+scratch directory, which meant the workbook went quietly stale the
+moment anything changed — it was a day old and two hundred record
+changes behind before anyone asked. It builds from `data/` and
+`data/sources.json` alone, so it works on a fresh clone with no
+`sources/` directory.
+
+Critic ratings and prices come from a list this repo does not hold;
+pass it with `--scores mylist.csv` and that column fills, leave it out
+and it is blank.
 
 And before changing anything in `sheetreader.py`:
 
@@ -25,7 +38,7 @@ name matching boundary-aware fixed `parde` inside "marqué **par des**"
 and broke `lionsdebatailley2014`, and I noticed only because an
 unrelated count jumped. When a document surprises you, add it.
 
-Then bump `CACHE_NAME` in `sw.js` — the service worker caches `data/`,
+Then bump `CACHE_NAME` in `service-worker.js` — it caches `data/`,
 so without the bump nobody gets the new vintage — and commit.
 
 ## The defect that keeps recurring

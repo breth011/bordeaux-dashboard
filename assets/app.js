@@ -2448,8 +2448,15 @@ function fitToVisible() {
    height and under half the opacity. Same flex total, same gaps, same
    colours, so the two bars line up percent for percent and the eye
    reads the difference off the segment boundaries. */
-function ghostBar(vintage, usual) {
+/* `what` names what the ghost bar behind the vintage actually is. It
+   defaults to the estate's usual blend, which is what it has always
+   been, but it can also be the vineyard's planting - and those are not
+   the same claim. Confusing the two is the defect this dataset has
+   suffered most, so the caption says which one is being shown rather
+   than leaving the reader to assume. */
+function ghostBar(vintage, usual, what) {
   if (!usual) return '';
+  what = what || 'the estate’s usual blend';
   var keys = GRAPE_ORDER.filter(function (k) { return usual[k] > 0; });
   if (!keys.length) return '';
 
@@ -2470,18 +2477,16 @@ function ghostBar(vintage, usual) {
   });
 
   return '<div class="blendghost" role="img" aria-label="' +
-      (moved.length ? 'Against the estate\u2019s usual blend: ' +
-                      moved.join(', ')
-                    : 'Exactly the estate\u2019s usual blend') + '">' +
+      (moved.length ? 'Against ' + what + ': ' + moved.join(', ')
+                    : 'Exactly ' + what) + '">' +
       '<div class="blendbar">' + bar + '</div>' +
       '<span class="ghost-cap">' +
-        (moved.length ? 'the estate\u2019s usual blend'
-                      : 'the estate\u2019s usual blend, unchanged this year') +
+        (moved.length ? what : what + ', unchanged this year') +
       '</span>' +
     '</div>';
 }
 
-function blendBar(parts, usual) {
+function blendBar(parts, usual, what) {
   var keys = GRAPE_ORDER.filter(function (k) { return parts[k] > 0; });
   var bar = '<div class="blendbar">', key = '<div class="blendkey">';
   keys.forEach(function (k) {
@@ -2491,7 +2496,7 @@ function blendBar(parts, usual) {
            GRAPES[k].name + ' ' + pct + '%">' + (pct >= 8 ? pct + '%' : '') + '</div>';
     key += '<span><i style="background:' + c + '"></i>' + GRAPES[k].name + ' ' + pct + '%</span>';
   });
-  return bar + '</div>' + ghostBar(parts, usual) + key + '</div>';
+  return bar + '</div>' + ghostBar(parts, usual, what) + key + '</div>';
 }
 function blendTable(parts) {
   var keys = GRAPE_ORDER.filter(function (k) { return parts[k] > 0; });
@@ -2805,6 +2810,37 @@ function fiche(ch, yr) {
   return out;
 }
 
+/* The address of the sheet this vintage was read from, where one was
+   recorded. The sheets themselves are not in this repository and are not
+   ours to republish, so the link goes to whoever published it - the
+   château's own site, or the négociant's.
+
+   Most records have none: the addresses of sheets fetched before the
+   manifest kept them were thrown away. So this returns a plain label
+   whenever it cannot do better, and the line reads exactly as it did
+   before. */
+function ficheUrl(ch, yr) {
+  var U = window.BDX_FICHE_URL;
+  return (U && ch && U[ch.id + '|' + yr]) || null;
+}
+
+/* The sourcing line, as a link when the document can be reached.
+   Sourcing is kept quiet here on purpose - a short grey line, not a
+   badge - and a grey line you can open is the same line doing its job
+   properly. target=_blank so the dashboard is not navigated away from,
+   and rel=noopener because the page being opened is somebody else's. */
+function srcLine(ch, yr, label) {
+  var u = ficheUrl(ch, yr);
+  if (!u) return label;
+  /* Written in English like the rest of the markup; assets/i18n.js says
+     it in Dutch on the way out, which is how every other label here
+     works. */
+  return '<a class="src-link" href="' +
+    String(u).replace(/&/g, '&amp;').replace(/"/g, '&quot;') +
+    '" target="_blank" rel="noopener noreferrer"' +
+    ' title="Open the sheet this was read from">' + label + '</a>';
+}
+
 /* ===========================================================================
    15. AROMA WHEEL
 
@@ -2930,8 +2966,21 @@ function fichesBlock(ch, yr) {
   var s = '';
 
   if (f.blend) {
+    /* Behind the vintage's blend, something to read it against. The
+       estate's usual blend where data/chateaux.js carries one - it does
+       for 61 estates - and otherwise what the vineyard is planted with,
+       off data/plantings.js, which covers a further 59. The caption
+       names whichever it is, because a planting and a usual assemblage
+       are different claims and this project has been bitten by treating
+       them as one. */
+    var P = window.BDX_PLANTINGS || {};
+    var usual = ch.blend, what = null;
+    if (!usual && P[ch.id] && P[ch.id].blend) {
+      usual = P[ch.id].blend;
+      what = 'what the vineyard is planted with';
+    }
     s += '<p class="subhead">Blend, ' + yr + '</p>' +
-      blendBar(f.blend, ch.blend) +
+      blendBar(f.blend, usual, what) +
       '<div class="tableview' + (state.tables ? ' on' : '') + '">' +
         blendTable(f.blend) + '</div>';
   }
@@ -2974,6 +3023,27 @@ function fichesBlock(ch, yr) {
         }).join('') + '</ul>' +
         '<p class="src">reprinted by this estate, on each critic’s own scale</p>';
     }
+  }
+
+  /* And the document itself, where its address was recorded. The grey
+     sourcing lines beside the prose carry the same link, but they only
+     appear where there is prose: a record can hold a blend, an alcohol
+     and a yield and say nothing, and that record has a sheet too.
+
+     It is deliberately the last thing in the block. The figures above
+     are what the reader came for; this is how they check them. */
+  var fu = ficheUrl(ch, yr);
+  if (fu) {
+    s += '<p class="fichelink">' +
+      '<a class="src-link" href="' +
+        String(fu).replace(/&/g, '&amp;').replace(/"/g, '&quot;') +
+      '" target="_blank" rel="noopener noreferrer">' +
+      'Read the estate’s own sheet' +
+      '</a>' +
+      /* Said plainly, because it leaves the dashboard and goes to
+         somebody else's site - and offline, it will not open at all. */
+      '<span class="hint">opens the château’s or the négociant’s own ' +
+        'page, outside this app</span></p>';
   }
 
   /* The decanting advice and the keeping remark are shown by drinkBlock,
@@ -3022,11 +3092,16 @@ function seasonBlock(ch, yr, v, o) {
     ? (f.ttl ? 'this estate, translated' + tVia : 'this estate' + tVia)
     : ((o && o.note) ? (o.src || 'reported') : 'Bordeaux');
 
+  /* Only the estate's own lines get the link: the regional account and a
+     reported note did not come off this estate's sheet, so pointing at
+     one would be a false citation. */
   return '<p class="subhead">The ' + yr + ' season</p>' +
     '<p class="vintagereport">' + weather + '</p>' +
-    '<p class="src">' + wSrc + '</p>' +
+    '<p class="src">' +
+      ((f && f.note) ? srcLine(ch, yr, wSrc) : wSrc) + '</p>' +
     '<p class="vintagereport">' + wine + '</p>' +
-    '<p class="src">' + tSrc + '</p>' +
+    '<p class="src">' +
+      ((f && f.taste) ? srcLine(ch, yr, tSrc) : tSrc) + '</p>' +
     aromaWheel(englishTaste(ch, yr) || wine) +
     phenologyLine(yr, ch) +
     appellationLine(ch, yr);

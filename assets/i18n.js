@@ -112,10 +112,17 @@
     'Variety': 'Druif',
     'Share': 'Aandeel',
     'Rating': 'Score',
-    'Blend, this vintage': 'Samenstelling, deze jaargang',    'the estate’s usual blend':
+    'Blend, this vintage': 'Samenstelling, deze jaargang',
+    'the estate’s usual blend':
         'de gebruikelijke assemblage van het domein',
     'the estate’s usual blend, unchanged this year':
         'de gebruikelijke assemblage van het domein, dit jaar onveranderd',
+    /* The other thing the ghost bar can be. Not the same claim as an
+       assemblage: this is what stands in the vineyard. */
+    'what the vineyard is planted with':
+        'wat er in de wijngaard is aangeplant',
+    'what the vineyard is planted with, unchanged this year':
+        'wat er in de wijngaard is aangeplant, dit jaar onveranderd',
     'What the note smells of': 'Waar de notitie naar ruikt',
     /* the words the aroma wheel quotes out of the note */
     'red fruit': 'rood fruit',
@@ -384,6 +391,14 @@
        forty-three rows, so they stay as short in Dutch as in English. */
     'In barrel': 'Op hout',
     'Serve it with': 'Serveren met',
+    /* The link to the sheet a vintage was read from. The hint says
+       plainly that it leaves the app, because offline it will not open
+       at all. */
+    'Read the estate’s own sheet': 'Lees de eigen fiche van het domein',
+    'Open the sheet this was read from':
+      'Open de fiche waaruit dit is overgenomen',
+    'opens the château’s or the négociant’s own page, outside this app':
+      'opent de eigen pagina van het château of de négociant, buiten deze app',
     'this estate’s own suggestion': 'de eigen suggestie van dit domein',
     'this estate’s own suggestion, translated':
       'de eigen suggestie van dit domein, vertaald',

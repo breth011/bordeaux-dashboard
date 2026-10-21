@@ -9,6 +9,7 @@ python tools/harvest.py --year 2026        # find and fetch the new sheets
 python tools/read-sheets.py --year 2026    # read them; propose nothing yet
 less reports/proposed.txt                  # READ THIS
 python tools/read-sheets.py --year 2026 --apply
+python tools/read-plantings.py             # what each vineyard is planted with
 python tools/check-data.py                 # every gate, over everything
 python tools/audit-sources.py              # every record against its sheet
 python tools/build-workbook.py             # rebuild the coverage workbook
@@ -58,6 +59,43 @@ one of these was found that way:
 | Pape Clément | `Encépagement : 54% Cabernet Sauvignon, 44% Merlot…` — then `ASSEMBLAGE 2018 66% / 30% / 4%` |
 | Clos Floridène | one press dossier's figures on twenty vintages, including years in which its red did not exist |
 
+### So record the plantings, and compare
+
+`tools/read-plantings.py` writes `data/plantings.js`: what each vineyard
+is planted with, taken off the estate's own sheets under a label that
+means the vineyard and **never** under `ASSEMBLAGE` or `BLEND`. It keeps
+the figure appearing on the most of that estate's sheets, names one of
+them, and records how many said it — a planting read off nine sheets is
+worth more than one read off a single document. 82 estates have one.
+`chateaux.js` has carried a `blend:` for 61 estates all along and
+nothing read it; where both exist and disagree, the file says so.
+
+`check-data.py` then has the gate this makes possible: **a vintage blend
+exactly equal to the estate's recorded planting, where the estate's
+other vintages disagree with it.** Bellegrave shows why it must be
+exact — its sheet carries both `Blend : 60% Cabernet Sauvignon, 40%
+Merlot` for the vintage and `Encépagement : 65% / 33% / 2%` for the
+vineyard, and only the second is a planting.
+
+This replaces guessing from repetition, which this file already warns
+against below and which I went back to anyway. Doing so refused Pichon
+Baron 2012 — whose sheet says `ASSEMBLAGE Cabernet sauvignon 80%,
+Merlot 20%` in as many words — because the estate blended to the same
+proportions in 2014 and 2023; and refused five Clos Fourtet vintages on
+the theory that their 90/7/3 was the planting, when its own sheets put
+the planting at 85/10/5. **A planting is a fact to compare against. How
+often a number repeats is not evidence of anything.**
+
+What it did catch, by comparison rather than by counting: Jean Faure
+planted `Cépages : 50% de Cabernet Franc, 45% de Merlot, 5% de Malbec`,
+offered as the blend of eight vintages from 2009 to 2016, while its own
+2017 sheet says in prose that the assemblage "est donc fortement dominé
+par le Cabernet Franc (95 %)"; Clos de l'Oratoire's `Encépagement : 90 %
+Merlot, 10 % Cabernet Franc`, offered for 2012, where its 2017 sheet
+says `Assemblage` over the same two figures and is read; Dalem's, under
+`VINEYARD Fronsac 20ha 40years 40hl/ha`; and Biston-Brillette's 50/50,
+which stands on seven of its sheets.
+
 The reader takes the labelled `ASSEMBLAGE` / `BLEND` window and refuses
 the `ENCÉPAGEMENT` / `Grape varieties` one. The second-commonest defect
 is the shares landing on the wrong varieties — Laroque's `3% CABERNET
@@ -91,10 +129,45 @@ three methods per site, in order:
 | --- | --- |
 | the media library | `/wp-json/wp/v2/media` lists every upload a WordPress site holds, including the files no page links to — which is most of the archive |
 | the sitemap | not a fallback. bordeaux-tradition.com lists 83 files in its media library and 6,227 in `propriete-sitemap.xml` |
-| links on the pages | for sites that are neither |
+| links on the pages | for sites that are neither, including `/en` and `/fr`, and **file-share links** as well as `.pdf` hrefs |
 
 Two methods are **not** in it yet and have to be run by hand; see
 *Still by hand* below.
+
+**A sheet does not have to be a `.pdf` href.** Haut-Batailley publishes
+every sheet it has through a Nextcloud instance at
+`toolbox.hautbatailley.com/s/7Tc24kMeRzGZK73` — no extension, and the
+addresses are not in `href` attributes either: the page is a rendered
+layout and each one arrives inside the JSON that draws it, as
+`"link":{"B":"https://toolbox.../s/..."}`. So a harvest looking for
+`.pdf` in an `href` concluded that a fifth growth published nothing,
+while it was publishing seven vintages of the grand vin and eight of
+Verso. `harvest.py` now matches a share address loose in the body —
+host, `/s/`, token, end — and appends `/download`.
+
+The pattern is kept that tight deliberately. Collecting every href that
+is not a `.pdf` would drag in the whole site, and `fetch()` throws away
+anything not beginning `%PDF` anyway, which is how that toolbox's `.zip`
+and its one HTML page dropped out without being named anywhere.
+
+Two traps in writing it, both found by running it across all 408 estates
+that have a site:
+
+- **A filename is not a token.** lauga.com serves its sheets *from*
+  `/s/`, so `https://lauga.com/s/Fiche-technique-LAUGA-FR.pdf` matched
+  as far as `…LAUGA-FR` and became a request for `…/LAUGA-FR/download`,
+  which is nothing. A Nextcloud token has no dot after it and a filename
+  does, so the pattern ends `(?![\w.-])`.
+- **The share link is often relative.** Nextcloud writes its own as
+  `href="/index.php/s/<token>"`, with no scheme, so requiring one missed
+  them entirely. The scheme is optional and `urljoin` fills it in.
+
+**And the estate's own webshop is a signpost, not a source.** Château
+Caillou's product page gives `100% Sémillon` and `13,5%` across eight
+vintages, because those describe the *range* and not any year —
+recording them would be the planting defect in a new costume. Its media
+library, one request away, holds four real fiches. Ask
+`/wp-json/wp/v2/media` first, every time.
 
 **`tools/read-sheets.py`** reads each sheet and proposes a blend. Before
 it takes any figure it refuses three kinds of document:
@@ -242,6 +315,30 @@ than loosening a gate, so the check stays loud.
 what wine the sheet in `src` is actually for, and complains when the
 answer is not this estate's grand vin.
 
+It tests **each** name in `src`, not the string. `src` may name several
+sheets — Giscours 2025 cited six — and testing the comma-joined string
+as one filename meant no such file existed, so four records were
+reported as having no sheet on disk when every sheet they named was
+there, and nothing was said about what those sheets were *for*. Testing
+them separately cleared the four and exposed what they hid: three
+records citing the estate's own other wines beside the grand vin —
+Giscours 2024 and 2025 each pulling in Le Haut-Médoc and La Sirène, La
+Mission 2024 the Blanc.
+
+### `merge-proposals.py` fills no record that already exists
+
+It was written to **add** records, so `if key in held: refused['a record
+already exists']` — and 1,288 vintages were refused on that line alone.
+220 of those records had no blend at all while a sheet on disk proposed
+one, and 143 of them already named that very sheet in `src`: read for
+an alcohol and a tasting note, never for the blend.
+
+165 of those were filled by hand this way. If the number is large again,
+the fix belongs in the tool: fill a blend where there is none, never
+overwrite one, and run every gate it already runs. Of the 220, three
+were misattributions the gates then caught — Croix de Reverdi, Myon de
+l'Enclos and R de Rieussec, each below.
+
 ### The estate's own other wines are the commonest wrong source
 
 Not another estate's — its own. `check-data.py` asks whether a record's
@@ -278,6 +375,30 @@ Sauvignon blend on a Pomerol. Lafleur now holds no blend at all, which
 is the right answer. `fleur`, `tour`, `croix`, `mont` and `côte` are in
 `COMMON` now, so none of them can ever be the one distinctive word that
 identifies a wine.
+
+**Château Reverdi is the same case and no better.** It holds 18 sheets
+and not one of them is its wine: every one is *Croix de Reverdi*,
+`A.O.C Haut Médoc`, 5,5 ha, owner Christian Thomas, published by the
+négociant Bordeaux Tradition. Château Reverdi is **Listrac-Médoc**.
+Nine of the 18 were filed `grand`. The folder is the same family's, so
+`other` is the honest role — not `skip` — but no record may take a
+blend from it. Found because all three proposals for it carried one
+figure read off `Cépages: 74% Merlot 26% Cabernet Sauvignon` sitting in
+a block of estate facts with no vintage anywhere on the page.
+
+Two more of the same shape, both caught by the gates rather than by a
+name rule:
+
+- **Château L'Enclos (Pomerol)** 2015, from a sheet headed `CHÂTEAU
+  MYON DE L'ENCLOS 2015 (CRU BOURGEOIS) A.O.C MOULIS EN MÉDOC`. A
+  Moulis cru bourgeois. The names contain each other.
+- **Rieussec 2013**, from a sheet titled `CHÂTEAU RIEUSSEC 2013`, filed
+  `grand`, which says `Varietals : Sauvignon 96%, Sémillon 4% ...
+  Alcohol content : 13.5 % vol.` and suggests it with grilled lobster or
+  as an aperitif. That is *R de Rieussec*, the dry white. A Sauternes is
+  not 96% Sauvignon and does not finish at 13.5%. The lead-variety gate
+  caught it: `usually SEM 90%, here SB 96%`. The filename says nothing,
+  so only the document could tell you.
 
 Sheets that genuinely cover two wines are listed by name in `TWO_WINES`
 — `2024-Fiche-technique-Grand-Puy-Lacoste-et-Lacoste-Borie.pdf` is one

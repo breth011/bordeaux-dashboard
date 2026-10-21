@@ -1080,6 +1080,36 @@ table.dt td.num { font-family: var(--mono); text-align: right; }
   letter-spacing: .02em;
 }
 
+/* A sourcing line that can be opened. It stays the quiet grey line it
+   has always been - underlined on hover rather than coloured, because
+   the point is that it is checkable, not that it is a feature. */
+.src-link {
+  color: inherit;
+  text-decoration: none;
+  border-bottom: 1px dotted var(--text-muted);
+}
+.src-link:hover,
+.src-link:focus-visible {
+  color: var(--text);
+  border-bottom-style: solid;
+}
+
+/* The explicit link under a vintage's figures, which is the one a
+   reader goes looking for. */
+.fichelink {
+  margin: 12px 0 4px;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 4px 8px;
+}
+.fichelink .src-link { font-size: 12.5px; }
+.fichelink .hint {
+  font-size: 10.5px;
+  font-weight: 400;
+  color: var(--text-muted);
+}
+
 .phenology {
   display: flex; align-items: center; gap: 8px; flex-wrap: wrap;
   margin-top: 6px;

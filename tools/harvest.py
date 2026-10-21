@@ -52,8 +52,35 @@ SHEETY = re.compile(r'(?i)(fiche|tech|technical|assemblage|millesime|'
                     r'millésime|vintage|primeur|ft[-_])')
 
 
+def safe_url(u):
+    """An address urllib will accept, from one a web page gave us.
+
+    A full harvest lost 223 sheets to "'ascii' codec can't encode
+    character" and 21 more to "URL can't contain control characters".
+    Both are urllib refusing the address rather than the server
+    refusing the request: a French site is perfectly entitled to call a
+    file Fiche-technique-Château.pdf, and a hand-written href is
+    perfectly capable of containing a stray newline. Percent-encoding
+    the path and dropping control characters costs nothing and those
+    244 sheets are real.
+    """
+    u = ''.join(c for c in (u or '') if ord(c) >= 32 and ord(c) != 127)
+    p = urllib.parse.urlsplit(u.strip())
+    host = p.netloc
+    if any(ord(c) > 127 for c in host):
+        try:
+            host = host.encode('idna').decode('ascii')
+        except Exception:
+            pass
+    return urllib.parse.urlunsplit((
+        p.scheme, host,
+        urllib.parse.quote(p.path, safe="/%~"),
+        urllib.parse.quote(p.query, safe="=&%?+,:/~"),
+        ''))
+
+
 def get(url, binary=False, limit=20 * 1024 * 1024):
-    req = urllib.request.Request(url, headers={'User-Agent': UA})
+    req = urllib.request.Request(safe_url(url), headers={'User-Agent': UA})
     with urllib.request.urlopen(req, timeout=TIMEOUT) as r:
         blob = r.read(limit)
         final = r.geturl()
@@ -78,7 +105,12 @@ def media_library(site):
         for r in rows:
             src = (r or {}).get('source_url') or ''
             if src.lower().endswith('.pdf'):
-                out.append(src)
+                # Joined against the site, because 59 of these came back
+                # as "/wp-content/uploads/2…" with no host and urllib
+                # answered "unknown url type". A media library is
+                # supposed to give absolute addresses; some do not.
+                out.append(urllib.parse.urljoin(site.rstrip('/') + '/',
+                                                src))
         if len(rows) < 100:
             break
     return out
@@ -104,23 +136,65 @@ def sitemaps(site):
                 continue
             loc = el.text.strip()
             if loc.lower().endswith('.pdf'):
-                urls.append(loc)
+                urls.append(urllib.parse.urljoin(u, loc))
             elif loc.lower().endswith(('.xml', '.xml.gz')):
                 queue.append(loc)
     return urls
 
 
+# A share link out of Nextcloud or ownCloud: /s/ and then the token,
+# and nothing after it. Haut-Batailley serves every sheet it has this
+# way, from toolbox.hautbatailley.com, and not one of the seventeen
+# addresses ends in .pdf - so a harvest that looked for .pdf found the
+# estate had published nothing, when it had published seven vintages of
+# the grand vin and eight of Verso.
+#
+# The pattern is kept this tight on purpose. Collecting every href that
+# is not a .pdf would drag in the whole site; "any long word that is not
+# this estate's" is the tempting general rule that threw away 59 sheets
+# the last time it was tried. This matches a file-share address and
+# nothing else, and fetch() still throws away anything that does not
+# begin %PDF - which is how the toolbox's .zip and its one HTML page
+# drop out without being named here.
+# Not looked for inside href= either, because this site does not put
+# them there: the page is a rendered layout and each address arrives as
+# "link":{"B":"https://toolbox.../s/7Tc24kMeRzGZK73"} inside the JSON
+# that draws it. A share address is distinctive enough to find loose in
+# the body - host, /s/, token, end.
+#
+# Two things the first version of this got wrong, both found by running
+# it over all 408 estates that have a site:
+#
+#   It truncated a filename into a token. lauga.com serves its sheets
+#   from /s/, so "https://lauga.com/s/Fiche-technique-LAUGA-FR.pdf"
+#   matched as far as "...LAUGA-FR" and became a request for
+#   ".../LAUGA-FR/download", which is nothing. Hence (?![\w.-]): a
+#   Nextcloud token has no dot after it, a filename does.
+#
+#   It required a scheme, so a relative share link - which is how
+#   Nextcloud writes its own, href="/index.php/s/<token>" - was missed
+#   altogether. The scheme is optional now and urljoin fills it in.
+SHARE = re.compile(r'''(?<![\w/])((?:https?://[^\s"'<>\\]+?)?/'''
+                   r'''(?:index\.php/)?s/[A-Za-z0-9_-]{10,})(?![\w.-])''')
+
+
 def pages(site):
-    """hrefs ending .pdf, from the home page and the obvious few."""
+    """hrefs ending .pdf, and file-share links, from the obvious few."""
     out, base = [], site.rstrip('/')
-    for path in ('', '/fiches-techniques', '/technical-sheets', '/vins',
-                 '/the-wines', '/nos-vins', '/presse', '/press'):
+    # /en and /fr because a site that serves its English pages under a
+    # language prefix answers the bare path with a shell holding no
+    # links at all, which is what hautbatailley.com does.
+    for path in ('', '/en', '/fr', '/fiches-techniques', '/technical-sheets',
+                 '/vins', '/the-wines', '/nos-vins', '/presse', '/press'):
         try:
             body, final, _ = get(base + path)
         except Exception:
             continue
         for href in re.findall(r'''href=["']([^"']+\.pdf[^"']*)["']''', body):
             out.append(urllib.parse.urljoin(final, href))
+        for href in SHARE.findall(body):
+            out.append(urllib.parse.urljoin(final, href.rstrip('/')
+                                            + '/download'))
     return out
 
 
@@ -258,33 +332,76 @@ def main():
         yr, yhow = vintage_of(text)
         return (eid, u, how, sha, path, yr, yhow)
 
-    with cf.ThreadPoolExecutor(max_workers=a.workers) as ex:
-        out = list(ex.map(fetch, todo))
+    # The manifest is written as the sheets land, every CHECKPOINT of
+    # them, and not once at the end.
+    #
+    # It used to be `out = list(ex.map(...))` - download all 5,451, then
+    # register all 5,451, then write. A run of that shape took ninety
+    # minutes, and for eighty-nine of them every file it had fetched was
+    # on disk with nothing in data/sources.json describing it. Stop it,
+    # lose the machine, hit an unhandled error in the last loop, and the
+    # whole run is untracked material in sources/ - which is the one
+    # thing the manifest exists to prevent, and which this tool was
+    # separately fixed this evening for the 944 documents that state no
+    # vintage. Same defect, larger blast radius.
+    #
+    # ex.map yields in order as results arrive, so registering inside
+    # the loop costs nothing and the work survives.
+    CHECKPOINT = 100
+
+    def save():
+        io.open(ROOT + 'data/sources.json', 'w', encoding='utf-8',
+                newline='').write(json.dumps(man, ensure_ascii=False,
+                                             indent=1))
 
     added, why = 0, collections.Counter()
-    for eid, u, how, sha, path, yr, yhow in out:
-        if not (path and sha):
-            why[yhow] += 1
-            continue
-        if yr is None:
-            why['fetched, but the document states no vintage'] += 1
-            continue
-        if a.year and yr != a.year:
-            why['a vintage other than the one asked for'] += 1
-            continue
-        man['sheets'].append({
-            'file': os.path.basename(path), 'folder': eid, 'estate': eid,
-            'estateName': names.get(eid), 'wine': None, 'slug': None,
-            'role': 'unknown', 'colour': None, 'year': yr,
-            'bytes': os.path.getsize(path), 'sha1': sha,
-            'url': u, 'how': how,
-            'note': 'the vintage came from %s' % yhow,
-        })
-        have_sha.add(sha)
-        added += 1
+    with cf.ThreadPoolExecutor(max_workers=a.workers) as ex:
+        out = ex.map(fetch, todo)
+        for eid, u, how, sha, path, yr, yhow in out:
+            if not (path and sha):
+                why[yhow] += 1
+                continue
+            if a.year and yr is not None and yr != a.year:
+                why['a vintage other than the one asked for'] += 1
+                continue
+            if a.year and yr is None:
+                why['no vintage in the document, and a year was asked '
+                    'for'] += 1
+                continue
+        # A document stating no vintage is still registered, with
+        # year: null. It used to be dropped here - 944 of them in one
+        # run - and the file had already been written to disk at that
+        # point, so they ended up in sources/ with nothing in the
+        # manifest describing them. Untracked material in sources/ is
+        # the one thing the manifest exists to prevent: sha1 can prove a
+        # file is the one that was read, and a file nothing names cannot
+        # be proved or re-fetched.
+        #
+        # Some of these are multi-vintage documents and some are sheets
+        # whose year is only in the filename. The vintage still does not
+        # come from the filename - that is a rule this project has paid
+        # for - but recording the file and saying the vintage is unknown
+        # is better than knowing neither.
+            if yr is None:
+                why['registered with no vintage, for someone to read'] += 1
+            man['sheets'].append({
+                'file': os.path.basename(path), 'folder': eid,
+                'estate': eid, 'estateName': names.get(eid),
+                'wine': None, 'slug': None,
+                'role': 'unknown', 'colour': None, 'year': yr,
+                'bytes': os.path.getsize(path), 'sha1': sha,
+                'url': u, 'how': how,
+                'note': ('the vintage came from %s' % yhow
+                         if yr is not None
+                         else 'no vintage in the document: %s' % yhow),
+            })
+            have_sha.add(sha)
+            added += 1
+            if added % CHECKPOINT == 0:
+                save()
+                print('   ... %d registered so far' % added, flush=True)
 
-    io.open(ROOT + 'data/sources.json', 'w', encoding='utf-8',
-            newline='').write(json.dumps(man, ensure_ascii=False, indent=1))
+    save()
     print('%d sheets registered' % added)
     for k, n in why.most_common(10):
         print('   %-56s %d' % (str(k)[:56], n))

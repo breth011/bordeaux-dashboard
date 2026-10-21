@@ -50,6 +50,7 @@ WHY_HB = (
 # labels are not.
 PINNED = {
     'haut-brion|2016': WHY_HB,
+    'haut-brion|2017': WHY_HB,
     'haut-brion|2018': WHY_HB,
     'haut-brion|2019': WHY_HB,
     'la-mission-haut-brion|2024': WHY_HB,

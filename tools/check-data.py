@@ -139,6 +139,25 @@ try:
 except Exception:
     known = None
 
+# The records pinned in read-sheets.py, read from there rather than
+# listed again here. A pin means the estate's own sheet is wrong and the
+# record holds the corrected reading, with the sentence from the sheet
+# and the reason written beside it - Haut-Brion's 2016, 2017, 2018 and
+# 2019 all have the two Cabernets transposed in the typesetting. Those
+# are corrections, not contradictions, and a gate that reports them
+# forever is a gate people learn to skip. Two copies of the same list
+# would drift, so there is one.
+PINNED_OK = set()
+try:
+    _rs = io.open(os.path.join(os.path.dirname(os.path.abspath(__file__)),
+                               'read-sheets.py'), encoding='utf-8').read()
+    _in = re.search(r'^PINNED\s*=\s*\{(.*?)^\}', _rs, re.S | re.M)
+    if _in:
+        for _k in re.findall(r"'([a-z0-9-]+)\|(\d{4})'\s*:", _in.group(1)):
+            PINNED_OK.add(_k)
+except Exception:
+    pass
+
 fail = collections.OrderedDict()
 
 
@@ -206,14 +225,39 @@ for eid, yr, body in recs:
 # tools/read-sheets.py. Without it the check is skipped and says so,
 # rather than passing quietly.
 prop = ROOT + 'reports/proposed.json'
+#
+# A proposal is only worth contradicting a record with if the sheet
+# behind it is still filed as that estate's grand vin. This is the same
+# condition merge-proposals.py applies before it adds anything, and for
+# the same reason: the manifest is the record of what each sheet is for,
+# and reports/proposed.json is a snapshot taken before the last
+# refiling.
+#
+# It mattered three times at once. Domaine de Chevalier 2022 was being
+# contradicted by two Chateau Poumey sheets, Lynch-Moussas 2019 by
+# Chateau Batailley's, and both pairs were refiled as 'skip' the moment
+# they were read - but the gate went on quoting them, because the
+# snapshot predates the correction. A gate that reports settled
+# questions trains people to ignore it.
+NOT_GRAND = ('skip', 'second', 'other', 'page')
 if os.path.exists(prop):
     said = collections.defaultdict(set)
     for r in json.load(io.open(prop, encoding='utf-8')):
+        sh = sheets.get(r['src']) or {}
+        if sh.get('role') in NOT_GRAND:
+            continue
+        if sh.get('estate') and sh['estate'] != r['estate']:
+            continue
         said[(r['estate'], str(r['year']))].add(
             tuple(sorted((k, float(v)) for k, v in r['blend'].items())))
     checked = 0
     for (eid, yr), got in sorted(blends.items()):
         if (eid, yr) not in said:
+            continue
+        # A record pinned because its own sheet is wrong is not a
+        # contradiction; it is a correction, with the reason written
+        # down in read-sheets.py.
+        if (eid, yr) in PINNED_OK:
             continue
         checked += 1
         if tuple(sorted(got.items())) not in said[(eid, yr)]:
@@ -332,8 +376,88 @@ if known:
                     ','.join(sorted(fields))[:34]))
             break
 
+# ------------------------------------------------------------------
+# A vintage blend that is exactly the estate's planting.
+#
+# The commonest defect in this dataset is the vineyard's encepagement
+# recorded as the wine's assemblage - Prieure-Lichine on ten vintages,
+# Batailley on three, Jean Faure on eight, Clos de l'Oratoire, Dalem.
+# The figures are indistinguishable from a blend: the same grapes, the
+# same percentages, the same sum. For a long time the only test was
+# repetition - a figure that never moves across a decade is the
+# planting - and that test is a proxy which fails. It rejected Pichon
+# Baron 2012, whose sheet says "ASSEMBLAGE Cabernet sauvignon 80%,
+# Merlot 20%" in as many words, because the estate blended to the same
+# proportions in 2014 and 2023 as well.
+#
+# data/plantings.js now records what each vineyard is planted with,
+# read off the estate's own sheets under a label that means the
+# vineyard, so the test is a comparison against a fact. A record whose
+# blend equals the planting exactly is suspect - but only where the
+# estate's other vintages disagree with it, because an estate that has
+# only ever published one figure gives nothing to contradict.
+#
+# Bellegrave shows why it has to be exact. Its sheet carries both lines:
+# "Blend : 60% Cabernet Sauvignon, 40% Merlot" for the vintage and
+# "Encepagement : 65% / 33% / 2%" for the vineyard. 60/40 matches no
+# planting, so nothing is said about it.
+PLANTINGS = {}
+_p = os.path.join(ROOT, 'data', 'plantings.js')
+if os.path.exists(_p):
+    for _line in io.open(_p, encoding='utf-8'):
+        _m = re.match(r"^'([a-z0-9-]+)':\{blend:\{([^}]*)\}", _line.rstrip())
+        if _m:
+            PLANTINGS[_m.group(1)] = tuple(sorted(
+                (k, float(v)) for k, v in
+                re.findall(r"([A-Z]+):([\d.]+)", _m.group(2))))
+
+#
+# Reported, NOT failed. The first version of this counted as a defect
+# and flagged 35, among them La Conseillante's 2002, 2010, 2015, 2016
+# and 2024 at CF20,ME80 and Pontet-Canet's eight at 65/30/4/1 - the two
+# estates this file's own notes name as the reason the repetition test
+# was abandoned, because each genuinely blends to those proportions and
+# each matches its own sheets exactly. An estate planted 80/20 that
+# blends 80/20 has done nothing wrong.
+#
+# So it prints and does not fail. A guard that cries wolf is worse than
+# no guard, because the next person stops reading it - and what is left
+# is still useful: a short list, worth a glance after a merge, of the
+# records where a planting and a blend coincide.
+plant_hits = []
+if PLANTINGS:
+    byest = collections.defaultdict(dict)
+    for eid, yr, body in recs:
+        b = re.search(r'blend:\{([^}]*)\}', body)
+        if b:
+            byest[eid][yr] = tuple(sorted(
+                (k, float(v)) for k, v in
+                re.findall(r"'?([A-Z]+)'?:([\d.]+)", b.group(1))))
+    for eid, years in sorted(byest.items()):
+        planted = PLANTINGS.get(eid)
+        if not planted:
+            continue
+        same = sorted(y for y, b in years.items() if b == planted)
+        other = [b for y, b in years.items() if b != planted]
+        if not same or not other:
+            continue
+        plant_hits.append((eid, same, planted))
+
 print('%d records, %d with a blend, %d sheets in the manifest'
       % (len(recs), len(blends), len(sheets)))
+
+if plant_hits:
+    print('\n%d estates have a vintage whose blend is exactly what the '
+          'vineyard is planted with.\nSome of these are right - an estate '
+          'planted 80/20 may well blend 80/20 - so this is\na list to '
+          'glance at, not a complaint:' % len(plant_hits))
+    for eid, same, planted in plant_hits[:18]:
+        print('   %-34s %-22s %s'
+              % (eid[:34],
+                 ','.join('%s%g' % kv for kv in planted)[:22],
+                 ','.join(same)[:30]))
+    if len(plant_hits) > 18:
+        print('   ... and %d more' % (len(plant_hits) - 18))
 
 # Worth knowing, but not a defect: records whose estate the dashboard no
 # longer lists. The 2025 Cru Bourgeois revision cut 79 estates from 249,

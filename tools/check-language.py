@@ -53,6 +53,34 @@ FRENCH = re.compile(
 # A guard that cries wolf is worse than no guard, because the next
 # person stops reading it.
 FRENCH_MIN = 6
+# A count of six works on a paragraph and fails on a sentence. Climens
+# 2019's tasting note is "Quoique legerement reserve au tout premier
+# nez, il s'impose d'emblee comme un grand vin, equilibre, long,
+# complexe et d'une grande finesse." - 160 characters, French to anyone
+# reading it, and three markers. Eleven fields were sitting under the
+# threshold like that while this guard reported everything clean.
+#
+# So: six markers anywhere, or three in a field short enough that three
+# is already a density. Measured over all 762 prose fields, this adds
+# the eleven and flags nothing that is in English.
+FRENCH_SHORT = 320
+FRENCH_SHORT_MIN = 3
+# A few words added with the same care as the ones taken out. Each is
+# French and is not English, and none is wine vocabulary that English
+# tasting notes borrow - "robe", "cru", "terroir" and "nez" are all
+# used by the English notes in this file and are deliberately absent.
+FRENCH_MORE = re.compile(
+    r'(?i)(?<![a-zà-ÿ])('
+    r'une|quoique|dont|dévoile|dévoilent|marquée|marqué|arômes|'
+    r'fraîcheur|équilibre|équilibrée|puissance|généreuse|généreux|'
+    r'irise|reflets|couleur|bouche|soyeux|soyeuse|velouté|'
+    r'longue|frais|fraîche'
+    r')(?![a-zà-ÿ])')
+# "fine" and "finesse" were in that list for an hour and flagged three
+# English notes - "the wines show a fine colour", "of fine precision".
+# Both are ordinary English. The rule stands: a word goes in this list
+# only if it is French and is NOT English, and wine writing in English
+# has borrowed more French than it looks.
 
 # The fields the dashboard shows as prose, and the key that says a Dutch
 # version exists.
@@ -96,8 +124,9 @@ for key, body in sorted(en.items()):
         if not v:
             continue
         counts[f] += 1
-        n = len(FRENCH.findall(v))
-        if n >= FRENCH_MIN:
+        n = len(FRENCH.findall(v)) + len(FRENCH_MORE.findall(v))
+        if n >= FRENCH_MIN or (len(v) < FRENCH_SHORT
+                               and n >= FRENCH_SHORT_MIN):
             note('French left in an English field',
                  '%-26s %-7s %2d French words: %s'
                  % (key, f, n, v[:64].replace('\n', ' ')))
@@ -163,6 +192,50 @@ if E:
                         ' '.join(v[:46].split())))
                 break
 
+# ------------------------------- a data block left inside the prose
+#
+# rauzan-segla|2019 and canon|2019 - both Chanel properties, the same
+# sheet template - kept the whole block in `note`: the season, then
+# HARVEST TIME with the picking dates per variety, then YIELD 45hl/ha
+# and AGEING 18 months, and only then the vintage's own description.
+# Every other vintage of both estates was split, and these two were not,
+# because their originals were already in English and so fell outside
+# the pass that split the rest. The defect lands where nothing looks.
+#
+# The labels are matched CASE-SENSITIVELY, as the headings the sheets
+# print. Lower-case "until harvest time" is ordinary English and occurs
+# in Pontet-Canet's 2009 and 2010 notes, and "Technical Manager" is
+# deliberately absent: Cos d'Estournel quotes its own technical director
+# by name inside two tasting notes, which is prose and not a heading.
+#
+# The second half of this list came from reading the fields the first
+# half did not catch. Vray-Croix-de-Gay's 2012 and 2017 tasting notes
+# both ran on into "The Vineyard TERROIR : gravel, deep clays, sandy
+# clays SURFACE AREA : 46,18 ha VITICULTURE BY PLOT : 40 plots", which
+# is the property's description and identical on both; Valandraud's 2008
+# note ended on "L VAL08 Alcool 15% 3380820046547 Mise en bouteille
+# 24/09/2010" - the words off the back label, barcode and all. A run of
+# thirteen digits is an EAN and has no business in prose.
+BLOCK = re.compile(
+    r'(HARVEST TIME|DATES DE VENDANGES?|YIELD \d|RENDEMENT\s*:?\s*\d|'
+    r'AGEING \d+ months|[EÉ]LEVAGE\s*:?\s*\d+\s+mois|ANALYSE \d|'
+    r'in a few points|en quelques mots|BOTTLING DATE|'
+    r'Date de mise en bouteille|Mise en bouteille \d|'
+    r'SURFACE AREA|VITICULTURE BY PLOT|TERROIR\s*:|'
+    r'The Vineyard TERROIR|(?<!\d)\d{13}(?!\d))')
+for name, recs in (('fiches.js', en), ('fiches-nl.js', nl)):
+    for key, body in sorted(recs.items()):
+        for f in PROSE:
+            v = field(body, f)
+            if not v:
+                continue
+            m = BLOCK.search(v)
+            if m:
+                note('a sheet’s data block left inside the prose',
+                     '%-26s %-6s %s says "%s"'
+                     % (key, f, name, m.group(1)[:24]))
+                break
+
 # ------------------------------------- typographic ligatures
 #
 # A PDF writes "confirme" as conﬁrme, one character for the fi, and
@@ -182,6 +255,38 @@ for name, recs in (('fiches.js', en), ('fiches-nl.js', nl)):
                      '%-26s %s has U+%04X, which should be "%s"'
                      % (key, name, ord(lig), plain))
                 break
+
+# ------------------------- Dutch with nothing behind it in English
+#
+# The other direction, which nothing was watching. fiches.js is the
+# record and fiches-nl.js holds "de Nederlandse tegenhanger" of each of
+# its fields; what is missing there falls back to the English. The
+# reverse was never considered, and it is not harmless: app.js builds
+# the Dutch view by copying the English record and then overwriting
+# each field the Dutch file has, so a Dutch note whose English
+# counterpart does not exist is *shown* in Dutch and shown nowhere in
+# English. The two languages then describe different wines.
+#
+# Twenty-five of these, and they are older than this repository's
+# history: coutet|2010's Dutch note is there in the first commit that
+# has the file and its English note is in none of them. So they came
+# from somewhere other than fiches.js, and whether to translate them
+# back into English or drop them is a judgement about provenance, not
+# something a tool should decide. Hence: reported, with the count, and
+# left alone.
+orphan_rec = sorted(set(nl) - set(en))
+for key in orphan_rec:
+    note('Dutch for a record that does not exist in English',
+         '%-26s %s' % (key, ' '.join(
+             re.findall(r'([a-z]+):', nl[key]))[:46]))
+for key in sorted(nl):
+    if key not in en:
+        continue
+    for f in PROSE:
+        if field(nl[key], f) and not field(en[key], f):
+            note('Dutch for a field that does not exist in English',
+                 '%-26s %-7s shows in Dutch and nowhere in English'
+                 % (key, f))
 
 # ------------------------------------------------ Dutch coverage
 missing = collections.Counter()

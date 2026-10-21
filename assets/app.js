@@ -2805,6 +2805,125 @@ function fiche(ch, yr) {
   return out;
 }
 
+/* ===========================================================================
+   15. AROMA WHEEL
+
+   The estate's own note, sorted into the families Bordeaux notes use.
+   Computed from the prose rather than stored: the words are already in
+   the record, a stored wheel could drift from the note it came from,
+   and this way the wheel follows a translation and follows a
+   correction.
+
+   Each family carries its words in both languages, because a good
+   number of these notes are French, and every wedge names the words
+   behind it so the wheel can be checked against the sentence.
+   =========================================================================== */
+var AROMA = [
+  { k: 'red', name: 'Red fruit', col: '#c43b3b',
+    re: /red fruits?|redcurrants?|cherry|cherries|morello|raspberr\w+|strawberr\w+|cranberr\w+|fruits? rouges?|cerises?|griottes?|framboises?|fraises?|groseilles?/gi },
+  { k: 'black', name: 'Black fruit', col: '#6b2d5c',
+    re: /black fruits?|blackcurrants?|cassis|blackberr\w+|blueberr\w+|bilberr\w+|damsons?|plums?|prunes?|fruits? noirs?|m\u00fbres?|myrtilles?|cassis/gi },
+  { k: 'floral', name: 'Floral', col: '#d08bb0',
+    re: /floral|flowers?|violets?|roses?|peony|peonies|jasmine|blossom|iris|violettes?|pivoines?|fleurs?|jasmin/gi },
+  { k: 'spice', name: 'Spice', col: '#e07b2a',
+    re: /spic\w+|peppery|pepper|cinnamon|clove|nutmeg|liquorice|licorice|ginger|cardamom|[e\u00e9]pic\w+|poivr\w+|cannelle|girofle|muscade|r[e\u00e9]glisse|gingembre/gi },
+  { k: 'oak', name: 'Oak and toast', col: '#8a6a3a',
+    re: /vanilla|oak|cedar|toast\w*|smok\w+|mocha|coffee|chocolate|cocoa|caramel|butterscotch|barrel|wood\w*|vanille|ch[e\u00ea]ne|c[e\u00e8]dre|grill[e\u00e9]\w*|fum[e\u00e9]\w*|moka|caf[e\u00e9]|chocolat|cacao|bois[e\u00e9]?/gi },
+  { k: 'tobacco', name: 'Tobacco and leather', col: '#5c4033',
+    re: /tobacco|cigar|leather|game|gamey|meat\w*|tabac|cigare|cuir|gibier|viande/gi },
+  { k: 'earth', name: 'Earth and mineral', col: '#5d6d5a',
+    re: /mineral\w*|graphite|pencil|flint|stone|slate|chalk\w*|truffle|undergrowth|forest floor|earth\w*|min[e\u00e9]ral\w*|mine de crayon|silex|pierre|craie|truffes?|sous[- ]bois|terre/gi },
+  { k: 'herb', name: 'Herbal', col: '#4e8c5a',
+    re: /mint\w*|eucalyptus|menthol\w*|bay leaf|thyme|rosemary|laurel|herbal|herbs?|green pepper|capsicum|menthe|menthol[e\u00e9]?|thym|romarin|laurier|herbac[e\u00e9]\w*|poivron/gi },
+  { k: 'citrus', name: 'Citrus', col: '#d9b036',
+    re: /citrus|lemon\w*|grapefruit|lime|orange peel|zest|agrumes?|citron\w*|pamplemousse|zeste/gi },
+  { k: 'orchard', name: 'Orchard fruit', col: '#e0a86b',
+    re: /peach\w*|apricots?|pears?|apples?|quince|nectarine|melon|p[e\u00ea]ches?|abricots?|poires?|pommes?|coing/gi },
+  { k: 'honey', name: 'Honey and candied', col: '#e8c04a',
+    re: /honey\w*|beeswax|candied|marmalade|confit\w*|botrytis|noble rot|miel|cire|confiture|pourriture noble/gi },
+  { k: 'nut', name: 'Nuts and dried fruit', col: '#bfa27a',
+    re: /almonds?|hazelnuts?|walnuts?|nutty|figs?|dates?|raisins?|amandes?|noisettes?|noix|figues?|dattes?/gi }
+];
+
+/* The note as the estate wrote it, before translation. The wheel is
+   the same wheel in either language - what the wine smells of does not
+   change when the page does - so it is read from the English record
+   and only its family names are translated. */
+function englishTaste(ch, yr) {
+  var F = window.BDX_FICHES, en = F && ch && F[ch.id + '|' + yr];
+  return (en && en.taste) || '';
+}
+
+/* The words each family found, in the order the note says them. */
+function aromaOf(text) {
+  if (!text) return [];
+  var out = [];
+  AROMA.forEach(function (a) {
+    a.re.lastIndex = 0;
+    var seen = {}, words = [], m;
+    while ((m = a.re.exec(text))) {
+      var w = m[0].toLowerCase();
+      if (!seen[w]) { seen[w] = 1; words.push(m[0]); }
+      if (words.length > 5) break;
+    }
+    if (words.length) out.push({ k: a.k, name: a.name, col: a.col, words: words });
+  });
+  return out;
+}
+
+function polar(cx, cy, r, deg) {
+  var a = (deg - 90) * Math.PI / 180;
+  return [cx + r * Math.cos(a), cy + r * Math.sin(a)];
+}
+
+/* One wedge per family, all the same width, the radius saying how much
+   of the note belongs to it. Equal widths because the note does not
+   rank its own smells; the radius because it does repeat them. */
+function aromaWheel(text) {
+  var found = aromaOf(text);
+  if (found.length < 2) return '';
+
+  var most = 0;
+  found.forEach(function (f) { if (f.words.length > most) most = f.words.length; });
+
+  var cx = 100, cy = 100, step = 360 / found.length, gap = Math.min(4, step / 6);
+  var wedges = found.map(function (f, i) {
+    var r = 34 + 52 * (f.words.length / most);
+    var a0 = i * step + gap / 2, a1 = (i + 1) * step - gap / 2;
+    var p0 = polar(cx, cy, r, a0), p1 = polar(cx, cy, r, a1);
+    var i0 = polar(cx, cy, 16, a0), i1 = polar(cx, cy, 16, a1);
+    var big = (a1 - a0) > 180 ? 1 : 0;
+    var d = 'M' + i0[0].toFixed(1) + ' ' + i0[1].toFixed(1) +
+            'L' + p0[0].toFixed(1) + ' ' + p0[1].toFixed(1) +
+            'A' + r + ' ' + r + ' 0 ' + big + ' 1 ' +
+            p1[0].toFixed(1) + ' ' + p1[1].toFixed(1) +
+            'L' + i1[0].toFixed(1) + ' ' + i1[1].toFixed(1) +
+            'A16 16 0 ' + big + ' 0 ' + i0[0].toFixed(1) + ' ' + i0[1].toFixed(1) + 'Z';
+    return '<path d="' + d + '" fill="' + f.col + '"><title>' + f.name +
+           ': ' + f.words.join(', ') + '</title></path>';
+  }).join('');
+
+  var key = found.map(function (f) {
+    /* One element a word, and lowercased, so each can be translated on
+       its own and the dictionary has a key it can hold. */
+    var words = f.words.map(function (w) {
+      return '<span class="aroma-w">' + w.toLowerCase() + '</span>';
+    }).join(', ');
+    return '<span class="aroma-k"><i style="background:' + f.col + '"></i>' +
+      '<b>' + f.name + '</b> ' + words + '</span>';
+  }).join('');
+
+  return '<p class="subhead">What the note smells of</p>' +
+    '<div class="aromawrap">' +
+      '<svg class="aromawheel" viewBox="0 0 200 200" role="img" aria-label="' +
+        found.map(function (f) { return f.name + ': ' + f.words.join(', '); })
+             .join('. ') + '">' + wedges +
+        '<circle cx="100" cy="100" r="15.2" class="aroma-hub"></circle>' +
+      '</svg>' +
+      '<div class="aromakey">' + key + '</div>' +
+    '</div>';
+}
+
 function fichesBlock(ch, yr) {
   var f = fiche(ch, yr);
   if (!f) return '';
@@ -2902,6 +3021,7 @@ function seasonBlock(ch, yr, v, o) {
     '<p class="src">' + wSrc + '</p>' +
     '<p class="vintagereport">' + wine + '</p>' +
     '<p class="src">' + tSrc + '</p>' +
+    aromaWheel(englishTaste(ch, yr) || wine) +
     phenologyLine(yr, ch) +
     appellationLine(ch, yr);
 }

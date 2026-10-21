@@ -745,6 +745,21 @@ a { color: var(--seq-450); }
 .blendkey span { display: inline-flex; align-items: center; gap: 5px; }
 .blendkey i { width: 9px; height: 9px; border-radius: 2px; flex: none; }
 
+/* the aroma wheel - the estate's own note, sorted into families */
+.aromawrap { display: flex; gap: 14px; align-items: center; flex-wrap: wrap; margin-bottom: 10px; }
+.aromawheel { width: 132px; height: 132px; flex: none; }
+.aromawheel path { stroke: var(--surface-1); stroke-width: 1; }
+.aroma-hub { fill: var(--surface-1); }
+.aromakey { display: flex; flex-direction: column; gap: 3px; font-size: 11.5px; color: var(--text-secondary); min-width: 180px; flex: 1; }
+.aroma-k { display: flex; align-items: baseline; gap: 6px; }
+.aroma-k i { width: 9px; height: 9px; border-radius: 2px; flex: none; position: relative; top: 1px; }
+.aroma-k b { color: var(--text-primary); font-weight: 600; }
+.aroma-w { white-space: nowrap; }
+@media (max-width: 460px) {
+  .aromawheel { width: 108px; height: 108px; }
+  .aromakey { font-size: 11px; min-width: 0; }
+}
+
 /* critic ratings — only what was published, so a short row, not a chart */
 .critratings { display: flex; flex-wrap: wrap; gap: 8px; }
 .rating {

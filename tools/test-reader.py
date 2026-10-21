@@ -132,6 +132,12 @@ COLOUR = [
      'the filename says it is the white', 'a red estate, white sheet'),
     ('olivier', 'Olivier-Blc-2015-FT-FR-139.pdf',
      'the filename says it is the white', 'Blc is the abbreviation'),
+    ('domaine-de-chevalier', 'Chevalier-Rose-2019-FT-FR.pdf',
+     'the filename says it is the rosé',
+     'a rose is made from red grapes, so only the filename betrays it'),
+    ('carbonnieux', 'Carbonnieux-Rge-Blc-2018-FT-FR.pdf', None,
+     'one sheet for the red and the white; saying both colours is not '
+     'saying the wrong one'),
 ]
 
 SECOND = [

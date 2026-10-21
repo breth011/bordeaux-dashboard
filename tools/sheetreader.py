@@ -257,6 +257,14 @@ def estates(root):
     for e in out.values():
         if not e['cat']:
             e['cat'] = 'red'
+        # 34 estates record their second wine as an em-dash, meaning they
+        # have none. Carried through as a name it becomes a mark with no
+        # letters in it, which matches nothing and silently disables the
+        # check - which is how three L'Arc Saint Pierre sheets were read
+        # as Chateau Saint-Pierre's.
+        if e['second'] and len(packed(e['second'])) < 3:
+            e['second'] = None
+        e['cuvees'] = [c for c in e['cuvees'] if len(packed(c)) >= 3]
         if e['second'] and e['second'] not in e['cuvees']:
             e['cuvees'].append(e['second'])
     return out
@@ -849,6 +857,12 @@ SAYS_WHITE = re.compile(r'(?i)(?<![a-z])(blanc|blanche|blc|bl|white|blanco)'
 SAYS_RED = re.compile(r'(?i)(?<![a-z])(rouge|rge|ro|red|tinto)(?![a-z])')
 SAYS_DRY = re.compile(r'(?i)(?<![a-z])(sec|s[eè]che|dry|'
                       r'grand\s*vin\s*sec)(?![a-z])')
+# A rose is made from red grapes, so no blend will ever betray it - only
+# the filename will. Domaine de Chevalier 2019 held "ASSEMBLAGE : 70%
+# Cabernet Sauvignon ; 30 % Merlot" off Chevalier-Rose-2019-FT-FR.pdf,
+# and Desmirail two vintages off FT-ROSE-2021-FR.pdf and -2024-.
+SAYS_ROSE = re.compile(r'(?i)(?<![a-z])(ros[eé]s?|rosado|clairet)'
+                       r'(?![a-z])')
 
 
 def wrong_colour(filename, blend, cat):
@@ -877,6 +891,9 @@ def wrong_colour(filename, blend, cat):
     if (SAYS_WHITE.search(filename or '')
             and SAYS_RED.search(filename or '')):
         return None
+    # No estate in this dashboard is judged on its rose.
+    if SAYS_ROSE.search(filename or ''):
+        return 'the filename says it is the rosé'
     if cat == 'red':
         if SAYS_WHITE.search(filename or ''):
             return 'the filename says it is the white'

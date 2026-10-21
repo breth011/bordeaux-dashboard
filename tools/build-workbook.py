@@ -81,9 +81,26 @@ for line in io.open(ROOT + 'data/fiches.js', encoding='utf-8'):
 
 # Which years the dashboard shows at all.
 vt = js_block('data/vintages.js', 'window.BDX_VINTAGES')
-years = sorted(set(int(y) for y in re.findall(r"'(\d{4})'\s*:", vt)))
+# The keys are bare numbers - 1982:{medoc:98,...} - not quoted, which
+# a quoted pattern missed entirely, so the workbook silently fell back
+# to whatever years happened to be in the records and its vintage count
+# moved about as records were added.
+years = sorted(set(int(y) for y in re.findall(r'(?:^|,|\{)\s*(\d{4})\s*:',
+                                              vt)))
+# The grid is the dashboard's own vintage range. A record outside it -
+# the merge brought in a dozen from the fifties to the seventies - would
+# add a row for every estate to show one figure, so those are counted in
+# the Read me instead.
 if not years:
     years = sorted(set(y for e, y in records)) or [2024]
+# The grid grows forward: data/vintages.js stops at the last vintage
+# somebody wrote a weather note for, and records for the next one
+# arrive before that. It does not grow backward, because a handful of
+# records from the fifties would add a row for every estate to show one
+# figure; those are counted in the Read me instead.
+newest = max([y for e, y in records] or years)
+years = list(range(min(years), max(max(years), newest) + 1))
+outside = sorted((e, y) for e, y in records if y < min(years))
 
 # Appellation and classification, from the estate files.
 meta = {}
@@ -351,6 +368,16 @@ for line in [
     'lead on a variety the estate does not. Each needs its sheet read; '
     'tools/check-data.py is the same questions with the exceptions '
     'recorded.' % flagged,
+    '',
+    '%d records fall before %d, which is where the grid starts, and so '
+    'are not on it: %s. The grid runs to %d, growing forward past '
+    'data/vintages.js when a vintage arrives before its weather note '
+    'does.'
+    % (len(outside), min(years),
+       ', '.join('%s %d' % (e, y) for e, y in outside[:12])
+       + (' and more' if len(outside) > 12 else ''), max(years))
+    if outside else
+    'Every record falls inside %d-%d.' % (min(years), max(years)),
     '',
     'Critic ratings come from a list this repo does not hold. Pass it with '
     '--scores to fill that column.',

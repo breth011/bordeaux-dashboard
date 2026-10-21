@@ -1214,4 +1214,5 @@ window.BDX_FICHES = {
 'beychevelle|2021':{ph:3.73,src:'Beychevelle_2021_FR.pdf'},
 'beychevelle|2022':{ph:3.85,src:'Beychevelle_2022_FR.pdf'},
 'la-dauphine|2025':{blend:{ME:70,CF:30},months:'12',press:{'James Suckling':'93-94','Vinous':'94-95'},src:'2025__dauphine2025.txt'},
+'stem-chateau-la-tour-figeac|2023':{blend:{ME:65,CF:35},yld:45.5,months:'15',src:'Fiche-LTF-2023-uk.pdf'},
 };

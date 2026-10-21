@@ -62877,6 +62877,20 @@
    "sha1": "a001c6d5aceb620df6a3dfd77bc35c232137fada",
    "how": "from the estate’s own page of technical sheets",
    "note": "the vintage pages are an age gate; the sheets are not"
+  },
+  {
+   "file": "Fiche-LTF-2023-uk.pdf",
+   "folder": "stem-chateau-la-tour-figeac",
+   "estate": "stem-chateau-la-tour-figeac",
+   "wine": null,
+   "slug": null,
+   "role": "grand",
+   "colour": "red",
+   "year": 2023,
+   "bytes": 176127,
+   "sha1": "dba99075659bcac9857264577237e67ff8591fc6",
+   "how": "from the estate’s own page of technical sheets",
+   "note": "found by rendering the site, which plain HTTP saw empty"
   }
  ],
  "how": {

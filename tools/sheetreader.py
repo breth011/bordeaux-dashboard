@@ -1225,7 +1225,23 @@ PROSE_STOP = re.compile(
     r'la\s+revue\s+d(?:u|es)\s+vins?|wine\s+advocate|robert\s+parker|'
     r'james\s+suckling|jancis\s+robinson|neal\s+martin|vinous|'
     r'decanter|falstaff|wine\s+spectator|yves\s+beck|'
-    r'bettane|antonio\s+galloni|\d{2,3}\s*/\s*100'
+    r'bettane|antonio\s+galloni|\d{2,3}\s*/\s*100|'
+    # More of the same, each from a description that ran on into it:
+    # Lafite's 1968 and 1978 and L'Evangile's 1996 tasting notes all
+    # continued into "TECHNICAL INFORMATION Varietals : Cabernet
+    # sauvignon 59%..."; Beychevelle's 2006 into "Gault&Millau";
+    # Ferriere's 2015 opened on "RVF - 16 / 17 -"; Siaurac's 2017 ran
+    # into "Le Vignoble TERROIR".
+    r'technical\s+information|informations?\s+techniques?|'
+    r'varietals?\s*:|le\s+vignoble\b|the\s+vineyard\b|'
+    r'gault\s*&?\s*millau|\brvf\b|guide\s+hachette|'
+    r'\d{1,2}\s*/\s*20\b|'                  # a French twenty-point score
+    r'pluviom[eé]trie|ensoleillement|amplitude\s+thermique|'
+    # A score followed by a critic's initial, which is how Siaurac's
+    # 2019 tasting note ended: "92-93 A. GALLONI 91 J.". The surnames
+    # alone matter too, since the sheets abbreviate the first name.
+    r'\d{2}\s*[-–]\s*\d{2}\s+[A-Z]\.|'
+    r'\b(?:GALLONI|SUCKLING|PARKER|ROBINSON|BECK|DUBOURDIEU|BETTANE)\b'
     r')')
 
 # A tasting note talks about tasting. Beychevelle's 2007 sheet puts
@@ -1278,8 +1294,57 @@ def looks_like_prose(s):
         return False
     if len(re.findall(r'\d{1,2}\s*/\s*\d{1,2}', s)) >= 2:
         return False          # a column of dates
+    # A run of capitals is a row of table headings, not a sentence.
+    # Trotte-Vieille's 2021 tasting note opened on "PLUVIOMETRIE
+    # MENSUELLE ENSOLEILLEMENT MENSUEL AMPLITUDE THERMIQUE JOURNALIERE
+    # MOYENNE" and passed on the strength of the "avec des" behind it.
+    letters = [c for c in s if c.isalpha()]
+    if letters and sum(c.isupper() for c in letters) > len(letters) * 0.35:
+        return False
     small = len(_SMALL.findall(s))
-    return small >= max(4, len(s) // 90)
+    if small < max(4, len(s) // 90):
+        return False
+    # And the small words must be near the front. A sentence has one in
+    # its first line; a list of adjectives has none until the prose
+    # starts. Giscours prints "IM PER TUR BAB LE Audacieux Bold Precis
+    # Precise Veloute Velvety Profond Deep Frais Fresh GISCOURS 2025 39"
+    # and then its tasting note, and counting across the whole window
+    # let the note's own connectives vouch for the word-cloud above it.
+    return len(s) < 90 or len(_SMALL.findall(s[:90])) >= 2
+
+
+# Leading rubbish a window opens on: a bullet glyph that extracted as a
+# letter (Beauregard's 2018 note is peppered with "v La pluviometrie"),
+# and a harvest fragment left over from the line above (Berliquet's 2022
+# note began "Merlot : du 29 aout au 5 septembre Le premier nez est
+# floral").
+_M = r'(?:septembre|octobre|ao[uû]t|novembre|september|october|august)'
+LEAD_JUNK = re.compile(
+    r'^(?:[•▪●·v]\s+|'
+    r'(?:merlots?|cabernets?(?:\s+\w+)?|petits?\s+verdots?|malbec|'
+    r's[eé]millons?|sauvignons?)\s*:\s*(?:du\s+)?\d{1,2}[^.]{0,40}?'
+    r'' + _M + r'\s*|'
+    # "au 5 septembre" - the tail of a harvest range whose head was
+    # stripped on the pass before. Berliquet's 2022 season note opened
+    # on "au 5 septembre Le premier nez est floral".
+    r'(?:au|to)\s+\d{1,2}\s*' + _M + r'\s*)+', re.I)
+
+# A bullet glyph that extracted as a letter. Beauregard's 2018 note is
+# peppered with "v La pluviometrie", and "v" standing alone is not a
+# word in French or English, so it is safe to drop wherever it sits.
+BULLET = re.compile(r'(?<=[\s.])[v•▪●·](?=\s)')
+
+# A season note talks about the weather. Berliquet prints its tasting
+# note under "Millesime 2022", so a window that reads as tasting and
+# says nothing about a season is not one.
+SEASON_OF = re.compile(
+    r'(?i)(?<![a-zà-ÿ])'
+    r'(hiver|printemps|[eé]t[eé]|automne|pluie|pluviom|gel\b|g[eé]l[eé]e|'
+    r'temp[eé]rature|floraison|v[eé]raison|d[eé]bourrement|vendange|'
+    r'r[eé]colte|s[eé]cheresse|canicule|mildiou|'
+    r'winter|spring|summer|autumn|rainfall|rain|frost|flowering|'
+    r'harvest|drought|heatwave|mildew|growing)'
+    r'(?![a-zà-ÿ])')
 # "le millesime" was in this list and had to come out. It is not a
 # heading, it is ordinary French - "un fruite plus mur que le millesime
 # precedent" - and matching it took the window from the middle of a
@@ -1401,22 +1466,78 @@ def read_prose(text):
         if not m:
             continue
         win = text[m.end():m.end() + 1400].lstrip(' :–-—')
-        # And it must then begin a sentence of its own. A window opening
-        # on a lower-case word is the tail of the label's own sentence,
-        # not the start of the section.
-        if win[:1].islower():
-            nxt = re.search(r'[.!?]\s+(?=[A-ZÀ-Ý])', win)
-            if not nxt:
-                continue
-            win = win[nxt.end():]
         s = PROSE_STOP.search(win)
         if s:
             win = win[:s.start()]
-        # to a sentence end, so a description never stops mid-word
-        cut = max(win.rfind('. '), win.rfind('! '), win.rfind('? '))
-        if cut > 120:
-            win = win[:cut + 1]
+        win = BULLET.sub('', ' '.join(win.split()))
         win = LEADING_YEAR.sub('', ' '.join(win.split()))
+        win = LEADING_YEAR.sub('', LEAD_JUNK.sub('', win).lstrip(' :-'))
+        # Page numbers, table rulings and stray punctuation, which only
+        # become the first thing in the window once the trimming above
+        # has taken the label and the harvest dates off the front:
+        # Haut-Bailly's 2019 note opened on "< < 12 Le débourrement" and
+        # its 2022 on "11 12 Les mois de septembre".
+        win = re.sub(r'^[\s<>|/•·\-–—!?,;:"\'’‘\u201c\u201d\d]{1,14}',
+                     '', win)
+        # A bilingual heading: Langoa-Barton and Leoville-Barton print
+        # "DEGUSTATION / TASTING", so matching the French left "/
+        # TASTING Robe dense de couleur pourpre" behind.
+        # \d* because Giscours runs the heading into a page number:
+        # "TASTING5 2 20 74 IM PER TUR BAB LE Audacieux Bold Precis".
+        win = re.sub(r'^(?:TASTING|DEGUSTATION|D\u00c9GUSTATION|'
+                     r'VINTAGE|MILL\u00c9SIME)\d*\b[\s:/–—-]*', '', win)
+        # A date stamp: Villemaurine's note opens "AU 05/06/2014 Chateau
+        # Villemaurine 2009, presente une robe".
+        win = re.sub(r'^(?:AU|AS\s+OF|AT)\s+\d{1,2}[/.]\d{1,2}[/.]\d{2,4}'
+                     r'[\s:,-]*', '', win, flags=re.I)
+        # Once more, because taking the heading off can expose the page
+        # numbers that were sitting behind it: "TASTING5 2 20 74 IM PER"
+        # becomes "2 20 74 IM PER" and the first pass has already run.
+        win = re.sub(r'^[\s<>|/•·\-–—!?,;:"\'’‘“”\d]{1,14}',
+                     '', win)
+        # And never end inside a word: the stop-list can cut anywhere.
+        if win and not win[-1].isspace() and ' ' in win:
+            if not re.search(r'[.!?"\u201d]$', win):
+                win = win[:win.rfind(' ')]
+        # And it must begin a sentence of its own - which is checked
+        # here, after every trimming step, and not before them. Checking
+        # first passed 23 windows that only became junk once the label
+        # and the dates came off: "a été une année plus sèche" is the
+        # tail of MILLÉSIME 2010's own sentence, and Palmer's 2010 note
+        # began "will go down in history…".
+        # Slide forward until the opening itself reads like prose,
+        # rather than testing once and giving up. Giscours prints a
+        # bilingual word-cloud above its tasting note - "IM PER TUR BAB
+        # LE Audacieux Bold Precis Precise Veloute Velvety Profond Deep
+        # Frais Fresh GISCOURS 2025 39" - which is neither lower-case
+        # nor capitalised enough to fail the other tests, and the note
+        # itself begins at "A la degustation" a hundred characters
+        # later. Four tries, because a window that is still not prose
+        # by the fourth sentence is not hiding one.
+        for _ in range(4):
+            if win[:1].islower():
+                nxt = re.search(r'[.!?]\s+(?=[A-ZÀ-Ý])', win)
+                if not nxt:
+                    win = ''
+                    break
+                win = win[nxt.end():]
+                continue
+            if looks_like_prose(win[:190]) or len(win) < 190:
+                break
+            nxt = re.search(r'[.!?]\s+(?=[A-ZÀ-Ý])', win)
+            if not nxt:
+                break
+            win = win[nxt.end():]
+        if not win:
+            continue
+        # And end on a sentence, after all that trimming. The threshold
+        # is 80 and not 120 because Beauregard's 2018 season note is 118
+        # characters long and so was never cut at all - it ended on a
+        # dangling "La", the start of a sentence the window did not
+        # reach.
+        cut2 = max(win.rfind('. '), win.rfind('! '), win.rfind('? '))
+        if cut2 >= 80:
+            win = win[:cut2 + 1]
         # The opening has to stand on its own, not be rescued by prose
         # further down. A window is up to 1,400 characters, so a
         # phenology table or a cloud of brand words - "Elegance
@@ -1427,6 +1548,8 @@ def read_prose(text):
         if not (looks_like_prose(win) and looks_like_prose(win[:190])):
             continue
         if field == 'taste' and not TASTES_OF.search(win[:260]):
+            continue
+        if field == 'note' and not SEASON_OF.search(win[:300]):
             continue
         out[field], how[field] = win, m.group(0)[:40]
     return out, how

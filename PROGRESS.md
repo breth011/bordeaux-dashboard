@@ -8,7 +8,7 @@ One row per day, from `progress-history.tsv`.
 
 ```
    date         records   blend   taste    note     url      nl
-   2026-10-22      2210    1639     782     505     784     643
+   2026-10-22      2210    1639     782     504     784     660
 ```
 
 ## What is held
@@ -21,7 +21,7 @@ field     what it is                         records    of of grid  1980s 1990s 
                                                       recs       
 blend     the assemblage, variety by variety   1,639   74%   7.9%  0.8%  1.7%  5.6%  16.8% 16.6%
 taste     the tasting note                       782   35%   3.7%  1.1%  1.9%  4.0%  6.1%  5.7% 
-note      the growing season                     505   23%   2.3%  0.6%  1.1%  1.8%  4.2%  4.6% 
+note      the growing season                     504   23%   2.3%  0.6%  1.1%  1.8%  4.2%  4.6% 
 alc       alcohol                                868   39%   4.2%  0.7%  1.8%  3.4%  7.5%  8.5% 
 ph        pH                                     285   13%   1.4%  0.0%  0.0%  0.4%  2.5%  5.3% 
 yld       yield, hl/ha                           887   40%   4.3%  0.3%  0.7%  2.8%  9.6%  9.2% 
@@ -38,13 +38,17 @@ food      food pairing                            24    1%   0.1%  0.0%  0.0%  0
 ABOUT THE RECORD ITSELF:
    src    names the document it was read from            2,209  100% of records
    url    can link to that document in the app             784   35% of records
-   nl     has Dutch for its prose                          643   29% of records
+   nl     has Dutch for its prose                          660   30% of records
+
+STILL TO MERGE - a document states it and no record holds it:
+   food         1
+   (from reports/fiches-read.json; re-run tools/read-fiches.py --prose to refresh)
 
 THE 61 CLASSIFIED GROWTHS, APART FROM THE LONG TAIL:
    field                            classified    the rest
    blend     the assemblage, variet  742   28%    897    5%
    taste     the tasting note        475   18%    307    2%
-   note      the growing season      343   13%    162    1%
+   note      the growing season      342   13%    162    1%
    alc       alcohol                 354   13%    514    3%
    ph        pH                      105    4%    180    1%
    yld       yield, hl/ha            226    8%    661    4%
@@ -55,9 +59,9 @@ THE 61 CLASSIFIED GROWTHS, APART FROM THE LONG TAIL:
 
 WHOSE WORDS THE PROSE IS:
    taste   604 the estate’s own English,  178 translated from its French
-   note    342 the estate’s own English,  163 translated from its French
+   note    341 the estate’s own English,  163 translated from its French
 
-23 fields are pinned absent - the document states something and it was judged not to belong
+24 fields are pinned absent - the document states something and it was judged not to belong
 
 122 estates have a recorded planting, which is the vineyard’s and not a vintage’s
 
@@ -69,7 +73,7 @@ A ROW EACH, FOR THE CLASSIFIED GROWTHS - sorted by how much of blend,
 tasting note and growing season is absent across the estate’s records:
 
    estate                     gc  recs blend taste  note  link  spare
-   margaux                     1    76    18    21    66    76      0
+   margaux                     1    76    18    21    65    76      0
    grand-puy-ducasse           5    40     4     0     2     0     10
    palmer                      3    49    34     0     9     0      9
    mouton                      1    42     9    42     5    42     26
@@ -145,7 +149,7 @@ A ROW EACH, FOR THE CLASSIFIED GROWTHS - sorted by how much of blend,
 tasting note and growing season is absent across the estate’s records:
 
    estate                     gc  recs blend taste  note  link  spare
-   margaux                     1    76    18    21    66    76      0
+   margaux                     1    76    18    21    65    76      0
    grand-puy-ducasse           5    40     4     0     2     0     10
    palmer                      3    49    34     0     9     0      9
    mouton                      1    42     9    42     5    42     26

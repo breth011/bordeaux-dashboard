@@ -845,7 +845,7 @@ window.BDX_FIELD_SRC = {
 'margaux|2020':{blend:'2020__en-vins-grand-vin-du-chateau-margaux-2020.txt',note:'2020__en-vins-grand-vin-du-chateau-margaux-2020.txt',yld:'2020__en-vins-grand-vin-du-chateau-margaux-2020.txt'},
 'margaux|2021':{note:'2021__en-vins-grand-vin-du-chateau-margaux-2021.txt',taste:'2021__en-vins-grand-vin-du-chateau-margaux-2021.txt'},
 'margaux|2022':{alc:'2022__en-vins-grand-vin-du-chateau-margaux-2022.txt',blend:'2022__en-vins-grand-vin-du-chateau-margaux-2022.txt',note:'2022__en-vins-grand-vin-du-chateau-margaux-2022.txt'},
-'margaux|2023':{blend:'2023__en-vins-grand-vin-du-chateau-margaux-2023.txt',note:'2023__3-laboutissement-de-deux-annees-de-travail-a-chateau-margaux.txt'},
+'margaux|2023':{blend:'2023__en-vins-grand-vin-du-chateau-margaux-2023.txt'},
 'margaux|2024':{blend:'2024__en-vins-grand-vin-du-chateau-margaux-2024.txt',note:'2024__en-vins-grand-vin-du-chateau-margaux-2024.txt',yld:'2024__en-vins-grand-vin-du-chateau-margaux-2024.txt'},
 'margaux|2025':{note:'2025__25-un-grand-mill-c3-a9sime-aux-qualit-c3-a9s-exceptionnelles.txt',yld:'2025__25-un-grand-mill-c3-a9sime-aux-qualit-c3-a9s-exceptionnelles.txt'},
 'marjosse|2020':{taste:'MARJOSSE-BLANC-2020-FR.pdf'},

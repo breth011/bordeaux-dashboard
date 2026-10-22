@@ -172,6 +172,11 @@ REFUSED = {
     ('olivier|2019', 'window'):
         'not a drinking window: a sentence about glutathione, ending on '
         'keeping potential',
+    ('margaux|2023', 'note'):
+        'not a season note: a news item about bottling - \u201cThe bottling '
+        'of the 2023 vintage of Ch\u00e2teau Margaux marks a key step in the '
+        'production cycle of our fine wines\u201d - with the weather nowhere '
+        'in it',
 }
 
 def _refresh_progress():

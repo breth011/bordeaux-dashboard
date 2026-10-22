@@ -164,6 +164,34 @@ if named:
     io.open(ROOT + 'data/sources.json', 'w', encoding='utf-8',
             newline='').write(json.dumps(man, ensure_ascii=False, indent=1))
 
+
+def _refresh_progress():
+    """Rebuild PROGRESS.md, now that the records have changed.
+
+    A separate process: progress.py reads data/fiches.js from disk and
+    it has just been rewritten. Wrapped, because a report that will
+    not build must not take a merge with it.
+    """
+    import subprocess
+    try:
+        out = subprocess.run(
+            [sys.executable, '-I', ROOT + 'tools/progress.py']
+            + (['--no-save'] if '--no-save' in sys.argv else []),
+            cwd=ROOT, stdout=subprocess.PIPE, stderr=subprocess.STDOUT,
+            timeout=600)
+        tail = (out.stdout or b'').decode('utf-8', 'replace')
+        kept = [l for l in tail.splitlines() if l.startswith('saved ')]
+        if out.returncode == 0 and kept:
+            print(kept[-1])
+        else:
+            print('PROGRESS.md was not refreshed; run '
+                  'tools/progress.py to see why')
+    except Exception as e:
+        print('PROGRESS.md was not refreshed (%s); the merge above '
+              'still stands' % str(e)[:50])
+
+
 print('\n%d records added, %d sheets named as the grand vin’s'
       % (len(add), named))
+_refresh_progress()
 print('now run: python tools/check-data.py  and  python tools/audit-sources.py')

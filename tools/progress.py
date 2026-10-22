@@ -1,8 +1,15 @@
 # -*- coding: utf-8 -*-
 """Coverage, datapoint by datapoint: what is held, and what is left.
 
-    python tools/progress.py
+    python tools/progress.py                 report, and save it
+    python tools/progress.py --no-save       report only
     python tools/progress.py --estate margaux --estate latour
+
+Saving writes PROGRESS.md - the classified growths table and how the
+totals have moved - and appends a row to progress-history.tsv. Both
+are tracked, because reports/ is gitignored and a progress table with
+no history cannot say whether anything is moving. A run with --estate
+saves nothing: the figures are then a part and not the whole.
 
 Three questions, in the order they are worth asking.
 
@@ -79,9 +86,169 @@ def load(path):
     return out
 
 
+# ----------------------------------------------------------------- #
+# Keeping the report.
+
+HISTORY = 'progress-history.tsv'
+MARKDOWN = 'PROGRESS.md'
+# The fields the history tracks, in the order the columns go.
+TRACKED = ('blend', 'taste', 'note', 'alc', 'ph', 'yld', 'months',
+           'oak', 'pick', 'harvest', 'temp', 'wy', 'window', 'decant',
+           'food')
+# How many days of the trend to print. Enough to see a direction
+# without the file becoming the report.
+TREND = 14
+
+
+class _tee(object):
+    """Write to the terminal and keep a copy.
+
+    The report is three hundred print statements and rewriting them to
+    return a string would change every line of this file for no gain.
+    """
+
+    def __init__(self, out):
+        self.out = out
+        self.kept = []
+
+    def write(self, s):
+        self.out.write(s)
+        self.kept.append(s)
+        return len(s)
+
+    def flush(self):
+        self.out.flush()
+
+    def __getattr__(self, name):
+        return getattr(self.out, name)
+
+    def text(self):
+        return ''.join(self.kept)
+
+
+def _section(text, head, upto=None):
+    """One titled block of the report, by the line it starts on."""
+    i = text.find(head)
+    if i < 0:
+        return None
+    j = text.find(upto, i + len(head)) if upto else -1
+    return text[i:j if j > 0 else len(text)].rstrip() + '\n'
+
+
+def _counts(text):
+    """The per-field record counts, read back out of the table.
+
+    Out of the printed report rather than recomputed, so the number in
+    the history is the number that was shown. A second count computed
+    a second way is a second thing to be wrong.
+    """
+    out = {}
+    for f in TRACKED:
+        m = re.search(r'(?m)^' + f + r'\s+\S.*?([\d,]+)\s+\d+%',
+                      text)
+        if m:
+            out[f] = int(m.group(1).replace(',', ''))
+    m = re.search(r'(?m)^([\d,]+) records,', text)
+    if m:
+        out['records'] = int(m.group(1).replace(',', ''))
+    m = re.search(r'(?m)^\s+url\s+.*?([\d,]+)\s+\d+% of records',
+                  text)
+    if m:
+        out['url'] = int(m.group(1).replace(',', ''))
+    m = re.search(r'(?m)^\s+nl\s+.*?([\d,]+)\s+\d+% of records',
+                  text)
+    if m:
+        out['nl'] = int(m.group(1).replace(',', ''))
+    return out
+
+
+def _history(row):
+    """Append today's figures, replacing an earlier run of the day."""
+    path = ROOT + HISTORY
+    cols = ('date', 'records', 'url', 'nl') + TRACKED
+    rows = []
+    if os.path.exists(path):
+        for i, line in enumerate(io.open(path, encoding='utf-8')):
+            line = line.rstrip('\n')
+            if not line or (i == 0 and line.startswith('date')):
+                continue
+            rows.append(line.split('\t'))
+    today = row['date']
+    rows = [r for r in rows if r[:1] != [today]]
+    rows.append([str(row.get(c, '')) for c in cols])
+    rows.sort(key=lambda r: r[0])
+    out = ['\t'.join(cols)] + ['\t'.join(r) for r in rows]
+    io.open(path, 'w', encoding='utf-8', newline='').write(
+        '\n'.join(out) + '\n')
+    return cols, rows
+
+
+def _trend(cols, rows):
+    """The last few days of the headline figures, oldest first."""
+    show = ('records', 'blend', 'taste', 'note', 'url', 'nl')
+    idx = [cols.index(c) for c in show]
+    lines = ['   %-12s %s' % ('date', ' '.join('%7s' % c
+                                               for c in show))]
+    for r in rows[-TREND:]:
+        lines.append('   %-12s %s'
+                     % (r[0], ' '.join('%7s' % (r[i] if i < len(r)
+                                                else '') for i in idx)))
+    if len(rows) > 1:
+        first, last = rows[0], rows[-1]
+        moved = []
+        for c, i in zip(show, idx):
+            try:
+                d = int(last[i]) - int(first[i])
+            except (ValueError, IndexError):
+                continue
+            if d:
+                moved.append('%s %+d' % (c, d))
+        if moved:
+            lines.append('')
+            lines.append('   since %s: %s' % (first[0],
+                                              ', '.join(moved)))
+    return '\n'.join(lines) + '\n'
+
+
+def save(text):
+    """Write PROGRESS.md and add today's row to the history."""
+    import datetime
+    row = _counts(text)
+    row['date'] = datetime.date.today().isoformat()
+    cols, rows = _history(row)
+
+    growths = _section(text, 'A ROW EACH, FOR THE CLASSIFIED GROWTHS')
+    held = _section(text, 'THE GRID:', 'WHAT IS STILL GETTABLE')
+    if held is None:
+        held = _section(text, 'THE GRID:', 'THE CLASSIFIED GROWTHS')
+    out = ['# Coverage',
+           '',
+           'Generated by `tools/progress.py`. Do not edit by hand -'
+           ' a run overwrites it.',
+           '',
+           '## How it has moved',
+           '',
+           'One row per day, from `progress-history.tsv`.',
+           '',
+           '```',
+           _trend(cols, rows).rstrip(),
+           '```',
+           '']
+    if held:
+        out += ['## What is held', '', '```', held.rstrip(), '```', '']
+    if growths:
+        out += ['## A row each, for the classified growths', '',
+                '```', growths.rstrip(), '```', '']
+    io.open(ROOT + MARKDOWN, 'w', encoding='utf-8',
+            newline='').write('\n'.join(out))
+    return row
+
+
 def main():
     ap = argparse.ArgumentParser()
     ap.add_argument('--estate', action='append', default=[])
+    ap.add_argument('--no-save', action='store_true',
+                    help='print the report without writing PROGRESS.md')
     a = ap.parse_args()
 
     years = sorted(int(m.group(1)) for m in re.finditer(
@@ -325,4 +492,19 @@ def main():
 
 
 if __name__ == '__main__':
-    main()
+    # Tee rather than restructure: the terminal sees what it always
+    # saw and the same text is kept, cut into sections and written to
+    # PROGRESS.md.
+    _real = sys.stdout
+    _keep = _tee(_real)
+    sys.stdout = _keep
+    try:
+        main()
+    finally:
+        sys.stdout = _real
+    if '--no-save' not in sys.argv and '--estate' not in ' '.join(
+            sys.argv):
+        row = save(_keep.text())
+        print()
+        print('saved %s and today\u2019s row in %s (%s records)'
+              % (MARKDOWN, HISTORY, row.get('records', '?')))

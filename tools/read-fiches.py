@@ -145,6 +145,32 @@ REFUSED = {
         'read off a publication date',
 }
 
+def _refresh_progress():
+    """Rebuild PROGRESS.md, now that the records have changed.
+
+    A separate process: progress.py reads data/fiches.js from disk and
+    it has just been rewritten. Wrapped, because a report that will
+    not build must not take a merge with it.
+    """
+    import subprocess
+    try:
+        out = subprocess.run(
+            [sys.executable, '-I', ROOT + 'tools/progress.py']
+            + (['--no-save'] if '--no-save' in sys.argv else []),
+            cwd=ROOT, stdout=subprocess.PIPE, stderr=subprocess.STDOUT,
+            timeout=600)
+        tail = (out.stdout or b'').decode('utf-8', 'replace')
+        kept = [l for l in tail.splitlines() if l.startswith('saved ')]
+        if out.returncode == 0 and kept:
+            print(kept[-1])
+        else:
+            print('PROGRESS.md was not refreshed; run '
+                  'tools/progress.py to see why')
+    except Exception as e:
+        print('PROGRESS.md was not refreshed (%s); the merge above '
+              'still stands' % str(e)[:50])
+
+
 def main():
     ap = argparse.ArgumentParser()
     ap.add_argument('--estate', action='append', default=[])
@@ -573,6 +599,7 @@ def main():
     for f, n in wrote.most_common():
         print('   %-8s %5d' % (f, n))
     print('provenance for %d records in data/field-src.js' % len(prov))
+    _refresh_progress()
     print('\nnow run: python tools/check-data.py  and  check-language.py')
     return 0
 

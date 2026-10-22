@@ -175,7 +175,16 @@ data/cruartisan.js         49 Crus Artisans
 data/vintages.js           43 vintage reports with Médoc/Pessac/Sauternes ratings
 data/rightbank.js          Saint-Émilion & Pomerol season ratings
 data/overrides.js          verified critic scores, notes, and no-vintage years
+PROGRESS.md                coverage, and how it has moved; written by tools/progress.py
+progress-history.tsv       one row a day behind that table, so the trend survives
 ```
+
+`PROGRESS.md` is generated, never edited by hand: the tools that write
+records — `read-fiches.py`, `read-sheets.py`, `merge-proposals.py` —
+rebuild it when they finish, so it is never older than the data beside
+it. Both files are tracked on purpose. `reports/` is gitignored as
+local working output, and a coverage table with no history can say
+where the dataset is but not whether it is moving.
 
 ## Extending it
 

@@ -1,6 +1,6 @@
 'use strict';
 
-var CACHE_NAME = 'bordeaux-classified-v124';
+var CACHE_NAME = 'bordeaux-classified-v125';
 var APP_SHELL = [
   './',
   './index.html',

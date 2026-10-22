@@ -293,6 +293,19 @@ for s in recheck:
                         else 'fiches/' + folder, s['file'])
     if not (os.path.exists(path) and path.lower().endswith('.pdf')):
         continue
+    # The same guards the reading loop applies, in the same order.
+    # Without them this report listed 361 sheets as "filed as another
+    # wine but no longer read as one", which were simply the press
+    # clippings and the range-mates that a guard now skips before the
+    # wine test is ever reached. Their roles are right; it is the
+    # report that could not re-derive them.
+    if (sr.is_press_name(s['file'])
+            or sr.names_other_chateau(s['file'], g,
+                                      others.get(s['estate'], []),
+                                      second.get(s['estate']))
+            or sr.abbreviates_other_wine(s['file'], g,
+                                         others.get(s['estate'], []))):
+        continue
     still = None
     for nm in others.get(s['estate'], []):
         if sr.names_another_wine(path, s['file'], g, nm):
@@ -329,7 +342,12 @@ if conflict:
     rep.append('%d sheets are filed as another wine but no longer read as one '
                '- a role from an earlier run, to correct in the manifest:'
                % len(conflict))
-    for e, y, f, role, wine in sorted(conflict):
+    # A sheet whose vintage is recorded as unknown sorts with the rest
+    # rather than stopping the report: five manifest rows were corrected
+    # to year null, where the year had been read out of a filename hash,
+    # and sorting an int against None raises.
+    for e, y, f, role, wine in sorted(
+            conflict, key=lambda r: (r[0] or '', r[1] or 0, r[2] or '')):
         rep.append('   %-26s %s  role=%-7s wine=%-24s %s'
                    % (e[:26], y, role, str(wine)[:24], f[:40]))
 

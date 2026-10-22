@@ -339,11 +339,30 @@ def _by_columns(path, pages):
         blocks.sort(key=lambda b: (col_of(b), round(b[1], 1), b[0]))
         out.append('\n'.join(b[4].strip() for b in blocks))
     d.close()
-    return '\n'.join(out)
+    return delig('\n'.join(out))
 
 
 def flat(path, pages=0):
     return _cached(('flat', path, pages), lambda: _flat(path, pages))
+
+
+# A PDF sets "fi" as one glyph and pymupdf hands it over as one
+# character, U+FB01. It renders in a browser, so nothing looks wrong -
+# but a search for "finesse" does not find "ﬁnesse", a regular
+# expression for a letter does not match it, and seven of them reached
+# the records before check-language named them one estate at a time.
+# Undone on the way in, where every reading passes.
+LIGATURES = ((u'ﬀ', 'ff'), (u'ﬁ', 'fi'), (u'ﬂ', 'fl'),
+             (u'ﬃ', 'ffi'), (u'ﬄ', 'ffl'), (u'ﬅ', 'st'),
+             (u'ﬆ', 'st'))
+
+
+def delig(text):
+    """The six Latin ligatures as the letters they stand for."""
+    for ch, rep in LIGATURES:
+        if ch in text:
+            text = text.replace(ch, rep)
+    return text
 
 
 def _flat(path, pages):
@@ -351,7 +370,7 @@ def _flat(path, pages):
     n = d.page_count if not pages else min(pages, d.page_count)
     t = ' '.join(d[i].get_text() for i in range(n))
     d.close()
-    return t
+    return delig(t)
 
 
 def unspace(text):
@@ -404,6 +423,10 @@ COMMON = set((
     'merlot cabernet sauvignon semillon verdot franc malbec muscadelle '
     'carmenere cote cotes coteaux terrasses hauts bas fleur fleurs '
     'tour tours croix mont monts').split())
+
+# The articles, which never begin a mark of their own: a pair starting
+# on one carries no more than the word after it.
+ARTICLES = set('le la les l d de du des et en au aux'.split())
 
 
 # "Second vin /Second wine : Les Chênes de Macquin" is a fact about the
@@ -532,6 +555,34 @@ def _mark_of(other, grand):
         if (len(p) >= 4 and p not in g and p not in COMMON
                 and re.search(r'[a-z]{3}', p)):
             return p
+    # No single word, then two together. "Le Petit Mouton de Mouton
+    # Rothschild" has none: "petit" is in COMMON, so that a mark never
+    # matches "2% Petit Verdot", and every other word of it is in
+    # Mouton Rothschild's own name. The mark came back as "le mouton de
+    # mouton rothschild", which no filename carries, and
+    # 2025-LE-PETIT-MOUTON-DE-MOUTON-ROTHSCHILD_Fiche-Vin-FR.pdf gave
+    # Mouton Rothschild 2025 its blend, its alcohol, its pH and the
+    # second wine's tasting note. "petit mouton" is distinctive, and
+    # says() requires the words whole and in order, so it cannot match
+    # Petit Verdot either.
+    # Neither word may be an article: a pair ending on one carries no
+    # more than the word before it, and "Reserve de la Comtesse" and
+    # "Les Fleurs de Malle" came back as "reserve de" and "fleurs de",
+    # which would match any wine in Bordeaux whose name begins that
+    # way.
+    for a, b in zip(words, words[1:]):
+        if packed(a) in ARTICLES or packed(b) in ARTICLES:
+            continue
+        # The second word has to be the distinctive one. A pair ending
+        # on a word half of Bordeaux uses is no mark: "D de Dauzac
+        # Blanc" gave "dauzac blanc", which its own sheets -
+        # FT_D_DE_DAUZAC_2022_FR.pdf - do not carry, and the white's
+        # fourteen sheets stopped being recognised as the white's.
+        if packed(b) in COMMON:
+            continue
+        pair = packed(a + b)
+        if len(pair) >= 8 and pair not in g and re.search(r'[a-z]{3}', pair):
+            return '%s %s' % (a.lower(), b.lower())
     # Otherwise the whole name, less the words that distinguish nothing,
     # since those are the ones a filename drops. "D de Dauzac Blanc"
     # becomes "d de dauzac", which its sheet and its filename both
@@ -1210,6 +1261,16 @@ PROSE_STOP = re.compile(
     r'date\s+de\s+mise\s+en\s+bouteille|mise\s+en\s+bouteille\s*:|'
     r'bottling\s+date|analyse\s|analyses\s*:|'
     r'harvest\s+time|dates?\s+de\s+vendanges?|'
+    # Pavie-Macquin's 2012 and 2013 season notes were its picking
+    # dates: "Dates de recolte : Merlots du 13 au 18 octobre Cabernets
+    # du 17 au 18 octobre Production". Those dates are read into pick,
+    # which is the field for them.
+    r'dates?\s+de\s+r[eé]colte|harvest\s+dates?\s*:|'
+    # The bare headings, in capitals, that Haut-Bailly sets over the
+    # next section: its 2021 season note ran into "VENDANGES C'est la
+    # premiere recolte vinifiee dans nos nouveaux chais" and its 2023
+    # into "VINS A la satisfaction des epreuves surmontees".
+    r'vendanges\s+[A-Z]|\bvins\s+[A-Z]|\bwines\s+[A-Z]|'
     # Coutet prints its whole technical block under the season heading,
     # with no colons anywhere: "VENDANGES ... DATES DE VENDANGES 14
     # septembre au 3 octobre 2011 NOMBRE DE PASSAGES 4 tries ...
@@ -1226,8 +1287,27 @@ PROSE_STOP = re.compile(
     r'p[eé]riode\s+de\s+d[eé]gustation|d[eé]cantation\s*:|'
     r'apog[eé]e\s+vers|drinking\s+window|'
     r'mise\s+en\s+bouteilles?|fermentation\s+en\s+barriques?|'
+    # The cellar block. Ripeau's 2015, 2016, 2017 and 2018 season
+    # notes were all the same text - "AU CHAI Vinification :
+    # Fermentation alcoolique a basse temperature pour preserver la
+    # fraicheur" - which is how the estate works every year and not
+    # what any one season did.
+    r'au\s+chai\b|vinification\s*:|fermentation\s+alcoolique|'
+    r'in\s+the\s+cellar\s*:|winemaking\s*:|'
     r'commentaires?\s+de\s+d[eé]gustation|'
+    # The bare heading, which is what Domaine de Chevalier prints over
+    # the tasting note: its 2014 and 2016 season notes both ran on into
+    # "DEGUSTATION Couleur profonde et soutenue". A capital follows a
+    # heading; in prose the word is followed by a lower-case one.
+    r'd[eé]gustation\s+[A-Z]|tasting\s+[A-Z]|'
     r'[eé]levage\s+\d+\s+mois|assemblage\s+\d{1,3}\s*%|'
+    # The same labels with a colon instead of a figure. Dauzac closes
+    # six season notes with "Assemblage : Cabernet Sauvignon 62 %,
+    # Merlot 38 %" and its 2002 with "Appellation : Margaux. Chateau :
+    # Chateau Dauzac. Surface en production : 42,00 hectares. Type de
+    # sol : Croupes de graves profondes de l'ere du quaternaire."
+    r'assemblage\s*:|appellation\s*:|type\s+de\s+sol|'
+    r'surface\s+en\s+production|ch[aâ]teau\s*:\s*ch[aâ]teau|'
     r'surface\s+area|viticulture\s+by\s+plot|'
     # The vineyard record, which a sheet prints in a column beside the
     # tasting note and which pymupdf interleaves with it line by line.
@@ -1273,8 +1353,20 @@ PROSE_STOP = re.compile(
     # Ferriere's 2015 opened on "RVF - 16 / 17 -"; Siaurac's 2017 ran
     # into "Le Vignoble TERROIR".
     r'technical\s+information|informations?\s+techniques?|'
-    r'varietals?\s*:|le\s+vignoble\b|the\s+vineyard\b|'
+    r'varietals?\s*:|'
+    # Siaurac's 2017 note ran into the heading "Le Vignoble TERROIR",
+    # so the heading went in the stop-list - and then cut Beychevelle's
+    # 2023 note at "n'a pas eu d'impact sur le vignoble de Chateau
+    # Beychevelle", which is a sentence about a vineyard and not a
+    # heading over a table. A heading is followed by another heading in
+    # capitals; prose is followed by "de".
+    r'le\s+vignoble\s+[A-Z]{3,}|the\s+vineyard\s+[A-Z]{3,}|'
     r'gault\s*&?\s*millau|\brvf\b|guide\s+hachette|'
+    # Beychevelle's 2013 tasting note ends at the critic who wrote it:
+    # "finale legerement vegetale pour le moment, mais elle se
+    # transformera en fraicheur. Bernard Burtschy - Le Figaro Ce 2013
+    # s'articule autour du triptyque suivant : 55% de cabernet".
+    r'le\s+figaro|burtschy|terre\s+de\s+vins|'
     r'\d{1,2}\s*/\s*20\b|'                  # a French twenty-point score
     r'pluviom[eé]trie|ensoleillement|amplitude\s+thermique|'
     # A score followed by a critic's initial, which is how Siaurac's
@@ -1534,8 +1626,22 @@ def read_prose(text):
             # TASTING Robe dense de couleur pourpre" behind.
             # \d* because Giscours runs the heading into a page number:
             # "TASTING5 2 20 74 IM PER TUR BAB LE Audacieux Bold Precis".
-            win = re.sub(r'^(?:TASTING|DEGUSTATION|D\u00c9GUSTATION|'
-                         r'VINTAGE|MILL\u00c9SIME)\d*\b[\s:/–—-]*', '', win)
+            # In capitals only, so a sentence opening on the word
+            # "millesime" is left alone - and repeatedly, because a
+            # sheet may print its heading twice. Beychevelle's 2023
+            # season note began "DE L'ANNEE MILLESIME 2023 CONDITIONS
+            # CLIMATIQUES DE L'ANNEE Un printemps qui demarre", the
+            # heading caught in the middle of its own repetition.
+            for _ in range(5):
+                shorter = re.sub(
+                    r'^(?:TASTING|DEGUSTATION|D\u00c9GUSTATION|VINTAGE|'
+                    r'MILL\u00c9SIME|MILLESIME|CONDITIONS\s+CLIMATIQUES|'
+                    r'CLIMATOLOGIE|DE\s+L[\u2019\']ANN\u00c9E|'
+                    r'DE\s+L[\u2019\']ANNEE|(?:19|20)\d\d)\d*\b'
+                    r'[\s:/–—-]*', '', win)
+                if shorter == win:
+                    break
+                win = shorter
             # A date stamp: Villemaurine's note opens "AU 05/06/2014 Chateau
             # Villemaurine 2009, presente une robe".
             win = re.sub(r'^(?:AU|AS\s+OF|AT)\s+\d{1,2}[/.]\d{1,2}[/.]\d{2,4}'

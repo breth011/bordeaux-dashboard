@@ -32,6 +32,15 @@ Exit code 1 if anything wants attention, so it can gate a commit.
 """
 import io, os, re, sys, json, subprocess, collections, datetime
 
+# The console here is cp1252 and the sheets are not. A check that dies
+# printing its own findings is worse than useless: this one got as far
+# as Brane-Cantenac and stopped on a combining acute accent, U+0301,
+# which some estate's PDF writes instead of the composed letter.
+try:
+    sys.stdout.reconfigure(encoding='utf-8', errors='replace')
+except Exception:
+    pass
+
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__))) + os.sep
 
 # Words that are French and are not English. A few can be chance - "la
@@ -345,13 +354,16 @@ print('%-10s %9d %9d %9d' % ('all', sum(counts.values()),
                              sum(counts.values()) - sum(missing.values()),
                              sum(missing.values())))
 
+# Sixteen of each is the right length for a check and the wrong length
+# for working through them. --all prints every row.
+SHOW = 10000 if '--all' in sys.argv else 16
 total = 0
 for kind, rows in fail.items():
     print('\n%s: %d' % (kind, len(rows)))
-    for r in rows[:16]:
+    for r in rows[:SHOW]:
         print('   ' + r)
-    if len(rows) > 16:
-        print('   ... and %d more' % (len(rows) - 16))
+    if len(rows) > SHOW:
+        print('   ... and %d more (pass --all)' % (len(rows) - SHOW))
     total += len(rows)
 if sum(missing.values()):
     print('\n%d prose fields have no Dutch yet' % sum(missing.values()))

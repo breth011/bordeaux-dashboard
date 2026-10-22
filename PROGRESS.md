@@ -8,7 +8,7 @@ One row per day, from `progress-history.tsv`.
 
 ```
    date         records   blend   taste    note     url      nl
-   2026-10-22      2210    1639     779     505     784     611
+   2026-10-22      2210    1639     782     505     784     610
 ```
 
 ## What is held
@@ -20,7 +20,7 @@ THE GRID: 468 estates x 44 vintages (1982-2025) = 20,592 cells
 field     what it is                         records    of of grid  1980s 1990s 2000s 2010s 2020s
                                                       recs       
 blend     the assemblage, variety by variety   1,639   74%   7.9%  0.8%  1.7%  5.6%  16.8% 16.6%
-taste     the tasting note                       779   35%   3.7%  1.1%  1.9%  4.0%  6.1%  5.6% 
+taste     the tasting note                       782   35%   3.7%  1.1%  1.9%  4.0%  6.1%  5.7% 
 note      the growing season                     505   23%   2.3%  0.6%  1.1%  1.8%  4.2%  4.6% 
 alc       alcohol                                868   39%   4.2%  0.7%  1.8%  3.4%  7.5%  8.5% 
 ph        pH                                     285   13%   1.4%  0.0%  0.0%  0.4%  2.5%  5.3% 
@@ -38,17 +38,12 @@ food      food pairing                            26    1%   0.1%  0.0%  0.0%  0
 ABOUT THE RECORD ITSELF:
    src    names the document it was read from            2,209  100% of records
    url    can link to that document in the app             784   35% of records
-   nl     has Dutch for its prose                          611   28% of records
-
-STILL TO MERGE - a document states it and no record holds it:
-   taste       30
-   note         1
-   (from reports/fiches-read.json; re-run tools/read-fiches.py --prose to refresh)
+   nl     has Dutch for its prose                          610   28% of records
 
 THE 61 CLASSIFIED GROWTHS, APART FROM THE LONG TAIL:
    field                            classified    the rest
    blend     the assemblage, variet  742   28%    897    5%
-   taste     the tasting note        473   18%    306    2%
+   taste     the tasting note        475   18%    307    2%
    note      the growing season      343   13%    162    1%
    alc       alcohol                 354   13%    514    3%
    ph        pH                      105    4%    180    1%
@@ -59,7 +54,7 @@ THE 61 CLASSIFIED GROWTHS, APART FROM THE LONG TAIL:
    59 of the 61 classified growths have at least one record
 
 WHOSE WORDS THE PROSE IS:
-   taste   601 the estate’s own English,  178 translated from its French
+   taste   604 the estate’s own English,  178 translated from its French
    note    342 the estate’s own English,  163 translated from its French
 
 14 fields are pinned absent - the document states something and it was judged not to belong
@@ -90,7 +85,7 @@ tasting note and growing season is absent across the estate’s records:
    duhart-milon                4    33    32    28     0     1      0
    latour                      1    38     0    37    38    38      0
    cantenac-brown              3    20    20     1     2     0      0
-   batailley                   5    21    18    13     2     5      2
+   batailley                   5    21    18    14     2     5      2
    issan                       3    13    12     0     0     0      0
    darmailhac                  5    14     2    14     0    13     23
    la-tour-carnet              4    13     9     4     0     3     10
@@ -99,8 +94,8 @@ tasting note and growing season is absent across the estate’s records:
    pichon-baron                2    24    24    24     0     0      0
    langoa-barton               3    11    11     0     0     0      0
    ferriere                    3    12    11     1     4     0      0
-   lafon-rochet                4    16    15    12     1    15      0
    haut-bages-liberal          5     9     8     0     0     0      0
+   lafon-rochet                4    16    15    13     1    15      0
    calon-segur                 3     8     6     0     1     0      0
    cantemerle                  5     9     9     1     1     1      0
    giscours                    3     9     9     0     2     1      9
@@ -163,7 +158,7 @@ tasting note and growing season is absent across the estate’s records:
    duhart-milon                4    33    32    28     0     1      0
    latour                      1    38     0    37    38    38      0
    cantenac-brown              3    20    20     1     2     0      0
-   batailley                   5    21    18    13     2     5      2
+   batailley                   5    21    18    14     2     5      2
    issan                       3    13    12     0     0     0      0
    darmailhac                  5    14     2    14     0    13     23
    la-tour-carnet              4    13     9     4     0     3     10
@@ -172,8 +167,8 @@ tasting note and growing season is absent across the estate’s records:
    pichon-baron                2    24    24    24     0     0      0
    langoa-barton               3    11    11     0     0     0      0
    ferriere                    3    12    11     1     4     0      0
-   lafon-rochet                4    16    15    12     1    15      0
    haut-bages-liberal          5     9     8     0     0     0      0
+   lafon-rochet                4    16    15    13     1    15      0
    calon-segur                 3     8     6     0     1     0      0
    cantemerle                  5     9     9     1     1     1      0
    giscours                    3     9     9     0     2     1      9

@@ -1452,6 +1452,21 @@ RX_TEMP = re.compile(
 # this specific.
 PROSE_STOP = re.compile(
     r'(?i)('
+    # The consent banner and the age gate, which a crawled page
+    # carries in its text. Lafon-Rochet 2019's tasting note was 913
+    # characters and 710 of them were this. Never a bare "cookie": an
+    # English note can say cookie dough, so each pattern carries the
+    # furniture around it.
+    r'politique\s+de\s+confidentialit|privacy\s+polic|'
+    r'nous\s+utilisons\s+des\s+cookies|we\s+use\s+cookies|'
+    r'pr[eé]f[eé]rences\s+en\s+mati[eè]re\s+de\s+cookies|'
+    r'cookie\s+(?:polic|settings|preferences|consent)|'
+    r'(?:accepte[rz]?|accept)\s+(?:all\s+|ces\s+)?'
+    r'(?:cookies|termes|terms)|'
+    r'terms\s+and\s+conditions|termes\s+et\s+conditions|'
+    r'[aâ]ge\s+l[eé]gal\s+d|legal\s+drinking\s+age|'
+    r'vous\s+devez\s+[eê]tre\s+[aâ]g|must\s+be\s+of\s+legal|'
+    r'outdated\s+browser|navigateur\s+obsol[eè]te|'
     r'jean-ren[eé]\s+matignon|pierre\s+mont[eé]gut|directeur\s+technique|'
     r'technical\s+(?:manager|director)\s*[-–]|'
     r'date\s+de\s+mise\s+en\s+bouteille|mise\s+en\s+bouteille\s*:|'

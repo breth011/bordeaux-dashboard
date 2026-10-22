@@ -11,6 +11,7 @@
    ========================================================================= */
 
 window.BDX_CUVEE_WINES = {
+'bourgeois-chateau-magnol':[{slug:'charmes-de-magnol',name:'Les Charmes de Magnol',role:'other',colour:'red'}],
 'batailley':[{slug:'lions-de-batailley',name:'Lions de Batailley',role:'second',colour:'red'}],
 'beychevelle':[{slug:'amiral-de-beychevelle',name:'Amiral de Beychevelle',role:'second',colour:'red'},{slug:'les-brulieres-de-beychevelle',name:'Les Brulières de Beychevelle',role:'other',colour:'red'}],
 'bourgeois-chateau-beaumont':[{slug:'les-tours-de-beaumont',name:'Les Tours de Beaumont',role:'second',colour:'red'}],

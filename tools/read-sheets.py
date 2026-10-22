@@ -182,50 +182,30 @@ for s, path in todo:
     if sr.role_is_reasoned(s):
         why['a role already decided, with the reason recorded'] += 1
         continue
-    press = sr.is_press_name(s['file'])
-    if press:
-        why['the filename says it is press'] += 1
-        s['role'], s['how'] = 'skip', 'the filename says ' + press
-        continue
-    if sr.is_dossier(path):
-        why['a press dossier, not a vintage’s sheet'] += 1
-        s['role'] = 'skip'
-        continue
-    if sr.is_second_wine(path):
-        why['the document calls itself the second wine'] += 1
-        s['role'] = 'second'
-        continue
     g = grand.get(s['estate'], '')
-    spells = sr.names_other_chateau(s['file'], g,
-                                    others.get(s['estate'], []),
-                                    second.get(s['estate']))
-    if spells:
-        why['the filename names another château'] += 1
-        s['role'], s['how'] = 'other', 'the filename says ' + spells
-        s['wine'] = spells
+    # One guard chain, in sheetreader, for this reader and the other
+    # two. It returns the role and the wine as well as the reason, so
+    # the manifest records whose sheet it is and not merely that it is
+    # not this one.
+    not_ours = sr.whose_sheet(path, s['file'], g,
+                              others.get(s['estate'], []),
+                              second.get(s['estate']),
+                              cat.get(s['estate']), s.get('year'))
+    if not_ours:
+        why[not_ours['why'].split(':')[0]] += 1
+        s['role'], s['how'] = not_ours['role'], not_ours['why']
+        if not_ours['wine']:
+            s['wine'] = not_ours['wine']
         continue
+    # Not a refusal, but worth recording. Camensac and Desmirail print
+    # their name in a logo, so no extraction finds it; the folder is
+    # the only evidence there is, and the manifest says so rather than
+    # pretending otherwise.
     whose = sr.confirms_estate(path, s['file'], g,
                                others.get(s['estate'], []))
-    if whose == 'other':
-        why['the sheet names a sibling property, not this estate'] += 1
-        s['role'], s['how'] = 'unknown', 'another property'
-        continue
     if whose == 'folder':
-        # Camensac and Desmirail print their name in a logo, so no
-        # extraction finds it. The folder is the only evidence there is,
-        # and the manifest says so rather than pretending otherwise.
         s['how'] = s.get('how') or 'from the folder, which serves one estate'
         why['named nowhere in the document; the folder is the only evidence'] += 1
-    named = None
-    for nm in others.get(s['estate'], []):
-        if sr.names_another_wine(path, s['file'], g, nm):
-            named = nm
-            break
-    if named:
-        why['the sheet names another of the estate’s wines'] += 1
-        s['role'] = 'second' if named == second.get(s['estate']) else 'other'
-        s['wine'] = named
-        continue
     if key in PINNED:
         why['pinned: the sheet is wrong and the record is right'] += 1
         continue

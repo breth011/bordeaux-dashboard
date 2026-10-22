@@ -189,27 +189,33 @@ def estates(root):
             if nxt:
                 win = win[:nxt.start()]
             e = out.setdefault(m.group(1), {'name': None, 'second': None,
-                                            'cuvees': [], 'cat': None})
+                                            'cuvees': [], 'cat': None,
+                                            'app': None})
             nm = js_strings_after('name:', win)
             sc = js_strings_after('second:', win)
             ct = js_strings_after('cat:', win)
+            ap = js_strings_after('appellation:', win)
             if nm and not e['name']:
                 e['name'] = nm[0]
             if sc and not e['second']:
                 e['second'] = sc[0]
             if ct and not e['cat']:
                 e['cat'] = ct[0]
+            if ap and not e.get('app'):
+                e['app'] = ap[0]
     # The sparse lists. app.js builds these estates' ids itself, from
     # `cls + '-' + slug(name)` - so most of the dashboard's estates are
     # named nowhere as `id:'...', name:'...'`, and a loader that only
     # looked for that pattern found 160 of them instead of 500. Those
     # ids have to be derived the same way here or every one of their
     # sheets looks unattributable.
-    sparse = [('crubourgeois.js', 'BDX_CRU_BOURGEOIS', 'bourgeois'),
-              ('cruartisan.js', 'BDX_CRU_ARTISAN', 'artisan'),
-              ('saintemilion.js', 'BDX_STEM_GCC', 'stem'),
-              ('pomerol.js', 'BDX_POMEROL_OTHER', 'pomerol')]
-    for f, var, cls in sparse:
+    sparse = [('crubourgeois.js', 'BDX_CRU_BOURGEOIS', 'bourgeois',
+               None),
+              ('cruartisan.js', 'BDX_CRU_ARTISAN', 'artisan', None),
+              ('saintemilion.js', 'BDX_STEM_GCC', 'stem',
+               'Saint-Émilion'),
+              ('pomerol.js', 'BDX_POMEROL_OTHER', 'pomerol', 'Pomerol')]
+    for f, var, cls, only in sparse:
         p = os.path.join(root, 'data', f)
         if not os.path.exists(p):
             continue
@@ -233,24 +239,31 @@ def estates(root):
         # there are rows, the estate's name is the first string of each;
         # where the list is flat, every string is an estate.
         rows = re.findall(r'\[([^\[\]]*)\]', body)
-        names = ([js_strings(r)[:1] for r in rows] if rows
+        # A row is ['name', 'appellation']; a bare list is names only,
+        # and then the file says which appellation they are all in.
+        names = ([js_strings(r)[:2] for r in rows] if rows
                  else [[n] for n in js_strings(body)])
         for pair in names:
-            for nm in pair:
+            app = pair[1] if len(pair) > 1 else only
+            for nm in pair[:1]:
                 if not nm or len(nm) < 5 or nm[0].islower():
                     continue
                 e = out.setdefault(cls + '-' + slug(nm),
                                    {'name': None, 'second': None,
-                                    'cuvees': [], 'cat': None})
+                                    'cuvees': [], 'cat': None,
+                                    'app': None})
                 if not e['name']:
                     e['name'] = nm
+                if app and not e.get('app'):
+                    e['app'] = app
 
     p = os.path.join(root, 'data', 'cuvees.js')
     if os.path.exists(p):
         t = io.open(p, encoding='utf-8').read()
         for m in re.finditer(r"^'([a-z0-9-]+)':\[(.*)\],?$", t, re.M):
             e = out.setdefault(m.group(1), {'name': None, 'second': None,
-                                            'cuvees': [], 'cat': None})
+                                            'cuvees': [], 'cat': None,
+                                            'app': None})
             # Built from JSSTR rather than written out again, so the
             # escape handling lives in one place and cannot drift.
             e['cuvees'] = js_strings_after('name:', m.group(2))
@@ -1328,6 +1341,16 @@ PROSE_STOP = re.compile(
     r'\d{5}\s+[A-Z][a-z]|'                  # a postcode and town
     r'scea\b|earl\b|sas\b|gfa\b|'           # the company
     r'accords?\s+mets|food\s+pairing|'      # belongs in food
+    # "Food Matches:" is the label Magnol uses, and behind it its 2019
+    # sheet prints two recipes in full - prunes wrapped in bacon, beef
+    # pirogis, with the oven temperatures - all of which was in the
+    # tasting note. The pairing itself is read into food.
+    r'food\s+match(?:es)?|recipe\s+n|cooking\s+time|'
+    r'preparation\s*:|ingredients\s*\.|'
+    # L'Evangile's 2011 season note ran into "WINE MAKING SCHEME
+    # Alcoholic fermentation took place in temperature-controlled
+    # concrete vats".
+    r'wine\s*making\s+scheme|'
     # Dauzac prints its own appendices under the tasting note, and four
     # vintages carried them: 2013 ran into "PERIODE DE CONSOMMATION
     # 2017 - 2030 NOS SUGGESTIONS - Viande blanche", 2017 and 2024 into
@@ -1890,12 +1913,94 @@ def year_said(year, filename, text=None):
     return None
 
 
+# Bordeaux's appellations, and the ways a sheet writes each one.
+# Matched longest pattern first, so a compound name wins over the
+# parent inside it.
+APPS = {
+    'Montagne-Saint-Émilion':
+        r'montagne[\s-]+saint[\s-]*[eé]milion',
+    'Lussac-Saint-Émilion': r'lussac[\s-]+saint[\s-]*[eé]milion',
+    'Puisseguin-Saint-Émilion':
+        r'puisseguin[\s-]+saint[\s-]*[eé]milion',
+    'Saint-Georges-Saint-Émilion':
+        r'saint[\s-]+georges[\s-]+saint[\s-]*[eé]milion',
+    'Lalande-de-Pomerol': r'lalande[\s-]*(?:de)?[\s-]*pomerol',
+    'Canon-Fronsac': r'canon[\s-]+fronsac',
+    'Saint-Émilion': r'(?:st|saint)[\s.-]*[eé]milion',
+    'Pomerol': r'pomerol',
+    'Pauillac': r'pauillac',
+    'Margaux': r'margaux',
+    'Saint-Julien': r'(?:st|saint)[\s.-]*julien',
+    'Saint-Estèphe': r'(?:st|saint)[\s.-]*est[eè]phe',
+    'Moulis-en-Médoc': r'moulis(?:[\s-]+en[\s-]+m[eé]doc)?',
+    'Listrac-Médoc': r'listrac(?:[\s-]+m[eé]doc)?',
+    'Pessac-Léognan': r'pessac[\s-]+l[eé]ognan',
+    'Sauternes': r'sauternes',
+    'Barsac': r'barsac',
+    'Cérons': r'c[eé]rons',
+    'Fronsac': r'fronsac',
+    'Castillon': r'castillon',
+    'Blaye': r'blaye',
+    'Côtes de Bourg': r'c[oô]tes\s+de\s+bourg',
+    'Entre-deux-Mers': r'entre[\s-]+deux[\s-]+mers',
+    'Loupiac': r'loupiac',
+    'Sainte-Croix-du-Mont':
+        r'sainte?[\s-]+croix[\s-]+du[\s-]+mont',
+    'Cadillac': r'cadillac',
+    'Haut-Médoc': r'haut[\s-]+m[eé]doc',
+    'Médoc': r'm[eé]doc',
+    'Graves': r'graves',
+    'Bordeaux Supérieur': r'bordeaux\s+sup[eé]rieur',
+    'Bordeaux': r'bordeaux',
+    'Vin de France': r'vin\s+de\s+france',
+}
+# A parent region or a catch-all, which any estate may print and which
+# therefore convicts nobody: Dauzac's 2008 note says "its rank as a Cru
+# Classe of the Medoc", and Dauzac is Margaux.
+APP_GENERIC = set(['Haut-Médoc', 'Médoc', 'Graves', 'Bordeaux',
+                   'Bordeaux Supérieur', 'Vin de France'])
+APP_ORDER = sorted(APPS, key=lambda k: -len(APPS[k]))
+APP_RX = dict((k, re.compile(r'(?i)(?<![a-z])' + APPS[k] + r'(?![a-z])'))
+              for k in APPS)
+
+
+def apps_in(text):
+    """Which appellations a text names, compounds before their parents.
+
+    "Lalande de Pomerol" is Lalande-de-Pomerol and not Pomerol, so a
+    match claims its span and a shorter name inside that span does not
+    count.
+    """
+    found, taken = [], []
+    for k in APP_ORDER:
+        for m in APP_RX[k].finditer(text or ''):
+            if any(m.start() < e and m.end() > s for s, e in taken):
+                continue
+            taken.append((m.start(), m.end()))
+            found.append(k)
+            break
+    return found
+
+
+def app_canon(name):
+    """An appellation as written, reduced to one of the canonical names."""
+    got = apps_in(name)
+    return got[0] if got else None
+
+
 # A filename that says the document is press. is_dossier reads the body
 # and catches a press pack by its contents; this catches the ones whose
 # contents are a magazine page - a review, a listing, a clipping - and
 # whose only tell is the name they were filed under.
 PRESS_NAME = re.compile(r'(?i)(?<![a-z])('
                         r'revue[-_ ]?de[-_ ]?presse|press[-_ ]?review|'
+                        # Clerc-Milon's planting came off
+                        # Dossier-de-Presse-Chateau-Clerc-Milon_2025,
+                        # which "presse" catches, and then off
+                        # Press-Kit-Chateau-Clerc-Milon_2025, which it
+                        # did not: the same document in English.
+                        r'press[-_ ]?kit|dossier[-_ ]?de[-_ ]?presse|'
+                        r'media[-_ ]?kit|'
                         r'tv[-_ ]?magazine|magazine|gault|millau|'
                         r'figaro|sud[-_ ]?ouest|terre[-_ ]?de[-_ ]?vins|'
                         r'rvf|wine[-_ ]?spectator|wine[-_ ]?enthusiast|'
@@ -1993,6 +2098,69 @@ def names_other_chateau(filename, grand, others=(), second=None):
     return ' '.join(spelled)
 
 
+def whose_sheet(path, filename=None, grand=None, others=(), second=None,
+                cat=None, year=None):
+    """Is this sheet the estate's grand vin for this vintage?
+
+    None when it is. Otherwise a dict with
+
+        why   what is wrong with it, in words fit for a report
+        role  what the manifest should call it: skip, second, other,
+              unknown
+        wine  the other wine's name, where a guard identified one
+
+    The order is the one each guard earned. Cheap filename tests before
+    anything opens the document; the vintage first of all, because a
+    sheet filed under a year nothing states is not evidence for that
+    year whoever's wine it is; then the document's own claims.
+    """
+    filename = filename or os.path.basename(path)
+    try:
+        if year and not year_said(year, filename):
+            if not year_said(year, filename,
+                             ' '.join(flat(path).split())):
+                return {'why': 'nothing states this vintage',
+                        'role': 'unknown', 'wine': None}
+        press = is_press_name(filename)
+        if press:
+            return {'why': 'the filename says it is press: %s' % press,
+                    'role': 'skip', 'wine': None}
+        spells = names_other_chateau(filename, grand, others, second)
+        if spells:
+            return {'why': 'the filename names another château: %s'
+                           % spells, 'role': 'other', 'wine': spells}
+        abbrev = abbreviates_other_wine(filename, grand, others)
+        if abbrev:
+            return {'why': 'the filename abbreviates another of the '
+                           'estate’s wines: %s' % abbrev,
+                    'role': 'other', 'wine': abbrev}
+        if wrong_colour(filename, None, cat):
+            return {'why': 'the filename says another colour',
+                    'role': 'other', 'wine': None}
+        if is_dossier(path):
+            return {'why': 'a press dossier, not a vintage’s sheet',
+                    'role': 'skip', 'wine': None}
+        # The blend reader has asked this since it was written and the
+        # field reader never did: a document that calls itself the
+        # second wine is the second wine's, whatever its filename says.
+        if is_second_wine(path):
+            return {'why': 'the document calls itself the second wine',
+                    'role': 'second', 'wine': second}
+        for nm in (second,) + tuple(others or ()):
+            if nm and names_another_wine(path, filename, grand, nm):
+                return {'why': 'the sheet names another of the '
+                               'estate’s wines: %s' % nm,
+                        'role': ('second' if nm == second else 'other'),
+                        'wine': nm}
+        if confirms_estate(path, filename, grand, others) == 'other':
+            return {'why': 'the sheet names a sibling property',
+                    'role': 'unknown', 'wine': None}
+    except Exception as e:
+        return {'why': 'a guard could not read it: %s' % str(e)[:40],
+                'role': 'unknown', 'wine': None}
+    return None
+
+
 def fields_of(path, grand=None, others=(), second=None, cat=None,
               filename=None, year=None):
     """Everything a sheet states, or nothing if it is not this wine's.
@@ -2008,42 +2176,12 @@ def fields_of(path, grand=None, others=(), second=None, cat=None,
     sentence without opening the document again.
     """
     filename = filename or os.path.basename(path)
-    try:
-        if year and not year_said(year, filename):
-            try:
-                if not year_said(year, filename,
-                                 ' '.join(flat(path).split())):
-                    return {}, {'refused': 'nothing states this vintage'}
-            except Exception:
-                return {}, {'refused': 'nothing states this vintage'}
-        if is_press_name(filename):
-            return {}, {'refused': 'the filename says it is press'}
-        if is_dossier(path):
-            return {}, {'refused': 'a press dossier, not a vintage’s sheet'}
-        # Every wine the estate is recorded as making, not only the
-        # second. This tested `second` alone, and Clos Puy Arnaud's
-        # Fiche-technique-VIB-2024-FR.pdf - "CLOS PUY ARNAUD VIBRATO
-        # 2024 VIN DE FRANCE" - gave the grand vin its pH and its
-        # picking date, although Vibrato has been in the estate's
-        # cuvees all along. The blend reader has looped over them since
-        # it was written; this one never did.
-        for nm in (second,) + tuple(others or ()):
-            if nm and names_another_wine(path, filename, grand, nm):
-                return {}, {'refused': 'the sheet names another of the '
-                                       'estate’s wines'}
-        other_wine = abbreviates_other_wine(filename, grand, others)
-        if other_wine:
-            return {}, {'refused': 'the filename abbreviates another of '
-                                   'the estate’s wines'}
-        if names_other_chateau(filename, grand, others, second):
-            return {}, {'refused': 'the filename names another '
-                                   'château'}
-        if wrong_colour(filename, None, cat):
-            return {}, {'refused': 'the filename says another colour'}
-        if confirms_estate(path, filename, grand, others) == 'other':
-            return {}, {'refused': 'the sheet names a sibling property'}
-    except Exception as e:
-        return {}, {'refused': 'a guard could not read it: %s' % str(e)[:40]}
+    # Every reason a sheet is not this wine's lives in one place now,
+    # so a guard added for one reader applies to all three.
+    not_ours = whose_sheet(path, filename, grand, others, second, cat,
+                           year)
+    if not_ours:
+        return {}, {'refused': not_ours['why']}
 
     try:
         text = ' '.join(flat(path).split())

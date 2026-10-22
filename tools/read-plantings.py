@@ -178,9 +178,16 @@ def main():
         # planted SB72/SEM28 - a Sauvignon and a Semillon - from
         # FT-Chateau-La-Tour-Carnet-blanc-2019-FR.pdf, at an estate
         # whose red is 62% Merlot.
-        cat = (E.get(eid) or {}).get('cat')
+        e = E.get(eid) or {}
+        # The whole chain, the same one read-fiches and read-sheets
+        # use, so a guard written once applies here too. No year: a
+        # planting is the vineyard's and not a vintage's, so a sheet
+        # filed under a year nothing states still describes the
+        # vineyard it describes.
         try:
-            if sr.wrong_colour(os.path.basename(p), None, cat):
+            if sr.whose_sheet(p, s['file'], e.get('name'),
+                              e.get('cuvees') or (), e.get('second'),
+                              e.get('cat')):
                 continue
         except Exception:
             pass

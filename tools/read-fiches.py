@@ -90,6 +90,25 @@ import sheetreader as sr
 # that is wrong is wrong in one place.
 
 
+# Fields the reader must not write, with the reason. A deleted field
+# leaves no mark, so without this the next --redo writes it back: both
+# of these were removed and both came straight back.
+#
+# This is read-sheets' PINNED, for prose.
+REFUSED = {
+    ('ducru-beaucaillou|2018', 'note'):
+        'not a season note: the sheet prints the estate’s motto - '
+        '"Nihil sine sole, nihil sine labore", rien sans le soleil, rien '
+        'sans le travail - and then a paragraph on how the pump-overs '
+        'were reduced as the density fell, which is how the wine was '
+        'made and not what the year did',
+    ('stem-chateau-peby-faugeres|2022', 'note'):
+        'not a season note: a press release about the bottle engraved '
+        'for the estate’s twenty-fifth harvest, naming Silvio Denz, '
+        'Corinne Guisez and Michel Rolland, with the weather nowhere in '
+        'it',
+}
+
 def main():
     ap = argparse.ArgumentParser()
     ap.add_argument('--estate', action='append', default=[])
@@ -309,6 +328,7 @@ def main():
             undone.values()))
 
     wrote = collections.Counter()
+    refused = collections.Counter()
     for i, line in enumerate(lines):
         m = re.match(r"^'([a-z0-9-]+)\|(\d{4})':\{(.*)\},$", line)
         if not m:
@@ -321,6 +341,9 @@ def main():
         add, pk = [], '%s|%s' % key
         for f, (v, src) in sorted(best[key].items()):
             if f in held:          # never overwrite
+                continue
+            if (pk, f) in REFUSED:
+                refused[f] += 1
                 continue
             add.append(render(f, v))
             prov.setdefault(pk, {})[f] = src
@@ -343,7 +366,10 @@ def main():
     for key in fresh:
         pk = '%s|%s' % key
         who = collections.Counter(s for v, s in best[key].values())
-        add = [render(f, v) for f, (v, s) in sorted(best[key].items())]
+        add = [render(f, v) for f, (v, s) in sorted(best[key].items())
+               if (pk, f) not in REFUSED]
+        if not add:
+            continue
         add.append("src:'%s'" % who.most_common(1)[0][0])
         made.append("'%s':{%s}," % (pk, ','.join(add)))
         for f, (v, s) in best[key].items():
@@ -380,6 +406,9 @@ def main():
     o.write('};\n')
     o.close()
 
+    if refused:
+        print('\n%d field values the pin list refuses: %s'
+              % (sum(refused.values()), dict(refused)))
     if made:
         print('\n%d records created for vintages that had none'
               % len(made))

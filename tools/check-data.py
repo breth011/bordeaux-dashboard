@@ -443,8 +443,64 @@ if PLANTINGS:
             continue
         plant_hits.append((eid, same, planted))
 
+# ---------------------------------------------------------------------
+# THE APPELLATION THE SHEET STATES, against the one the estate is
+# recorded in. The strongest evidence there is for the defect that
+# keeps coming back - one owner's whole range in one folder - and the
+# reason it is a report rather than a guard is written beside apps_in
+# in sheetreader: it refuses thirty good sheets to catch four bad ones.
+#
+# What it caught on its first run, and what is now marked in the
+# manifest: Barton & Guestier's MARGAUX, BORDEAUX BLANC, Cremant de
+# Bordeaux and Cremant de Bourgogne, all in Chateau Magnol's folder,
+# which had given Magnol seven of its nine records - the three months
+# in the 2011 record came from a sparkling Chardonnay.
+app_hits = []
+if known:
+    _where = {}
+    for _root, _dirs, _files in os.walk(ROOT + 'sources'):
+        for _f in _files:
+            _where.setdefault(_f, os.path.join(_root, _f))
+else:
+    _where = {}
+for s in sheets.values():
+    if s.get('role') not in ('grand', 'combined'):
+        continue
+    eid, yr = s.get('estate'), s.get('year')
+    if not (eid and yr):
+        continue
+    e = (known or {}).get(eid) or {}
+    mine = _sr.app_canon(e.get('app'))
+    if not mine:
+        continue
+    p = _where.get(s['file'])
+    if not (p and p.lower().endswith('.pdf')):
+        continue
+    try:
+        text = ' '.join(_sr.flat(p).split())
+    except Exception:
+        continue
+    named = _sr.apps_in(text[:2500])
+    if not named or mine in named:
+        continue
+    others = [a for a in named if a not in _sr.APP_GENERIC]
+    if len(set(others)) != 1 or _sr.APP_RX[mine].search(text):
+        continue
+    app_hits.append((eid, str(yr), e.get('app'), others[0], s['file']))
+
 print('%d records, %d with a blend, %d sheets in the manifest'
       % (len(recs), len(blends), len(sheets)))
+
+if app_hits:
+    print('\n%d sheets state an appellation the estate is not recorded '
+          'in.\nEither the sheet is another property\u2019s or the '
+          'appellation on record is wrong, and\nwhich it is wants a '
+          'person, not a rule:' % len(app_hits))
+    for eid, yr, mine, said, f in sorted(app_hits)[:18]:
+        print('   %-30s %s  on record %-16s sheet says %-18s %s'
+              % (eid[:30], yr, (mine or '?')[:16], said[:18], f[:34]))
+    if len(app_hits) > 18:
+        print('   ... and %d more' % (len(app_hits) - 18))
 
 if plant_hits:
     print('\n%d estates have a vintage whose blend is exactly what the '

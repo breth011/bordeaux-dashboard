@@ -8,7 +8,7 @@ One row per day, from `progress-history.tsv`.
 
 ```
    date         records   blend   taste    note     url      nl
-   2026-10-22      2210    1639     782     505     784     609
+   2026-10-22      2210    1639     782     505     784     643
 ```
 
 ## What is held
@@ -38,7 +38,7 @@ food      food pairing                            24    1%   0.1%  0.0%  0.0%  0
 ABOUT THE RECORD ITSELF:
    src    names the document it was read from            2,209  100% of records
    url    can link to that document in the app             784   35% of records
-   nl     has Dutch for its prose                          609   28% of records
+   nl     has Dutch for its prose                          643   29% of records
 
 THE 61 CLASSIFIED GROWTHS, APART FROM THE LONG TAIL:
    field                            classified    the rest

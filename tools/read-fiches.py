@@ -143,6 +143,35 @@ REFUSED = {
         'says so - millesime-2020-du-chateau-giscours. The manifest filed '
         'it under the day it went up, which is how a vintage came to be '
         'read off a publication date',
+    ('batailley|2019', 'window'):
+        'not a drinking window: a sentence of the tasting note that ends on '
+        'the words keeping potential, which the label reads as a heading',
+    ('bourgeois-chateau-moulin-de-canhaut|2018', 'food'):
+        'not a food pairing: marketing copy for another wine, INSULA '
+        '“Amphora”, on antioxidants, with the c dropped out of concentrated '
+        'by whatever extracted it',
+    ('branaire-ducru|2011', 'window'):
+        'not a drinking window: the tasting note\'s verdict on the vintage, '
+        'ending on keeping potential',
+    ('dauzac|2008', 'window'):
+        'not a drinking window: the nose, from the tasting note - '
+        'liquorice, camphor, grill smoke and spice',
+    ('figeac|2021', 'window'):
+        'not a drinking window: a remark that the young vintages drink '
+        'well, which names no year and no span',
+    ('guiraud|2022', 'window'):
+        'not a drinking window: the tasting note\'s finish, ending on '
+        'keeping potential',
+    ('margaux|2022', 'food'):
+        'not a food pairing: the page\'s share button and its invitation to '
+        'visit - “Vous pouvez partager cette page Vous souhaitez nous '
+        'rendre visite ?”',
+    ('montrose|2017', 'window'):
+        'not a drinking window: the tasting note\'s verdict, ending on '
+        'keeping potential',
+    ('olivier|2019', 'window'):
+        'not a drinking window: a sentence about glutathione, ending on '
+        'keeping potential',
 }
 
 def _refresh_progress():

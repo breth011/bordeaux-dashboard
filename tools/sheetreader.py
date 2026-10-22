@@ -2202,7 +2202,12 @@ ADVICE = (
 # Villemaurine PROPRIETAIRE : Justin Onclin"), or the tasting note
 # itself ("2023 et 2042. Le 2020 Badette presente une robe grenat").
 ADVICE_STOP = re.compile(
-    r'(?i)(p[eé]riode\s+de\s+d[eé]gustation|d[eé]cantation|carafage|'
+    r'(?i)('
+    # The shop's own table, printed under the advice. Caillou's 2019
+    # window is "10 a 12 ans apres la recolte" and ran on into
+    # "Informations complementaires Poids ND Degre alcoolique".
+    r'informations\s+compl[eé]mentaires|additional\s+information|'
+    r'poids\s+ND\b|p[eé]riode\s+de\s+d[eé]gustation|d[eé]cantation|carafage|'
     r'accords?\s+mets|temp[eé]rature|best\s+between|'
     r'conditions?\s+climatiques?|somme\s+des\s+|'
     r'commentaires?\s+de\s+d[eé]gustation|assemblage|enc[eé]pagement|'

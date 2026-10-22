@@ -8,7 +8,7 @@ One row per day, from `progress-history.tsv`.
 
 ```
    date         records   blend   taste    note     url      nl
-   2026-10-22      2210    1639     782     505     784     610
+   2026-10-22      2210    1639     782     505     784     609
 ```
 
 ## What is held
@@ -31,14 +31,19 @@ pick      picking dates                          743   34%   3.4%  0.8%  1.5%  2
 harvest   harvest, as the sheet words it         154    7%   0.7%  0.1%  0.3%  0.7%  1.4%  1.5% 
 temp      serving temperature                     60    3%   0.3%  0.0%  0.0%  0.3%  0.6%  0.5% 
 wy        drinking window, as years               22    1%   0.1%  0.0%  0.0%  0.1%  0.2%  0.3% 
-window    drinking window, in words               21    1%   0.1%  0.0%  0.0%  0.1%  0.2%  0.2% 
+window    drinking window, in words               14    1%   0.1%  0.0%  0.0%  0.1%  0.1%  0.1% 
 decant    decanting                               13    1%   0.1%  0.0%  0.0%  0.1%  0.1%  0.0% 
-food      food pairing                            26    1%   0.1%  0.0%  0.0%  0.0%  0.4%  0.1% 
+food      food pairing                            24    1%   0.1%  0.0%  0.0%  0.0%  0.4%  0.1% 
 
 ABOUT THE RECORD ITSELF:
    src    names the document it was read from            2,209  100% of records
    url    can link to that document in the app             784   35% of records
-   nl     has Dutch for its prose                          610   28% of records
+   nl     has Dutch for its prose                          609   28% of records
+
+STILL TO MERGE - a document states it and no record holds it:
+   taste       24
+   note         1
+   (from reports/fiches-read.json; re-run tools/read-fiches.py --prose to refresh)
 
 THE 61 CLASSIFIED GROWTHS, APART FROM THE LONG TAIL:
    field                            classified    the rest
@@ -57,7 +62,7 @@ WHOSE WORDS THE PROSE IS:
    taste   604 the estate’s own English,  178 translated from its French
    note    342 the estate’s own English,  163 translated from its French
 
-14 fields are pinned absent - the document states something and it was judged not to belong
+23 fields are pinned absent - the document states something and it was judged not to belong
 
 122 estates have a recorded planting, which is the vineyard’s and not a vintage’s
 
@@ -132,7 +137,10 @@ tasting note and growing season is absent across the estate’s records:
    gc    the 1855 or Graves rank, where recorded
    recs  records this estate has
    link  records whose source has an address, so the app can link
-   spare documents the manifest holds for a vintage with no record
+   spare documents the manifest holds for a vintage with no record.
+         Not a worklist: asked of all 124 of them, 110 state none of
+         these fields and the three that state anything are one site
+         blurb standing over 25 vintages. read-fiches.py is what asks.
 ```
 
 ## A row each, for the classified growths
@@ -205,5 +213,8 @@ tasting note and growing season is absent across the estate’s records:
    gc    the 1855 or Graves rank, where recorded
    recs  records this estate has
    link  records whose source has an address, so the app can link
-   spare documents the manifest holds for a vintage with no record
+   spare documents the manifest holds for a vintage with no record.
+         Not a worklist: asked of all 124 of them, 110 state none of
+         these fields and the three that state anything are one site
+         blurb standing over 25 vintages. read-fiches.py is what asks.
 ```

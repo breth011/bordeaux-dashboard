@@ -487,7 +487,10 @@ def main():
         print('   gc    the 1855 or Graves rank, where recorded')
         print('   recs  records this estate has')
         print('   link  records whose source has an address, so the app can link')
-        print('   spare documents the manifest holds for a vintage with no record')
+        print('   spare documents the manifest holds for a vintage with no record.')
+        print('         Not a worklist: asked of all 124 of them, 110 state none of')
+        print('         these fields and the three that state anything are one site')
+        print('         blurb standing over 25 vintages. read-fiches.py is what asks.')
 
 
 

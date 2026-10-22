@@ -202,6 +202,36 @@ VINTAGE = [
      'a filename with no year at all states nothing either way'),
 ]
 
+# (filename, is it a crawled page, the term that makes it press or
+# None, note)
+#
+# A crawled page is named after its URL path, so a word in its name
+# may be the estate's own section rather than anything about the
+# document. A name somebody typed has no such excuse.
+PRESS = [
+    ('1971__article-1971-une-revelation.txt', True, None,
+     'chateau-figeac.com/article/ is Figeac\u2019s own section, and '
+     '1964, 1971 and 2020 had their blend read out of these pages'),
+    ('2021__en-article-terre-de-vins-mars-2021.txt', True,
+     'terre-de-vins',
+     'a page can still be press; waiving `article` leaves the term '
+     'that is the actual evidence'),
+    ('Article-Sud-Ouest-22-juin-2021.pdf', False, 'Article',
+     'somebody typed this name, and meant it'),
+    ('Article-Vigneron-magazine.pdf', False, 'Article', 'likewise'),
+    ('MdT-2017-Fiche-technique-Revue-de-Presse-Marquis-de-Terme.pdf',
+     False, None,
+     'the estate binds the sheet and the press review together and '
+     'names both; nine vintages sat at role skip on the second half'),
+    ('FT-CAM-2023-FR-EN-note-JS-et-Terre-de-vins.pdf', False, None,
+     'FT is fiche technique, with a critic\u2019s note printed after '
+     'it'),
+    ('Dossier-de-Presse-Chateau-Clerc-Milon_2025.pdf', False,
+     'Dossier-de-Presse', 'a dossier describes a property'),
+    ('Press-Kit-Chateau-Clerc-Milon_2025.pdf', False, 'Press-Kit',
+     'the same document in English, which `presse` did not catch'),
+]
+
 SECOND = [
     ('belgrave-2023-fc11b611.pdf', True,
      'SE C O N D VI N D U CH AT EA U BE LG RA V E, chunk-spaced'),
@@ -385,6 +415,15 @@ for eid, name, yr, want, note in VINTAGE:
     print('%-4s vintage %-46s %-22s %s'
           % ('ok' if ok else 'FAIL', name[:46],
              '%s -> %s' % (yr, got), '' if ok else '!= ' + str(want)))
+
+for name, pg, want, note in PRESS:
+    # The name only, so these pass on a fresh clone.
+    got = sr.is_press_name(name, page=pg)
+    ok = (got or None) == (want or None)
+    fails += 0 if ok else 1
+    print('%-4s press   %-46s %-22s %s'
+          % ('ok' if ok else 'FAIL', name[:46], str(got)[:22],
+             '' if ok else '!= ' + str(want)))
 
 print('\n%s' % ('all pass' if not fails else '%d FAILED' % fails))
 sys.exit(1 if fails else 0)

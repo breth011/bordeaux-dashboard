@@ -64,6 +64,13 @@ MANIFEST = ROOT + 'data/sources.json'
 # A role the guards put a document into. Everything else - grand,
 # combined, page - is a document already in use.
 REFUSED = ('skip', 'other', 'second', 'unknown')
+# Of those, the two that mean refused rather than identified. `second`
+# and `other` say which wine a document is for, which is knowledge the
+# filename guards do not have: chateaux.js does not name Fleur de
+# Badette, so nothing objects to Fleur-de-Badette-2021-FR.pdf and
+# silence there means ignorance, not availability. `skip` and
+# `unknown` carry no such claim.
+UNREAD = ('skip', 'unknown')
 # Bookkeeping, not something a sheet states.
 NOT_A_FIELD = frozenset(('src', 'via', 'url', 'xsrc', 'ttl', 'ntl',
                          'wtl', 'dtl', 'ftl'))
@@ -115,7 +122,14 @@ def refusal(eid, year, filename, E, S=None):
     v = ask('filename_vintage', year, filename, grand) if year else None
     if v:
         return 'the filename calls this the %d vintage' % v
-    p = ask('is_press_name', filename)
+    # A crawled page's name came from a URL path, where `article` is
+    # the estate's own section rather than a word about the document.
+    # The committed version may not take the argument at all, so it is
+    # tried and dropped if it is not wanted.
+    try:
+        p = ask('is_press_name', filename, sr.is_page(filename))
+    except TypeError:
+        p = ask('is_press_name', filename)
     if p:
         return 'the filename says it is press: %s' % p
     o = ask('names_other_chateau', filename, grand, others, second)
@@ -167,10 +181,74 @@ def fields_in(body):
     return out - NOT_A_FIELD
 
 
+def deep(man, E, limit=0):
+    """Every unread document the full guard chain now accepts.
+
+    whose_sheet opens the file, so this is the slow one: it is the
+    only way to ask about the guards that read a document rather than
+    its name, and those are most of them.
+
+    Only roles `skip` and `unknown`. A document filed `second` or
+    `other` has been identified as another wine's, and the chain
+    having no objection to it means only that chateaux.js does not
+    name that wine - not that the document is this one's.
+    """
+    rows = [s for s in man['sheets'] if s.get('role') in UNREAD
+            and s.get('estate') and s.get('file')]
+    print('asking the full chain about %d refused document(s)%s'
+          % (len(rows), ' (limit %d)' % limit if limit else ''))
+    print()
+    accepted, missing, asked = [], 0, 0
+    for s in rows:
+        if limit and asked >= limit:
+            break
+        eid = s.get('estate')
+        e = E.get(eid) or {}
+        path = sr.path_of(ROOT, s)
+        if not path or not os.path.exists(path):
+            missing += 1
+            continue
+        asked += 1
+        yr = s.get('year')
+        try:
+            verdict = sr.whose_sheet(
+                path, s.get('file'), e.get('name'),
+                list(e.get('cuvees') or ()), e.get('second'),
+                e.get('cat'), int(yr) if yr else None)
+        except Exception as ex:
+            verdict = {'why': 'a guard could not read it: %s'
+                              % str(ex)[:40]}
+        if verdict is None:
+            accepted.append(s)
+            print('   ACCEPTS  %-22s %-5s %-8s %s'
+                  % (eid[:22], s.get('year'), s.get('role'),
+                     (s.get('file') or '')[:52]))
+        if asked % 500 == 0:
+            print('   ... %d asked, %d accepted so far'
+                  % (asked, len(accepted)))
+    print()
+    print('%d of %d asked are accepted by the current chain'
+          % (len(accepted), asked))
+    if missing:
+        print('   %d not on disk; run tools/harvest.py' % missing)
+    print()
+    by = collections.Counter((s.get('estate'), s.get('role'))
+                             for s in accepted)
+    for (eid, rl), n in sorted(by.items(), key=lambda x: -x[1])[:40]:
+        print('   %-26s %-8s %3d' % ((eid or '')[:26], rl, n))
+    print()
+    print('nothing written: which role each of these should get '
+          'depends on what the')
+    print('document is, which is tools/read-sheets.py\u2019s question.')
+
 def main():
     ap = argparse.ArgumentParser()
     ap.add_argument('--apply', action='store_true',
                     help='file the documents the guards now accept')
+    ap.add_argument('--deep', action='store_true',
+                    help='also ask the guards that open the document')
+    ap.add_argument('--limit', type=int, default=0,
+                    help='stop after this many documents, for --deep')
     a = ap.parse_args()
 
     E = sr.estates(ROOT)
@@ -254,6 +332,14 @@ def main():
               % ((s.get('estate') or '')[:22], s.get('year'),
                  s.get('role'), (s.get('file') or '')[:52]))
     print()
+
+    if a.deep:
+        print('=' * 68)
+        print('THE GUARDS THAT OPEN THE DOCUMENT')
+        print('=' * 68)
+        print()
+        deep(man, E, a.limit)
+        print()
 
     if not a.apply:
         print('nothing written; pass --apply to correct the %d role(s)'

@@ -2461,7 +2461,17 @@ SHEET_NAME = re.compile(
     r'ft[-_ ])')
 
 
-def is_press_name(filename):
+# Terms that describe a document someone named by hand but that are
+# a section of a site when they come from a URL. A crawled page is
+# named after its path, so `chateau-figeac.com/article/1971-une-
+# revelation` arrives called `article-1971-une-revelation` - and
+# `article` there is Figeac's own section, holding Figeac's own words
+# about Figeac's wine. In a PDF called `Article-Sud-Ouest-22-juin-
+# 2021.pdf` the same word is a description, and true.
+PRESS_IF_NAMED = re.compile(r'(?i)^(?:article|interview)$')
+
+
+def is_press_name(filename, page=False):
     """Does the filename say this is press rather than a sheet?
 
     None when the name also calls the document a technical sheet.
@@ -2469,11 +2479,21 @@ def is_press_name(filename):
     publishes `MdT-2017-Fiche-technique-Revue-de-Presse-Marquis-de-
     Terme.pdf` for every vintage, and reading only the second half of
     that name put nine vintages out of reach.
+
+    `page` says the filename came from a URL path rather than from
+    somebody naming a file, which makes the terms in PRESS_IF_NAMED
+    the name of a section of the estate's own site instead of a
+    description of the document. The rest of the terms stand either
+    way, so a page called `en-article-terre-de-vins-mars-2021` is
+    still press - on `terre-de-vins`, which is the real evidence.
     """
-    m = PRESS_NAME.search(filename or '')
-    if not m:
+    if SHEET_NAME.search(filename or ''):
         return None
-    return None if SHEET_NAME.search(filename or '') else m.group(1)
+    for m in PRESS_NAME.finditer(filename or ''):
+        if page and PRESS_IF_NAMED.match(m.group(1)):
+            continue
+        return m.group(1)
+    return None
 
 
 # Words that belong to every name in Bordeaux and so distinguish none.
@@ -2742,7 +2762,7 @@ def whose_sheet(path, filename=None, grand=None, others=(), second=None,
                 return {'why': 'the filename calls this the %d vintage'
                                % named_year,
                         'role': 'unknown', 'wine': None}
-        press = is_press_name(named)
+        press = is_press_name(named, page=is_page(path))
         if press:
             return {'why': 'the filename says it is press: %s' % press,
                     'role': 'skip', 'wine': None}

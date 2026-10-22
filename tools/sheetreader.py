@@ -164,6 +164,30 @@ def slug(s):
     return re.sub(r'^-|-$', '', re.sub(r'[^a-z0-9]+', '-', s.lower()))
 
 
+def path_of(root, row, found=None):
+    """The document a manifest row names.
+
+    The manifest says which folder each row is in, and that is the
+    answer: a basename is not a path. 888 filenames exist in more than
+    one folder, because an owner publishes the same document under
+    each of its properties.
+
+    `found` is an optional basename map, used only for a row whose
+    folder is not on disk.
+    """
+    folder = (row.get('folder') or '') if hasattr(row, 'get') else ''
+    name = row['file'] if hasattr(row, 'get') else row
+    if folder:
+        p = os.path.join(root, 'sources',
+                         folder if folder.startswith('pages')
+                         else 'fiches/' + folder, name)
+        if os.path.exists(p):
+            return p
+    if found:
+        return found.get(name)
+    return None
+
+
 def estates(root):
     """Every estate, its name, and the names of its other wines.
 
@@ -317,6 +341,146 @@ def _cached(key, make):
     return val
 
 
+# ===========================================================================
+#   A CRAWLED PAGE
+#
+# Some estates publish no fiche technique at all. Chateau Margaux
+# publishes a page per vintage; so do Haut-Brion, Haut-Bailly,
+# Leoville-Poyferre and fifty-four others, 1,673 pages in all. They are
+# text, not PDF, and everything below treats them as one more kind of
+# document rather than as a special case: flat() reads them, so every
+# guard and every field reader works on them unchanged.
+#
+# What has to come off first is the furniture. These are the lines that
+# appear on hundreds of pages at once, measured rather than guessed.
+PAGE_FURNITURE = frozenset([
+    # "Climate" is not here on purpose: it is the heading Margaux sets
+    # over its growing season, and the only marker the note reader has
+    # to find that paragraph by.
+    '-->', '{title}', '0', 'learn more', 'additional',
+    'discover other vintages', 'découvrir les autres millésimes',
+    'remember me', 'france', 'international', 'chili', 'la boutique',
+    'lire la suite', 'read more', 'en savoir plus', 'newsletter',
+    's\u2019inscrire', 'subscribe', 'menu', 'close', 'fermer',
+    'partager', 'share', 'suivant', 'next', 'pr\u00e9c\u00e9dent',
+    'previous', 'accueil', 'home', 'contact', 'instagram', 'facebook',
+    'linkedin', 'youtube', 'admin', 'r\u00e9ponses', '0 r\u00e9ponses',
+])
+# The headings that begin the footer and the navigation. Everything
+# from the first of them is the website and not the wine.
+PAGE_TAIL = re.compile(
+    # "Discover other vintages" is NOT a tail marker: it is a strip of
+    # links in the middle of the page, and Margaux prints the growing
+    # season after it, under "Climate". Breaking there lost the season
+    # on all 152 of its wine pages.
+    r'(?i)^\s*(preservation|conservation\s*$|'
+    r'service\s*&\s*tasting|service et d\u00e9gustation|'
+    r'acc\u00e9der \u00e0 la boutique|la boutique|politique de cookies|'
+    r'cookie|mentions l\u00e9gales|legal notice|'
+    r'site institutionnel|nous suivre|follow us|'
+    r'vous aimerez aussi|you may also like|'
+    r'inscrivez-vous|sign up|newsletter)\b')
+# A year alone on a line is the vintage navigation, and six hundred of
+# these pages carry every year from 1990 to 2024 that way. Left in, it
+# would answer "does anything state this vintage" for every vintage
+# there is.
+PAGE_YEAR_LINE = re.compile(r'^\s*(?:19|20)\d\d\s*$')
+# Lines that are furniture by their shape rather than word for word.
+# Jean Faure's pages open with the age and language gate, and three of
+# its season notes were "Oui Non Votre langue : Francais English: Vous
+# allez acceder a une version dont le contenu a ete limite par la
+# legislation en vigueur dans votre pays. L'abus d'alcool est
+# dangereux pour la sante". Haut-Bailly's carry the breadcrumb "Nos
+# millesimes" between the title and the text, and it ended up inside
+# the note.
+PAGE_JUNK = re.compile(
+    r'(?i)^\s*(?:oui|non|yes|no|ok|accepter|accept|refuser|decline'
+    r'|nos\s+mill[eé]simes|our\s+vintages|the\s+vintages'
+    r'|les\s+mill[eé]simes|nos\s+vins|our\s+wines|mon\s+vin'
+    r'|votre\s+langue.*|vous\s+allez\s+acc[eé]der.*'
+    r'|l[’\']abus\s+d[’\']alcool.*|[aà]\s+consommer\s+avec.*'
+    r'|ajouter\s+au\s+panier|add\s+to\s+cart|rupture\s+de\s+stock'
+    r'|out\s+of\s+stock|quand\s+\w+\s+\d{1,2}\s+\w+\s+\d{4}'
+    r'|version\s+(?:fr|en|uk)\b.*)\s*[:.]?\s*$')
+
+
+def is_page(path):
+    """A crawled page rather than a document."""
+    return not (path or '').lower().endswith(
+        ('.pdf', '.doc', '.docx', '.xls', '.xlsx'))
+
+
+def page_url(path):
+    """The URL the crawler wrote on the first line, if it did."""
+    try:
+        with io.open(path, encoding='utf-8', errors='replace') as fh:
+            first = fh.readline().strip()
+    except Exception:
+        return ''
+    return first if first[:4].lower() == 'http' else ''
+
+
+def _page_body(path):
+    """A page with its furniture, its footer and its year list gone."""
+    try:
+        raw = io.open(path, encoding='utf-8', errors='replace').read()
+    except Exception:
+        return ''
+    lines = raw.split('\n')
+    if lines and lines[0].strip()[:4].lower() == 'http':
+        # The crawler writes the URL first and the page's <title>
+        # second. A <title> is the browser tab, not the wine: Haut-
+        # Bailly's reads "Millesime 1998 : Des Merlots benis des dieux
+        # - Haut-Bailly", the label matched the year inside it, and
+        # eleven season notes opened on the title and its own
+        # repetition before reaching the prose.
+        lines = lines[2:] if len(lines) > 1 else []
+    keep, seen = [], set()
+    for line in lines:
+        s = line.strip()
+        if not s:
+            continue
+        if PAGE_TAIL.match(s):
+            break
+        if PAGE_YEAR_LINE.match(s):
+            continue
+        if s.lower() in PAGE_FURNITURE or PAGE_JUNK.match(s):
+            continue
+        # These pages render themselves twice: Margaux's 2015 carries
+        # its eight paragraphs, the vintage strip, the climate section,
+        # and then all of it again. A paragraph repeated word for word
+        # is the crawl and not the estate saying it twice.
+        if len(s) >= 60:
+            if s in seen:
+                continue
+            seen.add(s)
+        keep.append(s)
+    # A heading on a page is a line of its own, and every reader in
+    # this file flattens the text before looking at it - which throws
+    # that away. Margaux's "Climate" sits between "(March 2025)" and
+    # "Winter, which was appreciably colder", and once flattened
+    # _is_heading cannot tell it from a word in a sentence: it is not
+    # in capitals and no colon follows it.
+    #
+    # So the layout is carried into the text. A short line with no
+    # sentence-ending punctuation, standing in front of a paragraph, is
+    # a heading, and is written as one.
+    out = []
+    for i, s in enumerate(keep):
+        nxt = keep[i + 1] if i + 1 < len(keep) else ''
+        if (len(s) < 48 and len(nxt) >= 80
+                and not re.search(r'[.!?:;,…]$', s)
+                and not s.isdigit()):
+            s += ':'
+        out.append(s)
+    # And a heading at the end, with nothing under it, is not a
+    # heading: these pages repeat themselves, and the second copy of
+    # "Climate" outlives the paragraph the de-duplication took.
+    while out and len(out[-1]) < 48 and out[-1].endswith(':'):
+        out.pop()
+    return '\n'.join(out)
+
+
 def by_columns(path, pages=3):
     """The page's text, column by column, each read top to bottom.
 
@@ -331,6 +495,9 @@ def by_columns(path, pages=3):
 
 
 def _by_columns(path, pages):
+    # A page has no columns: the flat reading is the only reading.
+    if is_page(path):
+        return flat(path)
     out = []
     d = pymupdf.open(path)
     for i in range(min(pages, d.page_count)):
@@ -379,6 +546,11 @@ def delig(text):
 
 
 def _flat(path, pages):
+    # A crawled page is read as text. Every guard and every field
+    # reader goes through flat(), so this is the only place that has to
+    # know the difference.
+    if is_page(path):
+        return delig(_page_body(path))
     d = pymupdf.open(path)
     n = d.page_count if not pages else min(pages, d.page_count)
     t = ' '.join(d[i].get_text() for i in range(n))
@@ -1124,13 +1296,16 @@ def is_dossier(path):
     running to several pages of history and clippings. Either way its
     figures are the property's standing ones and belong to no year.
     """
-    try:
-        d = pymupdf.open(path)
-        n = d.page_count
-        d.close()
-        text = re.sub(r'\s+', ' ', flat(path))
-    except Exception:
-        return False
+    if is_page(path):
+        n, text = 1, re.sub(r'\s+', ' ', flat(path))
+    else:
+        try:
+            d = pymupdf.open(path)
+            n = d.page_count
+            d.close()
+            text = re.sub(r'\s+', ' ', flat(path))
+        except Exception:
+            return False
     if DOSSIER.search(text[:1500]):
         return True
     if n >= 3 and not LABEL.search(text) and not VINTAGE.search(text):
@@ -1146,12 +1321,16 @@ def body_without_letterhead(path, pages=2):
     So that an estate's name is read from what the sheet says about the
     wine, and not from the email address in its header.
     """
-    try:
-        d = pymupdf.open(path)
-        got = [d[i].get_text() for i in range(min(pages, d.page_count))]
-        d.close()
-    except Exception:
-        return ''
+    if is_page(path):
+        got = [flat(path)]
+    else:
+        try:
+            d = pymupdf.open(path)
+            got = [d[i].get_text()
+                   for i in range(min(pages, d.page_count))]
+            d.close()
+        except Exception:
+            return ''
     keep = []
     for page in got:
         for line in page.split('\n'):
@@ -1362,6 +1541,16 @@ PROSE_STOP = re.compile(
     r'production\s+certifi[eé]e|ageing\s+potential|'
     r'\d+\s*€|\d+\s*euros?|'           # a price list
     r'suivez-nous|follow\s+us|instagram|'
+    # An event listing, which a crawled page can be: Grand Corbin-
+    # Despagne's "Pre-primeurs au Palais de la Bourse a Bordeaux
+    # Presentation du millesime 2021 aupres des professionnels de La
+    # Place de Bordeaux | Chateau Grand Corbin-Despagne Version FR
+    # Degustation | lundi 11 avril 2022". A weekday behind a pipe is a
+    # diary entry and not a description of a wine.
+    r'\|\s*(?:lundi|mardi|mercredi|jeudi|vendredi|samedi|dimanche|'
+    r'monday|tuesday|wednesday|thursday|friday|saturday|sunday)\b|'
+    r'palais\s+de\s+la\s+bourse|aupr[eè]s\s+des\s+professionnels|'
+    r'la\s+place\s+de\s+bordeaux|'
     # A critic's name starts a press citation, and press scores have
     # their own field. Beychevelle's 2010 note ran on into "La Revue
     # des Vins de France" and would have carried the review with it.
@@ -1446,6 +1635,13 @@ _SMALL = re.compile(r'(?i)(?<![a-zà-ÿ])'
                     r'(?![a-zà-ÿ])')
 
 
+BROKEN_RUN = re.compile(r'(?<![A-Za-zÀ-ÿ])'
+                        r'[A-Za-zÀ-ÿ]{20,}'
+                        r'(?![A-Za-zÀ-ÿ])')
+BROKEN_CASE = re.compile(r'[a-zà-ÿ]{3}'
+                         r'[A-ZÀ-Ý][a-zà-ÿ]{2}')
+
+
 def looks_like_prose(s):
     if len(s) < 80:
         return False
@@ -1454,6 +1650,20 @@ def looks_like_prose(s):
         return False
     if len(re.findall(r'\d{1,2}\s*/\s*\d{1,2}', s)) >= 2:
         return False          # a column of dates
+    # Extraction that lost its spaces. Batailley's sheet sets its
+    # history beside its tasting note, and the two came out merged -
+    # "MIS EN BOU deBorie-Manoux.Ildoitsonnomaladerniere Bataille en
+    # Medoc de la guerre de cent ans Robe profonde et intense" - with
+    # the spaces gone as well.
+    #
+    # Two facts about the text, not guesses about the layout: a word of
+    # twenty letters does not exist in wine prose, French or English -
+    # "exceptionnellement" is eighteen, which is why the threshold is
+    # not eighteen - and a capital inside a word is two words run
+    # together, as in "appellationPauillac". Each finds Batailley and
+    # nothing else, in the proposals or in the records.
+    if BROKEN_RUN.search(s) or BROKEN_CASE.search(s):
+        return False
     # A run of capitals is a row of table headings, not a sentence.
     # Trotte-Vieille's 2021 tasting note opened on "PLUVIOMETRIE
     # MENSUELLE ENSOLEILLEMENT MENSUEL AMPLITUDE THERMIQUE JOURNALIERE
@@ -1519,7 +1729,13 @@ LABEL_NOTE = re.compile(
     r'the\s+\d{4}\s+vintage|mill[eé]sime\s+\d{4}|'
     r'cycle\s+v[eé]g[eé]tatif|growing\s+season|'
     r'notes?\s+sur\s+le\s+mill[eé]sime|'
-    r'l[’\']ann[eé]e\s+viticole|the\s+(?:growing\s+)?year)')
+    r'l[’\']ann[eé]e\s+viticole|the\s+(?:growing\s+)?year|'
+    # The heading Margaux sets over the growing season on each of its
+    # 152 vintage pages: "Climate / Winter, which was appreciably
+    # colder than those of the previous years, caused late, but
+    # perfectly regular bud-break". _is_heading still has to accept it,
+    # so "the climate was mild" in the middle of a sentence is not one.
+    r'\bclimate\b|\bclimat\b)')
 
 # A label only counts where it stands as a heading, which on a fiche
 # means one of three things: printed in capitals, followed by a colon,
@@ -1886,6 +2102,70 @@ def abbreviates_other_wine(filename, grand, others=()):
     return None
 
 
+# A page that offers something for sale: a product path, a bottle
+# count, a case, a gift box, a seasonal offer.
+SHOP_PAGE = re.compile(
+    r'(?i)(?:^|[_-])(produit|product|boutique|shop|panier|cart|'
+    r'coffret|carton|lot-de|en-vente|magnum|magnums|'
+    r'\d+-?bouteilles?|offre|offres)(?:[_-]|$)')
+
+
+def sells_another_wine(filename, grand):
+    """A shop listing for a wine that is not this estate's.
+
+    The page is for the product its URL names, so the product has to
+    be the estate's. Dillon's own bottles are named - produit-6-
+    bouteilles-chateau-dillon-2013 - and the rest of its shop is not:
+    Leonie, Les Haldes de Luchey, Le Roman de Grand Baril, the summer
+    offer of twenty-four bottles of Bordeaux.
+
+    Only asked of a shop listing. A vintage page need not carry the
+    estate's name in its URL and Margaux's do not.
+    """
+    if not (filename and grand) or not SHOP_PAGE.search(filename):
+        return None
+    fb = bare_name(filename)
+    nb = bare_name(grand)
+    if nb and nb in fb:
+        return None
+    for w in re.split(r'[^a-z0-9]+', norm(grand)):
+        if len(w) > 3 and w not in NAME_COMMON and w in fb:
+            return None
+    return 'a shop listing that does not name the estate'
+
+
+# The estate declaring which vintage a document is for.
+VINTAGE_LABEL = re.compile(r'(?i)(?:mill[eé]sime|vintage)\s*:?\s*'
+                           r'((?:19|20)\d\d)(?![0-9])')
+# And the words that make it a mention rather than a declaration: an
+# estate's first vintage ever, or a comparison with another year.
+NOT_DECLARED = re.compile(
+    r'(?i)(1\s*(?:st|er)|premier|first|depuis|since|rapproche|comme|'
+    r'rappelle|proche\s+du|like\s+the|as\s+in|compared)\s*$')
+# A declaration stands at the top. Further down, a year is something
+# the wine is being compared to.
+VINTAGE_HEAD = 300
+
+
+def declares_another_vintage(year, text):
+    """The vintage this document says it is for, if not `year`.
+
+    None when the document declares nothing, declares the year asked
+    for, or declares more than one so that no single year wins.
+    """
+    if not year or not text:
+        return None
+    said = set()
+    for m in VINTAGE_LABEL.finditer(text[:VINTAGE_HEAD]):
+        if NOT_DECLARED.search(text[max(0, m.start() - 14):m.start()]):
+            continue
+        said.add(int(m.group(1)))
+    if len(said) != 1:
+        return None
+    got = said.pop()
+    return None if got == int(year) else got
+
+
 # A long run of hex is a hash, and four digits inside one are not a
 # year. Croix de Labrie "2079" is the tail of
 # 266fad379e514e6c8dabd7d076602079.
@@ -2121,6 +2401,15 @@ def whose_sheet(path, filename=None, grand=None, others=(), second=None,
                              ' '.join(flat(path).split())):
                 return {'why': 'nothing states this vintage',
                         'role': 'unknown', 'wine': None}
+        if year:
+            try:
+                head = ' '.join(flat(path).split())
+            except Exception:
+                head = ''
+            other = declares_another_vintage(year, head)
+            if other:
+                return {'why': 'the document declares the %d vintage'
+                               % other, 'role': 'unknown', 'wine': None}
         press = is_press_name(filename)
         if press:
             return {'why': 'the filename says it is press: %s' % press,
@@ -2129,6 +2418,9 @@ def whose_sheet(path, filename=None, grand=None, others=(), second=None,
         if spells:
             return {'why': 'the filename names another château: %s'
                            % spells, 'role': 'other', 'wine': spells}
+        sold = sells_another_wine(filename, grand)
+        if sold:
+            return {'why': sold, 'role': 'other', 'wine': None}
         abbrev = abbreviates_other_wine(filename, grand, others)
         if abbrev:
             return {'why': 'the filename abbreviates another of the '

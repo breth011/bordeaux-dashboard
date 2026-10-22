@@ -473,7 +473,7 @@ for s in sheets.values():
     mine = _sr.app_canon(e.get('app'))
     if not mine:
         continue
-    p = _where.get(s['file'])
+    p = _sr.path_of(ROOT, s, _where)
     if not (p and p.lower().endswith('.pdf')):
         continue
     try:

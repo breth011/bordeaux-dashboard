@@ -171,7 +171,10 @@ def main():
         # 60/35/3/2 estate look planted 50/50.
         if s.get('role') in ('skip', 'page', 'second', 'other'):
             continue
-        p = where.get(s['file'])
+        # By folder, not by name: the same document is published
+        # under several of an owner's properties, and a basename map
+        # returns whichever copy was walked first.
+        p = sr.path_of(ROOT, s, where)
         if not p or not p.lower().endswith('.pdf'):
             continue
         # And not off the other colour's sheet. La Tour Carnet came out

@@ -50,7 +50,7 @@ window.BDX_CUVEE_WINES = {
 'lynch-bages':[{slug:'blanc-de-lynch-bages',name:'Blanc de Lynch-Bages',role:'other',colour:'white'},{slug:'echo-de-lynch-bages',name:'Echo de Lynch-Bages',role:'second',colour:'red'}],
 'lynch-moussas':[{slug:'les-hauts-de-lynch-moussas',name:'Les Hauts de Lynch-Moussas',role:'second',colour:'red'}],
 'malartic-lagraviere':[{slug:'le-comte-de-malartic',name:'Le Comte de Malartic',role:'second',colour:'red'}],
-'margaux':[{slug:'pavillon-blanc-du-chateau-margaux',name:'Pavillon Blanc du Château Margaux',role:'other',colour:'white'}],
+'margaux':[{slug:'margaux-du-chateau-margaux',name:'Margaux du Château Margaux',role:'other',colour:'red'},{slug:'pavillon-blanc-du-chateau-margaux',name:'Pavillon Blanc du Château Margaux',role:'other',colour:'white'}],
 'marquis-de-terme':[{slug:'cuvee-1762',name:'Cuvée 1762',role:'other',colour:'red'},{slug:'empreinte-de-marquis-de-terme',name:'Empreinte de Marquis de Terme',role:'other',colour:'red'}],
 'montrose':[{slug:'la-vieille-dame-de-trottevieille',name:'La Vieille Dame de Trottevieille',role:'second',colour:'red'}],
 'mouton':[{slug:'le-petit-mouton',name:'Le Petit Mouton de Mouton Rothschild',role:'second',colour:'red'}],

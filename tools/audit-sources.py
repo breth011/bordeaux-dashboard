@@ -24,10 +24,18 @@ import os
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__))) + os.sep
 
 man = json.load(io.open(ROOT + 'data/sources.json', encoding='utf-8'))
+# Keyed by estate and file, not by file alone. 888 filenames exist in
+# more than one folder, because an owner publishes one document under
+# each of its properties: Lafite, L'Evangile, Duhart-Milon and Rieussec
+# all hold 2025__2025-the-lucky-hand.txt. Keyed by name, the first copy
+# won and this audit accused all four records of reading Duhart-Milon's
+# sheet.
 sheets = {}
+by_name = {}
 for s in man['sheets']:
-    sheets.setdefault(s['file'], s)
-print('%d sheets in the manifest' % len(sheets))
+    sheets.setdefault((s.get('estate'), s['file']), s)
+    by_name.setdefault(s['file'], s)
+print('%d sheets in the manifest' % len(by_name))
 
 OWNED = ('blend', 'harvest', 'yld', 'alc', 'ph', 'months', 'oak', 'temp',
          'food', 'press', 'taste', 'decant', 'window', 'wy')
@@ -61,7 +69,8 @@ for m in re.finditer(r"^'([a-z0-9-]+)\|(\d{4})':\{(.*)\},$", txt, re.M):
         if '/' in ref and not ref.lower().endswith('.pdf'):
             pages += 1
             continue
-        s = sheets.get(ref)
+        # This estate's copy if it has one, and only then anyone's.
+        s = sheets.get((eid, ref)) or by_name.get(ref)
         if not s:
             bad['the sheet is not on disk'].append((eid, yr, ref, has))
             continue

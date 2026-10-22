@@ -124,10 +124,28 @@ def main():
     E = sr.estates(ROOT)
     man = json.load(io.open(ROOT + 'data/sources.json', encoding='utf-8'))
 
+    # A basename is not a path. The same document is published under
+    # several of an owner's properties - 2018__millesime-2018.txt is in
+    # Figeac's folder and Haut-Bailly's, LR-Rapport-2023-planche.pdf in
+    # four - and keying on the name alone read whichever copy os.walk
+    # reached first, so Haut-Bailly's season note was proposed for La
+    # Tour Figeac and Lascombes. The manifest says which folder each
+    # row is in; read-sheets has always used it.
     where = {}
     for root, dirs, files in os.walk(ROOT + 'sources'):
         for f in files:
             where.setdefault(f, os.path.join(root, f))
+
+    def resolve(s):
+        """The document this manifest row is for."""
+        folder = s.get('folder') or ''
+        if folder:
+            p = os.path.join(ROOT, 'sources',
+                             folder if folder.startswith('pages')
+                             else 'fiches/' + folder, s['file'])
+            if os.path.exists(p):
+                return p
+        return where.get(s['file'])
 
     recs = {}
     for line in io.open(ROOT + 'data/fiches.js', encoding='utf-8'):
@@ -137,7 +155,11 @@ def main():
 
     todo = []
     for s in man['sheets']:
-        if s.get('role') not in ('grand', 'combined'):
+        # 'page' as well as 'grand' and 'combined'. A page's role is
+        # 'page' because nobody has judged which wine it is for, and
+        # the guards judge it now; the roles that are a judgement -
+        # skip, second, other, group report - are still respected.
+        if s.get('role') not in ('grand', 'combined', 'page'):
             continue
         eid, yr = s.get('estate'), s.get('year')
         if not eid or not yr:
@@ -146,12 +168,13 @@ def main():
             continue
         if a.year and int(yr) != a.year:
             continue
-        p = where.get(s['file'])
-        if p and p.lower().endswith('.pdf'):
+        p = resolve(s)
+        # A crawled page is text, not PDF, and sheetreader reads both.
+        if p and (p.lower().endswith('.pdf') or sr.is_page(p)):
             todo.append((eid, str(yr), s['file'], p))
     if a.limit:
         todo = todo[:a.limit]
-    print('%d grand vin sheets to read' % len(todo))
+    print('%d documents to read' % len(todo))
 
     found, why = [], collections.Counter()
     for eid, yr, f, p in todo:

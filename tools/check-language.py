@@ -309,6 +309,28 @@ def mtime(p):
     return os.path.getmtime(p) if os.path.exists(p) else 0
 
 
+# Each derived file against the files it is built from. The links went
+# stale exactly this way: build-fiche-links ran, read-fiches then
+# created 91 records, and Margaux's 69 new vintages had no link with
+# nothing to say so.
+DERIVED = (
+    ('data/fiches-url.js', ('data/fiches.js', 'data/sources.json'),
+     'tools/build-fiche-links.py'),
+    ('data/plantings.js', ('data/sources.json', 'data/chateaux.js'),
+     'tools/read-plantings.py'),
+    ('data/field-src.js', ('data/fiches.js',),
+     'tools/read-fiches.py --prose --apply'),
+)
+for out, ins, how in DERIVED:
+    newest = max([mtime(ROOT + i) for i in ins] or [0])
+    if not os.path.exists(ROOT + out):
+        note(out, 'not built; run %s' % how)
+    elif mtime(ROOT + out) < newest - 1:
+        note(out, 'older than %s by %s; run %s'
+             % (' and '.join(os.path.basename(i) for i in ins),
+                str(datetime.timedelta(
+                    seconds=int(newest - mtime(ROOT + out)))), how))
+
 wb = ROOT + 'reports/bordeaux-coverage.xlsx'
 newest_data = max([mtime(ROOT + 'data/' + f)
                    for f in os.listdir(ROOT + 'data')

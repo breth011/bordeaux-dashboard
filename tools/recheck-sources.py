@@ -108,51 +108,37 @@ def committed_reader():
     return mod
 
 
-def refusal(eid, year, filename, E, S=None):
-    """Why the filename guards refuse this document, or None.
+def _takes_names_only(mod):
+    """Can this sheetreader be asked the name guards on their own?"""
+    try:
+        import inspect
+        sig = inspect.signature(mod.whose_sheet)
+        return 'names_only' in sig.parameters
+    except Exception:
+        return False
 
-    The chain in whose_sheet, less the guards that open the file: this
-    runs over every document in the manifest and nothing here needs
-    more than the name. `S` picks which sheetreader answers, so the
-    committed guards and the working copy's can be compared.
+
+def refusal(eid, year, filename, E, S=None):
+    """Why the name guards refuse this document, or None.
+
+    whose_sheet's own chain, stopped before anything is opened, so
+    that it can be asked of all 12,393 documents twice over. `S` picks
+    which sheetreader answers, which is how the committed guards and
+    the working copy's are compared.
+
+    This used to name each guard itself and the copy fell behind the
+    chain twice - over is_press_name's `page` argument, and over
+    naming_spells_cuvee, for which it reported nothing newly refused
+    while the guard refused ten documents. A checker that misses the
+    guard it was written to check is worse than none, so there is one
+    list now and it lives in sheetreader.py.
     """
     S = S or sr
-
-    def ask(name, *args):
-        """That guard's verdict, or None if this version lacks it."""
-        g = getattr(S, name, None)
-        return g(*args) if g else None
-
     e = E.get(eid) or {}
-    grand = e.get('name')
-    others = list(e.get('cuvees') or ())
-    second = e.get('second')
-    v = ask('filename_vintage', year, filename, grand) if year else None
-    if v:
-        return 'the filename calls this the %d vintage' % v
-    # A crawled page's name came from a URL path, where `article` is
-    # the estate's own section rather than a word about the document.
-    # The committed version may not take the argument at all, so it is
-    # tried and dropped if it is not wanted.
-    try:
-        p = ask('is_press_name', filename, sr.is_page(filename))
-    except TypeError:
-        p = ask('is_press_name', filename)
-    if p:
-        return 'the filename says it is press: %s' % p
-    o = ask('names_other_chateau', filename, grand, others, second)
-    if o:
-        return 'the filename names another château: %s' % o
-    sold = ask('sells_another_wine', filename, grand)
-    if sold:
-        return sold
-    ab = ask('abbreviates_other_wine', filename, grand, others)
-    if ab:
-        return 'the filename abbreviates another of the estate’s '\
-               'wines: %s' % ab
-    if ask('wrong_colour', filename, None, e.get('cat')):
-        return 'the filename says another colour'
-    return None
+    v = S.whose_sheet(filename, filename, e.get('name'),
+                      list(e.get('cuvees') or ()), e.get('second'),
+                      e.get('cat'), year, names_only=True)
+    return v['why'] if v else None
 
 
 def fields_in(body):
@@ -314,6 +300,13 @@ def main():
     # 2. What the change to the guards did, against the committed
     # version of them.
     head = committed_reader()
+    if head is not None and not _takes_names_only(head):
+        print('WHAT THE GUARD CHANGE DID: sheetreader.py as committed '
+              'predates whose_sheet\u2019s')
+        print('   names_only flag, so it cannot be asked the same '
+              'question and the comparison')
+        print('   is skipped. It works again once this is committed.')
+        return
     if head is None:
         print('WHAT THE GUARD CHANGE DID: sheetreader.py as committed '
               'could not be loaded,')

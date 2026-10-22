@@ -298,8 +298,17 @@ def main():
         # And against the note the record already holds. r['record'] is
         # a flag, not the record - recs holds the line itself, keyed by
         # the estate and the year as strings.
+        #
+        # The note, and not the whole line: the line holds the tasting
+        # note too, so this matched a candidate against itself. Once
+        # written, a tasting note was refused on the next run as a
+        # duplicate of the season note. Nothing showed while the field
+        # was held - it would have been skipped anyway - but --redo
+        # takes the field back and then refuses it, and Margaux lost
+        # 21 tasting notes that way.
         body = recs.get((r['estate'], str(r['year']))) or ''
-        return bool(head and head in body)
+        held = re.search(r"(?:^|,)note:'((?:[^'\\]|\\.)*)'", body)
+        return bool(head and held and head in held.group(1))
     if boiler:
         print('%d unlabelled page openings repeat across an estate’s '
               'vintages, so they are the site’s description of the '

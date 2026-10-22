@@ -2680,6 +2680,13 @@ BLEND_VARS = (
     ('CM', r'carm[eé]n[eè]res?'),
     ('SEM', r's[eé]millons?'),
     ('MU', r'muscadelles?'),
+    # Last, so "cabernets sauvignons" and "cabernets francs" are
+    # matched by their own patterns above before this is reached.
+    # Margaux writes "The cabernets (87% of the blend)" and lists the
+    # franc separately a sentence later, so the plural on its own is
+    # its cabernet sauvignon. The plural only: a bare singular
+    # "cabernet" in Bordeaux could be either.
+    ('CS', r'cabernets'),
 )
 BLEND_ANY = re.compile(r'(?i)(?<![a-z])(' + '|'.join(
     p for _, p in BLEND_VARS) + r')(?![a-z])')
@@ -2688,13 +2695,25 @@ BLEND_WHICH = tuple((k, re.compile(r'(?i)^(?:' + p + r')$'))
 BLEND_PCT = re.compile(r'(\d{1,3}(?:[.,]\d)?)\s*%')
 # The words that mean this is the wine's assemblage.
 BLEND_ANCHOR = re.compile(r'(?i)(assemblage|\bblend\b|grand\s+vin|'
-                          r'went\s+into|composition\s+du\s+vin)')
+                          r'went\s+into|composition\s+du\s+vin|'
+                          # Margaux 2013 never says blend: "the
+                          # proportions of the grape varieties are
+                          # unusual: 94% cabernet sauvignon".
+                          r'proportions?\s+of\s+the\s+grape\s+vari|'
+                          r'proportions?\s+des\s+c[eé]pages)')
 # And the words that mean it is what the vineyard is planted with,
 # which is this dataset's commonest defect and not a blend at all.
 BLEND_PLANTING = re.compile(
     r'(?i)(enc[eé]pagement|plant[eé]|planted|plantation|densit[eé]|'
     r'superficie|surface|hectares?|[aâ]ge\s+(?:moyen|des\s+vignes)|'
     r'average\s+age|vineyard\s+area)')
+# "Merlot and cabernet franc, at 2% and 3% respectively": two
+# varieties sharing one list of figures, in order. The word is what
+# makes the order safe to trust - without it, pairing two names to two
+# numbers is a guess, and a wrong guess still sums to 100.
+BLEND_RESPECTIVE = re.compile(r'(?i)\brespectiv(?:ely|ement)\b')
+BLEND_PAIR_BACK = 170   # how far back of "respectively" to read
+
 BLEND_TOUCH = 3     # a figure standing beside its variety
 BLEND_REACH = 90    # or further on, across words, in one sentence
 BLEND_WINDOW = 320
@@ -2759,6 +2778,37 @@ def blend_in_prose(text, second=None):
         taken.add(pi)
         used.append((min(s, pcts[pi][0]), max(e, pcts[pi][1])))
 
+    # A list of varieties sharing a list of figures, paired in the
+    # order they are written, because the sentence says they are.
+    # Margaux 2016: "Merlot and cabernet franc, at 2% and 3%
+    # respectively". Taken first, so the touching rule cannot give
+    # the 2% to the franc standing next to it.
+    for r in BLEND_RESPECTIVE.finditer(text):
+        lo = max(0, r.start() - BLEND_PAIR_BACK)
+        # Within the sentence the word stands in, which is the list it
+        # refers to. Margaux 2016 has "making up 94% of the blend."
+        # immediately before "Merlot and cabernet franc, at 2% and 3%
+        # respectively", and reading across that full stop found three
+        # names for three figures and had to give up on all of them.
+        stop = None
+        for b in re.finditer(r'[.!?]\s', text[lo:r.start()]):
+            stop = b.end()
+        if stop is not None:
+            lo += stop
+        mine = [i for i, (s, e, k) in enumerate(vs)
+                if lo <= s and e <= r.start()]
+        theirs = [i for i, (ps, pe, v) in enumerate(pcts)
+                  if lo <= ps and pe <= r.start() and i not in taken]
+        # Equal counts, at least two, and every figure after every
+        # name - which is what "respectively" describes.
+        if len(mine) != len(theirs) or len(mine) < 2:
+            continue
+        if vs[mine[-1]][1] > pcts[theirs[0]][0]:
+            continue
+        for vi, pi in zip(mine, theirs):
+            if vs[vi][2] not in got:
+                claim(vi, pi)
+
     for vi, (s, e, k) in enumerate(vs):
         if k in got:
             continue
@@ -2810,8 +2860,44 @@ def naming_of(path, filename=None):
     return name + ' ' + tail.replace('/', ' ')
 
 
+def naming_spells_cuvee(named, grand, others=(), second=None):
+    """The estate's other wine whose name this document spells, or None.
+
+    For the names that contain the estate's own. Margaux du Chateau
+    Margaux spells `margauxduchateaumargaux`, which holds the grand
+    vin's `margaux` inside it, so every test of whether the name
+    belongs to the estate says yes. Compared by length, the cuvee
+    wins, and the document is the cuvee's.
+
+    Only when the cuvee's letters really are longer than the grand
+    vin's: a cuvee whose name is shorter, or the same, says nothing
+    this way and is left to the other guards.
+    """
+    if not named or not grand:
+        return None
+    mine = bare_name(grand)
+    if not mine:
+        return None
+    letters = re.sub(r'[^a-z0-9]+', '', norm(named))
+    best = None
+    for nm in tuple(others or ()) + ((second,) if second else ()):
+        if not nm:
+            continue
+        b = bare_name(nm)
+        if not b or b == mine or len(b) <= len(mine):
+            continue
+        # The cuvee has to contain the estate's name, which is what
+        # makes it the containment case this is for. A cuvee with an
+        # unrelated name is caught by names_other_chateau already.
+        if mine not in b:
+            continue
+        if b in letters and (best is None or len(b) > len(best[0])):
+            best = (b, nm)
+    return best[1] if best else None
+
+
 def whose_sheet(path, filename=None, grand=None, others=(), second=None,
-                cat=None, year=None):
+                cat=None, year=None, names_only=False):
     """Is this sheet the estate's grand vin for this vintage?
 
     None when it is. Otherwise a dict with
@@ -2825,17 +2911,22 @@ def whose_sheet(path, filename=None, grand=None, others=(), second=None,
     anything opens the document; the vintage first of all, because a
     sheet filed under a year nothing states is not evidence for that
     year whoever's wine it is; then the document's own claims.
+
+    names_only stops before anything is opened, which is what
+    tools/recheck-sources.py needs to ask the name guards about all
+    12,393 documents twice over. It used to ask them by naming each
+    one itself, and that copy fell behind the chain twice.
     """
     filename = filename or os.path.basename(path)
     # A docked filename names less than the URL it was made from.
     named = naming_of(path, filename)
     try:
-        if year and not year_said(year, named):
+        if year and not names_only and not year_said(year, named):
             if not year_said(year, filename,
                              ' '.join(flat(path).split())):
                 return {'why': 'nothing states this vintage',
                         'role': 'unknown', 'wine': None}
-        if year:
+        if year and not names_only:
             try:
                 head = ' '.join(flat(path).split())
             except Exception:
@@ -2862,6 +2953,14 @@ def whose_sheet(path, filename=None, grand=None, others=(), second=None,
         sold = sells_another_wine(named, grand)
         if sold:
             return {'why': sold, 'role': 'other', 'wine': None}
+        # A cuvee whose name contains the estate's own, spelled out in
+        # full: Margaux du Chateau Margaux, on its own page.
+        spelt = naming_spells_cuvee(named, grand, others, second)
+        if spelt:
+            return {'why': 'the name spells another of the estate’s '
+                           'wines in full: %s' % spelt,
+                    'role': ('second' if spelt == second else 'other'),
+                    'wine': spelt}
         abbrev = abbreviates_other_wine(named, grand, others)
         if abbrev:
             return {'why': 'the filename abbreviates another of the '
@@ -2870,6 +2969,9 @@ def whose_sheet(path, filename=None, grand=None, others=(), second=None,
         if wrong_colour(named, None, cat):
             return {'why': 'the filename says another colour',
                     'role': 'other', 'wine': None}
+        # Everything from here needs the document itself.
+        if names_only:
+            return None
         if is_dossier(path):
             return {'why': 'a press dossier, not a vintage’s sheet',
                     'role': 'skip', 'wine': None}

@@ -232,6 +232,41 @@ PRESS = [
      'the same document in English, which `presse` did not catch'),
 ]
 
+# (estate, filename, expected blend or None, note)
+#
+# A blend written into sentences, which is all Margaux has: it
+# publishes no fiche technique. Each of these is a different wording,
+# and the reader had to be taught each one.
+PROSE_BLEND = [
+    ('margaux', '2024__en-vins-grand-vin-du-chateau-margaux-2024.txt',
+     'CF1,CS93,ME5,PV1',
+     '"dominated by 93% cabernet sauvignon ... 5% merlot, 1% cabernet '
+     'franc and 1% petit verdot" - the form the reader knew first'),
+    ('margaux', '2016__en-vins-grand-vin-du-chateau-margaux-2016.txt',
+     'CF3,CS94,ME2,PV1',
+     '"Merlot and cabernet franc, at 2% and 3% respectively": two '
+     'varieties sharing one list. Read by proximity the 2% goes to '
+     'the franc standing beside it, merlot gets nothing and the sum '
+     'is 97 - which the gate refused, so the error showed'),
+    ('margaux', '2013__en-vins-grand-vin-du-chateau-margaux-2013.txt',
+     'CF5,CS94,PV1',
+     'no merlot at all, and the page never says "blend" - "the '
+     'proportions of the grape varieties are unusual"'),
+    ('margaux', '2009__en-vins-grand-vin-du-chateau-margaux-2009.txt',
+     'CF2,CS87,ME9,PV2',
+     '"The cabernets (87% of the blend)" - the plural is the cabernet '
+     'sauvignon, with the franc listed separately a sentence later'),
+    ('margaux', '2007__en-vins-grand-vin-du-chateau-margaux-2007.txt',
+     'CF2,CS87,ME11',
+     'likewise, and the 87% is in a sentence that names no variety '
+     'at all: "Representing 87% of the blend, they dominate"'),
+    ('margaux', '2005__en-vins-grand-vin-du-chateau-margaux-2005.txt',
+     None,
+     'the page states 85% cabernet sauvignon and 8% merlot and '
+     'nothing else. 93 is not a blend, and inventing the remaining '
+     '7% is exactly what the sum gate is there to prevent'),
+]
+
 SECOND = [
     ('belgrave-2023-fc11b611.pdf', True,
      'SE C O N D VI N D U CH AT EA U BE LG RA V E, chunk-spaced'),
@@ -448,6 +483,18 @@ for name, pg, want, note in PRESS:
     ok = (got or None) == (want or None)
     fails += 0 if ok else 1
     print('%-4s press   %-46s %-22s %s'
+          % ('ok' if ok else 'FAIL', name[:46], str(got)[:22],
+             '' if ok else '!= ' + str(want)))
+
+for eid, name, want, note in PROSE_BLEND:
+    p = find(eid, name)
+    if not p:
+        print('MISSING  %s' % name)
+        continue
+    got = fmt(sr.blend_in_prose(sr.flat(p), E[eid].get('second')))
+    ok = (got or None) == (want or None)
+    fails += 0 if ok else 1
+    print('%-4s prose   %-46s %-22s %s'
           % ('ok' if ok else 'FAIL', name[:46], str(got)[:22],
              '' if ok else '!= ' + str(want)))
 

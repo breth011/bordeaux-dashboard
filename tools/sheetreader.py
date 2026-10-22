@@ -1955,6 +1955,82 @@ def label_is_subject(text, m):
     return bool(LABEL_VERB.match(after.lstrip(' \t')))
 
 
+# The heading an estate puts over the growing season. Found inside a
+# tasting note it marks the end; found inside a season note it marks
+# the start, because what follows it is the season and what precedes
+# it is not.
+SEASON_HEAD = re.compile(
+    r'(?i)(?<=[\s.!?\)\u201d])('
+    # The article belongs to the heading. La Mission Haut-Brion writes
+    # "The weather: 2014 was marked by an extraordinary Indian
+    # summer", and matching from `weather` put the sentence boundary
+    # two words out of reach of the test below.
+    r'(?:the\s+|le\s+)?climate\s*:|(?:le\s+)?climat\s*:|'
+    r'(?:the\s+)?weather\s*:|(?:la\s+)?m[eé]t[eé]o\s*:|'
+    r'(?:the\s+)?(?:growing\s+)?season\s*:|'
+    r'(?:les\s+)?conditions?\s+climatiques?\s*:)')
+# How far into a field a heading may stand and still be a heading:
+# far enough for a phrase of its own - Sansonnet's "The vintage's
+# weather:" - and not far enough for the middle of a clause, where
+# Boyd-Cantenac has "marked by a contrasting climate:".
+SEASON_HEAD_START = 30
+# The end of a sentence, which a heading may also follow.
+SEASON_HEAD_AFTER = re.compile(r'[.!?\)\u201d]\s*$')
+
+
+def _is_season_head(win, m):
+    """Is this match a heading, or a colon inside a sentence?
+
+    Boyd-Cantenac 2018 reads "2018 in Margaux was marked by a
+    contrasting climate: a cool spring followed by a warm, dry
+    summer." Cut there, the note opened on "a cool spring".
+    """
+    if m.start() <= SEASON_HEAD_START:
+        return True
+    return bool(SEASON_HEAD_AFTER.search(win[:m.start()]))
+
+
+# A season note opening on less than this before the heading is
+# opening on something else: Dauzac's "Wine style: rich and powerful."
+# is thirty characters and the weather after it is two hundred. The
+# season notes that genuinely begin before their own heading start
+# with 218 characters or more, so nothing sits near this line.
+SEASON_HEAD_MIN = 80
+
+
+def _at_the_season(field, win):
+    """Cut a tasting note at the season, and start a season note there.
+
+    Returns `win` unchanged when the heading is absent, and when a
+    season note's own opening is long enough to be the season itself.
+    """
+    if not win:
+        return win
+    m = None
+    for c in SEASON_HEAD.finditer(win):
+        if _is_season_head(win, c):
+            m = c
+            break
+    if not m:
+        return win
+    if field == 'taste':
+        head = win[:m.start()].rstrip()
+        # Back to the sentence that ended before the heading - but
+        # only when the head does not already end on one. It usually
+        # does, and rstrip takes the space off the full stop, so
+        # rfind('. ') would skip over it to the sentence before and
+        # throw that sentence away.
+        if not re.search(r'[.!?\u2026][\"\u201d\')\]]*$', head):
+            cut = max(head.rfind('. '), head.rfind('! '),
+                      head.rfind('? '), head.rfind(') '))
+            if cut >= 60:
+                head = head[:cut + 1]
+        return head if len(head) >= 60 else win
+    if field == 'note' and m.start() < SEASON_HEAD_MIN:
+        return win[m.end():].lstrip(' :\u2013-\u2014')
+    return win
+
+
 def _put_the_label_back(text, m, win):
     """The label's own sentence, back on the front of an approved note.
 
@@ -2160,6 +2236,10 @@ def read_prose(text, page=False, shop=False):
             # moving the start pushed Kirwan 2017's "frost" past that
             # horizon and lost a note that was never in doubt.
             win = _put_the_label_back(text, m, win)
+            # A tasting note ends where the season begins, and a
+            # season note begins there. Margaux prints the two
+            # together under one label.
+            win = _at_the_season(field, win)
             out[field], how[field] = win, m.group(0)[:40]
             break
     return out, how

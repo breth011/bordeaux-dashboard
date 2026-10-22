@@ -40,11 +40,6 @@ ABOUT THE RECORD ITSELF:
    url    can link to that document in the app             784   35% of records
    nl     has Dutch for its prose                          609   28% of records
 
-STILL TO MERGE - a document states it and no record holds it:
-   taste       24
-   note         1
-   (from reports/fiches-read.json; re-run tools/read-fiches.py --prose to refresh)
-
 THE 61 CLASSIFIED GROWTHS, APART FROM THE LONG TAIL:
    field                            classified    the rest
    blend     the assemblage, variet  742   28%    897    5%

@@ -359,6 +359,10 @@ PAGE_FURNITURE = frozenset([
     # to find that paragraph by.
     '-->', '{title}', '0', 'learn more', 'additional',
     'discover other vintages', 'découvrir les autres millésimes',
+    # A news heading, which Batailley's page opens on: "Actualités
+    # Présentation de Château Batailley 2019 par Philippe Castéja."
+    'actualités', 'actualites', 'news', 'presse', 'press',
+    'top of page', 'haut de page',
     'remember me', 'france', 'international', 'chili', 'la boutique',
     'lire la suite', 'read more', 'en savoir plus', 'newsletter',
     's\u2019inscrire', 'subscribe', 'menu', 'close', 'fermer',
@@ -1614,7 +1618,35 @@ LABEL_TASTE = re.compile(
 # The plural mattered. Beychevelle prints "DEGUSTATIONS 2004" and a
 # pattern ending at "DEGUSTATION" left the S behind, so every tasting
 # note it proposed began "S 2004 Sous sa robe grenat...".
-LEADING_YEAR = re.compile(r'^(?:19|20)\d{2}\s*[-:–]?\s*')
+# A year left at the front by a heading - "DEGUSTATIONS 2004 Sous sa
+# robe grenat" becomes "2004 Sous sa robe grenat" once the label is
+# off - and not a year that is the subject of the sentence. Margaux's
+# pages open "1995 is a truly great vintage" and "2015 was a historic
+# year", where the year is the first word of the prose and stripping it
+# left a sentence beginning in lower case, which the slide then skipped
+# over entirely.
+# The leading junk a heading leaves behind - page numbers, table
+# rulings, stray punctuation - but not a year that is the subject of
+# the sentence. Margaux's pages open "1995 is a truly great vintage",
+# and stripping the digits left a sentence beginning in lower case
+# which the slide then skipped past, losing the first line of every
+# tasting note it read from a page.
+JUNK_HEAD = re.compile('^[\\s<>|/\u2022\u00b7\\-\u2013\u2014!?,;:\u0022\u0027\u2019\u2018\u201c\u201d\\d]{1,14}')
+OPENS_ON_A_YEAR = re.compile(r'^(?:19|20)\d{2}\s+[a-zà-ÿ]')
+
+
+def _strip_head(win):
+    """Leading junk off, unless the text opens on a year and a verb."""
+    return win if OPENS_ON_A_YEAR.match(win) else JUNK_HEAD.sub('', win)
+
+
+# The lookahead sits immediately after the digits and looks past the
+# separator itself. Behind the separator it backtracked: \s* gave the
+# space back, the lookahead then examined the space rather than the
+# letter after it, and "1995 is a truly great vintage" lost its year
+# all the same.
+LEADING_YEAR = re.compile(
+    r'^(?:19|20)\d{2}(?!\s*[-:–]?\s*[a-zà-ÿ])\s*[-:–]?\s*')
 
 # Is this prose, or is it a table that happens to sit under a heading?
 #
@@ -1837,7 +1869,12 @@ ENGLISH_LABEL = re.compile(r'(?i)(tasting|growing\s+season|'
                            r'the\s+\d{4}\s+vintage|the\s+(?:growing\s+)?year)')
 
 
-def read_prose(text):
+# A match of nothing at the very start of the text, used as a label
+# for a page, whose title is its label and whose title is furniture.
+AT_START = re.compile(r'')
+
+
+def read_prose(text, page=False, shop=False):
     """The labelled tasting and season windows, cut at the stop-list."""
     out, how = {}, {}
     for field, lab in (('taste', LABEL_TASTE), ('note', LABEL_NOTE)):
@@ -1845,6 +1882,19 @@ def read_prose(text):
         # English first, then in the order the sheet prints them.
         cands.sort(key=lambda c: 0 if ENGLISH_LABEL.search(c.group(0))
                    else 1)
+        # And last, for a page, the page itself: Margaux 1995 opens
+        # "1995 is a truly great vintage ... Today the nose is not
+        # exactly closed ... On the palate, it is obviously the power
+        # that dominates", with no label over it because the page's
+        # title is its label and the title is furniture. A labelled
+        # tasting note still wins; this is only tried if none is
+        # found, and it passes the same tests.
+        if page and field == 'taste' and not shop:
+            # Not on a shop listing, whose opening is its product
+            # title: Chantegrive's reads "Magnum de Chantegrive Rouge -
+            # 2020 CB | Chantegrive top of page Magnum Chateau de
+            # Chantegrive rouge avec caisse bois".
+            cands.append(AT_START.match(text))
         for m in cands:
             win = text[m.end():m.end() + 1400].lstrip(' :–-—')
             s = PROSE_STOP.search(win)
@@ -1858,8 +1908,7 @@ def read_prose(text):
             # has taken the label and the harvest dates off the front:
             # Haut-Bailly's 2019 note opened on "< < 12 Le débourrement" and
             # its 2022 on "11 12 Les mois de septembre".
-            win = re.sub(r'^[\s<>|/•·\-–—!?,;:"\'’‘\u201c\u201d\d]{1,14}',
-                         '', win)
+            win = _strip_head(win)
             # A bilingual heading: Langoa-Barton and Leoville-Barton print
             # "DEGUSTATION / TASTING", so matching the French left "/
             # TASTING Robe dense de couleur pourpre" behind.
@@ -1872,6 +1921,14 @@ def read_prose(text):
             # CLIMATIQUES DE L'ANNEE Un printemps qui demarre", the
             # heading caught in the middle of its own repetition.
             for _ in range(5):
+                # Not a year that is the subject of the sentence. This
+                # loop strips a bare year because Beychevelle prints
+                # "DE L'ANNEE MILLESIME 2023 CONDITIONS CLIMATIQUES"
+                # and the year sits between two headings - but Margaux
+                # 1995's page opens "1995 is a truly great vintage",
+                # and stripping it there cost the note its first line.
+                if OPENS_ON_A_YEAR.match(win):
+                    break
                 shorter = re.sub(
                     r'^(?:TASTING|DEGUSTATION|D\u00c9GUSTATION|VINTAGE|'
                     r'MILL\u00c9SIME|MILLESIME|CONDITIONS\s+CLIMATIQUES|'
@@ -1888,8 +1945,7 @@ def read_prose(text):
             # Once more, because taking the heading off can expose the page
             # numbers that were sitting behind it: "TASTING5 2 20 74 IM PER"
             # becomes "2 20 74 IM PER" and the first pass has already run.
-            win = re.sub(r'^[\s<>|/•·\-–—!?,;:"\'’‘“”\d]{1,14}',
-                         '', win)
+            win = _strip_head(win)
             # And never end inside a word: the stop-list can cut anywhere.
             if win and not win[-1].isspace() and ' ' in win:
                 if not re.search(r'[.!?"\u201d]$', win):
@@ -1943,6 +1999,22 @@ def read_prose(text):
             if not (looks_like_prose(win) and looks_like_prose(win[:190])):
                 continue
             if field == 'taste' and not TASTES_OF.search(win[:260]):
+                continue
+            # An unlabelled opening that talks about the weather is the
+            # year's story and not a note on the wine. Haut-Bailly's
+            # vintage pages are articles about the year - "Spring was
+            # wonderful and the budbreak, quick and even, was the first
+            # factor in the vintage's overall regularity", "Apres trois
+            # annees de faible production ... une recolte abondante" -
+            # and offered as tasting notes they would say the same
+            # thing as the note, in the wrong field. Margaux's openings
+            # are about the wine and its season comes from under
+            # "Climate", so the two never meet.
+            #
+            # Only for the unlabelled candidate: a note printed under
+            # DEGUSTATION is the estate's own filing and is believed.
+            if (field == 'taste' and not m.group(0)
+                    and SEASON_OF.search(win[:300])):
                 continue
             if field == 'note' and not SEASON_OF.search(win[:300]):
                 continue
@@ -2108,6 +2180,20 @@ SHOP_PAGE = re.compile(
     r'(?i)(?:^|[_-])(produit|product|boutique|shop|panier|cart|'
     r'coffret|carton|lot-de|en-vente|magnum|magnums|'
     r'\d+-?bouteilles?|offre|offres)(?:[_-]|$)')
+# The crawler truncates a long filename and the head goes first, so
+# "produit" arrives as "roduit" or "duit": Paveil de Luze's
+# 2020__duit-paveil-de-luze-2020-primeurs-cru-bourgeois-exceptionnel
+# is a product page whose name no longer says so, and it offered the
+# same CS80/ME20 as the twelve shop pages before it. Five filenames
+# are docked this way. Only at the start, where the truncation
+# happens, so an ordinary French word ending in "duit" is safe.
+SHOP_DOCKED = re.compile(r'(?i)^\d{4}__[a-z]{0,6}(duit|roduct)[_-]')
+
+
+def _is_shop(filename):
+    """A page that offers something for sale, docked name or not."""
+    f = filename or ''
+    return bool(SHOP_PAGE.search(f) or SHOP_DOCKED.match(f))
 
 
 def sells_another_wine(filename, grand):
@@ -2122,7 +2208,7 @@ def sells_another_wine(filename, grand):
     Only asked of a shop listing. A vintage page need not carry the
     estate's name in its URL and Margaux's do not.
     """
-    if not (filename and grand) or not SHOP_PAGE.search(filename):
+    if not (filename and grand) or not _is_shop(filename):
         return None
     fb = bare_name(filename)
     nb = bare_name(grand)
@@ -2378,6 +2464,128 @@ def names_other_chateau(filename, grand, others=(), second=None):
     return ' '.join(spelled)
 
 
+# A blend written as a sentence, which is how an estate that publishes
+# a page rather than a sheet states it.
+BLEND_VARS = (
+    ('CS', r'cabernets?[\s-]+sauvignons?'),
+    ('CF', r'cabernets?[\s-]+francs?'),
+    ('PV', r'petits?[\s-]+verdots?'),
+    ('SB', r'sauvignons?[\s-]+blancs?'),
+    ('SG', r'sauvignons?[\s-]+gris'),
+    ('ME', r'merlots?'),
+    ('MA', r'malbecs?|c[oô]ts?'),
+    ('CM', r'carm[eé]n[eè]res?'),
+    ('SEM', r's[eé]millons?'),
+    ('MU', r'muscadelles?'),
+)
+BLEND_ANY = re.compile(r'(?i)(?<![a-z])(' + '|'.join(
+    p for _, p in BLEND_VARS) + r')(?![a-z])')
+BLEND_WHICH = tuple((k, re.compile(r'(?i)^(?:' + p + r')$'))
+                    for k, p in BLEND_VARS)
+BLEND_PCT = re.compile(r'(\d{1,3}(?:[.,]\d)?)\s*%')
+# The words that mean this is the wine's assemblage.
+BLEND_ANCHOR = re.compile(r'(?i)(assemblage|\bblend\b|grand\s+vin|'
+                          r'went\s+into|composition\s+du\s+vin)')
+# And the words that mean it is what the vineyard is planted with,
+# which is this dataset's commonest defect and not a blend at all.
+BLEND_PLANTING = re.compile(
+    r'(?i)(enc[eé]pagement|plant[eé]|planted|plantation|densit[eé]|'
+    r'superficie|surface|hectares?|[aâ]ge\s+(?:moyen|des\s+vignes)|'
+    r'average\s+age|vineyard\s+area)')
+BLEND_TOUCH = 3     # a figure standing beside its variety
+BLEND_REACH = 90    # or further on, across words, in one sentence
+BLEND_WINDOW = 320
+
+
+def _blend_name(s):
+    for k, rx in BLEND_WHICH:
+        if rx.match(s.strip()):
+            return k
+    return None
+
+
+def blend_in_prose(text, second=None):
+    """A blend stated in sentences, or None.
+
+    For pages only. Every way this was got wrong - and it was got
+    wrong four times - came of a column flattened into a line, where
+    each variety ends up beside its neighbour's figure. A page has no
+    columns.
+
+    A figure touching a variety belongs to it, on either side:
+    "59% Cabernet Sauvignon", "Merlot 38%", "Cabernet franc (3%)".
+    Only a variety with nothing beside it looks further on, and then
+    only forwards and only if no other variety stands in between,
+    which is how Margaux writes "cabernet sauvignon ... accounting
+    for 87%".
+
+    It stops at the second wine's name, because Haut-Bailly prints
+    "Chateau Haut-Bailly : 59% Cabernet Sauvignon - 41% Merlot La
+    Parde Haut-Bailly : 50% ..." and what follows is La Parde's.
+    """
+    text = ' '.join((text or '').split())
+    if second:
+        mark = mark_of(second, None)
+        if mark:
+            words = [w for w in re.split(r'[^a-z0-9]+', norm(mark)) if w]
+            if words:
+                rx = re.compile(r'(?i)(?<![a-z])'
+                                + r'\s*'.join(re.escape(w)
+                                               for w in words))
+                m = rx.search(text)
+                if m and m.start() > 40:
+                    text = text[:m.start()]
+
+    pcts = [(m.start(), m.end(), float(m.group(1).replace(',', '.')))
+            for m in BLEND_PCT.finditer(text)]
+    if not pcts:
+        return None
+    vs = []
+    for m in BLEND_ANY.finditer(text):
+        k = _blend_name(m.group(0))
+        if k:
+            vs.append((m.start(), m.end(), k))
+    if len(vs) < 2:
+        return None
+
+    got, taken, used = {}, set(), []
+
+    def claim(vi, pi):
+        s, e, k = vs[vi]
+        got.setdefault(k, pcts[pi][2])
+        taken.add(pi)
+        used.append((min(s, pcts[pi][0]), max(e, pcts[pi][1])))
+
+    for vi, (s, e, k) in enumerate(vs):
+        if k in got:
+            continue
+        for pi, (ps, pe, val) in enumerate(pcts):
+            if pi in taken:
+                continue
+            if 0 <= s - pe <= BLEND_TOUCH or 0 <= ps - e <= BLEND_TOUCH:
+                claim(vi, pi)
+                break
+    for vi, (s, e, k) in enumerate(vs):
+        if k in got:
+            continue
+        for pi, (ps, pe, val) in enumerate(pcts):
+            if pi in taken or ps < e or ps - e > BLEND_REACH:
+                continue
+            if BLEND_ANY.search(text[e:ps]):
+                break
+            claim(vi, pi)
+            break
+
+    if len(got) < 2 or abs(sum(got.values()) - 100) > 1.5:
+        return None
+    lo = max(0, min(s for s, e in used) - BLEND_WINDOW)
+    hi = min(len(text), max(e for s, e in used) + BLEND_WINDOW)
+    win = text[lo:hi]
+    if not BLEND_ANCHOR.search(win) or BLEND_PLANTING.search(win):
+        return None
+    return got
+
+
 def whose_sheet(path, filename=None, grand=None, others=(), second=None,
                 cat=None, year=None):
     """Is this sheet the estate's grand vin for this vintage?
@@ -2481,8 +2689,30 @@ def fields_of(path, grand=None, others=(), second=None, cat=None,
         return {}, {'refused': 'unreadable'}
 
     got, how = read_numbers(text)
-    for fn in (read_prose, read_advice):
-        more, howm = fn(text)
-        got.update(more)
-        how.update(howm)
+    # A blend written as a sentence, which only a page is trusted for:
+    # every way of reading one off a PDF came to grief on a flattened
+    # column. On a PDF the blend is blend_of's business.
+    # And not from a shop listing. Its description is written to sell a
+    # bottle and is reused: Paveil de Luze's product pages state
+    # "Assemblage : 70 % Cabernet Sauvignon - 30 % Merlot" for 1998
+    # through 2009 and 80/20 for 2011 through 2016, which is a standard
+    # description and not twelve assemblages. A figure that does not
+    # move across a decade is not a vintage's - the lesson plantings.js
+    # was built for - and here there is no planting on record to check
+    # it against, so the source decides: an estate's own vintage page
+    # states a vintage's blend, a shop's product page states the
+    # wine's usual one.
+    if is_page(path) and not _is_shop(filename):
+        b = blend_in_prose(text, second)
+        if b:
+            got['blend'] = b
+            how['blend'] = 'stated in prose'
+    more, howm = read_prose(
+        text, page=is_page(path),
+        shop=_is_shop(filename))
+    got.update(more)
+    how.update(howm)
+    more, howm = read_advice(text)
+    got.update(more)
+    how.update(howm)
     return got, how

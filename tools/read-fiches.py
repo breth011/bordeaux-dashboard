@@ -96,6 +96,12 @@ import sheetreader as sr
 #
 # This is read-sheets' PINNED, for prose.
 REFUSED = {
+    ('batailley|2010', 'taste'):
+        'not a tasting note: Batailley\'s sheet sets the estate\'s history in a column beside it and the flat reading weaves the two together - "Il doit son nom a la derniere Robe grenat-pourpre. Nez riche et Bataille en Medoc de la guerre de cent ans expressif, fruite avec des notes (1337-1453)". Every word is whole and only the order is wrong, so no rule about spacing or capitals sees it, and it cannot be trimmed into a sentence',
+    ('batailley|2016', 'taste'):
+        'not a tasting note: Batailley\'s sheet sets the estate\'s history in a column beside it and the flat reading weaves the two together - "Il doit son nom a la derniere Robe grenat-pourpre. Nez riche et Bataille en Medoc de la guerre de cent ans expressif, fruite avec des notes (1337-1453)". Every word is whole and only the order is wrong, so no rule about spacing or capitals sees it, and it cannot be trimmed into a sentence',
+    ('batailley|2018', 'taste'):
+        'not a tasting note: Batailley\'s sheet sets the estate\'s history in a column beside it and the flat reading weaves the two together - "Il doit son nom a la derniere Robe grenat-pourpre. Nez riche et Bataille en Medoc de la guerre de cent ans expressif, fruite avec des notes (1337-1453)". Every word is whole and only the order is wrong, so no rule about spacing or capitals sees it, and it cannot be trimmed into a sentence',
     ('ducru-beaucaillou|2018', 'note'):
         'not a season note: the sheet prints the estate’s motto - '
         '"Nihil sine sole, nihil sine labore", rien sans le soleil, rien '
@@ -236,6 +242,43 @@ def main():
     print('\nrefused:')
     for k, n in why.most_common(8):
         print('   %-52s %d' % (str(k)[:52], n))
+    # An unlabelled page opening that is word for word the same on
+    # several of an estate's vintages is the site's standing
+    # description of the wine. Beychevelle's is on nineteen pages, from
+    # 2000 to 2025. Only candidates that had no label are judged this
+    # way: a labelled note may repeat, and Coutet's does.
+    TEMPLATE = collections.defaultdict(set)
+    for r in found:
+        for f in ('taste', 'note'):
+            if f in r['got'] and not (r.get('how') or {}).get(f):
+                TEMPLATE[(r['estate'], f, r['got'][f][:120])].add(
+                    str(r['year']))
+    boiler = set(k for k, v in TEMPLATE.items() if len(v) > 1)
+
+    # And an unlabelled opening that is the season note, which is what
+    # Haut-Bailly's vintage articles are: their first paragraph is the
+    # year's story, and the record holds it as the note already.
+    def SAME_AS_NOTE(r):
+        t = (r.get('got') or {}).get('taste')
+        if not t or (r.get('how') or {}).get('taste'):
+            return False
+        head = t[:80]
+        if head and head in ((r.get('got') or {}).get('note') or ''):
+            return True
+        # And against the note the record already holds. r['record'] is
+        # a flag, not the record - recs holds the line itself, keyed by
+        # the estate and the year as strings.
+        body = recs.get((r['estate'], str(r['year']))) or ''
+        return bool(head and head in body)
+    if boiler:
+        print('%d unlabelled page openings repeat across an estate’s '
+              'vintages, so they are the site’s description of the '
+              'wine and not a vintage’s:' % len(boiler))
+        for eid, f, head in sorted(boiler)[:8]:
+            print('   %-30s %-6s %d vintages: %s'
+                  % (eid[:30], f, len(TEMPLATE[(eid, f, head)]),
+                     head[:60]))
+
     print('\nreport in reports/fiches-read.txt')
     if not a.apply:
         print('nothing written to fiches.js; read the report, then --apply')
@@ -250,7 +293,7 @@ def main():
     # phenology table and a description of a park all got as far as they
     # did. So prose is opt-in and the report is there to be read first.
     NUMERIC = ('alc', 'ph', 'yld', 'months', 'oak', 'temp', 'pick',
-               'wy')
+               'wy', 'blend')
     PROSE = ('taste', 'note', 'window', 'decant', 'food')
     fields = NUMERIC + (PROSE if a.prose else ())
 
@@ -262,6 +305,10 @@ def main():
             return 'temp:[%s]' % ','.join('%g' % x for x in v)
         if f == 'wy':
             return 'wy:[%d,%d]' % (v[0], v[1])
+        if f == 'blend':
+            # Sorted by variety, as read-sheets writes it.
+            return 'blend:{%s}' % ','.join('%s:%g' % kv
+                                           for kv in sorted(v.items()))
         if f == 'months':
             return "months:'%s'" % v
         if f in PROSE:
@@ -282,6 +329,13 @@ def main():
         key = (r['estate'], r['year'])
         for f in r['got']:
             if f not in fields:
+                continue
+            if (f in ('taste', 'note')
+                    and not (r.get('how') or {}).get(f)
+                    and (r['estate'], f,
+                         r['got'][f][:120]) in boiler):
+                continue
+            if f == 'taste' and SAME_AS_NOTE(r):
                 continue
             best.setdefault(key, {}).setdefault(f, (r['got'][f], r['src']))
 

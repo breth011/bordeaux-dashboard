@@ -188435,6 +188435,34 @@
    "url": "https://www.valandraud.fr/wp-content/uploads/2023/06/Château-Valandraud-2020.pdf",
    "how": "from the site’s own media library",
    "note": "the vintage came from the commonest year on the page"
+  },
+  {
+   "file": "2025__actualites-le-mill-c3-a9sime-2025-est-disponible-en-primeurs.txt",
+   "folder": "pages/margaux",
+   "estate": "margaux",
+   "estateName": "Château Margaux",
+   "wine": null,
+   "role": "page",
+   "colour": null,
+   "year": 2025,
+   "bytes": 106,
+   "sha1": "0e60f60dc921f7c8bb55cfc33ed91204d80d3f68",
+   "url": "https://chateau-margaux.com/actualites/le-mill%C3%A9sime-2025-est-disponible-en-primeurs",
+   "how": "from the name of the page"
+  },
+  {
+   "file": "2025__actualites-le-millesime-2025-sinstalle-dans-le-chai-enterre.txt",
+   "folder": "pages/margaux",
+   "estate": "margaux",
+   "estateName": "Château Margaux",
+   "wine": null,
+   "role": "page",
+   "colour": null,
+   "year": 2025,
+   "bytes": 105,
+   "sha1": "127b80c7655fd6fd1efdc7db216482bad8303f81",
+   "url": "https://chateau-margaux.com/actualites/le-millesime-2025-sinstalle-dans-le-chai-enterre",
+   "how": "from the name of the page"
   }
  ],
  "how": {

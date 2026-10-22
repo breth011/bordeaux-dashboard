@@ -64,13 +64,21 @@ MANIFEST = ROOT + 'data/sources.json'
 # A role the guards put a document into. Everything else - grand,
 # combined, page - is a document already in use.
 REFUSED = ('skip', 'other', 'second', 'unknown')
-# Of those, the two that mean refused rather than identified. `second`
-# and `other` say which wine a document is for, which is knowledge the
-# filename guards do not have: chateaux.js does not name Fleur de
-# Badette, so nothing objects to Fleur-de-Badette-2021-FR.pdf and
-# silence there means ignorance, not availability. `skip` and
-# `unknown` carry no such claim.
-UNREAD = ('skip', 'unknown')
+# Of those, the one that means a guard refused the document.
+#
+# `second` and `other` say which wine a document is for, which is
+# knowledge the filename guards do not have: chateaux.js does not name
+# Fleur de Badette, so nothing objects to Fleur-de-Badette-2021-FR.pdf
+# and silence there means ignorance, not availability.
+#
+# `unknown` is harvest.py's default on every document it registers -
+# "registered with no vintage, for someone to read" - so it means
+# nobody has looked. The chain having no objection to one of those is
+# the ordinary state of a fresh document, and asking about all 4,346
+# of them returned 3,411 "accepts" that meant nothing.
+#
+# `skip` is the only one of the four that is a verdict.
+UNREAD = ('skip',)
 # Bookkeeping, not something a sheet states.
 NOT_A_FIELD = frozenset(('src', 'via', 'url', 'xsrc', 'ttl', 'ntl',
                          'wtl', 'dtl', 'ftl'))
@@ -188,10 +196,9 @@ def deep(man, E, limit=0):
     only way to ask about the guards that read a document rather than
     its name, and those are most of them.
 
-    Only roles `skip` and `unknown`. A document filed `second` or
-    `other` has been identified as another wine's, and the chain
-    having no objection to it means only that chateaux.js does not
-    name that wine - not that the document is this one's.
+    Role `skip` only - see UNREAD. The other three refused roles each
+    mean something the question cannot use: an identification, or
+    nobody having looked.
     """
     rows = [s for s in man['sheets'] if s.get('role') in UNREAD
             and s.get('estate') and s.get('file')]
@@ -223,12 +230,36 @@ def deep(man, E, limit=0):
             print('   ACCEPTS  %-22s %-5s %-8s %s'
                   % (eid[:22], s.get('year'), s.get('role'),
                      (s.get('file') or '')[:52]))
+            # Whatever was written when it was filed. The guards
+            # cannot see this and it is usually the whole reason: 350
+            # of the first run's 379 were two Dubourdieu estates whose
+            # note reads "the property's press dossier, not a
+            # vintage's sheet", and reading one shows that is right.
+            note = (s.get('note') or '').strip()
+            if note:
+                for part in note.split('; '):
+                    print('            note: %s' % part[:96])
+            else:
+                print('            no note: nothing justifies the '
+                      'skip, so this one is worth a look')
         if asked % 500 == 0:
             print('   ... %d asked, %d accepted so far'
                   % (asked, len(accepted)))
     print()
     print('%d of %d asked are accepted by the current chain'
           % (len(accepted), asked))
+    bare = [s for s in accepted if not (s.get('note') or '').strip()]
+    print('   %d of those carry a note explaining the skip, which is '
+          'a reading and' % (len(accepted) - len(bare)))
+    print('   usually a better one than the guards can reproduce; '
+          '%d carry none' % len(bare))
+    never = len([s for s in man['sheets']
+                 if s.get('role') == 'unknown'])
+    if never:
+        print('   and %d document(s) are still at harvest.py\u2019s '
+              'default role, which means' % never)
+        print('   nobody has read them - a question for '
+              'tools/read-sheets.py, not for the guards')
     if missing:
         print('   %d not on disk; run tools/harvest.py' % missing)
     print()

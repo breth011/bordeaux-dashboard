@@ -1885,6 +1885,83 @@ ENGLISH_LABEL = re.compile(r'(?i)(tasting|growing\s+season|'
 AT_START = re.compile(r'')
 
 
+# A label that is also an ordinary subject of a sentence. Montrose
+# prints "The year could have tipped into excess." and LABEL_NOTE
+# matches "The year" in the middle of it.
+LABEL_SUBJECT = re.compile(
+    r"(?i)^(?:the|le|la|l[’']|this|ce|cette)\s*"
+    r"(?:year|vintage|mill[eé]sime|ann[eé]e|season|saison|"
+    r"harvest|r[eé]colte)$")
+# The verb that follows a subject and never follows a heading. A
+# closed list, because telling a verb from a noun needs a parser and
+# this needs only to recognise the handful an estate writes.
+LABEL_VERB = re.compile(
+    r"(?i)^(?:could|can|would|will|shall|should|must|might|may|"
+    r"was|were|is|are|has|have|had|began|begun|started|turned|"
+    r"proved|brought|saw|gave|made|allowed|produced|"
+    r"a|ont|est|sont|[eé]tait|[eé]taient|aura|aurait|"
+    r"pourrait|peut|fut|furent|s[’']est|commence|commença|"
+    r"d[eé]bute)\b")
+
+
+def label_is_subject(text, m):
+    """Is this label the subject of the sentence it stands in?
+
+    True when the label reads as an article and a noun and the word
+    after it is a verb carrying the sentence on - "The year could have
+    tipped into excess". The window then has to start at the label and
+    not after it, or the note opens on the middle of a sentence.
+
+    A label in capitals, or followed by a colon, is a heading however
+    it reads.
+    """
+    got = (m.group(0) or '').strip()
+    if got.isupper() and len(got) > 3:
+        return False
+    after = text[m.end():m.end() + 30]
+    if after.lstrip().startswith(':'):
+        return False
+    if not LABEL_SUBJECT.match(got):
+        return False
+    return bool(LABEL_VERB.match(after.lstrip(' \t')))
+
+
+def _put_the_label_back(text, m, win):
+    """The label's own sentence, back on the front of an approved note.
+
+    `win` has passed every test. If the label read as the subject of
+    the sentence it stood in, the words from the label up to `win` are
+    the rest of that sentence, and the note should begin with them -
+    "The year could have tipped into excess. Yet it found its balance"
+    rather than "Yet it found its balance".
+
+    Only when what is restored ends on a sentence boundary, so that it
+    joins onto an opening which is itself the start of a sentence.
+    Returns `win` unchanged whenever anything does not fit.
+    """
+    if not win or m is None or not m.group(0):
+        return win
+    if not label_is_subject(text, m):
+        return win
+    # Where the approved opening sits in the document.
+    head = ' '.join(win[:60].split())
+    tail = text[m.end():m.end() + 1400]
+    flat_tail = ' '.join(tail.split())
+    at = flat_tail.find(head)
+    if at < 0:
+        return win
+    bridge = flat_tail[:at].strip()
+    # It has to be the end of the label's sentence, and a short one:
+    # anything long is a paragraph the tests never saw.
+    if len(bridge) > 320:
+        return win
+    if bridge and not re.search(r'[.!?][\"\u201d\u2019\')\]]*$',
+                                bridge):
+        return win
+    lead = (m.group(0).strip() + ' ' + bridge).strip()
+    return (lead + ' ' + win).strip() if lead else win
+
+
 def read_prose(text, page=False, shop=False):
     """The labelled tasting and season windows, cut at the stop-list."""
     out, how = {}, {}
@@ -2034,6 +2111,18 @@ def read_prose(text, page=False, shop=False):
                 continue
             if field == 'note' and not SEASON_OF.search(win[:300]):
                 continue
+            # Every test above has run on the window as it was found.
+            # Now, if the label was the subject of its own sentence,
+            # that sentence goes back on the front: Montrose's season
+            # note read "Yet it found its balance", with "The year
+            # could have tipped into excess." sitting in front of it
+            # where the label had matched.
+            #
+            # After the tests and not before, because the window's
+            # first 300 characters are what the season test reads, and
+            # moving the start pushed Kirwan 2017's "frost" past that
+            # horizon and lost a note that was never in doubt.
+            win = _put_the_label_back(text, m, win)
             out[field], how[field] = win, m.group(0)[:40]
             break
     return out, how

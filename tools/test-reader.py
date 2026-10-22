@@ -263,6 +263,21 @@ SECOND = [
 #
 # (estate, filename, field, what must be true of what comes back)
 FIELDS = [
+    # A label that is the subject of its own sentence. LABEL_NOTE
+    # matched "The year" inside "The year could have tipped into
+    # excess.", so the note began on the sentence after it and opened
+    # on a contrast with nothing to contrast against.
+    ('montrose', 'Presentation-millesime-MO2025_EN.pdf', 'note',
+     'opens on the estate\u2019s sentence, not on "Yet"',
+     lambda v: v and v.startswith('The year could have tipped')),
+    ('kirwan', '2017__en-millesime-2017.txt', 'note',
+     'the note survives: restoring the label before the tests ran '
+     'pushed "frost" past the season test\u2019s 300-character '
+     'horizon and lost it altogether',
+     lambda v: v and v.startswith('The year began with intensely')),
+    ('palmer', '66ab918a950dd7a5b9228ddb_Fiche_millesime_EN_1993.pdf',
+     'note', 'Palmer writes five of these, one per vintage',
+     lambda v: v and v.startswith('The year began with a severe')),
     ('beychevelle', 'Beychevelle-2004-francais.pdf', 'taste',
      'starts with the wine, not with a stray S from DEGUSTATIONS',
      lambda v: v and not v.startswith('S ') and 'robe' in v.lower()),
@@ -308,9 +323,20 @@ FIELDS = [
 ]
 
 def find(eid, name):
-    hit = glob.glob(os.path.join(ROOT, 'sources/fiches', eid, name))
-    return hit[0] if hit else (glob.glob(
-        os.path.join(ROOT, 'sources/fiches/*', name)) or [None])[0]
+    # The estate's own folder first, in both archives - a basename
+    # occurs in more than one folder 888 times, so the folder is what
+    # makes it the right file. Pages are searched as well as fiches:
+    # the reader reads crawled pages now, and a case naming one used
+    # to print MISSING and quietly not run.
+    for where in ('sources/fiches', 'sources/pages'):
+        hit = glob.glob(os.path.join(ROOT, where, eid, name))
+        if hit:
+            return hit[0]
+    for where in ('sources/fiches/*', 'sources/pages/*'):
+        hit = glob.glob(os.path.join(ROOT, where, name))
+        if hit:
+            return hit[0]
+    return None
 
 
 def fmt(b):

@@ -148,6 +148,60 @@ COLOUR = [
      'saying the wrong one'),
 ]
 
+# (estate, filename, the year it is filed under, the vintage the
+# filename names instead or None, note)
+#
+# A crawled page is filed under the day it was published, which for a
+# page about last year's wine is the wrong vintage. The whole of this
+# guard is the question of what a year in a filename is attached to.
+VINTAGE = [
+    ('giscours',
+     '2021__07-02-millesime-2020-du-chateau-giscours-precision-et-'
+     'audace.txt', 2021, 2020,
+     'published 2021, about the 2020 wine; Giscours 2021 was holding '
+     '2020\u2019s blend until this guard'),
+    ('giscours',
+     '2021__se-x-giscours-2020-la-nouvelle-signature-du-chateau-'
+     'giscours.txt', 2021, 2020,
+     'the vintage follows the estate\u2019s own name, with no '
+     'millesime to announce it'),
+    ('giscours',
+     '2022__06-16-chateau-giscours-2021-450eme-millesime-de-la-'
+     'propriete.txt', 2022, 2021,
+     '450eme is not a year; four digits are'),
+    ('bourgeois-chateau-lacour-jacquet',
+     'WINEDOCTOR-tasting-note-in-2022-for-2018-vintage-by-Chris-'
+     'Kissack.pdf', 2022, 2018,
+     'written in 2022, for the 2018 vintage, and it says so'),
+    ('bourgeois-chateau-lacour-jacquet',
+     '2022__2022-05-23-primeur-2021-terre-de-vins.txt', 2022, 2021,
+     'a primeurs week tastes the previous year\u2019s wine'),
+    ('la-tour-blanche',
+     '2024__rimeurs-2024-les-premieres-impressions-sur-le-millesime-'
+     '2023.txt', 2024, 2023,
+     'two years, and only one of them has millesime in front of it'),
+    # And the ones that must be kept. Every one of these was refused
+    # by the first, wider form of the rule - any year in the name -
+    # and every one of those refusals was wrong.
+    ('leoville-poyferre',
+     '2018__leoville-poyferre-1936-2018-neal-martin.txt', 2018, None,
+     'a vertical from 1936 to 2018: 2018 is an end of the span, so '
+     'the document does cover it'),
+    ('leoville-poyferre',
+     '2018__ned-the-7-ranking-in-wine-spectators-top-100-wines-of-'
+     '2021.txt', 2018, None,
+     'the 2021 is the list\u2019s year, not a wine\u2019s'),
+    ('latour-martillac',
+     '2021__artillac-evenements-les-estivales-de-pessac-leognan-'
+     '2020.txt', 2021, None,
+     'an event\u2019s year; the wine is not in question'),
+    ('giscours', 'fiche-technique-giscours-2019-fr.pdf', 2019, None,
+     'the ordinary case: the filename names the vintage it is filed '
+     'under'),
+    ('giscours', 'FT_CH-GISCOURS.pdf', 2019, None,
+     'a filename with no year at all states nothing either way'),
+]
+
 SECOND = [
     ('belgrave-2023-fc11b611.pdf', True,
      'SE C O N D VI N D U CH AT EA U BE LG RA V E, chunk-spaced'),
@@ -320,6 +374,17 @@ for eid, name, field, why, test in FIELDS:
     print('%-4s field   %-40s %-6s %-26s %s'
           % ('ok' if ok else 'FAIL', name[:40], field,
              str(shown)[:26], '' if ok else '<- ' + why))
+
+for eid, name, yr, want, note in VINTAGE:
+    # Nothing is opened: this guard reads the filename only, so these
+    # are the cases that pass before the archive has been fetched.
+    grand = (E.get(eid) or {}).get('name')
+    got = sr.filename_vintage(yr, name, grand)
+    ok = got == want
+    fails += 0 if ok else 1
+    print('%-4s vintage %-46s %-22s %s'
+          % ('ok' if ok else 'FAIL', name[:46],
+             '%s -> %s' % (yr, got), '' if ok else '!= ' + str(want)))
 
 print('\n%s' % ('all pass' if not fails else '%d FAILED' % fails))
 sys.exit(1 if fails else 0)

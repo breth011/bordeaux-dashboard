@@ -1489,6 +1489,17 @@ PROSE_STOP = re.compile(
     # fraicheur" - which is how the estate works every year and not
     # what any one season did.
     r'au\s+chai\b|vinification\s*:|fermentation\s+alcoolique|'
+    # More of the cellar. Haut-Bailly's 2002 and 2003 season notes run
+    # from the weather straight into the work: "La mise en place d'une
+    # table vibrante equipee d'une grille de tamisage, situee juste
+    # derriere l'erafloir", "Des remontages en douceur et des
+    # macerations maitrisees". That is how the wine was made, not what
+    # the year did.
+    r'[eé]rafloir|remontages?\b|mac[eé]rations?\s+(?:pr[eé]|ma)|'
+    r'table\s+vibrante|encuvage\b|'
+    # And the page furniture that follows a tasting note on Batailley's
+    # site: "Voir la video."
+    r'voir\s+la\s+vid[eé]o|watch\s+the\s+video|'
     r'in\s+the\s+cellar\s*:|winemaking\s*:|'
     r'commentaires?\s+de\s+d[eé]gustation|'
     # The bare heading, which is what Domaine de Chevalier prints over
@@ -1932,6 +1943,11 @@ def read_prose(text, page=False, shop=False):
                 shorter = re.sub(
                     r'^(?:TASTING|DEGUSTATION|D\u00c9GUSTATION|VINTAGE|'
                     r'MILL\u00c9SIME|MILLESIME|CONDITIONS\s+CLIMATIQUES|'
+                    # Figeac heads its season note "CLIMATOLOGIE ET
+                    # CONDITIONS DE RECOLTE", the label matches the
+                    # first word, and the rest of the heading was left
+                    # at the front of every one of its notes.
+                    r'ET\s+CONDITIONS\s+DE\s+R[E\u00c9]COLTE|'
                     r'CLIMATOLOGIE|DE\s+L[\u2019\']ANN\u00c9E|'
                     r'DE\s+L[\u2019\']ANNEE|(?:19|20)\d\d)\d*\b'
                     r'[\s:/–—-]*', '', win)
@@ -2252,6 +2268,67 @@ def declares_another_vintage(year, text):
     return None if got == int(year) else got
 
 
+# The words that make the year beside them a vintage rather than a
+# date. A page published in 2021 about the 2020 wine writes both.
+VINTAGE_WORD = (r'mill[eé]sim\w*|vintage|primeurs?|vendanges?|'
+                r'harvest|cuv[eé]e|ann[eé]e')
+# The crawler's own prefix is the day the page went up, so it is cut
+# off before anything is read from the name.
+CRAWL_DATE = re.compile(r'^\d{4}__')
+A_YEAR = re.compile(r'(?<!\d)((?:19|20)\d\d)(?!\d)')
+# Two years joined by nothing but a dash: a vertical's span, not a
+# claim about one wine. Leoville-Poyferre 1936-2018, tasted by Neal
+# Martin, covers both ends and everything between.
+YEAR_SPAN = re.compile(r'(?<!\d)((?:19|20)\d\d)\s*[-–—]\s*'
+                       r'((?:19|20)\d\d)(?!\d)')
+# How far either side of the year to look for the word that qualifies
+# it. One separator, or three characters of one.
+VINTAGE_NEAR = 26
+
+
+def filename_vintage(year, filename, grand=None):
+    """A vintage the filename names in words, if it is not `year`.
+
+    None unless the filename calls some year a vintage and that year
+    is not the one asked for. A year standing on its own says nothing:
+    `top-100-wines-of-2021` is a list's year and `estivales-de-pessac
+    -leognan-2020` is an event's, and neither is evidence about which
+    wine a page describes.
+    """
+    if not year or not filename:
+        return None
+    # The crawler's prefix comes off the name as it is on disk: norm()
+    # would have made it ` 2021 ...` and the anchor would never match.
+    raw = CRAWL_DATE.sub('', filename)
+    # A span the year asked for is an end of: the document covers it.
+    # This one needs the dash, so it runs before the separators go.
+    for m in YEAR_SPAN.finditer(raw):
+        lo, hi = sorted((int(m.group(1)), int(m.group(2))))
+        if lo <= int(year) <= hi:
+            return None
+    stem = norm(raw)
+    # The estate's own name, which puts a vintage after it: the words
+    # that are this estate's and not every estate's.
+    mine = [w for w in re.split(r'[^a-z0-9]+', norm(grand or ''))
+            if len(w) > 3 and w not in NAME_COMMON]
+    said = set()
+    for m in A_YEAR.finditer(stem):
+        before = stem[max(0, m.start() - VINTAGE_NEAR):m.start()]
+        after = stem[m.end():m.end() + VINTAGE_NEAR]
+        if (re.search(r'(?:' + VINTAGE_WORD + r')[^a-z0-9]{0,3}$',
+                      before)
+                or re.match(r'[^a-z0-9]{0,3}(?:' + VINTAGE_WORD + r')',
+                            after)
+                or any(re.search(w + r'[^a-z0-9]{0,3}$', before)
+                       for w in mine)):
+            said.add(int(m.group(1)))
+    if not said or int(year) in said:
+        return None
+    # More than one and none of them ours: report the nearest, which
+    # is the one a mis-filing is most likely to be about.
+    return min(said, key=lambda y: abs(y - int(year)))
+
+
 # A long run of hex is a hash, and four digits inside one are not a
 # year. Croix de Labrie "2079" is the tail of
 # 266fad379e514e6c8dabd7d076602079.
@@ -2376,10 +2453,27 @@ PRESS_NAME = re.compile(r'(?i)(?<![a-z])('
                         r')(?![a-z])')
 
 
+# The filename calling itself the estate's own sheet. A document that
+# says this is not press, however much press it also reprints.
+SHEET_NAME = re.compile(
+    r'(?i)(?<![a-z])(fiche[-_ ]?technique|technical[-_ ]?sheet|'
+    r'tech[-_ ]?sheet|fact[-_ ]?sheet|fiche[-_ ]?de[-_ ]?degustation|'
+    r'ft[-_ ])')
+
+
 def is_press_name(filename):
-    """Does the filename say this is press rather than a sheet?"""
+    """Does the filename say this is press rather than a sheet?
+
+    None when the name also calls the document a technical sheet.
+    Estates bind the two together and name both: Marquis de Terme
+    publishes `MdT-2017-Fiche-technique-Revue-de-Presse-Marquis-de-
+    Terme.pdf` for every vintage, and reading only the second half of
+    that name put nine vintages out of reach.
+    """
     m = PRESS_NAME.search(filename or '')
-    return m.group(1) if m else None
+    if not m:
+        return None
+    return None if SHEET_NAME.search(filename or '') else m.group(1)
 
 
 # Words that belong to every name in Bordeaux and so distinguish none.
@@ -2586,6 +2680,27 @@ def blend_in_prose(text, second=None):
     return got
 
 
+def naming_of(path, filename=None):
+    """Everything that names this document: its filename and its URL.
+
+    A crawled page's filename is docked when the URL is long, and the
+    head goes first - "rose-x-giscours-2020" becomes
+    "se-x-giscours-2020" - which blinds every guard that reads the
+    name. The URL survives on the page's first line, so both are
+    handed to the guards together.
+    """
+    name = filename or os.path.basename(path or '')
+    if not is_page(path):
+        return name
+    u = page_url(path)
+    if not u:
+        return name
+    # The path and the last segment, without the scheme or the host,
+    # which say nothing about the wine.
+    tail = re.sub(r'^https?://[^/]+', '', u)
+    return name + ' ' + tail.replace('/', ' ')
+
+
 def whose_sheet(path, filename=None, grand=None, others=(), second=None,
                 cat=None, year=None):
     """Is this sheet the estate's grand vin for this vintage?
@@ -2603,8 +2718,10 @@ def whose_sheet(path, filename=None, grand=None, others=(), second=None,
     year whoever's wine it is; then the document's own claims.
     """
     filename = filename or os.path.basename(path)
+    # A docked filename names less than the URL it was made from.
+    named = naming_of(path, filename)
     try:
-        if year and not year_said(year, filename):
+        if year and not year_said(year, named):
             if not year_said(year, filename,
                              ' '.join(flat(path).split())):
                 return {'why': 'nothing states this vintage',
@@ -2618,23 +2735,30 @@ def whose_sheet(path, filename=None, grand=None, others=(), second=None,
             if other:
                 return {'why': 'the document declares the %d vintage'
                                % other, 'role': 'unknown', 'wine': None}
-        press = is_press_name(filename)
+            # A page filed under the day it was published, about a
+            # wine made the year before.
+            named_year = filename_vintage(year, named, grand)
+            if named_year:
+                return {'why': 'the filename calls this the %d vintage'
+                               % named_year,
+                        'role': 'unknown', 'wine': None}
+        press = is_press_name(named)
         if press:
             return {'why': 'the filename says it is press: %s' % press,
                     'role': 'skip', 'wine': None}
-        spells = names_other_chateau(filename, grand, others, second)
+        spells = names_other_chateau(named, grand, others, second)
         if spells:
             return {'why': 'the filename names another château: %s'
                            % spells, 'role': 'other', 'wine': spells}
-        sold = sells_another_wine(filename, grand)
+        sold = sells_another_wine(named, grand)
         if sold:
             return {'why': sold, 'role': 'other', 'wine': None}
-        abbrev = abbreviates_other_wine(filename, grand, others)
+        abbrev = abbreviates_other_wine(named, grand, others)
         if abbrev:
             return {'why': 'the filename abbreviates another of the '
                            'estate’s wines: %s' % abbrev,
                     'role': 'other', 'wine': abbrev}
-        if wrong_colour(filename, None, cat):
+        if wrong_colour(named, None, cat):
             return {'why': 'the filename says another colour',
                     'role': 'other', 'wine': None}
         if is_dossier(path):

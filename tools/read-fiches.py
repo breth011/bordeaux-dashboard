@@ -113,6 +113,36 @@ REFUSED = {
         'for the estate’s twenty-fifth harvest, naming Silvio Denz, '
         'Corinne Guisez and Michel Rolland, with the weather nowhere in '
         'it',
+    ('bourgeois-chateau-dillon|2018', 'months'):
+        'not this wine: the source is a shop page '
+        'for Les Haldes de Luchey, which is Luchey-Halde\'s, and white',
+    ('bourgeois-chateau-dillon|2024', 'alc'):
+        'not this wine: the source is a shop '
+        'page for a case of six bottles of Leonie',
+    ('bourgeois-chateau-dillon|2024', 'months'):
+        'not this wine: the source is a shop '
+        'page for a case of six bottles of Leonie',
+    ('bourgeois-chateau-paveil-de-luze|2024', 'alc'):
+        'not this wine: the source is the shop\'s page for Paveil '
+        'de Luze blanc',
+    ('bourgeois-chateau-paveil-de-luze|2024', 'months'):
+        'not this wine: the source is the shop\'s page for Paveil '
+        'de Luze blanc',
+    ('bourgeois-chateau-paveil-de-luze|2024', 'yld'):
+        'not this wine: the source is the shop\'s page for Paveil '
+        'de Luze blanc',
+    ('chantegrive|2019', 'months'):
+        'not this wine: the source is the product page for '
+        'Les Oiseaux\' Panache',
+    ('clos-haut-peyraguey|2021', 'months'):
+        'not this wine: the source is a shop page for '
+        'Chateau Les Grands Chenes, red, and this is a Sauternes',
+    ('giscours|2021', 'blend'):
+        'not this wine: 2020\'s blend, from a page Giscours '
+        'published in August 2021 about the 2020 wine, and its filename '
+        'says so - millesime-2020-du-chateau-giscours. The manifest filed '
+        'it under the day it went up, which is how a vintage came to be '
+        'read off a publication date',
 }
 
 def main():
@@ -403,6 +433,46 @@ def main():
                 lines[i] = "'%s':{%s}," % (key, body)
         print('%d field values taken back for re-reading' % sum(
             undone.values()))
+
+    # THE PIN LIST, WHICH IS A DECISION AND NOT A NOTE. --redo takes
+    # back what field-src.js credits the reader with, and field-src is
+    # rewritten whole each run: once a guard refuses a document, the
+    # provenance row empties and nothing can reach the value any more.
+    # So the pins are applied from the pins, and nothing else.
+    gone = collections.Counter()
+    TL_FLAG = {'taste': 'ttl', 'note': 'ntl', 'window': 'wtl',
+               'decant': 'dtl', 'food': 'ftl'}
+    for i, line in enumerate(lines):
+        m = re.match(r"^'([a-z0-9-]+)\|(\d{4})':\{(.*)\},$", line)
+        if not m:
+            continue
+        pk, body = '%s|%s' % (m.group(1), m.group(2)), m.group(3)
+        if a.estate and m.group(1) not in a.estate:
+            continue
+        for f in sorted(set(f for k, f in REFUSED if k == pk)):
+            v = re.search(r"(?:^|,)" + f + r"(?::'(?:[^'\\]|\\.)*'"
+                          r"|:\{[^}]*\}|:[\d.]+|:\[[^\]]*\])", body)
+            if not v:
+                continue
+            body = (body[:v.start()] + body[v.end():]).lstrip(',')
+            gone[f] += 1
+            # A translation of a value that was never this wine's is
+            # not work worth keeping, so the flag goes with it.
+            flag = TL_FLAG.get(f)
+            if flag:
+                fm = re.search(r"(?:^|,)" + flag + r":1\b", body)
+                if fm:
+                    body = (body[:fm.start()]
+                            + body[fm.end():]).lstrip(',')
+            prov.get(pk, {}).pop(f, None)
+        if body != m.group(3):
+            lines[i] = "'%s':{%s}," % (pk, body)
+    if gone:
+        print('%d field value(s) withdrawn, pinned absent: %s'
+              % (sum(gone.values()),
+                 ', '.join('%s %d' % kv for kv in
+                           sorted(gone.most_common()))))
+
 
     wrote = collections.Counter()
     refused = collections.Counter()

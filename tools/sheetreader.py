@@ -1757,6 +1757,20 @@ LEAD_JUNK = re.compile(
     # on "au 5 septembre Le premier nez est floral".
     r'(?:au|to)\s+\d{1,2}\s*' + _M + r'\s*)+', re.I)
 
+# The caption of a video, standing in front of the note transcribed
+# from it: "Presentation de Chateau Batailley 2019 par Philippe
+# Casteja." Who, which wine, which year - all three already in the
+# record, and none of them a word about the wine.
+#
+# The whole shape is required, down to the full stop. Matching
+# "presents" alone took the first sentence off Lafite 1990 - "The nose
+# presents the classic aromas of cedar" - and off Ferrand 2006, where
+# the wine presents itself in a robe with orange glints.
+LEAD_CREDIT = re.compile(
+    r'(?i)^\W*(?:pr[eé]sentation|commentaires?\s+de\s+d[eé]gustation)'
+    r'\s+(?:de|du|des)\b[^.!?]{0,90}?\bpar\s+[^.!?]{0,40}[.!?]\s*')
+
+
 # A bullet glyph that extracted as a letter. Beauregard's 2018 note is
 # peppered with "v La pluviometrie", and "v" standing alone is not a
 # word in French or English, so it is safe to drop wherever it sits.
@@ -2054,6 +2068,14 @@ def read_prose(text, page=False, shop=False):
             # numbers that were sitting behind it: "TASTING5 2 20 74 IM PER"
             # becomes "2 20 74 IM PER" and the first pass has already run.
             win = _strip_head(win)
+            # The caption of the video the note was transcribed from,
+            # and the quote mark an estate opens its note with. Last of
+            # all, after _strip_head: the quote shields a number from
+            # it, and taking the quote off first made Brane-Cantenac's
+            # "« 05 + 10 = 15 »" - a pun on the vintage - open on
+            # "+ 10 = 15", the 05 having looked like a page number.
+            win = LEAD_CREDIT.sub('', win)
+            win = win.lstrip(' :–-—«“”"')
             # And never end inside a word: the stop-list can cut anywhere.
             if win and not win[-1].isspace() and ' ' in win:
                 if not re.search(r'[.!?"\u201d]$', win):

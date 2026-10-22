@@ -298,6 +298,20 @@ SECOND = [
 #
 # (estate, filename, field, what must be true of what comes back)
 FIELDS = [
+    # The caption of the video a note was transcribed from, and the
+    # quote mark an estate opens its note with.
+    ('batailley',
+     '2019__presentation-du-chateau-batailley-2019-par-philippe-'
+     'casteja.txt', 'taste',
+     'opens on the wine, not on "Pr\u00e9sentation de Ch\u00e2teau '
+     'Batailley 2019 par Philippe Cast\u00e9ja."',
+     lambda v: v and v.startswith('Robe sombre et brillante')),
+    ('brane-cantenac', 'Brane-Cantenac-2015-FT-FR-5.pdf', 'note',
+     'keeps the 05 of "\u00ab 05 + 10 = 15 \u00bb", the owner\u2019s '
+     'pun on the vintage. Taking the guillemet off before _strip_head '
+     'left the note opening on "+ 10 = 15", the 05 having looked like '
+     'a page number',
+     lambda v: v and v.startswith('05 + 10 = 15')),
     # A label that is the subject of its own sentence. LABEL_NOTE
     # matched "The year" inside "The year could have tipped into
     # excess.", so the note began on the sentence after it and opened

@@ -755,7 +755,7 @@ window.BDX_FIELD_SRC = {
 'lynch-bages|2019':{alc:'Chateau-Lynch-Bages-2019-ENG.pdf',months:'Chateau-Lynch-Bages-2019-ENG.pdf',oak:'Chateau-Lynch-Bages-2019-ENG.pdf',ph:'Chateau-Lynch-Bages-2019-ENG.pdf',pick:'Chateau-Lynch-Bages-2019-ENG.pdf'},
 'lynch-bages|2020':{months:'Chateau-Lynch-Bages-2020-ENG.pdf',oak:'Chateau-Lynch-Bages-2020-ENG.pdf',ph:'Chateau-Lynch-Bages-2020-ENG.pdf'},
 'lynch-bages|2021':{alc:'Chateau-Lynch-Bages-2021-EN.pdf',months:'Chateau-Lynch-Bages-2021-EN.pdf',oak:'Chateau-Lynch-Bages-2021-EN.pdf',ph:'Chateau-Lynch-Bages-2021-EN.pdf'},
-'lynch-moussas|2020':{taste:'2020__sentation-de-chateau-lynch-moussas-2020-par-philippe-casteja.txt'},
+'lynch-moussas|2020':{taste:'2020__esentation-of-chateau-lynch-moussas-2020-by-philippe-casteja.txt'},
 'lynch-moussas|2021':{wy:'ft_lynch-moussas-2021-1.pdf'},
 'lynch-moussas|2022':{oak:'2022__en-primeurs-chateau-lynch-moussas-2022-5eme-grand-cru-classe.txt'},
 'lynch-moussas|2024':{wy:'Fiche_technique_Primeurs_Chateau_Lynch_Moussas_PAU_RO_2024_Francais.pdf'},

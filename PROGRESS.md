@@ -9,34 +9,34 @@ One row per day, from `progress-history.tsv`.
 ```
    date         records   blend   taste    note     url      nl
    2026-10-22      2210    1639     782     504     784     660
-   2026-10-23      2340    1828     855     849     811     612
+   2026-10-23      2381    1869     880     849     811     612
 
-   since 2026-10-22: records +130, blend +189, taste +73, note +345, url +27, nl -48
+   since 2026-10-22: records +171, blend +230, taste +98, note +345, url +27, nl -48
 
    THE 61 CLASSIFIED GROWTHS, share of what they could hold
    date         estates   blend   taste    note     alc      ph     yld  months     oak    pick
    2026-10-22                                                                                  
-   2026-10-23       97%     34%     20%     20%     14%      4%      9%     14%     17%     18%
+   2026-10-23       97%     35%     21%     20%     14%      4%      9%     14%     18%     19%
 ```
 
 ## What is held
 
 ```
 THE GRID: 468 estates x 44 vintages (1982-2025) = 20,592 cells
-2,340 records, 2,236 on the grid, 104 older than 1982; 199 of 468 estates have one
+2,381 records, 2,275 on the grid, 106 older than 1982; 199 of 468 estates have one
 
 field     what it is                         records    of of grid  1980s 1990s 2000s 2010s 2020s
                                                       recs       
-blend     the assemblage, variety by variety   1,828   78%   8.7%  1.1%  2.3%  6.5%  18.1% 17.7%
-taste     the tasting note                       855   37%   4.0%  1.1%  2.1%  4.4%  6.5%  6.1% 
+blend     the assemblage, variety by variety   1,869   78%   8.9%  1.1%  2.5%  7.0%  18.3% 17.7%
+taste     the tasting note                       880   37%   4.1%  1.1%  2.1%  4.7%  6.9%  6.1% 
 note      the growing season                     849   36%   3.8%  0.9%  1.7%  2.8%  6.8%  8.0% 
-alc       alcohol                                879   38%   4.2%  0.7%  1.8%  3.5%  7.6%  8.6% 
+alc       alcohol                                879   37%   4.2%  0.7%  1.8%  3.5%  7.6%  8.6% 
 ph        pH                                     285   12%   1.4%  0.0%  0.0%  0.4%  2.5%  5.3% 
-yld       yield, hl/ha                           903   39%   4.4%  0.3%  0.7%  2.8%  9.8%  9.3% 
-months    months in barrel                     1,137   49%   5.5%  0.5%  1.1%  3.6%  12.5% 11.0%
-oak       new oak, per cent                    1,061   45%   5.1%  0.2%  0.9%  3.8%  11.3% 10.7%
-pick      picking dates                          788   34%   3.5%  0.8%  1.7%  3.0%  6.2%  6.4% 
-harvest   harvest, as the sheet words it         154    7%   0.7%  0.1%  0.3%  0.7%  1.4%  1.5% 
+yld       yield, hl/ha                           903   38%   4.4%  0.3%  0.7%  2.8%  9.8%  9.3% 
+months    months in barrel                     1,137   48%   5.5%  0.5%  1.1%  3.6%  12.5% 11.0%
+oak       new oak, per cent                    1,092   46%   5.3%  0.2%  1.1%  4.1%  11.5% 10.7%
+pick      picking dates                          805   34%   3.6%  0.8%  1.7%  3.1%  6.3%  6.5% 
+harvest   harvest, as the sheet words it         154    6%   0.7%  0.1%  0.3%  0.7%  1.4%  1.5% 
 temp      serving temperature                     60    3%   0.3%  0.0%  0.0%  0.3%  0.6%  0.5% 
 wy        drinking window, as years               25    1%   0.1%  0.0%  0.0%  0.1%  0.2%  0.4% 
 window    drinking window, in words               34    1%   0.2%  0.1%  0.2%  0.3%  0.1%  0.2% 
@@ -44,33 +44,33 @@ decant    decanting                               21    1%   0.1%  0.0%  0.1%  0
 food      food pairing                            29    1%   0.1%  0.0%  0.0%  0.0%  0.5%  0.2% 
 
 ABOUT THE RECORD ITSELF:
-   src    names the document it was read from            2,339  100% of records
-   url    can link to that document in the app             811   35% of records
+   src    names the document it was read from            2,380  100% of records
+   url    can link to that document in the app             811   34% of records
    nl     has Dutch for its prose                          612   26% of records
 
 STILL TO MERGE - a document states it and no record holds it:
-   note       246
-   taste       24
-   food         2
-   blend        1
+   blend       21
+   oak         12
+   taste       11
+   pick         9
    (from reports/fiches-read.json; re-run tools/read-fiches.py --prose to refresh)
 
 THE 61 CLASSIFIED GROWTHS, APART FROM THE LONG TAIL:
    field                            classified    the rest
-   blend     the assemblage, variet  905   34%    923    5%
-   taste     the tasting note        537   20%    318    2%
+   blend     the assemblage, variet  946   35%    923    5%
+   taste     the tasting note        562   21%    318    2%
    note      the growing season      538   20%    311    2%
    alc       alcohol                 365   14%    514    3%
    ph        pH                      105    4%    180    1%
    yld       yield, hl/ha            242    9%    661    4%
    months    months in barrel        374   14%    763    4%
-   oak       new oak, per cent       459   17%    602    3%
-   pick      picking dates           493   18%    295    2%
+   oak       new oak, per cent       490   18%    602    3%
+   pick      picking dates           510   19%    295    2%
    59 of the 61 classified growths have at least one record
    2684 classified vintage cells - 61 estates x 44 vintages, 1982 to 2025
 
 WHOSE WORDS THE PROSE IS:
-   taste   677 the estate’s own English,  178 translated from its French
+   taste   702 the estate’s own English,  178 translated from its French
    note    686 the estate’s own English,  163 translated from its French
 
 25 fields are pinned absent - the document states something and it was judged not to belong
@@ -91,8 +91,10 @@ tasting note and growing season is absent across the estate’s records:
    palmer                      3    56    56     4    41     0      2
    lafite                      1    50    48    42     1     1      0
    gruaud-larose               2    37    37     1    15    37      0
+   langoa-barton               3    32    32    11     0     0      0
    malescot                    3    26     1    26     0     0      3
    pouget                      4    27     3     1    26     9     12
+   leoville-barton             2    32    32    14     0     0      0
    lascombes                   2    25    25     0     2     4      1
    cos-destournel              2    37    28    37     0     0     11
    lynch-bages                 5    26    26     0     6    22      0
@@ -105,10 +107,8 @@ tasting note and growing season is absent across the estate’s records:
    batailley                   5    21    18    14     4     5      2
    la-tour-carnet              4    14    10     4     1     3      0
    marquis-dalesme             3    13    13     0     0     0      0
-   leoville-barton             2    12    12     0     0     0      0
    pichon-baron                2    24    24    24     0     0      0
    issan                       3    13    12     0     5     0      0
-   langoa-barton               3    11    11     0     0     0      0
    clerc-milon                 5    30    30    30    10    30      3
    ferriere                    3    12    11     1     6     0      0
    haut-bages-liberal          5     9     8     0     1     0      0
@@ -167,8 +167,10 @@ tasting note and growing season is absent across the estate’s records:
    palmer                      3    56    56     4    41     0      2
    lafite                      1    50    48    42     1     1      0
    gruaud-larose               2    37    37     1    15    37      0
+   langoa-barton               3    32    32    11     0     0      0
    malescot                    3    26     1    26     0     0      3
    pouget                      4    27     3     1    26     9     12
+   leoville-barton             2    32    32    14     0     0      0
    lascombes                   2    25    25     0     2     4      1
    cos-destournel              2    37    28    37     0     0     11
    lynch-bages                 5    26    26     0     6    22      0
@@ -181,10 +183,8 @@ tasting note and growing season is absent across the estate’s records:
    batailley                   5    21    18    14     4     5      2
    la-tour-carnet              4    14    10     4     1     3      0
    marquis-dalesme             3    13    13     0     0     0      0
-   leoville-barton             2    12    12     0     0     0      0
    pichon-baron                2    24    24    24     0     0      0
    issan                       3    13    12     0     5     0      0
-   langoa-barton               3    11    11     0     0     0      0
    clerc-milon                 5    30    30    30    10    30      3
    ferriere                    3    12    11     1     6     0      0
    haut-bages-liberal          5     9     8     0     1     0      0

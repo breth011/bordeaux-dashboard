@@ -220,6 +220,34 @@ def year_of(url, title, text):
     return None, 'nothing on the page states a vintage'
 
 
+def pattern_urls(get, pattern, years):
+    """Every year in the range whose page the server actually serves.
+
+    For a site that links its vintages in JavaScript, so there is no
+    href to follow and no sitemap entry to read. The shape comes from
+    a person who has seen one of the pages; the server decides each
+    case, and a 404 simply means that year has none.
+    """
+    lo, _, hi = years.partition('-')
+    lo, hi = int(lo), int(hi or lo)
+    out, miss = [], 0
+    for y in range(hi, lo - 1, -1):
+        u = pattern.replace('{year}', str(y))
+        try:
+            body_of(get, u)
+        except Exception:
+            miss += 1
+            # Long enough to cross a gap of unmade vintages - 1991,
+            # 1992 and 1993 together, say - and short enough not to
+            # walk the whole range for a site that has none.
+            if miss >= 12:
+                break
+            continue
+        miss = 0
+        out.append(u)
+    return out
+
+
 def declared_sitemaps(get, site):
     """The sitemap addresses robots.txt gives, if any."""
     root = '%s://%s' % (urllib.parse.urlsplit(site).scheme or 'https',
@@ -425,6 +453,12 @@ def main():
                     help='the estate id, as chateaux.js spells it')
     ap.add_argument('--seed', default=None,
                     help='a listing page to take links from')
+    ap.add_argument('--pattern', default=None,
+                    help='a vintage address with {year} in it, for a '
+                         'site that links its years in JavaScript')
+    ap.add_argument('--years', default='1980-2026',
+                    help='the range --pattern walks (default '
+                         '1980-2026)')
     ap.add_argument('--page', default=None,
                     help='one page about the estate, naming no '
                          'vintage: terroir, planting, appellation')
@@ -457,7 +491,10 @@ def main():
         site = sites.get(eid)
         print('%s — %s' % (eid, site or 'no website on record'))
 
-        if a.page:
+        if a.pattern:
+            found = pattern_urls(get, a.pattern, a.years)
+            print('   %d page(s) answered' % len(found))
+        elif a.page:
             take_estate_page(get, man, e, eid, a.page, held_url,
                              held_sha, a.apply)
             continue
@@ -467,11 +504,12 @@ def main():
                       a.apply)
             continue
 
-        found = []
-        if a.seed:
+        if a.pattern:
+            pass
+        elif a.seed:
             found = seed_urls(get, a.seed)
             print('   %d link(s) on the seed page' % len(found))
-        elif site:
+        if not a.pattern and not a.seed and site:
             found = sitemap_urls(get, site)
             print('   %d URL(s) in the sitemap' % len(found))
         if not found:

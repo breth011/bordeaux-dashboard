@@ -1771,6 +1771,21 @@ LEAD_CREDIT = re.compile(
     r'\s+(?:de|du|des)\b[^.!?]{0,90}?\bpar\s+[^.!?]{0,40}[.!?]\s*')
 
 
+# The rest of a heading, when the label matched only part of it.
+# LABEL_NOTE matches "conditions climatiques" and Pouget's heading is
+# "Les conditions climatiques du millesime", so the window opens on
+# "du millesime" - lower case, and with no full stop before the prose
+# the slide-forward has nowhere to go and the field is lost.
+#
+# Safe because these words do not begin a sentence. The capitals-only
+# loop below cannot do it: "Le millesime 2018 fut genereux" is a
+# sentence and has to survive.
+LABEL_TAIL = re.compile(
+    r'(?i)^(?:du|de\s+l[\u2019\']|de\s+la|of\s+the|for\s+the)\s*'
+    r'(?:mill[eé]sime|ann[eé]e|vintage|year|r[eé]colte|harvest)\b'
+    r'[\s:\u2013\u2014-]*')
+
+
 # A bullet glyph that extracted as a letter. Beauregard's 2018 note is
 # peppered with "v La pluviometrie", and "v" standing alone is not a
 # word in French or English, so it is safe to drop wherever it sits.
@@ -1814,7 +1829,27 @@ LABEL_NOTE = re.compile(
 # or starting a sentence. Without this the window opens wherever the
 # words happen to appear, and a description that begins in the middle of
 # somebody else's sentence is worse than no description.
+# An article the label pattern leaves out. LABEL_NOTE matches
+# `conditions climatiques` and not the "Les" in front of it, so the
+# character before the match belongs to the label and hides whatever
+# really precedes the heading.
+HEAD_ART = re.compile(r'(?i)(?:les|le|la|l\u2019|l\'|the)\s*$')
+# A run of figures before a heading: a score block, a page number, an
+# analysis line. Pouget's fiche is printed on Boyd-Cantenac's
+# letterhead and the critic scores run into the label - "MARGAUX
+# PRIMEUR 2018 87 89 16 Les conditions climatiques du millesime".
+HEAD_FIGURES = re.compile(r'[\d][\d\s,.;:%/()\u2013\u2014-]{3,}$')
+
+
 def _is_heading(text, m):
+    """Does this label stand over a section, or inside a sentence?
+
+    A heading is in capitals, or followed by a colon, or at the very
+    start, or after the end of a sentence - and, since Pouget, after
+    the label's own article and after a block of figures. See HEAD_ART
+    and HEAD_FIGURES: between them they gained 308 fields and lost
+    none.
+    """
     got = m.group(0)
     if got.isupper() and len(got) > 3:
         return True
@@ -1822,7 +1857,19 @@ def _is_heading(text, m):
     if after.lstrip().startswith(':'):
         return True
     before = text[max(0, m.start() - 2):m.start()]
-    return m.start() == 0 or before.strip() in ('.', '!', '?', '')
+    if m.start() == 0 or before.strip() in ('.', '!', '?', ''):
+        return True
+    # Step back over an article that is part of the label, then ask
+    # the same questions again of what is behind it.
+    whole = text[:m.start()]
+    art = HEAD_ART.search(whole[-12:])
+    if art:
+        whole = whole[:len(whole) - len(art.group(0))]
+        if not whole.strip():
+            return True
+        if whole[-2:].strip() in ('.', '!', '?', ''):
+            return True
+    return bool(HEAD_FIGURES.search(whole[-60:]))
 
 
 def num(s):
@@ -2102,6 +2149,18 @@ def read_prose(text, page=False, shop=False):
             # Haut-Bailly's 2019 note opened on "< < 12 Le débourrement" and
             # its 2022 on "11 12 Les mois de septembre".
             win = _strip_head(win)
+            # The rest of the heading, if the label cut it in half.
+            # Once, and anchored: see LABEL_TAIL.
+            # Only when a new sentence follows it. Pouget's tail is
+            # followed by "Le cycle 2018 a connu", a capital and a
+            # fresh sentence; Villemaurine's heading is not a heading
+            # at all - "conditions climatiques de l'annee 2009 ont
+            # ete particulierement favorables" is one sentence, and
+            # stripping its tail left "2009 ont ete" with the subject
+            # eaten.
+            _cut = LABEL_TAIL.sub('', win, count=1)
+            if _cut is not win and _cut[:1].isupper():
+                win = _cut
             # A bilingual heading: Langoa-Barton and Leoville-Barton print
             # "DEGUSTATION / TASTING", so matching the French left "/
             # TASTING Robe dense de couleur pourpre" behind.

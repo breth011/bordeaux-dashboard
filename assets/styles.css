@@ -744,11 +744,12 @@ a { color: var(--seq-450); }
 .blendkey { display: flex; gap: 12px; flex-wrap: wrap; font-size: 11.5px; color: var(--text-secondary); }
 .blendkey span { display: inline-flex; align-items: center; gap: 5px; }
 .blendkey i { width: 9px; height: 9px; border-radius: 2px; flex: none; }
-/* A variety the estate usually blends and left out this year. Named in
-   the legend because the ghost bar draws a band for it, and hollow
-   because the wine has none of it. */
-.blendkey span.key-absent { opacity: 0.68; }
-.blendkey span.key-absent i { background: none !important; box-shadow: inset 0 0 0 1.5px currentColor; }
+/* A variety the estate usually blends and left out this year. It keeps
+   the legend's ordinary look - its colour filled in like every other
+   entry - because it names a band the comparison bar really does draw
+   in that colour. The absence is said in the words, not in the styling:
+   a greyed, hollow swatch read as a disabled control rather than as a
+   variety this estate usually blends. The class stays as a hook. */
 
 /* the aroma wheel - the estate's own note, sorted into families */
 .aromawrap { display: flex; gap: 14px; align-items: center; flex-wrap: wrap; margin-bottom: 10px; }

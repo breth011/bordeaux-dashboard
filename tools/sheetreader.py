@@ -3321,6 +3321,10 @@ BLEND_REACH = 90    # or further on, across words, in one sentence
 # further back for its variety than a bare percentage is allowed to.
 BLEND_SHARE_BACK = 230
 BLEND_WINDOW = 320
+# How far past its label a blend may run. Long enough for five
+# varieties written out with their figures, short enough that the
+# next wine's label is not inside it. See anchored_blend.
+BLEND_BLOCK = 300
 
 
 
@@ -3395,6 +3399,68 @@ def _before_the_second(text, second):
     return text
 
 
+def anchored_blend(text, second=None):
+    """The first complete blend standing right after a label.
+
+    For a document stating two - a planting and an assemblage, or two
+    wines - where reading the whole of it pools figures that belong to
+    different things and the sum comes to nothing.
+
+    Each anchor is asked what follows it, within BLEND_BLOCK and never
+    past the next anchor. Adjacency only: inside a labelled block the
+    figures stand against their varieties, and the reach rule is the
+    one a flattened column defeats.
+
+    Returns None where no label owns a complete blend, and the callers
+    then read the document as they always have.
+    """
+    text = ' '.join((text or '').split())
+    marks = [m.start() for m in BLEND_ANCHOR.finditer(text)]
+    if not marks:
+        return None
+    for i, at in enumerate(marks):
+        stop = len(text)
+        for nxt in marks[i + 1:]:
+            if nxt > at:
+                stop = min(stop, nxt)
+                break
+        win = text[at:min(at + BLEND_BLOCK, stop)]
+        # A planting word inside the block means the block is the
+        # vineyard's, whatever label opened it.
+        if BLEND_PLANTING.search(win):
+            continue
+        pcts = [(m.start(), m.end(), float(m.group(1).replace(',', '.')))
+                for m in BLEND_PCT.finditer(win)]
+        vs = []
+        for m in BLEND_ANY.finditer(win):
+            k = _blend_name(m.group(0))
+            if k:
+                vs.append((m.start(), m.end(), k))
+        if len(vs) < 2 or not pcts:
+            continue
+        got, taken = {}, set()
+        for s, e, k in vs:
+            if k in got:
+                continue
+            for pi, (ps, pe, val) in enumerate(pcts):
+                if pi in taken:
+                    continue
+                if 0 <= s - pe <= BLEND_TOUCH or 0 <= ps - e <= BLEND_TOUCH:
+                    got[k] = val
+                    taken.add(pi)
+                    break
+        # Exactly a hundred, not within the ordinary tolerance. A
+        # block that is complete adds up; one that comes to 99 has
+        # had a variety cut off its end by the window - Lafite 2004
+        # is "CS89 ME10 PV1" and lost the Petit Verdot that way, and
+        # 99 was close enough to be believed. Where the block is
+        # short, the document is read whole instead, which is where
+        # that Petit Verdot is found.
+        if len(got) >= 2 and abs(sum(got.values()) - 100) <= 0.6:
+            return got
+    return None
+
+
 def blend_in_prose(text, second=None):
     """A blend stated in sentences, or None.
 
@@ -3414,6 +3480,13 @@ def blend_in_prose(text, second=None):
     "Chateau Haut-Bailly : 59% Cabernet Sauvignon - 41% Merlot La
     Parde Haut-Bailly : 50% ..." and what follows is La Parde's.
     """
+    # A label that owns its figures, before the document as a whole:
+    # these sheets state two blends and reading them together gives
+    # neither. See anchored_blend.
+    first = anchored_blend(text, second)
+    if first:
+        return first
+
     text = _before_the_second(' '.join((text or '').split()), second)
 
     pcts = [(m.start(), m.end(), float(m.group(1).replace(',', '.')))
@@ -3539,6 +3612,10 @@ def touching_blend(text, second=None):
     given. The argument stays for the caller's sake and for whatever
     reads it next.
     """
+    first = anchored_blend(text, second)
+    if first:
+        return first
+
     text = ' '.join((text or '').split())
     pcts = [(m.start(), m.end(), float(m.group(1).replace(',', '.')))
             for m in BLEND_PCT.finditer(text)]

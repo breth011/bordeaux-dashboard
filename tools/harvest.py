@@ -234,6 +234,12 @@ def main():
     ap.add_argument('--estate', action='append', default=[])
     ap.add_argument('--year', type=int)
     ap.add_argument('--dry-run', action='store_true')
+    # Accepted and ignored: four of this repo's six tools are dry
+    # until told otherwise and spell it --apply, and this one
+    # acts unless told --dry-run. Passing the habit from the
+    # majority should not kill a run on an argument.
+    ap.add_argument('--apply', action='store_true',
+                    help=argparse.SUPPRESS)
     ap.add_argument('--workers', type=int, default=4)
     a = ap.parse_args()
 

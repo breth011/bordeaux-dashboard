@@ -41,6 +41,11 @@ import urllib.parse, urllib.request, urllib.error
 import xml.etree.ElementTree as ET
 import concurrent.futures as cf
 
+# A URL can carry an accent, and this console is cp1252: printing
+# one killed a 61-estate run at Calon-Segur, after the work and
+# before the report. Every other tool here already does this.
+import sys as _sys
+_sys.stdout.reconfigure(encoding='utf-8', errors='replace')
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__))) + os.sep
 DEST = ROOT + 'sources/fiches/'
 UA = ('Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 '

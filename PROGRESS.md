@@ -10,9 +10,9 @@ One row per day, from `progress-history.tsv`.
    date         records   blend   taste    note     url      nl
    2026-10-22      2210    1639     782     504     784     660
    2026-10-23      2637    2000     956    1054     811     595
-   2026-10-24      2647    2000     956    1054     811     595
+   2026-10-24      2647    2001     960    1054     811     591
 
-   since 2026-10-22: records +437, blend +361, taste +174, note +550, url +27, nl -65
+   since 2026-10-22: records +437, blend +362, taste +178, note +550, url +27, nl -69
 
    THE 61 CLASSIFIED GROWTHS, share of what they could hold
    date         estates   blend   taste    note     alc      ph     yld  months     oak    pick
@@ -29,8 +29,8 @@ THE GRID: 468 estates x 44 vintages (1982-2025) = 20,592 cells
 
 field     what it is                         records    of of grid  1980s 1990s 2000s 2010s 2020s
                                                       recs       
-blend     the assemblage, variety by variety   2,000   76%   9.6%  1.1%  2.6%  7.6%  19.5% 19.2%
-taste     the tasting note                       956   36%   4.5%  1.1%  2.1%  5.0%  7.6%  6.8% 
+blend     the assemblage, variety by variety   2,001   76%   9.6%  1.1%  2.6%  7.6%  19.5% 19.2%
+taste     the tasting note                       960   36%   4.5%  1.1%  2.1%  5.0%  7.7%  6.8% 
 note      the growing season                   1,054   40%   4.8%  0.9%  1.8%  3.6%  8.7%  10.6%
 alc       alcohol                                950   36%   4.6%  0.7%  1.8%  3.5%  8.6%  9.4% 
 ph        pH                                     332   13%   1.6%  0.0%  0.0%  0.5%  3.0%  6.0% 
@@ -48,20 +48,17 @@ food      food pairing                            51    2%   0.2%  0.0%  0.0%  0
 ABOUT THE RECORD ITSELF:
    src    names the document it was read from            2,646  100% of records
    url    can link to that document in the app             811   31% of records
-   nl     has Dutch for its prose                          595   22% of records
+   nl     has Dutch for its prose                          591   22% of records
 
 STILL TO MERGE - a document states it and no record holds it:
-   pick       714
-   taste       21
-   note        19
-   blend        2
-   food         2
+   taste        4
+   blend        1
    (from reports/fiches-read.json; re-run tools/read-fiches.py --prose to refresh)
 
 THE 61 CLASSIFIED GROWTHS, APART FROM THE LONG TAIL:
    field                            classified    the rest
-   blend     the assemblage, variet  997   37%   1003    6%
-   taste     the tasting note        593   22%    363    2%
+   blend     the assemblage, variet  998   37%   1003    6%
+   taste     the tasting note        597   22%    363    2%
    note      the growing season      624   23%    430    2%
    alc       alcohol                 377   14%    573    3%
    ph        pH                      121    5%    211    1%
@@ -73,7 +70,7 @@ THE 61 CLASSIFIED GROWTHS, APART FROM THE LONG TAIL:
    2684 classified vintage cells - 61 estates x 44 vintages, 1982 to 2025
 
 WHOSE WORDS THE PROSE IS:
-   taste   777 the estate’s own English,  179 translated from its French
+   taste   781 the estate’s own English,  179 translated from its French
    note    891 the estate’s own English,  163 translated from its French
 
 25 fields are pinned absent - the document states something and it was judged not to belong
@@ -134,7 +131,6 @@ tasting note and growing season is absent across the estate’s records:
    belgrave                    5     8     8     7     0     1      0
    kirwan                      3     8     8     1     6     7      0
    boyd-cantenac               3     9     9     9     1     0      0
-   dauzac                      5    26    25    21    24     0      0
    lagrange                    3    14    14    10    10     0      0
    rauzan-segla                2    11    10     6     9     0      0
    du-tertre                   5     4     4     2     0     0      0
@@ -143,6 +139,7 @@ tasting note and growing season is absent across the estate’s records:
    mouton                      1    42    42    42    37    42     26
    durfort-vivens              2     2     2     0     0     0      0
    cos-labory                  5     2     2     1     0     0      0
+   dauzac                      5    26    26    25    24     0      0
    pichon-comtesse             2     4     4     4     1     0      0
    saint-pierre                4     5     5     3     4     0      1
    pontet-canet                5    26    26    24    26    24      0
@@ -210,7 +207,6 @@ tasting note and growing season is absent across the estate’s records:
    belgrave                    5     8     8     7     0     1      0
    kirwan                      3     8     8     1     6     7      0
    boyd-cantenac               3     9     9     9     1     0      0
-   dauzac                      5    26    25    21    24     0      0
    lagrange                    3    14    14    10    10     0      0
    rauzan-segla                2    11    10     6     9     0      0
    du-tertre                   5     4     4     2     0     0      0
@@ -219,6 +215,7 @@ tasting note and growing season is absent across the estate’s records:
    mouton                      1    42    42    42    37    42     26
    durfort-vivens              2     2     2     0     0     0      0
    cos-labory                  5     2     2     1     0     0      0
+   dauzac                      5    26    26    25    24     0      0
    pichon-comtesse             2     4     4     4     1     0      0
    saint-pierre                4     5     5     3     4     0      1
    pontet-canet                5    26    26    24    26    24      0

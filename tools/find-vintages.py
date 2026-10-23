@@ -162,10 +162,58 @@ def sitemap_urls(site, maps):
             if host(u) == host(site) and not SKIP.search(u)]
 
 
-def try_split(urls):
+# Filler in a URL that identifies no wine.
+PATH_FILLER = set("""en fr de es zh hans cn jp us wine wines vin vins
+le la les du de des un une the our nos notre chateau domaine clos
+grand grands cru crus classe millesime millesimes vintage vintages
+produit produits index html php notre-vin nos-vins""".split())
+
+
+def words_of(name):
+    """The parts of an estate's name that identify it."""
+    out = []
+    for w in re.split(r'[^a-z0-9]+', sr.norm(name or '')):
+        if w and len(w) > 2 and w not in PATH_FILLER:
+            out.append(w)
+    return out
+
+
+def left_over(url, name):
+    """The distinctive words a path has beyond the estate's own name.
+
+    chateau-dauzac leaves nothing; bacchus-de-dauzac leaves
+    "bacchus"; la-reserve-de-leoville-barton leaves "reserve". No
+    list of the estate's other wines is needed, which matters because
+    those lists are incomplete - Bacchus is not among Dauzac's.
+    """
+    mine = set(words_of(name))
+    out = []
+    # The path only. The host repeats in every candidate for an
+    # estate and so separates none of them, and it carries the
+    # estate's name in a spelling this would not recognise -
+    # chateaudauzac.com, run together.
+    path = urllib.parse.urlsplit(url).path
+    for w in re.split(r'[^a-z0-9]+', sr.norm(path)):
+        if not w or len(w) < 3 or w in PATH_FILLER or w in mine:
+            continue
+        if w.isdigit():
+            continue
+        out.append(w)
+    return out
+
+
+def rank_for(urls, name):
+    """The estate's own pages first, then its other wines'."""
+    return sorted(urls, key=lambda u: (len(left_over(u, name)), len(u)))
+
+
+def try_split(urls, name=''):
     """The page with the most bare-year headings, if any."""
     best = (0, None)
-    cand = [u for u in urls if LIKELY.search(u)][:14]
+    # The estate's own pages first: Dauzac's /vins/chateau-dauzac/
+    # carries 26 vintages and its Bacchus page carries none, and only
+    # the order decided which the sweep found.
+    cand = rank_for([u for u in urls if LIKELY.search(u)], name)[:14]
     for u in cand:
         time.sleep(PAUSE)
         try:
@@ -178,11 +226,15 @@ def try_split(urls):
     return best
 
 
-def try_pattern(urls):
+def try_pattern(urls, name=''):
     """A wine page that serves <page>/<year>."""
-    wines = [u for u in urls if WINE_PATH.search(u)
-             and not PATH_YEAR.search(urllib.parse.urlsplit(u).path)
-             and not BLOG_DATE.search(u)]
+    # Ranked, so the grand vin's page is probed before the second
+    # wine's: Leoville-Barton's /wines/1/ is La Reserve and its
+    # /wines/2/ is the chateau.
+    wines = rank_for(
+        [u for u in urls if WINE_PATH.search(u)
+         and not PATH_YEAR.search(urllib.parse.urlsplit(u).path)
+         and not BLOG_DATE.search(u)], name)
     for u in wines[:6]:
         # Both years must answer AND differ from each other. A site
         # that serves one page for any trailing path answers every
@@ -223,6 +275,7 @@ def main():
     if a.estate:
         want = [e for e in want if e in a.estate]
 
+    E = sr.estates(ROOT)
     man = json.load(io.open(ROOT + 'data/sources.json',
                             encoding='utf-8'))
     held = collections.Counter(s.get('estate') for s in man['sheets'])
@@ -235,6 +288,7 @@ def main():
     found = []
     for i, eid in enumerate(want, 1):
         site = sites[eid]
+        name = (E.get(eid) or {}).get('name') or eid
         time.sleep(PAUSE)
         ok, maps = robots(site)
         if not ok:
@@ -250,11 +304,11 @@ def main():
         if yr:
             found.append((eid, 'sitemap', site, len(yr), ''))
         else:
-            n, where = try_split(urls)
+            n, where = try_split(urls, name)
             if n >= 5:
                 found.append((eid, 'split', site, n, where))
             else:
-                pat = try_pattern(urls)
+                pat = try_pattern(urls, name)
                 if pat:
                     found.append((eid, 'pattern', site, 0, pat))
                 else:

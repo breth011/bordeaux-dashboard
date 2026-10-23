@@ -96,6 +96,14 @@ import sheetreader as sr
 #
 # This is read-sheets' PINNED, for prose.
 REFUSED = {
+    ('lynch-bages|2017', 'taste'):
+        'not this wine: the note is the estate\'s white - "le '
+        'Blanc de Lynch-Bages 2017 presente un nez '
+        'particulierement expressif ... des aromes complexes de '
+        'peche, de fruits blancs" - and this record is the red '
+        'grand vin. It names the wine in its own second line and '
+        'nothing caught it: the filename does not say white, and '
+        'wrong_colour guards the assemblage, not the prose',
     # Found by translating: the first seven short advice fields held
     # three that are not advice. See the commit.
     ('belgrave|2022', 'food'):

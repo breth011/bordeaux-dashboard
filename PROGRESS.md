@@ -9,25 +9,25 @@ One row per day, from `progress-history.tsv`.
 ```
    date         records   blend   taste    note     url      nl
    2026-10-22      2210    1639     782     504     784     660
-   2026-10-23      2300    1781     851     584     811     652
+   2026-10-23      2301    1807     851     584     811     652
 
-   since 2026-10-22: records +90, blend +142, taste +69, note +80, url +27, nl -8
+   since 2026-10-22: records +91, blend +168, taste +69, note +80, url +27, nl -8
 
    THE 61 CLASSIFIED GROWTHS, share of what they could hold
    date         estates   blend   taste    note     alc      ph     yld  months     oak    pick
    2026-10-22                                                                                  
-   2026-10-23       97%     32%     20%     13%     14%      4%      9%     14%     17%     18%
+   2026-10-23       97%     33%     20%     13%     14%      4%      9%     14%     17%     18%
 ```
 
 ## What is held
 
 ```
 THE GRID: 468 estates x 44 vintages (1982-2025) = 20,592 cells
-2,300 records, 2,211 on the grid, 89 older than 1982; 198 of 468 estates have one
+2,301 records, 2,212 on the grid, 89 older than 1982; 198 of 468 estates have one
 
 field     what it is                         records    of of grid  1980s 1990s 2000s 2010s 2020s
                                                       recs       
-blend     the assemblage, variety by variety   1,781   77%   8.6%  1.1%  2.1%  6.3%  17.9% 17.5%
+blend     the assemblage, variety by variety   1,807   79%   8.7%  1.1%  2.2%  6.5%  18.1% 17.6%
 taste     the tasting note                       851   37%   4.0%  1.1%  2.1%  4.4%  6.5%  6.1% 
 note      the growing season                     584   25%   2.7%  0.6%  1.2%  2.0%  4.9%  5.5% 
 alc       alcohol                                879   38%   4.2%  0.7%  1.8%  3.5%  7.6%  8.6% 
@@ -44,13 +44,20 @@ decant    decanting                               21    1%   0.1%  0.0%  0.1%  0
 food      food pairing                            29    1%   0.1%  0.0%  0.0%  0.0%  0.5%  0.2% 
 
 ABOUT THE RECORD ITSELF:
-   src    names the document it was read from            2,299  100% of records
+   src    names the document it was read from            2,300  100% of records
    url    can link to that document in the app             811   35% of records
    nl     has Dutch for its prose                          652   28% of records
 
+STILL TO MERGE - a document states it and no record holds it:
+   blend       27
+   taste       24
+   food         2
+   note         2
+   (from reports/fiches-read.json; re-run tools/read-fiches.py --prose to refresh)
+
 THE 61 CLASSIFIED GROWTHS, APART FROM THE LONG TAIL:
    field                            classified    the rest
-   blend     the assemblage, variet  865   32%    916    5%
+   blend     the assemblage, variet  884   33%    923    5%
    taste     the tasting note        533   20%    318    2%
    note      the growing season      360   13%    224    1%
    alc       alcohol                 365   14%    514    3%
@@ -84,7 +91,6 @@ tasting note and growing season is absent across the estate’s records:
    grand-puy-ducasse           5    40    19     0     4     0     10
    lafite                      1    50    48    42     1     1      0
    gruaud-larose               2    37    37     1    15    37      0
-   grand-puy-lacoste           5    28     9    21     3    19      0
    malescot                    3    26     1    26     0     0      3
    lascombes                   2    25    25     0     1     4      1
    lynch-bages                 5    26    26     0     4    22      0
@@ -95,10 +101,11 @@ tasting note and growing season is absent across the estate’s records:
    duhart-milon                4    33    32    28     1     1      0
    mouton                      1    42    42    42     5    42     26
    cantenac-brown              3    20    20     1     3     0      0
+   grand-puy-lacoste           5    28    27    21     3    19      0
    batailley                   5    21    18    14     2     5      2
+   la-tour-carnet              4    14    10     4     0     3      0
    pouget                      4    11     3     1     2     9     44
    issan                       3    13    12     0     1     0      0
-   la-tour-carnet              4    13     9     4     0     3     10
    marquis-dalesme             3    13    13     0     0     0      0
    leoville-barton             2    12    12     0     0     0      0
    pichon-baron                2    24    24    24     0     0      0
@@ -160,7 +167,6 @@ tasting note and growing season is absent across the estate’s records:
    grand-puy-ducasse           5    40    19     0     4     0     10
    lafite                      1    50    48    42     1     1      0
    gruaud-larose               2    37    37     1    15    37      0
-   grand-puy-lacoste           5    28     9    21     3    19      0
    malescot                    3    26     1    26     0     0      3
    lascombes                   2    25    25     0     1     4      1
    lynch-bages                 5    26    26     0     4    22      0
@@ -171,10 +177,11 @@ tasting note and growing season is absent across the estate’s records:
    duhart-milon                4    33    32    28     1     1      0
    mouton                      1    42    42    42     5    42     26
    cantenac-brown              3    20    20     1     3     0      0
+   grand-puy-lacoste           5    28    27    21     3    19      0
    batailley                   5    21    18    14     2     5      2
+   la-tour-carnet              4    14    10     4     0     3      0
    pouget                      4    11     3     1     2     9     44
    issan                       3    13    12     0     1     0      0
-   la-tour-carnet              4    13     9     4     0     3     10
    marquis-dalesme             3    13    13     0     0     0      0
    leoville-barton             2    12    12     0     0     0      0
    pichon-baron                2    24    24    24     0     0      0

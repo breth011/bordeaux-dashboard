@@ -17,6 +17,12 @@
                the page you land on
      hand      the register's address did not resolve, and this one was
                supplied and then confirmed by reading the page it serves
+     handx     supplied the same way and NOT confirmed, because the
+               site serves no readable text - a JavaScript shell with
+               no title - or refuses automated requests outright. The
+               domain is the estate's and the address is worth having;
+               what is missing is the confirmation, and saying so is
+               cheaper than finding out later that nobody checked
      cve       the estate's entry in the Conseil des Vins de Saint-
                Emilion's register (vins-saint-emilion.com), which the
                members maintain themselves. The register lists wines
@@ -459,6 +465,7 @@ window.BDX_SITES = {
 'stem-clos-dubreuil':['http://closdubreuil.com','cve'],
 'stem-clos-saint-martin':['http://www.clos-saintmartin.fr','cve'],
 'stem-couvent-des-jacobins':['http://www.couvent.wine','cve'],
+'suau':['https://chateausuau.com','handx'],
 'suduiraut':['https://www.suduiraut.com','wikidata'],
 'talbot':['https://www.chateau-talbot.com','ugcb'],
 'troplong-mondot':['https://www.chateau-troplong-mondot.com','osm'],

@@ -3229,7 +3229,10 @@ SHARE_OF_BLEND = re.compile(
     r'|^[\s,]*(?:de|du)\s+l?[’\']?\s*'
     r'(?:assemblage|grand\s+vin|vin\b)')
 # The words that mean this is the wine's assemblage.
-BLEND_ANCHOR = re.compile(r'(?i)(assemblage|\bblend\b|grand\s+vin|'
+# "Blending:" is how Lynch-Bages heads its assemblage on every sheet
+# from 2008 to 2017, and \bblend\b does not match it.
+BLEND_ANCHOR = re.compile(r'(?i)(assemblage|\bblend(?:ing|ed)?\b|'
+                          r'grand\s+vin|'
                           r'went\s+into|composition\s+du\s+vin|'
                           # Margaux 2013 never says blend: "the
                           # proportions of the grape varieties are
@@ -3267,11 +3270,76 @@ BLEND_SHARE_BACK = 230
 BLEND_WINDOW = 320
 
 
+
 def _blend_name(s):
     for k, rx in BLEND_WHICH:
         if rx.match(s.strip()):
             return k
     return None
+
+
+def _claims_the_wine(win, used_lo, used_hi):
+    """Does the blend anchor stand nearer the figures than a planting
+    word does?
+
+    Both readers used to ask only whether a planting word appeared
+    anywhere in the window, and a window is 320 characters either side
+    of the figures. On a one-page fiche that reaches the estate table,
+    which says "Surface: 90 hectares" on every sheet Lynch-Bages has
+    published, so a blend labelled "Blending:" was refused on the
+    strength of a word a paragraph away.
+
+    Distance is measured from the figures themselves - the span the
+    varieties and percentages occupy - because that is what is being
+    claimed. The nearer label is the one making the claim.
+    """
+    a = [m for m in BLEND_ANCHOR.finditer(win)]
+    p = [m for m in BLEND_PLANTING.finditer(win)]
+    if not p:
+        return True
+    if not a:
+        return False
+
+    def gap(m):
+        if m.end() <= used_lo:
+            return used_lo - m.end()
+        if m.start() >= used_hi:
+            return m.start() - used_hi
+        return 0
+
+    return min(gap(m) for m in a) <= min(gap(m) for m in p)
+
+
+def _before_the_second(text, second):
+    """Everything up to where the second wine's blend begins.
+
+    Haut-Bailly prints "Chateau Haut-Bailly : 59% Cabernet Sauvignon -
+    41% Merlot La Parde Haut-Bailly : 50% ...", and Grand-Puy-Lacoste's
+    2024 fiche gives the grand vin at 62/30/8 and Lacoste-Borie at
+    78/22 further down. Reading past the name mixes two wines into one
+    blend that appears on no sheet anywhere.
+
+    Both blend readers call this. It used to be written out inside
+    blend_in_prose alone, which is why touching_blend - added later
+    with the same signature - silently did without it.
+
+    The forty-character floor is so that a sheet which opens with the
+    second wine's name, as a shop listing does, is not cut to nothing.
+    """
+    if not second:
+        return text
+    mark = mark_of(second, None)
+    if not mark:
+        return text
+    words = [w for w in re.split(r'[^a-z0-9]+', norm(mark)) if w]
+    if not words:
+        return text
+    rx = re.compile(r'(?i)(?<![a-z])'
+                    + r'\s*'.join(re.escape(w) for w in words))
+    m = rx.search(text)
+    if m and m.start() > 40:
+        return text[:m.start()]
+    return text
 
 
 def blend_in_prose(text, second=None):
@@ -3293,18 +3361,7 @@ def blend_in_prose(text, second=None):
     "Chateau Haut-Bailly : 59% Cabernet Sauvignon - 41% Merlot La
     Parde Haut-Bailly : 50% ..." and what follows is La Parde's.
     """
-    text = ' '.join((text or '').split())
-    if second:
-        mark = mark_of(second, None)
-        if mark:
-            words = [w for w in re.split(r'[^a-z0-9]+', norm(mark)) if w]
-            if words:
-                rx = re.compile(r'(?i)(?<![a-z])'
-                                + r'\s*'.join(re.escape(w)
-                                               for w in words))
-                m = rx.search(text)
-                if m and m.start() > 40:
-                    text = text[:m.start()]
+    text = _before_the_second(' '.join((text or '').split()), second)
 
     pcts = [(m.start(), m.end(), float(m.group(1).replace(',', '.')))
             for m in BLEND_PCT.finditer(text)]
@@ -3400,7 +3457,10 @@ def blend_in_prose(text, second=None):
     lo = max(0, min(s for s, e in used) - BLEND_WINDOW)
     hi = min(len(text), max(e for s, e in used) + BLEND_WINDOW)
     win = text[lo:hi]
-    if not BLEND_ANCHOR.search(win) or BLEND_PLANTING.search(win):
+    if not BLEND_ANCHOR.search(win):
+        return None
+    if not _claims_the_wine(win, min(s for s, e in used) - lo,
+                            max(e for s, e in used) - lo):
         return None
     return got
 
@@ -3413,6 +3473,18 @@ def touching_blend(text, second=None):
     "77 % Cabernet Sauvignon" is adjacent however the columns collapse
     - and reading 522 sheets both ways, 459 agree with blend_of
     exactly. The 30 that disagree are why this never overrides it.
+
+    `second` is accepted and not used. Cutting the text at the second
+    wine's name, as blend_in_prose does, was tried and measured: it
+    lost 76 blends to gain one, and no refinement of it did better
+    than 18 lost. The three shapes cannot be told apart by distance -
+    Haut-Bailly puts its second wine's figures 15 characters after the
+    name, Haut-Brion's Clarence about 200, and Domaine de Chevalier
+    mentions its second wine 46 characters before printing the grand
+    vin's own blend. What separates the last from the others is the
+    estate's name standing in between, which this function is not
+    given. The argument stays for the caller's sake and for whatever
+    reads it next.
     """
     text = ' '.join((text or '').split())
     pcts = [(m.start(), m.end(), float(m.group(1).replace(',', '.')))
@@ -3443,7 +3515,10 @@ def touching_blend(text, second=None):
     lo = max(0, min(a for a, b in used) - BLEND_WINDOW)
     hi = min(len(text), max(b for a, b in used) + BLEND_WINDOW)
     win = text[lo:hi]
-    if not BLEND_ANCHOR.search(win) or BLEND_PLANTING.search(win):
+    if not BLEND_ANCHOR.search(win):
+        return None
+    if not _claims_the_wine(win, min(a for a, b in used) - lo,
+                            max(b for a, b in used) - lo):
         return None
     return got
 

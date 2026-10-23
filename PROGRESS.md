@@ -10,20 +10,22 @@ One row per day, from `progress-history.tsv`.
    date         records   blend   taste    note     url      nl
    2026-10-22      2210    1639     782     504     784     660
    2026-10-23      2637    2000     956    1054     811     595
+   2026-10-24      2647    2000     956    1054     811     595
 
-   since 2026-10-22: records +427, blend +361, taste +174, note +550, url +27, nl -65
+   since 2026-10-22: records +437, blend +361, taste +174, note +550, url +27, nl -65
 
    THE 61 CLASSIFIED GROWTHS, share of what they could hold
    date         estates   blend   taste    note     alc      ph     yld  months     oak    pick
    2026-10-22                                                                                  
    2026-10-23       97%     37%     22%     23%     14%      5%     10%     15%     20%     21%
+   2026-10-24       97%     37%     22%     23%     14%      5%     10%     15%     20%     34%
 ```
 
 ## What is held
 
 ```
 THE GRID: 468 estates x 44 vintages (1982-2025) = 20,592 cells
-2,637 records, 2,529 on the grid, 108 older than 1982; 206 of 468 estates have one
+2,647 records, 2,537 on the grid, 110 older than 1982; 209 of 468 estates have one
 
 field     what it is                         records    of of grid  1980s 1990s 2000s 2010s 2020s
                                                       recs       
@@ -35,7 +37,7 @@ ph        pH                                     332   13%   1.6%  0.0%  0.0%  0
 yld       yield, hl/ha                         1,051   40%   5.1%  0.3%  0.8%  3.2%  11.3% 11.3%
 months    months in barrel                     1,286   49%   6.2%  0.6%  1.2%  4.0%  14.1% 12.7%
 oak       new oak, per cent                    1,300   49%   6.3%  0.3%  1.2%  4.7%  13.2% 13.9%
-pick      picking dates                          957   36%   4.3%  0.9%  1.8%  3.8%  7.7%  8.2% 
+pick      picking dates                        1,671   63%   7.7%  1.3%  2.3%  6.2%  14.6% 16.1%
 harvest   harvest, as the sheet words it         154    6%   0.7%  0.1%  0.3%  0.7%  1.4%  1.5% 
 temp      serving temperature                     62    2%   0.3%  0.0%  0.0%  0.3%  0.6%  0.6% 
 wy        drinking window, as years               42    2%   0.2%  0.0%  0.0%  0.1%  0.4%  0.6% 
@@ -44,26 +46,16 @@ decant    decanting                               21    1%   0.1%  0.0%  0.1%  0
 food      food pairing                            51    2%   0.2%  0.0%  0.0%  0.0%  0.8%  0.4% 
 
 ABOUT THE RECORD ITSELF:
-   src    names the document it was read from            2,636  100% of records
+   src    names the document it was read from            2,646  100% of records
    url    can link to that document in the app             811   31% of records
-   nl     has Dutch for its prose                          595   23% of records
+   nl     has Dutch for its prose                          595   22% of records
 
 STILL TO MERGE - a document states it and no record holds it:
-   note       216
-   oak        208
-   pick       148
-   yld        148
-   months     145
-   blend      133
-   taste       85
-   alc         71
-   ph          47
-   food        24
-   wy          17
-   ta          13
-   window       7
-   sug          4
-   temp         2
+   pick       714
+   taste       21
+   note        19
+   blend        2
+   food         2
    (from reports/fiches-read.json; re-run tools/read-fiches.py --prose to refresh)
 
 THE 61 CLASSIFIED GROWTHS, APART FROM THE LONG TAIL:
@@ -76,7 +68,7 @@ THE 61 CLASSIFIED GROWTHS, APART FROM THE LONG TAIL:
    yld       yield, hl/ha            276   10%    775    4%
    months    months in barrel        411   15%    875    5%
    oak       new oak, per cent       547   20%    753    4%
-   pick      picking dates           563   21%    394    2%
+   pick      picking dates           906   34%    765    4%
    59 of the 61 classified growths have at least one record
    2684 classified vintage cells - 61 estates x 44 vintages, 1982 to 2025
 
@@ -88,8 +80,8 @@ WHOSE WORDS THE PROSE IS:
 
 122 estates have a recorded planting, which is the vineyard’s and not a vintage’s
 
-THE ESTATES WITH NOTHING: 262 of 468
-   41 have documents that might still be read
+THE ESTATES WITH NOTHING: 259 of 468
+   38 have documents that might still be read
    221 have no document at all
 
 A ROW EACH, FOR THE CLASSIFIED GROWTHS - sorted by how much of blend,
@@ -97,15 +89,15 @@ tasting note and growing season is absent across the estate’s records:
 
    estate                     gc  recs blend taste  note  link  spare
    margaux                     1    76    19    21    66    76      0
-   latour                      1    72     0    46    60    38      3
+   latour                      1    74     0    46    60    38      1
    grand-puy-ducasse           5    40    19     0    13     0     10
    palmer                      3    56    56     4    41     0      2
    lafite                      1    50    48    42     3     1      0
    lynch-bages                 5    31    26     1     9    22      0
+   pouget                      4    29     3     1    26     9      8
    langoa-barton               3    32    32    11     0     0      0
    gruaud-larose               2    38    37     2    23    37      0
    malescot                    3    26     1    26     0     0      3
-   pouget                      4    27     3     1    26     9     12
    leoville-barton             2    32    32    14     0     0      0
    lascombes                   2    25    25     0     3     4      1
    cos-destournel              2    37    28    37     1     0     11
@@ -136,6 +128,7 @@ tasting note and growing season is absent across the estate’s records:
    brane-cantenac              2     6     3     0     4     0      0
    la-lagune                   3    10    10     0     9     9      0
    lynch-moussas               5     8     6     2     5     6      1
+   desmirail                   3     6     4     0     4     1      1
    leoville-las-cases          2     6     6     0     2     0      0
    montrose                    2    16    14    12    12    11      0
    belgrave                    5     8     8     7     0     1      0
@@ -144,7 +137,6 @@ tasting note and growing season is absent across the estate’s records:
    dauzac                      5    26    25    21    24     0      0
    lagrange                    3    14    14    10    10     0      0
    rauzan-segla                2    11    10     6     9     0      0
-   desmirail                   3     5     4     0     4     1      3
    du-tertre                   5     4     4     2     0     0      0
    marquis-de-terme            4    11    11     9     7     6      0
    branaire-ducru              4    20    19    16    20     0      7
@@ -173,15 +165,15 @@ tasting note and growing season is absent across the estate’s records:
 
    estate                     gc  recs blend taste  note  link  spare
    margaux                     1    76    19    21    66    76      0
-   latour                      1    72     0    46    60    38      3
+   latour                      1    74     0    46    60    38      1
    grand-puy-ducasse           5    40    19     0    13     0     10
    palmer                      3    56    56     4    41     0      2
    lafite                      1    50    48    42     3     1      0
    lynch-bages                 5    31    26     1     9    22      0
+   pouget                      4    29     3     1    26     9      8
    langoa-barton               3    32    32    11     0     0      0
    gruaud-larose               2    38    37     2    23    37      0
    malescot                    3    26     1    26     0     0      3
-   pouget                      4    27     3     1    26     9     12
    leoville-barton             2    32    32    14     0     0      0
    lascombes                   2    25    25     0     3     4      1
    cos-destournel              2    37    28    37     1     0     11
@@ -212,6 +204,7 @@ tasting note and growing season is absent across the estate’s records:
    brane-cantenac              2     6     3     0     4     0      0
    la-lagune                   3    10    10     0     9     9      0
    lynch-moussas               5     8     6     2     5     6      1
+   desmirail                   3     6     4     0     4     1      1
    leoville-las-cases          2     6     6     0     2     0      0
    montrose                    2    16    14    12    12    11      0
    belgrave                    5     8     8     7     0     1      0
@@ -220,7 +213,6 @@ tasting note and growing season is absent across the estate’s records:
    dauzac                      5    26    25    21    24     0      0
    lagrange                    3    14    14    10    10     0      0
    rauzan-segla                2    11    10     6     9     0      0
-   desmirail                   3     5     4     0     4     1      3
    du-tertre                   5     4     4     2     0     0      0
    marquis-de-terme            4    11    11     9     7     6      0
    branaire-ducru              4    20    19    16    20     0      7

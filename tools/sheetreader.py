@@ -2881,7 +2881,16 @@ BLEND_ANCHOR = re.compile(r'(?i)(assemblage|\bblend\b|grand\s+vin|'
                           # proportions of the grape varieties are
                           # unusual: 94% cabernet sauvignon".
                           r'proportions?\s+of\s+the\s+grape\s+vari|'
-                          r'proportions?\s+des\s+c[eé]pages)')
+                          r'proportions?\s+des\s+c[eé]pages|'
+                          # How the Rothschild estates head it, on
+                          # Mouton's, Clerc-Milon's and d'Armailhac's
+                          # vintage pages alike: "Varietal mix 70%
+                          # Cabernet Sauvignon 15% Merlot". Not
+                          # "grape varieties", which the comment over
+                          # WINE_LABEL keeps with the vineyard and
+                          # which adds no page here anyway.
+                          r'varietal\s+(?:mix|blend)|'
+                          r'c[eé]pages\s*:)')
 # And the words that mean it is what the vineyard is planted with,
 # which is this dataset's commonest defect and not a blend at all.
 BLEND_PLANTING = re.compile(
@@ -3220,6 +3229,17 @@ def fields_of(path, grand=None, others=(), second=None, cat=None,
     # wine's usual one.
     if is_page(path) and not _is_shop(filename):
         b = blend_in_prose(text, second)
+        # Asked again, now that there is a blend to show it.
+        # whose_sheet calls wrong_colour before anything is read and
+        # so passes None, which leaves the second of its two signals
+        # unused - the one its docstring says is there precisely
+        # because a filename may not admit the colour. Mouton's
+        # Aile d'Argent pages gave the grand vin a blend of 72%
+        # Semillon, and 45% and 52% Sauvignon Blanc.
+        if b and wrong_colour(filename, b, cat):
+            how['refused'] = 'the blend turned out to be ' \
+                             'another colour\u2019s'
+            return {}, how
         if b:
             got['blend'] = b
             how['blend'] = 'stated in prose'

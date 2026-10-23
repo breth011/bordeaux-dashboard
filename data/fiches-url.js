@@ -202,6 +202,7 @@ window.BDX_FICHE_URL = {
 'figeac|1964':'https://www.chateau-figeac.com/millesime/millesime-1964/',
 'figeac|1971':'https://www.chateau-figeac.com/millesime/millesime-1971/',
 'figeac|1995':'https://www.chateau-figeac.com/millesime/millesime-1995/',
+'figeac|2013':'https://www.chateau-figeac.com/en/vintage/2013/',
 'figeac|2015':'https://www.chateau-figeac.com/en/vintage/2015/',
 'figeac|2018':'https://www.chateau-figeac.com/millesime/2018/',
 'figeac|2019':'https://www.chateau-figeac.com/millesime/2019/',

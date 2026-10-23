@@ -46,6 +46,7 @@ estates' worth of politeness, not a race.
 """
 import argparse
 import collections
+import hashlib
 import io
 import json
 import os
@@ -183,15 +184,21 @@ def try_pattern(urls):
              and not PATH_YEAR.search(urllib.parse.urlsplit(u).path)
              and not BLOG_DATE.search(u)]
     for u in wines[:6]:
-        hits = 0
+        # Both years must answer AND differ from each other. A site
+        # that serves one page for any trailing path answers every
+        # probe: Marquis de Terme gives the same 11,951 characters
+        # for 1990 as for 2026, and two identical answers are not
+        # evidence of two pages.
+        seen = []
         for y in PROBE_YEARS:
             time.sleep(PAUSE)
             try:
-                get(u.rstrip('/') + '/%d' % y, 40000)
-                hits += 1
+                seen.append(hashlib.sha1(
+                    get(u.rstrip('/') + '/%d' % y, 120000)
+                    .encode('utf-8')).hexdigest())
             except Exception:
-                pass
-        if hits == len(PROBE_YEARS):
+                break
+        if len(seen) == len(PROBE_YEARS) and len(set(seen)) > 1:
             return u.rstrip('/') + '/{year}'
     return None
 

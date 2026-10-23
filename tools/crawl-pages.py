@@ -244,11 +244,11 @@ def pattern_urls(get, pattern, years):
     """
     lo, _, hi = years.partition('-')
     lo, hi = int(lo), int(hi or lo)
-    out, miss = [], 0
+    out, miss, seen = [], 0, {}
     for y in range(hi, lo - 1, -1):
         u = pattern.replace('{year}', str(y))
         try:
-            body_of(get, u)
+            body = body_of(get, u)
         except Exception:
             miss += 1
             # Long enough to cross a gap of unmade vintages - 1991,
@@ -258,6 +258,21 @@ def pattern_urls(get, pattern, years):
                 break
             continue
         miss = 0
+        # The same page for every year is a catch-all, not a page per
+        # vintage. Marquis de Terme answers /en/wines/<anything> with
+        # its wines page - 37 identical answers over 1990 to 2026 -
+        # and fetching them would have registered one page as 37
+        # vintages, which is worse than finding nothing: the manifest
+        # would then say the estate publishes per vintage and nobody
+        # would look again.
+        sig = hashlib.sha1(
+            ' '.join(to_text(body)).encode('utf-8')).hexdigest()
+        if sig in seen:
+            print('   the same page answers for %d as for %d; this is '
+                  'a catch-all, not a page per vintage'
+                  % (y, seen[sig]))
+            return []
+        seen[sig] = y
         out.append(u)
     return out
 

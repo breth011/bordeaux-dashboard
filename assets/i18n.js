@@ -611,6 +611,11 @@
     [/^(.+) ([\d.]+)% usually, ([\d.]+)% this year$/,
      function (m) { return m[1] + ' ' + m[2] + '% gebruikelijk, ' + m[3] +
                            '% dit jaar'; }],
+    /* A variety the estate usually blends and left out this year: the
+       legend names it because the ghost bar draws a band for it. */
+    [/^(.+) none this year, ([\d.]+)% usually$/,
+     function (m) { return m[1] + ' dit jaar niet, gebruikelijk ' + m[2] +
+                           '%'; }],
     /* The phenology tooltip, whose tail counts the reports that agree. */
     [/^Flowering and véraison: Institut des Sciences de la Vigne et du Vin reference plots$/,
      'Bloei en véraison: referentiepercelen van het Institut des Sciences de la Vigne et du Vin'],

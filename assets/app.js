@@ -2594,6 +2594,19 @@ function ghostBar(vintage, usual, what) {
 
 function blendBar(parts, usual, what) {
   var keys = GRAPE_ORDER.filter(function (k) { return parts[k] > 0; });
+  /* The legend has to name every band on screen, and the ghost bar
+     drawn behind this one is the estate's usual blend — which can
+     carry a variety the vintage does not. Talbot 2005 is 57 Cabernet
+     Sauvignon, 39 Merlot, 4 Petit Verdot against a usual 66/26/5/3, so
+     the ghost bar had four bands and the legend three entries, and the
+     Cabernet Franc was a colour with no name against it.
+
+     A variety the estate usually blends and left out this year is
+     worth saying out loud rather than passing over in silence: that it
+     is absent is the interesting part. */
+  var absent = usual ? GRAPE_ORDER.filter(function (k) {
+    return !(parts[k] > 0) && usual[k] > 0;
+  }) : [];
   var bar = '<div class="blendbar">', key = '<div class="blendkey">';
   keys.forEach(function (k) {
     var c = grapeColor(k), pct = parts[k];
@@ -2601,6 +2614,11 @@ function blendBar(parts, usual, what) {
            '" style="flex:' + pct + ';background:' + c + '" title="' +
            GRAPES[k].name + ' ' + pct + '%">' + (pct >= 8 ? pct + '%' : '') + '</div>';
     key += '<span><i style="background:' + c + '"></i>' + GRAPES[k].name + ' ' + pct + '%</span>';
+  });
+  absent.forEach(function (k) {
+    key += '<span class="key-absent"><i style="background:' + grapeColor(k) +
+      '"></i>' + GRAPES[k].name + ' none this year, ' + usual[k] +
+      '% usually</span>';
   });
   return bar + '</div>' + ghostBar(parts, usual, what) + key + '</div>';
 }

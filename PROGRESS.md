@@ -9,9 +9,9 @@ One row per day, from `progress-history.tsv`.
 ```
    date         records   blend   taste    note     url      nl
    2026-10-22      2210    1639     782     504     784     660
-   2026-10-23      2240    1732     796     584     811     652
+   2026-10-23      2240    1749     796     584     811     652
 
-   since 2026-10-22: records +30, blend +93, taste +14, note +80, url +27, nl -8
+   since 2026-10-22: records +30, blend +110, taste +14, note +80, url +27, nl -8
 
    THE 61 CLASSIFIED GROWTHS, share of what they could hold
    date         estates   blend   taste    note     alc      ph     yld  months     oak    pick
@@ -27,7 +27,7 @@ THE GRID: 468 estates x 44 vintages (1982-2025) = 20,592 cells
 
 field     what it is                         records    of of grid  1980s 1990s 2000s 2010s 2020s
                                                       recs       
-blend     the assemblage, variety by variety   1,732   77%   8.3%  1.0%  2.1%  6.2%  17.2% 17.1%
+blend     the assemblage, variety by variety   1,749   78%   8.4%  1.1%  2.1%  6.3%  17.4% 17.2%
 taste     the tasting note                       796   36%   3.8%  1.1%  1.9%  4.0%  6.2%  5.9% 
 note      the growing season                     584   26%   2.7%  0.6%  1.2%  2.0%  4.9%  5.5% 
 alc       alcohol                                879   39%   4.2%  0.7%  1.8%  3.5%  7.6%  8.6% 
@@ -49,17 +49,15 @@ ABOUT THE RECORD ITSELF:
    nl     has Dutch for its prose                          652   29% of records
 
 STILL TO MERGE - a document states it and no record holds it:
-   ta         228
-   sug        109
    taste       24
+   blend       18
    food         2
    note         2
-   blend        1
    (from reports/fiches-read.json; re-run tools/read-fiches.py --prose to refresh)
 
 THE 61 CLASSIFIED GROWTHS, APART FROM THE LONG TAIL:
    field                            classified    the rest
-   blend     the assemblage, variet  829   31%    903    5%
+   blend     the assemblage, variet  845   31%    904    5%
    taste     the tasting note        478   18%    318    2%
    note      the growing season      360   13%    224    1%
    alc       alcohol                 365   14%    514    3%
@@ -88,8 +86,8 @@ tasting note and growing season is absent across the estate’s records:
 
    estate                     gc  recs blend taste  note  link  spare
    margaux                     1    76    18    21    65    76      0
-   grand-puy-ducasse           5    40     4     0     4     0     10
    palmer                      3    49    35     0     9     0      9
+   grand-puy-ducasse           5    40    19     0     4     0     10
    grand-puy-lacoste           5    24     9     0     3    19      0
    lafite                      1    50    48    42     1     1      0
    gruaud-larose               2    37    37     1    15    37      0
@@ -98,7 +96,7 @@ tasting note and growing season is absent across the estate’s records:
    cos-destournel              2    37    28    37     0     0     11
    talbot                      4    21    21     0     0    17      0
    leoville-poyferre           2    21    19     2     1    21      5
-   beychevelle                 4    23    17     6     6    23      6
+   beychevelle                 4    23    18     6     6    23      6
    latour                      1    38     0    37    38    38      0
    duhart-milon                4    33    32    28     1     1      0
    mouton                      1    42    42    42     5    42     26
@@ -164,8 +162,8 @@ tasting note and growing season is absent across the estate’s records:
 
    estate                     gc  recs blend taste  note  link  spare
    margaux                     1    76    18    21    65    76      0
-   grand-puy-ducasse           5    40     4     0     4     0     10
    palmer                      3    49    35     0     9     0      9
+   grand-puy-ducasse           5    40    19     0     4     0     10
    grand-puy-lacoste           5    24     9     0     3    19      0
    lafite                      1    50    48    42     1     1      0
    gruaud-larose               2    37    37     1    15    37      0
@@ -174,7 +172,7 @@ tasting note and growing season is absent across the estate’s records:
    cos-destournel              2    37    28    37     0     0     11
    talbot                      4    21    21     0     0    17      0
    leoville-poyferre           2    21    19     2     1    21      5
-   beychevelle                 4    23    17     6     6    23      6
+   beychevelle                 4    23    18     6     6    23      6
    latour                      1    38     0    37    38    38      0
    duhart-milon                4    33    32    28     1     1      0
    mouton                      1    42    42    42     5    42     26

@@ -71,6 +71,13 @@ SITENAME = re.compile(
     r'content=["\']([^"\']*)')
 H1 = re.compile(r'(?is)<h1[^>]*>(.*?)</h1>')
 TAG = re.compile(r'(?s)<[^>]+>')
+# What this machine's own network says when it answers instead of the
+# site. Nothing is learnt about the address from these, so they go
+# with the timeouts and not with the wrong answers.
+INTERCEPTED = re.compile(
+    r'(?i)browser\s+isolation|zscaler|access\s+denied|'
+    r'attention\s+required|cloudflare|just\s+a\s+moment|'
+    r'are\s+you\s+a\s+robot|captcha')
 # Words that are in every estate's name and so identify none of them.
 EMPTY = set("""chateau château domaine clos cru grand vin vins wine
 wines de du des la le les et and the of a l'""".split())
@@ -112,7 +119,12 @@ def names_it(said, name):
     if not w:
         return True
     s = sr.norm(said)
-    return all((' ' + x) in s or s.startswith(x) for x in w)
+    # One distinctive word is enough, because an estate shortens its
+    # own name: Pichon Longueville Baron's site says "Chateau Pichon
+    # Baron", and wanting every word called that somebody else's.
+    # Croizet-Bages has neither "croizet" nor "bages" in "Domaines
+    # Quie", which is the kind of answer this is looking for.
+    return any((' ' + x) in s or s.startswith(x) for x in w)
 
 
 def candidates(name):
@@ -159,7 +171,7 @@ def main():
     docs = collections.Counter(s.get('estate') for s in man['sheets'])
 
     print('asking %d site(s) whose they are' % len(want))
-    bad, unseen, fine = [], [], 0
+    bad, unseen, mute, fine = [], [], [], 0
     for i, eid in enumerate(want, 1):
         url, how = sites[eid]
         name = (E.get(eid) or {}).get('name') or eid
@@ -170,6 +182,12 @@ def main():
             unseen.append((eid, url, how, type(ex).__name__))
             continue
         said = says_of_itself(body)
+        if INTERCEPTED.search(said):
+            unseen.append((eid, url, how, 'intercepted here'))
+            continue
+        if not said.strip():
+            mute.append((eid, url, how, docs.get(eid, 0)))
+            continue
         if names_it(said, name):
             fine += 1
             continue
@@ -180,7 +198,8 @@ def main():
     print()
     print('THE ADDRESS DOES NOT NAME THE ESTATE - %d of %d'
           % (len(bad), len(want)))
-    print('   %d name it, %d could not be reached' % (fine, len(unseen)))
+    print('   %d name it, %d could not be reached, %d said nothing'
+          % (fine, len(unseen), len(mute)))
     print()
     bad.sort(key=lambda r: r[5])
     for eid, name, url, how, said, n in bad:
@@ -200,6 +219,14 @@ def main():
                           % (mark, scheme, host, s2[:58]))
                     break
             time.sleep(PAUSE)
+    if mute:
+        print()
+        print('   THE PAGE NAMED NOBODY - %d. Not evidence either way;'
+              ' the page has no title, no og:site_name and no heading'
+              ' this could read.' % len(mute))
+        for eid, url, how, n in sorted(mute, key=lambda r: -r[3])[:20]:
+            print('      %-26s %3d doc(s)  %-42s [%s]'
+                  % (eid[:26], n, url[:42], how))
     if unseen:
         print()
         print('   COULD NOT BE REACHED - %d' % len(unseen))

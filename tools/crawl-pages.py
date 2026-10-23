@@ -69,6 +69,12 @@ import sheetreader as sr
 DEST = ROOT + 'sources/pages/'
 MANIFEST = ROOT + 'data/sources.json'
 # Where a sitemap usually is.
+# Where a site says its sitemap is. Asked before the guesses below,
+# because a site that bothers to say is telling the truth and the
+# guesses are only for those that do not: Leoville-Barton's is at
+# /sitemap.php, which no list of likely names would have reached.
+ROBOTS_SITEMAP = re.compile(r'(?im)^\s*sitemap\s*:\s*(\S+)')
+
 SITEMAPS = ('/sitemap.xml', '/sitemap_index.xml', '/wp-sitemap.xml',
             '/sitemap-index.xml', '/page-sitemap.xml')
 # A year in a URL path. Not 19xx below 1900 or beyond next year's
@@ -214,11 +220,34 @@ def year_of(url, title, text):
     return None, 'nothing on the page states a vintage'
 
 
+def declared_sitemaps(get, site):
+    """The sitemap addresses robots.txt gives, if any."""
+    root = '%s://%s' % (urllib.parse.urlsplit(site).scheme or 'https',
+                        urllib.parse.urlsplit(site).netloc)
+    try:
+        body = body_of(get, root + '/robots.txt')
+    except Exception:
+        return []
+    out = []
+    for m in ROBOTS_SITEMAP.finditer(body or ''):
+        u = m.group(1).strip()
+        if u and same_host(u, site) and u not in out:
+            out.append(u)
+    return out
+
+
 def sitemap_urls(get, site, seen=None, depth=0):
     """Every URL a site's sitemaps list, following indexes once."""
     out, seen = [], seen if seen is not None else set()
-    for path in (SITEMAPS if depth == 0 else ('',)):
-        u = urllib.parse.urljoin(site, path) if path else site
+    # What robots.txt declares first, then the usual names. A site
+    # that says where its sitemap is has been asked and answered;
+    # the guesses are for those that say nothing.
+    tries = list(SITEMAPS)
+    if depth == 0:
+        tries = declared_sitemaps(get, site) + tries
+    for path in (tries if depth == 0 else ('',)):
+        u = (path if path.startswith('http')
+             else urllib.parse.urljoin(site, path)) if path else site
         if u in seen:
             continue
         seen.add(u)

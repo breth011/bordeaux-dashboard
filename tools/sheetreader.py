@@ -16,13 +16,18 @@ import io, os, re, collections, difflib, warnings
 warnings.filterwarnings('ignore')
 import pymupdf
 
-VARS = [('CS', r'cabernets?[\s\-]*sauvignons?'),
-        ('CF', r'cabernets?[\s\-]*francs?'),
-        ('PV', r'petits?[\s\-]*verdots?'),
+# Each accepts the abbreviation a fiche prints as well as the full
+# name - "55 % Cab. Sauvignon 45 % Merlot" is Grand-Puy-Ducasse's
+# whole assemblage. The rest of the name is required: "Cab." alone
+# could be either cabernet. BLEND_VARS further down carries the same
+# abbreviations for prose, and the two must agree.
+VARS = [('CS', r'cabernets?[\s\-]*sauvignons?|cab\.\s*sauv(?:ignon)?\.?'),
+        ('CF', r'cabernets?[\s\-]*francs?|cab\.\s*francs?\.?'),
+        ('PV', r'petits?[\s\-]*verdots?|p(?:et)?\.\s*verdots?'),
         ('MA', r'malbecs?|c[oô]ts?\b'),
         ('CA', r'carm[eé]n[eè]res?'),
-        ('SEM', r's[eé]millons?'),
-        ('SB', r'sauvignons?[\s\-]*blancs?'),
+        ('SEM', r's[eé]millons?|s[eé]m\.'),
+        ('SB', r'sauvignons?[\s\-]*blancs?|sauv\.\s*blancs?'),
         ('SG', r'sauvignons?[\s\-]*gris'),
         ('MU', r'muscadelles?'),
         # The Haut-Brion group writes "Merlot Noir: 54%". Without the
@@ -3188,15 +3193,16 @@ def names_other_chateau(filename, grand, others=(), second=None):
 # A blend written as a sentence, which is how an estate that publishes
 # a page rather than a sheet states it.
 BLEND_VARS = (
-    ('CS', r'cabernets?[\s-]+sauvignons?'),
-    ('CF', r'cabernets?[\s-]+francs?'),
-    ('PV', r'petits?[\s-]+verdots?'),
-    ('SB', r'sauvignons?[\s-]+blancs?'),
+    # The same abbreviations VARS carries, and for the same sheets.
+    ('CS', r'cabernets?[\s-]+sauvignons?|cab\.\s*sauv(?:ignon)?\.?'),
+    ('CF', r'cabernets?[\s-]+francs?|cab\.\s*francs?\.?'),
+    ('PV', r'petits?[\s-]+verdots?|p(?:et)?\.\s*verdots?'),
+    ('SB', r'sauvignons?[\s-]+blancs?|sauv\.\s*blancs?'),
     ('SG', r'sauvignons?[\s-]+gris'),
     ('ME', r'merlots?'),
     ('MA', r'malbecs?|c[oô]ts?'),
     ('CM', r'carm[eé]n[eè]res?'),
-    ('SEM', r's[eé]millons?'),
+    ('SEM', r's[eé]millons?|s[eé]m\.'),
     ('MU', r'muscadelles?'),
     # Last, so "cabernets sauvignons" and "cabernets francs" are
     # matched by their own patterns above before this is reached.
@@ -3211,6 +3217,17 @@ BLEND_ANY = re.compile(r'(?i)(?<![a-z])(' + '|'.join(
 BLEND_WHICH = tuple((k, re.compile(r'(?i)^(?:' + p + r')$'))
                     for k, p in BLEND_VARS)
 BLEND_PCT = re.compile(r'(\d{1,3}(?:[.,]\d)?)\s*%')
+# What follows a percentage that is a share of the wine. Margaux
+# writes "8% of the Grand Vin" and "accounting for 89% of the blend";
+# a figure wearing this phrase is not an alcohol, a yield or the next
+# cell of a table, so it is allowed to look further back for the
+# variety it belongs to.
+SHARE_OF_BLEND = re.compile(
+    r'(?i)^[\s,]*(?:of|in)\s+(?:the\s+|this\s+)?'
+    r'(?:final\s+|grand\s+|overall\s+)?'
+    r'(?:blend|grand\s+vin|assemblage|wine\b|vintage\s+blend)'
+    r'|^[\s,]*(?:de|du)\s+l?[’\']?\s*'
+    r'(?:assemblage|grand\s+vin|vin\b)')
 # The words that mean this is the wine's assemblage.
 BLEND_ANCHOR = re.compile(r'(?i)(assemblage|\bblend\b|grand\s+vin|'
                           r'went\s+into|composition\s+du\s+vin|'
@@ -3243,6 +3260,10 @@ BLEND_PAIR_BACK = 170   # how far back of "respectively" to read
 
 BLEND_TOUCH = 3     # a figure standing beside its variety
 BLEND_REACH = 90    # or further on, across words, in one sentence
+# A figure that says in words what it is a share of. See
+# SHARE_OF_BLEND: the phrase is the anchor, so the figure may look
+# further back for its variety than a bare percentage is allowed to.
+BLEND_SHARE_BACK = 230
 BLEND_WINDOW = 320
 
 
@@ -3335,6 +3356,24 @@ def blend_in_prose(text, second=None):
         for vi, pi in zip(mine, theirs):
             if vs[vi][2] not in got:
                 claim(vi, pi)
+
+    # A figure that says what it is a share of, given to the last
+    # variety named before it. Nothing may stand between them - the
+    # same no-crossing rule the forward reach uses - and the phrase
+    # itself is what licenses looking back this far.
+    for pi, (ps, pe, val) in enumerate(pcts):
+        if pi in taken or not SHARE_OF_BLEND.match(text[pe:pe + 26]):
+            continue
+        before = [vi for vi, (s, e, k) in enumerate(vs)
+                  if e <= ps and ps - e <= BLEND_SHARE_BACK]
+        if not before:
+            continue
+        vi = before[-1]
+        if vs[vi][2] in got:
+            continue
+        if BLEND_ANY.search(text[vs[vi][1]:ps]):
+            continue
+        claim(vi, pi)
 
     for vi, (s, e, k) in enumerate(vs):
         if k in got:

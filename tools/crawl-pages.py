@@ -91,6 +91,18 @@ LOC = re.compile(r'(?i)<loc>\s*([^<\s]+)\s*</loc>')
 # How long a slug may be. Long enough for an estate's name and a
 # wine's, short enough to leave room for the year and the extension.
 SLUG = 120
+# A heading whose whole text is a year, which is how a page that
+# carries every vintage separates them. Latour writes <h5>1961</h5>,
+# 75 times, each over its own description and weather notes.
+#
+# The closing tag must match the opening one, so a stray <h2>2019
+# inside a paragraph cannot open a block that never closes.
+YEAR_HEAD = re.compile(
+    r'(?is)<h([1-6])[^>]*>\s*((?:18[5-9]\d|19\d\d|20[0-3]\d))\s*</h\1>')
+# A block has to say something. A page whose years are only a
+# navigation strip yields headings with nothing behind them, and an
+# empty vintage is worse than an absent one - it looks like a record.
+SPLIT_FLOOR = 200
 # One request a second. This is somebody else's server.
 PAUSE = 1.0
 
@@ -245,12 +257,90 @@ def seed_urls(get, seed):
     return out
 
 
+def split_one(get, man, e, eid, url, held_url, held_sha, apply):
+    """Cut one page into a record per vintage, at its year headings.
+
+    Returns nothing; it prints what it did and appends to the
+    manifest, which main() writes once at the end.
+    """
+    try:
+        body, url = read_page(get, url)
+    except Exception as ex:
+        print('   could not fetch %s: %s' % (url[:60], str(ex)[:40]))
+        return 0
+    title = page_title(body)
+    heads = list(YEAR_HEAD.finditer(body))
+    print('   %d year heading(s) on %s' % (len(heads), url[:66]))
+    if not heads:
+        print('   nothing to split; this page does not head its '
+              'vintages with a year')
+        return 0
+
+    folder = DEST + eid + '/'
+    added, thin, dup = 0, 0, 0
+    for i, m in enumerate(heads):
+        yr = int(m.group(2))
+        end = heads[i + 1].start() if i + 1 < len(heads) else len(body)
+        text = to_text(body[m.end():end])
+        if sum(len(l) for l in text) < SPLIT_FLOOR:
+            thin += 1
+            continue
+        at = '%s#%d' % (url, yr)
+        if at in held_url:
+            dup += 1
+            continue
+        blob = '\n'.join([at, '%s %d' % (title, yr), '']
+                          + [' ' + l for l in text])
+        data = blob.encode('utf-8')
+        sha = hashlib.sha1(data).hexdigest()
+        if sha in held_sha:
+            dup += 1
+            continue
+        if not apply:
+            if added < 8:
+                print('      %-5s %s' % (yr, ' '.join(
+                    ' '.join(text).split())[:74]))
+            added += 1
+            continue
+        if not os.path.isdir(folder):
+            os.makedirs(folder)
+        # Named for the estate and the page, not for the route.
+        # slug_of() would give "en-a-time-for-sharing-vintages",
+        # whose "for" the filename guards read as "Forts" - Les
+        # Forts de Latour - and refuse all 75 of them. See the
+        # note above the function.
+        tail = [p for p in urllib.parse.urlsplit(url).path.split('/')
+                if p]
+        name = '%d__%s.txt' % (
+            yr, slug_of('/%s/%s' % (eid, tail[-1] if tail else 'page')))
+        io.open(folder + name, 'w', encoding='utf-8',
+                newline='').write(blob)
+        man['sheets'].append({
+            'file': name, 'folder': 'pages/' + eid,
+            'estate': eid, 'estateName': e.get('name'),
+            'wine': None, 'role': 'page', 'colour': None,
+            'year': yr, 'bytes': len(data), 'sha1': sha,
+            'url': at,
+            'how': 'a year heading on a page carrying every vintage',
+        })
+        held_sha.add(sha)
+        held_url.add(at)
+        added += 1
+        print('   %-5s %-46s' % (yr, name[:46]))
+    print('   %d vintage(s)%s, %d too thin to be one, %d already held'
+          % (added, '' if apply else ' it would take', thin, dup))
+    return added
+
+
 def main():
     ap = argparse.ArgumentParser()
     ap.add_argument('--estate', action='append', default=[],
                     help='the estate id, as chateaux.js spells it')
     ap.add_argument('--seed', default=None,
                     help='a listing page to take links from')
+    ap.add_argument('--split', default=None,
+                    help='one page carrying every vintage, to be cut '
+                         'into one record each at its year headings')
     ap.add_argument('--apply', action='store_true',
                     help='fetch the pages and register them')
     ap.add_argument('--limit', type=int, default=120,
@@ -266,6 +356,7 @@ def main():
     held_sha = set(s.get('sha1') for s in man['sheets'] if s.get('sha1'))
     h = harvest()
     get = h.get
+    started = len(man['sheets'])
 
     added = 0
     for eid in a.estate:
@@ -275,6 +366,12 @@ def main():
             continue
         site = sites.get(eid)
         print('%s — %s' % (eid, site or 'no website on record'))
+
+        if a.split:
+            split_one(get, man, e, eid, a.split, held_url, held_sha,
+                      a.apply)
+            continue
+
         found = []
         if a.seed:
             found = seed_urls(get, a.seed)
@@ -355,6 +452,9 @@ def main():
             added += 1
             print('   %-5s %-44s %s' % (yr, name[:44], how))
 
+    if a.split and a.apply:
+        # split_one appended as it went, and counts its own work.
+        added = max(added, len(man['sheets']) - started)
     if not a.apply:
         print()
         print('nothing fetched; pass --apply to fetch and register')

@@ -2592,6 +2592,35 @@ function ghostBar(vintage, usual, what) {
     '</div>';
 }
 
+/* The ground an estate sits on and what it does in its cellar, off its
+   own sheets. Estate-level on purpose: see tools/read-terroir.py for the
+   measurement, but the short of it is that Lafite prints one soil
+   sentence on 48 of its 53 sheets, word for word from 1968 to 1979.
+
+   The count is in the caption because it is the entire reason to
+   believe the passage. One sheet could be one sheet's mistake. */
+function escText(s) {
+  return String(s).replace(/&/g, '&amp;').replace(/</g, '&lt;')
+                  .replace(/>/g, '&gt;');
+}
+function estateProse(ch) {
+  var T = (window.BDX_TERROIR || {})[ch.id];
+  if (!T) return '';
+  var s = '';
+  [['soil', 'The ground, in the estate’s words'],
+   ['making', 'In the cellar, in the estate’s words']].forEach(function (p) {
+    var r = T[p[0]];
+    if (!r || !r.v) return;
+    s += '<div class="section"><h3>' + p[1] + '</h3>' +
+      '<p class="notetext">' + escText(r.v) + '</p>' +
+      '<p class="src">' + (r.lang === 'fr' ? 'the estate’s own French'
+                                           : 'the estate’s own English') +
+      ', on ' + r.seen + ' of ' + r.of + ' sheets that state one</p>' +
+      '</div>';
+  });
+  return s;
+}
+
 function blendBar(parts, usual, what) {
   var keys = GRAPE_ORDER.filter(function (k) { return parts[k] > 0; });
   /* The legend has to name every band on screen, and the ghost bar
@@ -2832,6 +2861,7 @@ function openDrawer(id) {
     body += '<div class="section"><h3>Terroir</h3>' +
       '<p class="notetext">' + ch.terroir + '</p></div>';
   }
+  body += estateProse(ch);
   if (ch.style) {
     body += '<div class="section"><h3>House style</h3>' +
       '<p class="housestyle">' + ch.style + '</p></div>';

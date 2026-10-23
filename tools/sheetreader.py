@@ -2417,6 +2417,249 @@ def read_advice(text):
     return out, how
 
 
+# The estate's standing practice: its ground and its cellar. See the
+# note in tools/read-terroir.py for why these are facts about the
+# property and not about the year.
+ESTATE_PROSE = (
+    # "sol" and "soil" are ordinary words in both languages, and alone
+    # they match inside any sentence about dirt. _is_heading is what
+    # keeps them honest - capitals, a colon, the start of a sentence,
+    # or a block of figures in front, which is the shape of every
+    # fiche's estate table.
+    ('soil', re.compile(
+        r'(?i)(?:nature\s+du\s+sols?|terroirs?(?:\s+et\s+sols?)?|'
+        r'sous[- ]sols?|\bsols?\b|'
+        r'soil\s*(?:\s+type|\s+and\s+subsoil)?s?|subsoils?|'
+        r'terrain\s+g[eé]ologique)\s*[:–—-]*\s*')),
+    ('making', re.compile(
+        r'(?i)(?:vinifications?(?:\s+et\s+[eé]levage)?|'
+        r'wine[- ]?making|vine\s+making|'
+        r'(?:dans\s+le\s+|au\s+)?chai\b|\bcuvier\b|'
+        r'(?:in\s+)?the\s+(?:cellar|winery|vat\s+room)|'
+        r'fermentations?(?:\s+alcoolique)?)\s*[:–—-]*\s*')),
+)
+
+# Where a fiche's text ends and its stationery begins. A Gironde
+# postcode is the one thing every Bordeaux letterhead has, and it is
+# what stopped Gruaud-Larose's soil running on into "King of wines,
+# Wine of Kings Chateau Gruaud Larose 33250 Saint-Julien-Beychevelle".
+#
+# A chateau's name followed by a year is the other shape: Tour Saint
+# Christophe heads its sheet "CHATEAU TOUR SAINT CHRISTOPHE 2016 -
+# FACTS" and the soil line sat directly above it.
+_STOP_LETTERHEAD = (
+    r'www\.|@|t[eé]l\.|\bfax\b|\bsiret\b|\b33\d{3}\b|'
+    r'ch[aâ]teau\s+[\w\s\'’-]{3,40}\s+(?:19|20)\d\d\b|'
+    r'king\s+of\s+wines'
+)
+
+# Where an estate passage ends: at the next label of any kind. Written
+# out rather than guessed, because what follows a soil line on a fiche
+# is always another label and almost never a full stop.
+_STOP_ANY = (
+    r'enc[eé]pagement|c[eé]pages?|assemblage|\bblend\b|'
+    r'varietal\s+(?:mix|blend)|'
+    r'degr[eé]\s*:|alcool|alcohol|rendement|\byield\b|hl\s*/\s*ha|'
+    r'mise\s+en\s+bouteille|bottl(?:ing|ed)|'
+    r'production\s*:|bouteilles\s+produites|bottles\s+produced|'
+    r'propri[eé]taire|\bowner\b|second\s+vins?|'
+    r'appellations?\s*:|superficie|surface\s+(?:du|en)\s|'
+    r'\bpH\b|acidit[eé]|oenologue|œnologue|consultant|conseil\s*:|'
+    r'd[eé]gustations?|tasting\s+note|commentaires?\s+de|'
+    r'conditions?\s+climatiques?|climatolog|\bm[eé]t[eé]o\b|'
+    r'growing\s+season|temp[eé]rature|accords?\s+mets|'
+    r'potentiel\s+de\s+garde|apog[eé]e|'
+    # The English for a planting. The French was here from the start
+    # and the English was not, so Trotte-Vieille's soil came out as
+    # "Thin clay coating on limestone 49 % Merlot 46 % Cabernet
+    # Franc" - a planting wearing a terroir's label, which is the one
+    # mistake this dataset has made more than any other.
+    r'grape\s+variet(?:y|ies)|varieties\s+planted|grape\s+mix|'
+    r'vari[eé]t[eé]s?\s*:|'
+    # The vineyard's measurements, which follow a soil on every
+    # second fiche. Bare densite as well as densite de plantation:
+    # Dauzac prints DENSITE DE PRODUCTION and ran on into it.
+    r'surface\s+area|surfaces?\s*:|densit[eé]|average\s+density|'
+    r'porte[- ]greffes?|rootstocks?|\bengrais\b|fertilis|'
+    # Badette files its pest control under the soil.
+    r'mating\s+disruption|confusion\s+sexuelle|'
+    # Labels this archive had not shown until the second dry run.
+    # Pedesclaux heads the vineyard work A LA VIGNE and its soil ran
+    # on into it; Batailley's into ACCORDS and then NOTE(S) DE
+    # DEGUSTATION, whose first half the degustation stop could never
+    # reach; Villemaurine's cellar into SITUATION.
+    r'[aà]\s+la\s+vigne\b|au\s+vignoble\b|'
+    r'\baccords?\b|notes?\s*\(?s?\)?\s+de\s+d[eé]gustation|'
+    r'situations?\s*:|mill[eé]sime\s+(?:19|20)\d\d|'
+    r'le\s+vignoble\b|le\s+climat\b|the\s+vineyard\s*:|'
+    r'' + _STOP_LETTERHEAD
+)
+ESTATE_STOP = {
+    # A soil passage ends where the vineyard work starts.
+    'soil': re.compile(
+        r'(?i)(' + _STOP_ANY + r'|'
+        r'densit[eé]\s+de\s+plantation|planting\s+density|'
+        r'[aâ]ge\s+(?:moyen\s+)?des\s+vignes|average\s+age|vine\s+age|'
+        r'mode\s+de\s+taille|\btaille\s*:|\bpruning\b|'
+        r'\bculture\s*:|viticulture|'
+        r'vendanges?|r[eé]colte|harvest|picking|'
+        r'\btri\s*:|triage|sorting|'
+        r'vinification|wine[- ]?making|fermentation|'
+        r'[eé]levage|ageing|aging)'),
+    # A cellar passage is made of the words that stop a soil one, so
+    # it stops later: at the barrel, and at the vineyard behind it.
+    'making': re.compile(
+        r'(?i)(' + _STOP_ANY + r'|'
+        # No colon required. A fiche set in capitals has none, which
+        # is how Coutet's cellar ran on into "ELEVAGE 18 mois en
+        # barriques" and Marquis d'Alesme's into "Elevage Barriques
+        # de chene francais 70%".
+        r'[eé]levage\b|ageing\b|\baging\b|'
+        r'mise\s+en\s+barriques?|'
+        # The barrel itself, where it is the whole of what follows.
+        # Lafon-Rochet's entire cellar passage was "AT LEAST 12
+        # MONTHS IN BARRELS 14,5% VOL." - the ageing and the degree
+        # under a WINE MAKING heading, and neither is vinification.
+        r'\d+\s*(?:-\s*\d+\s*)?months?\s+in\s+(?:barrels?|oak)|'
+        r'\d+\s*mois\s+en\s+barriques?|'
+        r'vendanges?\s*:|r[eé]colte\s*:|harvest\s*:|'
+        r'nature\s+du\s+sol|terroirs?\s*:)'),
+}
+# The second half of a heading the label cut in two. Named words
+# only, in capitals, and only with mixed-case prose behind them.
+#
+# A rule that stripped any leading capitals would have taken
+# Lafon-Rochet's soil, which is "DEEP GRAVELS + GRAVELS ON CLAY" and
+# nothing else - the passage is in capitals from end to end, so there
+# is no prose behind the tail to tell them apart. Hence both
+# conditions, and hence the list.
+ESTATE_TAIL = re.compile(
+    r'^(?:SCHEME|PROCESS(?:ES)?|VINIFICATION|WINE\s*-?\s*MAKING|'
+    r'GEOLOGY|AND\s+AGEING|AND\s+[EÉ]LEVAGE|ET\s+[EÉ]LEVAGE|'
+    r'PARCELLAIRE|TYPES?)\b[\s:/–—-]*')
+# A word left dangling at the end, which was introducing whatever the
+# stop-list cut off: "DEEP GRAVELS + GRAVELS ON CLAY THE".
+ESTATE_ORPHAN = re.compile(
+    r'(?i)[\s,;+&-]*\b(?:the|a|an|and|of|on|in|with|from|'
+    r'le|la|les|de|du|des|et|en|sur|dans|aux?|un|une)\s*$')
+# Words that are headings rather than content. A window made only of
+# these is a sheet's filing and not a fact about the estate: Ripeau's
+# cellar read "Vinification : fermentation".
+ESTATE_LABELISH = frozenset((
+    'vinification vinifications winemaking making fermentation '
+    'fermentations elevage ageing aging chai cuvier terroir '
+    'terroirs sol sols soil soils subsoil sous-sol nature type '
+    'types scheme process geology').split())
+
+# The fewest words each field can be. A soil often is one - graves,
+# argilo-calcaire, peyrosol, and Pichon Comtesse's argilo-sableux. A
+# cellar never is. The length floor in ESTATE_BOUNDS is what stands
+# between a one-word soil and a stray capital.
+ESTATE_WORDS = {'soil': 1, 'making': 2}
+
+# What each field will take. A soil is a line; a cellar is a
+# paragraph.
+ESTATE_BOUNDS = {'soil': (8, 320), 'making': (24, 700)}
+
+
+def read_estate_prose(text):
+    """The ground and the cellar, where the sheet labels them.
+
+    Per sheet. Nothing here decides what an estate's soil is - one
+    sheet is one witness, and tools/read-terroir.py asks how many
+    witnesses agree.
+    """
+    out, how = {}, {}
+    for field, lab in ESTATE_PROSE:
+        lo, hi = ESTATE_BOUNDS[field]
+        # English first, as read_prose does, so a bilingual sheet
+        # gives the passage this dashboard can show untranslated.
+        cands = [c for c in lab.finditer(text) if _is_heading(text, c)]
+        cands.sort(key=lambda c: 0 if re.search(
+            r'(?i)soil|subsoil|wine[- ]?making|cellar|winery',
+            c.group(0)) else 1)
+        for m in cands:
+            win = text[m.end():m.end() + hi + 200]
+            s = ESTATE_STOP[field].search(win)
+            if s:
+                win = win[:s.start()]
+            # The ligatures the PDF lost. Moulin du Cadet's cellar
+            # arrived as "Selec*on by gravity and densimetric sor*ng",
+            # and delig() exists for exactly this.
+            win = delig(' '.join(win.split())).lstrip(' :-–—/&.,;')
+            # A ruled line waiting to be filled in, not an answer.
+            if len(re.findall(r'[.…]', win)) > len(win) * 0.2:
+                continue
+            # Never end inside a word - the stop-list cuts anywhere.
+            if len(win) > hi:
+                win = win[:hi]
+                if ' ' in win:
+                    win = win[:win.rfind(' ')]
+            cut = max(win.rfind('. '), win.rfind('! '), win.rfind('? '))
+            if cut >= lo:
+                win = win[:cut + 1]
+            # The rest of the heading, where the label took half of
+            # it. Only with mixed-case prose behind it: see
+            # ESTATE_TAIL.
+            tailed = False
+            if not win.isupper():
+                _cut = ESTATE_TAIL.sub('', win, count=1)
+                if _cut and _cut is not win:
+                    win, tailed = _cut, True
+            # Cut mid-thought. An open bracket with no close means the
+            # stop-list landed inside a parenthesis - Gruaud-Larose's
+            # "Integrated Pest Control (mechanical work, organic" -
+            # and what is inside it was never finished.
+            if win.count('(') > win.count(')'):
+                win = win[:win.rfind('(')]
+            # And a word left dangling where the cut fell.
+            win = ESTATE_ORPHAN.sub('', win).rstrip(' ,;+&-')
+            # A labelled passage begins where the label ends. One
+            # that opens lower-case is the middle of a sentence the
+            # label matched inside - Montrose's "terroir originel,
+            # epicentre du vignoble", Lascombes' "douce par
+            # infusion", Larcis-Ducasse's "argilo-limoneux tres" -
+            # and _is_heading passed all three on the strength of a
+            # figure sitting behind them.
+            # Unless the heading's own tail was what stood in front
+            # of it: Siaurac's "VINIFICATION PARCELLAIRE : selection
+            # des meilleurs terroirs" opens lower-case for the
+            # ordinary reason that a French fiche does after a colon,
+            # and that is not a sentence cut in half.
+            if win[:1].islower() and not tailed:
+                continue
+            # A passage naming three properties is a portfolio
+            # footer, not this estate's cellar. Tour Saint
+            # Christophe's ran "CHATEAU BELLEFONT-BELCIER - CHATEAU
+            # TOUR SAINT CHRISTOPHE - ENCLOS TOURMALINE - CHATEAU
+            # HAUT-BRISSON" and so on for seven.
+            if len(re.findall(r'(?i)ch[aâ]teau', win)) >= 3:
+                continue
+            digits = sum(c.isdigit() for c in win)
+            words = [w for w in win.split() if len(w) > 2]
+            if (not (lo <= len(win) <= hi)
+                    or len(words) < ESTATE_WORDS[field]):
+                continue
+            # Nothing but headings. Better to hold none of it than to
+            # print a sheet's filing as a fact about the ground.
+            said = [w for w in words
+                    if norm(w).strip(' :.,-') not in ESTATE_LABELISH]
+            if len(said) < ESTATE_WORDS[field]:
+                continue
+            # A table of figures rather than a description. Soils are
+            # named, not measured; a cellar has vat sizes in it, so it
+            # is allowed more.
+            if digits > len(win) * (0.18 if field == 'soil' else 0.3):
+                continue
+            # If a tasting note or the year's weather is in here, the
+            # stop-list missed a label and this is not our passage.
+            if TASTES_OF.search(win) or SEASON_OF.search(win[:300]):
+                continue
+            out[field], how[field] = win, m.group(0)[:36]
+            break
+    return out, how
+
+
 # Words a filename uses for the paperwork rather than the wine.
 FILING = set("""fiche fiches technique techniques sheet technical fact
 millesime vintage vin vins chateau clos domaine grand grands cru crus

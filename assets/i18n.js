@@ -123,6 +123,13 @@
         'wat er in de wijngaard is aangeplant',
     'what the vineyard is planted with, unchanged this year':
         'wat er in de wijngaard is aangeplant, dit jaar onveranderd',
+    /* The estate's own words about its ground and its cellar,
+       off its own sheets. The heading says whose words they are
+       because the Terroir section above is this dashboard's. */
+    'The ground, in the estate\u2019s words':
+        'De bodem, in de woorden van het domein',
+    'In the cellar, in the estate\u2019s words':
+        'In de kelder, in de woorden van het domein',
     'What the note smells of': 'Waar de notitie naar ruikt',
     /* the words the aroma wheel quotes out of the note */
     'red fruit': 'rood fruit',
@@ -616,6 +623,15 @@
     [/^(.+) none this year, ([\d.]+)% usually$/,
      function (m) { return m[1] + ' dit jaar niet, gebruikelijk ' + m[2] +
                            '%'; }],
+    /* The provenance line under an estate's own soil or cellar
+       passage: which language it is in, and how many of the
+       estate's sheets agree on it. */
+    [/^the estate\u2019s own (English|French), on (\d+) of (\d+) sheets that state one$/,
+     function (m) {
+       return 'het ' + (m[1] === 'French' ? 'Frans' : 'Engels') +
+         ' van het domein zelf, op ' + m[2] + ' van de ' + m[3] +
+         ' fiches die er een noemen';
+     }],
     /* The phenology tooltip, whose tail counts the reports that agree. */
     [/^Flowering and véraison: Institut des Sciences de la Vigne et du Vin reference plots$/,
      'Bloei en véraison: referentiepercelen van het Institut des Sciences de la Vigne et du Vin'],

@@ -48,13 +48,6 @@ ABOUT THE RECORD ITSELF:
    url    can link to that document in the app             811   34% of records
    nl     has Dutch for its prose                          612   26% of records
 
-STILL TO MERGE - a document states it and no record holds it:
-   blend       21
-   oak         12
-   taste       11
-   pick         9
-   (from reports/fiches-read.json; re-run tools/read-fiches.py --prose to refresh)
-
 THE 61 CLASSIFIED GROWTHS, APART FROM THE LONG TAIL:
    field                            classified    the rest
    blend     the assemblage, variet  946   35%    923    5%
@@ -103,7 +96,7 @@ tasting note and growing season is absent across the estate’s records:
    leoville-poyferre           2    21    19     2     5    21      5
    grand-puy-lacoste           5    28    27    21     3    19      0
    beychevelle                 4    23    18     6    15    23      6
-   cantenac-brown              3    20    20     1    10     0      0
+   cantenac-brown              3    20    20     1    10     0      2
    batailley                   5    21    18    14     4     5      2
    la-tour-carnet              4    14    10     4     1     3      0
    marquis-dalesme             3    13    13     0     0     0      0
@@ -179,7 +172,7 @@ tasting note and growing season is absent across the estate’s records:
    leoville-poyferre           2    21    19     2     5    21      5
    grand-puy-lacoste           5    28    27    21     3    19      0
    beychevelle                 4    23    18     6    15    23      6
-   cantenac-brown              3    20    20     1    10     0      0
+   cantenac-brown              3    20    20     1    10     0      2
    batailley                   5    21    18    14     4     5      2
    la-tour-carnet              4    14    10     4     1     3      0
    marquis-dalesme             3    13    13     0     0     0      0

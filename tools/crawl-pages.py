@@ -79,6 +79,13 @@ SITEMAPS = ('/sitemap.xml', '/sitemap_index.xml', '/wp-sitemap.xml',
             '/sitemap-index.xml', '/page-sitemap.xml')
 # A year in a URL path. Not 19xx below 1900 or beyond next year's
 # vintage, because a page numbered 2050 is not a wine.
+# A year with a month and a day behind it is the day a page was
+# published, not the vintage it is about: WordPress writes
+# /2021/01/05/the-architecture-of-the-chateau/. Cantenac-Brown's
+# sitemap holds 197 of these and 103 real vintage pages, and the
+# year in the path tells them apart only if this is asked first.
+BLOG_DATE = re.compile(r'/(?:19|20)\d\d/\d{1,2}/\d{1,2}/')
+
 PATH_YEAR = re.compile(r'(?<!\d)(18[5-9]\d|19\d\d|20[0-3]\d)(?!\d)')
 # A vintage the page declares, for a path that names none.
 SAYS_YEAR = re.compile(r'(?i)(?:mill[eé]sime|vintage)\s*:?\s*'
@@ -109,6 +116,13 @@ YEAR_HEAD = re.compile(
 # navigation strip yields headings with nothing behind them, and an
 # empty vintage is worse than an absent one - it looks like a record.
 SPLIT_FLOOR = 200
+# And so does a page fetched by any other route. Cantenac-Brown's
+# vintage pages are 90 to 174 bytes of address and title, their text
+# built in JavaScript, and 102 of them were registered as documents -
+# inflating every count of what is held and costing a read each time
+# to learn nothing. Lower than SPLIT_FLOOR because a real page can be
+# short; a shell has nothing at all.
+PAGE_FLOOR = 120
 # One request a second. This is somebody else's server.
 PAUSE = 1.0
 
@@ -525,7 +539,11 @@ def main():
             if re.search(r'(?i)\.(pdf|jpe?g|png|gif|svg|zip|mp4)$', u):
                 why['not a page'] += 1
                 continue
-            if not PATH_YEAR.search(urllib.parse.urlsplit(u).path):
+            path = urllib.parse.urlsplit(u).path
+            if BLOG_DATE.search(path):
+                why['the path names a publication date'] += 1
+                continue
+            if not PATH_YEAR.search(path):
                 why['the path names no vintage'] += 1
                 continue
             if u in held_url:
@@ -560,6 +578,10 @@ def main():
                 continue
             title = page_title(body)
             text = to_text(body)
+            if sum(len(l) for l in text) < PAGE_FLOOR:
+                print('   no text on the page, built in JavaScript? '
+                      '%s' % u[:56])
+                continue
             yr, how = year_of(u, title, text)
             if yr is None:
                 print('   skipped, %s: %s' % (how, u[:62]))

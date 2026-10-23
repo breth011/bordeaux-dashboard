@@ -67,6 +67,13 @@ LOC = re.compile(r'(?i)<loc>\s*([^<\s]+)\s*</loc>')
 ROBOTS_SITEMAP = re.compile(r'(?im)^\s*sitemap\s*:\s*(\S+)')
 SITEMAPS = ('/sitemap.xml', '/sitemap_index.xml', '/wp-sitemap.xml',
             '/sitemap.php', '/sitemap_index.xml.gz')
+# A year with a month and a day behind it is the day a page was
+# published, not the vintage it is about: WordPress writes
+# /2021/01/05/the-architecture-of-the-chateau/. Cantenac-Brown's
+# sitemap holds 197 of these and 103 real vintage pages, and the
+# year in the path tells them apart only if this is asked first.
+BLOG_DATE = re.compile(r'/(?:19|20)\d\d/\d{1,2}/\d{1,2}/')
+
 PATH_YEAR = re.compile(r'(?<!\d)(19[5-9]\d|20[0-3]\d)(?!\d)')
 YEAR_HEAD = re.compile(
     r'(?is)<h([1-6])[^>]*>\s*((?:18[5-9]\d|19\d\d|20[0-3]\d))\s*</h\1>')
@@ -173,7 +180,8 @@ def try_split(urls):
 def try_pattern(urls):
     """A wine page that serves <page>/<year>."""
     wines = [u for u in urls if WINE_PATH.search(u)
-             and not PATH_YEAR.search(urllib.parse.urlsplit(u).path)]
+             and not PATH_YEAR.search(urllib.parse.urlsplit(u).path)
+             and not BLOG_DATE.search(u)]
     for u in wines[:6]:
         hits = 0
         for y in PROBE_YEARS:
@@ -230,7 +238,8 @@ def main():
         except Exception:
             urls = []
         yr = [u for u in urls
-              if PATH_YEAR.search(urllib.parse.urlsplit(u).path)]
+              if PATH_YEAR.search(urllib.parse.urlsplit(u).path)
+              and not BLOG_DATE.search(urllib.parse.urlsplit(u).path)]
         if yr:
             found.append((eid, 'sitemap', site, len(yr), ''))
         else:

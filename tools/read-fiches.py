@@ -96,6 +96,33 @@ import sheetreader as sr
 #
 # This is read-sheets' PINNED, for prose.
 REFUSED = {
+    # Found by translating: the first seven short advice fields held
+    # three that are not advice. See the commit.
+    ('belgrave|2022', 'food'):
+        'not a food pairing: the window opens on the label itself - '
+        '"FOOD AND WINE MATCHING" - and what follows it is the '
+        'vinification, "100 % Merlot Vinification traditionnelle en '
+        'cuves inox thermoregulees". The sheet prints its headings in '
+        'one column and its answers in another, and flattened they '
+        'meet in the wrong order',
+    ('prieure-lichine|2006', 'window'):
+        'not a drinking window: a tasting note that happens to begin '
+        'on a year - "2025. This wine boasts a beautiful carmine red '
+        'colour. The nose is fine and elegant, on a floral and fruity '
+        'frame". The year is the end of the window printed above it, '
+        'and the sentence after it is the note',
+    ('la-tour-carnet|2011', 'food'):
+        'the pairing is real - Joel Robuchon\'s turkey with truffle '
+        'and chestnut confit - but it runs on into the letterhead, '
+        '"Bernard Magrez Grands Vignobles - E-Mail: bernardmagrez", '
+        'and the stop-list has nothing between the dish and the '
+        'address',
+    ('dauzac|2003', 'window'):
+        'not a drinking window, or not only: "Palate: very well '
+        'balanced, velvety tannins, an elegant wine to drink from now '
+        'and for five to six years" is a tasting note with the window '
+        'in its last clause, and the field should hold the clause or '
+        'nothing',
     ('batailley|2010', 'taste'):
         'not a tasting note: Batailley\'s sheet sets the estate\'s history in a column beside it and the flat reading weaves the two together - "Il doit son nom a la derniere Robe grenat-pourpre. Nez riche et Bataille en Medoc de la guerre de cent ans expressif, fruite avec des notes (1337-1453)". Every word is whole and only the order is wrong, so no rule about spacing or capitals sees it, and it cannot be trimmed into a sentence',
     ('batailley|2016', 'taste'):

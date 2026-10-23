@@ -1,3 +1,3 @@
-date	records	url	nl	blend	taste	note	alc	ph	yld	months	oak	pick	harvest	temp	wy	window	decant	food
+date	records	url	nl	blend	taste	note	alc	ph	yld	months	oak	pick	harvest	temp	wy	window	decant	food	c_estates	c_cells	c_blend	c_taste	c_note	c_alc	c_ph	c_yld	c_months	c_oak	c_pick
 2026-10-22	2210	784	660	1639	782	504	868	285	887	1137	1037	743	154	60	22	14	13	24
-2026-10-23	2239	811	652	1732	796	584	879	285	903	1137	1055	748	154	60	25	34	21	29
+2026-10-23	2239	811	652	1732	796	584	879	285	903	1137	1055	748	154	60	25	34	21	29	59	2684	829	478	360	365	105	242	374	453	453

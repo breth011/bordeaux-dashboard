@@ -12,6 +12,11 @@ One row per day, from `progress-history.tsv`.
    2026-10-23      2239    1732     796     584     811     652
 
    since 2026-10-22: records +29, blend +93, taste +14, note +80, url +27, nl -8
+
+   THE 61 CLASSIFIED GROWTHS, share of what they could hold
+   date         estates   blend   taste    note     alc      ph     yld  months     oak    pick
+   2026-10-22                                                                                  
+   2026-10-23       97%     31%     18%     13%     14%      4%      9%     14%     17%     17%
 ```
 
 ## What is held
@@ -55,6 +60,7 @@ THE 61 CLASSIFIED GROWTHS, APART FROM THE LONG TAIL:
    oak       new oak, per cent       453   17%    602    3%
    pick      picking dates           453   17%    295    2%
    59 of the 61 classified growths have at least one record
+   2684 classified vintage cells - 61 estates x 44 vintages, 1982 to 2025
 
 WHOSE WORDS THE PROSE IS:
    taste   618 the estate’s own English,  178 translated from its French

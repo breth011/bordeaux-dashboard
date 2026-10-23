@@ -95,6 +95,22 @@ MARKDOWN = 'PROGRESS.md'
 TRACKED = ('blend', 'taste', 'note', 'alc', 'ph', 'yld', 'months',
            'oak', 'pick', 'harvest', 'temp', 'wy', 'window', 'decant',
            'food')
+# The classified growths, tracked apart. The whole-archive columns
+# above are divided by 468 estates, 270 of which hold nothing, so a
+# day's work on the 61 wines this dashboard is for barely shows in
+# them.
+#
+# The same nine fields the classified table prints, plus two that make
+# the counts readable: c_estates, how many of the 61 hold any record
+# at all, and c_cells, the denominator - 61 times the number of
+# vintages the dataset spans. c_cells is here because it moves. A
+# coverage share that drops when a new vintage enters the range has
+# not lost anything, and without the denominator there is no way to
+# tell that from a regression.
+CLASSIFIED_TRACKED = ('blend', 'taste', 'note', 'alc', 'ph', 'yld',
+                      'months', 'oak', 'pick')
+CTRACK = ('c_estates', 'c_cells') + tuple(
+    'c_' + f for f in CLASSIFIED_TRACKED)
 # How many days of the trend to print. Enough to see a direction
 # without the file becoming the report.
 TREND = 14
@@ -162,10 +178,43 @@ def _counts(text):
     return out
 
 
+def _classified(text):
+    """The classified table's own figures, read back off the report.
+
+    The table prints, per field, the count and share for the 61 and
+    then the same for the rest:
+
+        blend     the assemblage, var...  412  34%    1320  11%
+
+    Only the first pair is taken. The share is recomputed in the
+    trend from c_cells rather than stored, so the two can never
+    disagree.
+    """
+    out = {}
+    sec = _section(text, 'CLASSIFIED GROWTHS, APART FROM THE LONG TAIL')
+    if not sec:
+        return out
+    for f in CLASSIFIED_TRACKED:
+        m = re.search(r'(?m)^\s+' + f + r'\s+\S.*?(\d+)\s+(\d+)%',
+                      sec)
+        if m:
+            out['c_' + f] = int(m.group(1))
+    m = re.search(r'(?m)^\s+(\d+) of the (\d+) classified growths have',
+                  sec)
+    if m:
+        out['c_estates'] = int(m.group(1))
+    # The denominator, off the line that names it. Printed by main()
+    # for exactly this reason - it was a local before.
+    m = re.search(r'(?m)^\s+(\d+) classified vintage cells', sec)
+    if m:
+        out['c_cells'] = int(m.group(1))
+    return out
+
+
 def _history(row):
     """Append today's figures, replacing an earlier run of the day."""
     path = ROOT + HISTORY
-    cols = ('date', 'records', 'url', 'nl') + TRACKED
+    cols = ('date', 'records', 'url', 'nl') + TRACKED + CTRACK
     rows = []
     if os.path.exists(path):
         for i, line in enumerate(io.open(path, encoding='utf-8')):
@@ -207,13 +256,61 @@ def _trend(cols, rows):
             lines.append('')
             lines.append('   since %s: %s' % (first[0],
                                               ', '.join(moved)))
+    lines.append('')
+    lines.append(_classified_trend(cols, rows))
     return '\n'.join(lines) + '\n'
+
+
+def _classified_trend(cols, rows):
+    """The same days, for the 61 classified growths, as shares.
+
+    The share and not the count, because the count alone says nothing
+    without the 61 x vintages it is out of - and that denominator is
+    in the file beside it, so this divides rather than stores.
+
+    Rows from before these columns existed are shorter than the header
+    and print as blanks rather than as zeroes. A day we did not measure
+    is not a day we held nothing.
+    """
+    want = ('c_estates',) + tuple('c_' + f for f in CLASSIFIED_TRACKED)
+    idx = dict((c, cols.index(c)) for c in want if c in cols)
+    ci = cols.index('c_cells') if 'c_cells' in cols else -1
+    head = ['estates'] + [f[:6] for f in CLASSIFIED_TRACKED]
+    out = ['   THE 61 CLASSIFIED GROWTHS, share of what they could hold',
+           '   %-12s %s' % ('date', ' '.join('%7s' % h for h in head))]
+    for r in rows[-TREND:]:
+        def cell(c, denom):
+            i = idx.get(c, -1)
+            if i < 0 or i >= len(r) or not r[i]:
+                return '%7s' % ''
+            try:
+                return '%6.0f%%' % (100.0 * int(r[i]) / denom)
+            except (ValueError, ZeroDivisionError):
+                return '%7s' % ''
+        try:
+            cells = int(r[ci]) if 0 <= ci < len(r) and r[ci] else 0
+        except ValueError:
+            cells = 0
+        if not cells:
+            out.append('   %-12s %s' % (r[0], ' '.join(
+                '%7s' % '' for _ in head)))
+            continue
+        # The estate column is out of 61, not out of the cells: it
+        # counts properties with any record at all, which is a
+        # different question from how full their rows are.
+        row = ['%6.0f%%' % (100.0 * int(r[idx['c_estates']]) / 61.0)
+               if 'c_estates' in idx and idx['c_estates'] < len(r)
+               and r[idx['c_estates']] else '%7s' % '']
+        row += [cell('c_' + f, cells) for f in CLASSIFIED_TRACKED]
+        out.append('   %-12s %s' % (r[0], ' '.join(row)))
+    return '\n'.join(out)
 
 
 def save(text):
     """Write PROGRESS.md and add today's row to the history."""
     import datetime
     row = _counts(text)
+    row.update(_classified(text))
     row['date'] = datetime.date.today().isoformat()
     cols, rows = _history(row)
 
@@ -385,6 +482,13 @@ def main():
         inboth = len(set(e for e, y in recs) & CLASSIFIED)
         print('   %d of the %d classified growths have at least one '
               'record' % (inboth, len(CLASSIFIED)))
+        # Named on its own line so the history can record it. The
+        # shares above are out of this, and a share kept without its
+        # denominator cannot be compared with next month's.
+        print('   %d classified vintage cells - %d estates x %d '
+              'vintages, %s to %s'
+              % (len(CLASSIFIED) * len(years), len(CLASSIFIED),
+                 len(years), min(years), max(years)))
 
     # How much of the prose is a translation.
     tl = collections.Counter()

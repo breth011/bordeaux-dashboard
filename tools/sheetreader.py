@@ -2181,6 +2181,33 @@ def _put_the_label_back(text, m, win):
     return (lead + ' ' + win).strip() if lead else win
 
 
+# An opening the PDF has spaced out letter by letter. Branaire-Ducru
+# 2005 begins "S e r i c e -mperature optimale de service", which is
+# the serving advice with its spacing lost, and no amount of prose
+# testing sees anything wrong with it.
+LETTER_SPACED = re.compile(r'^(?:\S\s+){6,}')
+# And an opening that is the serving advice itself, which read_advice
+# has its own labels for and puts in its own fields.
+OPENS_ON_ADVICE = re.compile(
+    r'(?i)^[^.]{0,30}(?:temp[eé]rature\s+(?:optimale\s+)?(?:de\s+)?'
+    r'service|serving\s+temperature|carafage|d[eé]cantation|'
+    r'decanting|[aà]\s+servir\s+(?:entre|[aà]))')
+
+
+def _unlabelled_is_prose(win):
+    """Is this opening a season note, or the sheet's furniture?
+
+    Only asked of a candidate with no label over it. A labelled
+    passage is the estate's own filing and is believed.
+    """
+    head = win[:90]
+    if LETTER_SPACED.match(head):
+        return False
+    if OPENS_ON_ADVICE.match(win[:120]):
+        return False
+    return True
+
+
 def read_prose(text, page=False, shop=False):
     """The labelled tasting and season windows, cut at the stop-list."""
     out, how = {}, {}
@@ -2196,6 +2223,20 @@ def read_prose(text, page=False, shop=False):
         # title is its label and the title is furniture. A labelled
         # tasting note still wins; this is only tried if none is
         # found, and it passes the same tests.
+        # The same for a season note, and for a document as well as
+        # a page. Palmer heads its per-vintage PDFs with nothing and
+        # opens on the year's weather - "1961 was a seminal vintage
+        # for Chateau Palmer. It had a complicated start, with frost,
+        # drought and a paltry harvest" - and 47 of its vintages were
+        # being passed over for want of a heading.
+        #
+        # Safe for the reason the tasting one is: an unlabelled
+        # candidate takes the same tests as a labelled one, and then
+        # SEASON_OF, which asks whether the passage is about the
+        # weather. Palmer's article pages, which open on a cookie
+        # banner and the 1855 classification, fail it.
+        if field == 'note' and not shop:
+            cands.append(AT_START.match(text))
         if page and field == 'taste' and not shop:
             # Not on a shop listing, whose opening is its product
             # title: Chantegrive's reads "Magnum de Chantegrive Rouge -
@@ -2349,6 +2390,12 @@ def read_prose(text, page=False, shop=False):
                     and SEASON_OF.search(win[:300])):
                 continue
             if field == 'note' and not SEASON_OF.search(win[:300]):
+                continue
+            # An opening with no label over it has to look like a
+            # season note on its own account: see
+            # _unlabelled_is_prose for the two shapes refused and
+            # why a labelled passage is not asked.
+            if not m.group(0) and not _unlabelled_is_prose(win):
                 continue
             # Every test above has run on the window as it was found.
             # Now, if the label was the subject of its own sentence,

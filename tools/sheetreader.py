@@ -1674,6 +1674,19 @@ JUNK_HEAD = re.compile('^[\\s<>|/\u2022\u00b7\\-\u2013\u2014!?,;:\u0022\u0027\u2
 OPENS_ON_A_YEAR = re.compile(r'^(?:19|20)\d{2}\s+[a-zà-ÿ]')
 
 
+# A page's masthead, with its language switcher, in front of the
+# prose: "CHATEAU POUGET Margaux Grand Cru Classe 1855 FRANCAIS
+# ENGLISH La couleur a maintenant abandonne...". Eight of Pouget's
+# fields open this way and nothing else in the archive does.
+#
+# Anchored on the switcher, not on the chateau's name. A note may
+# name its own estate - "Chateau Margaux 1995 is a truly great
+# vintage" - and must keep it; no note offers FRANCAIS and ENGLISH
+# as a choice.
+LEAD_MASTHEAD = re.compile(
+    r'(?i)^.{0,90}?\bfran[cç]ais\s+english\b\s*:?\s*')
+
+
 def _strip_head(win):
     """Leading junk off, unless the text opens on a year and a verb."""
     return win if OPENS_ON_A_YEAR.match(win) else JUNK_HEAD.sub('', win)
@@ -2492,6 +2505,7 @@ def read_prose(text, page=False, shop=False):
             # it, and taking the quote off first made Brane-Cantenac's
             # "« 05 + 10 = 15 »" - a pun on the vintage - open on
             # "+ 10 = 15", the 05 having looked like a page number.
+            win = LEAD_MASTHEAD.sub('', win)
             win = LEAD_CREDIT.sub('', win)
             win = win.lstrip(' :–-—«“”"')
             # And never end inside a word: the stop-list can cut anywhere.

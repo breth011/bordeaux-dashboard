@@ -166,7 +166,8 @@ def sitemap_urls(site, maps):
 PATH_FILLER = set("""en fr de es zh hans cn jp us wine wines vin vins
 le la les du de des un une the our nos notre chateau domaine clos
 grand grands cru crus classe millesime millesimes vintage vintages
-produit produits index html php notre-vin nos-vins""".split())
+produit produits index html php notre-vin nos-vins
+year""".split())
 
 
 def words_of(name):
@@ -332,10 +333,20 @@ def main():
         print('   %s   (crawl-pages.py %s)' % (kind.upper(), how))
         rows.sort(key=lambda r: (pages.get(r[0], 0), -r[3]))
         for eid, _, site, n, where in rows:
-            print('      %-24s %3d doc(s), %3d page(s) held  %s%s'
+            # Say which wine the route was found on. Ranking puts the
+            # grand vin first where both exist, but where only another
+            # wine has vintage pages - as with Dauzac's Bacchus, found
+            # because no chateau-dauzac page was among the candidates -
+            # the route is still the wrong one to crawl, and the report
+            # is the only place that can say so before somebody does.
+            others = left_over(where or site,
+                               (E.get(eid) or {}).get('name') or eid)
+            print('      %-24s %3d doc(s), %3d page(s) held  %s%s%s'
                   % (eid[:24], held.get(eid, 0), pages.get(eid, 0),
                      ('%d vintages  ' % n) if n else '',
-                     (where or site)[:62]))
+                     (where or site)[:62],
+                     ('   <- another wine: %s' % ', '.join(others))
+                     if others else ''))
     if not a.quiet:
         rest = [r for r in found if r[1] in ('nothing found',
                                              'refuses crawling')]

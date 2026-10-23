@@ -3029,6 +3029,49 @@ def blend_in_prose(text, second=None):
     return got
 
 
+def touching_blend(text, second=None):
+    """blend_in_prose with the reach rule off: every figure must touch.
+
+    For a PDF, where a flattened column puts the next cell's figure
+    within reach of the wrong variety. Touching survives the flatten -
+    "77 % Cabernet Sauvignon" is adjacent however the columns collapse
+    - and reading 522 sheets both ways, 459 agree with blend_of
+    exactly. The 30 that disagree are why this never overrides it.
+    """
+    text = ' '.join((text or '').split())
+    pcts = [(m.start(), m.end(), float(m.group(1).replace(',', '.')))
+            for m in BLEND_PCT.finditer(text)]
+    if not pcts:
+        return None
+    vs = []
+    for m in BLEND_ANY.finditer(text):
+        k = _blend_name(m.group(0))
+        if k:
+            vs.append((m.start(), m.end(), k))
+    if len(vs) < 2:
+        return None
+    got, taken, used = {}, set(), []
+    for s, e, k in vs:
+        if k in got:
+            continue
+        for pi, (ps, pe, val) in enumerate(pcts):
+            if pi in taken:
+                continue
+            if 0 <= s - pe <= BLEND_TOUCH or 0 <= ps - e <= BLEND_TOUCH:
+                got.setdefault(k, val)
+                taken.add(pi)
+                used.append((min(s, ps), max(e, pe)))
+                break
+    if len(got) < 2 or abs(sum(got.values()) - 100) > 1.5:
+        return None
+    lo = max(0, min(a for a, b in used) - BLEND_WINDOW)
+    hi = min(len(text), max(b for a, b in used) + BLEND_WINDOW)
+    win = text[lo:hi]
+    if not BLEND_ANCHOR.search(win) or BLEND_PLANTING.search(win):
+        return None
+    return got
+
+
 def naming_of(path, filename=None):
     """Everything that names this document: its filename and its URL.
 
@@ -3227,6 +3270,16 @@ def fields_of(path, grand=None, others=(), second=None, cat=None,
     # it against, so the source decides: an estate's own vintage page
     # states a vintage's blend, a shop's product page states the
     # wine's usual one.
+    # On a PDF, only where every figure touches its variety and
+    # blend_of found nothing. See touching_blend: the reach rule is
+    # what a flattened column defeats, and blend_of keeps precedence
+    # wherever it speaks.
+    if (not is_page(path) and 'blend' not in got
+            and not _is_shop(filename)):
+        tb = touching_blend(text, second)
+        if tb and not wrong_colour(filename, tb, cat):
+            got['blend'] = tb
+            how['blend'] = 'every figure touching its variety'
     if is_page(path) and not _is_shop(filename):
         b = blend_in_prose(text, second)
         # Asked again, now that there is a blend to show it.

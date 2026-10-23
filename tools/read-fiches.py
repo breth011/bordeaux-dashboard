@@ -177,6 +177,12 @@ REFUSED = {
         'of the 2023 vintage of Ch\u00e2teau Margaux marks a key step in the '
         'production cycle of our fine wines\u201d - with the weather nowhere '
         'in it',
+    ('stem-chateau-jean-faure|2010', 'blend'):
+        'not the estate’s figure: read off lvod-carnet-notes-jean-faure-2010.pdf, '
+        'a merchant’s tasting notebook, which gives CF54 MA6 ME40 where the '
+        'estate’s own fiche technique for 2010 gives CF50 MA5 ME45. Both are '
+        'filed grand and the notebook was read first. The estate’s figure is '
+        'still not being read, which is a separate complaint',
 }
 
 def _refresh_progress():

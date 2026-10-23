@@ -9,9 +9,9 @@ One row per day, from `progress-history.tsv`.
 ```
    date         records   blend   taste    note     url      nl
    2026-10-22      2210    1639     782     504     784     660
-   2026-10-23      2239    1732     796     584     811     652
+   2026-10-23      2240    1732     796     584     811     652
 
-   since 2026-10-22: records +29, blend +93, taste +14, note +80, url +27, nl -8
+   since 2026-10-22: records +30, blend +93, taste +14, note +80, url +27, nl -8
 
    THE 61 CLASSIFIED GROWTHS, share of what they could hold
    date         estates   blend   taste    note     alc      ph     yld  months     oak    pick
@@ -23,7 +23,7 @@ One row per day, from `progress-history.tsv`.
 
 ```
 THE GRID: 468 estates x 44 vintages (1982-2025) = 20,592 cells
-2,239 records, 2,174 on the grid, 65 older than 1982; 198 of 468 estates have one
+2,240 records, 2,174 on the grid, 66 older than 1982; 198 of 468 estates have one
 
 field     what it is                         records    of of grid  1980s 1990s 2000s 2010s 2020s
                                                       recs       
@@ -44,9 +44,18 @@ decant    decanting                               21    1%   0.1%  0.0%  0.1%  0
 food      food pairing                            29    1%   0.1%  0.0%  0.0%  0.0%  0.5%  0.2% 
 
 ABOUT THE RECORD ITSELF:
-   src    names the document it was read from            2,238  100% of records
+   src    names the document it was read from            2,239  100% of records
    url    can link to that document in the app             811   36% of records
    nl     has Dutch for its prose                          652   29% of records
+
+STILL TO MERGE - a document states it and no record holds it:
+   ta         228
+   sug        109
+   taste       24
+   food         2
+   note         2
+   blend        1
+   (from reports/fiches-read.json; re-run tools/read-fiches.py --prose to refresh)
 
 THE 61 CLASSIFIED GROWTHS, APART FROM THE LONG TAIL:
    field                            classified    the rest
@@ -82,9 +91,9 @@ tasting note and growing season is absent across the estate’s records:
    grand-puy-ducasse           5    40     4     0     4     0     10
    palmer                      3    49    35     0     9     0      9
    grand-puy-lacoste           5    24     9     0     3    19      0
+   lafite                      1    50    48    42     1     1      0
    gruaud-larose               2    37    37     1    15    37      0
    lynch-bages                 5    26    16     0     4    22      0
-   lafite                      1    49    48    42     1     1      1
    lascombes                   2    25    25     0     1     4      1
    cos-destournel              2    37    28    37     0     0     11
    talbot                      4    21    21     0     0    17      0
@@ -158,9 +167,9 @@ tasting note and growing season is absent across the estate’s records:
    grand-puy-ducasse           5    40     4     0     4     0     10
    palmer                      3    49    35     0     9     0      9
    grand-puy-lacoste           5    24     9     0     3    19      0
+   lafite                      1    50    48    42     1     1      0
    gruaud-larose               2    37    37     1    15    37      0
    lynch-bages                 5    26    16     0     4    22      0
-   lafite                      1    49    48    42     1     1      1
    lascombes                   2    25    25     0     1     4      1
    cos-destournel              2    37    28    37     0     0     11
    talbot                      4    21    21     0     0    17      0

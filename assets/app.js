@@ -3164,11 +3164,36 @@ function fichesBlock(ch, yr) {
   if (f.months) fx.push(['In barrel', f.months + ' months']);
   if (f.oak) fx.push(['New oak', f.oak + '%']);
   if (f.ph) fx.push(['pH', f.ph]);
+  /* Residual sugar, in grams per litre. Not only for the sweet wines -
+     Pedesclaux's Pauillac states "< 2 g/l" - and the "less than" is
+     kept, because it is a weaker claim than a bare figure and the
+     estate chose to make it. */
+  if (f.sug != null) {
+    fx.push(['Residual sugar',
+             (f.sugl ? 'under ' : '') + f.sug + ' g/l']);
+  }
+  /* Total acidity, with the scale the sheet named. Bordeaux quotes
+     two and they are not the same number: 3.7 g/l H2SO4 is about
+     5.7 g/l tartaric. 208 of 229 sheets name neither, and those are
+     shown without one rather than with a guess. */
+  if (f.ta != null) {
+    fx.push(['Total acidity', f.ta + ' g/l' +
+             (f.tau === 'H2SO4' ? ' H₂SO₄'
+              : f.tau === 'tartaric' ? ' tartaric' : '')]);
+  }
   if (f.temp) fx.push(['Serve at', f.temp.join('–') + ' °C']);
   if (fx.length) {
     s += '<dl class="factgrid">' + fx.map(function (p) {
       return '<div class="fact"><dt>' + p[0] + '</dt><dd>' + p[1] + '</dd></div>';
     }).join('') + '</dl>';
+    /* Said once, under the grid, rather than inside the cell: a
+       figure whose scale the sheet did not name cannot be compared
+       with one whose scale it did, and that is worth a sentence. */
+    if (f.ta != null && f.tau !== 'H2SO4' && f.tau !== 'tartaric') {
+      s += '<p class="src">the sheet does not say which acidity scale' +
+        ' it uses; most Bordeaux fiches quote H₂SO₄, which runs about' +
+        ' two-thirds of the tartaric figure</p>';
+    }
   }
 
   s += cellarNote(ch, yr);

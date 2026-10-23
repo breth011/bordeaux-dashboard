@@ -1371,6 +1371,14 @@ GATES = {
     'yld': (5.0, 70.0),
     'months': (6.0, 36.0),
     'oak': (0.0, 100.0),
+    # Residual sugar, g/l. From zero, because this is not a Sauternes
+    # field: Pedesclaux's Pauillac states "< 2 g/l" and
+    # Cailleteau-Bergeron 1.3. Observed 1.3 to 190 over 8 estates.
+    'sug': (0.0, 300.0),
+    # Total acidity, g/l - and the gate spans both of the scales
+    # Bordeaux quotes, because 208 of 229 sheets do not say which they
+    # are using. See `tau`.
+    'ta': (1.5, 12.0),
 }
 
 MONTH = {'janvier': 1, 'january': 1, 'février': 2, 'fevrier': 2,
@@ -1889,6 +1897,39 @@ def first(text, *rxs):
     return None
 
 
+# The rest of the analysis line. "<" is captured because a dry
+# wine's sheet writes "< 2 g/l" and that is a different claim from 2.
+RX_SUG = re.compile(
+    r'(?i)(?:sucres?\s*r[eé]siduels?|sucres?\s*(?=[:=<\d])|'
+    r'residual\s+sugars?|sugar\s+content|teneur\s+en\s+sucres?|'
+    r'\bRS\s*=)\s*[:=]?\s*(<\s*)?(\d{1,3}(?:[.,]\d{1,2})?)\s*'
+    r'(?:g\s*/\s*l|g\s*par\s+litre|grammes?\s*/?\s*l?)')
+# The unit may be glued to the figure - Guiraud writes "6.8 g/LH2T" -
+# and H2T is tartaric, H2SO4 sulphuric.
+RX_TA = re.compile(
+    r'(?i)(?:acidit[eé]s?\s*totales?|total\s+acidity|\bAT\b|\bTA\b)'
+    r'\s*[:=]?\s*(<\s*)?(\d{1,2}(?:[.,]\d{1,2})?)\s*'
+    r'(?:g\s*/\s*l|grammes?\s*/?\s*l?)\s*'
+    r'(H\s*2\s*SO\s*4|H\s*2\s*T\b|tartriques?|tartarics?|'
+    r'sulfuriques?|sulphuric)?')
+
+
+def acid_scale(s):
+    """Which scale the sheet named, or '?' where it named none.
+
+    Never inferred from the figure. The unstated range overlaps the
+    sulphuric one almost exactly, which is suggestive and is not
+    evidence - and a wrong scale is a 1.53x error that nothing
+    downstream could detect.
+    """
+    if not s:
+        return '?'
+    s = re.sub(r'\s+', '', s).lower()
+    if 'so4' in s or 'sulf' in s or 'sulph' in s:
+        return 'H2SO4'
+    return 'tartaric'
+
+
 def read_numbers(text):
     """Every gated figure the sheet states, with the words it said it in."""
     out, how = {}, {}
@@ -1924,6 +1965,27 @@ def read_numbers(text):
         v = gated('oak', num(m.group(1)))
         if v is not None:
             out['oak'], how['oak'] = v, m.group(0)[:60]
+
+    # Both of these are a figure plus a qualifier, and the two must
+    # come from one sheet or neither - read-fiches.py takes each field
+    # from the first sheet offering it, so as separate keys a record
+    # could end up pairing one sheet's figure with another's scale.
+    # See `temp` and `pick`, which travel the same way.
+    m = RX_SUG.search(text)
+    if m:
+        v = gated('sug', num(m.group(2)))
+        if v is not None:
+            # "< 2" and "2" are different claims, and a dry wine's
+            # sheet is careful about which it makes.
+            out['sug'] = (v, bool(m.group(1)))
+            how['sug'] = m.group(0)[:60]
+
+    m = RX_TA.search(text)
+    if m:
+        v = gated('ta', num(m.group(2)))
+        if v is not None:
+            out['ta'] = (v, acid_scale(m.group(3)))
+            how['ta'] = m.group(0)[:60]
 
     m = RX_TEMP.search(text)
     if m:

@@ -109,6 +109,8 @@
     'Website': 'Website',
     'House style': 'Huisstijl',
     'Typical blend': 'Typische samenstelling',
+    'Residual sugar': 'Restsuiker',
+    'Total acidity': 'Totale zuurgraad',
     'Variety': 'Druif',
     'Share': 'Aandeel',
     'Rating': 'Score',
@@ -622,6 +624,15 @@
     [/^(.+) none this year, ([\d.]+)% usually$/,
      function (m) { return m[1] + ' dit jaar niet, gebruikelijk ' + m[2] +
                            '%'; }],
+    /* Grams per litre, and the "less than" a dry wine's sheet
+       writes. The scale names are left as they are: H2SO4 is H2SO4
+       in Dutch, and "tartaric" is the English word for a scale the
+       sheet itself printed in English. */
+    [/^(\d+(?:[.,]\d+)?) g\/l$/, function (m) { return m[1] + ' g/l'; }],
+    [/^under (\d+(?:[.,]\d+)?) g\/l$/,
+     function (m) { return 'minder dan ' + m[1] + ' g/l'; }],
+    [/^the sheet does not say which acidity scale it uses; most Bordeaux fiches quote H\u2082SO\u2084, which runs about two-thirds of the tartaric figure$/,
+     'de fiche vermeldt niet welke zuurgraadschaal wordt gebruikt; de meeste Bordeaux-fiches hanteren H\u2082SO\u2084, ongeveer twee derde van de wijnsteenzuurwaarde'],
     /* The cellar heading and its provenance line, both carrying the
        vintage: what the estate did in its cellar that year. */
     [/^In the cellar, ((?:19|20)\d\d)$/,

@@ -92,6 +92,12 @@ LABELS = (
     ('pH', r'\bpH\b', 'ph'),
     ('acidity', r'acidit[eé]\s+totale|total\s+acidity|\bTA\b\s*:',
      None),
+    # Not a Sauternes field. A dry wine states it too - Pedesclaux's
+    # Pauillac prints "Sucre residuel : < 2 g/l" - and a figure of
+    # two is as much a fact as a figure of a hundred and fifty.
+    ('residual sugar',
+     r'sucres?\s*r[eé]siduels?|residual\s+sugars?|sugar\s+content|'
+     r'teneur\s+en\s+sucres?|\bRS\s*=', None),
     ('consultant', r'oenologue|œnologue|consultant|conseil\s*:', None),
     ('tasting note', r'd[eé]gustation|tasting\s+note|commentaire', 'taste'),
     ('growing season', r'conditions?\s+climatiques?|climatolog|'

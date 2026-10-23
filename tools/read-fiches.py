@@ -398,7 +398,7 @@ def main():
     # phenology table and a description of a park all got as far as they
     # did. So prose is opt-in and the report is there to be read first.
     NUMERIC = ('alc', 'ph', 'yld', 'months', 'oak', 'temp', 'pick',
-               'wy', 'blend')
+               'wy', 'blend', 'sug', 'ta')
     PROSE = ('taste', 'note', 'window', 'decant', 'food')
     fields = NUMERIC + (PROSE if a.prose else ())
 
@@ -408,6 +408,17 @@ def main():
                 "%s:'%s'" % kv for kv in sorted(v.items()))
         if f == 'temp':
             return 'temp:[%s]' % ','.join('%g' % x for x in v)
+        if f == 'sug':
+            # Residual sugar in g/l, and whether the sheet said "less
+            # than". Not a Sauternes field: Pedesclaux's Pauillac
+            # states "< 2 g/l" and that is a reading, not a miss.
+            return 'sug:%g%s' % (v[0], ',sugl:1' if v[1] else '')
+        if f == 'ta':
+            # Total acidity, with the scale the sheet named. Bordeaux
+            # quotes two - 3.7 g/l H2SO4 is about 5.7 g/l tartaric -
+            # and 208 of 229 sheets name neither, which is recorded as
+            # '?' rather than guessed. Nothing is converted.
+            return "ta:%g,tau:'%s'" % (v[0], v[1])
         if f == 'wy':
             return 'wy:[%d,%d]' % (v[0], v[1])
         if f == 'blend':

@@ -2447,9 +2447,40 @@ ESTATE_PROSE = (
 # A chateau's name followed by a year is the other shape: Tour Saint
 # Christophe heads its sheet "CHATEAU TOUR SAINT CHRISTOPHE 2016 -
 # FACTS" and the soil line sat directly above it.
+# A grape name, where a soil passage runs into the planting.
+# Gruaud-Larose's sheets gave 33 of 77 soils as "Cabernet Sauvignon
+# 61% Pressing Merlot 29% Malolactic" - an assemblage off a flattened
+# two-column layout under a SOIL label, which passed every guard: no
+# label the stop-list knew, four digits in fifty characters so under
+# the digit cap, three words so over the floor.
+#
+# Measured over the archive, 43 of 528 soil passages name a grape and
+# 42 are that same fault. It cuts rather than refuses, which is the
+# difference between losing Prieure-Lichine's soil and keeping it:
+# "Gunz-area Garonne gravel - VINEYARD GRAPE COMPOSITION: - Cabernet
+# Sauvignon: 50%" cuts to the gravel, and Gruaud-Larose's cuts to
+# nothing and fails the length floor on its own.
+#
+# Soil only. A cellar mentions grapes in ordinary prose - "The grapes
+# are harvested by hand in small crates" - and only 11 of 466 did.
+_STOP_VARIETY = (
+    r'cabernets?\s+sauvignons?|cabernets?\s+francs?|\bcabernets?\b|'
+    r'\bmerlots?\b|petits?\s+verdots?|\bmalbecs?\b|'
+    r'carm[eé]n[eè]res?|\bs[eé]millons?\b|'
+    r'sauvignons?\s+blancs?|\bmuscadelles?\b'
+)
+
 _STOP_LETTERHEAD = (
     r'www\.|@|t[eé]l\.|\bfax\b|\bsiret\b|\b33\d{3}\b|'
     r'ch[aâ]teau\s+[\w\s\'’-]{3,40}\s+(?:19|20)\d\d\b|'
+    # A chateau's name with an address behind it - recognised by
+    # what follows rather than by itself, so that the name goes
+    # with the stationery instead of being left at the end of the
+    # passage: "Utilisation d'un chai gravitaire Chateau Dauzac
+    # 1 avenue Georges Johnston".
+    r'ch[aâ]teau\s+[\w\s\'’-]{2,30}?(?=\s*\d+\s*,?\s*(?:avenue|rue|route|chemin|boulevard|place)\b|\s*\b33\d{3}\b)|'
+    # The address itself, where no name stands in front of it.
+    r'\d+\s*,?\s*(?:avenue|rue|route|chemin|boulevard|place)\b|'
     r'king\s+of\s+wines'
 )
 
@@ -2475,6 +2506,7 @@ _STOP_ANY = (
     # Franc" - a planting wearing a terroir's label, which is the one
     # mistake this dataset has made more than any other.
     r'grape\s+variet(?:y|ies)|varieties\s+planted|grape\s+mix|'
+    r'(?:vineyard\s+)?grape\s+composition|composition\s+du\s+vin|'
     r'vari[eé]t[eé]s?\s*:|'
     # The vineyard's measurements, which follow a soil on every
     # second fiche. Bare densite as well as densite de plantation:
@@ -2505,7 +2537,7 @@ ESTATE_STOP = {
         r'vendanges?|r[eé]colte|harvest|picking|'
         r'\btri\s*:|triage|sorting|'
         r'vinification|wine[- ]?making|fermentation|'
-        r'[eé]levage|ageing|aging)'),
+        r'[eé]levage|ageing|aging|' + _STOP_VARIETY + r')'),
     # A cellar passage is made of the words that stop a soil one, so
     # it stops later: at the barrel, and at the vineyard behind it.
     'making': re.compile(

@@ -128,8 +128,7 @@
        because the Terroir section above is this dashboard's. */
     'The ground, in the estate\u2019s words':
         'De bodem, in de woorden van het domein',
-    'In the cellar, in the estate\u2019s words':
-        'In de kelder, in de woorden van het domein',
+
     'What the note smells of': 'Waar de notitie naar ruikt',
     /* the words the aroma wheel quotes out of the note */
     'red fruit': 'rood fruit',
@@ -623,6 +622,15 @@
     [/^(.+) none this year, ([\d.]+)% usually$/,
      function (m) { return m[1] + ' dit jaar niet, gebruikelijk ' + m[2] +
                            '%'; }],
+    /* The cellar heading and its provenance line, both carrying the
+       vintage: what the estate did in its cellar that year. */
+    [/^In the cellar, ((?:19|20)\d\d)$/,
+     function (m) { return 'In de kelder, ' + m[1]; }],
+    [/^this estate\u2019s own (English|French), off its ((?:19|20)\d\d) sheet$/,
+     function (m) {
+       return 'het ' + (m[1] === 'French' ? 'Frans' : 'Engels') +
+         ' van het domein zelf, van de fiche uit ' + m[2];
+     }],
     /* The provenance line under an estate's own soil or cellar
        passage: which language it is in, and how many of the
        estate's sheets agree on it. */

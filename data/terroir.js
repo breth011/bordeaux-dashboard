@@ -1,81 +1,66 @@
 /* =========================================================================
-   Bordeaux Dashboard — the ground and the cellar, per estate
+   Bordeaux Dashboard — the ground each estate sits on
    -------------------------------------------------------------------------
    Built by tools/read-terroir.py. Do not edit by hand.
 
-   Neither of these belongs to a vintage. Lafite prints one
-   soil sentence on 48 of its 53 sheets, word for word from
-   1968 to 1979; Gruaud-Larose one cellar paragraph on 33 of
-   41. Where a soil appears to move it is two languages, not
-   two soils. See the tool for the measurement.
+   A soil does not belong to a vintage. Lafite prints one soil
+   sentence on 48 of its 53 sheets, word for word from 1968 to
+   1979; Gruaud-Larose one from 1988 to 2024. Where a soil looks
+   as though it moved it is two languages, not two soils.
 
-     v      the passage, as the estate printed it
-     seen   how many of the estate’s sheets agree on it
-     of     how many gave any passage at all
-     src    one sheet that gave it
-     label  the words the sheet filed it under
-     lang   en or fr, by the passage and not the filename
+   What the estate did in its cellar is NOT here, because that
+   does move — Franc-Mayne replaced concrete vats with
+   gravity-fed stainless. It is in data/cellar.js, per vintage.
 
-   Nothing is written that fewer than two sheets agree on: a
-   cellar paragraph seen once may be that year’s vinification
-   rather than the house method, and one sheet says so —
-   “variables selon les lots parcellaires et le millésime”.
+     v          the passage, as the estate printed it
+     seen / of  sheets agreeing on it / sheets stating any
+     from, to   the years of the sheets that agree
+     src        one sheet that gave it
+     label      the words the sheet filed it under
+     lang       en or fr, by the passage and not the filename
+
+   Nothing is written that fewer than two sheets agree on, and
+   among those that clear it the most recent wins: an estate
+   that rewrites its own description is correcting it.
    ========================================================================== */
 var BDX_TERROIR = {
-'artisan-chateau-de-lauga':{soil:{v:'AND SUBSOIL Gravel over a clay limestone sub-soil',seen:2,of:4,src:'Fiche-technique-LAUGA-ENG.pdf',label:'SOIL ',lang:'en'}},
-'batailley':{making:{v:'Fermentation et macération d\'environ',seen:5,of:13,src:'batailley2005-web_fr.ocr.txt',label:'VINIFICATION ',lang:'fr'}},
-'bourgeois-chateau-d-argan':{soil:{v:'Clay-limestone.',seen:2,of:2,src:'FT-Argan-2018-EN-FR.pdf',label:'Soils: ',lang:'en'},making:{v:'Les vendanges sont mécaniques.',seen:4,of:4,src:'FT-Argan-2016_FR.pdf',label:'Vinification ',lang:'fr'}},
-'bourgeois-chateau-du-moulin-rouge':{making:{v:'Two sorting are realised in the cellar.',seen:4,of:4,src:'technical-sheet-chateau-du-moulin-rouge-2014.pdf',label:'Vinification : ',lang:'en'}},
-'bourgeois-chateau-greysac':{making:{v:'Use of stainless steel and ciment thermo-regulated tanks, Cold pre-fermentation maceration. Vatting lasts 4 to 5 weeks. A malolactic fermentation takes then place in tanks.',seen:7,of:7,src:'Chateau-Greysac-2009-EN.pdf',label:'Winemaking ',lang:'en'}},
-'bourgeois-chateau-magnol':{soil:{v:'Sand and gravel.',seen:2,of:12,src:'205_2001.pdf',label:'Soil: ',lang:'en'},making:{v:'Pressing of the grapes before settling to obtain sufficient clarity –',seen:2,of:10,src:'204_2115.pdf',label:'Vinification: ',lang:'en'}},
-'bourgeois-chateau-moulin-de-canhaut':{soil:{v:'ARGILEUX MERLOT CABERNET SAUVIGNON 5 à 9 ans 13.5% par vol.',seen:2,of:4,src:'MOULIN-DE-CANHAUT-2022.pdf',label:'SOLS ',lang:'fr'},making:{v:'Taille : Guyot double Enherbement : Enherbement un rang sur deux Effeuillage : Effeuillage mécanique de chaque côté du rang Traitements : Produits autorisés par le cahier des charges Agricultures Biologique',seen:2,of:3,src:'MOULIN-DE-CANHAUT-2021.pdf',label:'VINIFICATION ',lang:'fr'}},
-'bourgeois-chateau-patache-d-aux':{making:{v:'Vinification en cuves béton brut thermorégulées.',seen:2,of:2,src:'PATA_PTAUX_03299_2015_75_2025-08-13.pdf',label:'VINIFICATION ',lang:'fr'}},
-'bourgeois-chateau-paveil-de-luze':{soil:{v:'Graves profondes',seen:7,of:7,src:'1998__produit-paveil-de-luze-1998.txt',label:'Terroir : ',lang:'fr'}},
-'boyd-cantenac':{making:{v:'20 Jours de macération en cuves inox',seen:7,of:8,src:'FT-Ch.-Boyd-Cantenac-2019-FR.pdf',label:'Vinifications : ',lang:'fr'}},
-'calon-segur':{soil:{v:'Vineyard area Area in production',seen:2,of:2,src:'Calon-Segur-2015-FT-GB-33.pdf',label:'Soil ',lang:'en'}},
-'clos-floridene':{soil:{v:'From a geological standpoint, the soil of Pujols sur Ciron where most of the vineyard is situated is much like the one of Barsac. A thin layer of red clayey sands, rich in iron oxide, and known as "Barsac red sands", tops the limestone bed rock. This limits the roots depth of the vine to about 50cm.',seen:3,of:13,src:'Clos-Floridene-2010-FT-GB-599.pdf',label:'Soils ',lang:'en'}},
-'clos-fourtet':{soil:{v:'Argilo-calcaires',seen:8,of:8,src:'Fiche_Technique_CLOS_FOURTET_EMI_RO_2019_Francais.pdf',label:'SOLS ',lang:'fr'},making:{v:'Fermentation en baies entières dans 25 cuves inox thermo-régulées de petite capacité, extraction par pigeage manuel, cuvaison de 22 à 30 jours, fermentation malolactique en cuves, jarres et barriques.',seen:4,of:9,src:'Fiche_Technique_CLOS_FOURTET_EMI_RO_2021_Francais.pdf',label:'VINIFICATION ',lang:'fr'}},
-'clos-haut-peyraguey':{making:{v:'Léger débourbage sous contrôle',seen:3,of:3,src:'Clos-Haut-Peyraguey-2020-FT-FR.pdf',label:'Vinification : ',lang:'fr'}},
-'clos-puy-arnaud':{making:{v:'Encuvage des baies entières par gravité, macération pré fermentaire à froid sous gaz inerte, puis fermentation à basse',seen:3,of:3,src:'Fiche-technique-CPA-2019-FR.pdf',label:'Vinification : ',lang:'fr'}},
-'couhins-lurton':{making:{v:'Après pressurage et débourbage, en barriques de chêne (30% neuves)',seen:3,of:3,src:'2004_Ch-CouhinsLurton_blanc-pdf.pdf',label:'fermentation ',lang:'fr'}},
-'dauzac':{soil:{v:'Peyrosol complexe graveleux',seen:3,of:4,src:'FT_CHATEAU-DAUZAC-2022_NOTES_FR.pdf',label:'SOL ',lang:'fr'},making:{v:'Utilisation d’un chai gravitaire pour alimentation de la cuverie.',seen:7,of:15,src:'FT-CHATEAU-DAUZAC-2019.pdf',label:'Vinification : ',lang:'fr'}},
-'de-carles':{making:{v:'Parcellaire en cuves inox thermo régulées L’',seen:2,of:3,src:'Fiche-technique-CDC-2017.pdf',label:'VINIFICATION ',lang:'fr'}},
-'domaine-de-chevalier':{making:{v:'Fermentation in barrels. Age in barrels for 18 months (35% new oak) with bâtonnage (stirring the lees with a stick) RED',seen:18,of:23,src:'1989-Domaine-de-Chevalier-Rouge-english.pdf_.pdf',label:'VINIFICATION : ',lang:'en'}},
-'du-tertre':{soil:{v:'AREA UNDER VINE AREA IN PRODUCTION PLANTINGS',seen:2,of:4,src:'FT-CHATEAU-DU-TERTRE-2023-ANG.pdf',label:'SOIL ',lang:'fr'}},
-'duhart-milon':{soil:{v:'Château Duhart-Milon’s vineyard consists of a single block of vines adjacent to Château Lafite Rothschild, on the hillside to the west of the Carruades plateau. The property has 76 hectares of vines. The soil consists of fine gravel mixed with aeolian sand on a tertiary limestone.',seen:20,of:32,src:'Chateau-Duhart-Milon-1988.pdf',label:'Terroir : ',lang:'en'},making:{v:'Château Duhart-Milon is made according to traditional Bordeaux methods.',seen:31,of:31,src:'Chateau-Duhart-Milon-1988.pdf',label:'WINE MAKING ',lang:'en'}},
-'giscours':{soil:{v:'Graves d’origine garonnaise profondes',seen:4,of:8,src:'CH.-GISCOURS-2024-FR-1.pdf',label:'SOL ',lang:'fr'},making:{v:'Tris manuel et optique Cuves béton et inox Macération 35 jours à 28°C',seen:4,of:5,src:'CH.-GISCOURS-2024-FR-1.pdf',label:'VINIFICATION ',lang:'fr'}},
-'grand-puy-lacoste':{making:{v:'A long period of maceration (about 3 weeks).',seen:2,of:2,src:'2022__en-us-wine-chateau-grand-puy-lacoste-2022.txt',label:'Vinification ',lang:'en'}},
-'gruaud-larose':{soil:{v:'Garonne gravel from the first quaternary, settled more than 600 000 years ago',seen:37,of:77,src:'1988__en-wines-gruaud-larose-1988.txt',label:'SOIL : ',lang:'en'}},
-'guiraud':{soil:{v:'Sols: 80% graves sableuses 20% graves argileuses Sous-sols : sables translucides profonds, graves pures traversées par des masses d’argile rouge, marnes calcaires, bandes de calcaire à huîtres, argiles rouges et blanches',seen:5,of:8,src:'Guiraud-2010-FT-FR-89.pdf',label:'SOLS ',lang:'fr'},making:{v:'Fermentation : en barriques de chêne 90% neuves 10% issues d’un 1er vin – durée 3 à 6 semaines',seen:5,of:7,src:'Guiraud-2010-FT-FR-89.pdf',label:'VINIFICATION ',lang:'fr'}},
-'la-fleur-de-bouard':{soil:{v:'16 ha avec des sols argilo-sableux en surface et de graves en sous-sol sur le plateau de Néac, 8 ha d’un seul tenant sur une étonnante croupe graveleuse comportant 15% à 20% d’argiles sur le plateau de Lalande Pomerol, et 9 ha sur des croupes d’argiles graveleuses.',seen:2,of:3,src:'FT-La-Fleur-MILL-2019-FR.pdf',label:'SOL ',lang:'fr'},making:{v:'Macération pré-fermentaire de 8 à 10°C, - Fermentation',seen:2,of:3,src:'FT-La-Fleur-MILL-2019-FR.pdf',label:'VINIFICATION - ',lang:'fr'}},
-'la-lagune':{soil:{v:'THE FINESSE OF THE GRAVES AND THE STRENGTH OF THE MÉDOC. The terroir of La Lagune is considered by the famous geologist René Pijassou as «the Medoc island model».',seen:9,of:10,src:'LL_fiche-technique_2012.pdf',label:'SOIL ',lang:'en'}},
-'la-tour-blanche':{soil:{v:'Graves sur sous-sol argilo-calcaire',seen:4,of:4,src:'Fiche_Brumes.pdf',label:'TERROIR : ',lang:'fr'}},
-'lafaurie-peyraguey':{making:{v:'FERMENTATION PERIOD 25 à 30 jours en fûts de chêne français de 225 litres 25 to 30 days in french oak barrels of 225 liters',seen:2,of:3,src:'VSD_2022-_Ch._Lafaurie-Peyraguey_sauternes.pdf',label:'FERMENTATION — ',lang:'fr'}},
-'lafite':{soil:{v:'Chateau Lafite Rothschild is located to the north of the appellation, bordering Saint Estèphe. Lafite\'s best terroirs stretch on the 50ha Plateau des Carruades to the west of the Château. This plateau, which is the highest point of the Pauillac appellation, is well-drained and enjoys optimal sun exposure.',seen:41,of:48,src:'Chateau-Lafite-Rothschild-1968.pdf',label:'Terroir : ',lang:'en'},making:{v:'In order to reveal the magic of Lafite’s terroir, every step of the wine elaboration is carried out with the greatest precision.',seen:38,of:47,src:'Chateau-Lafite-Rothschild-1968.pdf',label:'WINE MAKING ',lang:'en'}},
-'lafon-rochet':{soil:{v:'DEEP GRAVELS + GRAVELS ON CLAY',seen:7,of:7,src:'FT_LafonRochet2009_EN.pdf',label:'SOIL ',lang:'en'}},
-'lagrange':{soil:{v:'Totalement situé sur la commune de Saint­Julien',seen:6,of:6,src:'Chateau-Lagrange-2020-FR.pdf',label:'TERROIR ',lang:'fr'},making:{v:'First sorting by hand on whole bunches to eliminate those showing imperfections - Latest state-of-the-art de-stemmer less damaging for the grapes - Intra-plot selection thanks to 102 tanks The contents of vats are selected according to',seen:2,of:11,src:'Lagrange-2015-FT-FR-105.pdf',label:'IN THE CELLAR ',lang:'en'}},
-'leoville-poyferre':{soil:{v:'! Château Léoville Poyferré propose toute l’année des visites',seen:2,of:2,src:'Ch-Leoville-Poyferre-Millesime-2017.pdf',label:'TERROIR ',lang:'fr'},making:{v:'Many of the buildings were constructed during the Eighties under Didier Cuvelier’s direction.',seen:3,of:3,src:'2018__-8d-9a-e8-8f-b2-e9-85-92-e5-ba-841936-2018-e5-b9-b4-e4-bb-bd.txt',label:'THE WINERY: ',lang:'en'}},
-'levangile':{soil:{v:'L’Evangile’s vineyard covers 22 hectares at the heart of the Pomerol plateau, sharing the appellation’s best terroirs with two other prestigious properties. Here, through a mystery of geology, the heavy green clay soils are covered by a bed of gravel.',seen:32,of:32,src:'Chateau-LEvangile-1981.pdf',label:'Terroir : ',lang:'en'}},
-'marquis-dalesme':{making:{v:'Cuves tronconiques bois de 80 hl Cuves tronconiques inox de 80 hl Fermentation malolactique en barriques : 40%',seen:9,of:11,src:'fiche_technique_marquis_da._2010_fr.pdf',label:'Vinification ',lang:'fr'}},
-'marquis-de-terme':{soil:{v:'Deep gravel, locally more clayey, settled on 2 major fmilies of soils that give our wines their identity.',seen:9,of:18,src:'MdT-2015-Fiche-technique-Revue-de-Presse-Marquis-de-Terme-EN_compressed.pdf',label:'SOILS ',lang:'en'},making:{v:'Parcellar vignifivation in concrete, wood and stainless-steel',seen:9,of:18,src:'MdT-2015-Fiche-technique-Revue-de-Presse-Marquis-de-Terme-EN_compressed.pdf',label:'VINIFICATION ',lang:'en'}},
-'pedesclaux':{soil:{v:'Graves garonnaises sur socle calcaire',seen:5,of:5,src:'Chateau_Pedesclaux_2018-FT-FR.pdf',label:'TERROIR ',lang:'fr'},making:{v:'Encuvage gravitaire et léger foulage. Macération préfermentaire à froid. Extraction douce avec délestage et pigeage. Vinification gravitaire sans utilisation de pompe.',seen:2,of:3,src:'Chateau_Pedesclaux_Millesime_2020-Pedesclaux-vin_co_VF.pdf',label:'VINIFICATION ',lang:'fr'}},
-'pichon-comtesse':{soil:{v:'ARGILO-SABLEUX',seen:4,of:4,src:'Pichon-Comtesse-Lalande-2018-FT-FR.pdf',label:'SOUS-SOLS ',lang:'fr'}},
-'pomerol-chateau-beauregard':{soil:{v:'Graves argileuses En bordure Sud-est du célèbre plateau de Catusseau.',seen:3,of:6,src:'Beauregard-2010-FT-FR-17.pdf',label:'TERROIR : ',lang:'fr'}},
-'pomerol-chateau-vray-croix-de-gay':{making:{v:'Focused to capture the fruitness.',seen:4,of:4,src:'FT_Plaisir_2013_EN.pdf',label:'WINEMAKING: ',lang:'en'}},
-'prieure-lichine':{soil:{v:'Graves garonnaises du Günz •',seen:10,of:12,src:'Fiche-technique-CPL-2010-FR.pdf',label:'SOL : ',lang:'fr'}},
-'rauzan-segla':{soil:{v:'Graves argileuses de la terrasse 4 Mosaïque de graves fines et profondes',seen:4,of:6,src:'FT_RAUZAN_SEGLA_FR_2020.pdf',label:'SOLS ',lang:'fr'},making:{v:'Parcellaire et intra-parcellaire, avec encuvage gravitaire, en cuves inox thermorégulées.',seen:5,of:9,src:'FT_RAUZAN_SEGLA_FR_2020.pdf',label:'VINIFICATION ',lang:'fr'}},
-'rieussec':{soil:{v:'Château Rieussec sits on the border of Fargues and Sauternes, bordered by Château d\'Yquem to the West. Rieussec is one of the largest properties in Sauternes and Barsac, covering 93 hectares of gravel sitting on sandy-clay soils.',seen:17,of:29,src:'Chateau-Rieussec-1975.pdf',label:'Terroir : ',lang:'en'},making:{v:'All batches are pressed individually in small pneumatic presses.',seen:10,of:34,src:'Chateau-Rieussec-1975.pdf',label:'WINE MAKING ',lang:'en'}},
-'siaurac':{soil:{v:'Gravel, deep clays and sandy clays',seen:10,of:36,src:'Technical-Sheet-Chateau-Siaurac-2016-Lalande-de-Pomerol.pdf',label:'TERROIR : ',lang:'en'},making:{v:'sélection des meilleurs terroirs du domaine et extraction douce',seen:14,of:16,src:'FT_Siaurac_2010_FR.pdf',label:'VINIFICATION ',lang:'fr'}},
-'stem-chateau-bellefont-belcier':{soil:{v:'PRATIQUE CULTURALE SOIL MAINTENANCE',seen:4,of:7,src:'Bellefont-Belcier-2017-FT-FR-GB.pdf',label:'SOILS ',lang:'en'}},
-'stem-chateau-cote-de-baleau':{soil:{v:'Argilo-calcaires et argilo-sableux',seen:2,of:2,src:'Chateau-Cote-de-Baleau_millesime-2024.pdf',label:'SOL ',lang:'fr'},making:{v:'Fermentation en petites cuves inox thermorégulées, extraction modérée, cuvaison de 24 à 28 jours.',seen:2,of:2,src:'Fiche-Technique-2023_Cote-de-Baleau_FR.pdf',label:'VINIFICATION ',lang:'fr'}},
-'stem-chateau-franc-mayne':{making:{v:'Encuvage en cuves ciment thermo-régulées Fermentation',seen:2,of:6,src:'fm_ft_2004-fr.pdf',label:'Vinification ',lang:'fr'}},
-'stem-chateau-grand-mayne':{soil:{v:'Côteau argilo-calcaire et pied de côteau d’argile Slope clay and limestone and foot of the slope clay',seen:7,of:15,src:'Chateau-Grand-Mayne-2019.pdf',label:'TERROIR ',lang:'en'},making:{v:'Cuves bois et inox thermos-régulées Wooden and stainless steel tanks',seen:7,of:13,src:'Chateau-Grand-Mayne-2019.pdf',label:'VINIFICATION ',lang:'fr'}},
-'stem-chateau-jean-faure':{making:{v:'100% baies entières. Pigeage manuel. 40% en barriques et demi muid neufs, 40% en barriques d’un vin, 20% en foudres pendant 18 mois.',seen:2,of:2,src:'FR-jean-faure-fiche-technique-2016.pdf',label:'Vinification ',lang:'fr'}},
-'stem-chateau-la-dominique':{soil:{v:'Argilo-graveleux, argilo-calcaire et sables sur argile ÂGE MOYEN DE LA VIGNE 27 ans',seen:3,of:3,src:'ld-2005-sans.notes-fr.pdf',label:'SOL ',lang:'fr'},making:{v:'Cuves inox tronconiques de 73 hl',seen:2,of:2,src:'relais-2021-fr.pptx.pdf',label:'CUVIER ',lang:'fr'}},
-'stem-chateau-laroque':{making:{v:'OF SEPARATE PLOTS IN SMALL CONCRETE TANKS.',seen:6,of:16,src:'FT_NUMERIQUE_CHATEAU_LAROQUE_2022_ANG.pdf',label:'VINIFICATION ',lang:'en'}},
-'stem-chateau-moulin-du-cadet':{soil:{v:'Clay- limestone on a north exposure face of the Cadet hill.',seen:2,of:4,src:'FT-Ch.-Moulin-du-Cadet-2020-ang.pdf',label:'Soils: ',lang:'en'},making:{v:'Cold pre-fermentation maceration, extraction by pigeage and/or pumping over, 20 to 28 days of maceration, malolactic fermentation in barrels.',seen:2,of:12,src:'FT-Ch.-Moulin-du-Cadet-2020-ang.pdf',label:'Vinification: ',lang:'en'}},
-'stem-chateau-sansonnet':{soil:{v:'Clay- limestone over asteria limestone.',seen:2,of:4,src:'FT-Ch.-Sansonnet-2020-ang.pdf',label:'Soils: ',lang:'en'},making:{v:'Cold pre-fermentation maceration, extraction by pigeage and/or pumping over, 20 to 28 days of maceration, malolactic fermentation in barrels.',seen:2,of:12,src:'FT-Ch.-Sansonnet-2020-ang.pdf',label:'Vinification: ',lang:'en'}},
-'stem-chateau-tour-saint-christophe':{soil:{v:'Clay Limestone',seen:16,of:32,src:'PRODUCT-SHEET-CHATEAU-TOUR-SAINT-CHRISTOPHE-2014.pdf',label:'SOILS ',lang:'en'}},
-'stem-chateau-yon-figeac':{soil:{v:'Argilo-sableux sur crasses de fer.',seen:2,of:3,src:'RY-fr_compressed_merged.pdf',label:'Sols : ',lang:'fr'},making:{v:'En cuves inox thermorégulées, vinifications traditionnelles.',seen:2,of:2,src:'RY-fr_compressed_merged.pdf',label:'Vinifications : ',lang:'fr'}},
+'artisan-chateau-de-lauga':{v:'AND SUBSOIL Gravel over a clay limestone sub-soil',seen:2,of:4,src:'Fiche-technique-LAUGA-ENG.pdf',label:'SOIL ',lang:'en',from:2019,to:2019},
+'bourgeois-chateau-d-argan':{v:'Clay-limestone.',seen:2,of:2,src:'FT-Argan-2018-EN-FR.pdf',label:'Soils: ',lang:'en',from:2018,to:2019},
+'bourgeois-chateau-magnol':{v:'Sand and gravel.',seen:2,of:12,src:'205_2001.pdf',label:'Soil: ',lang:'en',from:2001,to:2020},
+'bourgeois-chateau-moulin-de-canhaut':{v:'ARGILEUX',seen:2,of:4,src:'MOULIN-DE-CANHAUT-2021.pdf',label:'SOLS ',lang:'fr',from:2021,to:2022},
+'bourgeois-chateau-paveil-de-luze':{v:'Graves profondes',seen:7,of:7,src:'1998__produit-paveil-de-luze-1998.txt',label:'Terroir : ',lang:'fr',from:1998,to:2018},
+'calon-segur':{v:'Vineyard area Area in production',seen:2,of:2,src:'Calon-Segur-2015-FT-GB-33.pdf',label:'Soil ',lang:'en',from:2015,to:2016},
+'clos-floridene':{v:'From a geological standpoint, the soil of Pujols sur Ciron where most of the vineyard is situated is much like the one of Barsac. A thin layer of red clayey sands, rich in iron oxide, and known as "Barsac red sands", tops the limestone bed rock. This limits the roots depth of the vine to about 50cm.',seen:3,of:13,src:'Clos-Floridene-2010-FT-GB-599.pdf',label:'Soils ',lang:'en',from:2010,to:2013},
+'clos-fourtet':{v:'Argilo-calcaires',seen:8,of:8,src:'Fiche_Technique_CLOS_FOURTET_EMI_RO_2019_Francais.pdf',label:'SOLS ',lang:'fr',from:2018,to:2025},
+'dauzac':{v:'Peyrosol complexe graveleux',seen:3,of:4,src:'FT_CHATEAU-DAUZAC-2022_NOTES_FR.pdf',label:'SOL ',lang:'fr',from:2022,to:2024},
+'du-tertre':{v:'AREA UNDER VINE AREA IN PRODUCTION PLANTINGS',seen:2,of:4,src:'FT-CHATEAU-DU-TERTRE-2023-ANG.pdf',label:'SOIL ',lang:'fr',from:2023,to:2024},
+'duhart-milon':{v:'Château Duhart-Milon’s vineyard consists of a single block of vines adjacent to Château Lafite Rothschild, on the hillside to the west of the Carruades plateau. The property has 76 hectares of vines. The soil consists of fine gravel mixed with aeolian sand on a tertiary limestone.',seen:20,of:32,src:'Chateau-Duhart-Milon-1988.pdf',label:'Terroir : ',lang:'en',from:1988,to:2024},
+'giscours':{v:'Graves d’origine garonnaise profondes',seen:4,of:8,src:'CH.-GISCOURS-2024-FR-1.pdf',label:'SOL ',lang:'fr',from:2023,to:2025},
+'gruaud-larose':{v:'Garonne gravel from the first quaternary, settled more than 600 000 years ago',seen:37,of:43,src:'1988__en-wines-gruaud-larose-1988.txt',label:'SOIL : ',lang:'en',from:1988,to:2024},
+'guiraud':{v:'Sols : 80% graves sableuses 20% graves argileuses Sous-sols : sables translucides profonds et graves pures traversées par des veines d’argiles rouges et blanches, des marnes calcaires et des bandes de calcaire à huîtres.',seen:3,of:8,src:'cha-teau-guiraud-1er-grand-cru-classe-en-1855-2022.pdf',label:'SOLS ',lang:'fr',from:2022,to:2025},
+'la-fleur-de-bouard':{v:'16 ha avec des sols argilo-sableux en surface et de graves en sous-sol sur le plateau de Néac, 8 ha d’un seul tenant sur une étonnante croupe graveleuse comportant 15% à 20% d’argiles sur le plateau de Lalande Pomerol, et 9 ha sur des croupes d’argiles graveleuses.',seen:2,of:3,src:'FT-La-Fleur-MILL-2019-FR.pdf',label:'SOL ',lang:'fr',from:2018,to:2019},
+'la-lagune':{v:'THE FINESSE OF THE GRAVES AND THE STRENGTH OF THE MÉDOC. The terroir of La Lagune is considered by the famous geologist René Pijassou as «the Medoc island model».',seen:9,of:10,src:'LL_fiche-technique_2012.pdf',label:'SOIL ',lang:'en',from:2012,to:2022},
+'la-tour-blanche':{v:'Graves sur sous-sol argilo-calcaire',seen:4,of:4,src:'Fiche_Brumes.pdf',label:'TERROIR : ',lang:'fr'},
+'lafite':{v:'Chateau Lafite Rothschild is located to the north of the appellation, bordering Saint Estèphe. Lafite\'s best terroirs stretch on the 50ha Plateau des Carruades to the west of the Château. This plateau, which is the highest point of the Pauillac appellation, is well-drained and enjoys optimal sun exposure.',seen:41,of:48,src:'Chateau-Lafite-Rothschild-1968.pdf',label:'Terroir : ',lang:'en',from:1968,to:2024},
+'lafon-rochet':{v:'DEEP GRAVELS + GRAVELS ON CLAY',seen:7,of:7,src:'FT_LafonRochet2009_EN.pdf',label:'SOIL ',lang:'en',from:2009,to:2022},
+'lagrange':{v:'Totalement situé sur la commune de Saint­Julien',seen:6,of:6,src:'Chateau-Lagrange-2020-FR.pdf',label:'TERROIR ',lang:'fr',from:2019,to:2025},
+'leoville-poyferre':{v:'! Château Léoville Poyferré propose toute l’année des visites',seen:2,of:2,src:'Ch-Leoville-Poyferre-Millesime-2017.pdf',label:'TERROIR ',lang:'fr',from:2017,to:2019},
+'levangile':{v:'L’Evangile’s vineyard covers 22 hectares at the heart of the Pomerol plateau, sharing the appellation’s best terroirs with two other prestigious properties. Here, through a mystery of geology, the heavy green clay soils are covered by a bed of gravel.',seen:32,of:32,src:'Chateau-LEvangile-1981.pdf',label:'Terroir : ',lang:'en',from:1981,to:2024},
+'marquis-de-terme':{v:'Deep gravel, locally more clayey, settled on 2 major fmilies of soils that give our wines their identity.',seen:9,of:18,src:'MdT-2015-Fiche-technique-Revue-de-Presse-Marquis-de-Terme-EN_compressed.pdf',label:'SOILS ',lang:'en',from:2015,to:2023},
+'pedesclaux':{v:'Graves garonnaises sur socle calcaire',seen:5,of:5,src:'Chateau_Pedesclaux_2018-FT-FR.pdf',label:'TERROIR ',lang:'fr',from:2016,to:2020},
+'pichon-comtesse':{v:'ARGILO-SABLEUX',seen:4,of:4,src:'Pichon-Comtesse-Lalande-2018-FT-FR.pdf',label:'SOUS-SOLS ',lang:'fr',from:2018,to:2021},
+'pomerol-chateau-beauregard':{v:'Graves argileuses en bordure sud-est du célèbre plateau de Pomerol.',seen:3,of:6,src:'Beauregard-2016-FT-FR-17.pdf',label:'TERROIR : ',lang:'fr',from:2013,to:2021},
+'prieure-lichine':{v:'Graves garonnaises du Günz •',seen:10,of:12,src:'Fiche-technique-CPL-2010-FR.pdf',label:'SOL : ',lang:'fr',from:2010,to:2023},
+'rauzan-segla':{v:'Graves argileuses de la terrasse 4 Mosaïque de graves fines et profondes',seen:4,of:6,src:'FT_RAUZAN_SEGLA_FR_2020.pdf',label:'SOLS ',lang:'fr',from:2016,to:2020},
+'rieussec':{v:'Château Rieussec sits on the border of Fargues and Sauternes, bordered by Château d\'Yquem to the West. Rieussec is one of the largest properties in Sauternes and Barsac, covering 93 hectares of gravel sitting on sandy-clay soils.',seen:17,of:29,src:'Chateau-Rieussec-1975.pdf',label:'Terroir : ',lang:'en',from:1975,to:2020},
+'siaurac':{v:'Gravel, deep clays and sandy clays',seen:10,of:36,src:'Technical-Sheet-Chateau-Siaurac-2016-Lalande-de-Pomerol.pdf',label:'TERROIR : ',lang:'en',from:2016,to:2024},
+'stem-chateau-bellefont-belcier':{v:'SOILS PRATIQUE CULTURALE PRATIQUE CULTURALE VINEYARD MAINTENANCE VINEYARD MAINTENANCE',seen:2,of:7,src:'Bellefont-Belcier-2022-FT-FR-GB-Primeurs.pdf',label:'SOILS ',lang:'en',from:2022,to:2023},
+'stem-chateau-cote-de-baleau':{v:'Argilo-calcaires et argilo-sableux',seen:2,of:2,src:'Chateau-Cote-de-Baleau_millesime-2024.pdf',label:'SOL ',lang:'fr',from:2023,to:2024},
+'stem-chateau-grand-mayne':{v:'Côteau argilo-calcaire et pied de côteau d’argile Slope clay and limestone and foot of the slope clay',seen:7,of:15,src:'Chateau-Grand-Mayne-2019.pdf',label:'TERROIR ',lang:'en',from:2015,to:2022},
+'stem-chateau-la-dominique':{v:'Argilo-graveleux, argilo-calcaire et sables sur argile ÂGE MOYEN DE LA VIGNE 27 ans',seen:3,of:3,src:'ld-2005-sans.notes-fr.pdf',label:'SOL ',lang:'fr',from:2005,to:2021},
+'stem-chateau-moulin-du-cadet':{v:'Clay- limestone on a north exposure face of the Cadet hill.',seen:2,of:4,src:'FT-Ch.-Moulin-du-Cadet-2020-ang.pdf',label:'Soils: ',lang:'en',from:2020,to:2020},
+'stem-chateau-sansonnet':{v:'Clay- limestone over asteria limestone.',seen:2,of:4,src:'FT-Ch.-Sansonnet-2020-ang.pdf',label:'Soils: ',lang:'en',from:2020,to:2020},
+'stem-chateau-tour-saint-christophe':{v:'Clay Limestone',seen:16,of:32,src:'PRODUCT-SHEET-CHATEAU-TOUR-SAINT-CHRISTOPHE-2014.pdf',label:'SOILS ',lang:'en',from:2014,to:2021},
+'stem-chateau-yon-figeac':{v:'Argilo-sableux sur crasses de fer.',seen:2,of:3,src:'RY-fr_compressed_merged.pdf',label:'Sols : ',lang:'fr',from:2013,to:2015},
 };
 if (typeof window !== 'undefined') window.BDX_TERROIR = BDX_TERROIR;

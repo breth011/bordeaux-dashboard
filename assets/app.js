@@ -2593,9 +2593,11 @@ function ghostBar(vintage, usual, what) {
 }
 
 /* The ground an estate sits on and what it does in its cellar, off its
-   own sheets. Estate-level on purpose: see tools/read-terroir.py for the
-   measurement, but the short of it is that Lafite prints one soil
-   sentence on 48 of its 53 sheets, word for word from 1968 to 1979.
+   own sheets. The ground only: what an estate does in its cellar is a
+   vintage's fact and lives in cellarNote below. Estate-level on purpose
+   - see tools/read-terroir.py - but the short of it is that Lafite
+   prints one soil sentence on 48 of its 53 sheets, word for word from
+   1968 to 1979, and Gruaud-Larose one from 1988 to 2024.
 
    The count is in the caption because it is the entire reason to
    believe the passage. One sheet could be one sheet's mistake. */
@@ -2607,18 +2609,32 @@ function estateProse(ch) {
   var T = (window.BDX_TERROIR || {})[ch.id];
   if (!T) return '';
   var s = '';
-  [['soil', 'The ground, in the estate’s words'],
-   ['making', 'In the cellar, in the estate’s words']].forEach(function (p) {
-    var r = T[p[0]];
-    if (!r || !r.v) return;
-    s += '<div class="section"><h3>' + p[1] + '</h3>' +
-      '<p class="notetext">' + escText(r.v) + '</p>' +
-      '<p class="src">' + (r.lang === 'fr' ? 'the estate’s own French'
-                                           : 'the estate’s own English') +
-      ', on ' + r.seen + ' of ' + r.of + ' sheets that state one</p>' +
-      '</div>';
-  });
+  /* terroir.js holds the soil and nothing else now that the cellar is
+     a vintage's, so the record is the passage itself. */
+  var r = T;
+  if (!r.v) return '';
+  s += '<div class="section"><h3>The ground, in the estate’s words</h3>' +
+    '<p class="notetext">' + escText(r.v) + '</p>' +
+    '<p class="src">' + (r.lang === 'fr' ? 'the estate’s own French'
+                                         : 'the estate’s own English') +
+    ', on ' + r.seen + ' of ' + r.of + ' sheets that state one</p>' +
+    '</div>';
   return s;
+}
+
+/* What the estate did in its cellar that year, off that year's sheet.
+   Per vintage and not per estate, because a cellar is re-equipped:
+   Franc-Mayne's 2002 was made in concrete vats and its 2013 in
+   gravity-fed stainless, and 38 estates in this archive describe
+   theirs more than one way. See tools/read-terroir.py. */
+function cellarNote(ch, yr) {
+  var C = (window.BDX_CELLAR || {})[ch.id + '|' + yr];
+  if (!C || !C.v) return '';
+  return '<p class="subhead">In the cellar, ' + yr + '</p>' +
+    '<p class="notetext">' + escText(C.v) + '</p>' +
+    '<p class="src">this estate’s own ' +
+      (C.lang === 'fr' ? 'French' : 'English') +
+      ', off its ' + yr + ' sheet</p>';
 }
 
 function blendBar(parts, usual, what) {
@@ -3154,6 +3170,8 @@ function fichesBlock(ch, yr) {
       return '<div class="fact"><dt>' + p[0] + '</dt><dd>' + p[1] + '</dd></div>';
     }).join('') + '</dl>';
   }
+
+  s += cellarNote(ch, yr);
 
   /* What the château suggests drinking it with. */
   if (f.food) {

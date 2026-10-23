@@ -9,32 +9,32 @@ One row per day, from `progress-history.tsv`.
 ```
    date         records   blend   taste    note     url      nl
    2026-10-22      2210    1639     782     504     784     660
-   2026-10-23      2308    1828     855     616     811     652
+   2026-10-23      2340    1828     855     849     811     612
 
-   since 2026-10-22: records +98, blend +189, taste +73, note +112, url +27, nl -8
+   since 2026-10-22: records +130, blend +189, taste +73, note +345, url +27, nl -48
 
    THE 61 CLASSIFIED GROWTHS, share of what they could hold
    date         estates   blend   taste    note     alc      ph     yld  months     oak    pick
    2026-10-22                                                                                  
-   2026-10-23       97%     34%     20%     15%     14%      4%      9%     14%     17%     18%
+   2026-10-23       97%     34%     20%     20%     14%      4%      9%     14%     17%     18%
 ```
 
 ## What is held
 
 ```
 THE GRID: 468 estates x 44 vintages (1982-2025) = 20,592 cells
-2,308 records, 2,216 on the grid, 92 older than 1982; 198 of 468 estates have one
+2,340 records, 2,236 on the grid, 104 older than 1982; 199 of 468 estates have one
 
 field     what it is                         records    of of grid  1980s 1990s 2000s 2010s 2020s
                                                       recs       
-blend     the assemblage, variety by variety   1,828   79%   8.7%  1.1%  2.3%  6.5%  18.1% 17.7%
+blend     the assemblage, variety by variety   1,828   78%   8.7%  1.1%  2.3%  6.5%  18.1% 17.7%
 taste     the tasting note                       855   37%   4.0%  1.1%  2.1%  4.4%  6.5%  6.1% 
-note      the growing season                     616   27%   2.8%  0.7%  1.3%  2.2%  5.0%  5.7% 
+note      the growing season                     849   36%   3.8%  0.9%  1.7%  2.8%  6.8%  8.0% 
 alc       alcohol                                879   38%   4.2%  0.7%  1.8%  3.5%  7.6%  8.6% 
 ph        pH                                     285   12%   1.4%  0.0%  0.0%  0.4%  2.5%  5.3% 
 yld       yield, hl/ha                           903   39%   4.4%  0.3%  0.7%  2.8%  9.8%  9.3% 
 months    months in barrel                     1,137   49%   5.5%  0.5%  1.1%  3.6%  12.5% 11.0%
-oak       new oak, per cent                    1,061   46%   5.1%  0.2%  0.9%  3.8%  11.3% 10.7%
+oak       new oak, per cent                    1,061   45%   5.1%  0.2%  0.9%  3.8%  11.3% 10.7%
 pick      picking dates                          788   34%   3.5%  0.8%  1.7%  3.0%  6.2%  6.4% 
 harvest   harvest, as the sheet words it         154    7%   0.7%  0.1%  0.3%  0.7%  1.4%  1.5% 
 temp      serving temperature                     60    3%   0.3%  0.0%  0.0%  0.3%  0.6%  0.5% 
@@ -44,22 +44,22 @@ decant    decanting                               21    1%   0.1%  0.0%  0.1%  0
 food      food pairing                            29    1%   0.1%  0.0%  0.0%  0.0%  0.5%  0.2% 
 
 ABOUT THE RECORD ITSELF:
-   src    names the document it was read from            2,307  100% of records
+   src    names the document it was read from            2,339  100% of records
    url    can link to that document in the app             811   35% of records
-   nl     has Dutch for its prose                          652   28% of records
+   nl     has Dutch for its prose                          612   26% of records
 
 STILL TO MERGE - a document states it and no record holds it:
-   note        32
-   blend       21
-   pick         9
-   taste        4
+   note       246
+   taste       24
+   food         2
+   blend        1
    (from reports/fiches-read.json; re-run tools/read-fiches.py --prose to refresh)
 
 THE 61 CLASSIFIED GROWTHS, APART FROM THE LONG TAIL:
    field                            classified    the rest
    blend     the assemblage, variet  905   34%    923    5%
    taste     the tasting note        537   20%    318    2%
-   note      the growing season      392   15%    224    1%
+   note      the growing season      538   20%    311    2%
    alc       alcohol                 365   14%    514    3%
    ph        pH                      105    4%    180    1%
    yld       yield, hl/ha            242    9%    661    4%
@@ -71,77 +71,77 @@ THE 61 CLASSIFIED GROWTHS, APART FROM THE LONG TAIL:
 
 WHOSE WORDS THE PROSE IS:
    taste   677 the estate’s own English,  178 translated from its French
-   note    453 the estate’s own English,  163 translated from its French
+   note    686 the estate’s own English,  163 translated from its French
 
 25 fields are pinned absent - the document states something and it was judged not to belong
 
 122 estates have a recorded planting, which is the vineyard’s and not a vintage’s
 
-THE ESTATES WITH NOTHING: 270 of 468
-   49 have documents that might still be read
+THE ESTATES WITH NOTHING: 269 of 468
+   48 have documents that might still be read
    221 have no document at all
 
 A ROW EACH, FOR THE CLASSIFIED GROWTHS - sorted by how much of blend,
 tasting note and growing season is absent across the estate’s records:
 
    estate                     gc  recs blend taste  note  link  spare
-   margaux                     1    76    19    21    65    76      0
-   latour                      1    61     0    46    38    38     14
-   grand-puy-ducasse           5    40    19     0     4     0     10
+   margaux                     1    76    19    21    66    76      0
+   latour                      1    72     0    46    60    38      3
+   grand-puy-ducasse           5    40    19     0    12     0     10
    palmer                      3    56    56     4    41     0      2
    lafite                      1    50    48    42     1     1      0
    gruaud-larose               2    37    37     1    15    37      0
    malescot                    3    26     1    26     0     0      3
-   lascombes                   2    25    25     0     1     4      1
-   lynch-bages                 5    26    26     0     4    22      0
+   pouget                      4    27     3     1    26     9     12
+   lascombes                   2    25    25     0     2     4      1
    cos-destournel              2    37    28    37     0     0     11
+   lynch-bages                 5    26    26     0     6    22      0
    talbot                      4    21    21     0     0    17      0
-   leoville-poyferre           2    21    19     2     1    21      5
-   beychevelle                 4    23    18     6     6    23      6
    duhart-milon                4    33    32    28     1     1      0
-   mouton                      1    42    42    42     5    42     26
-   cantenac-brown              3    20    20     1     3     0      0
+   leoville-poyferre           2    21    19     2     5    21      5
    grand-puy-lacoste           5    28    27    21     3    19      0
-   batailley                   5    21    18    14     2     5      2
-   la-tour-carnet              4    14    10     4     0     3      0
-   pouget                      4    11     3     1     2     9     44
-   issan                       3    13    12     0     1     0      0
+   beychevelle                 4    23    18     6    15    23      6
+   cantenac-brown              3    20    20     1    10     0      0
+   batailley                   5    21    18    14     4     5      2
+   la-tour-carnet              4    14    10     4     1     3      0
    marquis-dalesme             3    13    13     0     0     0      0
    leoville-barton             2    12    12     0     0     0      0
    pichon-baron                2    24    24    24     0     0      0
+   issan                       3    13    12     0     5     0      0
    langoa-barton               3    11    11     0     0     0      0
    clerc-milon                 5    30    30    30    10    30      3
-   ferriere                    3    12    11     1     5     0      0
-   haut-bages-liberal          5     9     8     0     0     0      0
+   ferriere                    3    12    11     1     6     0      0
+   haut-bages-liberal          5     9     8     0     1     0      0
    lafon-rochet                4    16    16    13     1    15      0
    calon-segur                 3     8     6     0     1     0      0
    belgrave                    5     8     8     0     0     1      0
-   cantemerle                  5     9     9     1     2     1      0
-   darmailhac                  5    14    13    14     0    13     23
-   giscours                    3     9     9     1     2     1      9
-   lynch-moussas               5     8     6     2     1     6      1
-   prieure-lichine             4    14    14     2    11    11      2
-   ducru-beaucaillou           2     7     6     2     0     1      2
-   haut-batailley              5     8     8     0     3     7      0
-   kirwan                      3     8     8     1     2     7      0
+   darmailhac                  5    14    13    14     1    13     23
+   prieure-lichine             4    14    14     2    12    11      2
+   cantemerle                  5     9     9     1     4     1      0
+   giscours                    3     9     9     1     4     1      9
+   lynch-moussas               5     8     6     2     3     6      1
    lagrange                    3    12    12     5     7     0      1
-   pedesclaux                  5     9     8     3     4     0      0
+   ducru-beaucaillou           2     7     6     2     2     1      2
    la-lagune                   3    10    10     0     9     9      0
+   pedesclaux                  5     9     8     3     5     0      0
    leoville-las-cases          2     6     6     0     2     0      0
    brane-cantenac              2     5     3     0     3     0      0
-   desmirail                   3     5     4     0     2     1      0
+   kirwan                      3     8     8     1     6     7      0
    boyd-cantenac               3     9     9     9     1     0      0
    dauzac                      5    26    25    21    24     0      0
-   branaire-ducru              4    20    19    16    19     0      0
+   haut-batailley              5     8     8     0     8     7      0
+   desmirail                   3     5     4     0     4     1      0
    du-tertre                   5     4     4     2     0     0      0
    marquis-de-terme            4    11    11     9     7     6      0
-   montrose                    2    12    12    11     7    11      0
-   pontet-canet                5    26    26    21    25    24      0
+   branaire-ducru              4    20    19    16    20     0      0
+   mouton                      1    42    42    42    37    42     26
+   pontet-canet                5    26    26    21    26    24      0
    rauzan-segla                2    10    10     6     9     0      0
    durfort-vivens              2     2     2     0     0     0      0
-   pichon-comtesse             2     4     4     4     0     0      0
+   montrose                    2    12    12    11     9    11      0
    saint-pierre                4     5     5     3     3     0      1
    cos-labory                  5     2     2     1     0     0      0
+   pichon-comtesse             2     4     4     4     1     0      0
    de-camensac                 5     3     3     2     2     1      0
    haut-brion                  1    37    37    37    37    37      0
 
@@ -161,63 +161,63 @@ A ROW EACH, FOR THE CLASSIFIED GROWTHS - sorted by how much of blend,
 tasting note and growing season is absent across the estate’s records:
 
    estate                     gc  recs blend taste  note  link  spare
-   margaux                     1    76    19    21    65    76      0
-   latour                      1    61     0    46    38    38     14
-   grand-puy-ducasse           5    40    19     0     4     0     10
+   margaux                     1    76    19    21    66    76      0
+   latour                      1    72     0    46    60    38      3
+   grand-puy-ducasse           5    40    19     0    12     0     10
    palmer                      3    56    56     4    41     0      2
    lafite                      1    50    48    42     1     1      0
    gruaud-larose               2    37    37     1    15    37      0
    malescot                    3    26     1    26     0     0      3
-   lascombes                   2    25    25     0     1     4      1
-   lynch-bages                 5    26    26     0     4    22      0
+   pouget                      4    27     3     1    26     9     12
+   lascombes                   2    25    25     0     2     4      1
    cos-destournel              2    37    28    37     0     0     11
+   lynch-bages                 5    26    26     0     6    22      0
    talbot                      4    21    21     0     0    17      0
-   leoville-poyferre           2    21    19     2     1    21      5
-   beychevelle                 4    23    18     6     6    23      6
    duhart-milon                4    33    32    28     1     1      0
-   mouton                      1    42    42    42     5    42     26
-   cantenac-brown              3    20    20     1     3     0      0
+   leoville-poyferre           2    21    19     2     5    21      5
    grand-puy-lacoste           5    28    27    21     3    19      0
-   batailley                   5    21    18    14     2     5      2
-   la-tour-carnet              4    14    10     4     0     3      0
-   pouget                      4    11     3     1     2     9     44
-   issan                       3    13    12     0     1     0      0
+   beychevelle                 4    23    18     6    15    23      6
+   cantenac-brown              3    20    20     1    10     0      0
+   batailley                   5    21    18    14     4     5      2
+   la-tour-carnet              4    14    10     4     1     3      0
    marquis-dalesme             3    13    13     0     0     0      0
    leoville-barton             2    12    12     0     0     0      0
    pichon-baron                2    24    24    24     0     0      0
+   issan                       3    13    12     0     5     0      0
    langoa-barton               3    11    11     0     0     0      0
    clerc-milon                 5    30    30    30    10    30      3
-   ferriere                    3    12    11     1     5     0      0
-   haut-bages-liberal          5     9     8     0     0     0      0
+   ferriere                    3    12    11     1     6     0      0
+   haut-bages-liberal          5     9     8     0     1     0      0
    lafon-rochet                4    16    16    13     1    15      0
    calon-segur                 3     8     6     0     1     0      0
    belgrave                    5     8     8     0     0     1      0
-   cantemerle                  5     9     9     1     2     1      0
-   darmailhac                  5    14    13    14     0    13     23
-   giscours                    3     9     9     1     2     1      9
-   lynch-moussas               5     8     6     2     1     6      1
-   prieure-lichine             4    14    14     2    11    11      2
-   ducru-beaucaillou           2     7     6     2     0     1      2
-   haut-batailley              5     8     8     0     3     7      0
-   kirwan                      3     8     8     1     2     7      0
+   darmailhac                  5    14    13    14     1    13     23
+   prieure-lichine             4    14    14     2    12    11      2
+   cantemerle                  5     9     9     1     4     1      0
+   giscours                    3     9     9     1     4     1      9
+   lynch-moussas               5     8     6     2     3     6      1
    lagrange                    3    12    12     5     7     0      1
-   pedesclaux                  5     9     8     3     4     0      0
+   ducru-beaucaillou           2     7     6     2     2     1      2
    la-lagune                   3    10    10     0     9     9      0
+   pedesclaux                  5     9     8     3     5     0      0
    leoville-las-cases          2     6     6     0     2     0      0
    brane-cantenac              2     5     3     0     3     0      0
-   desmirail                   3     5     4     0     2     1      0
+   kirwan                      3     8     8     1     6     7      0
    boyd-cantenac               3     9     9     9     1     0      0
    dauzac                      5    26    25    21    24     0      0
-   branaire-ducru              4    20    19    16    19     0      0
+   haut-batailley              5     8     8     0     8     7      0
+   desmirail                   3     5     4     0     4     1      0
    du-tertre                   5     4     4     2     0     0      0
    marquis-de-terme            4    11    11     9     7     6      0
-   montrose                    2    12    12    11     7    11      0
-   pontet-canet                5    26    26    21    25    24      0
+   branaire-ducru              4    20    19    16    20     0      0
+   mouton                      1    42    42    42    37    42     26
+   pontet-canet                5    26    26    21    26    24      0
    rauzan-segla                2    10    10     6     9     0      0
    durfort-vivens              2     2     2     0     0     0      0
-   pichon-comtesse             2     4     4     4     0     0      0
+   montrose                    2    12    12    11     9    11      0
    saint-pierre                4     5     5     3     3     0      1
    cos-labory                  5     2     2     1     0     0      0
+   pichon-comtesse             2     4     4     4     1     0      0
    de-camensac                 5     3     3     2     2     1      0
    haut-brion                  1    37    37    37    37    37      0
 

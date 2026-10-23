@@ -1773,6 +1773,17 @@ def looks_like_prose(s):
 # note began "Merlot : du 29 aout au 5 septembre Le premier nez est
 # floral").
 _M = r'(?:septembre|octobre|ao[uû]t|novembre|september|october|august)'
+# The site's own heading for the section, kept as the first words
+# of the paragraph under it: "Signature Wine style: This wine has
+# a beautiful colour...". Twenty-six of Latour's fields open on
+# it and nothing else in the archive uses the phrase at all.
+#
+# Anchored at the start, like LEAD_MASTHEAD, and no looser: these
+# are three ordinary words, and a note is free to say that a wine
+# is signature Latour in style.
+LEAD_SIGNATURE = re.compile(
+    r'(?i)^signature\s+wine\s+style\s*:\s*')
+
 LEAD_JUNK = re.compile(
     r'^(?:[•▪●·v]\s+|'
     r'(?:merlots?|cabernets?(?:\s+\w+)?|petits?\s+verdots?|malbec|'
@@ -2506,6 +2517,7 @@ def read_prose(text, page=False, shop=False):
             # "« 05 + 10 = 15 »" - a pun on the vintage - open on
             # "+ 10 = 15", the 05 having looked like a page number.
             win = LEAD_MASTHEAD.sub('', win)
+            win = LEAD_SIGNATURE.sub('', win)
             win = LEAD_CREDIT.sub('', win)
             win = win.lstrip(' :–-—«“”"')
             # And never end inside a word: the stop-list can cut anywhere.
@@ -3947,7 +3959,8 @@ def naming_spells_cuvee(named, grand, others=(), second=None):
 
 
 def whose_sheet(path, filename=None, grand=None, others=(), second=None,
-                cat=None, year=None, names_only=False):
+                cat=None, year=None, names_only=False,
+                is_second=False):
     """Is this sheet the estate's grand vin for this vintage?
 
     None when it is. Otherwise a dict with
@@ -3961,6 +3974,12 @@ def whose_sheet(path, filename=None, grand=None, others=(), second=None,
     anything opens the document; the vintage first of all, because a
     sheet filed under a year nothing states is not evidence for that
     year whoever's wine it is; then the document's own claims.
+
+    is_second says the wine being asked about IS the estate's
+    second wine, which turns one guard off. A document that calls
+    itself the second wine is the second wine's: a refusal when
+    the question is about the grand vin, a confirmation when it is
+    about the second wine itself.
 
     names_only stops before anything is opened, which is what
     tools/recheck-sources.py needs to ask the name guards about all
@@ -4028,7 +4047,7 @@ def whose_sheet(path, filename=None, grand=None, others=(), second=None,
         # The blend reader has asked this since it was written and the
         # field reader never did: a document that calls itself the
         # second wine is the second wine's, whatever its filename says.
-        if is_second_wine(path):
+        if not is_second and is_second_wine(path):
             return {'why': 'the document calls itself the second wine',
                     'role': 'second', 'wine': second}
         for nm in (second,) + tuple(others or ()):
@@ -4047,7 +4066,7 @@ def whose_sheet(path, filename=None, grand=None, others=(), second=None,
 
 
 def fields_of(path, grand=None, others=(), second=None, cat=None,
-              filename=None, year=None):
+              filename=None, year=None, is_second=False):
     """Everything a sheet states, or nothing if it is not this wine's.
 
     The guards run first and in the order that has earned its place:
@@ -4064,7 +4083,7 @@ def fields_of(path, grand=None, others=(), second=None, cat=None,
     # Every reason a sheet is not this wine's lives in one place now,
     # so a guard added for one reader applies to all three.
     not_ours = whose_sheet(path, filename, grand, others, second, cat,
-                           year)
+                           year, is_second=is_second)
     if not_ours:
         return {}, {'refused': not_ours['why']}
 

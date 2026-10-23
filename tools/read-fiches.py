@@ -255,10 +255,35 @@ def main():
                     help='take back what this reader wrote, then re-read')
     ap.add_argument('--prose', action='store_true',
                     help='also merge taste and note, which have no gate')
+    ap.add_argument('--cuvees', action='store_true',
+                    help="read the estate's other wines - the "
+                         'second wine, the dry white, the odd '
+                         'cuvee - into data/cuvees.js')
     ap.add_argument('--limit', type=int, default=0)
     a = ap.parse_args()
 
     E = sr.estates(ROOT)
+    # ---------------------------------------------------- which wine
+    #
+    # The grand vin lives in fiches.js keyed estate|year; the
+    # estate's other wines live in cuvees.js keyed estate|slug|year.
+    # Between those two facts everything is the same work - the same
+    # guards, the same gates, the same pins, the same refusal to
+    # overwrite - so it is the same reader with the file and the key
+    # as parameters rather than a second copy to fall behind.
+    DATA = 'data/cuvees.js' if a.cuvees else 'data/fiches.js'
+    SRCF = 'data/cuvee-src.js' if a.cuvees else 'data/field-src.js'
+    # Provenance is kept apart because check-language.py checks
+    # field-src.js key for key against fiches.js, and a three-part
+    # key in it would read as a record that does not exist.
+    KEY = (r"[a-z0-9-]+\|[a-z0-9-]+\|\d{4}" if a.cuvees
+           else r"[a-z0-9-]+\|\d{4}")
+    ROW = re.compile(r"^'(" + KEY + r")':\{(.*)\},$")
+    HEAD = re.compile(r"^'(" + KEY + r")':\{")
+
+    def estate_of(k):
+        return k.split('|')[0]
+
     man = json.load(io.open(ROOT + 'data/sources.json', encoding='utf-8'))
 
     # A basename is not a path. The same document is published under
@@ -284,13 +309,120 @@ def main():
                 return p
         return where.get(s['file'])
 
+    # Keyed by the record's own key as a string, which is the one
+    # thing both shapes have in common.
     recs = {}
-    for line in io.open(ROOT + 'data/fiches.js', encoding='utf-8'):
-        m = re.match(r"^'([a-z0-9-]+)\|(\d{4})':\{(.*)\},$", line.rstrip())
+    for line in io.open(ROOT + DATA, encoding='utf-8'):
+        m = ROW.match(line.rstrip())
         if m:
-            recs[(m.group(1), m.group(2))] = m.group(3)
+            recs[m.group(1)] = m.group(2)
+
+    # ------------------------------------- the estate's other wines
+    #
+    # BDX_CUVEE_WINES is the authority on a cuvee's slug, because the
+    # app looks a record up as ch.id|slug|year and takes the slug from
+    # that list. Those slugs are not one rule's output - "Les Charmes
+    # de Magnol" is charmes-de-magnol where "Les Brulieres de
+    # Beychevelle" is les-brulieres-de-beychevelle, and 33 of the 116
+    # listed cannot be derived from the name at all - so nothing here
+    # recomputes one. A listed wine keeps the slug it has; a wine the
+    # manifest names and the list does not is appended with sr.slug's,
+    # and the app reads it back from the same list.
+    WINES = {}
+    CUV = ROOT + 'data/cuvees.js'
+    if a.cuvees:
+        wbody = io.open(CUV, encoding='utf-8').read().split(
+            'window.BDX_CUVEE_WINES', 1)[1].split('window.BDX_CUVEES', 1)[0]
+        for m in re.finditer(r"^'([a-z0-9-]+)':\[(.*)\],?$", wbody, re.M):
+            for w in re.finditer(
+                    r"\{slug:'((?:[^'\\]|\\.)*)',name:'((?:[^'\\]|\\.)*)'"
+                    r",role:'([a-z]*)',colour:'([a-z]*)'\}", m.group(2)):
+                WINES.setdefault(m.group(1), []).append(
+                    {'slug': w.group(1),
+                     'name': w.group(2).replace("\\'", "'"),
+                     'role': w.group(3), 'colour': w.group(4)})
+
+    UNLISTED = collections.Counter()
+
+    def wine_of(eid, name):
+        """The list's entry for this wine, or None.
+
+        Matched on sheetreader's packed() form, so an accent or a
+        case difference between the manifest's name and the list's
+        is still one wine, and not two keys with a wine's vintages
+        split between them.
+
+        Nothing is minted. A wine the manifest names and the list
+        does not is counted for the report: of the 85 the first run
+        found, half were sibling properties cross-filed under each
+        other, Barton & Guestier brand sheets under Magnol, or
+        filename debris - mongravey under de Braude, braude under
+        Mongravey, 'cci octobre2013', 'langlet bd'. A wine in that
+        list is shown in the drawer as the estate's, so it goes in
+        by a reviewed edit to cuvees.js and not by a reader.
+        """
+        want = sr.packed(name)
+        for w in WINES.get(eid, ()):
+            if sr.packed(w['name']) == want:
+                return w
+        UNLISTED[(eid, name)] += 1
+        return None
+
+    # Blanc, white, Rose: the wine's own name, which is the only
+    # witness that was right about all three of Blanc de
+    # Lynch-Bages (list white, row red), Rose de Chevalier (list
+    # red, row rose) and Cos d'Estournel Blanc (list white, row
+    # red). Asked before the list, the row and the estate.
+    SAYS_WHITE = re.compile(r'(?i)\b(?:blancs?|white|bianco)\b')
+    SAYS_ROSE = re.compile(u'(?i)\\b(?:ros[e\u00e9]s?|rosado)\\b')
+
+    def cuvee_cat(name, w, s, eid):
+        if SAYS_ROSE.search(name):
+            return 'rose'
+        if SAYS_WHITE.search(name):
+            return 'white'
+        return ((w or {}).get('colour') or s.get('colour')
+                or (E.get(eid) or {}).get('cat'))
 
     todo = []
+    if a.cuvees:
+        # The rows the grand-vin reader skips, and has always
+        # skipped: the ones a guard filed as another of the
+        # estate's wines. 2,286 of them name which wine, because
+        # the guard that refused them said so, and that name is
+        # the attribution - it is in the row because it was read
+        # in the document.
+        for s in man['sheets']:
+            if s.get('role') not in ('second', 'other'):
+                continue
+            eid, yr = s.get('estate'), s.get('year')
+            nm = s.get('wine')
+            if not eid or not yr or not nm:
+                continue
+            if a.estate and eid not in a.estate:
+                continue
+            if a.year and int(yr) != a.year:
+                continue
+            p = resolve(s)
+            if not p or not (p.lower().endswith('.pdf')
+                             or sr.is_page(p)):
+                continue
+            w = wine_of(eid, nm)
+            if not w:
+                continue
+            sl = w['slug']
+            # Every other wine of the estate, and not the estate
+            # itself: a cuvee sheet carries the chateau's
+            # letterhead, and listing the chateau as a rival wine
+            # refuses all of them.
+            rivals = [w['name'] for w in WINES.get(eid, ())
+                      if w['slug'] != sl]
+            aim = {'grand': nm, 'others': rivals, 'second': None,
+                   'cat': cuvee_cat(nm, w, s, eid),
+                   'is_second': s.get('role') == 'second'}
+            todo.append(('%s|%s|%s' % (eid, sl, yr), str(yr),
+                         s['file'], p, aim))
+        man = {'sheets': []}
     for s in man['sheets']:
         # 'page' as well as 'grand' and 'combined'. A page's role is
         # 'page' because nobody has judged which wine it is for, and
@@ -317,31 +449,33 @@ def main():
         p = resolve(s)
         # A crawled page is text, not PDF, and sheetreader reads both.
         if p and (p.lower().endswith('.pdf') or sr.is_page(p)):
-            todo.append((eid, str(yr), s['file'], p))
+            e = E.get(eid) or {}
+            todo.append(('%s|%s' % (eid, yr), str(yr), s['file'], p,
+                         {'grand': e.get('name'),
+                          'others': list(e.get('cuvees') or ()),
+                          'second': e.get('second'),
+                          'cat': e.get('cat')}))
     if a.limit:
         todo = todo[:a.limit]
     print('%d documents to read' % len(todo))
 
     found, why = [], collections.Counter()
-    for eid, yr, f, p in todo:
-        e = E.get(eid) or {}
+    for key, yr, f, p, aim in todo:
+        eid = estate_of(key)
         # The guards and the reading are both sheetreader's now. It
         # returns {'refused': why} instead of fields when a sheet is a
         # dossier, another of the estate's wines, the other colour or a
         # sibling property's.
-        got, how = sr.fields_of(
-            p, grand=e.get('name'), others=list(e.get('cuvees') or ()),
-            second=e.get('second'), cat=e.get('cat'), filename=f,
-            year=yr)
+        got, how = sr.fields_of(p, filename=f, year=yr, **aim)
         if 'refused' in how:
             why[how['refused']] += 1
             continue
         if not got:
             why['the sheet states none of these fields'] += 1
             continue
-        body = recs.get((eid, yr), '')
+        body = recs.get(key, '')
         held = set(re.findall(r'(?:^|,)([a-z]+[a-z0-9]*)[:\{]', body))
-        found.append({'estate': eid, 'year': yr, 'src': f,
+        found.append({'key': key, 'estate': eid, 'year': yr, 'src': f,
                       'got': got, 'how': how,
                       'new': sorted(set(got) - held),
                       'held': sorted(set(got) & held),
@@ -361,10 +495,10 @@ def main():
     for k, n in why.most_common():
         o.write('   %-52s %d\n' % (str(k)[:52], n))
     o.write('\n')
-    for r in sorted(found, key=lambda x: (x['estate'], x['year'])):
+    for r in sorted(found, key=lambda x: x['key']):
         if not r['new']:
             continue
-        o.write('%s|%s  %s\n' % (r['estate'], r['year'], r['src'][:58]))
+        o.write('%s  %s\n' % (r['key'], r['src'][:58]))
         for f in r['new']:
             v = r['got'][f]
             v = v if not isinstance(v, str) else v[:96]
@@ -416,7 +550,7 @@ def main():
         # was held - it would have been skipped anyway - but --redo
         # takes the field back and then refuses it, and Margaux lost
         # 21 tasting notes that way.
-        body = recs.get((r['estate'], str(r['year']))) or ''
+        body = recs.get(r['key']) or ''
         held = re.search(r"(?:^|,)note:'((?:[^'\\]|\\.)*)'", body)
         return bool(head and held and head in held.group(1))
     if boiler:
@@ -428,6 +562,25 @@ def main():
                   % (eid[:30], f, len(TEMPLATE[(eid, f, head)]),
                      head[:60]))
 
+    if UNLISTED:
+        u = io.open(ROOT + 'reports/cuvee-wines-unlisted.txt', 'w',
+                    encoding='utf-8', newline='')
+        u.write('Wines the manifest names that BDX_CUVEE_WINES does '
+                'not hold.\n\nTheir documents were not read. A wine '
+                'in that list is shown in the\ndrawer as one of the '
+                'estate\u2019s wines, so it goes in by a reviewed '
+                'edit to\ndata/cuvees.js and not by a reader - '
+                'because half of these are sibling\nproperties '
+                'cross-filed under each other, brand sheets, or '
+                'filename\ndebris.\n\n')
+        for (eid, nm), n in sorted(UNLISTED.items(),
+                                   key=lambda kv: (-kv[1], kv[0])):
+            u.write('%-32s %-40s %3d document(s)\n'
+                    % (eid[:32], nm[:40], n))
+        u.close()
+        print('%d wine(s) the list does not hold, on %d document(s)'
+              ' - reports/cuvee-wines-unlisted.txt'
+              % (len(UNLISTED), sum(UNLISTED.values())))
     print('\nreport in reports/fiches-read.txt')
     if not a.apply:
         print('nothing written to fiches.js; read the report, then --apply')
@@ -485,8 +638,8 @@ def main():
     # again. Whether to write is decided at write time, against the line
     # as it then stands.
     best = {}
-    for r in sorted(found, key=lambda x: (x['estate'], x['year'], x['src'])):
-        key = (r['estate'], r['year'])
+    for r in sorted(found, key=lambda x: (x['key'], x['src'])):
+        key = r['key']
         for f in r['got']:
             if f not in fields:
                 continue
@@ -499,13 +652,12 @@ def main():
                 continue
             best.setdefault(key, {}).setdefault(f, (r['got'][f], r['src']))
 
-    lines = io.open(ROOT + 'data/fiches.js', encoding='utf-8').read().split(
-        '\n')
+    lines = io.open(ROOT + DATA, encoding='utf-8').read().split('\n')
     prov = {}
-    pf = ROOT + 'data/field-src.js'
+    pf = ROOT + SRCF
     if os.path.exists(pf):
         for line in io.open(pf, encoding='utf-8'):
-            m = re.match(r"^'([a-z0-9-]+\|\d{4})':\{(.*)\},$", line.rstrip())
+            m = ROW.match(line.rstrip())
             if m:
                 prov[m.group(1)] = dict(
                     re.findall(r"([a-z]+[a-z0-9]*):'([^']*)'", m.group(2)))
@@ -526,11 +678,11 @@ def main():
     # then wrote back only Coutet's, because the read was scoped and the
     # taking-back was not. A repair that is wider than the thing being
     # repaired is not a repair.
-    in_scope = set('%s|%s' % (eid, yr) for eid, yr, f, p in todo)
+    in_scope = set(t[0] for t in todo)
     undone = collections.Counter()
     if a.redo:
         for i, line in enumerate(lines):
-            m = re.match(r"^'([a-z0-9-]+\|\d{4})':\{(.*)\},$", line)
+            m = ROW.match(line)
             if not m or m.group(1) not in prov:
                 continue
             if m.group(1) not in in_scope:
@@ -573,11 +725,11 @@ def main():
     TL_FLAG = {'taste': 'ttl', 'note': 'ntl', 'window': 'wtl',
                'decant': 'dtl', 'food': 'ftl'}
     for i, line in enumerate(lines):
-        m = re.match(r"^'([a-z0-9-]+)\|(\d{4})':\{(.*)\},$", line)
+        m = ROW.match(line)
         if not m:
             continue
-        pk, body = '%s|%s' % (m.group(1), m.group(2)), m.group(3)
-        if a.estate and m.group(1) not in a.estate:
+        pk, body = m.group(1), m.group(2)
+        if a.estate and estate_of(pk) not in a.estate:
             continue
         for f in sorted(set(f for k, f in REFUSED if k == pk)):
             v = re.search(r"(?:^|,)" + f + r"(?::'(?:[^'\\]|\\.)*'"
@@ -595,7 +747,7 @@ def main():
                     body = (body[:fm.start()]
                             + body[fm.end():]).lstrip(',')
             prov.get(pk, {}).pop(f, None)
-        if body != m.group(3):
+        if body != m.group(2):
             lines[i] = "'%s':{%s}," % (pk, body)
     if gone:
         print('%d field value(s) withdrawn, pinned absent: %s'
@@ -607,15 +759,15 @@ def main():
     wrote = collections.Counter()
     refused = collections.Counter()
     for i, line in enumerate(lines):
-        m = re.match(r"^'([a-z0-9-]+)\|(\d{4})':\{(.*)\},$", line)
+        m = ROW.match(line)
         if not m:
             continue
-        key = (m.group(1), m.group(2))
+        key = m.group(1)
         if key not in best:
             continue
-        body = m.group(3)
+        body = m.group(2)
         held = set(re.findall(r'(?:^|,)([a-z]+[a-z0-9]*)[:\{]', body))
-        add, pk = [], '%s|%s' % key
+        add, pk = [], key
         for f, (v, src) in sorted(best[key].items()):
             if f in held:          # never overwrite
                 continue
@@ -635,13 +787,13 @@ def main():
     # the most of it - the same provenance any other record carries.
     seen = set()
     for line in lines:
-        m = re.match(r"^'([a-z0-9-]+)\|(\d{4})':\{", line)
+        m = HEAD.match(line)
         if m:
-            seen.add((m.group(1), m.group(2)))
+            seen.add(m.group(1))
     fresh = sorted(k for k in best if k not in seen)
     made = []
     for key in fresh:
-        pk = '%s|%s' % key
+        pk = key
         who = collections.Counter(s for v, s in best[key].values())
         add = [render(f, v) for f, (v, s) in sorted(best[key].items())
                if (pk, f) not in REFUSED]
@@ -656,7 +808,7 @@ def main():
         at = max(i for i, l in enumerate(lines) if l.strip() == '};')
         lines[at:at] = made
 
-    io.open(ROOT + 'data/fiches.js', 'w', encoding='utf-8',
+    io.open(ROOT + DATA, 'w', encoding='utf-8',
             newline='').write('\n'.join(lines))
 
     o = io.open(pf, 'w', encoding='utf-8', newline='')
@@ -674,8 +826,9 @@ def main():
             '   per vintage. A field absent here was entered by hand or\n'
             '   predates the reader.\n'
             '   ======================================================'
-            '==================== */\n'
-            'window.BDX_FIELD_SRC = {\n')
+            '==================== */\n' +
+            ('window.BDX_CUVEE_SRC = {\n' if a.cuvees
+             else 'window.BDX_FIELD_SRC = {\n'))
     for k in sorted(prov):
         o.write("'%s':{%s},\n" % (k, ','.join(
             "%s:'%s'" % (f, prov[k][f].replace("'", "\\'"))
@@ -689,11 +842,11 @@ def main():
     if made:
         print('\n%d records created for vintages that had none'
               % len(made))
-    print('\n%d field values written into data/fiches.js:'
-          % sum(wrote.values()))
+    print('\n%d field values written into %s:'
+          % (sum(wrote.values()), DATA))
     for f, n in wrote.most_common():
         print('   %-8s %5d' % (f, n))
-    print('provenance for %d records in data/field-src.js' % len(prov))
+    print('provenance for %d records in %s' % (len(prov), SRCF))
     _refresh_progress()
     print('\nnow run: python tools/check-data.py  and  check-language.py')
     return 0

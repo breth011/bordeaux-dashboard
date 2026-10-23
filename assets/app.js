@@ -526,10 +526,10 @@ var state = {
 };
 
 var el = {};
-['tabAppellations','tabClassifications','tabProducers','tabVintages','tabCompare',
+['tabAppellations','tabClassifications','tabGrapes','tabProducers','tabVintages','tabCompare',
  'tabCellar','cellar','cellarCount',
  'search','appellation','vintage',
- 'chips','resultcount','appellations','classifications','compare','workspace','paneList',
+ 'chips','resultcount','appellations','classifications','grapes','compare','workspace','paneList',
  'vintageGrid','drawer','scrim',
  'drawerHead','drawerBody','themeBtn','resetBtn','filters','crumb'
 ].forEach(function (id) { el[id] = document.getElementById(id); });
@@ -1333,8 +1333,114 @@ function wireCellar() {
 function renderReference() {
   renderAppellations();
   renderClassifications();
+  renderGrapes();
   renderCompare();
   renderCellar();
+}
+
+/* ===========================================================================
+   GRAPE VARIETIES — the reference page
+   =========================================================================== */
+
+/* The background text, in the reader's language. Same shape as apNote:
+   English is what is written, Dutch overlays the fields it has. */
+function grapeNote(k) {
+  var en = (window.BDX_GRAPES || {})[k] || null;
+  if (!en) return null;
+  var lang = window.BDX_LANG ? BDX_LANG.get() : 'en';
+  if (lang === 'en') return en;
+  var alt = (window.BDX_GRAPES_NL || {})[k];
+  if (!alt) return en;
+  var out = {};
+  for (var a in en) out[a] = en[a];
+  for (var b in alt) if (alt[b]) out[b] = alt[b];
+  return out;
+}
+
+/* What the dataset has actually seen of each variety: how many of the
+   blends held name it, and the share it takes where it appears. Counted
+   here and not asserted in the data file - the prose says what a variety
+   is for, this says how much of it there is. */
+function grapeTally() {
+  var F = window.BDX_FICHES || {}, out = {}, blends = 0;
+  GRAPE_ORDER.forEach(function (k) { out[k] = { n: 0, sum: 0, max: 0 }; });
+  for (var key in F) {
+    var b = F[key] && F[key].blend;
+    if (!b) continue;
+    blends++;
+    GRAPE_ORDER.forEach(function (k) {
+      var pct = b[k];
+      if (!(pct > 0)) return;
+      out[k].n++;
+      out[k].sum += pct;
+      if (pct > out[k].max) out[k].max = pct;
+    });
+  }
+  out._blends = blends;
+  return out;
+}
+
+function renderGrapes() {
+  if (!el.grapes) return;
+  var tally = grapeTally(), total = tally._blends;
+
+  var html = '<div class="ref-intro"><h2>The grape varieties</h2>' +
+    '<p>Six red varieties and four white are permitted in the ' +
+    'appellations this dashboard covers, and two of them make almost ' +
+    'all the wine. What follows is background — the standing ' +
+    'description of a variety, with no vintage and no document behind ' +
+    'it. The figure on each card is not background: it is counted from ' +
+    'the ' + total + ' blends actually held here.</p></div>';
+
+  function band(title, sub, keys) {
+    var h = '<section class="ref-band"><div class="ref-band-head"><h3>' +
+      title + '</h3><span>' + sub + '</span></div><div class="ref-grid">';
+    keys.forEach(function (k) {
+      var g = grapeNote(k);
+      if (!g) return;
+      var t = tally[k], c = grapeColor(k);
+      var share = t.n
+        ? Math.round(t.sum / t.n) + '% where it appears'
+        : 'in none of the blends held';
+      h += '<div class="apcard apcard-static">' +
+        '<h4><i class="grapedot" style="background:' + c + '"></i>' +
+        GRAPES[k].name + '</h4>' +
+        '<span class="apyear">Ripens ' + g.ripens +
+          (g.also ? ' · also ' + g.also : '') + '</span>' +
+        '<p><b>' + g.gives + '.</b> ' + g.note + '</p>' +
+        '<p class="grapewhere">' + g.where + '.' +
+          (g.parents ? ' <span class="grapeparents">' + g.parents +
+           '</span>' : '') + '</p>' +
+        '<span class="apcount">' + t.n + ' of ' + total + ' blends · ' +
+          share + '</span>' +
+      '</div>';
+    });
+    return h + '</div></section>';
+  }
+
+  html += band('The red varieties',
+               'Ordered as the blend bars order them',
+               ['CS', 'ME', 'CF', 'PV', 'CA', 'MA']);
+  html += band('The white varieties',
+               'Sauternes, Barsac and the dry whites of Graves',
+               ['SEM', 'SB', 'SG', 'MU']);
+
+  var nw = window.BDX_GRAPES_NEW;
+  if (nw) {
+    html += '<section class="ref-band"><div class="ref-band-head">' +
+      '<h3>Admitted in 2021</h3><span>Planted against a warming ' +
+      'climate</span></div>' +
+      '<div class="ref-note"><p>Seven varieties were added to the ' +
+      'Bordeaux and Bordeaux Supérieur appellations in 2021 as ' +
+      '<i>variétés d’intérêt à fin d’adaptation</i>: capped at 5% of an ' +
+      'estate’s vineyard and 10% of a blend, and not permitted in the ' +
+      'classified appellations this dashboard is mostly about. None of ' +
+      'them appears in any blend held here.</p>' +
+      '<p><b>Red:</b> ' + nw.red.join(', ') + '. ' +
+      '<b>White:</b> ' + nw.white.join(', ') + '.</p></div></section>';
+  }
+
+  el.grapes.innerHTML = html;
 }
 
 function openCollection(id) {
@@ -4022,6 +4128,7 @@ function setView(v) {
   state.view = v;
   el.tabAppellations.setAttribute('aria-selected', v === 'appellations');
   el.tabClassifications.setAttribute('aria-selected', v === 'classifications');
+  el.tabGrapes.setAttribute('aria-selected', v === 'grapes');
   el.tabProducers.setAttribute('aria-selected', v === 'producers');
   el.tabVintages.setAttribute('aria-selected', v === 'vintages');
   el.tabCompare.setAttribute('aria-selected', v === 'compare');
@@ -4032,6 +4139,7 @@ function setView(v) {
   }
   el.appellations.style.display    = v === 'appellations' ? '' : 'none';
   el.classifications.style.display = v === 'classifications' ? '' : 'none';
+  el.grapes.style.display          = v === 'grapes' ? '' : 'none';
   el.compare.style.display         = v === 'compare' ? '' : 'none';
   el.cellar.style.display          = v === 'cellar' ? '' : 'none';
   el.workspace.style.display = v === 'producers' ? '' : 'none';
@@ -4198,6 +4306,7 @@ function init() {
   el.tabClassifications.addEventListener('click', function () {
     setView('classifications');
   });
+  el.tabGrapes.addEventListener('click', function () { setView('grapes'); });
   el.tabProducers.addEventListener('click', function () { setView('producers'); refresh(); });
   el.tabVintages.addEventListener('click', function () { setView('vintages'); });
   el.tabCompare.addEventListener('click', function () {

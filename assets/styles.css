@@ -1579,3 +1579,46 @@ body.map-page .pane-list.is-open ~ .list-close:hover {
 .cellar-keep p { font-size: 12px; color: var(--text-secondary); margin: 0 0 10px; }
 .cellar-acts { display: flex; gap: 8px; flex-wrap: wrap; }
 .cellar-acts label { cursor: pointer; }
+
+/* --- The grapes reference page ------------------------------------- */
+
+/* A grape card is not a button: it opens nothing, so it offers none of
+   the affordances .apcard has for the cards that do. */
+.apcard-static { cursor: default; }
+.apcard-static:hover {
+  border-color: var(--border); border-left-color: var(--rank-3);
+  box-shadow: none; transform: none;
+}
+
+/* The variety's own colour, the same one its segment takes in every
+   blend bar, so the two read as the same thing. */
+.grapedot {
+  display: inline-block; width: 9px; height: 9px; border-radius: 50%;
+  margin-right: 7px; vertical-align: baseline;
+  box-shadow: 0 0 0 1px var(--border) inset;
+}
+
+/* Where it grows, and the parentage behind that. */
+.grapewhere {
+  font-size: 12px; color: var(--text-muted);
+  border-top: 1px solid var(--border); padding-top: 8px;
+  flex: 0 0 auto !important;
+}
+.grapeparents {
+  display: inline-block; font-size: 10.5px; text-transform: uppercase;
+  letter-spacing: .05em; color: var(--text-muted); opacity: .85;
+}
+
+/* A band of prose with no cards under it: the 2021 varieties, which
+   appear in no blend and so have nothing to count. */
+.ref-note {
+  background: var(--surface-1);
+  border: 1px solid var(--border);
+  border-left: 3px solid var(--rank-5);
+  border-radius: var(--radius);
+  padding: 14px 16px; display: flex; flex-direction: column; gap: 9px;
+}
+.ref-note p {
+  margin: 0; font-size: 12.5px; line-height: 1.55;
+  color: var(--text-secondary);
+}

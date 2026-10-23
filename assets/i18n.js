@@ -322,6 +322,17 @@
 
     /* The cellar. */
     'My cellar': 'Mijn kelder',
+    'Grapes': 'Druiven',
+    'The grape varieties': 'De druivensoorten',
+    'The red varieties': 'De rode druiven',
+    'The white varieties': 'De witte druiven',
+    'Ordered as the blend bars order them':
+      'In de orde die de assemblagebalken aanhouden',
+    'Sauternes, Barsac and the dry whites of Graves':
+      'Sauternes, Barsac en de droge witte Graves',
+    'Admitted in 2021': 'Toegelaten in 2021',
+    'Planted against a warming climate':
+      'Geplant tegen een opwarmend klimaat',
     'In my cellar': 'In mijn kelder',
     'none': 'geen',
     'one bottle': 'één fles',

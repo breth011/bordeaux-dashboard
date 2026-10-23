@@ -261,7 +261,16 @@ def main():
         # 'page' because nobody has judged which wine it is for, and
         # the guards judge it now; the roles that are a judgement -
         # skip, second, other, group report - are still respected.
-        if s.get('role') not in ('grand', 'combined', 'page'):
+        # `unknown` is harvest.py's default - nobody has looked -
+        # and read-sheets.py has always read those, which is why
+        # Cantenac-Brown's blends are complete and its alcohol,
+        # yield and picking dates are not: 72 of its own fiches sit
+        # at that default and this reader never opened one. The
+        # manifest role is a cache of what the guards said, not a
+        # gate; whose_sheet runs on every document here anyway, and
+        # refuses BriO and Alto by name as it always did.
+        if s.get('role') not in ('grand', 'combined', 'page',
+                                 'unknown'):
             continue
         eid, yr = s.get('estate'), s.get('year')
         if not eid or not yr:

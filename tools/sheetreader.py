@@ -1935,7 +1935,175 @@ def acid_scale(s):
     return 'tartaric'
 
 
-def read_numbers(text):
+# ---------------------------------------------------- harvest dates
+#
+# See the note in tools/read-fiches.py's report and the commit that
+# brought these in. RX_HARV below reaches thirty characters past its
+# label; these read further, in two tiers, and know which colour a
+# date belongs to.
+HARV_D = r'(\d{1,2})(?:st|nd|rd|th|er|e)?'
+HARV_SPANS = (
+    # du 25 septembre au 10 octobre   /   5 octobre au 5 novembre
+    re.compile(r'(?i)\b(?:(?:du|from)\s+)?' + HARV_D + r'\s*('
+               + MON + r')\s*(?:au|to|until|jusqu[’\']au|\-|–)\s*'
+               + HARV_D + r'\s*(' + MON + r')'),
+    # du 14 au 30 septembre   /   from 3 to 17 September
+    re.compile(r'(?i)\b(?:(?:du|from)\s+)?' + HARV_D + r'\s*'
+               r'(?:au|to|until|jusqu[’\']au|\-|–)\s*' + HARV_D
+               + r'\s*(' + MON + r')'),
+    # September 14 to 30 October   /   September 14 to 30
+    re.compile(r'(?i)\b(' + MON + r')\s*' + HARV_D + r'\s*'
+               r'(?:au|to|until|\-|–)\s*(?:(' + MON + r')\s*)?'
+               + HARV_D),
+)
+HARV_ONE = re.compile(r'(?i)\b(?:le\s+|on\s+)?' + HARV_D + r'\s*('
+                      + MON + r')\b|\b(' + MON + r')\s*' + HARV_D
+                      + r'\b')
+# The words that mean a date is the picking.
+HARV_WORD = re.compile(
+    r'(?i)vendanges?|r[eé]coltes?|harvest(?:ing|ed|s)?|picking|'
+    r'picked|cueillette|ramassage|\btries?\b|\bban\s+des\b')
+# And the words that mean it belongs to something else. If one of
+# these stands nearer than the harvest word, the date is not ours.
+HARV_OTHER = re.compile(
+    r'(?i)floraison|v[eé]raison|d[eé]bourrement|budburst|bud\s*break|'
+    r'flowering|mid-?veraison|nouaison|'
+    r'\bgel\b|\bgel[eé]e|frosts?|gr[eê]le|hail|'
+    r'pluies?|rainfall|\brain\b|canicule|heat\s*wave|'
+    r'mise\s+en\s+bouteille|bottl(?:ing|ed)|'
+    r'\bl[’\']?[eé]t[eé]\b|\bsummer\b|\bhiver\b|\bwinter\b|'
+    r'printemps|\bspring\b|\bautomne\b|\bautumn\b|'
+    r'[eé]dition|journal|newsletter|nous\s+accueill|'
+    r'porte[s]?\s+ouverte|visite')
+# Which colour a date belongs to. Haut-Brion prints "Vendanges Blancs
+# du 17 au 23 aout  Rouges du 29 aout au 15 septembre" and the reader
+# took the first, so a red grand vin carried its white's dates.
+HARV_COLOUR = re.compile(r'(?i)\b(blancs?|whites?|rouges?|reds?)\b')
+HARV_COLOUR_BACK = 44
+# A table cell rather than a sentence: a figure with a unit in front.
+# Talbot's fiche flattens to "14,5 % vol 45 hl/ha Du 19 Septembre au
+# 10 Octobre 16 mois en barriques", its Vendanges label 335 characters
+# away in the label column.
+HARV_IN_CELL = re.compile(
+    r'(?i)(?:\d[\d\s.,]*\s*(?:%|hl\s*/\s*ha|\bha\b|mois|months|'
+    r'vol|pieds\s*/\s*ha|g\s*/\s*l)|[:|•·]|'
+    r'[A-Z\u00c0-\u00dd]{4,})\s*$')
+HARV_REACH = 120      # in prose, from the label
+HARV_CELL_REACH = 400  # in a table, where the label is a column away
+
+
+def _harv_months_ok(*mos):
+    """A harvest happens between August and November."""
+    for mo in mos:
+        if mo is not None and not (8 <= mo <= 11):
+            return False
+    return True
+
+
+def _harv_candidates(text):
+    """Every date or span whose months sit inside the harvest."""
+    out = []
+    for rx in HARV_SPANS:
+        for m in rx.finditer(text):
+            g = list(m.groups())
+            days = [x for x in g if x and x.isdigit()]
+            mos = [MONTH.get(x.lower()) for x in g
+                   if x and not x.isdigit()]
+            mos = [x for x in mos if x]
+            if days and mos and _harv_months_ok(*mos):
+                out.append((m.start(), m.end(), days, mos))
+    if not out:
+        for m in HARV_ONE.finditer(text):
+            g = [x for x in m.groups() if x]
+            days = [x for x in g if x.isdigit()]
+            mos = [MONTH.get(x.lower()) for x in g if not x.isdigit()]
+            mos = [x for x in mos if x]
+            if days and mos and _harv_months_ok(*mos):
+                out.append((m.start(), m.end(), days, mos))
+    return out
+
+
+def _harv_wrong_colour(text, at, cat):
+    """Does a colour word just in front name the other wine?"""
+    if cat not in ('red', 'white'):
+        return False
+    near = None
+    for m in HARV_COLOUR.finditer(text[max(0, at - HARV_COLOUR_BACK):at]):
+        near = m.group(1)
+    if not near:
+        return False
+    its = 'white' if re.match(r'(?i)blanc|white', near) else 'red'
+    return its != cat
+
+
+def harvest_span(text, cat=None):
+    """The picking dates, as "MM-DD|MM-DD", or None.
+
+    Two tiers. The first is the date nearest a harvest word with
+    nothing else nearer, measured backwards by preference because a
+    fiche reads "VENDANGES : du 25 septembre au 10 octobre". The
+    second is for a date standing in a table cell, which is how a
+    sheet that prints labels in one column and values in another
+    survives being flattened, and it requires a span of two dates.
+
+    A span beats a single date wherever both are in reach: the old
+    reader truncated "October 2nd to October 17th" to its first date
+    whenever the single happened to sit closer.
+    """
+    text = ' '.join((text or '').split())
+    picks = [m.start() for m in HARV_WORD.finditer(text)]
+    if not picks:
+        return None
+    others = [m.start() for m in HARV_OTHER.finditer(text)]
+    cands = _harv_candidates(text)
+
+    def gap(s, e):
+        back = [s - p for p in picks if p <= s]
+        fwd = [p - e for p in picks if p > e]
+        dp = min(back) if back else (min(fwd) * 4 if fwd else 10 ** 9)
+        do = min((abs(s - p) for p in others), default=10 ** 9)
+        return dp, do
+
+    best = None
+    for want_span in (True, False):
+        for s, e, days, mos in cands:
+            if (len(days) > 1) != want_span:
+                continue
+            dp, do = gap(s, e)
+            if dp > HARV_REACH or do < dp:
+                continue
+            if _harv_wrong_colour(text, s, cat):
+                continue
+            if best is None or dp < best[0]:
+                best = (dp, days, mos)
+        if best:
+            break
+    if not best:
+        for s, e, days, mos in cands:
+            if len(days) < 2:
+                continue
+            dp, do = gap(s, e)
+            if dp > HARV_CELL_REACH or do < dp:
+                continue
+            if _harv_wrong_colour(text, s, cat):
+                continue
+            if not HARV_IN_CELL.search(text[max(0, s - 40):s]):
+                continue
+            if best is None or dp < best[0]:
+                best = (dp, days, mos)
+    if not best:
+        return None
+    _, days, mos = best
+    if len(mos) == 1:
+        mos = mos * len(days)
+    while len(mos) < len(days):
+        mos.append(mos[-1])
+    a = '%02d-%02d' % (mos[0], int(days[0]))
+    b = '%02d-%02d' % (mos[1], int(days[1])) if len(days) > 1 else ''
+    return '%s|%s' % (a, b)
+
+
+def read_numbers(text, cat=None):
     """Every gated figure the sheet states, with the words it said it in."""
     out, how = {}, {}
 
@@ -1999,7 +2167,14 @@ def read_numbers(text):
             out['temp'] = [a, b] if b else [a]
             how['temp'] = m.group(0)[:60]
 
-    m = RX_HARV.search(text)
+    # The wider reader first; RX_HARV stays as the fallback, which
+    # is what keeps the 14 sheets it reads and this one does not.
+    _hv = harvest_span(text, cat)
+    if _hv:
+        out['pick'] = {'ALL': _hv}
+        how['pick'] = 'a date beside a harvest word'
+
+    m = RX_HARV.search(text) if not _hv else None
     if m:
         d1, mo1, d2, mo2 = m.group(1), m.group(2), m.group(3), m.group(4)
         mo1 = MONTH.get((mo1 or '').lower())
@@ -3884,7 +4059,7 @@ def fields_of(path, grand=None, others=(), second=None, cat=None,
     except Exception:
         return {}, {'refused': 'unreadable'}
 
-    got, how = read_numbers(text)
+    got, how = read_numbers(text, cat)
     # A blend written as a sentence, which only a page is trusted for:
     # every way of reading one off a PDF came to grief on a flattened
     # column. On a PDF the blend is blend_of's business.

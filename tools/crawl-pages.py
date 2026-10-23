@@ -257,6 +257,64 @@ def seed_urls(get, seed):
     return out
 
 
+def take_estate_page(get, man, e, eid, url, held_url, held_sha,
+                     apply):
+    """One page about the estate, carrying no vintage.
+
+    Registered with year None, because that is what it says. The
+    vintage readers key on the year and pass over it; read-terroir.py
+    and read-plantings.py read by estate and do not need one.
+    """
+    try:
+        body, url = read_page(get, url)
+    except Exception as ex:
+        print('   could not fetch %s: %s' % (url[:60], str(ex)[:40]))
+        return 0
+    title = page_title(body)
+    text = to_text(body)
+    n = sum(len(l) for l in text)
+    print('   %s — %d character(s) of text' % (title[:50], n))
+    if n < SPLIT_FLOOR:
+        print('   too thin to be an estate page')
+        return 0
+    if url in held_url:
+        print('   already held')
+        return 0
+    blob = '\n'.join([url, title, ''] + [' ' + l for l in text])
+    data = blob.encode('utf-8')
+    sha = hashlib.sha1(data).hexdigest()
+    if sha in held_sha:
+        print('   already held under another name')
+        return 0
+    says = [w for w in ('appellation', 'terroir', 'encépagement',
+                        'encepagement', 'superficie', 'vinification')
+            if re.search(r'(?i)' + w, ' '.join(text))]
+    print('   names: %s' % (', '.join(says) or 'none of the usual'))
+    if not apply:
+        print('   would take it as an estate page, no vintage')
+        return 1
+    folder = DEST + eid + '/'
+    if not os.path.isdir(folder):
+        os.makedirs(folder)
+    # Named without a year, because it has none and a filename that
+    # implied one would be read as a claim.
+    name = 'estate__%s.txt' % slug_of(url)
+    io.open(folder + name, 'w', encoding='utf-8',
+            newline='').write(blob)
+    man['sheets'].append({
+        'file': name, 'folder': 'pages/' + eid,
+        'estate': eid, 'estateName': e.get('name'),
+        'wine': None, 'role': 'page', 'colour': None,
+        'year': None, 'bytes': len(data), 'sha1': sha,
+        'url': url,
+        'how': 'an estate page, naming no vintage',
+    })
+    held_sha.add(sha)
+    held_url.add(url)
+    print('   took %s' % name)
+    return 1
+
+
 def split_one(get, man, e, eid, url, held_url, held_sha, apply):
     """Cut one page into a record per vintage, at its year headings.
 
@@ -338,6 +396,9 @@ def main():
                     help='the estate id, as chateaux.js spells it')
     ap.add_argument('--seed', default=None,
                     help='a listing page to take links from')
+    ap.add_argument('--page', default=None,
+                    help='one page about the estate, naming no '
+                         'vintage: terroir, planting, appellation')
     ap.add_argument('--split', default=None,
                     help='one page carrying every vintage, to be cut '
                          'into one record each at its year headings')
@@ -366,6 +427,11 @@ def main():
             continue
         site = sites.get(eid)
         print('%s — %s' % (eid, site or 'no website on record'))
+
+        if a.page:
+            take_estate_page(get, man, e, eid, a.page, held_url,
+                             held_sha, a.apply)
+            continue
 
         if a.split:
             split_one(get, man, e, eid, a.split, held_url, held_sha,
@@ -452,7 +518,7 @@ def main():
             added += 1
             print('   %-5s %-44s %s' % (yr, name[:44], how))
 
-    if a.split and a.apply:
+    if (a.split or a.page) and a.apply:
         # split_one appended as it went, and counts its own work.
         added = max(added, len(man['sheets']) - started)
     if not a.apply:

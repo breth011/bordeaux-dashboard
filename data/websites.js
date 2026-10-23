@@ -92,7 +92,11 @@ window.BDX_SITES = {
 'batailley':['https://batailley.com','ugcb'],
 'beausejour-duffau':['https://beausejour-jdl.com/','domr'],
 'belair-monange':['https://chateau-belair-monange.com/','dom'],
-'belgrave':['https://www.dourthe.com','ugcb'],
+# The UGCB directory gives Dourthe, the owner, and harvest.py
+# found nothing there because the estate publishes its own
+# fiches on its own site. Confirmed by reading: the page's
+# title is "Chateau Belgrave - The emotion of a timeless land".
+'belgrave':['https://www.chateau-belgrave.com','hand'],
 'beychevelle':['https://beychevelle.com','ugcb'],
 'bourgeois-chateau-barateau':['http://chateau-barateau.com/','dom'],
 'bourgeois-chateau-barreyres':['https://www.chateaux-castel.com','cb'],
@@ -290,7 +294,12 @@ window.BDX_SITES = {
 'giscours':['https://giscours.com','ugcb'],
 'grand-enclos-cerons':['https://grandenclosdecerons.com/','dom'],
 'grand-puy-ducasse':['https://www.grandpuyducasse.fr','ugcb'],
-'grand-puy-lacoste':['https://www.grand-puy-lacoste.com','ugcb'],
+# The UGCB directory gives grand-puy-lacoste.com; the estate's
+# site is chateau-grand-puy-lacoste.com, and same_host was
+# refusing all 18 of its vintage links as another host's.
+# Confirmed by reading: its 2023 page states the assemblage
+# and the harvest dates.
+'grand-puy-lacoste':['https://www.chateau-grand-puy-lacoste.com','hand'],
 'gruaud-larose':['https://www.gruaud-larose.com','ugcb'],
 'guiraud':['https://www.chateauguiraud.com','ugcb'],
 'haut-bages-liberal':['http://hautbagesliberal.com/','dom'],

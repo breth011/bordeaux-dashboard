@@ -2661,6 +2661,22 @@ ESTATE_WORDS = {'soil': 1, 'making': 2}
 ESTATE_BOUNDS = {'soil': (8, 320), 'making': (24, 700)}
 
 
+def _colon_soon(text, m):
+    """Is there a colon just past this label, with only a qualifier
+    between?
+
+    "Terroir specifique du cru : sol graveleux" is one label, and the
+    pattern matches its first word alone, so _is_heading looks at
+    "specifique" and sees nothing that makes a heading. Four words at
+    most, no digits and no sentence end, which is a label being
+    precise rather than prose running on.
+    """
+    lead = text[m.end():m.end() + 36]
+    c = lead.find(':')
+    return (c > 0 and not re.search(r'[.!?\d]', lead[:c])
+            and len(lead[:c].split()) <= 4)
+
+
 def read_estate_prose(text):
     """The ground and the cellar, where the sheet labels them.
 
@@ -2673,7 +2689,18 @@ def read_estate_prose(text):
         lo, hi = ESTATE_BOUNDS[field]
         # English first, as read_prose does, so a bilingual sheet
         # gives the passage this dashboard can show untranslated.
-        cands = [c for c in lab.finditer(text) if _is_heading(text, c)]
+        # A label that carries its own colon is a heading. The
+        # patterns above end in [:--]* and swallow it, so
+        # _is_heading - which looks for a colon after the
+        # match - cannot see one, and "Terroir : sol
+        # graveleux" passed only when it began the document.
+        # Said here only: _is_heading is shared with the
+        # tasting notes and is left alone.
+        cands = [c for c in lab.finditer(text)
+                 if _is_heading(text, c)
+                 or c.group(0).rstrip().endswith(
+                     (':', '-', '\u2013', '\u2014'))
+                 or _colon_soon(text, c)]
         cands.sort(key=lambda c: 0 if re.search(
             r'(?i)soil|subsoil|wine[- ]?making|cellar|winery',
             c.group(0)) else 1)
@@ -2700,6 +2727,19 @@ def read_estate_prose(text):
             # The rest of the heading, where the label took half of
             # it. Only with mixed-case prose behind it: see
             # ESTATE_TAIL.
+            # Did a colon stand over this value? In the match, not
+            # after it, because the label swallows its own.
+            colon = ':' in m.group(0)
+            if not colon:
+                # Or just beyond it, where the label is being
+                # specific about itself: "Terroir specifique du
+                # cru :". At most four words, no digits and no
+                # sentence end, so prose cannot be eaten.
+                lead = win[:36]
+                c = lead.find(':')
+                if (c > 0 and not re.search(r'[.!?\d]', lead[:c])
+                        and len(lead[:c].split()) <= 4):
+                    win, colon = win[c + 1:].lstrip(), True
             tailed = False
             if not win.isupper():
                 _cut = ESTATE_TAIL.sub('', win, count=1)
@@ -2725,7 +2765,13 @@ def read_estate_prose(text):
             # des meilleurs terroirs" opens lower-case for the
             # ordinary reason that a French fiche does after a colon,
             # and that is not a sentence cut in half.
-            if win[:1].islower() and not tailed:
+            # ... or unless a colon stood over it. A French fiche
+            # writes "Terroir : sol graveleux et argilo-graveleux"
+            # and "Vinification : traditionnelle", lower-case after
+            # the colon as house style. The rule was written for
+            # Montrose's "Le terroir originel, epicentre du
+            # vignoble", which has no colon anywhere near it.
+            if win[:1].islower() and not tailed and not colon:
                 continue
             # A passage naming three properties is a portfolio
             # footer, not this estate's cellar. Tour Saint

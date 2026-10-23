@@ -2599,6 +2599,13 @@ ESTATE_STOP = {
         r'(?i)(' + _STOP_ANY + r'|'
         r'densit[eé]\s+de\s+plantation|planting\s+density|'
         r'[aâ]ge\s+(?:moyen\s+)?des\s+vignes|average\s+age|vine\s+age|'
+        # The same fact under a different noun: the age of the
+        # vineyard rather than of the vines.
+        r'[aâ]ge\s+(?:moyen\s+)?du\s+vignoble|'
+        # And what the estate makes, which follows its soil on
+        # Domaine de Chevalier's sheets: "gravel on clay-gravel
+        # subsoil White wine 5 ha - great wine 18 000 bottles".
+        r'(?:white|red)\s+wine\s+\d|vins?\s+(?:blanc|rouge)s?\s+\d|'
         r'mode\s+de\s+taille|\btaille\s*:|\bpruning\b|'
         r'\bculture\s*:|viticulture|'
         r'vendanges?|r[eé]colte|harvest|picking|'

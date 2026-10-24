@@ -1,0 +1,67 @@
+========================================================================
+margaux
+========================================================================
+257 document(s) in the manifest, 126 vintage(s) of them
+the estate's other wines, from cuvees.js:
+   Margaux du Château Margaux         other   red      9 record(s)
+   Pavillon Blanc du Château Margaux  other   white   48 record(s)
+   Pavillon Rouge du Château Margaux  second  red     48 record(s)
+
+margaux|1900   note,pick
+    note    The legendary 1900! The century began with an extraordinary harvest both in terms of quantity and quality. 1900 was, first and foremost, a record-brea
+    !! note reads as a tasting note (bouquet, on the palate) and there is no taste field: one paragraph doing both jobs
+    from  note=1900__en-vins-grand-vin-du-chateau, pick=1900__en-vins-grand-vin-du-chateau
+
+margaux|1925   (no record)
+    !! NO RECORD, 1 document(s) on disk: 1925__en-vins-grand-vin-du-chateau-margaux-1925.txt
+
+margaux|1927   (no record)
+    !! NO RECORD, 1 document(s) on disk: 1927__en-vins-grand-vin-du-chateau-margaux-1927.txt
+
+margaux|1930   (no record)
+    !! NO RECORD, 1 document(s) on disk: 1930__en-vins-grand-vin-du-chateau-margaux-1930.txt
+
+margaux|1931   (no record)
+    !! NO RECORD, 1 document(s) on disk: 1931__en-vins-grand-vin-du-chateau-margaux-1931.txt
+
+margaux|1933   (no record)
+    !! NO RECORD, 1 document(s) on disk: 1933__en-vins-grand-vin-du-chateau-margaux-1933.txt
+
+margaux|1935   (no record)
+    !! NO RECORD, 1 document(s) on disk: 1935__en-vins-grand-vin-du-chateau-margaux-1935.txt
+
+margaux|1936   (no record)
+    !! NO RECORD, 1 document(s) on disk: 1936__en-vins-grand-vin-du-chateau-margaux-1936.txt
+
+margaux|1938   (no record)
+    !! NO RECORD, 1 document(s) on disk: 1938__en-vins-grand-vin-du-chateau-margaux-1938.txt
+
+margaux|1964   note,pick
+    note    At Château Margaux that year, we rushed slowly... About half of the crop was harvested before the rain, the other half, unfortunately and painfully, i
+    !! note reads as a tasting note (bouquet, on the palate) and there is no taste field: one paragraph doing both jobs
+    from  note=1964__en-vins-grand-vin-du-chateau, pick=1964__en-vins-grand-vin-du-chateau
+
+margaux|2025   blend,note,yld
+    note    Our decision not to rush the harvest meant that we were able to pick perfectly ripe grapes and extract dense, silky tannins. Château Margaux 2025 reve
+    !! note reads as a tasting note (reveals a very powerful, complex nose, silky tannins, tannic structure) and there is no taste field: one paragraph doing both jobs
+    from  note=2025__en-vins-grand-vin-du-chateau, yld=2025__en-vins-grand-vin-du-chateau
+
+grand: 11 vintage(s) with something to look at
+
+------------------------------------------------------------------------
+Margaux du Château Margaux  (other, red)
+------------------------------------------------------------------------
+
+margaux-du-chateau-margaux: 0 vintage(s) with something to look at
+
+------------------------------------------------------------------------
+Pavillon Blanc du Château Margaux  (other, white)
+------------------------------------------------------------------------
+
+pavillon-blanc-du-chateau-margaux: 0 vintage(s) with something to look at
+
+------------------------------------------------------------------------
+Pavillon Rouge du Château Margaux  (second, red)
+------------------------------------------------------------------------
+
+pavillon-rouge-du-chateau-margaux: 0 vintage(s) with something to look at

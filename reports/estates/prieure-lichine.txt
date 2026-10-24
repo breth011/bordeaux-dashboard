@@ -1,0 +1,71 @@
+========================================================================
+prieure-lichine
+========================================================================
+237 document(s) in the manifest, 27 vintage(s) of them
+the estate's other wines, from cuvees.js:
+   Confidences de Prieuré-Lichine     second  red     15 record(s)
+
+prieure-lichine|2019   blend,note,oak,pick,yld
+    note    Free of major climatic setbacks and with a very welcome episode of weather at the end of the season, the vintage was both generous and of high quality
+    !! no address: cannot link to its source
+    from  note=Fiche-CPL-2019-FR-GB.pdf, oak=Fiche-CPL-2019-FR-GB.pdf, pick=Fiche-CPL-2019-FR-GB.pdf, yld=Fiche-CPL-2019-FR-GB.pdf
+
+prieure-lichine|2021   wy
+    !! no address: cannot link to its source
+    from  wy=Notes-Primeurs-2021-Chateau-Prieur
+
+prieure-lichine|2023   blend,oak,pick,wy,yld
+    !! no address: cannot link to its source
+    from  oak=Commentaires-CPL-2023.pdf, pick=Fiche-technique-CPL-2023-FR.pdf, wy=Commentaires-CPL-2023.pdf, yld=Commentaires-CPL-2023.pdf
+
+prieure-lichine|2024   blend,note,oak,pick,yld
+    note    Resilience, tenacity and involvement The 2024 vintage, the result of remarkably meticulous work, has faced unprecedented climatic conditions. The year
+    !! no address: cannot link to its source
+    from  note=ft_prieure-lichine-2024_ft-prieure, oak=ft_prieure-lichine-2024_ft-prieure, pick=ft_prieure-lichine-2024_ft-prieure
+
+grand: 4 vintage(s) with something to look at
+
+------------------------------------------------------------------------
+Confidences de Prieuré-Lichine  (second, red)
+------------------------------------------------------------------------
+
+prieure-lichine|confidences-de-prieur-lichine|2011   alc,blend,note,pick,yld
+    note    The year began with significant winter water deficit in the soils. A hot and dry spring accelerated vine vegetation growth, and the first flowering ap
+    !! no address: cannot link to its source
+    from  alc=Fiche-technique-Confidences-2011-F, note=Fiche-technique-Confidences-2011-G, pick=Fiche-technique-Confidences-2011-F
+
+prieure-lichine|confidences-de-prieur-lichine|2012   alc,blend,pick,yld
+    !! no address: cannot link to its source
+    from  alc=Fiche-technique-Confidences-2012-F, pick=Fiche-technique-Confidences-2012-F
+
+prieure-lichine|confidences-de-prieur-lichine|2016   alc,blend,months,pick,yld
+    !! months is 2, outside 4-36
+    from  alc=Fiche-technique-Confidences-2016-F, pick=Fiche-technique-Confidences-2016-F
+
+prieure-lichine|confidences-de-prieur-lichine|2018   alc,blend,note,yld
+    note    The abundant rain that fell in winter and spring ensured good water reserves for the vines for the whole of the vine cycle. The first signs of water d
+    !! no address: cannot link to its source
+    from  note=Fiche-technique-Confidences-2018-G
+
+prieure-lichine|confidences-de-prieur-lichine|2019   alc,blend,pick,yld
+    !! no address: cannot link to its source
+    from  alc=Fiche-technique-Confidences-2019-F, pick=Fiche-technique-Confidences-2019-G
+
+prieure-lichine|confidences-de-prieur-lichine|2020   alc,blend,pick,yld
+    !! no address: cannot link to its source
+    from  alc=Fiche-technique-Confidences-2020-F, pick=Fiche-technique-Confidences-2020-F
+
+prieure-lichine|confidences-de-prieur-lichine|2021   alc,blend,pick,yld
+    !! no address: cannot link to its source
+    from  alc=FT-Confidences-2021-FR.pdf, pick=FT-Confidences-2021-FR.pdf
+
+prieure-lichine|confidences-de-prieur-lichine|2022   alc,blend,note,pick,yld
+    note    … a little extra soul The 2022 vintage will go down in history for many reasons. An unprecedented number of heat waves, combined with low rainfall, le
+    !! no address: cannot link to its source
+    from  note=FT-Confidences-2022-GB.pdf, pick=FT-Confidences-2022-GB.pdf
+
+prieure-lichine|confidences-de-prieur-lichine|2023   blend,oak,pick,yld
+    !! no address: cannot link to its source
+    from  oak=FT-Confidences-2023-FR.pdf, pick=FT-Confidences-2023-FR.pdf
+
+confidences-de-prieur-lichine: 9 vintage(s) with something to look at

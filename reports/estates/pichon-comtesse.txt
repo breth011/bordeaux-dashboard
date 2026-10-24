@@ -1,0 +1,44 @@
+========================================================================
+pichon-comtesse
+========================================================================
+10 document(s) in the manifest, 5 vintage(s) of them
+the estate's other wines, from cuvees.js:
+   Réserve de la Comtesse             second  red      1 record(s)
+
+pichon-comtesse|2012   (no record)
+    !! NO RECORD, 1 document(s) on disk: Pichon-L-C-de-Lalande-2012-FT-GB-179.pdf
+
+pichon-comtesse|2018   alc,blend,months,note,oak,ph,taste,ttl
+    taste   A very Pauillac nose of citron and brown tobacco, whose complexity offers us blackcurrant and raspberry as well as clove and violet. One finds those a
+    note    LE PROJET D’UNE FAMILLE Lancée au printemps 2018, la construction du nouveau bâtiment, regroupant un cuvier et un chai enterré destinés aux vins rouge
+    !! no address: cannot link to its source
+    !! note opens on capitals: LE PROJET D’UNE FAMILLE Lancée au printemps 2018, la construction du n
+    from  alc=Pichon-Comtesse-Lalande-2018-FT-FR, note=CP-NOUVEAUX-CHAIS-FR-1.pdf, oak=Pichon-Comtesse-Lalande-2018-FT-FR, ph=Pichon-Comtesse-Lalande-2018-FT-FR, taste=Pichon-Comtesse-Lalande-2018-FT-FR
+
+pichon-comtesse|2019   alc,blend,months,oak,ph,pick,taste,ttl
+    taste   Notes of cedar, cocoa and confectioner's custard mark the nose of this wine immediately, and it then gives off pure, intoxicating notes of blackcurran
+    !! no address: cannot link to its source
+    from  oak=Document_Primeur_Chateau_PICHON_LO, pick=Document_Primeur_Chateau_PICHON_LO, taste=Document_Primeur_Chateau_PICHON_LO
+
+pichon-comtesse|2020   alc,blend,months,oak,ph,pick,taste,ttl
+    taste   A pure, frank nose of blackberry, blackcurrant, peony and Pauillac notes of cedar, with air. The palate brings out a subtle balance between power, len
+    !! no address: cannot link to its source
+    from  oak=Fiche_technique_Chateau_PICHON_LON, pick=Fiche_technique_Chateau_PICHON_LON, taste=Fiche_technique_Chateau_PICHON_LON
+
+pichon-comtesse|2021   alc,blend,months,oak,ph,pick,taste,ttl
+    taste   With the very Pauillac nose of cedar, graphite and blackcurrant mingle bewitching notes of morello cherry, peony and violet. The palate is complex, wi
+    !! no address: cannot link to its source
+    from  oak=Fiche_Technique_Chateau_PICHON_LON, pick=Fiche_Technique_Chateau_PICHON_LON, taste=Fiche_Technique_Chateau_PICHON_LON
+
+grand: 5 vintage(s) with something to look at
+
+------------------------------------------------------------------------
+Réserve de la Comtesse  (second, red)
+------------------------------------------------------------------------
+
+pichon-comtesse|reserve-de-la-comtesse|2012   note,pick
+    note    Le printemps 2012 se caractérise par une alternance de périodes froides et plus douces, ainsi que par un climat très humide (important cumul de pluies
+    !! no address: cannot link to its source
+    from  note=Pichon-L-C-de-Lalande-2012-FT-FR-1, pick=Pichon-L-C-de-Lalande-2012-FT-FR-1
+
+reserve-de-la-comtesse: 1 vintage(s) with something to look at

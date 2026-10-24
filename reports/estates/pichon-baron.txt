@@ -1,0 +1,194 @@
+========================================================================
+pichon-baron
+========================================================================
+39 document(s) in the manifest, 25 vintage(s) of them
+the estate's other wines, from cuvees.js:
+   Les Griffons de Pichon Baron Blanc other   white    3 record(s)
+   Les Griffons de Pichon Baron       second  red     12 record(s)
+
+pichon-baron|2000   blend,months,oak,pick,taste
+    taste   The deep robe of Château Pichon Baron 2000 is dark. Its nose is still holding back: toasted bread, cedar and black fruit. A fleshy, elegant palate, po
+    !! no address: cannot link to its source
+    from  pick=Chateau_Pichon_Baron_2000_2nd_Gran
+
+pichon-baron|2001   blend,months,oak,pick,taste
+    taste   The colour of Château Pichon Baron 2001 is a deep purple. The nose is open, spiced, white pepper. Its particular characteristic: straight, well-bred t
+    !! no address: cannot link to its source
+    from  pick=Chateau_Pichon_Baron_2001_2nd_Gran
+
+pichon-baron|2002   alc,blend,months,oak,pick,taste
+    taste   The robe of Château Pichon Baron 2002 is marked by a dark garnet colour, dense and deep. A subtle, fine nose of well-ripened black fruit, spiced and t
+    !! no address: cannot link to its source
+    from  alc=Chateau_Pichon_Baron_2002_2nd_Gran, pick=Chateau_Pichon_Baron_2002_2nd_Gran
+
+pichon-baron|2003   alc,blend,months,oak,pick,taste
+    taste   Château Pichon Baron 2003 has a dense colour with purple glints. A nose of blackberry and blackcurrant, already approachable. A suave, deep palate wit
+    !! no address: cannot link to its source
+    from  alc=Chateau_Pichon_Baron_2003_2nd_Gran, pick=Chateau_Pichon_Baron_2003_2nd_Gran
+
+pichon-baron|2004   alc,blend,months,oak,pick,taste
+    taste   Château Pichon Baron 2004 is a rigorous blend in classic proportions, which in this vintage takes in the particularly successful Cabernet Francs. A wi
+    !! no address: cannot link to its source
+    from  alc=Chateau_Pichon_Baron_2004_2nd_Gran, pick=Chateau_Pichon_Baron_2004_2nd_Gran
+
+pichon-baron|2005   alc,blend,months,oak,pick,taste
+    taste   Château Pichon Baron 2005, still young and spirited, expresses itself with reserve and distinction. Its robe is dark, almost black, the fruit is explo
+    !! no address: cannot link to its source
+    from  alc=Chateau_Pichon_Baron_2005_2nd_Gran, pick=Chateau_Pichon_Baron_2005_2nd_Gran
+
+pichon-baron|2006   blend,months,oak,pick,taste
+    taste   Château Pichon Baron 2006 reveals a very fine garnet-red colour. The nose offers aromas of red fruit such as redcurrant and blackcurrant, and spice. T
+    !! no address: cannot link to its source
+    from  pick=Chateau_Pichon_Baron_2006_2nd_Gran
+
+pichon-baron|2007   blend,months,oak,pick,taste
+    taste   Château Pichon Baron 2007 has great freshness, with fine and delicate aromas. A very fine sensation of fullness on the palate with a refined touch. Ev
+    !! no address: cannot link to its source
+    from  pick=Chateau_Pichon_Baron_2007_2nd_Gran
+
+pichon-baron|2008   blend,months,oak,pick,taste
+    taste   Château Pichon Baron 2008 has a dark, intense colour. The aromatic range is broad. Spices are there, pepper among them, but black and red fruit too, c
+    !! no address: cannot link to its source
+    from  pick=Chateau_Pichon_Baron_2008_2nd_Gran
+
+pichon-baron|2009   alc,blend,months,oak,pick,taste
+    taste   The colour of Château Pichon Baron 2009 is a dark garnet red. The aromatic range is broad, powerful and deep, with notes of black fruit such as blackb
+    !! no address: cannot link to its source
+    from  alc=Chateau_Pichon_Baron_2009_2nd_Gran, pick=Chateau_Pichon_Baron_2009_2nd_Gran
+
+pichon-baron|2010   alc,blend,months,oak,pick,taste
+    taste   Château Pichon Baron 2010 reveals a very intense robe with violet glints. The nose reveals aromas of fresh red and black fruit, then the aromatic comp
+    !! no address: cannot link to its source
+    from  alc=Chateau_Pichon_Baron_2010_2nd_Gran, pick=Chateau_Pichon_Baron_2010_2nd_Gran
+
+pichon-baron|2011   blend,months,oak,pick,taste
+    taste   The colour of Château Pichon Baron 2011 is a deep garnet red with ruby glints. On the nose, a fine aromatic presence, spiced, delicate, cocoa-like and
+    !! no address: cannot link to its source
+    from  pick=Chateau_Pichon_Baron_2011_2nd_Gran
+
+pichon-baron|2012   blend,months,oak,pick,taste
+    taste   Château Pichon Baron 2012 reveals an intense garnet robe, almost opaque. A great aromatic presence of fresh red fruit, morello cherry, blackcurrant, a
+    !! no address: cannot link to its source
+    from  pick=Chateau_Pichon_Baron_2012_2nd_Gran
+
+pichon-baron|2013   blend,months,oak,pick,taste
+    taste   The robe of Château Pichon Baron 2013, an intense red, is deep and dense. The aromas, fresh and delicate, are discreet: fine oak, blackberry, morello 
+    !! no address: cannot link to its source
+    from  pick=Chateau_Pichon_Baron_2013_2nd_Gran
+
+pichon-baron|2014   alc,blend,months,oak,pick,taste
+    taste   The colour of Château Pichon Baron 2014 is intense, deep, purple, almost black. The nose is very expressive, offering a broad aromatic range: black fr
+    !! no address: cannot link to its source
+    from  alc=Chateau_Pichon_Baron_2014_2nd_Gran, pick=Chateau_Pichon_Baron_2014_2nd_Gran
+
+pichon-baron|2015   blend,months,oak,pick,taste
+    taste   The colour of Château Pichon Baron 2015 is deep, garnet red and intense. The nose is very expressive, delicate, offering a fine aromatic variety of re
+    !! no address: cannot link to its source
+    from  pick=Chateau_Pichon_Baron_2015_2nd_Gran
+
+pichon-baron|2016   blend,months,oak,pick,taste
+    taste   Château Pichon Baron 2016 shows a very fine intense garnet colour. The nose reveals aromas of black and red fruit - blueberry, black cherry, blackcurr
+    !! no address: cannot link to its source
+    from  pick=Chateau_Pichon_Baron_2016_2nd_Gran
+
+pichon-baron|2017   blend,months,oak,pick,taste
+    taste   Château Pichon Baron 2017 reveals a deep, intense and very dark colour. On the nose the aromatic range is broad, revealing notes of vanilla and coconu
+    !! no address: cannot link to its source
+    from  pick=Chateau_Pichon_Baron_2017_2nd_Gran
+
+pichon-baron|2018   blend,months,pick,taste
+    taste   Château Pichon Baron 2018 reveals a dark colour of garnet shade. The nose, precise and delicate, reveals notes of fresh fruit, small black fruit and s
+    !! no address: cannot link to its source
+    from  pick=Chateau_Pichon_Baron_2018_2nd_Gran
+
+pichon-baron|2019   blend,months,oak,pick,taste
+    taste   Château Pichon Baron 2019 reveals a very fine dark garnet colour with violet glints. The nose, precise and of great intensity, reveals a broad aromati
+    !! no address: cannot link to its source
+    from  pick=Chateau_Pichon_Baron_2019_2nd_Gran
+
+pichon-baron|2020   blend,months,oak,pick,taste
+    taste   Château Pichon Baron 2020 reveals a very fine dark garnet colour. The nose, fresh, precise and complex, offers aromas of ripe red fruit, spice, cedar 
+    !! no address: cannot link to its source
+    from  pick=Chateau_Pichon_Baron_2020_2nd_Gran
+
+pichon-baron|2021   blend,months,oak,ph,pick,taste
+    taste   Château Pichon Baron 2021 offers a very fine deep ruby colour of fine density. The nose, still a little held back, begins with notes of fresh blackcur
+    !! no address: cannot link to its source
+    from  pick=Chateau_Pichon_Baron_2021_2nd_Gran
+
+pichon-baron|2022   blend,months,oak,pick,taste
+    taste   Of an intense black colour with violet glints, Château Pichon Baron 2022 offers an expressive, fine nose in which delicate floral aromas such as viole
+    !! no address: cannot link to its source
+    from  pick=Chateau_Pichon_Baron_2022_2nd_Gran
+
+pichon-baron|2023   alc,blend,months,oak,ph,pick,ta,taste,tau
+    taste   With its intense, deep ruby robe, the Grand Vin of Château Pichon Baron reveals all its complexity on the first nose. It opens on aromas of red and bl
+    !! no address: cannot link to its source
+    from  alc=Chateau_Pichon_Baron_2023_2nd_Gran, pick=Chateau_Pichon_Baron_2023_2nd_Gran, ta=Chateau_Pichon_Baron_2023_2nd_Gran
+
+grand: 24 vintage(s) with something to look at
+
+------------------------------------------------------------------------
+Les Griffons de Pichon Baron Blanc  (other, white)
+------------------------------------------------------------------------
+
+pichon-baron|les-griffons-blanc|2022   months,pick,taste
+    taste   Les Griffons de Pichon Baron blanc 2022 révèle une couleur jaune pâle. Le nez s’ouvre sur des notes florales, d’herbes aromatiques et une touche boisé
+    !! no address: cannot link to its source
+    from  pick=Les_Griffons_de_Pichon_Baron_Grand, taste=Les_Griffons_de_Pichon_Baron_Grand
+
+pichon-baron|les-griffons-blanc|2023   months,pick,taste
+    taste   La robe brillante dévoile une couleur jaune dorée avec des reflets verts. Le nez s’ouvre sur des arômes d’agrumes comme le citron vert et le pamplemou
+    !! no address: cannot link to its source
+    from  pick=Les_Griffons_de_Pichon_Baron_Grand, taste=Les_Griffons_de_Pichon_Baron_Grand
+
+pichon-baron|les-griffons-blanc|2024   alc,blend,months,ph,pick,ta,taste,tau
+    taste   Les Griffons de Pichon Baron Grand Vin Blanc Sec 2024 présente une robe brillante, de couleur jaune pâle. Le nez s’ouvre sur des arômes de fleurs blan
+    !! no address: cannot link to its source
+    from  alc=Les_Griffons_de_Pichon_Baron_Grand, pick=Les_Griffons_de_Pichon_Baron_Grand, ta=Les_Griffons_de_Pichon_Baron_Grand, taste=Les_Griffons_de_Pichon_Baron_Grand
+
+les-griffons-blanc: 3 vintage(s) with something to look at
+
+------------------------------------------------------------------------
+Les Griffons de Pichon Baron  (second, red)
+------------------------------------------------------------------------
+
+pichon-baron|les-griffons-de-pichon-baron|2012   blend,months,oak,pick,taste
+    taste   Les Griffons de Pichon Baron 2012 révèle une très belle robe intense, pourpre et brillante. Les arômes expriment tout le caractère du millésime : ceri
+    !! no address: cannot link to its source
+    from  pick=Les_Griffons_de_Pichon_Baron_2012_, taste=Les_Griffons_de_Pichon_Baron_2012_
+
+pichon-baron|les-griffons-de-pichon-baron|2013   blend,months,oak
+    !! no address: cannot link to its source
+
+pichon-baron|les-griffons-de-pichon-baron|2014   blend,months,oak
+    !! no address: cannot link to its source
+
+pichon-baron|les-griffons-de-pichon-baron|2015   blend,months,oak
+    !! no address: cannot link to its source
+
+pichon-baron|les-griffons-de-pichon-baron|2016   blend,months,oak
+    !! no address: cannot link to its source
+
+pichon-baron|les-griffons-de-pichon-baron|2017   blend,months,oak
+    !! no address: cannot link to its source
+
+pichon-baron|les-griffons-de-pichon-baron|2018   blend,months,oak
+    !! no address: cannot link to its source
+
+pichon-baron|les-griffons-de-pichon-baron|2019   blend,months,oak
+    !! no address: cannot link to its source
+
+pichon-baron|les-griffons-de-pichon-baron|2020   blend,months,oak
+    !! no address: cannot link to its source
+
+pichon-baron|les-griffons-de-pichon-baron|2021   blend,months,oak
+    !! no address: cannot link to its source
+
+pichon-baron|les-griffons-de-pichon-baron|2022   blend,months
+    !! no address: cannot link to its source
+
+pichon-baron|les-griffons-de-pichon-baron|2023   blend,months,oak,ph
+    !! no address: cannot link to its source
+
+les-griffons-de-pichon-baron: 12 vintage(s) with something to look at

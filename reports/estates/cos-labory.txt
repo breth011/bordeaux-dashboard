@@ -1,0 +1,21 @@
+========================================================================
+cos-labory
+========================================================================
+6 document(s) in the manifest, 3 vintage(s) of them
+the estate's other wines, from cuvees.js:
+   Le Charme Labory                   second  red      0 record(s)
+
+cos-labory|2024   blend
+    !! no address: cannot link to its source
+
+cos-labory|2025   blend,taste,ttl
+    taste   The wine is approachable without being simple, of great purity with brilliant fruit, a promise of pleasure from its youth onwards.
+    !! no address: cannot link to its source
+
+grand: 2 vintage(s) with something to look at
+
+------------------------------------------------------------------------
+Le Charme Labory  (second, red)
+------------------------------------------------------------------------
+
+le-charme-labory: 0 vintage(s) with something to look at

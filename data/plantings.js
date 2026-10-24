@@ -106,7 +106,6 @@ var BDX_PLANTINGS = {
 'pomerol-chateau-taillefer':{blend:{ME:85,CF:15},how:'read',label:'encépagement',seen:10,src:'Taillefer_2019_fichetechnique_fr.pdf'},
 'pomerol-chateau-vray-croix-de-gay':{blend:{ME:74,CF:20,MA:6},how:'read',label:'encépagement',seen:6,src:'FT_Plaisir_2012_FR.pdf'},
 'pomerol-domaine-de-l-eglise':{blend:{ME:95,CF:5},how:'read',label:'encépagement',seen:10,src:'domainedeleglise2009-web_fr.pdf'},
-'pontet-canet':{blend:{CS:65,ME:30,CF:4,PV:1},how:'read',label:'grape varieties',seen:17,src:'2003-CHATEAU-PONTET-CANET-EN-TECHNICAL-SHEET.pdf'},
 'pouget':{blend:{CS:60,ME:30,CF:10},how:'declared',label:'data/chateaux.js'},
 'prieure-lichine':{blend:{CS:50,ME:45,PV:5},how:'read',label:'encépagement',seen:26,src:'Fiche-CPL-2018-FR.pdf',declared:{CS:55,ME:40,PV:5}},
 'rauzan-gassies':{blend:{CS:65,ME:25,CF:5,PV:5},how:'declared',label:'data/chateaux.js'},

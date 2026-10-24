@@ -1,0 +1,99 @@
+========================================================================
+batailley
+========================================================================
+71 document(s) in the manifest, 26 vintage(s) of them
+the estate's other wines, from cuvees.js:
+   Lions de Batailley                 second  red      4 record(s)
+
+batailley|1991   (no record)
+    !! NO RECORD, 1 document(s) on disk: Technical-Sheet-Ch-Batailley-2023.pdf
+
+batailley|2000   months,oak,press,taste,ttl
+    taste   Deep ruby colour. A very floral bouquet with notes of blackcurrant. The attack on the palate is ample; the vanilla of the barrel ageing is present wit
+    !! no address: cannot link to its source
+
+batailley|2002   (no record)
+    !! NO RECORD, 1 document(s) on disk: batailley2002-web_fr.pdf
+
+batailley|2003   blend,months,oak,press,taste,ttl
+    taste   A fine garnet robe. A bouquet of blackcurrant, vanilla, tobacco and liquorice. The attack carries a great deal of fruit, the body ample and round, typ
+    !! no address: cannot link to its source
+
+batailley|2004   press
+    !! no address: cannot link to its source
+
+batailley|2005   blend,months,oak,press,taste,ttl
+    taste   Its robe is deep ruby with garnet reflections. The nose is very rich, on intense notes of candied black fruit. The attack on the palate is clean, the 
+    !! no address: cannot link to its source
+
+batailley|2006   blend,months,oak,press,taste,ttl
+    taste   Dark ruby robe. A fine, fruity bouquet of cherries and red and black berries, with aromas of leather, wood, tobacco and graphite. On the palate, Châte
+    !! no address: cannot link to its source
+
+batailley|2007   (no record)
+    !! NO RECORD, 1 document(s) on disk: batailley2007-web_fr.pdf
+
+batailley|2008   blend,months,oak,press,taste,ttl
+    taste   Dark ruby robe. A bouquet of cedar, tobacco, spice and cherries. On the palate the wine is fleshy, with good structure, a velvety texture and notes of
+    !! no address: cannot link to its source
+
+batailley|2009   blend,months,oak,press,taste,ttl
+    taste   Superb deep red colour. Its aromas suggest red fruit and blackcurrant, with spicy and subtly oaked notes. On the palate it is round and fleshy, with a
+    !! no address: cannot link to its source
+
+batailley|2010   blend,months,oak,press
+    !! no address: cannot link to its source
+
+batailley|2011   blend,months,oak,press,taste,ttl
+    taste   A fine purple robe. A pleasant, expressive nose with fruity aromas (plum, blackcurrant), oak and spice. A fleshy wine, supple and mellow, of fine rich
+    !! no address: cannot link to its source
+
+batailley|2012   blend,months,oak,press,taste,ttl
+    taste   Purple robe. An attractive nose with aromas of blueberry, blackcurrant, coffee and leather, with a light spicy touch. On the palate, rare richness wit
+    !! no address: cannot link to its source
+
+batailley|2013   blend,months,oak,press,taste,ttl
+    taste   The robe is garnet and the nose attractively spicy. The palate is fresh and elegant, medium-bodied, with fine notes of liquorice and leather. A spicy,
+    !! no address: cannot link to its source
+
+batailley|2015   blend,months,oak,press,taste,ttl
+    taste   Deep, intense robe. A fruity nose with aromas of fresh blackberry and raspberry and some mineral notes. A red wine concentrated in aroma and well bala
+    !! no address: cannot link to its source
+
+batailley|2016   blend,months,oak,press
+    !! no address: cannot link to its source
+
+batailley|2017   blend,months,oak,press,taste,ttl
+    taste   The nose develops aromas of red fruit, and they carry through onto the palate, where they are joined by notes of coffee and vanilla; the freshness of 
+    !! no address: cannot link to its source
+
+batailley|2018   blend,months,oak,press
+    !! no address: cannot link to its source
+
+batailley|2022   blend,months,note,oak,pick,press,taste,ttl
+    taste   Dark in robe, it develops an intense bouquet of black fruit and sweet spice, underlined by smoky, roasted notes. Very refined, the palate is compact a
+    note    Nous sommes heureux de proposer le millésime 2022 et la nouvelle étiquette unique de notre premier vin : Château Batailley 2022 est un millésime excep
+    !! no address: cannot link to its source
+    from  note=2022__primeurs-chateau-batailley-2, pick=2022__primeurs-chateau-batailley-2
+
+grand: 19 vintage(s) with something to look at
+
+------------------------------------------------------------------------
+Lions de Batailley  (second, red)
+------------------------------------------------------------------------
+
+batailley|lions-de-batailley|2014   blend,months,press
+    !! no address: cannot link to its source
+    from  blend=lionsdebatailley2014-web_fr.ocr.tx
+
+batailley|lions-de-batailley|2015   food,months,press
+    food    PAUILLAC- Agneau de Pauillac, lamproie et fromages.
+    !! no address: cannot link to its source
+
+batailley|lions-de-batailley|2016   months,press
+    !! no address: cannot link to its source
+
+batailley|lions-de-batailley|2017   months,press
+    !! no address: cannot link to its source
+
+lions-de-batailley: 4 vintage(s) with something to look at

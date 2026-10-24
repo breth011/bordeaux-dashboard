@@ -1,0 +1,131 @@
+========================================================================
+grand-puy-ducasse
+========================================================================
+86 document(s) in the manifest, 50 vintage(s) of them
+the estate's other wines, from cuvees.js:
+   Prélude à Grand-Puy Ducasse        second  red     15 record(s)
+
+grand-puy-ducasse|1970   pick
+    !! no address: cannot link to its source
+    from  pick=FT_GPD_1970-2.pdf
+
+grand-puy-ducasse|1971   (no record)
+    !! NO RECORD, 1 document(s) on disk: FT-GPD-1971-3.pdf
+
+grand-puy-ducasse|1974   (no record)
+    !! NO RECORD, 1 document(s) on disk: FT-GPD-1974-3.pdf
+
+grand-puy-ducasse|1975   (no record)
+    !! NO RECORD, 1 document(s) on disk: FT-GPD-1975-2.pdf
+
+grand-puy-ducasse|1976   (no record)
+    !! NO RECORD, 1 document(s) on disk: FT-GPD-1976-2.pdf
+
+grand-puy-ducasse|2000   (no record)
+    !! NO RECORD, 1 document(s) on disk: FT-GPD-2000-1.pdf
+
+grand-puy-ducasse|2002   (no record)
+    !! NO RECORD, 1 document(s) on disk: FT-GPD-2002-1.pdf
+
+grand-puy-ducasse|2003   (no record)
+    !! NO RECORD, 1 document(s) on disk: FT-GPD-2003-1.pdf
+
+grand-puy-ducasse|2004   (no record)
+    !! NO RECORD, 1 document(s) on disk: FT-GPD-2004-2.pdf
+
+grand-puy-ducasse|2005   (no record)
+    !! NO RECORD, 1 document(s) on disk: FT-GPD-2005-1.pdf
+
+grand-puy-ducasse|2007   (no record)
+    !! NO RECORD, 1 document(s) on disk: FT-GPD-2007.pdf
+
+grand-puy-ducasse|2021   blend,months,note,ph,yld
+    note    While the Merlot was harvested early despite medium anthocyanin, tannin and sugar potentials, the Cabernet Sauvignon once again took the opportunity t
+    !! no address: cannot link to its source
+    from  months=Fiche_Technique_Grand-Puy_Ducasse_, note=Fiche_Technique_Grand-Puy_Ducasse_, ph=Fiche_Technique_Grand-Puy_Ducasse_, yld=Fiche_Technique_Grand-Puy_Ducasse_
+
+grand-puy-ducasse|2022   alc,blend,months,note,ntl,ph,yld
+    note    A dry, cold autumn followed by a mild, wet winter soon made it possible to call this vintage an early one. The spring and summer that followed will st
+    !! no address: cannot link to its source
+    from  note=sites_Millesimes_2022_Grand-Puy-Du
+
+grand-puy-ducasse|2023   alc,note,ph
+    note    Les conditions climatiques se sont révélées plutôt équilibrées, entre un hiver doux et pluvieux, et un été sec et chaud ! Les pluies de début septembr
+    !! no address: cannot link to its source
+    from  note=FT_-_Chateau_Grand-Puy_Ducasse_Pri
+
+grand-puy-ducasse|2024   months,note,pick,yld
+    note    0 08/10 2024 : Un millésime de contraste et de résilience L’année 2024 au Château Grand-Puy Ducasse a demandé rigueur et adaptation, avec un hiver dou
+    !! no address: cannot link to its source
+    from  note=ft_grand-puy-ducasse-2024_grand-pu, pick=ft_grand-puy-ducasse-2024_grand-pu
+
+grand: 15 vintage(s) with something to look at
+
+------------------------------------------------------------------------
+Prélude à Grand-Puy Ducasse  (second, red)
+------------------------------------------------------------------------
+
+grand-puy-ducasse|prelude-a-grand-puy-ducasse|2007   alc,months,oak,yld
+    !! no address: cannot link to its source
+
+grand-puy-ducasse|prelude-a-grand-puy-ducasse|2008   alc,months,oak,yld
+    !! no address: cannot link to its source
+
+grand-puy-ducasse|prelude-a-grand-puy-ducasse|2009   alc,months,oak,yld
+    !! no address: cannot link to its source
+
+grand-puy-ducasse|prelude-a-grand-puy-ducasse|2010   alc,months,note,oak,yld
+    note    Malgré une floraison des merlots quelque peu gênée par un climat frais et humide au mois de juin, entraînant des rendements particulièrement faibles s
+    !! no address: cannot link to its source
+    from  note=FT-Prelude-GPD-2010.pdf
+
+grand-puy-ducasse|prelude-a-grand-puy-ducasse|2011   alc,months,oak,yld
+    !! no address: cannot link to its source
+
+grand-puy-ducasse|prelude-a-grand-puy-ducasse|2012   alc,months,note,oak,yld
+    note    La Saison viticole 2012 a été marquée par une météo peu clémente. Le printemps pluvieux et froid, suivi d'un été sec ont ralenti le cycle vég
+    !! no address: cannot link to its source
+    from  note=FT-Prelude-GPD-2012.pdf
+
+grand-puy-ducasse|prelude-a-grand-puy-ducasse|2013   alc,months,oak,yld
+    !! no address: cannot link to its source
+
+grand-puy-ducasse|prelude-a-grand-puy-ducasse|2014   alc,months,note,oak,yld
+    note    Un printemps humide et un été maussade ont nécessité une surveillance accrue de l’état sanitaire du vignoble et une bonne protection de la plante
+    !! no address: cannot link to its source
+    from  note=FT-Prelude-2014.pdf
+
+grand-puy-ducasse|prelude-a-grand-puy-ducasse|2015   alc,blend,months,note,oak,yld
+    note    Everything was fine until September for all of our Bordeaux properties besides a serious drought that worried us in early August. Thankfully, relievin
+    !! no address: cannot link to its source
+    from  blend=FT_Prelude_-_Nouveau_Format_2015_P, note=FT_Prelude_-_Nouveau_Format_2015_P
+
+grand-puy-ducasse|prelude-a-grand-puy-ducasse|2016   alc,blend,months,note,oak,yld
+    note    Les formidables conditions de récolte de l’été indien 2016 rappellent celles des plus grands millésimes, ce qui ne pouvait être que de très bon augure
+    !! no address: cannot link to its source
+    from  blend=FT_Prelude-_Nouveau_Format_2016_PD, note=FT_Prelude-_Nouveau_Format_2016_PD
+
+grand-puy-ducasse|prelude-a-grand-puy-ducasse|2017   alc,blend,months,note,oak,yld
+    note    But then, after a few nights of frost, particularly on the nights of 27 and 28 April, it was back to the drawing board! Many vineyards lost almost all
+    !! no address: cannot link to its source
+    from  blend=FT_Prelude_-_Nouveau_Format_2017_P, note=Prelude-A-Grand-Puy-Ducasse-2017-E
+
+grand-puy-ducasse|prelude-a-grand-puy-ducasse|2018   alc,blend,months,oak,yld
+    !! no address: cannot link to its source
+    from  blend=FT_Prelude-nouveau_format_GPD_2018
+
+grand-puy-ducasse|prelude-a-grand-puy-ducasse|2019   alc,blend,months,note,oak,yld
+    note    L’hiver sec et plus doux que la moyenne de saison a laissé place ensuite à un printemps pluvieux aux nuits fraîches. Le débourrement et la floraison o
+    !! no address: cannot link to its source
+    from  blend=FT-Prelude-GPD-2019.pdf, note=FT-Prelude-GPD-2019.pdf
+
+grand-puy-ducasse|prelude-a-grand-puy-ducasse|2020   alc,blend,months,oak,yld
+    !! no address: cannot link to its source
+    from  blend=FT-Prelude-2020-FR.pdf, oak=Prelude-A-Grand-Puy-Ducasse-2020-E
+
+grand-puy-ducasse|prelude-a-grand-puy-ducasse|2021   alc,blend,months,note
+    note    Si les merlots ont été vendangés précocement malgré des potentiels anthocyanes, tanins et sucres moyens, les Cabernet Sauvignon ont eu l’occasion, une
+    !! no address: cannot link to its source
+    from  blend=FT-Prelude-GPD-2021-FR.pdf, note=FT-Prelude-GPD-2021-FR.pdf
+
+prelude-a-grand-puy-ducasse: 15 vintage(s) with something to look at

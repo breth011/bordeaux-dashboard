@@ -1,0 +1,165 @@
+========================================================================
+lynch-bages
+========================================================================
+234 document(s) in the manifest, 32 vintage(s) of them
+the estate's other wines, from cuvees.js:
+   Blanc de Lynch-Bages               other   white   17 record(s)
+   Echo de Lynch-Bages                second  red     13 record(s)
+
+lynch-bages|1990   (no record)
+    !! NO RECORD, 1 document(s) on disk: Chateau-Lynch-Bages-1989-FR.pdf
+
+lynch-bages|2003   blend,months,oak
+    !! blend is exactly the planting, which is a different claim
+
+lynch-bages|2007   blend,months,oak,pick
+    !! blend is exactly the planting, which is a different claim
+    from  pick=Chateau-Lynch-Bages-2007-FR.pdf
+
+lynch-bages|2015   blend,months,note,oak,ph,pick,yld
+    note    In terms of variety, although diluted slightly by the September rain, the Merlot nevertheless gives the wine a lovely freshness and beautiful fruity a
+    !! note reads as a tasting note (aromas of, tannic structure) and there is no taste field: one paragraph doing both jobs
+    from  blend=Chateau-Lynch-Bages-2015-ENG.pdf, months=Chateau-Lynch-Bages-2015-ENG.pdf, note=Chateau-Lynch-Bages-2015-ENG.pdf, oak=Chateau-Lynch-Bages-2015-ENG.pdf, ph=Lynch-Bages-2015-FT-FR-122.pdf, pick=Lynch-Bages-2015-FT-FR-122.pdf, yld=Lynch-Bages-2015-FT-FR-122.pdf
+
+lynch-bages|2018   alc,blend,months,note,oak,ph,pick
+    note    The second period began mid-July with fine summer weather, hot temperatures and excessive sunshine. Full flowering occurred in line with the 20-year a
+    !! note reads as a tasting note (on the palate, silky tannins) and there is no taste field: one paragraph doing both jobs
+    from  alc=Lynch-Bages-2018-FT-FR.pdf, months=Ch-eau-Lynch-Bages-2018-FR.pdf, note=Chateau-Lynch-Bages-2018-ENG.pdf, oak=Chateau-Lynch-Bages-2018-ENG.pdf, ph=Lynch-Bages-2018-FT-FR.pdf, pick=Ch-eau-Lynch-Bages-2018-FR.pdf
+
+lynch-bages|2022   alc,blend,months,note,oak,ph,pick,yld
+    note    But our vines were resilient, giving us an exceptional vintage and a life lesson. Nature doesn't stop. Indeed, the 2022 vintage was ahead of schedule 
+    !! no address: cannot link to its source
+    from  note=Chateau-Lynch-Bages-2022-EN.pdf, pick=Chateau-Lynch-Bages-2022-EN.pdf
+
+lynch-bages|2023   alc,blend,months,note,oak,ph,pick,yld
+    note    In the lands of Pauillac, the mild winter offered a contrast between drought and rain, sketching a complex picture for the winegrowers and dictating t
+    !! no address: cannot link to its source
+    !! note reads as a tasting note (aromas of, tannic structure, velvety) and there is no taste field: one paragraph doing both jobs
+    from  note=Chateau-Lynch-Bages-2023-EN.pdf, pick=Chateau-Lynch-Bages-2023-EN.pdf
+
+lynch-bages|2024   alc,blend,months,oak,ph,yld
+    !! no address: cannot link to its source
+
+lynch-bages|2025   alc,blend,months,note,oak,ph,pick,yld
+    note    Winter was marked by a contrasted distribution of rainfall, alternating between dry periods and a wet January, ensuring sufficient water reserves. The
+    !! no address: cannot link to its source
+    from  note=Chateau-Lynch-Bages-2025-EN-Techni, pick=Chateau-Lynch-Bages-2025-EN-Techni
+
+grand: 9 vintage(s) with something to look at
+
+------------------------------------------------------------------------
+Blanc de Lynch-Bages  (other, white)
+------------------------------------------------------------------------
+
+lynch-bages|blanc-de-lynch-bages|2011   alc,months,note,oak,ph,pick,ta,taste,tau,yld
+    taste   (April 2011): A pale yellow colour, Blanc de Lynch Bages reveals itself on the nose with citrus and floral notes. Its attack is lively with a nicely a
+    note    The Rite of Spring Following a cool, dry winter, mild weather rapidly set in from the end of March onwards, with a rainfall deficit resulting in a rel
+    !! no address: cannot link to its source
+    from  months=Blanc-de-Lynch-Bages-2011-FR.pdf, note=Blanc-de-Lynch-Bages-2011-FT-GB-36, oak=Blanc-de-Lynch-Bages-2011-FT-GB-36, pick=Blanc-de-Lynch-Bages-2011-FR.pdf, ta=Blanc-de-Lynch-Bages-2011-FT-GB-36, taste=Blanc-de-Lynch-Bages-2011-FT-GB-36
+
+lynch-bages|blanc-de-lynch-bages|2012   alc,months,oak,ph,pick,ta,tau,yld
+    !! no address: cannot link to its source
+    from  months=Blanc-de-Lynch-Bages-2012-FR.pdf, oak=Blanc-de-Lynch-Bages-2012-FT-GB-36, pick=Blanc-de-Lynch-Bages-2012-FR.pdf, ta=Blanc-de-Lynch-Bages-2012-FT-GB-36
+
+lynch-bages|blanc-de-lynch-bages|2017   months,oak,pick
+    !! no address: cannot link to its source
+    from  pick=Blanc-de-Lynch-Bages-2017-ENG.pdf
+
+lynch-bages|blanc-de-lynch-bages|2018   alc,blend,months,note,oak,ph,pick
+    note    However, this was needed to fully recharge the groundwater of the cool soils where the whites are grown. Flowering, fruit set and veraison progressed 
+    !! no address: cannot link to its source
+    from  alc=Blanc-de-Lynch-Bages-2018-FT-FR.pd, blend=Blanc-de-Lynch-Bages-2018-FR.pdf, note=Blanc-de-Lynch-Bages-2018-ENG.pdf, ph=Blanc-de-Lynch-Bages-2018-FT-FR.pd, pick=Blanc-de-Lynch-Bages-2018-ENG.pdf
+
+lynch-bages|blanc-de-lynch-bages|2019   alc,blend,months,note,oak,ph,pick
+    note    Malgré des conditions variables lors de la floraison et de la nouaison, la sortie de grappe est généreuse et annonciatrice d’une belle qualité. Les ve
+    !! no address: cannot link to its source
+    from  alc=Blanc-de-Lynch-Bages-2019-CN.pdf, note=Blanc-de-Lynch-Bages-2019-FR.pdf, ph=Blanc-de-Lynch-Bages-2019-CN.pdf, pick=Blanc-de-Lynch-Bages-2019-ENG.pdf
+
+lynch-bages|blanc-de-lynch-bages|2020   alc,blend,months,oak,ph,pick
+    !! no address: cannot link to its source
+    from  pick=Blanc-de-Lynch-Bages-2020-ENG.pdf
+
+lynch-bages|blanc-de-lynch-bages|2021   alc,blend,note,oak,ph,pick
+    note    The meteorological context in 2021 was complicated at times, marked by cool temperatures and a slight water deficit, resulting in a vintage that broug
+    !! no address: cannot link to its source
+    from  blend=Blanc-de-Lynch-Bages-2021-ENG.pdf, note=Blanc-de-Lynch-Bages-2021-ENG.pdf, oak=Blanc-de-Lynch-Bages-2021-ENG.pdf, pick=Blanc-de-Lynch-Bages-2021-ENG.pdf
+
+lynch-bages|blanc-de-lynch-bages|2022   alc,blend,oak,ph,pick
+    !! no address: cannot link to its source
+    from  blend=Blanc-de-Lynch-Bages-2022-EN.pdf, oak=Blanc-de-Lynch-Bages-2022-EN.pdf, pick=Blanc-de-Lynch-Bages-2022-EN.pdf
+
+lynch-bages|blanc-de-lynch-bages|2023   alc,blend,oak,ph,pick
+    !! no address: cannot link to its source
+    from  blend=Blanc-de-Lynch-Bages-2023-ENG-Tech, oak=Blanc-de-Lynch-Bages-2023-ENG-Tech, pick=Blanc-de-Lynch-Bages-2023-ENG-Tech
+
+lynch-bages|blanc-de-lynch-bages|2024   alc,blend,oak,ph
+    !! no address: cannot link to its source
+    from  blend=Blanc-de-Lynch-Bages-2024-ENG-Tech, oak=Blanc-de-Lynch-Bages-2024-ENG-Tech
+
+lynch-bages|blanc-de-lynch-bages|2025   alc,blend,note,ph,pick
+    note    L’hiver a été marqué par une répartition contrastée des précipitations, alternant entre périodes sèches et un mois de janvier pluvieux, assurant des r
+    !! no address: cannot link to its source
+    from  blend=Blanc-de-Lynch-Bages-2025-FR-Fiche, note=Blanc-de-Lynch-Bages-2025-FR-Fiche, pick=Blanc-de-Lynch-Bages-2025-FR-Fiche
+
+blanc-de-lynch-bages: 11 vintage(s) with something to look at
+
+------------------------------------------------------------------------
+Echo de Lynch-Bages  (second, red)
+------------------------------------------------------------------------
+
+lynch-bages|echo-de-lynch-bages|2011   alc,blend,note,oak,ph,pick,ta,taste,tau,yld
+    taste   (April 2011): A pale yellow colour, Blanc de Lynch Bages reveals itself on the nose with citrus and floral notes. Its attack is lively with a nicely a
+    note    The Rite of Spring Following a cool, dry winter, mild weather rapidly set in from the end of March onwards, with a rainfall deficit resulting in a rel
+    !! no address: cannot link to its source
+    from  blend=Echo-de-Lynch-Bages-2011-FT-GB-C08, note=Echo-de-Lynch-Bages-2011-FT-GB-C08, oak=Echo-de-Lynch-Bages-2011-FT-GB-C08, pick=Echo-de-Lynch-Bages-2011-FT-GB-C08, ta=Echo-de-Lynch-Bages-2011-FT-GB-C08, taste=Echo-de-Lynch-Bages-2011-FT-GB-C08
+
+lynch-bages|echo-de-lynch-bages|2012   blend,months,pick
+    !! no address: cannot link to its source
+    from  blend=Echo-de-Lynch-Bages-2012-FT-GB-C08, pick=Echo-de-Lynch-Bages-2012-FT-GB-C08
+
+lynch-bages|echo-de-lynch-bages|2013   blend,months,yld
+    !! no address: cannot link to its source
+    from  blend=Echo-de-Lynch-Bages-2013-FT-GB-C08
+
+lynch-bages|echo-de-lynch-bages|2014   note,ph
+    note    Châtea 68 % de Assemb 69 % Cab 26 % Me 3 % Cabe 2 % Petit Analyses Elevage Note de La coule enrobé p puissanc Echo d 27 % de Assemb 73 % Cab 27 % Me A
+    !! no address: cannot link to its source
+    from  note=Lynch-bages-2014-FT-FR-122.pdf, ph=Lynch-bages-2014-FT-FR-122.pdf
+
+lynch-bages|echo-de-lynch-bages|2017   alc,blend,months,note,oak,ph,taste
+    taste   (March 2018) The Blanc de Lynch-Bages 2017 is a pale-yellow colour with green hues and has a particularly expressive nose. The wine delivers lovely li
+    note    Harvesting of the 2017 vintage began one week earlier than in 2016. Picking began on 18 September with a dozen or so hectares of Merlot. The grapes ha
+    !! no address: cannot link to its source
+    from  note=Echo-Lynch-Bages-2017-FT-GB.pdf, taste=Echo-Lynch-Bages-2017-FT-GB.pdf
+
+lynch-bages|echo-de-lynch-bages|2018   alc,blend,months,note,ph,pick
+    note    The second period began mid-July with fine summer weather, hot temperatures and excessive sunshine. Full flowering occurred in line with the 20-year a
+    !! no address: cannot link to its source
+    from  note=Echo-de-Lynch-Bages-2018-FT-GB.pdf, pick=Echo-de-Lynch-Bages-2018-FT-FR.pdf
+
+lynch-bages|echo-de-lynch-bages|2020   alc,blend,months,ph,pick
+    !! no address: cannot link to its source
+    from  pick=Echo_de_Lynch-Bages_2020_-_ENG.pdf
+
+lynch-bages|echo-de-lynch-bages|2021   alc,blend,months,note,ph,yld
+    note    Les titres alcoométriques volumiques sont modérés, entre 12,5 et 13,5 % vol, ce qui marque le retour à des degrés classiques. Les vins présentent une 
+    !! no address: cannot link to its source
+    from  blend=Echo_de_Lynch-Bages_2021_-_ENG_-_T, note=Echo_de_Lynch-Bages_2021_-_FR_-_Fi, yld=Echo_de_Lynch-Bages_2021_-_FR_-_Fi
+
+lynch-bages|echo-de-lynch-bages|2022   alc,blend,months,ph,pick,yld
+    !! no address: cannot link to its source
+    from  blend=ft_echo-de-lynch-bages-2022_echo-d, pick=ft_echo-de-lynch-bages-2022_echo-d
+
+lynch-bages|echo-de-lynch-bages|2023   alc,blend,months,ph,pick,yld
+    !! no address: cannot link to its source
+    from  blend=Echo-de-Lynch-Bages-2023-ENG-Techn, pick=Echo-de-Lynch-Bages-2023-ENG-Techn
+
+lynch-bages|echo-de-lynch-bages|2024   alc,blend,months,oak,ph,yld
+    !! no address: cannot link to its source
+    from  blend=ft_echo-de-lynch-bages-2024_echo-d
+
+lynch-bages|echo-de-lynch-bages|2025   alc,blend,months,oak,ph,pick,yld
+    !! no address: cannot link to its source
+    from  pick=Echo-de-Lynch-Bages-2025-FR-Fiche-
+
+echo-de-lynch-bages: 12 vintage(s) with something to look at

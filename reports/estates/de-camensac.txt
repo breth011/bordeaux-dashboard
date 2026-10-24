@@ -1,0 +1,217 @@
+========================================================================
+de-camensac
+========================================================================
+80 document(s) in the manifest, 27 vintage(s) of them
+the estate's other wines, from cuvees.js:
+   La Closerie de Camensac            second  red     17 record(s)
+
+de-camensac|1999   blend,pick
+    !! no address: cannot link to its source
+    from  blend=chateau-comensac-millesime-1999.pd, pick=chateau-comensac-millesime-1999.pd
+
+de-camensac|2000   blend,note,pick
+    note    D Durant des mois d’avril et mai, chauds et humides, on note la présence du mildiou qui sera sans conséquence grâce aux mois secs qui s’ensuivent. La 
+    !! no address: cannot link to its source
+    from  blend=chateau-comensac-millesime-2000.pd, note=chateau-comensac-millesime-2000.pd, pick=chateau-comensac-millesime-2000.pd
+
+de-camensac|2001   blend,note,pick
+    note    DL’hiver relativement chaud et assez pluvieux a entraîné un démarrage précoce de l’activité de la vigne. Celle-ci ralentit quand Avril fut, lui aussi,
+    !! no address: cannot link to its source
+    from  blend=chateau-comensac-millesime-2001.pd, note=chateau-comensac-millesime-2001.pd, pick=chateau-comensac-millesime-2001.pd
+
+de-camensac|2002   blend,note,pick
+    note    D L’automne est sec et froid. De novembre à avril, la situation est à la sécheresse : la pluie manque. En mai, les précipitations sont bien présentes 
+    !! no address: cannot link to its source
+    from  blend=chateau-comensac-millesime-2002.pd, note=chateau-comensac-millesime-2002.pd, pick=chateau-comensac-millesime-2002.pd
+
+de-camensac|2003   blend,note,pick
+    note    D L’automne est très humide. Les températures de janvier et février sont assez froides. Mars connaît un redoux. Avril frôle les gelées mais les tempér
+    !! no address: cannot link to its source
+    from  blend=chateau-comensac-millesime-2003.pd, note=chateau-comensac-millesime-2003.pd, pick=chateau-comensac-millesime-2003.pd
+
+de-camensac|2004   blend,note,pick
+    note    D En hiver, des températures inférieures à la normale ainsi qu’un déficit hydrique sont enregistrés. Le débourrement a débuté en avril mais la végétat
+    !! no address: cannot link to its source
+    from  blend=chateau-comensac-millesime-2004.pd, note=chateau-comensac-millesime-2004.pd, pick=chateau-comensac-millesime-2004.pd
+
+de-camensac|2005   blend,note,pick
+    note    D 2005 laissera le souvenir d’un millésime de grande qualité dont le climat, de l’hiver à l’automne, fut exceptionnellement sec pour le bordelais, ave
+    !! no address: cannot link to its source
+    from  blend=chateau-comensac-millesime-2005.pd, note=chateau-comensac-millesime-2005.pd, pick=chateau-comensac-millesime-2005.pd
+
+de-camensac|2006   blend,months,note,pick,taste
+    taste   This wine shows a deep red robe with purple glints. The nose is complex and elegant. Roasted notes mingle harmoniously with hints of spice - pepper an
+    note    The weather of August disturbed the start of ripening. The sun was less generous than in the two preceding months and temperatures fell below the seas
+    !! no address: cannot link to its source
+    !! months is 2, outside 4-36
+    from  blend=chateau-comensac-millesime-2006.pd, pick=chateau-comensac-millesime-2006.pd
+
+de-camensac|2007   blend,note,pick
+    note    D L’hiver 2007 ne fut guère rigoureux. Cependant, en raison d’un mois de mars plutôt frais, le débourrement de la vigne, début avril, comme en 2006, n
+    !! no address: cannot link to its source
+    from  blend=chateau-comensac-millesime-2007.pd, note=chateau-comensac-millesime-2007.pd, pick=chateau-comensac-millesime-2007.pd
+
+de-camensac|2008   blend,note,pick
+    note    D 2008 a été marqué par deux accidents climatiques : la gelée début avril et la grêle fin juillet. Pourtant, de juin à mi-juillet, la plante évolue se
+    !! no address: cannot link to its source
+    from  blend=chateau-comensac-millesime-2008.pd, note=chateau-comensac-millesime-2008.pd, pick=chateau-comensac-millesime-2008.pd
+
+de-camensac|2009   blend,pick
+    !! no address: cannot link to its source
+    from  blend=chateau-comensac-millesime-2009-EN, pick=chateau-comensac-millesime-2009-EN
+
+de-camensac|2010   blend,note,pick
+    note    D Le sol sort exsangue de ce millésime 2009. Les vendanges à peine achevées, la pluie tombe abondamment. Elle est de retour au printemps après un hive
+    !! no address: cannot link to its source
+    from  blend=chateau-comensac-millesime-2010-EN, note=chateau-comensac-millesime-2010-FR, pick=chateau-comensac-millesime-2010-EN
+
+de-camensac|2011   blend,note,pick
+    note    D L’hiver et le début du printemps sont pluvieux. Mai et juin sont caniculaires et très secs. La plante redouble de vigueur. La fleur se passe bien ap
+    !! no address: cannot link to its source
+    from  blend=Camensac-2011-FT-FR-34.pdf, note=Camensac-2011-FT-FR-34.pdf, pick=Camensac-2011-FT-FR-34.pdf
+
+de-camensac|2012   blend,note,pick
+    note    D L’hiver est très humide mais le printemps le sera davantage. Les sous-sols refont leur stock d’eau diminué lors des années précédentes. La plante se
+    !! no address: cannot link to its source
+    from  blend=Camensac-2012-FT-FR-34.pdf, note=Camensac-2012-FT-FR-34.pdf, pick=Camensac-2012-FT-FR-34.pdf
+
+de-camensac|2013   blend,note,pick
+    note    D Dès le sortir des vendanges 2012, la pluie est omniprésente jusqu’à mi-février. Près de 600 mm tombent. Et c’est tant mieux, la diète hydrique n’ava
+    !! no address: cannot link to its source
+    from  blend=chateau-comensac-millesime-2013.pd, note=chateau-comensac-millesime-2013.pd, pick=chateau-comensac-millesime-2013.pd
+
+de-camensac|2014   blend,note,pick
+    note    Harvest date Merlot: from September the 22th to October the 14th 2014 Cabernet Sauvignon: From October the 14th to 17th 2014 Blend and comments of tas
+    !! no address: cannot link to its source
+    from  blend=chateau-comensac-millesime-2014-EN, note=chateau-comensac-millesime-2014-EN, pick=chateau-comensac-millesime-2014-FR
+
+de-camensac|2015   blend,note,pick
+    note    D L’hiver se limite à quelques rares jours froids et givrés avec des pluies abondantes en décembre et janvier. Juin est soudainement très chaud. La fl
+    !! no address: cannot link to its source
+    from  blend=Camensac-2015-FT-FR-34.pdf, note=Camensac-2015-FT-FR-34.pdf, pick=Camensac-2015-FT-FR-34.pdf
+
+de-camensac|2016   blend,note,pick
+    note    D Nous n’avons pas connu d’hiver. Trop doux et trop humide. En six mois, il tombe plus de pluie que lors d’une année moyenne. Une fenêtre ensoleillée 
+    !! no address: cannot link to its source
+    !! note reads as a tasting note (aromas of, the finish) and there is no taste field: one paragraph doing both jobs
+    from  blend=Camensac-2016-FT-FR-34.pdf, note=Camensac-2016-FT-FR-34.pdf, pick=Camensac-2016-FT-FR-34.pdf
+
+de-camensac|2018   blend,note,pick
+    note    D Après les vendanges, un automne sec s’installe durablement. Puis, à partir de janvier, il tombe en trois mois autant de pluie qu’en un an. Les trava
+    !! no address: cannot link to its source
+    from  blend=chateau-comensac-millesime-2018.pd, note=chateau-comensac-millesime-2018.pd, pick=chateau-comensac-millesime-2018.pd
+
+de-camensac|2019   blend,note,pick
+    note    D L’hiver 2018 est classique donc parfait, assez froid et pas trop humide. Février et mars sont très secs, auxquels succède un mois d’avril fait de pl
+    !! no address: cannot link to its source
+    !! note reads as a tasting note (in the mouth, velvety) and there is no taste field: one paragraph doing both jobs
+    from  blend=chateau-comensac-millesime-2019.pd, note=chateau-comensac-millesime-2019.pd, pick=chateau-comensac-millesime-2019.pd
+
+de-camensac|2020   blend,note,pick
+    note    D La pluie commence en septembre et finit en décembre. Une grande douceur anormale débute en janvier et s’achève fin février. Le premier confinement C
+    !! no address: cannot link to its source
+    from  blend=chateau-comensac-millesime-2020.pd, note=chateau-comensac-millesime-2020.pd, pick=chateau-comensac-millesime-2020.pd
+
+de-camensac|2023   blend,note,pick
+    note    Normalement l’automne et l’hiver nous servent pour re-étoffer les nappes. Or l’hiver est peu humide et très doux, trop doux. Nous craignons même une s
+    !! note reads as a tasting note (aromas of, on the nose, on the palate) and there is no taste field: one paragraph doing both jobs
+    from  blend=FT-CAM-2023-FR-EN-note-JS-et-Terre, note=FT-CAM-2023-FR-EN-note-JS-et-Terre, pick=FT-CAM-2023-FR-EN-note-JS-et-Terre
+
+de-camensac|2024   (no record)
+    !! NO RECORD, 1 document(s) on disk: FT-CAM-2024-FR-EN.pdf
+
+grand: 23 vintage(s) with something to look at
+
+------------------------------------------------------------------------
+La Closerie de Camensac  (second, red)
+------------------------------------------------------------------------
+
+de-camensac|la-closerie-de-camensac|2006   blend,months,oak,pick
+    !! no address: cannot link to its source
+    from  pick=closerie-camensac-millesime-2006-F
+
+de-camensac|la-closerie-de-camensac|2007   blend,note,pick
+    note    D Winter 2007 was not very harsh. However, due to a rather cool month of march, the early april vine bud-break (similar to what happened in 2006) was 
+    !! no address: cannot link to its source
+    from  blend=closerie-camensac-millesime-2007.p, note=closerie-camensac-millesime-2007.p, pick=closerie-camensac-millesime-2007.p
+
+de-camensac|la-closerie-de-camensac|2008   alc,blend,months,note,oak,pick,taste
+    taste   Robe d’un rouge profond. Le nez se révèle marqué par de jolis arômes de fruits noirs, cerise, mûre et quelques notes de bois bien fondues. L’attaque e
+    note    2008 a été marqué par deux accidents climatiques : la gelée début avril et la grêle fin juillet. Pourtant, de juin à mi-juillet, la plante évolue sere
+    !! no address: cannot link to its source
+    from  note=closerie-camensac-millesime-2008-F, pick=closerie-camensac-millesime-2008-F, taste=closerie-camensac-millesime-2008-F
+
+de-camensac|la-closerie-de-camensac|2009   blend,note,pick,window
+    note    D Après une période hivernale assez froide, la campagne viticole 2009 est marquée par un début de saison humide et une fin de saison très sèche : avri
+    window  jusqu’en 2021. Climat D Après une période hivernale assez froide, la campagne viticole 2009 est marquée par un début de saison humide et une fin de sa
+    !! no address: cannot link to its source
+    !! note reads as a tasting note (bouquet, silky tannins) and there is no taste field: one paragraph doing both jobs
+    !! window is a paragraph (277 chars), not a line
+    from  blend=closerie-camensac-millesime-2009.p, note=closerie-camensac-millesime-2009.p, pick=closerie-camensac-millesime-2009.p, window=closerie-camensac-millesime-2009.p
+
+de-camensac|la-closerie-de-camensac|2010   blend,note,pick,window
+    note    D Le sol sort exsangue du millésime 2009. Les vendanges à peine achevées, la pluie tombe abondamment. Elle est de retour au printemps après un hiver r
+    window  jusqu’en 2021. Climat D Le sol sort exsangue du millésime 2009.
+    !! no address: cannot link to its source
+    from  blend=closerie-camensac-millesime-2010.p, note=closerie-camensac-millesime-2010.p, pick=closerie-camensac-millesime-2010.p, window=closerie-camensac-millesime-2010.p
+
+de-camensac|la-closerie-de-camensac|2011   blend,note,pick
+    note    D L’hiver et le début du printemps sont pluvieux. Mai et juin sont caniculaires et très secs. La plante redouble de vigueur. La fleur se passe bien ap
+    !! no address: cannot link to its source
+    from  blend=closerie-camensac-millesime-2011.p, note=closerie-camensac-millesime-2011.p, pick=closerie-camensac-millesime-2011.p
+
+de-camensac|la-closerie-de-camensac|2012   blend,note,pick
+    note    D L’hiver est très humide mais le printemps le sera davantage. Les sous-sols refont leur stock d’eau diminué lors des années précédentes. La plante se
+    !! no address: cannot link to its source
+    from  blend=closerie-camensac-millesime-2012.p, note=closerie-camensac-millesime-2012.p, pick=closerie-camensac-millesime-2012.p
+
+de-camensac|la-closerie-de-camensac|2013   blend,note,pick
+    note    D Dès la fin des vendanges 2012, la pluie est omniprésente jusqu’à mi- février. Près de 600 mm tombent. Et c’est tant mieux, la diète hydrique n’avait
+    !! no address: cannot link to its source
+    from  blend=closerie-camensac-millesime-2013.p, note=closerie-camensac-millesime-2013.p, pick=closerie-camensac-millesime-2013.p
+
+de-camensac|la-closerie-de-camensac|2014   blend,note,pick
+    note    Harvest date Merlot: from September the 22th to October the 14th 2014 Cabernet Sauvignon: from October the 14th to 17th 2014 Blend and comments of tas
+    !! no address: cannot link to its source
+    from  blend=closerie-camensac-millesime-2014-E, note=closerie-camensac-millesime-2014-E, pick=closerie-camensac-millesime-2014-F
+
+de-camensac|la-closerie-de-camensac|2015   blend,note,pick
+    note    D L’hiver se limite à quelques rares jours froids et givrés avec des pluies abondantes en décembre et janvier. Juin est soudainement très chaud. La fl
+    !! no address: cannot link to its source
+    from  blend=closerie-camensac-millesime-2015.p, note=closerie-camensac-millesime-2015.p, pick=closerie-camensac-millesime-2015.p
+
+de-camensac|la-closerie-de-camensac|2016   blend,note,pick
+    note    Nous n’avons pas connu d’hiver. Trop doux et trop humide. En six mois, il tombe plus de pluie que lors d’une année moyenne. Une fenêtre ensoleillée so
+    !! no address: cannot link to its source
+    from  blend=FT-CLO-2016-FR-EN-2.pdf, note=FT-CLO-2016-FR-EN-2.pdf, pick=FT-CLO-2016-FR-EN-2.pdf
+
+de-camensac|la-closerie-de-camensac|2017   blend,note,pick
+    note    Harvest date Merlot: From September the 14th to 20th Cabernet Sauvignon: From October the 20th to 26th Blend and comments of tasting 50% Merlot 50% Ca
+    !! no address: cannot link to its source
+    from  blend=closerie-camensac-millesime-2017-E, note=closerie-camensac-millesime-2017-E, pick=closerie-camensac-millesime-2017-F
+
+de-camensac|la-closerie-de-camensac|2018   blend,note,pick
+    note    D Après les vendanges, un automne sec s’installe durablement. Puis, à partir de janvier, il tombe en trois mois autant de pluie qu’en un an. Les trava
+    !! no address: cannot link to its source
+    from  blend=closerie-camensac-millesime-2018.p, note=closerie-camensac-millesime-2018.p, pick=closerie-camensac-millesime-2018.p
+
+de-camensac|la-closerie-de-camensac|2019   blend,note,pick
+    note    D L’hiver 2018 est classique donc parfait, assez froid et pas trop humide. Février et mars sont très secs auxquels succède un mois d’avril fait de plu
+    !! no address: cannot link to its source
+    from  blend=closerie-camensac-millesime-2019.p, note=closerie-camensac-millesime-2019.p, pick=closerie-camensac-millesime-2019.p
+
+de-camensac|la-closerie-de-camensac|2020   blend,note,pick
+    note    D La pluie commence en septembre et finit en décembre. Une grande douceur anormale débute en janvier et s’achève fin février. Le premier confinement C
+    !! no address: cannot link to its source
+    from  blend=FT-CLO-2020.pdf, note=FT-CLO-2020.pdf, pick=FT-CLO-2020.pdf
+
+de-camensac|la-closerie-de-camensac|2021   blend,note,pick
+    note    L’automne et l’hiver suivant les vendanges sont trop pluvieux et trop doux. Mars surprend avec des températures trop chaudes. La vigne se méprend et c
+    !! no address: cannot link to its source
+    from  blend=FT-CLO-2021.pdf, note=FT-CLO-2021.pdf, pick=FT-CLO-2021.pdf
+
+de-camensac|la-closerie-de-camensac|2022   blend,pick
+    !! no address: cannot link to its source
+    from  blend=FT-CLO-2022-FR-EN.pdf, pick=FT-CLO-2022-FR-EN.pdf
+
+la-closerie-de-camensac: 17 vintage(s) with something to look at

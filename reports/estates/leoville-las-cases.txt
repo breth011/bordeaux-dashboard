@@ -1,0 +1,43 @@
+========================================================================
+leoville-las-cases
+========================================================================
+10 document(s) in the manifest, 9 vintage(s) of them
+the estate's other wines, from cuvees.js:
+   none listed - if the estate makes any, that is the first thing to fix
+
+leoville-las-cases|2010   (no record)
+    !! NO RECORD, 1 document(s) on disk: Leoville-Las-Cases-2010-FT-GB-1.pdf
+
+leoville-las-cases|2011   alc,blend,oak,ph,pick,via
+    !! no address: cannot link to its source
+    from  oak=Leoville-las-cases-2011.pdf, pick=Leoville-las-cases-2011.pdf
+
+leoville-las-cases|2012   alc,blend,note,ph,pick,via
+    note    Les décalages de stades liés à un débourrement très étalé furent en partie corrigés par le temps sec et ensoleillé qui s’installa à partir de mi-juill
+    !! no address: cannot link to its source
+    from  note=Leoville-Las-Cases-2012.pdf, pick=Leoville-Las-Cases-2012.pdf
+
+leoville-las-cases|2013   alc,blend,ph,via,yld
+    !! no document of its own in the manifest for this vintage
+    !! no address: cannot link to its source
+
+leoville-las-cases|2014   (no record)
+    !! NO RECORD, 1 document(s) on disk: Leoville-las-cases-2014-FT-GB-1.pdf
+
+leoville-las-cases|2015   alc,blend,note,ph,pick,press,via
+    note    Le mois d'avril, ensoleillé et particulièrement chaud dès sa première quinzaine, a déclenché un débourrement rapide et régulier, posant les bases d'un
+    !! no address: cannot link to its source
+    from  note=Leoville-Las-Cases-2015-FT-GB-1.pd, pick=Leoville-Las-Cases-2015-FT-GB-1.pd
+
+leoville-las-cases|2016   (no record)
+    !! NO RECORD, 1 document(s) on disk: Leoville-Las-Cases-2016-FT-GB-1.pdf
+
+leoville-las-cases|2017   alc,blend,oak,ph,pick,press,via
+    !! no address: cannot link to its source
+    from  oak=Leoville-Las-Cases-2017-FT-DR.pdf, pick=Leoville-Las-Cases-2017-FT-DR.pdf
+
+leoville-las-cases|2018   alc,blend,ph,pick,via
+    !! no address: cannot link to its source
+    from  pick=Leoville-Las-Cases-2018-FT-FR-EN.p
+
+grand: 9 vintage(s) with something to look at

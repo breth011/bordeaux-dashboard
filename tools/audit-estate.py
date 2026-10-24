@@ -205,10 +205,25 @@ def suspicions(key, yr, flds, seen_prose, plant):
         # vintage - is refused by declares_another_vintage at read
         # time, so this only asks about a passage opening on a year.
         if f in ('note', 'taste') and str(yr) not in v:
-            lead = set(YEARS.findall(v[:20]))
+            # Only a year more than one BEFORE the vintage. Everything
+            # else the check used to raise was legitimate:
+            #   "The winter of 2020-21 began with a dry November"
+            #   "Since October 2010, the average rainfall has been"
+            #       - a season note opens on the preceding autumn or
+            #         winter, because that is when the year begins
+            #   "In April 2023 the wines show a fine colour"
+            #       - a tasting note opens on its tasting date, which
+            #         is always after the vintage
+            #   "As in 1993, this vintage is characterized by"
+            #       - a comparison with the year before
+            # All eight it raised across the 61 estates were of those
+            # three shapes. A passage opening on a year two or more
+            # before the vintage is the one that cannot be explained.
+            lead = sorted(int(x) for x in YEARS.findall(v[:20])
+                          if int(x) < yr - 1)
             if lead:
                 out.append('%s never says %s and opens on %s'
-                           % (f, yr, ', '.join(sorted(lead))))
+                           % (f, yr, ', '.join(str(x) for x in lead)))
         if f in ('window', 'decant', 'food') and len(v) > 220:
             out.append('%s is a paragraph (%d chars), not a line'
                        % (f, len(v)))

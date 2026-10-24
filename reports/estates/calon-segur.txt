@@ -1,0 +1,82 @@
+========================================================================
+calon-segur
+========================================================================
+54 document(s) in the manifest, 14 vintage(s) of them
+the estate's other wines, from cuvees.js:
+   Le Marquis de Calon-Ségur          second  red      6 record(s)
+
+calon-segur|2011   months,oak,yld
+    !! no address: cannot link to its source
+    from  oak=Calon-Segur-2011-FT-FR-33.pdf
+
+calon-segur|2012   months,oak,pick,yld
+    !! no address: cannot link to its source
+    from  oak=Calon-Segur-2012-FT-FR-33.pdf, pick=Calon-Segur-2012-FT-GB-33.pdf
+
+calon-segur|2013   blend,months,oak,yld
+    !! no address: cannot link to its source
+
+calon-segur|2014   oak,yld
+    !! no address: cannot link to its source
+    from  oak=Calon-Segur-2014-FT-FR-33.pdf, yld=Calon-Segur-2014-FT-GB-33.pdf
+
+calon-segur|2015   blend,oak,yld
+    !! no address: cannot link to its source
+    from  oak=Calon-Segur-2015-FT-FR-33.pdf, yld=Calon-Segur-2015-FT-GB-33.pdf
+
+calon-segur|2016   blend,oak,yld
+    !! no address: cannot link to its source
+    from  oak=Calon-Segur-2016-FT-FR-33-1.pdf, yld=Calon-Segur-2016-FT-GB-33.pdf
+
+calon-segur|2017   blend,months,oak,yld
+    !! no address: cannot link to its source
+    from  oak=Calon-Segur-2017-FT-FR.pdf, yld=Calon-Segur-2017-FT-GB.pdf
+
+calon-segur|2018   months,oak,yld
+    !! no address: cannot link to its source
+    from  months=FT_CdeCalon_FR_generale.pdf, oak=Calon-Segur-2018-FT-FR.pdf, yld=Calon-Segur-2018-FT-GB.pdf
+
+calon-segur|2019   oak,yld
+    !! no address: cannot link to its source
+    from  oak=Fiche_Technique_Chateau_CALON_SEGU, yld=Fiche_Technique_Chateau_CALON_SEGU
+
+calon-segur|2023   oak,yld
+    !! no address: cannot link to its source
+    from  oak=Fiche_Technique_Chateau_CALON_SEGU, yld=Fiche_Technique_Chateau_CALON_SEGU
+
+calon-segur|2024   blend,months,note,oak,pick,yld
+    note    Entre les mois de décembre 2023 et de mars 2024, l’hiver s’est caractérisé par des températures plus douces (+0,85°C) et
+    !! no address: cannot link to its source
+    from  note=CS_A6_Carnet_Degust_Mars_2025.pdf, oak=CS_A6_Carnet_Degust_Mars_2025.pdf, pick=CS_A6_Carnet_Degust_Mars_2025.pdf, yld=CS_A6_Carnet_Degust_Mars_2025.pdf
+
+grand: 11 vintage(s) with something to look at
+
+------------------------------------------------------------------------
+Le Marquis de Calon-Ségur  (second, red)
+------------------------------------------------------------------------
+
+calon-segur|le-marquis-de-calon-segur|2014   oak,pick,yld
+    !! no address: cannot link to its source
+    from  oak=Marquis-de-Calon-Segur-2014-FT-GB-, pick=Marquis-de-Calon-Segur-2014-FT-GB-, yld=Marquis-de-Calon-Segur-2014-FT-GB-
+
+calon-segur|le-marquis-de-calon-segur|2015   oak,pick,yld
+    !! no address: cannot link to its source
+    from  oak=Marquis-de-Calon-Segur-2015-FT-GB-, pick=Marquis-de-Calon-Segur-2015-FT-GB-, yld=Marquis-de-Calon-Segur-2015-FT-GB-
+
+calon-segur|le-marquis-de-calon-segur|2019   oak,pick,yld
+    !! no address: cannot link to its source
+    from  oak=Fiche_Technique_LE_MARQUIS_DE_CALO, pick=Fiche_Technique_LE_MARQUIS_DE_CALO, yld=Fiche_Technique_LE_MARQUIS_DE_CALO
+
+calon-segur|le-marquis-de-calon-segur|2021   oak,pick,yld
+    !! no address: cannot link to its source
+    from  oak=ft_marquis-de-calon-segur-2021-1.p, pick=ft_marquis-de-calon-segur-2021-1.p, yld=ft_marquis-de-calon-segur-2021-1.p
+
+calon-segur|le-marquis-de-calon-segur|2022   oak,pick,yld
+    !! no address: cannot link to its source
+    from  oak=ft_marquis-de-calon-segur-2022_mar, pick=ft_marquis-de-calon-segur-2022_mar, yld=ft_marquis-de-calon-segur-2022_mar
+
+calon-segur|le-marquis-de-calon-segur|2023   oak,pick,yld
+    !! no address: cannot link to its source
+    from  oak=Fiche_Technique_LE_MARQUIS_DE_CALO, pick=Fiche_Technique_LE_MARQUIS_DE_CALO, yld=Fiche_Technique_LE_MARQUIS_DE_CALO
+
+le-marquis-de-calon-segur: 6 vintage(s) with something to look at

@@ -1,0 +1,132 @@
+========================================================================
+lagrange
+========================================================================
+108 document(s) in the manifest, 18 vintage(s) of them
+the estate's other wines, from cuvees.js:
+   Les Fiefs de Lagrange              second  red     12 record(s)
+
+lagrange|2010   blend,months,oak,pick,taste
+    taste   Deep and intense colour, red and black fruits aromas, toasted and vanilla notes. In the nose, impression of freshness. Attack very firm in mouth and i
+    !! no address: cannot link to its source
+    from  oak=Lagrange-2010-FT-GB-105.pdf, pick=Lagrange-2010-FT-GB-105.pdf, taste=Lagrange-2010-FT-GB-105.pdf
+
+lagrange|2014   blend,months,note,oak,pick
+    note    LE MILLESIME Après un débourrement précoce de la vigne à la sortie d'un hiver doux, un régime climatique instable, constitué d'une succession d'épisod
+    !! no address: cannot link to its source
+    from  note=Lagrange-2014-FT-FR-105.pdf, oak=Lagrange-2014-FT-FR-105.pdf, pick=Lagrange-2014-FT-FR-105.pdf
+
+lagrange|2015   blend,months,note,oak,pick,taste
+    taste   Dark purple red with violet hue and almost black core. Aromatic nose with elegant character, dark berries, discreet oak spices and very fine toasting 
+    note    LE MILLESIME Les conditions sèches et douces du printemps ont rapidement favorisé le débourrement de la vigne sans pour autant parler de millésime pré
+    !! no address: cannot link to its source
+    from  note=Lagrange-2015-FT-FR-105.pdf, oak=Lagrange-2015-FT-FR-105.pdf, pick=Lagrange-2015-FT-FR-105.pdf, taste=Lagrange-2015-FT-FR-105.pdf
+
+lagrange|2016   blend,months,note,oak,ph,pick,taste
+    taste   Dark and deep with purple tint. Blackcherry, blackcurrant, liquorice and black pepper on the nose. Full-bodied, freshness with menthol, round, powerfu
+    note    LE MILLESIME Les conditions humides et douces du printemps ont favorisé le débourrement de la vigne sans pour autant parler de millésime précoce. La f
+    !! no address: cannot link to its source
+    from  note=Lagrange-2016-FT-FR-105.pdf, oak=Lagrange-2016-FT-FR-105.pdf, pick=Lagrange-2016-FT-FR-105.pdf, taste=Lagrange-2016-FT-FR-105.pdf
+
+lagrange|2017   blend,months,oak,pick,taste
+    taste   Ruby color with purple tint on the rim, black cherry, licorice, blackcurrant. Silky and unctuous with a lot of freshness. This vintage impress regardi
+    !! no address: cannot link to its source
+    from  oak=Lagrange-2017-FT-FR.pdf, pick=Lagrange-2017-FT-FR.pdf, taste=Lagrange-2017-FT-FR.pdf
+
+lagrange|2019   blend,months,note,oak,pick,taste
+    taste   The character of our unique terroir and our technical team’s expertise have allowed this vintage to surpass itself. It boasts both phenolic richness a
+    note    THE VINTAGE 2019, just like 2018, will be remembered for its really contrasting weather. We had a cold, wet spring, and then a dry, hot summer with re
+    !! no address: cannot link to its source
+    from  note=Fiche_Technique_CHATEAU_LAGRANGE_S, oak=Fiche_Technique_CHATEAU_LAGRANGE_S, pick=Fiche_Technique_CHATEAU_LAGRANGE_S, taste=Fiche_Technique_CHATEAU_LAGRANGE_S
+
+lagrange|2020   blend,months,note,ntl,oak,pick
+    note    With the health crisis, working habits were somewhat disrupted: the ability to adapt was the saving of the estate and of our teams in holding our cour
+    !! no address: cannot link to its source
+    from  note=Chateau-Lagrange-2020-FR.pdf, oak=Chateau-Lagrange-2020-FR.pdf, pick=Chateau-Lagrange-2020-FR.pdf
+
+lagrange|2021   blend,months,note,oak,pick,taste
+    taste   Dark red colour with a crimson tint. Aromatic notes of red fruit, such as strawberry or raspberry. The attack is supple and fleshy. With 84% of Cabern
+    note    THE VINTAGE The total rainfall of recorded in 2021 was lower than the average of the past 25 years. It is interesting to note that temperatures remain
+    !! no address: cannot link to its source
+    from  note=ft_lagrange-2021.pdf, oak=ft_lagrange-2021-1.pdf, pick=ft_lagrange-2021-1.pdf, taste=ft_lagrange-2021.pdf
+
+lagrange|2022   blend,months,oak,pick,taste
+    taste   Unrivalled quality, in line with what we could have wished to produce from such a sunny vintage! The nose is intense, with notes of persistent red and
+    !! no address: cannot link to its source
+    from  oak=Chateau-Lagrange-2022-EN.pdf, pick=Chateau-Lagrange-2022-EN.pdf, taste=pagus-de-lagrange-2022-en.pdf
+
+lagrange|2023   blend,harvest,months,note,oak,pick,taste,yld
+    taste   Pagus de Lagrange 2023 has an open nose of ripe red fruit with a hint of spice. The palate is full­bodied, generous and beautifully fresh : black cher
+    note    Although there was less sunshine than in a vintage such as 2022, it remained well above the average of the last twenty years.
+    !! no address: cannot link to its source
+    from  months=chateau-lagrange-2023-fr.pdf, oak=chateau-lagrange-2023-fr.pdf, taste=fiche-technique-pagus-de-lagrange-
+
+lagrange|2025   blend,harvest,months,note,ntl,oak,pick,taste,ttl
+    taste   It brings density, freshness and length to the wine’s structure. The 18% merlot softens the attack and enriches the mid-palate, while petit verdot ens
+    note    These figures come from Château Lagrange's own weather station, in place since the winter of 1996. With annual rainfall of 830 mm, 2025 records a tota
+    !! note is word for word lagrange|2024’s
+    from  months=Chateau-Lagrange-2025-FR.pdf, oak=Chateau-Lagrange-2025-FR.pdf, taste=chateau-lagrange-2025-en.pdf
+
+grand: 11 vintage(s) with something to look at
+
+------------------------------------------------------------------------
+Les Fiefs de Lagrange  (second, red)
+------------------------------------------------------------------------
+
+lagrange|les-fiefs-de-lagrange|2013   blend,months,note,oak,pick,taste
+    taste   Les Fiefs de Lagrange (86-88 pts) The Les Fiefs de Lagrange, a blend of 61% Cabernet Sauvignon, 30% Merlot and 9% Petit Verdot, has plenty of vanillar
+    note    Influencé par les deux masses d’eau que sont d’une part la Gironde et d’autre part la proximité de l’Océan Atlantique. 111 hectares de vigne rouge. LE
+    !! no address: cannot link to its source
+    from  note=Fiefs-de-Lagrange-2013.pdf, oak=Fiefs-de-Lagrange-2013.pdf, pick=Fiefs-de-Lagrange-2013.pdf, taste=Fiefs-de-Lagrange-2013.pdf
+
+lagrange|les-fiefs-de-lagrange|2014   months,note,oak,pick,taste
+    taste   Couleur rouge franc avec des reflets pourpres, un nez complexe, une bouche gourmande : voilà comment décrire ce grand millésime de Fief ! Cerise, cass
+    note    Influencé par les deux masses d’eau que sont d’une part la Gironde et d’autre part la proximité de l’Océan Atlantique. 111 hectares de vigne rouge. LE
+    !! no address: cannot link to its source
+    !! note is word for word lagrange|les-fiefs-de-lagrange|2013’s
+    from  note=Fiefs-de-Lagrange-2014-FT-FR-228.p, oak=Fiefs-de-Lagrange-2014-FT-FR-228.p, pick=Fiefs-de-Lagrange-2014-FT-FR-228.p, taste=Fiefs-de-Lagrange-2014-FT-FR-228.p
+
+lagrange|les-fiefs-de-lagrange|2015   months,note,oak,pick,taste
+    taste   Brilliant nice color with purple hues, black and red fruits notes. Fresh on the palate with menthol and spices. Well balanced between the acidity and 
+    note    Influencé par les deux masses d’eau que sont d’une part la Gironde et d’autre part la proximité de l’Océan Atlantique. 118 hectares de vigne rouge. LE
+    !! no address: cannot link to its source
+    !! note is word for word lagrange|les-fiefs-de-lagrange|2013’s
+    from  note=Fiefs-de-Lagrange-2015-FT-FR-228.p, oak=Fiefs-de-Lagrange-2015-FT-FR-228.p, pick=Fiefs-de-Lagrange-2015-FT-FR-228.p, taste=Fiefs-de-Lagrange-2015-FT-FR-228.p
+
+lagrange|les-fiefs-de-lagrange|2016   alc,blend,months,note,oak,ph,pick,taste
+    taste   Dark and purple color, it has a very intense bouquet, with pure black cherry, crème de cassis and crushed violets. The palate has crisp acidity, quite
+    note    Influencé par les deux masses d’eau que sont d’une part la Gironde et d’autre part la proximité de l’Océan Atlantique. 118 hectares de vigne rouge. LE
+    !! no address: cannot link to its source
+    !! note is word for word lagrange|les-fiefs-de-lagrange|2013’s
+    from  alc=Fiefs-de-Lagrange-2016-FT-FR-228.p, note=Fiefs-de-Lagrange-2016-FT-FR-228.p, oak=Fiefs-de-Lagrange-2016-FT-FR-228.p, pick=Fiefs-de-Lagrange-2016-FT-FR-228.p, taste=Fiefs-de-Lagrange-2016-FT-FR-228.p
+
+lagrange|les-fiefs-de-lagrange|2017   blend,months,oak,pick,taste
+    taste   Robe pourpre, arômes de fruits rouges et d’épices. Des tanins racés déjà très intégrés qui lui confère une accessibilité presque immédiate ainsi qu’un
+    !! no address: cannot link to its source
+    from  blend=Fiefs-de-Lagrange-2017-FT-FR.pdf, oak=Fiefs-de-Lagrange-2017-FT-FR.pdf, pick=Fiefs-de-Lagrange-2017-FT-FR.pdf, taste=Fiefs-de-Lagrange-2017-FT-FR.pdf
+
+lagrange|les-fiefs-de-lagrange|2019   blend,months,note,oak,pick,taste
+    taste   Les Fiefs de Lagrange 2019 may surprise you with its pure harmony! The nose offers a subtle marriage of black and red fruit, peppered with spicy notes
+    note    THE VINTAGE 2019, just like 2018, will be remembered for its really contrasting weather. We had a cold, wet spring, and then a dry, hot summer with re
+    !! no address: cannot link to its source
+    from  note=Les-Fiefs-de-Lagrange-2019-EN.pdf, oak=Les-Fiefs-de-Lagrange-2019-EN.pdf, pick=Les-Fiefs-de-Lagrange-2019-EN.pdf, taste=Les-Fiefs-de-Lagrange-2019-EN.pdf
+
+lagrange|les-fiefs-de-lagrange|2020   blend,months,note,oak,pick
+    note    THE VINTAGE 2020, a unique year in so many ways, will forever remain in our memories. Our work routines were upset by the pandemic and our capacity to
+    !! no address: cannot link to its source
+    from  note=Les-Fiefs-de-Lagrange-2020-EN.pdf, oak=Les-Fiefs-de-Lagrange-2020-EN.pdf, pick=Les-Fiefs-de-Lagrange-2020-EN.pdf
+
+lagrange|les-fiefs-de-lagrange|2021   blend,months,note,oak,pick,taste
+    taste   The colour is a brilliant bright red. Nice tangy aromas of redcurrant and blackcurrant. Produced from vines that are on average 30 years old, Les Fief
+    note    THE VINTAGE The total rainfall of recorded in 2021 was lower than the average of the past 25 years. It is interesting to note that temperatures remain
+    !! no address: cannot link to its source
+    from  note=ft_fiefs-de-lagrange-2021-1.pdf, oak=ft_fiefs-de-lagrange-2021-1.pdf, pick=ft_fiefs-de-lagrange-2021-1.pdf, taste=ft_fiefs-de-lagrange-2021-1.pdf
+
+lagrange|les-fiefs-de-lagrange|2022   blend,months,oak,pick
+    !! no address: cannot link to its source
+    from  oak=Les-Fiefs-de-Lagrange-2022-EN.pdf, pick=Les-Fiefs-de-Lagrange-2022-EN.pdf
+
+lagrange|les-fiefs-de-lagrange|2024   blend,months,oak,pick
+    !! no address: cannot link to its source
+    from  oak=Les-Fiefs-de-Lagrange-2024-EN_.pdf, pick=Les-Fiefs-de-Lagrange-2024-EN_.pdf
+
+les-fiefs-de-lagrange: 10 vintage(s) with something to look at

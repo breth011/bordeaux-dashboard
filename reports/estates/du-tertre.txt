@@ -1,0 +1,78 @@
+========================================================================
+du-tertre
+========================================================================
+26 document(s) in the manifest, 12 vintage(s) of them
+the estate's other wines, from cuvees.js:
+   Les Hauts du Tertre                second  red     12 record(s)
+
+du-tertre|2020   blend,months,oak,pick,via
+    !! no address: cannot link to its source
+    from  pick=Fiche_technique_Chateau_DU_TERTRE_
+
+du-tertre|2022   blend,oak,pick,taste,ttl
+    taste   The Cabernet Franc is elegant, fine and silky, with the tension typical of that variety. Concentration, richness of fruit and tannic power are the mar
+    !! no address: cannot link to its source
+    from  oak=FT-Chateau-du-Tertre-2022-ENG.pdf, pick=FT-Chateau-du-Tertre-2022-ENG.pdf, taste=FT-Chateau-du-Tertre-2022-FR.pdf
+
+du-tertre|2023   blend,months,oak,pick,via
+    !! no address: cannot link to its source
+    from  pick=FT-CHATEAU-DU-TERTRE-2023-ANG.pdf
+
+du-tertre|2024   blend,months,oak,pick,taste,via
+    taste   First impressions are of dark fruits, subtle smoke and notes of raw cocoa. The bouquet is sophisticated and complex. The palate is bold and dense, sup
+    !! no address: cannot link to its source
+    from  pick=FT_CHATEAU_DU_TERTRE_2024-ANG.pdf, taste=FT_CHATEAU_DU_TERTRE_2024-ANG.pdf
+
+grand: 4 vintage(s) with something to look at
+
+------------------------------------------------------------------------
+Les Hauts du Tertre  (second, red)
+------------------------------------------------------------------------
+
+du-tertre|les-hauts-du-tertre|2011   blend,months,oak
+    !! no address: cannot link to its source
+
+du-tertre|les-hauts-du-tertre|2013   alc,months,oak,yld
+    !! no address: cannot link to its source
+    from  alc=Haut-du-Tertre-2013-FT-FR-C1145.pd, oak=Haut-du-Tertre-2013-FT-GB-C1145.pd
+
+du-tertre|les-hauts-du-tertre|2014   months,oak
+    !! no address: cannot link to its source
+
+du-tertre|les-hauts-du-tertre|2016   months,oak
+    !! no address: cannot link to its source
+
+du-tertre|les-hauts-du-tertre|2017   months,oak
+    !! no address: cannot link to its source
+
+du-tertre|les-hauts-du-tertre|2018   blend,months,pick
+    !! no address: cannot link to its source
+    from  blend=Hauts-du-Tertre-2018-FT-FRGB-1.pdf, pick=Hauts-du-Tertre-2018-FT-FRGB-1.pdf
+
+du-tertre|les-hauts-du-tertre|2019   blend,months,pick
+    !! no address: cannot link to its source
+    from  pick=FT_LES_HAUTS-DU-TERTRE_2019.pdf
+
+du-tertre|les-hauts-du-tertre|2020   blend,months,pick
+    !! no address: cannot link to its source
+    from  pick=FT_LES_HAUTS-DU-TERTRE_2020.pdf
+
+du-tertre|les-hauts-du-tertre|2021   blend,months,oak,pick
+    !! no address: cannot link to its source
+    from  oak=Hauts-du-Tertre-2021-FT-GB.pdf, pick=Hauts-du-Tertre-2021-FT-GB.pdf
+
+du-tertre|les-hauts-du-tertre|2022   months,oak,pick
+    !! no address: cannot link to its source
+    !! months is 3, outside 4-36
+    from  pick=FT-Les-Hauts-du-Tertre-2022-ENG.pd
+
+du-tertre|les-hauts-du-tertre|2023   blend,months,oak,pick
+    !! no address: cannot link to its source
+    from  blend=FT-LES-HAUTS-DU-TERTRE-2023-ANG.pd, pick=FT-LES-HAUTS-DU-TERTRE-2023-ANG.pd
+
+du-tertre|les-hauts-du-tertre|2024   blend,months,oak,pick,taste
+    taste   Dominated by Cabernet Sauvignon (65%), it exhibits rich, juicy fruit and a density that adds a “serious” element, something new for this wine. Caberne
+    !! no address: cannot link to its source
+    from  blend=FT_LES-HAUTS-DU-TERTRE_2024_ANG.pd, pick=FT_LES-HAUTS-DU-TERTRE_2024_ANG.pd, taste=FT_LES-HAUTS-DU-TERTRE_2024_ANG.pd
+
+les-hauts-du-tertre: 12 vintage(s) with something to look at

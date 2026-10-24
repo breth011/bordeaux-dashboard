@@ -1,0 +1,23 @@
+========================================================================
+malescot
+========================================================================
+31 document(s) in the manifest, 29 vintage(s) of them
+the estate's other wines, from cuvees.js:
+   none listed - if the estate makes any, that is the first thing to fix
+
+malescot|1992   (no record)
+    !! NO RECORD, 1 document(s) on disk: 1992__malescot-chateau-malescot-saint-exupery.txt
+
+malescot|1997   (no record)
+    !! NO RECORD, 1 document(s) on disk: 1997__malescot-chateau-malescot-saint-exupery.txt
+
+malescot|2011   (no record)
+    !! NO RECORD, 1 document(s) on disk: 2011__malescot-chateau-malescot-saint-exupery.txt
+
+malescot|2018   blend,decant,months,oak,pick,taste,ttl,via,yld
+    taste   What matters is that it be good. The balance and the depth are there. The tannins are silky. It is rare to find freshness this year, because of the we
+    decant  For maximum enjoyment Decant the wine 4 hours before serving.
+    !! no address: cannot link to its source
+    from  decant=2018__malescot-chateau-malescot-sa, pick=Malescot-St-Exupery-2018-FT-FR-1.p, taste=Malescot-St-Exupery-2018-FT-FR-1.p
+
+grand: 4 vintage(s) with something to look at

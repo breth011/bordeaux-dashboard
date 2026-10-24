@@ -1,0 +1,285 @@
+========================================================================
+dauzac
+========================================================================
+98 document(s) in the manifest, 26 vintage(s) of them
+the estate's other wines, from cuvees.js:
+   Aurore de Dauzac                   other   red     12 record(s)
+   D de Dauzac Blanc                  other   white    4 record(s)
+   Dauzac Franc de Pied               other   red      4 record(s)
+   La Bastide Dauzac                  second  red     12 record(s)
+   Le Haut-Médoc de Dauzac            other   red     11 record(s)
+
+dauzac|2005   blend,months,note,ntl,oak,press,taste,ttl
+    taste   Appearance: intense, deep ruby, almost black. Nose: a nose of exceptional power, which delighted the experienced André Lurton. A nose very much centre
+    note    From winter through to autumn the weather was exceptionally dry for the region.
+    !! blend is exactly the planting, which is a different claim
+
+grand: 1 vintage(s) with something to look at
+
+------------------------------------------------------------------------
+Aurore de Dauzac  (other, red)
+------------------------------------------------------------------------
+
+dauzac|aurore-de-dauzac|2013   blend,months,note
+    note    Il y a des millésimes, dans la vie d’une propriété qui laissent une empreinte. Le millésime 2013 aura été la marque d’une histoire humaine avec un ter
+    !! no address: cannot link to its source
+    from  note=FT_AURORE-DE-DAUZAC-2013.pdf
+
+dauzac|aurore-de-dauzac|2014   blend,months,note
+    note    Un climat atypique avec un hiver doux et pluvieux, un printemps précoce avec des températures douces mais des nuits fraîches. Le mois de mai a été mit
+    !! no address: cannot link to its source
+    from  note=FT_AURORE-DE-DAUZAC-2014.pdf
+
+dauzac|aurore-de-dauzac|2015   blend,months,note,oak
+    note    La chaleur de l’été a laissé place à la luminosité du mois de septembre, nous laissant le souvenir d’une floraison très homogène et d’un été sec et te
+    !! no address: cannot link to its source
+    from  note=FT_AURORE-DE-DAUZAC-2015.pdf, oak=FT_AURORE-DE-DAUZAC-2015.pdf
+
+dauzac|aurore-de-dauzac|2016   blend,months,note
+    note    Un début d’année sous un climat océanique suivi d’une période durable de soleil et de chaleur jusqu’au 13 septembre où des précipitations per- mirent 
+    !! no address: cannot link to its source
+    from  note=FT_AURORE-DE-DAUZAC-2016.pdf
+
+dauzac|aurore-de-dauzac|2017   blend,months,note,pick
+    note    Un hiver plutôt sec et ensoleillé suivi d’un mois de mars doux ont permis aux premières feuilles de vigne d’être très précoces. Les fortes gelées prin
+    !! no address: cannot link to its source
+    from  note=FT_AURORE-DE-DAUZAC-2017.pdf, pick=FT_AURORE-DE-DAUZAC-2017.pdf
+
+dauzac|aurore-de-dauzac|2018   blend,months,note,pick
+    note    Comme tous les grands millésimes, la météo a joué un rôle essentiel dans la construction du millésime 2018. Un hiver doux et pluvieux ayant permis à l
+    !! no address: cannot link to its source
+    from  note=FT_AURORE-DE-DAUZAC-2018_FR.pdf, pick=FT_AURORE-DE-DAUZAC-2018_FR.pdf
+
+dauzac|aurore-de-dauzac|2019   blend,months,note,pick
+    note    Le savoir-faire des équipes et le bon sens paysan nous ont permis de conduire à bien ce beau millésime. Après un hiver alternant période de douceur et
+    !! no address: cannot link to its source
+    from  note=FT_AURORE-DE-DAUZAC-2019.pdf, pick=FT_AURORE-DE-DAUZAC-2019.pdf
+
+dauzac|aurore-de-dauzac|2020   blend,months,pick,taste
+    taste   La robe est sombre et profonde. Le nez frais est marqué par le fruit à bonne maturité avec une pointe de menthe.
+    !! no address: cannot link to its source
+    from  pick=FT_AURORE-DE-DAUZAC-2020_FR.pdf, taste=FT_AURORE-DE-DAUZAC-2020_FR.pdf
+
+dauzac|aurore-de-dauzac|2021   alc,blend,months,note,oak,pick,taste
+    taste   Son apparence est rouge brillant aux refl ets rubis. Le nez est marqué par les fruits rouges avec une expression légérement fl orale. Une belle présen
+    note    Nous avons travaillé sans relâche pour protéger nos vignes de la pression maladie. Le millésime commence par un hiver particulièrement doux et pluvieu
+    !! no address: cannot link to its source
+    from  note=FT_AURORE-DE-DAUZAC-2021_FR.pdf, oak=FT_AURORE-DE-DAUZAC-2021_FR.pdf, pick=FT_AURORE-DE-DAUZAC-2021_FR.pdf, taste=FT_AURORE-DE-DAUZAC-2021_FR.pdf
+
+dauzac|aurore-de-dauzac|2022   alc,blend,months,note,oak,pick,taste
+    taste   Le nez est floral avec des notes de fruits rouges frais. Des tannins présents mais soyeux qui portent une jolie longueur.
+    note    L’hiver particulièrement doux a entrainé un débourrement très précoce. Les gelées ont été évitées durant les nuits fraîches du mois d’avril. Encore un
+    !! no address: cannot link to its source
+    from  note=FT_AURORE-DE-DAUZAC_2022_NOTES_FR-, oak=FT_AURORE-DE-DAUZAC_2022_NOTES_FR-, pick=FT_AURORE-DE-DAUZAC_2022_NOTES_FR-, taste=FT_AURORE-DE-DAUZAC_2022_NOTES_FR-
+
+dauzac|aurore-de-dauzac|2023   alc,blend,months,oak,pick,taste
+    taste   D’une robe rouge brillant aux reflets rubis, Aurore 2023 dévoile des notes de fruits rouges avec une expression légèrement florale.
+    !! no address: cannot link to its source
+    from  oak=FT_AURORE-DE-DAUZAC_2023_FR_NOTES., pick=FT_AURORE-DE-DAUZAC_2023_FR_NOTES., taste=FT_AURORE-DE-DAUZAC_2023_FR_NOTES.
+
+dauzac|aurore-de-dauzac|2024   alc,blend,months,note,oak,pick,taste
+    taste   Sa robe est brillante avec des reflets rubis. Au nez, des arômes de fruits rouges s’entrelacent avec une touche florale.
+    note    Après un hiver relativement doux, le printemps a offert des conditions globalement favorables, avec une floraison homogène et précoce, annonçant un po
+    !! no address: cannot link to its source
+    from  note=FT_AURORE-DE-DAUZAC_2024_FR_NOTES., oak=FT_AURORE-DE-DAUZAC_2024_FR_NOTES., pick=FT_AURORE-DE-DAUZAC_2024_FR_NOTES., taste=FT_AURORE-DE-DAUZAC_2024_FR_NOTES.
+
+aurore-de-dauzac: 12 vintage(s) with something to look at
+
+------------------------------------------------------------------------
+D de Dauzac Blanc  (other, white)
+------------------------------------------------------------------------
+
+dauzac|d-de-dauzac-blanc|2021   food,note
+    note    Nous avons travaillé sans relâche pour protéger nos vignes de la pression maladie. Le millésime commence par un hiver particulièrement doux et pluvieu
+    food    Elevage : sur lies long en cuves Viande blanche, poisson, crustacés, fromages type Comté.
+    !! no address: cannot link to its source
+    from  note=FT_D-DE-DAUZAC-2021_blanc_FR-1.pdf
+
+dauzac|d-de-dauzac-blanc|2022   blend,note,taste
+    taste   La bouche est ample et fraîche, la belle acidité confert une grande longueur à ce vin tout en gourmandise et délicatesse.
+    note    L’hiver particulièrement doux a entrainé un débourrement très précoce. Les gelées ont été évitées durant les nuits fraîches du mois d’avril. La florai
+    !! no address: cannot link to its source
+    from  blend=FT_D_DE_DAUZAC_2022_FR-.pdf, note=FT_D_DE_DAUZAC_2022_FR-.pdf, taste=FT_D_DE_DAUZAC_2022_FR-.pdf
+
+dauzac|d-de-dauzac-blanc|2024   alc,blend,pick,taste
+    taste   Tis wine has a lovely, bright, pale-yellow color. Te nose is fresh, fruity and bright. Te palate is greedy, fresh and tangy, with a finish of pretty c
+    !! no address: cannot link to its source
+    from  alc=FT-D-DE-DAUZAC-2024-WHITE-EN-1.pdf, pick=FT-D-DE-DAUZAC-2024-WHITE-EN-1.pdf, taste=FT-D-DE-DAUZAC-2024-WHITE-EN-1.pdf
+
+dauzac|d-de-dauzac-blanc|2025   alc,blend,food,note
+    note    Après un hiver relativement clément, le printemps a offert des conditions globalement favorables au développement de la vigne, avec une floraison homo
+    food    Viande blanche, poisson, crustacés, fromages type ÉLEVAGE Comté.
+    !! no address: cannot link to its source
+    from  alc=FT-D-DE-DAUZAC-BLANC-2025-FR.pdf, note=FT-D-DE-DAUZAC-BLANC-2025-FR.pdf
+
+d-de-dauzac-blanc: 4 vintage(s) with something to look at
+
+------------------------------------------------------------------------
+Dauzac Franc de Pied  (other, red)
+------------------------------------------------------------------------
+
+dauzac|dauzac-franc-de-pied|2021   alc,blend,months,note,pick,taste
+    taste   Le nez est très frais et complexe de fruits rouges et noirs croquants accompagnés d’un bouquet floral. Ce vin marque par sa minéralité éclatante qui d
+    note    Nous avons travaillé sans relâche pour protéger nos vignes de la pression maladie. Le millésime commence par un hiver particulièrement doux et pluvieu
+    !! no address: cannot link to its source
+    from  note=FT_FRANC-DE-PIED_2021_FR.pdf, pick=FT_FRANC-DE-PIED_2021_FR.pdf, taste=FT_FRANC-DE-PIED_2021_FR.pdf
+
+dauzac|dauzac-franc-de-pied|2022   alc,blend,months,note,pick,taste
+    taste   Le nez est très frais avec des notes de fruits rouges et noirs. La bouche est longue et pleine avec une salivation qui donne un coté aérien au vin.
+    note    FRANC DE PIED 2022 CABERNET SAUVIGNON ORIGINEL Le millésime 2022 restera dans les mémoires de tous. L’hiver particulièrement doux a entrainé un débour
+    !! no address: cannot link to its source
+    !! note opens on capitals: FRANC DE PIED 2022 CABERNET SAUVIGNON ORIGINEL Le millésime 2022 reste
+    from  note=FT_FRANC-DE-PIED_2022_FR.pdf, pick=FT_FRANC-DE-PIED_2022_FR.pdf, taste=FT_FRANC-DE-PIED_2022_FR.pdf
+
+dauzac|dauzac-franc-de-pied|2023   alc,blend,months,note,pick,taste
+    taste   Nez très frais et complexe de fruits noirs croquants accompagnés d’un bouquet floral. Notes mentholées, d’épices et d’eucalyptus. Ce vin marqué par sa
+    note    FRANC DE PIED 2023 CABERNET SAUVIGNON ORIGINEL La vigne a démarré plus précocement qu’au cours des dernières décennies. Cette année, les gels de print
+    !! no address: cannot link to its source
+    !! note opens on capitals: FRANC DE PIED 2023 CABERNET SAUVIGNON ORIGINEL La vigne a démarré plus
+    from  note=FT_FRANC-DE-PIED_2023_COMMENTAIRE_, pick=FT_FRANC-DE-PIED_2023_COMMENTAIRE_, taste=FT_FRANC-DE-PIED_2023_COMMENTAIRE_
+
+dauzac|dauzac-franc-de-pied|2024   alc,blend,months,note,pick,taste
+    taste   Ce vin dévoile un nez raffiné et vif, où se mêlent des arômes de fruits noirs juteux et une subtile touche florale. Des accents d’épices et de menthe 
+    note    FRANC DE PIED 2024 CABERNET SAUVIGNON ORIGINEL Le millésime 2024 s’annonce comme une année marquante, conjuguant finesse, équilibre et éclat aromatiqu
+    !! no address: cannot link to its source
+    !! note opens on capitals: FRANC DE PIED 2024 CABERNET SAUVIGNON ORIGINEL Le millésime 2024 s’ann
+    from  note=FT_FRANC-DE-PIED_2024_FR_NOTES.pdf, pick=FT_FRANC-DE-PIED_2024_FR_NOTES.pdf, taste=FT_FRANC-DE-PIED_2024_FR_NOTES.pdf
+
+dauzac-franc-de-pied: 4 vintage(s) with something to look at
+
+------------------------------------------------------------------------
+La Bastide Dauzac  (second, red)
+------------------------------------------------------------------------
+
+dauzac|la-bastide-dauzac|2013   blend,food,months,note
+    note    Il y a des millésimes, dans la vie d’une propriété qui laissent une empreinte. Le millésime 2013 aura été la marque d’une histoire humaine avec un ter
+    food    Potentiel de vieillissement : S’exprime - Viande blanche pleinement entre 4 et 7 ans, - Viande rouge pour vieillir jusqu’à 15 ans.
+    !! no address: cannot link to its source
+    from  note=FT_LABASTIDE-DAUZAC-2013.pdf
+
+dauzac|la-bastide-dauzac|2014   blend,months
+    !! no address: cannot link to its source
+
+dauzac|la-bastide-dauzac|2015   months
+    !! no address: cannot link to its source
+
+dauzac|la-bastide-dauzac|2016   blend,food,months,note
+    note    Un début d’année sous un climat océanique suivi d’une période durable de soleil et de chaleur jusqu’au 13 septembre où des précipitations per- mirent 
+    food    Viande blanche, volaille, viande rouge, gibier, fromage.
+    !! no address: cannot link to its source
+    from  note=FT_LABASTIDE-DAUZAC-2016.pdf
+
+dauzac|la-bastide-dauzac|2017   blend,food,months,note,pick
+    note    Un hiver plutôt sec et ensoleillé suivi d’un mois de mars doux ont permis aux premières feuilles de vigne d’être très précoces. Les fortes gelées prin
+    food    Viande blanche, volaille, viande rouge, gibier, fromage.
+    !! no address: cannot link to its source
+    from  note=FT_LABASTIDE-DAUZAC-2017.pdf, pick=FT_LABASTIDE-DAUZAC-2017.pdf
+
+dauzac|la-bastide-dauzac|2018   blend,food,months,note,pick
+    note    Comme tous les grands millésimes, la météo a joué un rôle essentiel dans la construction du millésime 2018. Un hiver doux et pluvieux ayant permis à l
+    food    Viande blanche, volaille, viande rouge, gibier, fromage.
+    !! no address: cannot link to its source
+    from  note=FT_LABASTIDE-DAUZAC-2018_FR.pdf, pick=FT_LABASTIDE-DAUZAC-2018_FR.pdf
+
+dauzac|la-bastide-dauzac|2019   blend,food,months,note,pick
+    note    Le savoir-faire des équipes et le bon sens paysan nous ont permis de conduire à bien ce beau millésime. Après un hiver alternant période de douceur et
+    food    Viande blanche, volaille, viande rouge, gibier, fromage.
+    !! no address: cannot link to its source
+    from  note=FT_LABASTIDE-DAUZAC-2019.pdf, pick=FT_LABASTIDE-DAUZAC-2019.pdf
+
+dauzac|la-bastide-dauzac|2020   blend,months,pick,taste
+    taste   Une couleur sombre et brillante. Un nez délicat de framboise et de violette avec un peu de poivre.
+    !! no address: cannot link to its source
+    from  pick=FT_LABASTIDE-DAUZAC-2020_FR.pdf, taste=FT_LABASTIDE-DAUZAC-2020_FR.pdf
+
+dauzac|la-bastide-dauzac|2021   alc,blend,months,note,oak,pick,taste
+    taste   Son apparence est rouge vif aux reflets pourpres. Le nez est fruité et intense. La bouche est enveloppante et bien construite avec des tannins soyeux 
+    note    Nous avons travaillé sans relâche pour protéger nos vignes de la pression maladie. Le millésime commence par un hiver particulièrement doux et pluvieu
+    !! no address: cannot link to its source
+    from  note=FT_LABASTIDE-DAUZAC_2021_FR_NOTES., oak=FT_LABASTIDE-DAUZAC_2021_FR_NOTES., pick=FT_LABASTIDE-DAUZAC_2021_FR_NOTES., taste=FT_LABASTIDE-DAUZAC_2021_FR_NOTES.
+
+dauzac|la-bastide-dauzac|2022   alc,blend,months,note,oak,pick,taste
+    taste   Le nez est fruité et intense. Les fruits en bouche sont croquants portés par des tannins soyeux.
+    note    LABASTIDE DAUZAC 2022 SÉLECTION PARCELLAIRE Le millésime 2022 restera dans les mémoires de tous. L’hiver particulièrement doux a entrainé un débourrem
+    !! no address: cannot link to its source
+    !! blend is exactly the planting, which is a different claim
+    from  note=FT_LABASTIDE-DAUZAC_2022_NOTES_FR., oak=FT_LABASTIDE-DAUZAC_2022_NOTES_FR., pick=FT_LABASTIDE-DAUZAC_2022_NOTES_FR., taste=FT_LABASTIDE-DAUZAC_2022_NOTES_FR.
+
+dauzac|la-bastide-dauzac|2023   alc,blend,months,note,oak,pick,taste
+    taste   Avec une robe d’apparence rouge vif aux reflets pourpres, Labastide 2023 revèle un nez fruité et intense.
+    note    LABASTIDE DAUZAC 2023 SÉLECTION PARCELLAIRE La vigne a démarré plus précocement qu’au cours des dernières décennies. Cette année, les gels de printemp
+    !! no address: cannot link to its source
+    from  note=FT_LABASTIDE-DAUZAC_2023_FR.pdf, oak=FT_LABASTIDE-DAUZAC_2023_FR.pdf, pick=FT_LABASTIDE-DAUZAC_2023_FR.pdf, taste=FT_LABASTIDE-DAUZAC_2023_FR.pdf
+
+dauzac|la-bastide-dauzac|2024   alc,blend,months,note,oak,pick,taste
+    taste   Sa robe est éclatante avec des reflets pourpres. Le nez révèle une belle richesse aromatique où les fruits rouges mûrs se mêlent à des nuances boisées
+    note    LABASTIDE DAUZAC 2024 SÉLECTION PARCELLAIRE Le millésime 2024 s’annonce comme une année marquante, conjuguant finesse, équilibre et éclat aromatique. 
+    !! no address: cannot link to its source
+    from  note=FT_LABASTIDE-DAUZAC_2024_FR_NOTES., pick=FT_LABASTIDE-DAUZAC_2024_FR_NOTES., taste=FT_LABASTIDE-DAUZAC_2024_FR_NOTES.
+
+la-bastide-dauzac: 12 vintage(s) with something to look at
+
+------------------------------------------------------------------------
+Le Haut-Médoc de Dauzac  (other, red)
+------------------------------------------------------------------------
+
+dauzac|le-haut-m-doc-de-dauzac|2014   blend,months
+    !! no address: cannot link to its source
+
+dauzac|le-haut-m-doc-de-dauzac|2015   blend
+    !! no address: cannot link to its source
+
+dauzac|le-haut-m-doc-de-dauzac|2016   blend,food,months,note
+    note    Un début d’année sous un climat océanique suivit d’une période durable de soleil et de chaleur jusqu’au 13 septembre où des précipitations per- mirent
+    food    Viande blanche, volaille, viande rouge, gibier, fromage.
+    !! no address: cannot link to its source
+    from  note=FT_HT-MEDOC-DE-DAUZAC-2016.pdf
+
+dauzac|le-haut-m-doc-de-dauzac|2017   blend,food,months,pick
+    food    Collage : si besoin avec des proteines vegetales Viande blanche, volaille, viande rouge, gibier, fromage.
+    !! no address: cannot link to its source
+    from  pick=FT_HT-MEDOC-2017-FR.ocr.txt
+
+dauzac|le-haut-m-doc-de-dauzac|2018   blend,food,months,note,pick
+    note    Comme tous les grands millésimes, la météo a joué un rôle essentiel dans la construction du millésime 2018. Un hiver doux et pluvieux ayant permis à l
+    food    Viande blanche, volaille, viande rouge, gibier, fromage.
+    !! no address: cannot link to its source
+    from  note=FT_HT-MEDOC-DE-DAUZAC-2018-Note.pd, pick=FT_HT-MEDOC-DE-DAUZAC-2018-Note.pd
+
+dauzac|le-haut-m-doc-de-dauzac|2019   blend,food,months,note,pick
+    note    Le savoir-faire des équipes et le bon sens paysan nous ont permis de conduire à bien ce beau millésime. Après un hiver alternant période de douceur et
+    food    Viande blanche, volaille, viande rouge, gibier, fromage.
+    !! no address: cannot link to its source
+    from  note=FT_HT-MEDOC-DE-DAUZAC-2019.pdf, pick=FT_HT-MEDOC-DE-DAUZAC-2019.pdf
+
+dauzac|le-haut-m-doc-de-dauzac|2020   blend,months,pick,taste
+    taste   Une couleur intense rouge rubis. Le nez exprime les fruits mûrs, la cerise, le cassis, avec des notes d’épices.
+    !! no address: cannot link to its source
+    from  pick=FT_HT-MEDOC-DE-DAUZAC-2020_FR.pdf, taste=FT_HT-MEDOC-DE-DAUZAC-2020_FR.pdf
+
+dauzac|le-haut-m-doc-de-dauzac|2021   alc,blend,months,note,pick,taste
+    taste   Son apparence est rouge intense aux notes sombres. Le nez intense est marqué par des notes de fruits rouges légèrement poivrées.
+    note    Nous avons travaillé sans relâche pour protéger nos vignes de la pression maladie. Le millésime commence par un hiver particulièrement doux et pluvieu
+    !! no address: cannot link to its source
+    from  note=FT_LE-HAUT-MEDOC-DE-DAUZAC_2021_FR, pick=FT_LE-HAUT-MEDOC-DE-DAUZAC_2021_FR, taste=FT_LE-HAUT-MEDOC-DE-DAUZAC_2021_FR
+
+dauzac|le-haut-m-doc-de-dauzac|2022   alc,blend,months,note,pick,taste
+    taste   Le nez est frais marqué par du fruit légèrement épicé. La bouche est un bel équilibre entre des fruits croquants et des tannins soyeux.
+    note    L’hiver particulièrement doux a entrainé un débourrement très précoce. Les gelées ont été évitées durant les nuits fraîches du mois d’avril. Encore un
+    !! no address: cannot link to its source
+    from  note=FT_LE-HAUT-MEDOC-DE-DAUZAC_2022_NO, pick=FT_LE-HAUT-MEDOC-DE-DAUZAC_2022_NO, taste=FT_LE-HAUT-MEDOC-DE-DAUZAC_2022_NO
+
+dauzac|le-haut-m-doc-de-dauzac|2023   alc,blend,months,note,pick,taste
+    taste   D’un rouge intense aux notes sombres, le nez dévoile des notes de fruits rouges intenses et légèrement poivrées.
+    note    LE HAUT-MÉDOC DE DAUZAC 2023 La vigne a démarré plus précocement qu’au cours des dernières décennies. Cette année, les gels de printemps ont été faibl
+    !! no address: cannot link to its source
+    !! note opens on capitals: LE HAUT-MÉDOC DE DAUZAC 2023 La vigne a démarré plus précocement qu’au
+    from  note=FT_LE-HAUT-MEDOC-DE-DAUZAC_2023_FR, pick=FT_LE-HAUT-MEDOC-DE-DAUZAC_2023_FR, taste=FT_LE-HAUT-MEDOC-DE-DAUZAC_2023_FR
+
+dauzac|le-haut-m-doc-de-dauzac|2024   alc,blend,months,note,pick,taste
+    taste   Sa robe est d’un rouge profond. Le nez, puissant et expressif, dévoile des arômes de fruits rouges relevés d’une subtile touche épicée.
+    note    Après un hiver relativement doux, le printemps a offert des conditions globalement favorables, avec une floraison homogène et précoce, annonçant un po
+    !! no address: cannot link to its source
+    from  note=FT_LE-HAUT-MEDOC-DE-DAUZAC_2024_FR, pick=FT_LE-HAUT-MEDOC-DE-DAUZAC_2024_FR, taste=FT_LE-HAUT-MEDOC-DE-DAUZAC_2024_FR
+
+le-haut-m-doc-de-dauzac: 11 vintage(s) with something to look at

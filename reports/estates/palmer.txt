@@ -1,0 +1,16 @@
+========================================================================
+palmer
+========================================================================
+129 document(s) in the manifest, 57 vintage(s) of them
+the estate's other wines, from cuvees.js:
+   none listed - if the estate makes any, that is the first thing to fix
+
+palmer|1971   blend,note,pick
+    note    1971 is an overall moment of grace against the backdrop of highly contrasted vintage. Frequent spring showers damaged the vine flowers, and almost hal
+    !! note reads as a tasting note (on the palate, silky tannins, the finish) and there is no taste field: one paragraph doing both jobs
+    from  blend=1971__palmer-wine-library.txt, note=6708fa81d682117fd6decfa2_Fiche_mil, pick=1971__palmer-wine-library.txt
+
+palmer|2025   (no record)
+    !! NO RECORD, 2 document(s) on disk: 2025__article-2025-une-grace-infinie.txt
+
+grand: 2 vintage(s) with something to look at

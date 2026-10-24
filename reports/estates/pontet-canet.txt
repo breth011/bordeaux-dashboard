@@ -1,0 +1,18 @@
+========================================================================
+pontet-canet
+========================================================================
+145 document(s) in the manifest, 26 vintage(s) of them
+the estate's other wines, from cuvees.js:
+   none listed - if the estate makes any, that is the first thing to fix
+
+pontet-canet|2024   blend,note,oak,pick
+    note    Après un hiver particulièrement humide et doux, la saison a débuté rapidement dans des conditions idéales. Les sols, saturés en eau, offraient un envi
+    !! no address: cannot link to its source
+    from  note=Informations-techniques-Pontet-Can, oak=Informations-techniques-Pontet-Can, pick=Informations-techniques-Pontet-Can
+
+pontet-canet|2025   blend,note,oak,pick
+    note    After a milder-than-average winter, the vintage began with a particularly damp April. While cloud cover protected the vines from frost, it also create
+    !! no address: cannot link to its source
+    from  note=Technical-information-Chateau-Pont, oak=Technical-information-Chateau-Pont, pick=Technical-information-Chateau-Pont
+
+grand: 2 vintage(s) with something to look at

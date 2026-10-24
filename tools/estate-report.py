@@ -196,25 +196,41 @@ def main():
         w('- %s — %d' % (k, v))
     w()
 
-    w('## Findings')
-    w()
-    w('<!-- by hand: what was wrong, why, what was decided -->')
-    w()
-    w('## Not recoverable here')
-    w()
-    w('<!-- by hand -->')
-    w()
-
     text = '\n'.join(L) + '\n'
+
+    # Everything from the Findings heading down was written by hand and
+    # is the only part of the report that needed a person, so a rebuilt
+    # report keeps it and replaces only the counting above it. Without
+    # this, regenerating a report after a read silently destroys the
+    # findings - which the docstring already promised it would not.
+    TAIL = '## Findings\n'
+    d = ROOT + 'reports/estates'
+    p = os.path.join(d, eid + '.md')
+    kept = None
+    if os.path.exists(p):
+        was = io.open(p, encoding='utf-8').read()
+        if TAIL in was:
+            kept = was[was.index(TAIL):]
+    if kept is None:
+        kept = (TAIL + '\n'
+                '<!-- by hand: what was wrong, why, what was decided -->\n'
+                '\n## Not recoverable here\n\n<!-- by hand -->\n')
+    text = text + kept
+
     if not a.out:
         print(text)
         return 0
-    d = ROOT + 'reports/estates'
     if not os.path.isdir(d):
         os.makedirs(d)
-    p = os.path.join(d, eid + '.md')
     io.open(p, 'w', encoding='utf-8', newline='').write(text)
-    print('written to %s' % os.path.relpath(p, ROOT))
+    print('written to %s%s' % (os.path.relpath(p, ROOT),
+                               ' (findings kept)' if os.path.exists(p)
+                               and kept.strip() != (
+                                   TAIL.strip() + '\n\n<!-- by hand: '
+                                   'what was wrong, why, what was '
+                                   'decided -->\n\n## Not recoverable '
+                                   'here\n\n<!-- by hand -->')
+                               else ''))
     return 0
 
 

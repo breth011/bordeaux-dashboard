@@ -1,0 +1,83 @@
+========================================================================
+darmailhac
+========================================================================
+46 document(s) in the manifest, 37 vintage(s) of them
+the estate's other wines, from cuvees.js:
+   none listed - if the estate makes any, that is the first thing to fix
+
+darmailhac|1989   (no record)
+    !! NO RECORD, 1 document(s) on disk: 1989__zh-hans-vintage-chateau-darmailhac-1989.txt
+
+darmailhac|1990   (no record)
+    !! NO RECORD, 1 document(s) on disk: 1990__zh-hans-vintage-chateau-darmailhac-1990.txt
+
+darmailhac|1991   (no record)
+    !! NO RECORD, 1 document(s) on disk: 1991__zh-hans-vintage-chateau-darmailhac-1991.txt
+
+darmailhac|1994   (no record)
+    !! NO RECORD, 1 document(s) on disk: 1994__zh-hans-vintage-chateau-darmailhac-1994.txt
+
+darmailhac|1996   (no record)
+    !! NO RECORD, 1 document(s) on disk: 1996__zh-hans-vintage-chateau-darmailhac-1996.txt
+
+darmailhac|1997   (no record)
+    !! NO RECORD, 1 document(s) on disk: 1997__zh-hans-vintage-chateau-darmailhac-1997.txt
+
+darmailhac|1998   (no record)
+    !! NO RECORD, 1 document(s) on disk: 1998__zh-hans-vintage-chateau-darmailhac-1998.txt
+
+darmailhac|1999   (no record)
+    !! NO RECORD, 1 document(s) on disk: 1999__zh-hans-vintage-chateau-darmailhac-1999.txt
+
+darmailhac|2000   (no record)
+    !! NO RECORD, 1 document(s) on disk: 2000__zh-hans-vintage-chateau-darmailhac-2000.txt
+
+darmailhac|2002   (no record)
+    !! NO RECORD, 1 document(s) on disk: 2002__zh-hans-vintage-chateau-darmailhac-2002.txt
+
+darmailhac|2004   (no record)
+    !! NO RECORD, 1 document(s) on disk: 2004__zh-hans-vintage-chateau-darmailhac-2004.txt
+
+darmailhac|2006   (no record)
+    !! NO RECORD, 1 document(s) on disk: 2006__zh-hans-vintage-chateau-darmailhac-2006.txt
+
+darmailhac|2007   (no record)
+    !! NO RECORD, 1 document(s) on disk: 2007__zh-hans-vintage-chateau-darmailhac-2007.txt
+
+darmailhac|2009   (no record)
+    !! NO RECORD, 1 document(s) on disk: 2009__zh-hans-vintage-chateau-darmailhac-2009.txt
+
+darmailhac|2010   (no record)
+    !! NO RECORD, 1 document(s) on disk: 2010__zh-hans-vintage-chateau-darmailhac-2010.txt
+
+darmailhac|2011   (no record)
+    !! NO RECORD, 1 document(s) on disk: 2011__zh-hans-vintage-chateau-darmailhac-2011.txt
+
+darmailhac|2012   (no record)
+    !! NO RECORD, 1 document(s) on disk: 2012__zh-hans-vintage-chateau-darmailhac-2012.txt
+
+darmailhac|2013   (no record)
+    !! NO RECORD, 1 document(s) on disk: 2013__zh-hans-vintage-chateau-darmailhac-2013.txt
+
+darmailhac|2015   (no record)
+    !! NO RECORD, 1 document(s) on disk: 2015__zh-hans-vintage-chateau-darmailhac-2015.txt
+
+darmailhac|2016   (no record)
+    !! NO RECORD, 1 document(s) on disk: 2016__zh-hans-vintage-chateau-darmailhac-2016.txt
+
+darmailhac|2017   (no record)
+    !! NO RECORD, 1 document(s) on disk: 2017__zh-hans-vintage-chateau-darmailhac-2017.txt
+
+darmailhac|2019   (no record)
+    !! NO RECORD, 1 document(s) on disk: 2019__zh-hans-vintage-chateau-darmailhac-2019.txt
+
+darmailhac|2020   (no record)
+    !! NO RECORD, 1 document(s) on disk: 2020__zh-hans-vintage-chateau-darmailhac-2020.txt
+
+darmailhac|2025   alc,blend,months,note,oak,ph,pick,taste,ttl
+    taste   Château d'Armailhac 2025 is a very complete wine, combining a contained power, a great elegance and a wide aromatic palette running from fresh fruit s
+    note    A mild winter with lower-than-average rainfall warmed the soil, so that budbreak arrived a few days earlier than usual in late March. In a particularl
+    !! no address: cannot link to its source
+    from  alc=FT_Chateau_d_Armailhac_PAU_RO_2025, note=TD_Chateau_d_Armailhac_PAU_RO_2025, pick=FT_Chateau_d_Armailhac_PAU_RO_2025, taste=FT_Chateau_d_Armailhac_PAU_RO_2025
+
+grand: 24 vintage(s) with something to look at

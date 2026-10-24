@@ -1,0 +1,201 @@
+========================================================================
+branaire-ducru
+========================================================================
+65 document(s) in the manifest, 20 vintage(s) of them
+the estate's other wines, from cuvees.js:
+   Duluc de Branaire-Ducru            second  red     15 record(s)
+
+branaire-ducru|2005   decant,dtl,harvest,note,ntl,oak,pick,taste,temp,window,wtl
+    taste   Proprietor Patrick Maroteaux has been doing everything right since the late nineties, and, along with the monumental 2003 and 2000, the 2005 is one of
+    note    The climatic fact of 2005 will remain the drought: rainfall 40% below normal from November 2004 to the end of August 2005. 2005 was a rather warm year
+    window  Keeping: 20 years.
+    decant  Carafing for at least an hour will help Branaire-Ducru 2005 express its aromas.
+    !! no address: cannot link to its source
+    from  oak=BRANAIRE_DUCRU_2005_FR_EN.pdf, taste=BRANAIRE_DUCRU_2005_FR_EN.pdf
+
+branaire-ducru|2006   blend,decant,dtl,harvest,note,ntl,oak,pick,taste,temp,ttl,yld
+    taste   The previous week's rain no doubt marked the grapes slightly, but their initial concentration allowed a very high level to be maintained: fruit, subst
+    note    2006 began with a very wet winter. The first ten days of September were magnificent: dry weather and high temperatures (30°C in the afternoon) acceler
+    decant  Carafing for at least an hour will help Branaire-Ducru 2006 express its aromas.
+    !! no address: cannot link to its source
+    from  oak=BRANAIRE_DUCRU_2006_FR_EN.pdf
+
+branaire-ducru|2007   blend,decant,dtl,harvest,note,ntl,oak,pick,press,taste,temp,ttl
+    taste   It was the frequency rather than the volumes, in the end quite small, that marked the period. The grapes ripened slowly, which gave them a fine maturi
+    note    Framed by two exceptionally favourable periods, the summer was not as sunny as we would have wished. Very dry, sunny weather and northerly to north-ea
+    decant  Carafing for at least an hour will help Branaire-Ducru 2007 express its aromas.
+    !! no address: cannot link to its source
+    from  oak=BRANAIRE_DUCRU_2007_FR_EN.pdf
+
+branaire-ducru|2008   blend,decant,dtl,harvest,note,ntl,pick,press,taste,temp,yld
+    taste   The fruit ripens slowly, but the magnificent late season allows the aromas and the tannins to be refined in depth.
+    note    2008 began with a cool, wet spring. Flowering at Saint-Julien took place in favourable conditions: the average gross yield across the property was 44 
+    decant  Carafing for at least an hour will help Branaire-Ducru 2008 express its aromas.
+    !! no address: cannot link to its source
+
+branaire-ducru|2009   blend,decant,dtl,harvest,note,ntl,pick,press,taste,temp,ttl,yld
+    taste   The nose develops ripe fruit at once fresh and spicy, of fine precision and great finesse. The palate is rich, dense and mellow, with a great velvet t
+    note    After a cold winter and early spring, the vine started quite late in 2009. Flowering went well, guaranteeing satisfactory yields of 47 hl/ha across th
+    decant  Carafing for at least an hour will help Branaire-Ducru 2009 express its aromas.
+    !! no address: cannot link to its source
+
+branaire-ducru|2010   blend,decant,dtl,harvest,note,ntl,pick,taste,temp
+    taste   At the same time the coolness of the autumn temperatures sharpens the definition of the aromas, preserves the acidity and allows a slow and thorough r
+    note    In the spring of 2010, temperatures slightly cooler than average led to a relatively late budbreak. The cool nights nevertheless favoured, despite a m
+    decant  Carafing for at least an hour will help Branaire-Ducru 2010 express its aromas.
+    !! no address: cannot link to its source
+
+branaire-ducru|2011   blend,decant,dtl,harvest,note,ntl,pick,taste,temp,ttl,yld
+    taste   The rich, expressive nose mixes black fruit and floral notes of great finesse. The palate is dense and finely vivacious, and the tannins that support 
+    note    The exceptionally warm spring of 2011 triggered a very early start to the vine's growth; it was also exceptionally dry. An autumn warmer than normal, 
+    decant  Carafing for at least an hour will help Branaire-Ducru 2011 express its aromas.
+    !! no address: cannot link to its source
+
+branaire-ducru|2012   blend,decant,dtl,harvest,note,ntl,pick,taste,temp,ttl,yld
+    taste   Great complexity develops on the nose, combining in expressive fashion freshness and fine maturity, minerality and the richness of a fruit slowly and 
+    note    2012 began with a dry and particularly cold winter. The spring, cool as well, made for a fairly late budbreak (around 10 April).
+    decant  Carafing for at least an hour will help Branaire-Ducru 2012 express its aromas.
+    !! no address: cannot link to its source
+
+branaire-ducru|2013   blend,decant,dtl,harvest,note,ntl,pick,taste,temp,ttl,yld
+    taste   The palate is balanced, on attractive, generous flesh with elegant tannins. After conditions more difficult than usual, we are in the end proud and sa
+    note    2013 began with a cool spring, and the start of the vine's growth was late and slow. The autumn was wetter, with more rainy days than normal, even if 
+    decant  Carafing for at least an hour will help Branaire-Ducru 2013 express its aromas.
+    !! no address: cannot link to its source
+
+branaire-ducru|2014   blend,harvest,note,ntl,pick,taste,temp,ttl,yld
+    taste   Structured and mellow with refined tannins, the wine develops with great savour, rich in flavour, building in power towards a perfumed and long finish
+    note    After an exceptionally mild winter, the vine budded nearly 15 days ahead of the ten-year average. The spring was wet and rather cool, and flowering be
+    !! no address: cannot link to its source
+
+branaire-ducru|2015   blend,harvest,note,ntl,oak,pick,taste,temp,yld
+    taste   Concentrated tannins meet seamless line of juicy black currant on the palate. The structure is firm and tight, finishing with a lift of acidity.
+    note    A very aromatic nose, fine, fruity and ripe, with the blackberry-jelly touch of the vintage. These conditions together favoured the loading of tannin 
+    !! no address: cannot link to its source
+    from  oak=BRANAIRE_DUCRU_2015_FR_EN.pdf
+
+branaire-ducru|2016   alc,blend,note,ntl,pick,temp,yld
+    note    The spring was wet and cool, but allowed fine leaf surfaces to develop and a good vegetative balance in the vine. A fine spell of dry, sunny weather a
+    !! no address: cannot link to its source
+    from  alc=Branaire-Ducru-2016-FT-FR-26.pdf, pick=BRANAIRE_DUCRU_2016_FR_EN.pdf
+
+branaire-ducru|2017   alc,blend,harvest,note,ntl,ph,pick,press,taste,yld
+    taste   With an immediate presence the palate has fine, silky tannins. 65), this freshness gives a lovely lift to the astonishingly long finish.
+    note    While the beginning of the winter, until the end of January, was very cold, the second half was extremely mild. The particularly warm and dry spring t
+    !! no address: cannot link to its source
+    from  alc=BRANAIRE_DUCRU_2017_FR_EN.pdf
+
+branaire-ducru|2018   blend,harvest,note,pick,taste,ttl,yld
+    taste   The very expressive nose offers a fine complexity of well-ripened fruit, well balanced by fresher notes.
+    note    During the winter of 2017 and the spring of 2018 there was a great deal of rain, which brought the water table up to a good level. Spring was warm and
+    !! no address: cannot link to its source
+
+branaire-ducru|2019   alc,blend,harvest,note,ntl,pick,yld
+    note    With a mild end to the winter, budbreak was early and even. In spring the weather was cool and wet, and the vine's growth slow.
+    !! no address: cannot link to its source
+
+branaire-ducru|2020   blend,harvest,note,ntl,pick,press,yld
+    note    The spring was likewise mild and wet, very favourable to mildew, which called for particular attention.
+    !! no address: cannot link to its source
+
+branaire-ducru|2021   alc,blend,harvest,note,ntl,pick,press,taste,yld
+    taste   The grapes had a magnificent concentration and refinement of tannins.
+    note    2021 began with a very mild and particularly wet winter. The spring was very cool and wet, and flowering was delayed.
+    !! no address: cannot link to its source
+
+branaire-ducru|2022   blend,harvest,pick,press,taste,ttl,window,yld
+    taste   On tasting, Branaire-Ducru 2022 shows a deep colour. The nose is very expressive, complex, rich in black fruit of fine maturity but without any heavin
+    window  The result is a wine I want to drink now and for the next couple of decades!
+    !! no address: cannot link to its source
+
+branaire-ducru|2023   alc,blend,harvest,months,note,ntl,oak,ph,pick,press,taste,ttl,window,yld
+    taste   Early in its ageing, the wine offers a very expressive nose of well-ripened fruit, combined with spicier notes and attractive touches of freshness. Th
+    note    The winter, well supplied with rain, allowed the soil's water reserves to be recharged, useful for the vine's later growth. Flowering went well and bu
+    window  This is a wine that is going to age quite well, yet it will be delicious to drink with just a few years of ageing.
+    !! no address: cannot link to its source
+
+branaire-ducru|2025   alc,blend,note,ntl,pick,yld
+    note    At the end of the winter of 2024-2025 the thaw came quickly. It led to an early and very even budbreak across the vineyard. In May, temperatures were 
+    !! no address: cannot link to its source
+    from  alc=Fiche-Technique-Chateau-Branaire-D, note=Fiche-Technique-Chateau-Branaire-D, pick=Fiche-Technique-Chateau-Branaire-D
+
+grand: 20 vintage(s) with something to look at
+
+------------------------------------------------------------------------
+Duluc de Branaire-Ducru  (second, red)
+------------------------------------------------------------------------
+
+branaire-ducru|duluc-de-branaire-ducru|2008   blend
+    !! no address: cannot link to its source
+
+branaire-ducru|duluc-de-branaire-ducru|2009   blend
+    !! no address: cannot link to its source
+
+branaire-ducru|duluc-de-branaire-ducru|2010   blend,press
+    !! no address: cannot link to its source
+
+branaire-ducru|duluc-de-branaire-ducru|2011   blend
+    !! no address: cannot link to its source
+
+branaire-ducru|duluc-de-branaire-ducru|2012   blend,months,pick
+    !! no address: cannot link to its source
+    from  pick=DULUC_DE_BRANAIRE_DUCRU_2012_FR.pd
+
+branaire-ducru|duluc-de-branaire-ducru|2013   blend,months,pick
+    !! no address: cannot link to its source
+    from  pick=DULUC_DE_BRANAIRE_DUCRU_2013_FR.pd
+
+branaire-ducru|duluc-de-branaire-ducru|2014   blend,food,months,note,pick,taste
+    taste   Duluc de Branaire-Ducru 2014 offre au nez de jolis fruits rouges bien mûrs, accompagnés de fines notes épicées. La bouche est charnue d’une belle viva
+    note    Après un hiver exceptionnellement doux, la vigne débourre avec près de 15 jours d’avance sur la moyenne décennale. Le printemps est humide et plutôt f
+    food    Poultry, white meat, grilled red meat, cured meats, fish in sauce or a soft cheese.
+    !! no address: cannot link to its source
+    from  note=DULUC_DE_BRANAIRE_DUCRU_2014_FR_EN, pick=DULUC_DE_BRANAIRE_DUCRU_2014_FR_EN, taste=DULUC_DE_BRANAIRE_DUCRU_2014_FR_EN
+
+branaire-ducru|duluc-de-branaire-ducru|2015   blend,months,note,taste
+    taste   Duluc de Branaire-Ducru 2015 offre aujourd’hui un nez expressif de fruits rouges mûrs, rehaussés de touches plus florales et d’un léger toast. En bouc
+    note    Des températures d’hiver dans la moyenne et un mois de mars froid. De bonnes températures sans précipitations pour la floraison de la vigne, au tout d
+    !! no address: cannot link to its source
+    from  note=DULUC_DE_BRANAIRE_DUCRU_2015_FR_EN, taste=DULUC_DE_BRANAIRE_DUCRU_2015_FR_EN
+
+branaire-ducru|duluc-de-branaire-ducru|2016   blend,months,note,taste
+    taste   Déjà intense, le premier nez révèle une belle complexité d’arômes de fruits rouges très fins, dont la pureté est renforcée par des arômes floraux élég
+    note    Les conditions climatiques de 2016 ont été particulièrement favorables à la construction d’un millésime de qualité. Le printemps est bien arrosé et fr
+    !! no address: cannot link to its source
+    from  note=DULUC_DE_BRANAIRE_DUCRU_2016_FR_EN, taste=DULUC_DE_BRANAIRE_DUCRU_2016_FR_EN
+
+branaire-ducru|duluc-de-branaire-ducru|2017   blend,months,note,pick,taste,yld
+    taste   Le nez révèle un fruité frais et pur. L’attaque en bouche est également particulièrement fruitée. Le vin se développe sur une belle souplesse, un bel 
+    note    DU MILLÉSIMES Alors que le début de l’hiver, jusqu’à la fin janvier, est très froid, la seconde partie est extrêmement douce. Le débourrement de la vi
+    !! no address: cannot link to its source
+    from  note=DULUC_DE_BRANAIRE_DUCRU_2017_FR_EN, pick=DULUC_DE_BRANAIRE_DUCRU_2017_FR_EN, taste=DULUC_DE_BRANAIRE_DUCRU_2017_FR_EN
+
+branaire-ducru|duluc-de-branaire-ducru|2018   blend,note,pick,taste
+    taste   La robe présente une couleur profonde. Le nez, déjà expressif et complexe se développe sur un fruit mûr, réhaussé de fines épices. Très vite à l’aérat
+    note    L’hiver et le printemps 2018 sont bien arrosés : une bonne recharge en eau des sols permet la mise en place d’une belle végétation au vignoble. Les pl
+    !! no address: cannot link to its source
+    from  note=DULUC_DE_BRANAIRE_DUCRU_2018_FR_EN, pick=DULUC_DE_BRANAIRE_DUCRU_2018_FR_EN, taste=DULUC_DE_BRANAIRE_DUCRU_2018_FR_EN
+
+branaire-ducru|duluc-de-branaire-ducru|2019   alc,blend,note,pick,taste,yld
+    taste   Le nez de Duluc de Branaire-Ducru 2019 se développe rapidement à l’aération. Il offre une belle complexité de fruits noirs et rouges, relevée par des 
+    note    The bud break was early and homogeneous due to a mild end of winter. The spring was fresh and humid, as result, the vine sprouting was slow. The condi
+    !! no address: cannot link to its source
+    from  alc=DULUC_DE_BRANAIRE_DUCRU_2019_FR_EN, note=DULUC_DE_BRANAIRE_DUCRU_2019_FR_EN, pick=DULUC_DE_BRANAIRE_DUCRU_2019_FR_EN, taste=DULUC_DE_BRANAIRE_DUCRU_2019_FR_EN
+
+branaire-ducru|duluc-de-branaire-ducru|2020   blend,pick,taste,yld
+    taste   Le nez, pur et précis, se révèle rapidement à l’aération et offre une belle gamme d’arômes de fruits noirs et rouges. La bouche offre un joli volume q
+    !! no address: cannot link to its source
+    from  pick=DULUC_DE_BRANAIRE_DUCRU_2020_FR_EN, taste=DULUC_DE_BRANAIRE_DUCRU_2020_FR_EN
+
+branaire-ducru|duluc-de-branaire-ducru|2021   blend,pick,taste,yld
+    taste   Le nez offre une belle complexité de fruits frais, relevée de fines notes plus épicées. La bouche se développe sur une structure très souple, précise,
+    !! no address: cannot link to its source
+    from  pick=DULUC_DE_BRANAIRE_DUCRU_2021_FR_EN, taste=DULUC_DE_BRANAIRE_DUCRU_2021_FR_EN
+
+branaire-ducru|duluc-de-branaire-ducru|2022   blend,note,pick,taste,yld
+    taste   Le nez, déjà complexe et expressif, offre un fruit d’une belle maturité, réhaussé de notes plus fraîches et de notes délicatement épicées. L’attaque e
+    note    L’hiver 2021-2022 est moyennement arrosé, mais il permet une bonne recharge en eau des sols. Le débourrement de la vigne est légèrement plus précoce q
+    !! no address: cannot link to its source
+    from  note=DULUC_DE_BRANAIRE_DUCRU_2022_FR_EN, pick=DULUC_DE_BRANAIRE_DUCRU_2022_FR_EN, taste=DULUC_DE_BRANAIRE_DUCRU_2022_FR_EN
+
+duluc-de-branaire-ducru: 15 vintage(s) with something to look at

@@ -1,0 +1,125 @@
+========================================================================
+giscours
+========================================================================
+104 document(s) in the manifest, 17 vintage(s) of them
+the estate's other wines, from cuvees.js:
+   La Sirène de Giscours              second  red      7 record(s)
+   Le Haut-Médoc de Giscours          other   red     11 record(s)
+
+giscours|2011   blend
+    !! no address: cannot link to its source
+    from  blend=Giscours-2011-FT-FR-81.pdf
+
+giscours|2012   blend,note,pick
+    note    Les travaux en vert tels que l’éclaircissage, l’effeuillage et le relevage, indispensables à de belles vendanges ont été cette année d’une grande util
+    !! no address: cannot link to its source
+    from  note=Giscours-2012-FT-FR-81.pdf, pick=Giscours-2012-FT-FR-81.pdf
+
+giscours|2017   blend,months,oak
+    !! no address: cannot link to its source
+
+giscours|2018   blend,months,oak,pick
+    !! no address: cannot link to its source
+    from  pick=Giscours-2018-FT-FRGB.pdf
+
+giscours|2019   blend,months,oak,pick
+    !! no address: cannot link to its source
+    from  oak=Ch-Giscours-2019-FT-EN.pdf, pick=Ch-Giscours-2019-FT-FR.pdf
+
+giscours|2020   blend,months,oak,pick
+    !! no address: cannot link to its source
+    from  pick=FT-CHATEAU-GISCOURS-2020-1.pdf
+
+giscours|2021   oak,pick
+    !! no address: cannot link to its source
+    from  blend=CHATEAU-GISCOURS-2021.pdf, oak=CHATEAU-GISCOURS-2021.pdf, pick=CHATEAU-GISCOURS-2021.pdf
+
+giscours|2022   blend,months,note,oak,pick
+    note    C’est une année climatique historique où il a fait exceptionnellement chaud et sec dès le printemps et durant tout l’été. Grâce à la diversité de nos 
+    !! no address: cannot link to its source
+    from  note=FT-CHATEAU-GISCOURS-2022.pdf, pick=FT-CHATEAU-GISCOURS-2022.pdf
+
+giscours|2023   blend,months,oak,pick
+    !! no address: cannot link to its source
+    from  oak=Tech-Sheet-Chateau-Giscours-2023-E, pick=Fiche-technique-Chateau-Giscours-2
+
+giscours|2024   alc,blend,harvest,months,note,ntl,oak,ph,pick,taste
+    taste   Tasting 36 La Sirène de Giscours 2024 Dégustation — Tasting 37 60% Cabernet Sauvignon 31% Merlot 3% Petit Verdot Le millésime 2024 incarne avec justes
+    note    After a cool, wet spring, the summer of 2024 stood out for the absence of any significant rain.
+    !! no address: cannot link to its source
+    from  oak=CH.-GISCOURS-2024-EN-1.pdf, ph=Giscours-2024-EN-1.pdf, taste=Giscours-2024-EN-1.pdf
+
+grand: 10 vintage(s) with something to look at
+
+------------------------------------------------------------------------
+La Sirène de Giscours  (second, red)
+------------------------------------------------------------------------
+
+giscours|la-sir-ne-de-giscours|2017   months,oak
+    !! no address: cannot link to its source
+    from  months=Sirene-de-Giscours-2017-FT-FR.pdf, oak=Sirene-de-Giscours-2017-FT-FR.pdf
+
+giscours|la-sir-ne-de-giscours|2018   blend,months,oak,pick
+    !! no address: cannot link to its source
+    from  blend=Sirene-de-Giscours-2018-FT-FRGB.pd, oak=Sirene-de-Giscours-2018-FT-FRGB.pd, pick=Sirene-de-Giscours-2018-FT-FRGB.pd
+
+giscours|la-sir-ne-de-giscours|2019   blend,months,oak,pick
+    !! no address: cannot link to its source
+    from  blend=Sirene-Giscours-FT-FR-_2019.pdf, oak=Sirene-Giscours-FT-FR-_2019.pdf, pick=Sirene-Giscours-FT-FR-_2019.pdf
+
+giscours|la-sir-ne-de-giscours|2020   blend,months,oak,pick
+    !! no address: cannot link to its source
+    from  blend=FT-LA-SIRENE-DE-GISCOURS-2020.pdf, oak=FT-LA-SIRENE-DE-GISCOURS-2020.pdf, pick=FT-LA-SIRENE-DE-GISCOURS-2020.pdf
+
+giscours|la-sir-ne-de-giscours|2021   blend,months,oak,pick
+    !! no address: cannot link to its source
+    from  blend=Fiche_technique_LA_SIRENE_DE_GISCO, oak=Fiche_technique_LA_SIRENE_DE_GISCO, pick=Fiche_technique_LA_SIRENE_DE_GISCO
+
+giscours|la-sir-ne-de-giscours|2024   blend,months,oak,pick
+    !! no address: cannot link to its source
+    from  oak=LA-SIRENE-2024-EN.pdf, pick=LA-SIRENE-2024-EN.pdf
+
+giscours|la-sir-ne-de-giscours|2025   blend,months,oak,pick
+    !! no address: cannot link to its source
+    from  oak=LA-SIRENE-DE-GISCOURS-2025-1.pdf, pick=Fiche-technique-La-Sirene-de-Gisco
+
+la-sir-ne-de-giscours: 7 vintage(s) with something to look at
+
+------------------------------------------------------------------------
+Le Haut-Médoc de Giscours  (other, red)
+------------------------------------------------------------------------
+
+giscours|le-haut-medoc-de-giscours|2010   months
+    !! no address: cannot link to its source
+
+giscours|le-haut-medoc-de-giscours|2012   months
+    !! no address: cannot link to its source
+
+giscours|le-haut-medoc-de-giscours|2013   alc,months,oak,yld
+    !! no address: cannot link to its source
+
+giscours|le-haut-medoc-de-giscours|2014   blend,months
+    !! no address: cannot link to its source
+
+giscours|le-haut-medoc-de-giscours|2015   months
+    !! no address: cannot link to its source
+
+giscours|le-haut-medoc-de-giscours|2019   blend,months,pick
+    !! no address: cannot link to its source
+
+giscours|le-haut-medoc-de-giscours|2020   blend,months,pick
+    !! no address: cannot link to its source
+
+giscours|le-haut-medoc-de-giscours|2021   blend,months
+    !! no address: cannot link to its source
+
+giscours|le-haut-medoc-de-giscours|2022   blend,months
+    !! no address: cannot link to its source
+
+giscours|le-haut-medoc-de-giscours|2024   blend,months,pick
+    !! no address: cannot link to its source
+
+giscours|le-haut-medoc-de-giscours|2025   blend,months,pick
+    !! no address: cannot link to its source
+
+le-haut-medoc-de-giscours: 11 vintage(s) with something to look at

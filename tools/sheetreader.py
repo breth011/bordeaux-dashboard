@@ -1432,10 +1432,24 @@ RX_YLD = re.compile(
 RX_YLD2 = re.compile(
     r'(?i)(?<![\d,.])(\d{1,2}(?:[,.]\d{1,2})?)\s*(?:hl\s*/\s*ha|hl/ha)')
 
+# The duration stated outright, which settles it: Marquis
+# d'Alesme writes "elevage sur lies 3 mois Duree : 15 mois" and
+# the anchored pattern below takes the three. Tried first.
+RX_MONTHS0 = re.compile(
+    r'(?i)dur[eé]e\s*(?:de\s+|:)?\s*(\d{1,2})'
+    # The same optional range as the others, so read_numbers can ask
+    # every one of these patterns for group(2).
+    r'(?:\s*(?:-|to|à|a)\s*(\d{1,2}))?\s*(?:mois|months)')
+
 # "18 mois en barriques" / "ageing 16 months" / "Elevage : 12 mois"
+#
+# "sur lies" is excluded from the reach: time on the lees is a
+# different fact from time in barrel, and seven of Marquis
+# d'Alesme's records held the first as the second.
 RX_MONTHS = re.compile(
     r'(?i)(?:[eé]levage|ageing|aging|matur(?:ation|ing)|barrel\s+ag)'
-    r'[^0-9]{0,40}(\d{1,2})(?:\s*(?:-|to|à|a)\s*(\d{1,2}))?\s*'
+    r'(?:(?!sur\s+lies|on\s+(?:the\s+)?lees)[^0-9]){0,40}'
+    r'(\d{1,2})(?:\s*(?:-|to|à|a)\s*(\d{1,2}))?\s*'
     r'(?:mois|months)')
 RX_MONTHS2 = re.compile(
     r'(?i)(\d{1,2})(?:\s*(?:-|to|à)\s*(\d{1,2}))?\s*(?:mois|months)\s+'
@@ -1484,7 +1498,19 @@ PROSE_STOP = re.compile(
     r'(?:accepte[rz]?|accept)\s+(?:all\s+|ces\s+)?'
     r'(?:cookies|termes|terms)|'
     r'terms\s+and\s+conditions|termes\s+et\s+conditions|'
-    r'[aâ]ge\s+l[eé]gal\s+d|legal\s+drinking\s+age|'
+    # The words 'and purchasing' sit between them on Lascombes
+    # gate: "not of legal drinking and purchasing age".
+    r'[aâ]ge\s+l[eé]gal\s+d|'
+    r'legal\s+(?:\w+\s+){0,3}?drinking\s+(?:\w+\s+){0,3}?age|'
+    # The page's own furniture, which on Lascombes sits exactly
+    # where the grand vin's block ends and the second wine's
+    # begins: "... casks and amphoras. Technical sheet see other
+    # vintages Download PDF Chevalier de Lascombes Margaux
+    # Millesime 2025 Blend 70% Merlot ..."
+    r'download\s+(?:the\s+)?pdf|technical\s+sheet\s+see|'
+    # A label and a figure with no colon between them. Only
+    # these two, which nothing but a data block writes that way.
+    r'alcohol\s+content\s+(?=\d)|yield\s+(?=\d{1,2}\s*hl)|'
     r'vous\s+devez\s+[eê]tre\s+[aâ]g|must\s+be\s+of\s+legal|'
     r'outdated\s+browser|navigateur\s+obsol[eè]te|'
     r'jean-ren[eé]\s+matignon|pierre\s+mont[eé]gut|directeur\s+technique|'
@@ -1963,6 +1989,15 @@ LABEL_NOTE = re.compile(
     # conditions:" - the section name and the label together.
     r'weather(?:\s+and\s+harvest)?\s+conditions|'
     r'harvest\s+and\s+weather\s+conditions|'
+    # The bare heading, in capitals, that marks where the
+    # vintage's own text begins after a standing preamble. Les
+    # Fiefs de Lagrange prints its terroir blurb and then LE
+    # MILLESIME, and four vintages held the blurb.
+    #
+    # (?-i:) and capitals only: millesime is an ordinary French
+    # word, and a note saying "ce millesime est" must not be
+    # cut at it.
+    r'(?-i:LE\s+MILL[E\u00c9]SIME|\bMILL[E\u00c9]SIME\b)|'
     r'\bclimate\b|\bclimat\b)')
 
 # A label only counts where it stands as a heading, which on a fiche
@@ -2253,7 +2288,7 @@ def read_numbers(text, cat=None):
         if v is not None:
             out['yld'], how['yld'] = v, m.group(0)[:60]
 
-    m = first(text, RX_MONTHS, RX_MONTHS2)
+    m = first(text, RX_MONTHS0, RX_MONTHS, RX_MONTHS2)
     if m:
         a = gated('months', num(m.group(1)))
         b = gated('months', num(m.group(2))) if m.group(2) else None
@@ -2600,6 +2635,19 @@ def read_prose(text, page=False, shop=False):
                     # first word, and the rest of the heading was left
                     # at the front of every one of its notes.
                     r'ET\s+CONDITIONS\s+DE\s+R[E\u00c9]COLTE|'
+                    # Sarget de Gruaud-Larose heads its notes "CLIMAT
+                    # MILLESIME ASSEMBLAGE", three headings run
+                    # together, and the loop stopped on the first word
+                    # because the bare CLIMAT was not in the list.
+                    # La Croizille opens seven tasting notes on
+                    # ASSEMBLAGE alone.
+                    r'CLIMAT|ASSEMBLAGE|'
+                    # Desmirail heads five of its notes "TECHNICAL
+                    # SHEET VINTAGE 2024", and the sheets of several
+                    # estates set their sections as "WINEGROWING
+                    # SPECIFICITIES WINEMAKING SPECIFICITIES".
+                    r'TECHNICAL\s+SHEET|'
+                    r'WINE(?:GROWING|MAKING)\s+SPECIFICITIES|'
                     r'CLIMATOLOGIE|DE\s+L[\u2019\']ANN\u00c9E|'
                     r'DE\s+L[\u2019\']ANNEE|(?:19|20)\d\d)\d*\b'
                     r'[\s:/–—-]*', '', win)
@@ -3856,6 +3904,36 @@ def anchored_blend(text, second=None):
     return None
 
 
+# The codes fiches.js uses, as an estate's own page may write them.
+CODED_PAIR = re.compile(
+    r'\b(SEM|CS|ME|CF|PV|MA|CA|SB|MU|SG|CO|UB)\s*:\s*'
+    r'(\d{1,3}(?:[.,]\d{1,2})?)\s*%')
+
+
+def coded_blend(text):
+    """A blend stated in variety codes rather than variety names.
+
+    Cos d'Estournel writes "CS : 60% ME : 40%" on its vintage pages -
+    this project's own codes, not words any estate uses - so no other
+    pattern finds it, and ten of its vintages had no record at all.
+
+    Two-letter codes match plenty that is not a grape, so the shape
+    carries its own proof: two or more of them, each with a colon and
+    a percentage, summing to 100 within the 0.6 anchored_blend
+    requires. Measured across the archive: 115 documents match, every
+    one Cos d'Estournel's, and all 115 sum to exactly 100.
+    """
+    got = {}
+    for m in CODED_PAIR.finditer(text):
+        got.setdefault(m.group(1),
+                       float(m.group(2).replace(',', '.')))
+    if len(got) < 2:
+        return None
+    if abs(sum(got.values()) - 100.0) > 0.6:
+        return None
+    return got
+
+
 def blend_in_prose(text, second=None):
     """A blend stated in sentences, or None.
 
@@ -4281,6 +4359,11 @@ def fields_of(path, grand=None, others=(), second=None, cat=None,
             how['blend'] = 'every figure touching its variety'
     if is_page(path) and not _is_shop(filename):
         b = blend_in_prose(text, second)
+        # And the same thing in codes, which only Cos
+        # d'Estournel writes, and only where the prose reader
+        # found nothing.
+        if not b:
+            b = coded_blend(text)
         # Asked again, now that there is a blend to show it.
         # whose_sheet calls wrong_colour before anything is read and
         # so passes None, which leaves the second of its two signals

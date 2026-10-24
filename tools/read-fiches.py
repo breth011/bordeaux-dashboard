@@ -96,6 +96,13 @@ import sheetreader as sr
 #
 # This is read-sheets' PINNED, for prose.
 REFUSED = {
+    ('malescot|1995', 'taste'):
+        'not this vintage: word for word the 1994 note, and the two '
+        'come from different pages of the estate\'s own site - '
+        '1994__malescot-chateau-malescot-saint-exupery.txt and the '
+        '1995 one - so the site repeats it, as Lafite\'s sheets do '
+        'at 1975/1976 and 2007/2016. The later vintage is the one '
+        'reusing',
     ('lafite|1976', 'taste'):
         'not this vintage: the estate printed the 1975 note on the '
         '1976 sheet, word for word, and it names the year inside '

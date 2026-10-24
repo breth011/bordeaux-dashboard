@@ -1,0 +1,909 @@
+========================================================================
+lafite
+========================================================================
+74 document(s) in the manifest, 50 vintage(s) of them
+the estate's other wines, from cuvees.js:
+   none listed - if the estate makes any, that is the first thing to fix
+
+lafite|1968   alc,ta,taste,tau,yld
+    taste   Beautiful brick colour with a hint of orange. Open, delicate nose with light floral notes.
+    !! no address: cannot link to its source
+    from  alc=Chateau-Lafite-Rothschild-1968.pdf, ta=Chateau-Lafite-Rothschild-1968.pdf, taste=Chateau-Lafite-Rothschild-1968.pdf, yld=Chateau-Lafite-Rothschild-1968.pdf
+
+lafite|1970   pick,ta,tau
+    !! no address: cannot link to its source
+    from  pick=Chateau-Lafite-Rothschild-1970.pdf, ta=Chateau-Lafite-Rothschild-1970.pdf
+
+lafite|1975   alc,ta,taste,tau,yld
+    taste   On the nose the wine reveals complex and intense aromas of tobacco and black truffle. The mouth is remarkable, with a good amplitude and a lot of leng
+    !! no address: cannot link to its source
+    from  alc=Chateau-Lafite-Rothschild-1975.pdf, ta=Chateau-Lafite-Rothschild-1975.pdf, taste=Chateau-Lafite-Rothschild-1975.pdf, yld=Chateau-Lafite-Rothschild-1975.pdf
+
+lafite|1976   pick,ta,taste,tau
+    taste   On the nose the wine reveals complex and intense aromas of tobacco and black truffle. The mouth is remarkable, with a good amplitude and a lot of leng
+    !! no address: cannot link to its source
+    !! taste is word for word lafite|1975’s
+    from  pick=Chateau-Lafite-Rothschild-1976.pdf, ta=Chateau-Lafite-Rothschild-1976.pdf, taste=Chateau-Lafite-Rothschild-1976.pdf
+
+lafite|1978   alc,ta,taste,tau
+    taste   The nose reveals notes of cedar, tobacco, and leather. Delicate and balanced, with tremendous complexity, this wine has a beautiful roundness on the p
+    !! no address: cannot link to its source
+    from  alc=Chateau-Lafite-Rothschild-1978.pdf, ta=Chateau-Lafite-Rothschild-1978.pdf, taste=Chateau-Lafite-Rothschild-1978.pdf
+
+lafite|1979   alc,pick,ta,taste,tau,yld
+    taste   Very expressive nose, cedar, tobacco. Fairly open and balanced at the beginning of the palate, then develops into a little thinness and a slightly aci
+    !! no address: cannot link to its source
+    from  alc=Chateau-Lafite-Rothschild-1979.pdf, pick=Chateau-Lafite-Rothschild-1979.pdf, ta=Chateau-Lafite-Rothschild-1979.pdf, taste=Chateau-Lafite-Rothschild-1979.pdf, yld=Chateau-Lafite-Rothschild-1979.pdf
+
+lafite|1981   pick,ta,tau,yld
+    !! no address: cannot link to its source
+    from  pick=Chateau-Lafite-Rothschild-1981.pdf, ta=Chateau-Lafite-Rothschild-1981.pdf, yld=Chateau-Lafite-Rothschild-1981.pdf
+
+lafite|1982   alc,months,ta,taste,tau,yld
+    taste   Floral nose with notes of blond tobacco. Very nice roundness in mouth with a freshness always present.
+    !! no address: cannot link to its source
+    from  alc=Chateau-Lafite-Rothschild-1982.pdf, ta=Chateau-Lafite-Rothschild-1982.pdf, taste=Chateau-Lafite-Rothschild-1982.pdf
+
+lafite|1983   alc,months,pick,ta,tau,yld
+    !! no address: cannot link to its source
+    from  alc=Chateau-Lafite-Rothschild-1983.pdf, pick=Chateau-Lafite-Rothschild-1983.pdf, ta=Chateau-Lafite-Rothschild-1983.pdf
+
+lafite|1985   alc,months,ta,taste,tau
+    taste   Nice color. Complexe cedar and ripen fruit nose. Discreet in mouth at the beginning then it starts revealing its power.
+    !! no address: cannot link to its source
+    from  alc=Chateau-Lafite-Rothschild-1985.pdf, ta=Chateau-Lafite-Rothschild-1985.pdf, taste=Chateau-Lafite-Rothschild-1985.pdf
+
+lafite|1986   alc,months,ta,taste,tau,yld
+    taste   A complex nose with notes of very dense black fruit. On the palate, the wine has a nice freshness with a large amplitude and a very pleasant net lengt
+    !! no address: cannot link to its source
+    from  alc=Chateau-Lafite-Rothschild-1986.pdf, ta=Chateau-Lafite-Rothschild-1986.pdf, taste=Chateau-Lafite-Rothschild-1986.pdf
+
+lafite|1987   alc,months,ta,taste,tau,yld
+    taste   Delicate roof tile red colour with very nice garnet reflections. The nose is subtle, with hints of oak, and very discreet animal and tobacco notes.
+    !! no address: cannot link to its source
+    from  alc=Chateau-Lafite-Rothschild-1987.pdf, ta=Chateau-Lafite-Rothschild-1987.pdf, taste=Chateau-Lafite-Rothschild-1987.pdf
+
+lafite|1988   alc,months,pick,ta,taste,tau
+    taste   Cedar on the nose, with well-polished leather and young fruit notes. Very precise on the palate with little evolution in age. Ripe and supple tannins.
+    !! no address: cannot link to its source
+    from  alc=Chateau-Lafite-Rothschild-1988.pdf, pick=Chateau-Lafite-Rothschild-1988.pdf, ta=Chateau-Lafite-Rothschild-1988.pdf, taste=Chateau-Lafite-Rothschild-1988.pdf
+
+lafite|1989   alc,months,pick,ta,taste,tau,yld
+    taste   Beautiful colour; a hint of fruitiness. The nose presents leather and wax, followed by some red fruit.
+    !! no address: cannot link to its source
+    from  alc=Chateau-Lafite-Rothschild-1989.pdf, pick=Chateau-Lafite-Rothschild-1989.pdf, ta=Chateau-Lafite-Rothschild-1989.pdf, taste=Chateau-Lafite-Rothschild-1989.pdf
+
+lafite|1990   alc,months,ta,taste,tau
+    taste   The nose presents the classic aromas of cedar, accompanied by notes of violet. The palate is full-bodied with good length, complexity and a surprising
+    !! no address: cannot link to its source
+    from  alc=Chateau-Lafite-Rothschild-1990.pdf, ta=Chateau-Lafite-Rothschild-1990.pdf, taste=Chateau-Lafite-Rothschild-1990.pdf
+
+lafite|1991   alc,months,ta,taste,tau,yld
+    taste   Dark ruby-red colour. Bouquet of citrus fruit and candied apricots. Good oakiness and concentration on the palate, with notes of ripe fruit (blackcurr
+    !! no address: cannot link to its source
+    from  alc=Chateau-Lafite-Rothschild-1991.pdf, ta=Chateau-Lafite-Rothschild-1991.pdf, taste=Chateau-Lafite-Rothschild-1991.pdf
+
+lafite|1992   alc,months,ta,taste,tau,yld
+    taste   A beautiful and colourful wine. An open, floral and attractive nose. Concentrated and an harmonious wine to the palate with aromas of cedar, chocolate
+    !! no address: cannot link to its source
+    from  alc=Chateau-Lafite-Rothschild-1992.pdf, ta=Chateau-Lafite-Rothschild-1992.pdf, taste=Chateau-Lafite-Rothschild-1992.pdf
+
+lafite|1993   alc,months,yld
+    !! no address: cannot link to its source
+    from  alc=Chateau-Lafite-Rothschild-1993.pdf
+
+lafite|1994   alc,months,ta,taste,tau,yld
+    taste   Beautiful dark magenta color. The nose presents notes of vanilla, blackberry, blackcurrant and red rose. Powerful and consistent on the palate, this w
+    !! no address: cannot link to its source
+    from  alc=Chateau-Lafite-Rothschild-1994.pdf, ta=Chateau-Lafite-Rothschild-1994.pdf, taste=Chateau-Lafite-Rothschild-1994.pdf
+
+lafite|1995   alc,months,ta,taste,tau
+    taste   Nice complex nose with hints of cedar. The attack is direct, serious then develops beautiful roundness.
+    !! no address: cannot link to its source
+    from  alc=Chateau-Lafite-Rothschild-1995.pdf, ta=Chateau-Lafite-Rothschild-1995.pdf, taste=Chateau-Lafite-Rothschild-1995.pdf
+
+lafite|1996   alc,months,ta,taste,tau,yld
+    taste   The robe is beautiful and intense. On the nose, this wine offers aromas of cedar and black fruits. On the palate the entry is silky and delicate, then
+    !! no address: cannot link to its source
+    from  alc=Chateau-Lafite-Rothschild-1996.pdf, ta=Chateau-Lafite-Rothschild-1996.pdf, taste=Chateau-Lafite-Rothschild-1996.pdf
+
+lafite|1997   alc,months,pick,ta,taste,tau,yld
+    taste   Opens in a very typical bunch: it is complex, ample, very attractive, specific and subtle. There are also some notes of tobacco and lead. On the attac
+    !! no address: cannot link to its source
+    from  alc=Chateau-Lafite-Rothschild-1997.pdf, pick=Chateau-Lafite-Rothschild-1997.pdf, ta=Chateau-Lafite-Rothschild-1997.pdf, taste=Chateau-Lafite-Rothschild-1997.pdf
+
+lafite|1998   alc,months,pick,ta,taste,tau
+    taste   This vintage has a pleasantly woody, spicy nose; the palate is structured and well balanced, gradually increasing in power with great elegance; the fi
+    !! no address: cannot link to its source
+    from  alc=Chateau-Lafite-Rothschild-1998.pdf, pick=Chateau-Lafite-Rothschild-1998.pdf, ta=Chateau-Lafite-Rothschild-1998.pdf, taste=Chateau-Lafite-Rothschild-1998.pdf
+
+lafite|1999   alc,months,pick,ta,tau
+    !! no address: cannot link to its source
+    from  alc=Chateau-Lafite-Rothschild-1999.pdf, pick=Chateau-Lafite-Rothschild-1999.pdf, ta=Chateau-Lafite-Rothschild-1999.pdf
+
+lafite|2000   alc,pick,ta,taste,tau,yld
+    taste   One of the best of the best. The tastings carried out for its release ‘en primeur’, showed signs of a wine with magnificent and captivating aromas.
+    !! no address: cannot link to its source
+    from  alc=Chateau-Lafite-Rothschild-2000.pdf, pick=Chateau-Lafite-Rothschild-2000.pdf, ta=Chateau-Lafite-Rothschild-2000.pdf, taste=Chateau-Lafite-Rothschild-2000.pdf
+
+lafite|2001   alc,months,ta,tau,yld
+    !! no address: cannot link to its source
+    from  alc=Chateau-Lafite-Rothschild-2001.pdf, ta=Chateau-Lafite-Rothschild-2001.pdf
+
+lafite|2002   alc,pick,taste
+    taste   During the ‘en primeur’ tasting, this vintage illustrated density and full-body, with firm tannins and texture.
+    !! no address: cannot link to its source
+    from  alc=Chateau-Lafite-Rothschild-2002.pdf, pick=Chateau-Lafite-Rothschild-2002.pdf, taste=Chateau-Lafite-Rothschild-2002.pdf
+
+lafite|2003   alc,months,pick,ta,taste,tau,yld
+    taste   When tasted during the ‘Futures’, the wine proved to be particularly rich, intense and unctuous with nice rounded tannins that offered a convivial sid
+    !! no address: cannot link to its source
+    from  alc=Chateau-Lafite-Rothschild-2003.pdf, pick=Chateau-Lafite-Rothschild-2003.pdf, ta=Chateau-Lafite-Rothschild-2003.pdf, taste=Chateau-Lafite-Rothschild-2003.pdf
+
+lafite|2004   alc,pick,ta,taste,tau,yld
+    taste   On the nose, the wine is closed and is beginning to open slowly. Note of preserved fruit. Rich at first, then becoming full and balanced, opulent and 
+    !! no address: cannot link to its source
+    from  alc=Chateau-Lafite-Rothschild-2004.pdf, pick=Chateau-Lafite-Rothschild-2004.pdf, ta=Chateau-Lafite-Rothschild-2004.pdf, taste=Chateau-Lafite-Rothschild-2004.pdf
+
+lafite|2005   alc,pick,ta,taste,tau,yld
+    taste   Deep colour. An intense, delicate, subtle and complex nose. Very neat and regular on the palate upon attack leading to volume and a nicely round struc
+    !! no address: cannot link to its source
+    from  alc=Chateau-Lafite-Rothschild-2005.pdf, pick=Chateau-Lafite-Rothschild-2005.pdf, ta=Chateau-Lafite-Rothschild-2005.pdf, taste=Chateau-Lafite-Rothschild-2005.pdf
+
+lafite|2006   alc,pick,ta,taste,tau,yld
+    taste   Very dark and beautiful colour. Discreet nose with primary notes that develop in ampleness and density.
+    !! no address: cannot link to its source
+    from  alc=Chateau-Lafite-Rothschild-2006.pdf, pick=Chateau-Lafite-Rothschild-2006.pdf, ta=Chateau-Lafite-Rothschild-2006.pdf, taste=Chateau-Lafite-Rothschild-2006.pdf
+
+lafite|2007   alc,ph,pick,taste,yld
+    taste   Beautiful dark red colour with almost black glints in the glass. The wine is bright and clear. Very dark. The nose is still very closed, but all the s
+    !! no address: cannot link to its source
+    from  alc=Chateau-Lafite-Rothschild-2007.pdf, pick=Chateau-Lafite-Rothschild-2007.pdf, taste=Chateau-Lafite-Rothschild-2007.pdf
+
+lafite|2008   alc,months,pick,ta,taste,tau,yld
+    taste   Dominated by red fruit, the nose remains clear, precise and complex. In the mouth, the strength and classic style of this wine become apparent.
+    !! no address: cannot link to its source
+    from  alc=Chateau-Lafite-Rothschild-2008.pdf, pick=Chateau-Lafite-Rothschild-2008.pdf, ta=Chateau-Lafite-Rothschild-2008.pdf, taste=Chateau-Lafite-Rothschild-2008.pdf
+
+lafite|2009   alc,months,oak,ta,taste,tau,yld
+    taste   A deep bouquet of dark fruit and liquorice. The palate is full-bodied and surprisingly expressive, but then becomes tighter, expressing power and exub
+    !! no address: cannot link to its source
+    from  alc=Chateau-Lafite-Rothschild-2009.pdf, ta=Chateau-Lafite-Rothschild-2009.pdf, taste=Chateau-Lafite-Rothschild-2009.pdf
+
+lafite|2010   alc,months,ta,taste,tau,yld
+    taste   Fine, concentrated colour. Solid and dense in the mouth, presenting good structure and well-defined tannins. A long, lingering wine with notes of viol
+    !! no address: cannot link to its source
+    from  alc=Chateau-Lafite-Rothschild-2010.pdf, ta=Chateau-Lafite-Rothschild-2010.pdf, taste=Chateau-Lafite-Rothschild-2010.pdf
+
+lafite|2011   alc,months,ta,taste,tau,yld
+    taste   Robe d’un pourpre profond et intense. Nez dense, arômes de fruits rouges et noirs, de buis et notes épicées. Bouche très dense, de belle intensité.
+    !! no address: cannot link to its source
+    from  alc=Chateau-Lafite-Rothschild-2011-FR., ta=Chateau-Lafite-Rothschild-2011-FR., taste=Chateau-Lafite-Rothschild-2011-FR.
+
+lafite|2012   alc,months,note,ta,taste,tau,yld
+    taste   Nez fermé, puis le fruit qui s’exprime est légèrement dominé par le bois. En bouche, trame bien serrée et dense. Puis le cœur du vin s’exprime sur un 
+    note    Après un hiver relativement doux, la pluie et l’humidité ont dominé pendant le printemps et tout particulièrement au mois d’avril au cours duquel est 
+    !! no address: cannot link to its source
+    from  alc=Chateau-Lafite-Rothschild-2012.-fr, note=Chateau-Lafite-Rothschild-2012.-fr, ta=Chateau-Lafite-Rothschild-2012.-fr, taste=Chateau-Lafite-Rothschild-2012.-fr
+
+lafite|2013   alc,months,ta,tau,yld
+    !! no address: cannot link to its source
+    from  alc=Chateau-Lafite-Rothschild-2013.pdf, ta=Chateau-Lafite-Rothschild-2013.pdf
+
+lafite|2014   alc,months,pick,ta,taste,tau,yld
+    taste   Beautiful, intense red garnet colour. The nose is complex and fruity, characteristic of 2014, with beautiful floral notes. There is a light toasted no
+    !! no address: cannot link to its source
+    from  alc=Chateau-Lafite-Rothschild-2014.pdf, pick=Lafite-Rothschild-2014-FT-FR.pdf, ta=Chateau-Lafite-Rothschild-2014.pdf, taste=Chateau-Lafite-Rothschild-2014.pdf
+
+lafite|2015   alc,months,note,pick,ta,taste,tau,yld
+    taste   Tasted at bottling in June 2017. Very dark colour, with purple glints, indicating that the wine is still very much in its youth. It already presents g
+    note    Phénomène récurrent ces dernières années, le début de l’hiver a été doux et sec et ce n’est que fin janvier que les froids bénéfiques sont arrivés, ac
+    !! no address: cannot link to its source
+    from  alc=Chateau-Lafite-Rothschild-2015.pdf, note=Lafite-Rothschild-2015-FT-FR-103.p, pick=Lafite-Rothschild-2015-FT-FR-103.p, ta=Chateau-Lafite-Rothschild-2015.pdf, taste=Chateau-Lafite-Rothschild-2015.pdf
+
+lafite|2016   alc,months,ph,ta,taste,tau,yld
+    taste   Beautiful dark red colour with almost black glints in the glass. The wine is bright and clear. Very dark. The nose is still very closed, but all the s
+    !! no address: cannot link to its source
+    !! taste is word for word lafite|2007’s
+    from  alc=Chateau-Lafite-Rothschild-2016.pdf, ta=Chateau-Lafite-Rothschild-2016.pdf, taste=Chateau-Lafite-Rothschild-2016.pdf
+
+lafite|2017   alc,months,ph,pick,ta,taste,tau,yld
+    taste   Deep, dark colour. The nose is still reserved but offers a glimpse of enormous aromatic potential that will be revealed over time. Very fresh, with de
+    !! no address: cannot link to its source
+    !! yld is 75, outside 8-70
+    from  alc=Chateau-Lafite-Rothschild-2017.pdf, pick=Chateau-Lafite-Rothschild-2017.pdf, ta=Chateau-Lafite-Rothschild-2017.pdf, taste=Chateau-Lafite-Rothschild-2017.pdf
+
+lafite|2018   alc,months,ph,ta,taste,tau
+    taste   Dark colour with glints of purple giving the wine a bright, lively appearance. The nose is still quite closed but suggests tremendous depth. Aromas of
+    !! no address: cannot link to its source
+    from  alc=Chateau-Lafite-Rothschild-2018.pdf, ta=Chateau-Lafite-Rothschild-2018.pdf, taste=Chateau-Lafite-Rothschild-2018.pdf
+
+lafite|2019   alc,months,ph,ta,taste,tau,yld
+    taste   A wine with an intense dark colour. The nose is characterized by freshness, combining depth and complexity. All the aromatic markers of a future great
+    !! no address: cannot link to its source
+    from  alc=Chateau-Lafite-Rothschild-2019.pdf, ta=Chateau-Lafite-Rothschild-2019.pdf, taste=Chateau-Lafite-Rothschild-2019.pdf
+
+lafite|2020   alc,months,ph,ta,taste,tau
+    taste   Deep black color. The nose offers a broad palette of intense and well-defined aromas, with spicy black fruits like blackberries and black cherries on 
+    !! no address: cannot link to its source
+    from  alc=Chateau-Lafite-Rothschild-2020.pdf, ta=Chateau-Lafite-Rothschild-2020.pdf, taste=Chateau-Lafite-Rothschild-2020.pdf
+
+lafite|2021   months,ph,ta,taste,tau
+    taste   Deep red color. The nose is still dominated by fresh fruit and elegant toasty notes. On the palate, an immediate sensation of power, without any exces
+    !! no address: cannot link to its source
+    from  ta=Chateau-Lafite-Rothschild-2021.pdf, taste=Chateau-Lafite-Rothschild-2021.pdf
+
+lafite|2022   alc,months,ph,pick,ta,taste,tau
+    taste   A wine that provides extreme sensations, everything seems perfectly in place. The nose, still discrete, reveals the balance of the bouquet, carried by
+    !! no address: cannot link to its source
+    from  alc=Chateau-Lafite-Rothschild-2022.pdf, pick=Chateau-Lafite-Rothschild-2022.pdf, ta=Chateau-Lafite-Rothschild-2022.pdf, taste=Chateau-Lafite-Rothschild-2022.pdf
+
+lafite|2023   alc,months,ph,pick,ta,taste,tau
+    taste   The nose, already open and filled with fresh fruit dominated by raspberry, is delicately lifted by notes of white pepper. What strikes us beyond the w
+    !! no address: cannot link to its source
+    from  alc=Chateau-Lafite-Rothschild-2023.pdf, pick=ft_lafite-rothschild-2023_carte-la, ta=Chateau-Lafite-Rothschild-2023.pdf, taste=Chateau-Lafite-Rothschild-2023.pdf
+
+lafite|2024   alc,months,ph,pick,ta,taste,tau
+    taste   The nose restrained at first, opens up with aeration revealing red fruit and ripe, concentrated blackcurrant, lifted by a delicate hint of menthol. No
+    !! no address: cannot link to its source
+    from  alc=Chateau-Lafite-Rothschild-2024.pdf, pick=2024__fr-2024-un-millesime-de-trav, ta=Chateau-Lafite-Rothschild-2024.pdf, taste=Chateau-Lafite-Rothschild-2024.pdf
+
+grand: 49 vintage(s) with something to look at
+========================================================================
+pouget
+========================================================================
+71 document(s) in the manifest, 33 vintage(s) of them
+the estate's other wines, from cuvees.js:
+   none listed - if the estate makes any, that is the first thing to fix
+
+pouget|2013   (no record)
+    !! NO RECORD, 2 document(s) on disk: 2013__francais-mill-c3-a9simes-2013.txt
+
+pouget|2015   (no record)
+    !! NO RECORD, 2 document(s) on disk: 2015__francais-mill-c3-a9simes-2015.txt
+
+pouget|2016   (no record)
+    !! NO RECORD, 3 document(s) on disk: Fiche-Pouget-2016.pdf
+
+pouget|2017   note,pick
+    note    Globalement, l’année fut fraîche avec un été sec, déterminant ainsi le style des vins obtenus. Après les vendanges 2016, la fin de l’automne avait été
+    !! no address: cannot link to its source
+    from  note=Fiche-Pouget-2017-FR.pdf, pick=Fiche-Pouget-2017-FR.pdf
+
+pouget|2018   note,pick
+    note    Le cycle 2018 a connu deux périodes aux conditions météorologiques très différentes et très marquées : six mois pluvieux, tout d’abord, jusqu’à la mi-
+    !! no address: cannot link to its source
+    from  note=Fiche-Pouget-2018-FR.pdf, pick=Fiche-Pouget-2018-FR.pdf
+
+grand: 5 vintage(s) with something to look at
+========================================================================
+langoa-barton
+========================================================================
+44 document(s) in the manifest, 32 vintage(s) of them
+the estate's other wines, from cuvees.js:
+   none listed - if the estate makes any, that is the first thing to fix
+
+langoa-barton|2012   oak,pick,via
+    !! no address: cannot link to its source
+    from  oak=2012__en-wines-1-chateau-langoa-ba, pick=2012__en-wines-1-chateau-langoa-ba
+
+langoa-barton|2016   alc,oak,pick,taste,via
+    taste   Ruby / purple color, the intense and complex nose reveals hints of black fruit, brioche bread. The attack is vivid and velvety. The mid-palate enhance
+    !! no address: cannot link to its source
+    from  alc=Langoa-Barton-2016-FT-FR-C1014.pdf, oak=2016__en-wines-1-chateau-langoa-ba, pick=2016__en-wines-1-chateau-langoa-ba, taste=2016__en-wines-1-chateau-langoa-ba
+
+langoa-barton|2017   alc,oak,pick,taste,via
+    taste   Dense purple color. Very expressive nose with some notes of raspberry, blackberry and violet. In mouth, the wine is elegant, round and smooth. Juicy w
+    !! no address: cannot link to its source
+    from  alc=Langoa-Barton-2017-FT-FR.pdf, oak=2017__en-wines-1-chateau-langoa-ba, pick=2017__en-wines-1-chateau-langoa-ba, taste=2017__en-wines-1-chateau-langoa-ba
+
+langoa-barton|2018   oak,pick,taste,via
+    taste   The color is intense with a beautiful shine. The attack is brilliant, we are seduced by the depth and substance of the wine.
+    !! no address: cannot link to its source
+    from  oak=2018__en-wines-1-chateau-langoa-ba, pick=2018__en-wines-1-chateau-langoa-ba, taste=2018__en-wines-1-chateau-langoa-ba
+
+langoa-barton|2019   oak,pick,via
+    !! no address: cannot link to its source
+    from  oak=2019__en-wines-1-chateau-langoa-ba, pick=2019__en-wines-1-chateau-langoa-ba
+
+langoa-barton|2020   alc,oak,pick,via,yld
+    !! no address: cannot link to its source
+    from  alc=Chateau-Langoa-Barton-Primeurs-202, oak=2020__en-wines-1-chateau-langoa-ba, pick=2020__en-wines-1-chateau-langoa-ba
+
+langoa-barton|2021   oak,pick,via
+    !! no address: cannot link to its source
+    from  oak=2021__en-wines-1-chateau-langoa-ba, pick=2021__en-wines-1-chateau-langoa-ba
+
+langoa-barton|2022   alc,oak,pick,via,yld
+    !! no address: cannot link to its source
+    from  alc=Chateau-Langoa-Barton-Primeurs-202, oak=2022__en-wines-1-chateau-langoa-ba, pick=2022__en-wines-1-chateau-langoa-ba
+
+langoa-barton|2023   alc,oak,pick,via
+    !! no address: cannot link to its source
+    from  alc=Chateau-Langoa-Barton-Primeurs-202, oak=2023__en-wines-1-chateau-langoa-ba, pick=2023__en-wines-1-chateau-langoa-ba
+
+langoa-barton|2024   alc,oak,pick,via
+    !! no address: cannot link to its source
+    from  alc=Chateau-Langoa-Barton-Primeurs-202, oak=2024__en-wines-1-chateau-langoa-ba, pick=2024__en-wines-1-chateau-langoa-ba
+
+langoa-barton|2025   alc,oak,pick,via
+    !! no address: cannot link to its source
+    from  alc=FT_-Chateau-Langoa-Barton-Primeurs, oak=2025__en-wines-1-chateau-langoa-ba, pick=2025__en-wines-1-chateau-langoa-ba
+
+grand: 11 vintage(s) with something to look at
+========================================================================
+gruaud-larose
+========================================================================
+303 document(s) in the manifest, 38 vintage(s) of them
+the estate's other wines, from cuvees.js:
+   Sarget de Gruaud-Larose            second  red     32 record(s)
+
+gruaud-larose|2001   alc,months,note,oak
+    note    BLENDING Quick and homogenous flowering end of May. After a dry period in May and June, July was rainy. August was warm and moderately rainy. Average 
+    !! note holds a labelled figure: Alcohol: 1
+    from  note=chateau-gruaud-larose-2001-ang.pdf
+
+gruaud-larose|2008   alc,months,note,oak
+    note    Un printemps humide, une floraison tardive et perturbée. Un été contrasté : frais et maussade en juin et août mais sec en juillet, assurant une contra
+    !! note holds a labelled figure: Alcool : 1
+    from  note=chateau-gruaud-larose-2008-fr.pdf
+
+gruaud-larose|2009   alc,months,note,oak
+    note    Début de printemps particulièrement humide avec orages violents en mai. Installation précoce de l'été. Un très bel été avec des journées chaudes mais 
+    !! note holds a labelled figure: Alcool : 1
+    from  note=chateau-gruaud-larose-2009-fr.pdf
+
+gruaud-larose|2010   alc,months,note,oak
+    note    Un mois de juillet chaud, ensoleillé et sec provoquant un ralentissement et un arrêt de la croissance de la vigne au début de la véraison. Une maturat
+    !! note holds a labelled figure: Alcool : 1
+    from  note=chateau-gruaud-larose-2010-fr.pdf
+
+gruaud-larose|2025   months,note
+    note    Un hiver doux favorisa un débourrement précoce puis une maturation rapide sous la chaleur estivale qui conduisit à des vendanges précoces en septembre
+    !! no address: cannot link to its source
+    from  months=FT_Chateau-Gruaud-Larose-2025-FR.p, note=FT_Chateau-Gruaud-Larose-2025-FR.p
+
+grand: 5 vintage(s) with something to look at
+
+------------------------------------------------------------------------
+Sarget de Gruaud-Larose  (second, red)
+------------------------------------------------------------------------
+
+gruaud-larose|sarget-de-gruaud-larose|1994   alc,months,note,oak
+    note    The bud-burst was very early but heterogeneous. The first decade of April was much colder and humid, May slightly warmer and humid. Rapid flowering 10
+    !! no address: cannot link to its source
+    !! note holds a labelled figure: Alcohol: 1
+    from  note=sarget-de-gruaud-larose-1994-ang.p
+
+gruaud-larose|sarget-de-gruaud-larose|1995   alc,months,note,oak
+    note    Thanks to the good climatic conditions of the summer, the grapes reached a chemical make-up that could be qualified as excellent at the time of the ha
+    !! no address: cannot link to its source
+    !! note holds a labelled figure: Alcohol: 1
+    from  alc=sarget-de-gruaud-larose-1995-fr.pd, note=sarget-de-gruaud-larose-1995-ang.p
+
+gruaud-larose|sarget-de-gruaud-larose|1996   alc,months,note,oak
+    note    Low temperatures in February and in the very beginning of March (late budburst). Negative temperatures early April. May was moderately hot and humid. 
+    !! no address: cannot link to its source
+    !! note holds a labelled figure: Alcohol: 1
+    from  note=sarget-de-gruaud-larose-1996-ang.p
+
+gruaud-larose|sarget-de-gruaud-larose|1997   alc,months,note,oak,pick
+    note    March was summer-like. These variations affected the ripening conditions of the grapes considerably. End of season very favourable. Almost all the plo
+    !! no address: cannot link to its source
+    !! note holds a labelled figure: Alcohol: 1
+    from  alc=sarget-de-gruaud-larose-1997-fr.pd, note=sarget-de-gruaud-larose-1997-ang.p, pick=1997__en-wines-sarget-1997.txt
+
+gruaud-larose|sarget-de-gruaud-larose|1998   alc,months,note,oak
+    note    BLENDING VINTAGE 1998 May was hot and dry. Quick and homogenous flowering. July was relatively hot and dry. August very hot and very dry. In 1998, the
+    !! no address: cannot link to its source
+    from  note=sarget-de-gruaud-larose-1998-ang.p
+
+gruaud-larose|sarget-de-gruaud-larose|1999   alc,months,note,oak
+    note    The 3 first months were marked by above-average temperatures. Bud-bursting end of March. Precocious and abundant vintage. April and May: higher than n
+    !! no address: cannot link to its source
+    !! note holds a labelled figure: Alcohol: 1
+    from  note=sarget-de-gruaud-larose-1999-ang.p
+
+gruaud-larose|sarget-de-gruaud-larose|2000   alc,months,note,oak
+    note    The half-veraison is 9 days early (on August 6th). From April to mid August, the vintage seemed to be moderately hot with a surplus of sunshine and hu
+    !! no address: cannot link to its source
+    !! note holds a labelled figure: Alcohol: 1
+    from  note=sarget-de-gruaud-larose-2000-ang.p
+
+gruaud-larose|sarget-de-gruaud-larose|2001   alc,months,note,oak
+    note    After a dry period in May and June, July was rainy. August was warm and moderately rainy. Average temperatures in September. Maximum temperatures of 2
+    !! no address: cannot link to its source
+    !! note holds a labelled figure: Alcohol: 1
+    from  note=sarget-de-gruaud-larose-2001-ang.p
+
+gruaud-larose|sarget-de-gruaud-larose|2002   alc,months,note,oak
+    note    May alternated between periods of rain and sunshine. Flowering end of May/beginning of June in cold and rain. 2nd decade of June was dry and sunny. Hi
+    !! no address: cannot link to its source
+    !! note holds a labelled figure: Alcohol: 1
+    from  note=sarget-de-gruaud-larose-2002-ang.p
+
+gruaud-larose|sarget-de-gruaud-larose|2003   alc,months,note,oak
+    note    Outbreak of the first leaves beginning of March. Temperatures and amount of sunshine well beyond normal. Even so, the vines didn’t suffer. Great droug
+    !! no address: cannot link to its source
+    !! note holds a labelled figure: Alcohol: 1
+    from  note=sarget-de-gruaud-larose-2003-ang.p
+
+gruaud-larose|sarget-de-gruaud-larose|2004   alc,months,note,oak
+    note    ASSEMBLAGE Levures sèches sélectionnées | Températures de fermentation 31-33° Un mois de mai relativement chaud et pluvieux a facilité le début de la 
+    !! no address: cannot link to its source
+    from  note=sarget-de-gruaud-larose-2004-fr.pd
+
+gruaud-larose|sarget-de-gruaud-larose|2005   alc,months,note,oak
+    note    Beginning of September, close to 40°, then rain during the 2nd week end. Then, sun and little water (great concentration/perfect sanitary conditions).
+    !! no address: cannot link to its source
+    from  note=sarget-de-gruaud-larose-2005-ang.p
+
+gruaud-larose|sarget-de-gruaud-larose|2006   alc,months,note,oak
+    note    Un printemps sec et une floraison dans de bonnes conditions. Un mois de juillet très chaud, induisant un arrêt de croissance végétative avant un début
+    !! no address: cannot link to its source
+    from  note=sarget-de-gruaud-larose-2006-fr.pd
+
+gruaud-larose|sarget-de-gruaud-larose|2007   alc,months,oak
+    !! no address: cannot link to its source
+
+gruaud-larose|sarget-de-gruaud-larose|2008   alc,months,oak
+    !! no address: cannot link to its source
+
+gruaud-larose|sarget-de-gruaud-larose|2009   alc,months,note,oak
+    note    Début de printemps particulièrement humide avec orages violents en mai. Installation précoce de l'été. Un très bel été avec des journées chaudes mais 
+    !! no address: cannot link to its source
+    from  note=sarget-de-gruaud-larose-2009-fr.pd
+
+gruaud-larose|sarget-de-gruaud-larose|2010   alc,months,note,oak
+    note    Un mois de juillet chaud, ensoleillé et sec provoquant un ralentissement et un arrêt de la croissance de la vigne au début de la véraison.
+    !! no address: cannot link to its source
+    from  note=sarget-de-gruaud-larose-2010-fr.pd
+
+gruaud-larose|sarget-de-gruaud-larose|2011   alc,months,oak
+    !! no address: cannot link to its source
+
+gruaud-larose|sarget-de-gruaud-larose|2012   alc,months,note,oak
+    note    July was cold but August was hotter than in the previous 7 years. End of summer: major water stress. End of July: intense heat. Rain in the early autu
+    !! no address: cannot link to its source
+    from  note=Sarget-de-Gruaud-Larose-2012-FT-GB
+
+gruaud-larose|sarget-de-gruaud-larose|2013   alc,months,note,oak
+    note    Mars et avril très froid induirent un débourrement très tardif (15 jours de retard par rapport à la normale). Par la suite, les conditions fraîches et
+    !! no address: cannot link to its source
+    from  note=sarget-de-gruaud-larose-2013-fr.pd
+
+gruaud-larose|sarget-de-gruaud-larose|2014   alc,months,note,oak,taste
+    taste   Belle couleur vive, à reflets violacés bien soutenus. Le nez est frais, épicé, avec des notes de muscade. Un boisé subtil vient se fondre avec le frui
+    note    La végétation a été ralentie par un printemps arrosé et des températures en-dessous des normales. Le début d'été assez frais fut suivi d'un mois de ju
+    !! no address: cannot link to its source
+    from  note=sarget-de-gruaud-larose-2014-fr.pd, taste=Sarget-de-Gruaud-Larose-2014-FT-FR
+
+gruaud-larose|sarget-de-gruaud-larose|2015   alc,food,months,note,oak,pick,wy
+    note    Le mois d'avril a été conforme aux moyennes de pluie et de température. Début mai fut caractérisé par de fortes précipitations qui heureusement se son
+    food    suggestions : Bolognese lasagna Venison stew Cheese : Saint-Nectaire A nose of sweet stewed black cherries, licorice, earth, mushroom and spice. Rich,
+    !! no address: cannot link to its source
+    !! food is a paragraph (259 chars), not a line
+    from  food=Visite-VDR-ENG.pdf, note=sarget-de-gruaud-larose-2015-fr.pd, pick=technical-data-vins-des-rois-rois-, wy=technical-data-vins-des-rois-rois-
+
+gruaud-larose|sarget-de-gruaud-larose|2016   alc,months,oak
+    !! no address: cannot link to its source
+
+gruaud-larose|sarget-de-gruaud-larose|2017   alc,months,oak,pick
+    !! no address: cannot link to its source
+    from  pick=sarget-de-gruaud-larose-2017-fr.pd
+
+gruaud-larose|sarget-de-gruaud-larose|2018   alc,months,oak
+    !! no address: cannot link to its source
+    from  alc=sarget-de-gruaud-larose-2018-fr.pd
+
+gruaud-larose|sarget-de-gruaud-larose|2019   alc,note,oak
+    note    CLIMAT MILLESIME ASSEMBLAGE Première partie d’hiver pluvieuse, avec des températures dans les normales de saison, un mois de Mars doux qui entraine un
+    !! no address: cannot link to its source
+    !! note opens on capitals: CLIMAT MILLESIME ASSEMBLAGE Première partie d’hiver pluvieuse, avec de
+    from  note=Sarget-de-Gruaud-Larose-2019-FR.pd, oak=Sarget-de-Gruaud-Larose-2019-FR.pd
+
+gruaud-larose|sarget-de-gruaud-larose|2020   alc,months,note,oak
+    note    CLIMAT MILLESIME ASSEMBLAGE Ce millésime commence par un hiver historiquement pluvieux. Une année de pluie moyenne est tombée des vendanges 2019 à fin
+    !! no address: cannot link to its source
+    !! note opens on capitals: CLIMAT MILLESIME ASSEMBLAGE Ce millésime commence par un hiver histori
+    from  note=Sarget-de-Gruaud-Larose-2020-FR.pd
+
+gruaud-larose|sarget-de-gruaud-larose|2021   alc,months,note,oak
+    note    CLIMAT MILLESIME ASSEMBLAGE L'hiver doux et arrosé réveille la vigne de façon homogène et précoce. Quelques parcelles de Merlot dans les parties basse
+    !! no address: cannot link to its source
+    !! note opens on capitals: CLIMAT MILLESIME ASSEMBLAGE L'hiver doux et arrosé réveille la vigne d
+    from  note=Sarget-de-Gruaud-Larose-2021-FR.pd
+
+gruaud-larose|sarget-de-gruaud-larose|2022   alc,months,oak,pick
+    !! no address: cannot link to its source
+    from  pick=Sarget-de-Gruaud-Larose-2022-FR.pd
+
+gruaud-larose|sarget-de-gruaud-larose|2023   alc,months,note,oak
+    note    CLIMAT ASSEMBLAGE L’automne, chaud et sec, laisse place à un hiver proche de la norme. Fin mars, le débourrement précoce des premières parcelles de Me
+    !! no address: cannot link to its source
+    from  note=Sarget-de-Gruaud-Larose-2023-FR.pd
+
+gruaud-larose|sarget-de-gruaud-larose|2024   alc,months,note,oak,ph,pick
+    note    September: heavy rainfall slowed down the ripening of the grapes. Patience was the key to success, enabling the grapes to reach optimum ripeness and t
+    !! no address: cannot link to its source
+    from  note=2024-FICHE-TECHNIQUES-Gruaud-Laros, oak=2024-FICHE-TECHNIQUES-Gruaud-Laros, ph=2024-FICHE-TECHNIQUES-Gruaud-Laros, pick=2024-FICHE-TECHNIQUES-Gruaud-Laros
+
+sarget-de-gruaud-larose: 31 vintage(s) with something to look at
+========================================================================
+malescot
+========================================================================
+31 document(s) in the manifest, 29 vintage(s) of them
+the estate's other wines, from cuvees.js:
+   none listed - if the estate makes any, that is the first thing to fix
+
+malescot|1992   (no record)
+    !! NO RECORD, 1 document(s) on disk: 1992__malescot-chateau-malescot-saint-exupery.txt
+
+malescot|1995   taste
+    taste   Lovely, sustained colour that is quite intense for its age. Multiple layers of toast and ripe fruit with lots of intensity. Lovely density, balance an
+    !! taste is word for word malescot|1994’s
+    from  taste=1995__malescot-chateau-malescot-sa
+
+malescot|1997   (no record)
+    !! NO RECORD, 1 document(s) on disk: 1997__malescot-chateau-malescot-saint-exupery.txt
+
+malescot|2000   decant,taste
+    taste   Behind its deep, dark robe there are more complex aromas of undergrowth and almost musk. This is a keeping wine and perfect for hunting parties with g
+    decant  For maximum enjoyment Decant the wine 2 hours before serving.
+    !! decant opens on TAIL_DECANT: For maximum enjoyment Decant the wine 2 hours before serving.
+    from  decant=2000__malescot-chateau-malescot-sa, taste=2000__malescot-chateau-malescot-sa
+
+malescot|2001   decant,taste
+    taste   It has appealing aromas of blackcurrant, plum, cherry and fine spice. This is followed by great purity, combining powerful flavour and subtlety with s
+    decant  For maximum enjoyment Decant the wine 2 hours before serving.
+    !! decant opens on TAIL_DECANT: For maximum enjoyment Decant the wine 2 hours before serving.
+    !! decant is word for word malescot|2000’s
+    from  decant=2001__malescot-chateau-malescot-sa, taste=2001__malescot-chateau-malescot-sa
+
+malescot|2002   decant,taste
+    taste   This initially much maligned vintage stands out with its lovely, intense, quite sustained colour. Its archetypal elegance and subtlety were wrongly ta
+    decant  For maximum enjoyment Decant the wine 2 hours before serving.
+    !! decant opens on TAIL_DECANT: For maximum enjoyment Decant the wine 2 hours before serving.
+    !! decant is word for word malescot|2000’s
+    from  decant=2002__malescot-chateau-malescot-sa, taste=2002__malescot-chateau-malescot-sa
+
+malescot|2003   decant,taste
+    taste   Deep purple and garnet colour. The sun can be amazing sometimes, producing in the Bordeaux area these complex aromas of ripe and candied fruit with as
+    decant  For maximum enjoyment Decant the wine 2 hours before serving.
+    !! decant opens on TAIL_DECANT: For maximum enjoyment Decant the wine 2 hours before serving.
+    !! decant is word for word malescot|2000’s
+    from  decant=2003__malescot-chateau-malescot-sa, taste=2003__malescot-chateau-malescot-sa
+
+malescot|2004   decant,taste
+    taste   Lovely and bright, almost transparent. The aromas are becoming quite intense, with the fruit mingling with the secondary aromas, reminiscent almost of
+    decant  For maximum enjoyment Decant the wine 2 hours before serving.
+    !! decant opens on TAIL_DECANT: For maximum enjoyment Decant the wine 2 hours before serving.
+    !! decant is word for word malescot|2000’s
+    from  decant=2004__malescot-chateau-malescot-sa, taste=2004__malescot-chateau-malescot-sa
+
+malescot|2005   decant,taste
+    taste   An intense purple is the dominant colour with some violet tints from its almost eternal youth. The features of the 2005 are not very different from th
+    decant  For maximum enjoyment Decant the wine 2 hours before serving.
+    !! decant opens on TAIL_DECANT: For maximum enjoyment Decant the wine 2 hours before serving.
+    !! decant is word for word malescot|2000’s
+    from  decant=2005__malescot-chateau-malescot-sa, taste=2005__malescot-chateau-malescot-sa
+
+malescot|2006   decant,taste
+    taste   Very distinctive black berry, mocha and liquorice aromas, still fresh. It has a real tannic framework. A traditional wine, noticeably big.
+    decant  For maximum enjoyment Decant the wine 3 hours before serving.
+    !! decant opens on TAIL_DECANT: For maximum enjoyment Decant the wine 3 hours before serving.
+    from  decant=2006__malescot-chateau-malescot-sa, taste=2006__malescot-chateau-malescot-sa
+
+malescot|2007   decant,taste
+    taste   Deep, quite bright colour in a year that was a little cold. Intriguing multi-layered red berry aromas on the nose. The wood has blended in remarkably 
+    decant  For maximum enjoyment Decant the wine 2 hours before serving.
+    !! decant opens on TAIL_DECANT: For maximum enjoyment Decant the wine 2 hours before serving.
+    !! decant is word for word malescot|2000’s
+    from  decant=2007__malescot-chateau-malescot-sa, taste=2007__malescot-chateau-malescot-sa
+
+malescot|2008   decant,taste
+    taste   Black berry aromas dominate the nose, lovely intense ripeness with hints of wood, liquorice and cedar. Silky, rich, supple and long with a very nicely
+    decant  For maximum enjoyment Decant the wine 2 hours before serving.
+    !! decant opens on TAIL_DECANT: For maximum enjoyment Decant the wine 2 hours before serving.
+    !! decant is word for word malescot|2000’s
+    from  decant=2008__malescot-chateau-malescot-sa, taste=2008__malescot-chateau-malescot-sa
+
+malescot|2009   decant,taste
+    taste   An outstanding vintage! Lots of character and very big. Hints of mocha, cedar, liquorice and fruit that are becoming multi-layered: everything is ther
+    decant  For maximum enjoyment Decant the wine 3 hours before serving.
+    !! decant opens on TAIL_DECANT: For maximum enjoyment Decant the wine 3 hours before serving.
+    !! decant is word for word malescot|2006’s
+    from  decant=2009__malescot-chateau-malescot-sa, taste=2009__malescot-chateau-malescot-sa
+
+malescot|2010   decant,taste
+    taste   Classic vintage. Perfectly ripe, powerful fruit aromas that explode on the nose. Malescot has taken on lovely acidity and an impressive tannic structu
+    decant  For maximum enjoyment Decant the wine 3 hours before serving.
+    !! decant opens on TAIL_DECANT: For maximum enjoyment Decant the wine 3 hours before serving.
+    !! decant is word for word malescot|2006’s
+    from  decant=2010__malescot-chateau-malescot-sa, taste=2010__malescot-chateau-malescot-sa
+
+malescot|2011   (no record)
+    !! NO RECORD, 1 document(s) on disk: 2011__malescot-chateau-malescot-saint-exupery.txt
+
+malescot|2012   decant,taste
+    taste   Black fruit aromas dominate the nose. Lovely intense ripeness. The wood is remarkably well blended in. Silky, supple, rich and long with a very nicely
+    decant  For maximum enjoyment Decant the wine 3 hours before serving.
+    !! decant opens on TAIL_DECANT: For maximum enjoyment Decant the wine 3 hours before serving.
+    !! decant is word for word malescot|2006’s
+    from  decant=2012__malescot-chateau-malescot-sa, taste=2012__malescot-chateau-malescot-sa
+
+malescot|2013   decant,taste
+    taste   Despite tricky weather conditions, the 2013 vintage of Château Malescot St-Exupéry is unique in its refinement. Fresh fruit aromas are dominant on the
+    decant  For maximum enjoyment Decant the wine 1 hour before serving.
+    !! decant opens on TAIL_DECANT: For maximum enjoyment Decant the wine 1 hour before serving.
+    from  decant=2013__malescot-chateau-malescot-sa, taste=2013__malescot-chateau-malescot-sa
+
+malescot|2014   decant,taste
+    taste   Ripe, fresh fruit, lovely balance with tannins that promise long keeping potential. Beautiful concentration.
+    decant  For maximum enjoyment Decant the wine 4 hours before serving.
+    !! decant opens on TAIL_DECANT: For maximum enjoyment Decant the wine 4 hours before serving.
+    from  decant=2014__malescot-chateau-malescot-sa, taste=2014__malescot-chateau-malescot-sa
+
+malescot|2015   decant,taste
+    taste   Outstanding quality of fruit reminiscent of 2005. Ripe, fresh, slightly jammy grapes. Dark, intense colour. Lovely balance with a subtle tannic framew
+    decant  For maximum enjoyment Decant the wine 4 hours before serving.
+    !! decant opens on TAIL_DECANT: For maximum enjoyment Decant the wine 4 hours before serving.
+    !! decant is word for word malescot|2014’s
+    from  decant=2015__malescot-chateau-malescot-sa, taste=2015__malescot-chateau-malescot-sa
+
+malescot|2016   decant,taste
+    taste   Outstanding quality of fruit. Ripe, fresh grapes with intense dark colour. Lovely balance with a supple tannic framework. Beautiful concentration. A b
+    decant  For maximum enjoyment Decant the wine 4 hours before serving.
+    !! decant opens on TAIL_DECANT: For maximum enjoyment Decant the wine 4 hours before serving.
+    !! decant is word for word malescot|2014’s
+    from  decant=2016__malescot-chateau-malescot-sa, taste=2016__malescot-chateau-malescot-sa
+
+malescot|2017   decant,taste
+    taste   This vintage of Malescot is unexaggerated and all about subtlety, length and texture, proving that Margaux is a land of contrasts. A top quality vinta
+    decant  For maximum enjoyment Decant the wine 4 hours before serving.
+    !! decant opens on TAIL_DECANT: For maximum enjoyment Decant the wine 4 hours before serving.
+    !! decant is word for word malescot|2014’s
+    from  decant=2017__malescot-chateau-malescot-sa, taste=2017__malescot-chateau-malescot-sa
+
+malescot|2018   decant,months,oak,pick,taste,ttl,via,yld
+    taste   What matters is that it be good. The balance and the depth are there. The tannins are silky. It is rare to find freshness this year, because of the we
+    decant  For maximum enjoyment Decant the wine 4 hours before serving.
+    !! no address: cannot link to its source
+    !! decant opens on TAIL_DECANT: For maximum enjoyment Decant the wine 4 hours before serving.
+    !! decant is word for word malescot|2014’s
+    from  decant=2018__malescot-chateau-malescot-sa, pick=Malescot-St-Exupery-2018-FT-FR-1.p, taste=Malescot-St-Exupery-2018-FT-FR-1.p
+
+grand: 22 vintage(s) with something to look at
+========================================================================
+leoville-barton
+========================================================================
+49 document(s) in the manifest, 32 vintage(s) of them
+the estate's other wines, from cuvees.js:
+   none listed - if the estate makes any, that is the first thing to fix
+
+leoville-barton|2012   oak,pick,taste,via
+    taste   Lovely flowery bouquet with notes of acacia. The palate is well balanced with no harsh tannins indicating quite early maturity.
+    !! no address: cannot link to its source
+    from  oak=2012__en-wines-2-chateau-leoville-, pick=2012__en-wines-2-chateau-leoville-, taste=2012__en-wines-2-chateau-leoville-
+
+leoville-barton|2013   alc,months,oak,pick,taste,via,yld
+    taste   The flesh sets this apart from the pack, with layersof black cherry, black currant and plum skin lined with well-integrated apple wood and briar notes
+    !! no address: cannot link to its source
+    from  pick=2013__en-wines-2-chateau-leoville-, taste=2013__en-wines-2-chateau-leoville-
+
+leoville-barton|2015   alc,oak,pick,taste,via
+    taste   Intense color, the nose is full of aromas of black fruit, spice and cedar. The palate is fresh and balanced, the juice is intense and delicate.
+    !! no address: cannot link to its source
+    from  alc=2015__en-wines-2-chateau-leoville-, oak=2015__en-wines-2-chateau-leoville-, pick=2015__en-wines-2-chateau-leoville-, taste=2015__en-wines-2-chateau-leoville-
+
+leoville-barton|2016   alc,oak,pick,taste,via
+    taste   Intense ruby colour, the nose reveals vivid notes of black fruits (black cherry, blackcurrant, blueberry) with a touch of ink. The mouth is ample, pow
+    !! no address: cannot link to its source
+    from  alc=2016__en-wines-2-chateau-leoville-, oak=2016__en-wines-2-chateau-leoville-, pick=2016__en-wines-2-chateau-leoville-, taste=2016__en-wines-2-chateau-leoville-
+
+leoville-barton|2017   alc,oak,pick,taste,via
+    taste   Intense purple color with a bright nose of blackfruit, graphite and toast. On the palate, the attack is frank and the tannins are precise and remarkab
+    !! no address: cannot link to its source
+    from  alc=Leoville-Barton-2017-FT-FR.pdf, oak=2017__en-wines-2-chateau-leoville-, pick=2017__en-wines-2-chateau-leoville-, taste=2017__en-wines-2-chateau-leoville-
+
+leoville-barton|2018   oak,pick,taste,via
+    taste   The nose is intense, expressive on minty, spicy and black fruit aromas. On the palate, the flavors of blueberry and blackcurrant are enhanced and the 
+    !! no address: cannot link to its source
+    from  oak=2018__en-wines-2-chateau-leoville-, pick=2018__en-wines-2-chateau-leoville-, taste=2018__en-wines-2-chateau-leoville-
+
+leoville-barton|2020   alc,oak,pick,via,yld
+    !! no address: cannot link to its source
+    from  alc=Chateau-Leoville-Barton-Primeurs-2, oak=2020__en-wines-2-chateau-leoville-, pick=2020__en-wines-2-chateau-leoville-
+
+leoville-barton|2021   oak,pick,via
+    !! no address: cannot link to its source
+    from  oak=2021__en-wines-2-chateau-leoville-, pick=2021__en-wines-2-chateau-leoville-
+
+leoville-barton|2022   alc,oak,pick,via,yld
+    !! no address: cannot link to its source
+    from  alc=Chateau-Leoville-Barton-Primeurs-2, oak=2022__en-wines-2-chateau-leoville-, pick=2022__en-wines-2-chateau-leoville-
+
+leoville-barton|2023   alc,oak,pick,via
+    !! no address: cannot link to its source
+    from  alc=Chateau-Leoville-Barton-Primeurs-2, oak=2023__en-wines-2-chateau-leoville-, pick=2023__en-wines-2-chateau-leoville-
+
+leoville-barton|2024   alc,oak,pick,via
+    !! no address: cannot link to its source
+    from  alc=Chateau-Leoville-Barton-Primeurs-2, oak=2024__en-wines-2-chateau-leoville-, pick=2024__en-wines-2-chateau-leoville-
+
+leoville-barton|2025   alc,oak,pick,via
+    !! no address: cannot link to its source
+    from  alc=FT-_Chateau-Leoville-Barton-Primeu, oak=2025__en-wines-2-chateau-leoville-, pick=2025__en-wines-2-chateau-leoville-
+
+grand: 12 vintage(s) with something to look at
+========================================================================
+lascombes
+========================================================================
+86 document(s) in the manifest, 26 vintage(s) of them
+the estate's other wines, from cuvees.js:
+   Chevalier de Lascombes             second  red      8 record(s)
+   Haut-Médoc de Lascombes            other   red      6 record(s)
+
+lascombes|1989   (no record)
+    !! NO RECORD, 1 document(s) on disk: 1989__en-produit-chateau-lascombes-1989.txt
+
+lascombes|2001   pick,yld
+    !! no address: cannot link to its source
+    from  pick=Lascombes_FT_2001.pdf
+
+lascombes|2002   pick,yld
+    !! no address: cannot link to its source
+    from  pick=Lascombes_FT_2002.pdf
+
+lascombes|2003   alc,pick,yld
+    !! no address: cannot link to its source
+    from  pick=Lascombes_FT_2003.pdf
+
+lascombes|2004   pick,yld
+    !! no address: cannot link to its source
+    from  pick=Lascombes_FT_2004.pdf
+
+lascombes|2005   alc,pick,yld
+    !! no address: cannot link to its source
+    from  pick=Lascombes_FT_2005.pdf
+
+lascombes|2006   pick,yld
+    !! no address: cannot link to its source
+    from  pick=Lascombes_FT_2006.pdf
+
+lascombes|2007   pick,yld
+    !! no address: cannot link to its source
+    from  pick=Lascombes_FT_2007.pdf
+
+lascombes|2008   pick,yld
+    !! no address: cannot link to its source
+    from  pick=Lascombes_FT_2008.pdf
+
+lascombes|2009   pick,yld
+    !! no address: cannot link to its source
+    from  pick=Lascombes_FT_2009.pdf
+
+lascombes|2011   alc,pick,yld
+    !! no address: cannot link to its source
+    from  pick=Lascombes_FT_2011.pdf
+
+lascombes|2012   pick,yld
+    !! no address: cannot link to its source
+    from  pick=Lascombes_FT_2012.pdf
+
+lascombes|2013   alc,pick,yld
+    !! no address: cannot link to its source
+    from  pick=Lascombes_FT_2013.pdf
+
+lascombes|2014   alc,pick,yld
+    !! no address: cannot link to its source
+    from  pick=Lascombes_FT_2014.pdf
+
+lascombes|2015   pick,yld
+    !! no address: cannot link to its source
+    from  pick=Lascombes_FT_2015.pdf
+
+lascombes|2016   alc,pick,yld
+    !! no address: cannot link to its source
+    from  pick=Lascombes_FT_2016.pdf
+
+lascombes|2017   pick,yld
+    !! no address: cannot link to its source
+    from  pick=Lascombes_FT_2017.pdf
+
+lascombes|2018   alc,months,oak,pick,yld
+    !! no address: cannot link to its source
+    from  alc=Lascombes_FT_2018.pdf, oak=Lascombes-2018-FT-GB.pdf, pick=Lascombes-2018-FT-FR.pdf
+
+lascombes|2019   oak,pick,yld
+    !! no address: cannot link to its source
+    from  oak=Lascombes-2019-FT-GB.pdf, pick=Lascombes-2019-FT-FR.pdf
+
+lascombes|2020   alc,blend,oak,pick,yld
+    !! no address: cannot link to its source
+    from  alc=Chateau-Lascombes-2020.pdf, blend=Lascombes_FT_2020.pdf, oak=Chateau-Lascombes-2020.pdf, pick=Chateau-Lascombes-2020.pdf, yld=Chateau-Lascombes-2020.pdf
+
+lascombes|2021   alc,blend,pick
+    !! no address: cannot link to its source
+    from  alc=Lascombes_FT_2021.pdf, blend=Lascombes_FT_2021.pdf, pick=Lascombes_FT_2021.pdf
+
+lascombes|2022   alc,blend,note,oak,pick,yld
+    note    L’année 2022 n’échappe pas à la récente règle des millésimes qui nous réservent beaucoup de surprises. Le millésime débuta avec un hiver relativement 
+    !! no address: cannot link to its source
+    from  alc=2022__en-chateau-lascombes-2022.tx, blend=2022__en-chateau-lascombes-2022.tx, note=Lascombes_Primeurs_Millesime2022_P, oak=Fiche-Technique-Chateau-Lascombes-, pick=2022__en-chateau-lascombes-2022.tx, yld=2022__en-chateau-lascombes-2022.tx
+
+lascombes|2025   alc,blend,note,pick,yld
+    note    From historic terroirs of the Château. Harvest From September 8th to 25th. Hand harvesting in several passes, according to the level of maturity of th
+    !! note holds contact details: email
+    from  alc=2025__en-primeurs-2025.txt, note=2025__en-primeurs-2025.txt, pick=2025__en-primeurs-2025.txt
+
+grand: 23 vintage(s) with something to look at
+
+------------------------------------------------------------------------
+Chevalier de Lascombes  (second, red)
+------------------------------------------------------------------------
+
+lascombes|chevalier-de-lascombes|2018   alc,pick,yld
+    !! no address: cannot link to its source
+    from  pick=Chevalier_FT_2018.pdf
+
+lascombes|chevalier-de-lascombes|2019   alc,pick,yld
+    !! no address: cannot link to its source
+    from  pick=Chevalier_FT_2019.pdf
+
+lascombes|chevalier-de-lascombes|2020   alc,pick,yld
+    !! no address: cannot link to its source
+    from  pick=Chevalier-de-Lascombes-2020.pdf
+
+lascombes|chevalier-de-lascombes|2021   alc,pick,yld
+    !! no address: cannot link to its source
+    from  pick=Chevalier_FT_2021.pdf
+
+lascombes|chevalier-de-lascombes|2022   alc,pick,yld
+    !! no address: cannot link to its source
+    from  pick=Chevalier_FT_2022.pdf
+
+lascombes|chevalier-de-lascombes|2023   pick,yld
+    !! no address: cannot link to its source
+    from  alc=Chevalier-de-Lascombes-2023-FT-FR-, pick=Chevalier-de-Lascombes-2023-FT-FR-, yld=Chevalier-de-Lascombes-2023-FT-FR-
+
+lascombes|chevalier-de-lascombes|2024   pick,yld
+    !! no address: cannot link to its source
+    from  pick=FT-Chevalier-Lascombes-2024.pdf, yld=FT-Chevalier-Lascombes-2024.pdf
+
+lascombes|chevalier-de-lascombes|2025   alc,pick,yld
+    !! no address: cannot link to its source
+    from  alc=FT-Chevalier-Lascombes-2025.pdf, pick=FT-Chevalier-Lascombes-2025.pdf, yld=FT-Chevalier-Lascombes-2025.pdf
+
+chevalier-de-lascombes: 8 vintage(s) with something to look at
+
+------------------------------------------------------------------------
+Haut-Médoc de Lascombes  (other, red)
+------------------------------------------------------------------------
+
+lascombes|haut-m-doc-de-lascombes|2019   alc,pick,yld
+    !! no address: cannot link to its source
+    from  pick=HtMedoc_FT_2019.pdf
+
+lascombes|haut-m-doc-de-lascombes|2020   pick,yld
+    !! no address: cannot link to its source
+    from  pick=HtMedoc_FT_2020.pdf, yld=HtMedoc_FT_2020.pdf
+
+lascombes|haut-m-doc-de-lascombes|2021   alc,pick,yld
+    !! no address: cannot link to its source
+    from  pick=HtMedoc_FT_2021.pdf
+
+lascombes|haut-m-doc-de-lascombes|2022   pick,yld
+    !! no address: cannot link to its source
+    from  pick=HtMedoc_FT_2022.pdf, yld=HtMedoc_FT_2022.pdf
+
+lascombes|haut-m-doc-de-lascombes|2023   alc,note,oak,pick,yld
+    note    Sol argilo-calcaire, veines d’argile bleue. Clay-limestone soil with veins of blue clay. VENDANGES / HARVEST Du 19 au 24 septembre. Manuelles en plusi
+    !! no address: cannot link to its source
+    from  alc=FT-La-Cote-Lascombes-2023.pdf, note=FT-La-Cote-Lascombes-2023.pdf, pick=FT-La-Cote-Lascombes-2023.pdf, yld=FT-La-Cote-Lascombes-2023.pdf
+
+lascombes|haut-m-doc-de-lascombes|2025   alc,pick,yld
+    !! no address: cannot link to its source
+    from  alc=FT-Haut-Medoc-Lascombes-2025.pdf, pick=FT-Haut-Medoc-Lascombes-2025.pdf, yld=FT-Haut-Medoc-Lascombes-2025.pdf
+
+haut-m-doc-de-lascombes: 6 vintage(s) with something to look at

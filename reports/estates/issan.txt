@@ -1,0 +1,206 @@
+========================================================================
+issan
+========================================================================
+46 document(s) in the manifest, 22 vintage(s) of them
+the estate's other wines, from cuvees.js:
+   Blason d'Issan                     second  red     11 record(s)
+   Moulin d'Issan                     other   red     21 record(s)
+
+issan|2000   blend,oak,ph,pick,wy,yld
+    !! no address: cannot link to its source
+    from  oak=CHATEAU_ISSAN_2000.pdf, pick=CHATEAU_ISSAN_2000.pdf, wy=CHATEAU_ISSAN_2000.pdf
+
+issan|2005   blend,oak,ph,pick,yld
+    !! no address: cannot link to its source
+    from  oak=CHATEAU_ISSAN_2005.pdf, pick=CHATEAU_ISSAN_2005.pdf
+
+issan|2006   blend,oak,ph,pick,yld
+    !! no address: cannot link to its source
+    from  oak=CHATEAU_ISSAN_2006.pdf, pick=CHATEAU_ISSAN_2006.pdf
+
+issan|2007   blend,oak,ph,pick,yld
+    !! no address: cannot link to its source
+    from  oak=CHATEAU_ISSAN_2007.pdf, pick=CHATEAU_ISSAN_2007.pdf
+
+issan|2009   blend,oak,ph,pick,yld
+    !! no address: cannot link to its source
+    from  oak=CHATEAU_ISSAN_2009.pdf, pick=CHATEAU_ISSAN_2009.pdf
+
+issan|2011   blend,oak,ph,pick,yld
+    !! no address: cannot link to its source
+    from  oak=CHATEAU_ISSAN_2011.pdf, pick=CHATEAU_ISSAN_2011.pdf
+
+issan|2013   blend,oak,ph,pick,yld
+    !! no address: cannot link to its source
+    from  oak=CHATEAU_ISSAN_2013.pdf, pick=CHATEAU_ISSAN_2013.pdf
+
+issan|2014   blend,pick
+    !! no address: cannot link to its source
+    from  pick=CHATEAU_ISSAN_2014.pdf
+
+issan|2015   blend,note,pick
+    note    Un été beau et chaud Le mois de juillet est chaud et particulièrement sec, avec quelques pics de chaleur mais sans pour autant provoquer de stress hyd
+    !! no address: cannot link to its source
+    from  note=CHATEAU_ISSAN_2015.pdf, pick=CHATEAU_ISSAN_2015.pdf
+
+issan|2017   blend,note,pick
+    note    Te r r o i r H i s t o r i q u e La force de l’Enclos L’hiver sec et froid a permis un bon repos végétatif de la vigne.
+    !! no address: cannot link to its source
+    from  note=CHATEAU_ISSAN_2017.pdf, pick=CHATEAU_ISSAN_2017.pdf
+
+issan|2019   blend,note,pick
+    note    L’homme à l’écoute de la nature Après un hiver relativement doux et pluvieux, la floraison a débuté fin mai (23/05) dans la plus grande sérénité accom
+    !! no address: cannot link to its source
+    from  note=CHATEAU_ISSAN_2019.pdf, pick=CHATEAU_ISSAN_2019.pdf
+
+issan|2020   blend,note,pick
+    note    Singularité du millésime L’hiver 2020 fût doux, enregistré comme le plus chaud depuis le début du XXe siècle. La vigne débourre tôt entre le 10 et le 
+    !! no address: cannot link to its source
+    from  note=CHATEAU_ISSAN_2020.pdf, pick=CHATEAU_ISSAN_2020.pdf
+
+issan|2025   note
+    note    Cette progression harmonieuse a permis à la vigne d’évoluer sans contrainte excessive. Grâce à la capacité des sols à préserver la fraîcheur, la vigne
+    !! no address: cannot link to its source
+    from  note=CHATEAU_ISSAN_2025.pdf
+
+grand: 13 vintage(s) with something to look at
+
+------------------------------------------------------------------------
+Blason d'Issan  (second, red)
+------------------------------------------------------------------------
+
+issan|blason-d-issan|2005   blend,oak,ph,pick,yld
+    !! no address: cannot link to its source
+    from  oak=BLASON_ISSAN_2005.pdf, pick=BLASON_ISSAN_2005.pdf
+
+issan|blason-d-issan|2006   blend,oak,ph,pick,yld
+    !! no address: cannot link to its source
+    from  oak=BLASON_ISSAN_2006.pdf, pick=BLASON_ISSAN_2006.pdf
+
+issan|blason-d-issan|2007   blend,oak,ph,pick,yld
+    !! no address: cannot link to its source
+    from  oak=BLASON_ISSAN_2007.pdf, pick=BLASON_ISSAN_2007.pdf
+
+issan|blason-d-issan|2008   blend,oak,ph,pick,yld
+    !! no address: cannot link to its source
+    from  oak=BLASON_ISSAN_2008.pdf, pick=BLASON_ISSAN_2008.pdf
+
+issan|blason-d-issan|2009   blend,oak,ph,pick,yld
+    !! no address: cannot link to its source
+    from  oak=BLASON_ISSAN_2009.pdf, pick=BLASON_ISSAN_2009.pdf
+
+issan|blason-d-issan|2010   blend,oak,ph,pick,yld
+    !! no address: cannot link to its source
+    from  blend=BLASON_ISSAN_2010.pdf, oak=BLASON_ISSAN_2010.pdf, pick=BLASON_ISSAN_2010.pdf
+
+issan|blason-d-issan|2011   blend,oak,ph,pick,yld
+    !! no address: cannot link to its source
+    from  oak=BLASON_ISSAN_2011.pdf, pick=BLASON_ISSAN_2011.pdf
+
+issan|blason-d-issan|2012   blend,oak,ph,pick,yld
+    !! no address: cannot link to its source
+    from  oak=BLASON_ISSAN_2012.pdf, pick=BLASON_ISSAN_2012.pdf
+
+issan|blason-d-issan|2013   blend,oak,ph,pick,yld
+    !! no address: cannot link to its source
+    from  oak=BLASON_ISSAN_2013.pdf, pick=BLASON_ISSAN_2013.pdf
+
+issan|blason-d-issan|2014   blend,oak,ph,pick,yld
+    !! no address: cannot link to its source
+    from  blend=BLASON_ISSAN_2014.pdf, oak=BLASON_ISSAN_2014.pdf, pick=BLASON_ISSAN_2014.pdf
+
+issan|blason-d-issan|2015   blend,oak,ph,pick,press,yld
+    !! no address: cannot link to its source
+    from  oak=BLASON_ISSAN_2015.pdf, pick=BLASON_ISSAN_2015.pdf
+
+blason-d-issan: 11 vintage(s) with something to look at
+
+------------------------------------------------------------------------
+Moulin d'Issan  (other, red)
+------------------------------------------------------------------------
+
+issan|moulin-d-issan|2005   blend,oak,ph,pick,yld
+    !! no address: cannot link to its source
+    from  oak=MOULIN_ISSAN_2005.pdf, pick=MOULIN_ISSAN_2005.pdf
+
+issan|moulin-d-issan|2006   blend,oak,ph,pick,yld
+    !! no address: cannot link to its source
+    from  oak=MOULIN_ISSAN_2006.pdf, pick=MOULIN_ISSAN_2006.pdf
+
+issan|moulin-d-issan|2007   blend,oak,ph,pick,yld
+    !! no address: cannot link to its source
+    from  oak=MOULIN_ISSAN_2007.pdf, pick=MOULIN_ISSAN_2007.pdf
+
+issan|moulin-d-issan|2008   blend,oak,ph,pick,yld
+    !! no address: cannot link to its source
+    from  oak=MOULIN_ISSAN_2008.pdf, pick=MOULIN_ISSAN_2008.pdf
+
+issan|moulin-d-issan|2009   blend,oak,ph,pick,yld
+    !! no address: cannot link to its source
+    from  oak=MOULIN_ISSAN_2009.pdf, pick=MOULIN_ISSAN_2009.pdf
+
+issan|moulin-d-issan|2010   blend,oak,ph,pick,yld
+    !! no address: cannot link to its source
+    from  oak=MOULIN_ISSAN_2010.pdf, pick=MOULIN_ISSAN_2010.pdf
+
+issan|moulin-d-issan|2011   blend,oak,ph,pick,yld
+    !! no address: cannot link to its source
+    from  oak=MOULIN_ISSAN_2011.pdf, pick=MOULIN_ISSAN_2011.pdf
+
+issan|moulin-d-issan|2012   blend,oak,ph,pick,yld
+    !! no address: cannot link to its source
+    from  oak=MOULIN_ISSAN_2012.pdf, pick=MOULIN_ISSAN_2012.pdf
+
+issan|moulin-d-issan|2013   blend,oak,ph,pick,yld
+    !! no address: cannot link to its source
+    from  oak=MOULIN_ISSAN_2013.pdf, pick=MOULIN_ISSAN_2013.pdf
+
+issan|moulin-d-issan|2014   blend,oak,ph,pick,yld
+    !! no address: cannot link to its source
+    from  oak=MOULIN_ISSAN_2014.pdf, pick=MOULIN_ISSAN_2014.pdf
+
+issan|moulin-d-issan|2015   blend,oak,ph,pick,yld
+    !! no address: cannot link to its source
+    from  oak=MOULIN_ISSAN_2015.pdf, pick=MOULIN_ISSAN_2015.pdf
+
+issan|moulin-d-issan|2016   blend,oak,pick,yld
+    !! no address: cannot link to its source
+    from  oak=MOULIN_ISSAN_2016.pdf, pick=MOULIN_ISSAN_2016.pdf
+
+issan|moulin-d-issan|2017   blend,oak,ph,pick,yld
+    !! no address: cannot link to its source
+    from  oak=MOULIN_ISSAN_2017.pdf, pick=MOULIN_ISSAN_2017.pdf
+
+issan|moulin-d-issan|2018   blend,months,oak,ph,pick
+    !! no address: cannot link to its source
+    from  oak=MOULIN_ISSAN_2018.pdf, pick=MOULIN_ISSAN_2018.pdf
+
+issan|moulin-d-issan|2019   blend,months,oak,ph,pick
+    !! no address: cannot link to its source
+    from  oak=MOULIN_ISSAN_2019.pdf, pick=MOULIN_ISSAN_2019.pdf
+
+issan|moulin-d-issan|2020   blend,oak,pick
+    !! no address: cannot link to its source
+    from  blend=MOULIN_ISSAN_2020.pdf, oak=MOULIN_ISSAN_2020.pdf, pick=MOULIN_ISSAN_2020.pdf
+
+issan|moulin-d-issan|2021   blend,months,oak,ph,pick
+    !! no address: cannot link to its source
+    from  oak=MOULIN_ISSAN_2021.pdf, pick=MOULIN_ISSAN_2021.pdf
+
+issan|moulin-d-issan|2022   blend,months,oak,ph,pick
+    !! no address: cannot link to its source
+    from  oak=MOULIN_ISSAN_2022.pdf, pick=MOULIN_ISSAN_2022.pdf
+
+issan|moulin-d-issan|2023   blend,months,oak,ph,pick
+    !! no address: cannot link to its source
+    from  oak=MOULIN_ISSAN_2023.pdf, pick=MOULIN_ISSAN_2023.pdf
+
+issan|moulin-d-issan|2024   blend,months,oak,ph,pick
+    !! no address: cannot link to its source
+    from  oak=MOULIN_ISSAN_2024.pdf, pick=MOULIN_ISSAN_2024.pdf
+
+issan|moulin-d-issan|2025   blend,months,oak,ph,pick
+    !! no address: cannot link to its source
+    from  oak=MOULIN_ISSAN_2025.pdf, pick=MOULIN_ISSAN_2025.pdf
+
+moulin-d-issan: 21 vintage(s) with something to look at

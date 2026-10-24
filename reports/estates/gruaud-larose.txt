@@ -1,0 +1,98 @@
+========================================================================
+gruaud-larose
+========================================================================
+303 document(s) in the manifest, 38 vintage(s) of them
+the estate's other wines, from cuvees.js:
+   Sarget de Gruaud-Larose            second  red     32 record(s)
+
+gruaud-larose|2025   months,note
+    note    Un hiver doux favorisa un débourrement précoce puis une maturation rapide sous la chaleur estivale qui conduisit à des vendanges précoces en septembre
+    !! no address: cannot link to its source
+    from  months=FT_Chateau-Gruaud-Larose-2025-FR.p, note=FT_Chateau-Gruaud-Larose-2025-FR.p
+
+grand: 1 vintage(s) with something to look at
+
+------------------------------------------------------------------------
+Sarget de Gruaud-Larose  (second, red)
+------------------------------------------------------------------------
+
+gruaud-larose|sarget-de-gruaud-larose|2008   alc,blend,months,oak
+    !! no address: cannot link to its source
+
+gruaud-larose|sarget-de-gruaud-larose|2009   alc,blend,months,note,oak
+    note    Début de printemps particulièrement humide avec orages violents en mai. Installation précoce de l'été. Un très bel été avec des journées chaudes mais 
+    !! no address: cannot link to its source
+    from  note=sarget-de-gruaud-larose-2009-fr.pd
+
+gruaud-larose|sarget-de-gruaud-larose|2010   alc,blend,months,note,oak
+    note    Un mois de juillet chaud, ensoleillé et sec provoquant un ralentissement et un arrêt de la croissance de la vigne au début de la véraison. Une maturat
+    !! no address: cannot link to its source
+    from  note=sarget-de-gruaud-larose-2010-fr.pd
+
+gruaud-larose|sarget-de-gruaud-larose|2011   alc,blend,months,oak
+    !! no address: cannot link to its source
+
+gruaud-larose|sarget-de-gruaud-larose|2012   alc,blend,months,note,oak
+    note    July was cold but August was hotter than in the previous 7 years. End of summer: major water stress. End of July: intense heat. Rain in the early autu
+    !! no address: cannot link to its source
+    from  note=Sarget-de-Gruaud-Larose-2012-FT-GB
+
+gruaud-larose|sarget-de-gruaud-larose|2013   alc,blend,months,note,oak
+    note    Mars et avril très froid induirent un débourrement très tardif (15 jours de retard par rapport à la normale). Par la suite, les conditions fraîches et
+    !! no address: cannot link to its source
+    from  note=sarget-de-gruaud-larose-2013-fr.pd
+
+gruaud-larose|sarget-de-gruaud-larose|2014   alc,blend,months,note,oak,taste
+    taste   Belle couleur vive, à reflets violacés bien soutenus. Le nez est frais, épicé, avec des notes de muscade. Un boisé subtil vient se fondre avec le frui
+    note    La végétation a été ralentie par un printemps arrosé et des températures en-dessous des normales. Le début d'été assez frais fut suivi d'un mois de ju
+    !! no address: cannot link to its source
+    from  note=sarget-de-gruaud-larose-2014-fr.pd, taste=Sarget-de-Gruaud-Larose-2014-FT-FR
+
+gruaud-larose|sarget-de-gruaud-larose|2015   alc,blend,food,months,note,oak,pick,wy
+    note    Le mois d'avril a été conforme aux moyennes de pluie et de température. Début mai fut caractérisé par de fortes précipitations qui heureusement se son
+    food    suggestions : Bolognese lasagna Venison stew Cheese : Saint-Nectaire A nose of sweet stewed black cherries, licorice, earth, mushroom and spice. Rich,
+    !! no address: cannot link to its source
+    !! food is a paragraph (259 chars), not a line
+    from  food=Visite-VDR-ENG.pdf, note=sarget-de-gruaud-larose-2015-fr.pd, pick=technical-data-vins-des-rois-rois-, wy=technical-data-vins-des-rois-rois-
+
+gruaud-larose|sarget-de-gruaud-larose|2016   alc,blend,months,oak
+    !! no address: cannot link to its source
+
+gruaud-larose|sarget-de-gruaud-larose|2017   alc,blend,months,oak,pick
+    !! no address: cannot link to its source
+    from  pick=sarget-de-gruaud-larose-2017-fr.pd
+
+gruaud-larose|sarget-de-gruaud-larose|2018   alc,blend,months,oak
+    !! no address: cannot link to its source
+    from  alc=sarget-de-gruaud-larose-2018-fr.pd
+
+gruaud-larose|sarget-de-gruaud-larose|2019   alc,blend,note,oak
+    note    Première partie d’hiver pluvieuse, avec des températures dans les normales de saison, un mois de Mars doux qui entraine un débourrement précoce. Deux 
+    !! no address: cannot link to its source
+    from  note=Sarget-de-Gruaud-Larose-2019-FR.pd, oak=Sarget-de-Gruaud-Larose-2019-FR.pd
+
+gruaud-larose|sarget-de-gruaud-larose|2020   alc,blend,months,note,oak
+    note    Ce millésime commence par un hiver historiquement pluvieux. Une année de pluie moyenne est tombée des vendanges 2019 à fin Mars 2020. Un printemps tro
+    !! no address: cannot link to its source
+    from  note=Sarget-de-Gruaud-Larose-2020-FR.pd
+
+gruaud-larose|sarget-de-gruaud-larose|2021   alc,blend,months,note,oak
+    note    L'hiver doux et arrosé réveille la vigne de façon homogène et précoce. Quelques parcelles de Merlot dans les parties basses des croupes de la propriét
+    !! no address: cannot link to its source
+    from  note=Sarget-de-Gruaud-Larose-2021-FR.pd
+
+gruaud-larose|sarget-de-gruaud-larose|2022   alc,blend,months,oak,pick
+    !! no address: cannot link to its source
+    from  pick=Sarget-de-Gruaud-Larose-2022-FR.pd
+
+gruaud-larose|sarget-de-gruaud-larose|2023   alc,blend,months,note,oak
+    note    L’automne, chaud et sec, laisse place à un hiver proche de la norme. Fin mars, le débourrement précoce des premières parcelles de Merlot les expose à 
+    !! no address: cannot link to its source
+    from  note=Sarget-de-Gruaud-Larose-2023-FR.pd
+
+gruaud-larose|sarget-de-gruaud-larose|2024   alc,blend,months,note,oak,ph,pick
+    note    September: heavy rainfall slowed down the ripening of the grapes. Patience was the key to success, enabling the grapes to reach optimum ripeness and t
+    !! no address: cannot link to its source
+    from  note=2024-FICHE-TECHNIQUES-Gruaud-Laros, oak=2024-FICHE-TECHNIQUES-Gruaud-Laros, ph=2024-FICHE-TECHNIQUES-Gruaud-Laros, pick=2024-FICHE-TECHNIQUES-Gruaud-Laros
+
+sarget-de-gruaud-larose: 17 vintage(s) with something to look at

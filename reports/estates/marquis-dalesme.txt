@@ -1,0 +1,63 @@
+========================================================================
+marquis-dalesme
+========================================================================
+31 document(s) in the manifest, 13 vintage(s) of them
+the estate's other wines, from cuvees.js:
+   none listed - if the estate makes any, that is the first thing to fix
+
+marquis-dalesme|2009   blend,months,oak,pick,press
+    !! no address: cannot link to its source
+    from  oak=fiche_technique_marquis_da._2009_g, pick=fiche_technique_marquis_da._2009_f
+
+marquis-dalesme|2010   blend,months,oak,pick,press
+    !! no address: cannot link to its source
+    from  pick=fiche_technique_marquis_da._2010_f
+
+marquis-dalesme|2011   blend,months,oak,pick,press,yld
+    !! no address: cannot link to its source
+    from  pick=fiche_technique_marquis_da._2011_f
+
+marquis-dalesme|2012   alc,blend,months,oak,pick,press
+    !! no address: cannot link to its source
+    from  pick=fiche_technique_marquis_dalesme_20
+
+marquis-dalesme|2013   alc,blend,months,note,oak,pick,press
+    note    The Perrodo family has been working on a vast architectural project at Château Marquis d’Alesme Becker in Margaux, which is due to be inaugurated in s
+    !! no address: cannot link to its source
+    from  note=technical_sheet_marquis_dalesme_20, pick=fiche_technique_marquis_dalesme_20
+
+marquis-dalesme|2014   alc,blend,months,oak,pick,press
+    !! no address: cannot link to its source
+    from  pick=fiche_technique_marquis_dalesme_20
+
+marquis-dalesme|2015   blend,months,oak,pick,press
+    !! no address: cannot link to its source
+    from  pick=Marquis-dAlesme-2015-FT-FR-130.pdf
+
+marquis-dalesme|2016   blend,months,oak,pick,press
+    !! no address: cannot link to its source
+    from  pick=fiche_technique_marquis_dalesme_20
+
+marquis-dalesme|2017   blend,months,oak,pick,press
+    !! no address: cannot link to its source
+    from  pick=Marquis-dAlesmes-2017-FT-FR.pdf
+
+marquis-dalesme|2018   blend,months,oak,pick,press
+    !! no address: cannot link to its source
+    from  pick=Marquis-dAlesme-2018-FT-FR.pdf
+
+marquis-dalesme|2019   blend,oak,ph,press
+    !! no address: cannot link to its source
+    from  oak=Fiche_technique_Chateau_MARQUIS_DA
+
+marquis-dalesme|2021   alc,blend,note,oak,ph,pick
+    note    De la fin de l’été au mois d’octobre, un soleil éclatant associé à de toutes petites pluies intercalées à point nommé nous ont bien aidé... un été ind
+    !! no address: cannot link to its source
+    from  alc=sites_Millesimes_2021_Marquis-dAle, note=sites_Millesimes_2021_Marquis-dAle, oak=sites_Millesimes_2021_Marquis-dAle, ph=sites_Millesimes_2021_Marquis-dAle, pick=sites_Millesimes_2021_Marquis-dAle
+
+marquis-dalesme|2022   alc,blend,oak,ph,pick
+    !! no address: cannot link to its source
+    !! blend is exactly the planting, which is a different claim
+    from  alc=Fiche_technique_Chateau_MARQUIS_DA, oak=Fiche_technique_Chateau_MARQUIS_DA, ph=Fiche_technique_Chateau_MARQUIS_DA, pick=Fiche_technique_Chateau_MARQUIS_DA
+
+grand: 13 vintage(s) with something to look at

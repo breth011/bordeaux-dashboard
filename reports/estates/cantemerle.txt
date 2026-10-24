@@ -1,0 +1,59 @@
+========================================================================
+cantemerle
+========================================================================
+52 document(s) in the manifest, 15 vintage(s) of them
+the estate's other wines, from cuvees.js:
+   Les Allées de Cantemerle           second  red      3 record(s)
+
+cantemerle|2011   blend,months,note,oak,pick
+    note    …/… Le millésime 2011 à CANTEMERLE Le cycle de la vigne Débourrement : du 28 mars au 4 avril Floraison : du 11 mai au 13 mai Début nouaison - Fermetur
+    !! no address: cannot link to its source
+    from  blend=Cantemerle-2011-FT-FR-545.pdf, months=Cantemerle-2011-FT-FR-545.pdf, note=Cantemerle-2011-FT-FR-545.pdf, oak=Cantemerle-2011-FT-FR-545.pdf, pick=Cantemerle-2011-FT-FR-545.pdf
+
+cantemerle|2012   blend,months,note,oak,pick
+    note    La floraison en juin et le début de la véraison en juillet ont connu des températures un peu basses qui ont impacté le volume de production. Le retard
+    !! no address: cannot link to its source
+    from  note=Cantemerle-2012-FT-FR-545.pdf, pick=Cantemerle-2012-FT-FR-545.pdf
+
+cantemerle|2013   blend,months,note,oak,pick
+    note    …/… Le millésime 2013 à CANTEMERLE Le cycle de la vigne Débourrement : du 15 avril au 22 avril Floraison : du 10 juin au 21 juin Début nouaison - Ferm
+    !! no address: cannot link to its source
+    from  note=Cantemerle-2013-FT-FR-545.pdf, pick=Cantemerle-2013-FT-FR-545.pdf
+
+cantemerle|2014   blend,months,oak,pick
+    !! no address: cannot link to its source
+    from  pick=Cantemerle-2014-FT-GB-545.pdf
+
+cantemerle|2015   blend,months,note,oak
+    note    A generous summer and an exceptionally mild autumn created outstanding conditions, allowing the Cabernets to reach perfect ripeness. Superb grapes, wi
+    !! no address: cannot link to its source
+    from  note=FT-Cantemerle-2015-FR-EN-2.pdf
+
+cantemerle|2016   blend,months,oak,pick
+    !! no address: cannot link to its source
+    from  pick=Cantemerle-2016-FT-FR-545.pdf
+
+cantemerle|2020   alc,blend,months,note,oak,pick
+    note    Puis des journées très ensoleillées ont pris place et ont accéléré brutalement la pousse de la vigne. Cette année, l’équipe de la culture se sera mont
+    !! no address: cannot link to its source
+    from  alc=1-Fiche-Technique-Chateau-Cantemer, note=2-Le-millesime-2020-a-Cantemerle.p, pick=1-Fiche-Technique-Chateau-Cantemer
+
+cantemerle|2022   alc,blend,months,note,oak,pick
+    note    La saison a commencé par un hiver doux et sec entraînant un débourrement précoce. Les gelées du mois d’avril n’ont finalement engendré que peu de dégâ
+    !! no address: cannot link to its source
+    from  note=1-Fiche-technique-Chateau-Cantemer, pick=1-Fiche-technique-Chateau-Cantemer
+
+cantemerle|2024   alc,blend,months,pick
+    !! no address: cannot link to its source
+    from  pick=1-FT-Cantemerle-2024-FR.pdf
+
+grand: 9 vintage(s) with something to look at
+
+------------------------------------------------------------------------
+Les Allées de Cantemerle  (second, red)
+------------------------------------------------------------------------
+
+cantemerle|les-all-es-de-cantemerle|2022   blend,months
+    !! no address: cannot link to its source
+
+les-all-es-de-cantemerle: 1 vintage(s) with something to look at

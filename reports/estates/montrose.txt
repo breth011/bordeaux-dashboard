@@ -1,0 +1,66 @@
+========================================================================
+montrose
+========================================================================
+106 document(s) in the manifest, 17 vintage(s) of them
+the estate's other wines, from cuvees.js:
+   La Dame de Montrose                second  red      9 record(s)
+
+montrose|2010   (no record)
+    !! NO RECORD, 1 document(s) on disk: Montrose-2010-FT-FR-133.pdf
+
+montrose|2012   blend,note,ntl,pick,taste,ttl
+    taste   The robe is deep, purple, brilliant. After a first nose still a little closed, elegant notes of fresh fruit, blackcurrant bud and eucalyptus reveal th
+    note    General characteristics of the vintage. The year 2012 was set to the rhythm of the weather's caprices. The winter was dry, above all the first quarter
+    !! no address: cannot link to its source
+    from  note=Montrose-2012-FT-FR-133.pdf, pick=Montrose-2012-FT-FR-133.pdf, taste=Montrose-2012-FT-FR-133.pdf
+
+montrose|2013   pick
+    !! no address: cannot link to its source
+    from  pick=Montrose-2013-FT-FR-133.pdf
+
+montrose|2024   pick,yld
+    !! no address: cannot link to its source
+    from  pick=ft_montrose-2024_montrose-2024-pri, yld=ft_montrose-2024_montrose-2024-pri
+
+grand: 4 vintage(s) with something to look at
+
+------------------------------------------------------------------------
+La Dame de Montrose  (second, red)
+------------------------------------------------------------------------
+
+montrose|la-dame-de-montrose|2012   blend,note,pick,taste
+    taste   The wine is a glittering, deep ruby red. The nose opens on discreet, elegant and warm chocolate and mocha notes, developing fresher aromas of blackcur
+    note    Vintage 2012 Main characteristics of the vintage 2012 was dominated by the vagaries of the weather. The winter was dry, especially in the first three 
+    !! no address: cannot link to its source
+
+montrose|la-dame-de-montrose|2013   blend,pick
+    !! no address: cannot link to its source
+
+montrose|la-dame-de-montrose|2015   note,pick
+    note    L’année 2015 débute par un hiver plus frais que les années précédentes. Le début de saison, doux et plutôt ensoleillé, favorise un débourrement précoc
+    !! no address: cannot link to its source
+
+montrose|la-dame-de-montrose|2017   note,pick
+    note    The year started with a mild and dry winter, marked by 2 weeks of cold at the end of January. The temperatures remained mild in the spring, allowing u
+    !! no address: cannot link to its source
+
+montrose|la-dame-de-montrose|2019   blend,note,pick
+    note    A great vintage ending in “9” 2019 marked an important step in the progression of our environmental approach, which now concerns the entire vineyard. 
+    !! no address: cannot link to its source
+
+montrose|la-dame-de-montrose|2020   note,ph,pick
+    note    In 2020, a relatively mild winter was followed by one of the warmest springs since the beginning of the 20th century. Heavy rainfall from May to June 
+    !! no address: cannot link to its source
+
+montrose|la-dame-de-montrose|2021   pick
+    !! no address: cannot link to its source
+
+montrose|la-dame-de-montrose|2022   blend,note,ph,pick,yld
+    note    A la vigne Elégante - Puissante - Harmonieuse Millésime 2022 LA LUMIÈRE Le millésime 2022 connaît un hiver relativement doux avec un déficit hydrique 
+    !! no address: cannot link to its source
+
+montrose|la-dame-de-montrose|2023   blend,months,note,oak
+    note    DAME DE MONTROSE 2023 Winter: Mild, with moderate rainfall Spring: Relatively warm and sunny, with light but regular rainfall Summer: Dry and temperat
+    !! note opens on capitals: DAME DE MONTROSE 2023 Winter: Mild, with moderate rainfall Spring: Rel
+
+la-dame-de-montrose: 9 vintage(s) with something to look at

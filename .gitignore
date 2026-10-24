@@ -3,7 +3,18 @@
 sources/
 
 # Generated reports: local working files, not part of the published site.
-reports/
+# `reports/*` and not `reports/`: ignoring the directory itself stops git
+# descending into it, and then the negation below can never apply.
+reports/*
+
+# Except the estate pass. reports/estates/ holds one report per classified
+# growth and the ledger that tracks them, and the half of each report that
+# matters is written by hand - what was wrong with that estate, why, and
+# what was decided. That is a deliverable, not working output, and keeping
+# it ignored cost Margaux's and Latour's findings once already: the files
+# were overwritten by a regeneration and there was nothing to restore them
+# from.
+!reports/estates/
 
 # Python bytecode from the tools.
 __pycache__/

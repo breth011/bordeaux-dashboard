@@ -1,0 +1,62 @@
+========================================================================
+leoville-barton
+========================================================================
+49 document(s) in the manifest, 32 vintage(s) of them
+the estate's other wines, from cuvees.js:
+   none listed - if the estate makes any, that is the first thing to fix
+
+leoville-barton|2012   blend,oak,pick,taste,via
+    taste   Lovely flowery bouquet with notes of acacia. The palate is well balanced with no harsh tannins indicating quite early maturity.
+    !! no address: cannot link to its source
+    from  oak=2012__en-wines-2-chateau-leoville-, pick=2012__en-wines-2-chateau-leoville-, taste=2012__en-wines-2-chateau-leoville-
+
+leoville-barton|2013   alc,blend,months,oak,pick,taste,via,yld
+    taste   The flesh sets this apart from the pack, with layersof black cherry, black currant and plum skin lined with well-integrated apple wood and briar notes
+    !! no address: cannot link to its source
+    from  pick=2013__en-wines-2-chateau-leoville-, taste=2013__en-wines-2-chateau-leoville-
+
+leoville-barton|2015   alc,blend,oak,pick,taste,via
+    taste   Intense color, the nose is full of aromas of black fruit, spice and cedar. The palate is fresh and balanced, the juice is intense and delicate.
+    !! no address: cannot link to its source
+    from  alc=2015__en-wines-2-chateau-leoville-, oak=2015__en-wines-2-chateau-leoville-, pick=2015__en-wines-2-chateau-leoville-, taste=2015__en-wines-2-chateau-leoville-
+
+leoville-barton|2016   alc,blend,oak,pick,taste,via
+    taste   Intense ruby colour, the nose reveals vivid notes of black fruits (black cherry, blackcurrant, blueberry) with a touch of ink. The mouth is ample, pow
+    !! no address: cannot link to its source
+    from  alc=2016__en-wines-2-chateau-leoville-, oak=2016__en-wines-2-chateau-leoville-, pick=2016__en-wines-2-chateau-leoville-, taste=2016__en-wines-2-chateau-leoville-
+
+leoville-barton|2017   alc,blend,oak,pick,taste,via
+    taste   Intense purple color with a bright nose of blackfruit, graphite and toast. On the palate, the attack is frank and the tannins are precise and remarkab
+    !! no address: cannot link to its source
+    from  alc=Leoville-Barton-2017-FT-FR.pdf, oak=2017__en-wines-2-chateau-leoville-, pick=2017__en-wines-2-chateau-leoville-, taste=2017__en-wines-2-chateau-leoville-
+
+leoville-barton|2018   blend,oak,pick,taste,via
+    taste   The nose is intense, expressive on minty, spicy and black fruit aromas. On the palate, the flavors of blueberry and blackcurrant are enhanced and the 
+    !! no address: cannot link to its source
+    from  oak=2018__en-wines-2-chateau-leoville-, pick=2018__en-wines-2-chateau-leoville-, taste=2018__en-wines-2-chateau-leoville-
+
+leoville-barton|2020   alc,blend,oak,pick,via,yld
+    !! no address: cannot link to its source
+    from  alc=Chateau-Leoville-Barton-Primeurs-2, oak=2020__en-wines-2-chateau-leoville-, pick=2020__en-wines-2-chateau-leoville-
+
+leoville-barton|2021   blend,oak,pick,via
+    !! no address: cannot link to its source
+    from  oak=2021__en-wines-2-chateau-leoville-, pick=2021__en-wines-2-chateau-leoville-
+
+leoville-barton|2022   alc,blend,oak,pick,via,yld
+    !! no address: cannot link to its source
+    from  alc=Chateau-Leoville-Barton-Primeurs-2, oak=2022__en-wines-2-chateau-leoville-, pick=2022__en-wines-2-chateau-leoville-
+
+leoville-barton|2023   alc,blend,oak,pick,via
+    !! no address: cannot link to its source
+    from  alc=Chateau-Leoville-Barton-Primeurs-2, oak=2023__en-wines-2-chateau-leoville-, pick=2023__en-wines-2-chateau-leoville-
+
+leoville-barton|2024   alc,blend,oak,pick,via
+    !! no address: cannot link to its source
+    from  alc=Chateau-Leoville-Barton-Primeurs-2, oak=2024__en-wines-2-chateau-leoville-, pick=2024__en-wines-2-chateau-leoville-
+
+leoville-barton|2025   alc,blend,oak,pick,via
+    !! no address: cannot link to its source
+    from  alc=FT-_Chateau-Leoville-Barton-Primeu, oak=2025__en-wines-2-chateau-leoville-, pick=2025__en-wines-2-chateau-leoville-
+
+grand: 12 vintage(s) with something to look at

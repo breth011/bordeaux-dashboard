@@ -1,0 +1,52 @@
+========================================================================
+la-tour-carnet
+========================================================================
+66 document(s) in the manifest, 14 vintage(s) of them
+the estate's other wines, from cuvees.js:
+   none listed - if the estate makes any, that is the first thing to fix
+
+la-tour-carnet|2011   blend,months,press
+    !! no address: cannot link to its source
+
+la-tour-carnet|2013   blend,months,oak,pick
+    !! no address: cannot link to its source
+    from  oak=Tour-Carnet-2013.pdf, pick=Tour-Carnet-2013.pdf
+
+la-tour-carnet|2014   blend,months,oak,pick
+    !! no address: cannot link to its source
+    from  pick=LA-TOUR-CARNET-2014-FT-GB-168.pdf
+
+la-tour-carnet|2017   blend,months,oak,pick
+    !! no address: cannot link to its source
+    from  pick=Tour-Carnet-Rge-2017-FT-FR.pdf
+
+la-tour-carnet|2018   blend,months,oak,pick
+    !! no address: cannot link to its source
+    from  months=Tour-Carnet-2018-FT-GB.pdf, oak=Tour-Carnet-Rge-2018-FT-FR.pdf, pick=Tour-Carnet-2018-FT-GB.pdf
+
+la-tour-carnet|2019   blend,months,oak,pick,taste
+    taste   D’une couleur pourpre-noir profond, le La Tour Carnet 2019 s’échappe du verre avec des notes audacieuses de prunes noires écrasées, de cassis frais et
+    !! no address: cannot link to its source
+    from  months=FT-Chateau-La-Tour-Carnet-rouge-20, oak=FT-Chateau-La-Tour-Carnet-rouge-20, pick=FT-Chateau-La-Tour-Carnet-rouge-20, taste=2019__products-chateau-la-tour-car
+
+la-tour-carnet|2020   blend,months,oak,pick
+    !! no address: cannot link to its source
+    from  months=la-Tour-Carnet-Rouge-2020-FT-EN.pd, oak=la-Tour-Carnet-Rouge-2020-FT-EN.pd, pick=la-Tour-Carnet-Rouge-2020-FT-FR.pd
+
+la-tour-carnet|2022   blend,note,yld
+    note    % Merlot 37% Cab. Sauv. 5% Petit Verdot 1% Cab. Franc Winter: warm and wet Spring: warm and dry (despite an early frost) Summer: dry with heatwaves A 
+    !! no address: cannot link to its source
+    from  blend=Fiche-Technique-Chateau-La-Tour-Ca, note=Fiche-Technique-Chateau-La-Tour-Ca
+
+la-tour-carnet|2024   blend,yld
+    !! no address: cannot link to its source
+    !! blend is exactly the planting, which is a different claim
+    from  blend=ft_tour-carnet-2024_tour-carnet-20
+
+la-tour-carnet|2025   note,yld
+    note    WINEGROWING SPECIFICITIES WINEMAKING SPECIFICITIES Château La Tour Carnet 2025 vintage The 2025 Vintage stands out due to perfect weather, with rainfa
+    !! no address: cannot link to its source
+    !! note opens on capitals: WINEGROWING SPECIFICITIES WINEMAKING SPECIFICITIES Château La Tour Car
+    from  note=FICHE_TECHNIQUE_2025_LA_TOUR_CARNE
+
+grand: 10 vintage(s) with something to look at

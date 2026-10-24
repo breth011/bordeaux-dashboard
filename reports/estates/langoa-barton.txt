@@ -1,0 +1,55 @@
+========================================================================
+langoa-barton
+========================================================================
+44 document(s) in the manifest, 32 vintage(s) of them
+the estate's other wines, from cuvees.js:
+   none listed - if the estate makes any, that is the first thing to fix
+
+langoa-barton|2012   blend,oak,pick,via
+    !! no address: cannot link to its source
+    from  oak=2012__en-wines-1-chateau-langoa-ba, pick=2012__en-wines-1-chateau-langoa-ba
+
+langoa-barton|2016   alc,blend,oak,pick,taste,via
+    taste   Ruby / purple color, the intense and complex nose reveals hints of black fruit, brioche bread. The attack is vivid and velvety. The mid-palate enhance
+    !! no address: cannot link to its source
+    from  alc=Langoa-Barton-2016-FT-FR-C1014.pdf, oak=2016__en-wines-1-chateau-langoa-ba, pick=2016__en-wines-1-chateau-langoa-ba, taste=2016__en-wines-1-chateau-langoa-ba
+
+langoa-barton|2017   alc,blend,oak,pick,taste,via
+    taste   Dense purple color. Very expressive nose with some notes of raspberry, blackberry and violet. In mouth, the wine is elegant, round and smooth. Juicy w
+    !! no address: cannot link to its source
+    from  alc=Langoa-Barton-2017-FT-FR.pdf, oak=2017__en-wines-1-chateau-langoa-ba, pick=2017__en-wines-1-chateau-langoa-ba, taste=2017__en-wines-1-chateau-langoa-ba
+
+langoa-barton|2018   blend,oak,pick,taste,via
+    taste   The color is intense with a beautiful shine. The attack is brilliant, we are seduced by the depth and substance of the wine.
+    !! no address: cannot link to its source
+    from  oak=2018__en-wines-1-chateau-langoa-ba, pick=2018__en-wines-1-chateau-langoa-ba, taste=2018__en-wines-1-chateau-langoa-ba
+
+langoa-barton|2019   blend,oak,pick,via
+    !! no address: cannot link to its source
+    from  oak=2019__en-wines-1-chateau-langoa-ba, pick=2019__en-wines-1-chateau-langoa-ba
+
+langoa-barton|2020   alc,blend,oak,pick,via,yld
+    !! no address: cannot link to its source
+    from  alc=Chateau-Langoa-Barton-Primeurs-202, oak=2020__en-wines-1-chateau-langoa-ba, pick=2020__en-wines-1-chateau-langoa-ba
+
+langoa-barton|2021   blend,oak,pick,via
+    !! no address: cannot link to its source
+    from  oak=2021__en-wines-1-chateau-langoa-ba, pick=2021__en-wines-1-chateau-langoa-ba
+
+langoa-barton|2022   alc,blend,oak,pick,via,yld
+    !! no address: cannot link to its source
+    from  alc=Chateau-Langoa-Barton-Primeurs-202, oak=2022__en-wines-1-chateau-langoa-ba, pick=2022__en-wines-1-chateau-langoa-ba
+
+langoa-barton|2023   alc,blend,oak,pick,via
+    !! no address: cannot link to its source
+    from  alc=Chateau-Langoa-Barton-Primeurs-202, oak=2023__en-wines-1-chateau-langoa-ba, pick=2023__en-wines-1-chateau-langoa-ba
+
+langoa-barton|2024   alc,blend,oak,pick,via
+    !! no address: cannot link to its source
+    from  alc=Chateau-Langoa-Barton-Primeurs-202, oak=2024__en-wines-1-chateau-langoa-ba, pick=2024__en-wines-1-chateau-langoa-ba
+
+langoa-barton|2025   alc,blend,oak,pick,via
+    !! no address: cannot link to its source
+    from  alc=FT_-Chateau-Langoa-Barton-Primeurs, oak=2025__en-wines-1-chateau-langoa-ba, pick=2025__en-wines-1-chateau-langoa-ba
+
+grand: 11 vintage(s) with something to look at

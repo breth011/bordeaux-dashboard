@@ -1419,11 +1419,18 @@ RX_ALC2 = re.compile(r'(?<![\d,.])(\d{2}[,.]\d)\s*%\s*vol')
 
 RX_PH = re.compile(r'(?i)\bph\b[^0-9]{0,12}(\d[,.]\d{1,2})')
 
+# Two decimal places, because sheets write them: Lafite 2017 says
+# "Yield : 38.75 hL/ha". With one allowed, this tried 38.7, wanted
+# the unit, found "5 hL/ha" and failed - and RX_YLD2 then read the
+# tail of the number as the yield and stored 75.
 RX_YLD = re.compile(
-    r'(?i)(?:rendement|yield)s?[^0-9]{0,24}(\d{1,2}(?:[,.]\d)?)\s*'
+    r'(?i)(?:rendement|yield)s?[^0-9]{0,24}(\d{1,2}(?:[,.]\d{1,2})?)\s*'
     r'(?:hl\s*/\s*ha|hl/ha|hectolitres)')
+# (?<![\d,.]) so a bare number cannot start in the middle of a
+# longer one. RX_ALC2 has carried the same guard since it was
+# written; this one did not, and 38.75 became 75.
 RX_YLD2 = re.compile(
-    r'(?i)(\d{1,2}(?:[,.]\d)?)\s*(?:hl\s*/\s*ha|hl/ha)')
+    r'(?i)(?<![\d,.])(\d{1,2}(?:[,.]\d{1,2})?)\s*(?:hl\s*/\s*ha|hl/ha)')
 
 # "18 mois en barriques" / "ageing 16 months" / "Elevage : 12 mois"
 RX_MONTHS = re.compile(

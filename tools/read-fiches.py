@@ -96,6 +96,18 @@ import sheetreader as sr
 #
 # This is read-sheets' PINNED, for prose.
 REFUSED = {
+    ('lafite|1976', 'taste'):
+        'not this vintage: the estate printed the 1975 note on the '
+        '1976 sheet, word for word, and it names the year inside '
+        'itself - "One of the most beautiful 1975!" on '
+        'Chateau-Lafite-Rothschild-1976.pdf. The reader did what '
+        'the sheet said; the sheet is wrong',
+    ('lafite|2016', 'taste'):
+        'not this vintage: the 2016 sheet carries the 2007 note '
+        'word for word. Pinned on the earlier vintage being the '
+        'original - a 2007 note cannot have been written for a '
+        'wine made nine years later - where the 1976 case names '
+        'its year outright',
     ('lynch-bages|2017', 'taste'):
         'not this wine: the note is the estate\'s white - "le '
         'Blanc de Lynch-Bages 2017 presente un nez '

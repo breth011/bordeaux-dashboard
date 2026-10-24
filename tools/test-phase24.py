@@ -103,11 +103,16 @@ if raw:
     says('a duplicate inside one batch is written once', n == 1, '%d' % n)
 
     bare = row(artifact='v4.pdf', v=4, reader='abcdefabcdef')
-    says('v4 refuses a row without observed path, hash, tree_clean',
+    says('v4 refuses a row without established provenance',
          bool(refused(lambda: ST.append([bare], 4))))
+    # The v4 fields as Phase 2.5 defined them (tools/provenance.py); the
+    # v1-v3 fields `observed` and `commit` are refused at v4.
     good = copy.deepcopy(bare)
-    good['observed'] = {'path': 'fiches/x/v4.pdf', 'sha1': 'f' * 40}
-    good['tree_clean'] = True
+    good.pop('observed', None)
+    good.pop('commit', None)
+    good['read'] = {'path': 'fiches/x/v4.pdf', 'sha256': 'f' * 64,
+                    'bytes': 1}
+    good['git'] = {'commit': 'a' * 40, 'dirty': False, 'status_hash': None}
     says('v4 accepts a row that carries them',
          ST.append([good], 4) == 1)
     says('...in its own file',

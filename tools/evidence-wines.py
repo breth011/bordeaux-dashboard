@@ -67,6 +67,7 @@ ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__))) + os.sep
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 import sheetreader as sr
 import evidence as EV
+import provenance as PV
 
 # 3: Phase 2.3. The reader gained a real second-wine mode and
 # sibling-aware marks, so its second-wine verdicts mean something
@@ -120,6 +121,7 @@ def main():
     ap.add_argument('--estate')
     ap.add_argument('--write', action='store_true')
     ap.add_argument('--changed', action='store_true')
+    ap.add_argument('--allow-dirty', action='store_true')
     ap.add_argument('--limit', type=int, default=0)
     a = ap.parse_args()
 
@@ -132,10 +134,9 @@ def main():
     if a.limit:
         sheets = sheets[:a.limit]
 
-    disk = {}
-    for root, dirs, files in os.walk(ROOT + 'sources'):
-        for f in files:
-            disk.setdefault(f, os.path.join(root, f))
+    # Each sheet's file is found from its own folder and name, and hashed
+    # around the reading: tools/provenance.py. Never by basename alone.
+    run = PV.Run(DECIDER_VERSION)
 
     # What the no-vintage pass concluded, so the change is reportable.
     before = {}
@@ -158,7 +159,11 @@ def main():
             continue
         for s in [x for x in sheets if x['estate'] == eid]:
             fn = s['file']
-            p = disk.get(fn)
+            base = {'estate': eid, 'wine': s.get('wine'),
+                    'vintage': s.get('year'), 'folder': s.get('folder')}
+            art = run.resolve(s, base)
+            p = art.path if art else None
+            first = len(rows)
             n += 1
             if n % 400 == 0:
                 sys.stderr.write('  %d of %d artifacts, %d contexts\n'
@@ -205,10 +210,9 @@ def main():
                                                    yr or 'unstated'),
                             },
                             'decision': dec, 'code': code, 'raw': raw,
-                            'observed': {'sha1': s.get('sha1')},
+                            **run.stamp(s, art),
                             'evidence': ['the reader has no cuvee mode'],
                             'v': DECIDER_VERSION, 'reader': fp,
-                            'commit': cm,
                             'at': datetime.date.today().isoformat(),
                             're_evaluable': True,
                         })
@@ -244,18 +248,26 @@ def main():
                         'decision': dec, 'code': code, 'raw': raw,
                         'points_at': {'role': v.get('role') if v else None,
                                       'wine': v.get('wine') if v else None},
-                        'observed': {'sha1': s.get('sha1')},
+                        **run.stamp(s, art),
                         'evidence': ['whose_sheet with year=%s, '
                                      'is_second=%s'
                                      % (yr, role == 'second')],
-                        'v': DECIDER_VERSION, 'reader': fp, 'commit': cm,
+                        'v': DECIDER_VERSION, 'reader': fp,
                         'at': datetime.date.today().isoformat(),
                         're_evaluable': True,
                     })
+            # The bytes must still be the ones hashed before the reader
+            # ran; if not, nothing it said about them is kept.
+            if not run.confirm(art, s, base):
+                del rows[first:]
 
     print('%d artifact(s), %d estate/wine/vintage context(s), '
           '%d decision(s)' % (n, ctxs, len(rows)))
-    print('decider version %d, reader %s\n' % (DECIDER_VERSION, fp))
+    print('decider version %d, reader %s' % (DECIDER_VERSION, fp))
+    print('git %s%s' % (run.git['commit'][:12],
+                        ' DIRTY ' + run.git['status_hash'][:12]
+                        if run.git['dirty'] else ' clean'))
+    print(PV.report(run) + '\n')
     print('%-30s %s' % ('DECISION', 'n'))
     print('-' * 46)
     for k, c in counts.most_common():
@@ -319,8 +331,11 @@ def main():
     print('   %-34s %6d' % ('estate/wine/vintage', len(accepted_for)))
 
     if a.write:
-        n = EV.ST.append(rows, DECIDER_VERSION)
+        n, nf = PV.write(run, rows, a.allow_dirty)
         print('\n%d decision(s) appended' % n)
+        if nf:
+            print('%d provenance failure(s) recorded, apart from the '
+                  'decisions' % nf)
         if n != len(rows):
             print('%d already recorded at version %d and left alone'
                   % (len(rows) - n, DECIDER_VERSION))

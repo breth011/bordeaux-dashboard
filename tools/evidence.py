@@ -272,10 +272,9 @@ def main():
             sheets = [s for s in sheets if s.get('estate') == a.estate]
         if a.limit:
             sheets = sheets[:a.limit]
-        disk = {}
-        for root, dirs, files in os.walk(ROOT + 'sources'):
-            for f in files:
-                disk.setdefault(f, os.path.join(root, f))
+        # Found from its own folder and name: tools/provenance.py.
+        import provenance as PV
+        run = PV.Run(DECIDER_VERSION)
 
         counts = collections.Counter()
         n = 0
@@ -305,7 +304,10 @@ def main():
                     })
                 continue
             e = E.get(eid) or {}
-            p = disk.get(fn)
+            art = run.resolve(s, {'estate': eid, 'wine': s.get('wine'),
+                                  'vintage': s.get('year'),
+                                  'folder': s.get('folder')})
+            p = art.path if art else None
             n += 1
             if n % 500 == 0:
                 sys.stderr.write('  %d of %d\n' % (n, len(sheets)))

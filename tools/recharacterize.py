@@ -53,6 +53,7 @@ ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__))) + os.sep
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 import sheetreader as sr
 import evidence as EV
+import provenance as PV
 
 # 3: Phase 2.3, the corrected reader. See evidence-wines.py.
 DECIDER_VERSION = 3
@@ -84,6 +85,7 @@ def main():
     ap = argparse.ArgumentParser()
     ap.add_argument('--estate')
     ap.add_argument('--write', action='store_true')
+    ap.add_argument('--allow-dirty', action='store_true')
     ap.add_argument('--limit', type=int, default=0)
     a = ap.parse_args()
 
@@ -105,10 +107,9 @@ def main():
                 # into 727 and misreported the cross-tab.
                 prev[d['artifact']] = d['state']
 
-    disk = {}
-    for root, dirs, files in os.walk(ROOT + 'sources'):
-        for f in files:
-            disk.setdefault(f, os.path.join(root, f))
+    # Found from its own folder and name, hashed around the reading:
+    # tools/provenance.py. Never by basename alone.
+    run = PV.Run(DECIDER_VERSION)
 
     rows, counts, ctxs = [], collections.Counter(), 0
     best = {}            # artifact -> the strongest decision seen
@@ -126,11 +127,21 @@ def main():
             continue
         e = E.get(eid) or {}
         wines = wines_of(e)
-        p2 = disk.get(fn)
-        if not p2 or not wines:
-            counts['NOT_ON_DISK'] += 1
-            best[akey] = 'NOT_ON_DISK'
+        if not wines:
+            counts['NO_WINES'] += 1
+            best[akey] = 'NO_WINES'
             continue
+        base = {'estate': None, 'wine': s.get('wine'),
+                'vintage': s.get('year'), 'folder': s.get('folder'),
+                'target_estate': eid}
+        art = run.resolve(s, base)
+        if not art:
+            # Not a decision: we could not say which file to read.
+            counts['(provenance failure)'] += 1
+            best[akey] = 'PROVENANCE_FAILURE'
+            continue
+        p2 = art.path
+        first = len(rows)
         try:
             text = sr.flat(p2)
         except Exception:
@@ -188,17 +199,19 @@ def main():
                                         % (eid, wname, yr or 'unstated'),
                     },
                     'decision': dec, 'code': code, 'raw': raw,
-                    'observed': {'sha1': s.get('sha1')},
+                    **run.stamp(s, art),
                     'evidence': ['the manifest gives no estate; the '
                                  'folder names %s' % eid,
                                  'whose_sheet with year=%s, is_second=%s'
                                  % (yr, role == 'second')],
                     'v': DECIDER_VERSION,
                     'reader': EV.reader_fingerprint(),
-                    'commit': EV.commit(),
                     'at': datetime.date.today().isoformat(),
                     're_evaluable': True,
                 })
+        if not run.confirm(art, s, base):
+            del rows[first:]
+            best[akey] = 'PROVENANCE_FAILURE'
 
     print('%d unattributed artifact row(s), %d distinct filename(s), '
           '%d context(s), %d decision(s)\n'
@@ -226,8 +239,11 @@ def main():
         print('   %-18s %-28s %5d' % (was[:18], now[:28], c))
 
     if a.write:
-        n = EV.ST.append(rows, DECIDER_VERSION)
+        n, nf = PV.write(run, rows, a.allow_dirty)
         print('\n%d decision(s) appended' % n)
+        if nf:
+            print('%d provenance failure(s) recorded, apart from the '
+                  'decisions' % nf)
         if n != len(rows):
             print('%d already recorded and left alone' % (len(rows) - n))
     else:

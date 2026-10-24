@@ -36,14 +36,25 @@ append() is the only writer, and it refuses:
   - a row whose `reader` fingerprint differs from the one that version
     was opened with. A version is one reader. When the reader changes,
     that is a new decider version, never more rows under the old one;
-  - from v4 on, a row without provenance: `observed.path`, the file
-    that was actually read; `observed.sha1`, the hash of those bytes
-    as read; and `tree_clean`, whether the commit it names held the
-    code that ran. v1-v3 lack all three, and Phase 2.4 found why that
+  - from v4 on, a row without established provenance (Phase 2.5,
+    tools/provenance.py):
+      read.path     the file actually read, under sources/
+      read.sha256   SHA-256 of the bytes the reader was given
+      git.commit    the full HEAD sha
+      git.dirty     whether the working tree differed from it
+      git.status_hash   which uncommitted state, when dirty
+    and a v4 row carrying the v1-v3 fields `observed` or `commit`,
+    whose meanings were the manifest's hash and HEAD at run time.
+    Those meanings stay with v1-v3; a v4 row must not be read as
+    having them. v1-v3 lack all of this, and Phase 2.4 found why it
     matters: rows named a document while the bytes read came from a
     same-named file in another folder. They also recorded the
     manifest's hash instead of computing one, and named a commit made
-    before the code that decided.
+    before the code that decided;
+  - a provenance failure (`kind: provenance_failure`). That is "we
+    could not establish which document was read", not a verdict, and
+    it goes to append_failures() and its own file,
+    provenance-failures-vN.jsonl, which iter_rows() never reads.
 
 It also drops a row whose identity (evidence.row_key) is already
 stored, or that appears twice in one batch. v1-v3 hold 1,228 such
@@ -157,16 +168,17 @@ def append(rows, v):
             'changed reader is a new decider version.'
             % (v, ', '.join(meta['readers']),
                ', '.join(sorted(str(x) for x in readers))))
+    for r in rows:
+        if r.get('kind') == 'provenance_failure' \
+                or r.get('code') in FAILURE_CODES:
+            raise RefusedAppend('a provenance failure is not a decision: '
+                                '%s' % r.get('artifact'))
     if v >= PROVENANCE_FROM:
         for r in rows:
-            o = r.get('observed') or {}
-            if not (o.get('path') and o.get('sha1')
-                    and isinstance(r.get('tree_clean'), bool)
-                    and r.get('commit') and r.get('reader')):
-                raise RefusedAppend(
-                    'v%d rows must carry observed.path, observed.sha1 of '
-                    'the bytes read, commit, reader and tree_clean: %s'
-                    % (v, r.get('artifact')))
+            why = provenance_problem(r)
+            if why:
+                raise RefusedAppend('v%d: %s: %s'
+                                    % (v, why, r.get('artifact')))
 
     seen = existing_keys([v])
     fresh = []
@@ -207,10 +219,104 @@ def append(rows, v):
             p['rows'] = sum(1 for _ in f)
     meta['readers'] = sorted(set(meta['readers']) | readers)
     meta['commits'] = sorted(set(meta['commits'])
-                             | set(r.get('commit') for r in fresh))
+                             | set(r.get('commit') or (r.get('git') or {})
+                                   .get('commit') for r in fresh))
     meta['rows'] = sum(p['rows'] for p in meta['parts'])
     _save_index(ix)
     return len(fresh)
+
+
+def provenance_problem(r):
+    """Why a v4+ row's provenance is not acceptable, or None."""
+    import re
+    if 'observed' in r or 'commit' in r or 'tree_clean' in r:
+        return 'carries a v1-v3 provenance field (observed/commit)'
+    rd, g = r.get('read') or {}, r.get('git') or {}
+    if not rd.get('path'):
+        return 'no read.path'
+    if not re.match(r'^[0-9a-f]{64}$', str(rd.get('sha256'))):
+        return 'read.sha256 is not a SHA-256'
+    if not re.match(r'^[0-9a-f]{40}$', str(g.get('commit'))):
+        return 'git.commit is not a full sha'
+    if not isinstance(g.get('dirty'), bool):
+        return 'git.dirty missing'
+    if g['dirty'] and not re.match(r'^[0-9a-f]{64}$',
+                                   str(g.get('status_hash'))):
+        return 'a dirty run without git.status_hash'
+    if not g['dirty'] and g.get('status_hash') is not None:
+        return 'a clean run with a status_hash'
+    if not r.get('reader'):
+        return 'no reader fingerprint'
+    return None
+
+
+# The codes tools/provenance.py gives a failure. Kept here as well so the
+# store can refuse one without importing the runner's module.
+FAILURE_CODES = ('ARTIFACT_NOT_FOUND', 'ARTIFACT_AMBIGUOUS',
+                 'ARTIFACT_UNREADABLE', 'ARTIFACT_CHANGED_DURING_READ',
+                 'ARTIFACT_OUTSIDE_SOURCES', 'ARTIFACT_NAME_MISMATCH')
+
+
+def failures_path(v):
+    return DIR + 'provenance-failures-v%d.jsonl' % int(v)
+
+
+def append_failures(rows, v):
+    """Record provenance failures of version v, beside its decisions.
+
+    Not decisions: no `decision` field, a FAILURE_CODES code, and a file
+    of their own that iter_rows() never reads. A failure that recurs on
+    a rerun is not written twice."""
+    v = int(v)
+    for r in rows:
+        if r.get('kind') != 'provenance_failure' \
+                or r.get('code') not in FAILURE_CODES \
+                or 'decision' in r or r.get('v') != v:
+            raise RefusedAppend('not a provenance failure of v%d: %s'
+                                % (v, r.get('artifact')))
+    have = set()
+    for d in iter_failures(v):
+        have.add(_failure_key(d))
+    fresh = []
+    for r in rows:
+        k = _failure_key(r)
+        if k not in have:
+            have.add(k)
+            fresh.append(r)
+    if not fresh:
+        return 0
+    if not os.path.isdir(DIR):
+        os.makedirs(DIR)
+    path = failures_path(v)
+    with io.open(path, 'a', encoding='utf-8', newline='') as f:
+        for r in fresh:
+            f.write(json.dumps(r, ensure_ascii=False, sort_keys=True) + '\n')
+    ix = _load_index()
+    meta = ix['versions'].setdefault(str(v), {'parts': [], 'readers': [],
+                                              'commits': []})
+    with open(path, 'rb') as f:
+        n = sum(1 for _ in f)
+    meta['failures'] = {'file': os.path.basename(path), 'rows': n,
+                        'bytes': os.path.getsize(path),
+                        'sha256': sha256_of(path)}
+    _save_index(ix)
+    return len(fresh)
+
+
+def _failure_key(d):
+    c = d.get('ctx') or {}
+    return (d.get('artifact'), c.get('folder'), d.get('code'),
+            json.dumps(c, sort_keys=True, ensure_ascii=False))
+
+
+def iter_failures(v):
+    p = failures_path(v)
+    if not os.path.exists(p):
+        return
+    with io.open(p, encoding='utf-8') as f:
+        for line in f:
+            if line.strip():
+                yield json.loads(line)
 
 
 def verify():
@@ -218,6 +324,11 @@ def verify():
     bad = []
     ix = _load_index()
     for v, meta in sorted(ix.get('versions', {}).items(), key=lambda x: int(x[0])):
+        fl = meta.get('failures')
+        if fl:
+            fp = DIR + fl['file']
+            if not os.path.exists(fp) or sha256_of(fp) != fl.get('sha256'):
+                bad.append('%s does not match its hash' % fl['file'])
         for p in meta.get('parts', []):
             path = DIR + p['file']
             if not os.path.exists(path):

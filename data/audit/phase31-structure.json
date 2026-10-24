@@ -1,0 +1,6480 @@
+{
+ "phase": "3.1",
+ "built_by": "tools/audit-structure.py",
+ "note": "A static reading of the scripts: a path is a string literal in the tool, a write is a write call located by line. It can miss a path built at run time; the document says where that matters.",
+ "tools": [
+  {
+   "tool": "tools/add-dutch.py",
+   "doc": "Merge translations into data/fiches-nl.js.",
+   "imports_local": [],
+   "refs": [
+    "data/fiches-nl.js",
+    "data/fiches.js"
+   ],
+   "reads_data": [
+    "fiches-nl.js",
+    "fiches.js"
+   ],
+   "writes_data": [
+    "fiches-nl.js"
+   ],
+   "writes_reports": [],
+   "writes_sources": [],
+   "writes_other": [],
+   "write_sites": [
+    {
+     "line": 172,
+     "targets": [
+      "data/fiches-nl.js"
+     ],
+     "how": "literal",
+     "reachable": true,
+     "before_gate": false
+    }
+   ],
+   "unreachable_writes": [],
+   "unplaced_writes": [],
+   "flags": [
+    "--apply",
+    "--dry-run"
+   ],
+   "gated": true,
+   "gate_line": 143,
+   "ungated_store_writes": [],
+   "network": false,
+   "reads_evidence": false,
+   "writes_canonical": [
+    "fiches-nl.js"
+   ],
+   "basename_first_match": false
+  },
+  {
+   "tool": "tools/add-sheet.py",
+   "doc": "Fetch a sheet somebody has pointed at, and register it.",
+   "imports_local": [
+    "sheetreader",
+    "harvest",
+    "read-fiches",
+    "read-sheets"
+   ],
+   "refs": [
+    "data/sources.json",
+    "sources/fiches/"
+   ],
+   "reads_data": [
+    "sources.json"
+   ],
+   "writes_data": [
+    "sources.json"
+   ],
+   "writes_reports": [],
+   "writes_sources": [
+    "sources/fiches/"
+   ],
+   "writes_other": [],
+   "write_sites": [
+    {
+     "line": 129,
+     "targets": [
+      "sources/fiches/"
+     ],
+     "how": "placed by hand",
+     "reachable": true,
+     "before_gate": true
+    },
+    {
+     "line": 169,
+     "targets": [
+      "data/sources.json"
+     ],
+     "how": "variable",
+     "reachable": true,
+     "before_gate": false
+    }
+   ],
+   "unreachable_writes": [],
+   "unplaced_writes": [],
+   "flags": [
+    "--apply"
+   ],
+   "gated": true,
+   "gate_line": 125,
+   "ungated_store_writes": [],
+   "network": true,
+   "reads_evidence": false,
+   "writes_canonical": [],
+   "basename_first_match": false
+  },
+  {
+   "tool": "tools/add-wine.py",
+   "doc": "Add one of an estate's other wines to BDX_CUVEE_WINES.",
+   "imports_local": [
+    "sheetreader",
+    "refile-wine"
+   ],
+   "refs": [
+    "data/cuvees.js"
+   ],
+   "reads_data": [
+    "cuvees.js"
+   ],
+   "writes_data": [
+    "cuvees.js"
+   ],
+   "writes_reports": [],
+   "writes_sources": [],
+   "writes_other": [],
+   "write_sites": [
+    {
+     "line": 124,
+     "targets": [
+      "data/cuvees.js"
+     ],
+     "how": "variable",
+     "reachable": true,
+     "before_gate": false
+    }
+   ],
+   "unreachable_writes": [],
+   "unplaced_writes": [],
+   "flags": [
+    "--apply"
+   ],
+   "gated": true,
+   "gate_line": 116,
+   "ungated_store_writes": [],
+   "network": false,
+   "reads_evidence": false,
+   "writes_canonical": [
+    "cuvees.js"
+   ],
+   "basename_first_match": false
+  },
+  {
+   "tool": "tools/ask-site.py",
+   "doc": "What does an estate's own site publish that we do not hold?",
+   "imports_local": [
+    "sheetreader",
+    "crawl-pages"
+   ],
+   "refs": [
+    "data/sources.json",
+    "data/websites.js"
+   ],
+   "reads_data": [
+    "sources.json",
+    "websites.js"
+   ],
+   "writes_data": [],
+   "writes_reports": [],
+   "writes_sources": [],
+   "writes_other": [],
+   "write_sites": [],
+   "unreachable_writes": [],
+   "unplaced_writes": [],
+   "flags": [],
+   "gated": false,
+   "gate_line": null,
+   "ungated_store_writes": [],
+   "network": true,
+   "reads_evidence": false,
+   "writes_canonical": [],
+   "basename_first_match": false
+  },
+  {
+   "tool": "tools/attribute.py",
+   "doc": "The artifacts the manifest gives no estate, and what they look like.",
+   "imports_local": [
+    "sheetreader",
+    "census",
+    "census-compact"
+   ],
+   "refs": [
+    "chateaux.js",
+    "data/",
+    "data/artifact-census.jsonl",
+    "data/attribution-candidates.jsonl",
+    "graves.js",
+    "saintemilion.js",
+    "sauternes.js"
+   ],
+   "reads_data": [
+    "artifact-census.jsonl",
+    "attribution-candidates.jsonl",
+    "chateaux.js",
+    "graves.js",
+    "saintemilion.js",
+    "sauternes.js"
+   ],
+   "writes_data": [
+    "attribution-candidates.jsonl"
+   ],
+   "writes_reports": [],
+   "writes_sources": [],
+   "writes_other": [],
+   "write_sites": [
+    {
+     "line": 266,
+     "targets": [
+      "data/attribution-candidates.jsonl"
+     ],
+     "how": "variable",
+     "reachable": true,
+     "before_gate": false
+    }
+   ],
+   "unreachable_writes": [],
+   "unplaced_writes": [],
+   "flags": [
+    "--write"
+   ],
+   "gated": true,
+   "gate_line": 265,
+   "ungated_store_writes": [],
+   "network": false,
+   "reads_evidence": false,
+   "writes_canonical": [],
+   "basename_first_match": false
+  },
+  {
+   "tool": "tools/audit-consistency.py",
+   "doc": "Where a field jumps around in a way the sheets would not explain.",
+   "imports_local": [
+    "sheetreader"
+   ],
+   "refs": [
+    "cuvee-src.js",
+    "cuvees.js",
+    "fiches.js",
+    "field-src.js",
+    "sheet-expectations.json",
+    "sources.json"
+   ],
+   "reads_data": [
+    "cuvee-src.js",
+    "cuvees.js",
+    "fiches.js",
+    "field-src.js",
+    "sheet-expectations.json",
+    "sources.json"
+   ],
+   "writes_data": [
+    "sheet-expectations.json"
+   ],
+   "writes_reports": [],
+   "writes_sources": [],
+   "writes_other": [],
+   "write_sites": [
+    {
+     "line": 396,
+     "targets": [
+      "sheet-expectations.json"
+     ],
+     "how": "variable",
+     "reachable": true,
+     "before_gate": true
+    }
+   ],
+   "unreachable_writes": [],
+   "unplaced_writes": [],
+   "flags": [],
+   "gated": false,
+   "gate_line": null,
+   "ungated_store_writes": [],
+   "network": false,
+   "reads_evidence": false,
+   "writes_canonical": [],
+   "basename_first_match": true
+  },
+  {
+   "tool": "tools/audit-estate.py",
+   "doc": "One estate, vintage by vintage: what is held, what is wrong with it.",
+   "imports_local": [
+    "sheetreader"
+   ],
+   "refs": [
+    "data/cuvee-src.js",
+    "data/cuvee-url.js",
+    "data/cuvees.js",
+    "data/fiches-url.js",
+    "data/fiches.js",
+    "data/field-src.js",
+    "data/plantings.js",
+    "data/sources.json",
+    "reports/estates"
+   ],
+   "reads_data": [
+    "cuvee-src.js",
+    "cuvee-url.js",
+    "cuvees.js",
+    "fiches-url.js",
+    "fiches.js",
+    "field-src.js",
+    "plantings.js",
+    "sources.json"
+   ],
+   "writes_data": [],
+   "writes_reports": [
+    "reports/estates/"
+   ],
+   "writes_sources": [],
+   "writes_other": [],
+   "write_sites": [
+    {
+     "line": 440,
+     "targets": [
+      "reports/estates/"
+     ],
+     "how": "placed by hand",
+     "reachable": true,
+     "before_gate": true
+    }
+   ],
+   "unreachable_writes": [],
+   "unplaced_writes": [],
+   "flags": [],
+   "gated": false,
+   "gate_line": null,
+   "ungated_store_writes": [],
+   "network": false,
+   "reads_evidence": false,
+   "writes_canonical": [],
+   "basename_first_match": false
+  },
+  {
+   "tool": "tools/audit-grand-marks.py",
+   "doc": "Phase 2.8: can the grand-vin check tell each estate's other wines from",
+   "imports_local": [
+    "evidence_store",
+    "sheetreader"
+   ],
+   "refs": [
+    "chateaux.js",
+    "data/",
+    "data/phase28-grand-audit.jsonl",
+    "sauternes.js"
+   ],
+   "reads_data": [
+    "chateaux.js",
+    "phase28-grand-audit.jsonl",
+    "sauternes.js"
+   ],
+   "writes_data": [
+    "phase28-grand-audit.jsonl"
+   ],
+   "writes_reports": [],
+   "writes_sources": [],
+   "writes_other": [],
+   "write_sites": [
+    {
+     "line": 420,
+     "targets": [
+      "data/phase28-grand-audit.jsonl"
+     ],
+     "how": "variable",
+     "reachable": true,
+     "before_gate": false
+    }
+   ],
+   "unreachable_writes": [],
+   "unplaced_writes": [],
+   "flags": [
+    "--write"
+   ],
+   "gated": true,
+   "gate_line": 419,
+   "ungated_store_writes": [],
+   "network": false,
+   "reads_evidence": true,
+   "writes_canonical": [],
+   "basename_first_match": false
+  },
+  {
+   "tool": "tools/audit-multiwine.py",
+   "doc": "Documents that cover more than one of an estate's wines.",
+   "imports_local": [
+    "sheetreader"
+   ],
+   "refs": [
+    "data/sources.json"
+   ],
+   "reads_data": [
+    "sources.json"
+   ],
+   "writes_data": [
+    "sources.json"
+   ],
+   "writes_reports": [],
+   "writes_sources": [],
+   "writes_other": [],
+   "write_sites": [
+    {
+     "line": 147,
+     "targets": [
+      "data/sources.json"
+     ],
+     "how": "literal",
+     "reachable": true,
+     "before_gate": false
+    }
+   ],
+   "unreachable_writes": [],
+   "unplaced_writes": [],
+   "flags": [
+    "--write"
+   ],
+   "gated": true,
+   "gate_line": 136,
+   "ungated_store_writes": [],
+   "network": false,
+   "reads_evidence": false,
+   "writes_canonical": [],
+   "basename_first_match": true
+  },
+  {
+   "tool": "tools/audit-provenance.py",
+   "doc": "How v1-v3 found their files, against how they should have.",
+   "imports_local": [
+    "evidence",
+    "evidence_store",
+    "provenance"
+   ],
+   "refs": [
+    "data/provenance-audit.jsonl",
+    "data/sources.json"
+   ],
+   "reads_data": [
+    "provenance-audit.jsonl",
+    "sources.json"
+   ],
+   "writes_data": [
+    "provenance-audit.jsonl"
+   ],
+   "writes_reports": [],
+   "writes_sources": [],
+   "writes_other": [],
+   "write_sites": [
+    {
+     "line": 170,
+     "targets": [
+      "data/provenance-audit.jsonl"
+     ],
+     "how": "variable",
+     "reachable": true,
+     "before_gate": false
+    }
+   ],
+   "unreachable_writes": [],
+   "unplaced_writes": [],
+   "flags": [
+    "--write"
+   ],
+   "gated": true,
+   "gate_line": 169,
+   "ungated_store_writes": [],
+   "network": false,
+   "reads_evidence": true,
+   "writes_canonical": [],
+   "basename_first_match": true
+  },
+  {
+   "tool": "tools/audit-sources.py",
+   "doc": "Check every record against the wine its sheet is actually for.",
+   "imports_local": [],
+   "refs": [
+    "data/fiches.js",
+    "data/sources.json"
+   ],
+   "reads_data": [
+    "fiches.js",
+    "sources.json"
+   ],
+   "writes_data": [],
+   "writes_reports": [],
+   "writes_sources": [],
+   "writes_other": [],
+   "write_sites": [],
+   "unreachable_writes": [],
+   "unplaced_writes": [],
+   "flags": [],
+   "gated": false,
+   "gate_line": null,
+   "ungated_store_writes": [],
+   "network": false,
+   "reads_evidence": false,
+   "writes_canonical": [],
+   "basename_first_match": false
+  },
+  {
+   "tool": "tools/audit-structure.py",
+   "doc": "Phase 3.1: the repository's structure, measured. Read-only.",
+   "imports_local": [
+    "add-sheet",
+    "audit-estate",
+    "audit-websites",
+    "compare-universe",
+    "crawl-pages",
+    "dryrun-grand-identity",
+    "dryrun-second-identity",
+    "estate-report",
+    "evidence_store",
+    "harvest",
+    "progress",
+    "read-terroir",
+    "recheck-sources",
+    "sheetreader",
+    "test-phase31"
+   ],
+   "refs": [
+    "appellations.js",
+    "artifact-census.jsonl",
+    "attribution-candidates.jsonl",
+    "batch2.js",
+    "batch3.js",
+    "batch4.js",
+    "cellar.js",
+    "chateaux.js",
+    "classifications.js",
+    "climate.js",
+    "coords.js",
+    "cruartisan.js",
+    "crubourgeois.js",
+    "cuvee-src.js",
+    "cuvee-url.js",
+    "cuvees.js",
+    "data/",
+    "data/audit/phase31-structure.json",
+    "data/cellar.js",
+    "data/chateaux.js",
+    "data/cuvees.js",
+    "data/evidence",
+    "data/evidence/",
+    "data/evidence/...",
+    "data/fiches.js",
+    "data/scope/canonical-discrepancies.jsonl",
+    "data/scope/corpus-discrepancies.jsonl",
+    "data/sources.json",
+    "data/terroir.js",
+    "data/x.js",
+    "echo-baseline.jsonl",
+    "fiches-nl.js",
+    "fiches-url.js",
+    "fiches.js",
+    "field-src.js",
+    "geography.js",
+    "grapes-nl.js",
+    "grapes.js",
+    "graves.js",
+    "libournais.js",
+    "notes-nl.js",
+    "notes.js",
+    "overrides.js",
+    "phase26-impact.jsonl",
+    "phase28-grand-audit.jsonl",
+    "phase29-grand-dryrun.json",
+    "phenology.js",
+    "plantings.js",
+    "pomerol.js",
+    "proposals.jsonl",
+    "provenance-audit.jsonl",
+    "ratings.js",
+    "reports/",
+    "reports/estates/",
+    "reports/phase26-dryrun-cache.json",
+    "reports/website-audit.json",
+    "rightbank.js",
+    "saintemilion.js",
+    "sauternes.js",
+    "site-recipes.json",
+    "sources.json",
+    "sources/",
+    "sources/fiches/",
+    "sources/pages/",
+    "terroir.js",
+    "v3-recharacterization.jsonl",
+    "v3-v4-comparison.jsonl",
+    "v4-identity-conflicts.jsonl",
+    "v4-v5-comparison.json",
+    "vintages-nl.js",
+    "vintages.js",
+    "water.js",
+    "websites.js",
+    "wine-identity.jsonl",
+    "x.js"
+   ],
+   "reads_data": [
+    "appellations.js",
+    "artifact-census.jsonl",
+    "attribution-candidates.jsonl",
+    "audit/phase31-structure.json",
+    "batch2.js",
+    "batch3.js",
+    "batch4.js",
+    "cellar.js",
+    "chateaux.js",
+    "classifications.js",
+    "climate.js",
+    "coords.js",
+    "cruartisan.js",
+    "crubourgeois.js",
+    "cuvee-src.js",
+    "cuvee-url.js",
+    "cuvees.js",
+    "echo-baseline.jsonl",
+    "evidence",
+    "evidence/",
+    "fiches-nl.js",
+    "fiches-url.js",
+    "fiches.js",
+    "field-src.js",
+    "geography.js",
+    "grapes-nl.js",
+    "grapes.js",
+    "graves.js",
+    "libournais.js",
+    "notes-nl.js",
+    "notes.js",
+    "overrides.js",
+    "phase26-impact.jsonl",
+    "phase28-grand-audit.jsonl",
+    "phase29-grand-dryrun.json",
+    "phenology.js",
+    "plantings.js",
+    "pomerol.js",
+    "proposals.jsonl",
+    "provenance-audit.jsonl",
+    "ratings.js",
+    "rightbank.js",
+    "saintemilion.js",
+    "sauternes.js",
+    "scope/canonical-discrepancies.jsonl",
+    "scope/corpus-discrepancies.jsonl",
+    "site-recipes.json",
+    "sources.json",
+    "terroir.js",
+    "v3-recharacterization.jsonl",
+    "v3-v4-comparison.jsonl",
+    "v4-identity-conflicts.jsonl",
+    "v4-v5-comparison.json",
+    "vintages-nl.js",
+    "vintages.js",
+    "water.js",
+    "websites.js",
+    "wine-identity.jsonl",
+    "x.js"
+   ],
+   "writes_data": [
+    "audit/phase31-structure.json"
+   ],
+   "writes_reports": [],
+   "writes_sources": [],
+   "writes_other": [],
+   "write_sites": [
+    {
+     "line": 415,
+     "targets": [
+      "data/audit/phase31-structure.json"
+     ],
+     "how": "variable",
+     "reachable": true,
+     "before_gate": true
+    }
+   ],
+   "unreachable_writes": [],
+   "unplaced_writes": [],
+   "flags": [],
+   "gated": false,
+   "gate_line": null,
+   "ungated_store_writes": [],
+   "network": false,
+   "reads_evidence": false,
+   "writes_canonical": [],
+   "basename_first_match": false
+  },
+  {
+   "tool": "tools/audit-websites.py",
+   "doc": "Which of the addresses already on file still answer?",
+   "imports_local": [],
+   "refs": [
+    "data/chateaux.js",
+    "data/websites.js",
+    "website-audit.json"
+   ],
+   "reads_data": [
+    "chateaux.js",
+    "website-audit.json",
+    "websites.js"
+   ],
+   "writes_data": [],
+   "writes_reports": [
+    "reports/website-audit.json"
+   ],
+   "writes_sources": [],
+   "writes_other": [],
+   "write_sites": [
+    {
+     "line": 91,
+     "targets": [
+      "reports/website-audit.json"
+     ],
+     "how": "placed by hand",
+     "reachable": true,
+     "before_gate": true
+    }
+   ],
+   "unreachable_writes": [],
+   "unplaced_writes": [],
+   "flags": [],
+   "gated": false,
+   "gate_line": null,
+   "ungated_store_writes": [],
+   "network": false,
+   "reads_evidence": false,
+   "writes_canonical": [],
+   "basename_first_match": false
+  },
+  {
+   "tool": "tools/build-fiche-links.py",
+   "doc": "A link, per vintage, to the sheet the record was read from.",
+   "imports_local": [],
+   "refs": [
+    "data/cuvee-url.js",
+    "data/cuvees.js",
+    "data/fiches-url.js",
+    "data/fiches.js",
+    "data/sources.json"
+   ],
+   "reads_data": [
+    "cuvee-url.js",
+    "cuvees.js",
+    "fiches-url.js",
+    "fiches.js",
+    "sources.json"
+   ],
+   "writes_data": [
+    "cuvee-url.js",
+    "fiches-url.js"
+   ],
+   "writes_reports": [],
+   "writes_sources": [],
+   "writes_other": [],
+   "write_sites": [
+    {
+     "line": 122,
+     "targets": [
+      "data/cuvee-url.js",
+      "data/fiches-url.js"
+     ],
+     "how": "variable",
+     "reachable": true,
+     "before_gate": false
+    }
+   ],
+   "unreachable_writes": [],
+   "unplaced_writes": [],
+   "flags": [
+    "--dry-run"
+   ],
+   "gated": true,
+   "gate_line": 117,
+   "ungated_store_writes": [],
+   "network": false,
+   "reads_evidence": false,
+   "writes_canonical": [],
+   "basename_first_match": false
+  },
+  {
+   "tool": "tools/build-universe.py",
+   "doc": "Phase 3.0: build the authoritative universe from the retrieved sources.",
+   "imports_local": [
+    "compare-universe"
+   ],
+   "refs": [
+    "data/scope/authoritative-universe.json",
+    "sources/scope/"
+   ],
+   "reads_data": [
+    "scope/authoritative-universe.json"
+   ],
+   "writes_data": [
+    "scope/authoritative-universe.json"
+   ],
+   "writes_reports": [],
+   "writes_sources": [],
+   "writes_other": [],
+   "write_sites": [
+    {
+     "line": 846,
+     "targets": [
+      "data/scope/authoritative-universe.json"
+     ],
+     "how": "variable",
+     "reachable": true,
+     "before_gate": true
+    }
+   ],
+   "unreachable_writes": [],
+   "unplaced_writes": [],
+   "flags": [],
+   "gated": false,
+   "gate_line": null,
+   "ungated_store_writes": [],
+   "network": false,
+   "reads_evidence": false,
+   "writes_canonical": [],
+   "basename_first_match": false
+  },
+  {
+   "tool": "tools/build-workbook.py",
+   "doc": "Build reports/bordeaux-coverage.xlsx: what is held, and what is not.",
+   "imports_local": [
+    "sheetreader",
+    "check-data"
+   ],
+   "refs": [
+    "data/",
+    "data/fiches.js",
+    "data/overrides.js",
+    "data/sources.json",
+    "data/vintages.js",
+    "reports/bordeaux-coverage.xlsx"
+   ],
+   "reads_data": [
+    "fiches.js",
+    "overrides.js",
+    "sources.json",
+    "vintages.js"
+   ],
+   "writes_data": [],
+   "writes_reports": [],
+   "writes_sources": [],
+   "writes_other": [],
+   "write_sites": [],
+   "unreachable_writes": [],
+   "unplaced_writes": [],
+   "flags": [],
+   "gated": false,
+   "gate_line": null,
+   "ungated_store_writes": [],
+   "network": false,
+   "reads_evidence": false,
+   "writes_canonical": [],
+   "basename_first_match": false
+  },
+  {
+   "tool": "tools/census-compact.py",
+   "doc": "Rewrite the census as one artifact per line, and trim it.",
+   "imports_local": [],
+   "refs": [
+    "data/artifact-census.json",
+    "data/artifact-census.jsonl"
+   ],
+   "reads_data": [
+    "artifact-census.json",
+    "artifact-census.jsonl"
+   ],
+   "writes_data": [
+    "artifact-census.jsonl"
+   ],
+   "writes_reports": [],
+   "writes_sources": [],
+   "writes_other": [],
+   "write_sites": [
+    {
+     "line": 40,
+     "targets": [
+      "data/artifact-census.jsonl"
+     ],
+     "how": "variable",
+     "reachable": true,
+     "before_gate": true
+    }
+   ],
+   "unreachable_writes": [],
+   "unplaced_writes": [],
+   "flags": [],
+   "gated": false,
+   "gate_line": null,
+   "ungated_store_writes": [],
+   "network": false,
+   "reads_evidence": false,
+   "writes_canonical": [],
+   "basename_first_match": false
+  },
+  {
+   "tool": "tools/census-conflicts.py",
+   "doc": "The conflicts, sorted into kinds. Metadata only, writes nothing.",
+   "imports_local": [],
+   "refs": [
+    "cuvee-src.js",
+    "cuvees.js",
+    "data/",
+    "data/sources.json",
+    "fiches.js",
+    "field-src.js"
+   ],
+   "reads_data": [
+    "cuvee-src.js",
+    "cuvees.js",
+    "fiches.js",
+    "field-src.js",
+    "sources.json"
+   ],
+   "writes_data": [],
+   "writes_reports": [],
+   "writes_sources": [],
+   "writes_other": [],
+   "write_sites": [],
+   "unreachable_writes": [],
+   "unplaced_writes": [],
+   "flags": [],
+   "gated": false,
+   "gate_line": null,
+   "ungated_store_writes": [],
+   "network": false,
+   "reads_evidence": false,
+   "writes_canonical": [],
+   "basename_first_match": false
+  },
+  {
+   "tool": "tools/census.py",
+   "doc": "An evidence census: what the manifest claims, what the document says.",
+   "imports_local": [
+    "sheetreader"
+   ],
+   "refs": [
+    "cuvee-src.js",
+    "cuvees.js",
+    "data/",
+    "data/artifact-census.json",
+    "data/sources.json",
+    "fiches.js",
+    "field-src.js"
+   ],
+   "reads_data": [
+    "artifact-census.json",
+    "cuvee-src.js",
+    "cuvees.js",
+    "fiches.js",
+    "field-src.js",
+    "sources.json"
+   ],
+   "writes_data": [],
+   "writes_reports": [],
+   "writes_sources": [],
+   "writes_other": [],
+   "write_sites": [
+    {
+     "line": 489,
+     "targets": [
+      "data/"
+     ],
+     "how": "variable",
+     "reachable": true,
+     "before_gate": false
+    }
+   ],
+   "unreachable_writes": [],
+   "unplaced_writes": [],
+   "flags": [
+    "--write"
+   ],
+   "gated": true,
+   "gate_line": 487,
+   "ungated_store_writes": [],
+   "network": false,
+   "reads_evidence": false,
+   "writes_canonical": [],
+   "basename_first_match": true
+  },
+  {
+   "tool": "tools/check-data.py",
+   "doc": "Every gate a blend has to pass, over the whole dataset.",
+   "imports_local": [
+    "sheetreader",
+    "audit-sources",
+    "read-sheets"
+   ],
+   "refs": [
+    "cuvees.js",
+    "data/*.js",
+    "data/fiches.js",
+    "data/sources.json",
+    "fiches-nl.js",
+    "fiches.js",
+    "plantings.js",
+    "reports/proposed.json"
+   ],
+   "reads_data": [
+    "*.js",
+    "cuvees.js",
+    "fiches-nl.js",
+    "fiches.js",
+    "plantings.js",
+    "sources.json"
+   ],
+   "writes_data": [],
+   "writes_reports": [],
+   "writes_sources": [],
+   "writes_other": [],
+   "write_sites": [],
+   "unreachable_writes": [],
+   "unplaced_writes": [],
+   "flags": [],
+   "gated": false,
+   "gate_line": null,
+   "ungated_store_writes": [],
+   "network": false,
+   "reads_evidence": false,
+   "writes_canonical": [],
+   "basename_first_match": false
+  },
+  {
+   "tool": "tools/check-language.py",
+   "doc": "Guards for the things nobody notices until they read the dashboard.",
+   "imports_local": [
+    "sheetreader",
+    "build-fiche-links",
+    "build-workbook",
+    "estate-report",
+    "read-fiches",
+    "read-plantings"
+   ],
+   "refs": [
+    "cuvees.js",
+    "data/",
+    "data/chateaux.js",
+    "data/fiches-nl.js",
+    "data/fiches-url.js",
+    "data/fiches.js",
+    "data/field-src.js",
+    "data/plantings.js",
+    "data/sources.json",
+    "fiches-nl.js",
+    "fiches.js",
+    "reports/bordeaux-coverage.xlsx",
+    "reports/estates",
+    "service-worker.js"
+   ],
+   "reads_data": [
+    "chateaux.js",
+    "cuvees.js",
+    "fiches-nl.js",
+    "fiches-url.js",
+    "fiches.js",
+    "field-src.js",
+    "plantings.js",
+    "service-worker.js",
+    "sources.json"
+   ],
+   "writes_data": [],
+   "writes_reports": [],
+   "writes_sources": [],
+   "writes_other": [],
+   "write_sites": [],
+   "unreachable_writes": [],
+   "unplaced_writes": [],
+   "flags": [],
+   "gated": false,
+   "gate_line": null,
+   "ungated_store_writes": [],
+   "network": false,
+   "reads_evidence": false,
+   "writes_canonical": [],
+   "basename_first_match": false
+  },
+  {
+   "tool": "tools/compare-universe.py",
+   "doc": "Phase 3.0: the authoritative universe against the canonical data, and,",
+   "imports_local": [
+    "evidence_store"
+   ],
+   "refs": [
+    "data/classifications.js",
+    "data/scope/authoritative-universe.json",
+    "data/scope/canonical-discrepancies.jsonl",
+    "data/scope/corpus-discrepancies.jsonl",
+    "data/sources.json"
+   ],
+   "reads_data": [
+    "classifications.js",
+    "scope/authoritative-universe.json",
+    "scope/canonical-discrepancies.jsonl",
+    "scope/corpus-discrepancies.jsonl",
+    "sources.json"
+   ],
+   "writes_data": [
+    "scope/canonical-discrepancies.jsonl",
+    "scope/corpus-discrepancies.jsonl"
+   ],
+   "writes_reports": [],
+   "writes_sources": [],
+   "writes_other": [],
+   "write_sites": [
+    {
+     "line": 353,
+     "targets": [
+      "data/scope/canonical-discrepancies.jsonl",
+      "data/scope/corpus-discrepancies.jsonl"
+     ],
+     "how": "placed by hand",
+     "reachable": true,
+     "before_gate": true
+    }
+   ],
+   "unreachable_writes": [],
+   "unplaced_writes": [],
+   "flags": [],
+   "gated": false,
+   "gate_line": null,
+   "ungated_store_writes": [],
+   "network": false,
+   "reads_evidence": true,
+   "writes_canonical": [],
+   "basename_first_match": false
+  },
+  {
+   "tool": "tools/compare-v3.py",
+   "doc": "What the corrected reader changed: v2 against v3, context by context.",
+   "imports_local": [
+    "evidence"
+   ],
+   "refs": [
+    "data/v3-recharacterization.jsonl"
+   ],
+   "reads_data": [
+    "v3-recharacterization.jsonl"
+   ],
+   "writes_data": [
+    "v3-recharacterization.jsonl"
+   ],
+   "writes_reports": [],
+   "writes_sources": [],
+   "writes_other": [],
+   "write_sites": [
+    {
+     "line": 186,
+     "targets": [
+      "data/v3-recharacterization.jsonl"
+     ],
+     "how": "variable",
+     "reachable": true,
+     "before_gate": false
+    }
+   ],
+   "unreachable_writes": [],
+   "unplaced_writes": [],
+   "flags": [
+    "--write"
+   ],
+   "gated": true,
+   "gate_line": 185,
+   "ungated_store_writes": [],
+   "network": false,
+   "reads_evidence": true,
+   "writes_canonical": [],
+   "basename_first_match": false
+  },
+  {
+   "tool": "tools/compare-v4.py",
+   "doc": "v3 against v4: what the corrected reader and the corrected provenance",
+   "imports_local": [
+    "evidence",
+    "evidence_store",
+    "sheetreader",
+    "diagnose-second-mode"
+   ],
+   "refs": [
+    "data/phase26-impact.jsonl",
+    "data/provenance-audit.jsonl",
+    "data/v3-v4-comparison.jsonl"
+   ],
+   "reads_data": [
+    "phase26-impact.jsonl",
+    "provenance-audit.jsonl",
+    "v3-v4-comparison.jsonl"
+   ],
+   "writes_data": [
+    "v3-v4-comparison.jsonl"
+   ],
+   "writes_reports": [],
+   "writes_sources": [],
+   "writes_other": [],
+   "write_sites": [
+    {
+     "line": 316,
+     "targets": [
+      "data/v3-v4-comparison.jsonl"
+     ],
+     "how": "variable",
+     "reachable": true,
+     "before_gate": false
+    }
+   ],
+   "unreachable_writes": [],
+   "unplaced_writes": [],
+   "flags": [
+    "--write"
+   ],
+   "gated": true,
+   "gate_line": 315,
+   "ungated_store_writes": [],
+   "network": false,
+   "reads_evidence": true,
+   "writes_canonical": [],
+   "basename_first_match": false
+  },
+  {
+   "tool": "tools/compare-v5.py",
+   "doc": "v4 against v5: what the Phase 2.9 grand-vin reader changed, checked",
+   "imports_local": [
+    "evidence",
+    "evidence_store",
+    "sheetreader",
+    "diagnose-second-mode"
+   ],
+   "refs": [
+    "data/phase29-grand-dryrun.json",
+    "data/provenance-audit.jsonl",
+    "data/v4-v5-comparison.json"
+   ],
+   "reads_data": [
+    "phase29-grand-dryrun.json",
+    "provenance-audit.jsonl",
+    "v4-v5-comparison.json"
+   ],
+   "writes_data": [
+    "v4-v5-comparison.json"
+   ],
+   "writes_reports": [],
+   "writes_sources": [],
+   "writes_other": [],
+   "write_sites": [
+    {
+     "line": 322,
+     "targets": [
+      "data/v4-v5-comparison.json"
+     ],
+     "how": "variable",
+     "reachable": true,
+     "before_gate": false
+    }
+   ],
+   "unreachable_writes": [],
+   "unplaced_writes": [],
+   "flags": [
+    "--write"
+   ],
+   "gated": true,
+   "gate_line": 321,
+   "ungated_store_writes": [],
+   "network": false,
+   "reads_evidence": true,
+   "writes_canonical": [],
+   "basename_first_match": false
+  },
+  {
+   "tool": "tools/conflicts-v4.py",
+   "doc": "Where the evidence contradicts itself: one document accepted as more",
+   "imports_local": [
+    "evidence_store"
+   ],
+   "refs": [
+    "data/provenance-audit.jsonl",
+    "data/v4-identity-conflicts.jsonl"
+   ],
+   "reads_data": [
+    "provenance-audit.jsonl",
+    "v4-identity-conflicts.jsonl"
+   ],
+   "writes_data": [
+    "v4-identity-conflicts.jsonl"
+   ],
+   "writes_reports": [],
+   "writes_sources": [],
+   "writes_other": [],
+   "write_sites": [
+    {
+     "line": 131,
+     "targets": [
+      "data/v4-identity-conflicts.jsonl"
+     ],
+     "how": "variable",
+     "reachable": true,
+     "before_gate": false
+    }
+   ],
+   "unreachable_writes": [],
+   "unplaced_writes": [],
+   "flags": [
+    "--write"
+   ],
+   "gated": true,
+   "gate_line": 130,
+   "ungated_store_writes": [],
+   "network": false,
+   "reads_evidence": true,
+   "writes_canonical": [],
+   "basename_first_match": false
+  },
+  {
+   "tool": "tools/conflicts.py",
+   "doc": "Two documents, one field, different answers - written down.",
+   "imports_local": [],
+   "refs": [
+    "data/field-conflicts.jsonl"
+   ],
+   "reads_data": [
+    "field-conflicts.jsonl"
+   ],
+   "writes_data": [
+    "field-conflicts.jsonl"
+   ],
+   "writes_reports": [],
+   "writes_sources": [],
+   "writes_other": [],
+   "write_sites": [
+    {
+     "line": 150,
+     "targets": [
+      "data/field-conflicts.jsonl"
+     ],
+     "how": "variable",
+     "reachable": true,
+     "before_gate": true
+    }
+   ],
+   "unreachable_writes": [],
+   "unplaced_writes": [],
+   "flags": [],
+   "gated": false,
+   "gate_line": null,
+   "ungated_store_writes": [],
+   "network": false,
+   "reads_evidence": false,
+   "writes_canonical": [],
+   "basename_first_match": false
+  },
+  {
+   "tool": "tools/crawl-pages.py",
+   "doc": "Fetch the vintage pages an estate publishes instead of a fiche.",
+   "imports_local": [
+    "sheetreader",
+    "harvest",
+    "read-fiches"
+   ],
+   "refs": [
+    "data/sources.json",
+    "data/websites.js",
+    "sources/pages/"
+   ],
+   "reads_data": [
+    "sources.json",
+    "websites.js"
+   ],
+   "writes_data": [
+    "sources.json"
+   ],
+   "writes_reports": [],
+   "writes_sources": [
+    "sources/pages/"
+   ],
+   "writes_other": [],
+   "write_sites": [
+    {
+     "line": 388,
+     "targets": [
+      "sources/pages/"
+     ],
+     "how": "placed by hand",
+     "reachable": true,
+     "before_gate": true
+    },
+    {
+     "line": 460,
+     "targets": [
+      "sources/pages/"
+     ],
+     "how": "placed by hand",
+     "reachable": true,
+     "before_gate": true
+    },
+    {
+     "line": 611,
+     "targets": [
+      "sources/pages/"
+     ],
+     "how": "placed by hand",
+     "reachable": true,
+     "before_gate": true
+    },
+    {
+     "line": 636,
+     "targets": [
+      "data/sources.json"
+     ],
+     "how": "variable",
+     "reachable": true,
+     "before_gate": false
+    }
+   ],
+   "unreachable_writes": [],
+   "unplaced_writes": [],
+   "flags": [
+    "--apply"
+   ],
+   "gated": true,
+   "gate_line": 575,
+   "ungated_store_writes": [],
+   "network": true,
+   "reads_evidence": false,
+   "writes_canonical": [],
+   "basename_first_match": false
+  },
+  {
+   "tool": "tools/datapoints.py",
+   "doc": "Every datapoint a sheet prints, and how few of them we keep.",
+   "imports_local": [
+    "sheetreader"
+   ],
+   "refs": [
+    "data/fiches.js",
+    "data/sources.json"
+   ],
+   "reads_data": [
+    "fiches.js",
+    "sources.json"
+   ],
+   "writes_data": [],
+   "writes_reports": [],
+   "writes_sources": [],
+   "writes_other": [],
+   "write_sites": [],
+   "unreachable_writes": [],
+   "unplaced_writes": [],
+   "flags": [],
+   "gated": false,
+   "gate_line": null,
+   "ungated_store_writes": [],
+   "network": false,
+   "reads_evidence": false,
+   "writes_canonical": [],
+   "basename_first_match": false
+  },
+  {
+   "tool": "tools/diagnose-second-mode.py",
+   "doc": "Why the reader refuses the Echo as the Echo, and what a fix must do.",
+   "imports_local": [
+    "sheetreader"
+   ],
+   "refs": [
+    "data/sources.json"
+   ],
+   "reads_data": [
+    "sources.json"
+   ],
+   "writes_data": [],
+   "writes_reports": [],
+   "writes_sources": [],
+   "writes_other": [],
+   "write_sites": [],
+   "unreachable_writes": [],
+   "unplaced_writes": [],
+   "flags": [],
+   "gated": false,
+   "gate_line": null,
+   "ungated_store_writes": [],
+   "network": false,
+   "reads_evidence": false,
+   "writes_canonical": [],
+   "basename_first_match": true
+  },
+  {
+   "tool": "tools/dryrun-grand-identity.py",
+   "doc": "Phase 2.9: what the grand-vin identity rule (_grand_mark) changes -",
+   "imports_local": [
+    "evidence",
+    "evidence_store",
+    "sheetreader",
+    "audit-grand-marks"
+   ],
+   "refs": [
+    "data/phase29-grand-dryrun.json",
+    "reports/phase29-v4-cache.json"
+   ],
+   "reads_data": [
+    "phase29-grand-dryrun.json"
+   ],
+   "writes_data": [
+    "phase29-grand-dryrun.json"
+   ],
+   "writes_reports": [
+    "reports/phase29-v4-cache.json"
+   ],
+   "writes_sources": [],
+   "writes_other": [],
+   "write_sites": [
+    {
+     "line": 53,
+     "targets": [
+      "(temporary file)"
+     ],
+     "how": "placed by hand",
+     "reachable": true,
+     "before_gate": true
+    },
+    {
+     "line": 236,
+     "targets": [
+      "reports/phase29-v4-cache.json"
+     ],
+     "how": "variable",
+     "reachable": true,
+     "before_gate": true
+    },
+    {
+     "line": 249,
+     "targets": [
+      "data/phase29-grand-dryrun.json"
+     ],
+     "how": "variable",
+     "reachable": true,
+     "before_gate": false
+    }
+   ],
+   "unreachable_writes": [],
+   "unplaced_writes": [],
+   "flags": [
+    "--write"
+   ],
+   "gated": true,
+   "gate_line": 231,
+   "ungated_store_writes": [],
+   "network": false,
+   "reads_evidence": true,
+   "writes_canonical": [],
+   "basename_first_match": false
+  },
+  {
+   "tool": "tools/dryrun-second-identity.py",
+   "doc": "What Phase 2.6's second-wine identity model would change - measured,",
+   "imports_local": [
+    "evidence",
+    "evidence_store",
+    "provenance",
+    "sheetreader",
+    "evidence-wines",
+    "recharacterize"
+   ],
+   "refs": [
+    "data/phase26-impact.jsonl",
+    "data/sources.json",
+    "reports/phase26-dryrun-cache.json"
+   ],
+   "reads_data": [
+    "phase26-impact.jsonl",
+    "sources.json"
+   ],
+   "writes_data": [
+    "phase26-impact.jsonl"
+   ],
+   "writes_reports": [
+    "reports/phase26-dryrun-cache.json"
+   ],
+   "writes_sources": [],
+   "writes_other": [],
+   "write_sites": [
+    {
+     "line": 185,
+     "targets": [
+      "reports/phase26-dryrun-cache.json"
+     ],
+     "how": "placed by hand",
+     "reachable": true,
+     "before_gate": true
+    },
+    {
+     "line": 186,
+     "targets": [
+      "reports/phase26-dryrun-cache.json"
+     ],
+     "how": "placed by hand",
+     "reachable": true,
+     "before_gate": true
+    },
+    {
+     "line": 246,
+     "targets": [
+      "data/phase26-impact.jsonl"
+     ],
+     "how": "variable",
+     "reachable": true,
+     "before_gate": true
+    }
+   ],
+   "unreachable_writes": [],
+   "unplaced_writes": [],
+   "flags": [
+    "--write"
+   ],
+   "gated": true,
+   "gate_line": null,
+   "ungated_store_writes": [],
+   "network": false,
+   "reads_evidence": true,
+   "writes_canonical": [],
+   "basename_first_match": false
+  },
+  {
+   "tool": "tools/echo-baseline.py",
+   "doc": "The Lynch-Bages / Echo baseline, before anything is changed.",
+   "imports_local": [
+    "sheetreader",
+    "diagnose-second-mode"
+   ],
+   "refs": [
+    "data/cuvees.js",
+    "data/echo-baseline.jsonl",
+    "data/sources.json",
+    "data/wine-identity.jsonl"
+   ],
+   "reads_data": [
+    "cuvees.js",
+    "echo-baseline.jsonl",
+    "sources.json",
+    "wine-identity.jsonl"
+   ],
+   "writes_data": [
+    "echo-baseline.jsonl"
+   ],
+   "writes_reports": [],
+   "writes_sources": [],
+   "writes_other": [],
+   "write_sites": [
+    {
+     "line": 170,
+     "targets": [
+      "data/echo-baseline.jsonl"
+     ],
+     "how": "variable",
+     "reachable": true,
+     "before_gate": false
+    }
+   ],
+   "unreachable_writes": [],
+   "unplaced_writes": [],
+   "flags": [
+    "--write"
+   ],
+   "gated": true,
+   "gate_line": 169,
+   "ungated_store_writes": [],
+   "network": false,
+   "reads_evidence": false,
+   "writes_canonical": [],
+   "basename_first_match": true
+  },
+  {
+   "tool": "tools/estate-report.py",
+   "doc": "The factual half of an estate's report, ready to be written on.",
+   "imports_local": [
+    "sheetreader",
+    "audit-estate"
+   ],
+   "refs": [
+    "cuvees.js",
+    "data/chateaux.js",
+    "data/cuvee-url.js",
+    "data/cuvees.js",
+    "data/fiches-url.js",
+    "data/fiches.js",
+    "data/sources.json",
+    "fiches.js",
+    "reports/estates"
+   ],
+   "reads_data": [
+    "chateaux.js",
+    "cuvee-url.js",
+    "cuvees.js",
+    "fiches-url.js",
+    "fiches.js",
+    "sources.json"
+   ],
+   "writes_data": [],
+   "writes_reports": [
+    "reports/estates/"
+   ],
+   "writes_sources": [],
+   "writes_other": [],
+   "write_sites": [
+    {
+     "line": 282,
+     "targets": [
+      "reports/estates/"
+     ],
+     "how": "placed by hand",
+     "reachable": true,
+     "before_gate": true
+    }
+   ],
+   "unreachable_writes": [],
+   "unplaced_writes": [],
+   "flags": [],
+   "gated": false,
+   "gate_line": null,
+   "ungated_store_writes": [],
+   "network": false,
+   "reads_evidence": false,
+   "writes_canonical": [],
+   "basename_first_match": false
+  },
+  {
+   "tool": "tools/evidence-wines.py",
+   "doc": "The reader asked properly: which estate, which wine, which vintage.",
+   "imports_local": [
+    "evidence",
+    "provenance",
+    "sheetreader"
+   ],
+   "refs": [
+    "data/sources.json"
+   ],
+   "reads_data": [
+    "sources.json"
+   ],
+   "writes_data": [],
+   "writes_reports": [],
+   "writes_sources": [],
+   "writes_other": [],
+   "write_sites": [],
+   "unreachable_writes": [],
+   "unplaced_writes": [],
+   "flags": [
+    "--write"
+   ],
+   "gated": true,
+   "gate_line": 341,
+   "ungated_store_writes": [],
+   "network": false,
+   "reads_evidence": true,
+   "writes_canonical": [],
+   "basename_first_match": false
+  },
+  {
+   "tool": "tools/evidence.py",
+   "doc": "Why the reader accepted or refused each document, kept.",
+   "imports_local": [
+    "evidence_store",
+    "provenance",
+    "sheetreader",
+    "read-fiches"
+   ],
+   "refs": [
+    "data/sources.json"
+   ],
+   "reads_data": [
+    "sources.json"
+   ],
+   "writes_data": [],
+   "writes_reports": [],
+   "writes_sources": [],
+   "writes_other": [],
+   "write_sites": [],
+   "unreachable_writes": [],
+   "unplaced_writes": [],
+   "flags": [
+    "--write"
+   ],
+   "gated": true,
+   "gate_line": 269,
+   "ungated_store_writes": [],
+   "network": false,
+   "reads_evidence": true,
+   "writes_canonical": [],
+   "basename_first_match": false
+  },
+  {
+   "tool": "tools/evidence_store.py",
+   "doc": "Where the evidence decisions live, and the only code that touches them.",
+   "imports_local": [
+    "evidence",
+    "migrate-evidence-store",
+    "provenance"
+   ],
+   "refs": [
+    "data/evidence/",
+    "index.json"
+   ],
+   "reads_data": [
+    "evidence/",
+    "index.json"
+   ],
+   "writes_data": [
+    "evidence/",
+    "index.json"
+   ],
+   "writes_reports": [],
+   "writes_sources": [],
+   "writes_other": [],
+   "write_sites": [
+    {
+     "line": 86,
+     "targets": [
+      "index.json",
+      "data/evidence/"
+     ],
+     "how": "variable",
+     "reachable": true,
+     "before_gate": true
+    },
+    {
+     "line": 209,
+     "targets": [
+      "data/evidence/"
+     ],
+     "how": "placed by hand",
+     "reachable": true,
+     "before_gate": true
+    },
+    {
+     "line": 291,
+     "targets": [
+      "data/evidence/"
+     ],
+     "how": "placed by hand",
+     "reachable": true,
+     "before_gate": true
+    }
+   ],
+   "unreachable_writes": [],
+   "unplaced_writes": [],
+   "flags": [],
+   "gated": false,
+   "gate_line": null,
+   "ungated_store_writes": [],
+   "network": false,
+   "reads_evidence": true,
+   "writes_canonical": [],
+   "basename_first_match": false
+  },
+  {
+   "tool": "tools/find-doc-urls.py",
+   "doc": "Read a document's address off the page that links to it.",
+   "imports_local": [
+    "sheetreader",
+    "build-fiche-links",
+    "recover-urls"
+   ],
+   "refs": [
+    "data/chateaux.js",
+    "data/cuvees.js",
+    "data/fiches.js",
+    "data/sources.json"
+   ],
+   "reads_data": [
+    "chateaux.js",
+    "cuvees.js",
+    "fiches.js",
+    "sources.json"
+   ],
+   "writes_data": [
+    "sources.json"
+   ],
+   "writes_reports": [],
+   "writes_sources": [],
+   "writes_other": [],
+   "write_sites": [
+    {
+     "line": 161,
+     "targets": [
+      "data/sources.json"
+     ],
+     "how": "variable",
+     "reachable": true,
+     "before_gate": false
+    },
+    {
+     "line": 162,
+     "targets": [
+      "data/sources.json"
+     ],
+     "how": "variable",
+     "reachable": true,
+     "before_gate": false
+    }
+   ],
+   "unreachable_writes": [],
+   "unplaced_writes": [],
+   "flags": [
+    "--apply"
+   ],
+   "gated": true,
+   "gate_line": 155,
+   "ungated_store_writes": [],
+   "network": true,
+   "reads_evidence": false,
+   "writes_canonical": [],
+   "basename_first_match": false
+  },
+  {
+   "tool": "tools/find-vintages.py",
+   "doc": "How, if at all, does this estate publish its vintages?",
+   "imports_local": [
+    "sheetreader"
+   ],
+   "refs": [
+    "data/chateaux.js",
+    "data/sources.json",
+    "data/websites.js"
+   ],
+   "reads_data": [
+    "chateaux.js",
+    "sources.json",
+    "websites.js"
+   ],
+   "writes_data": [],
+   "writes_reports": [],
+   "writes_sources": [],
+   "writes_other": [],
+   "write_sites": [],
+   "unreachable_writes": [],
+   "unplaced_writes": [],
+   "flags": [],
+   "gated": false,
+   "gate_line": null,
+   "ungated_store_writes": [],
+   "network": true,
+   "reads_evidence": false,
+   "writes_canonical": [],
+   "basename_first_match": false
+  },
+  {
+   "tool": "tools/harvest.py",
+   "doc": "Find the technical sheets an estate publishes, and fetch the new ones.",
+   "imports_local": [
+    "check-data",
+    "read-sheets"
+   ],
+   "refs": [
+    "chateaux.js",
+    "cruartisan.js",
+    "crubourgeois.js",
+    "data/",
+    "data/sources.json",
+    "data/websites.js",
+    "graves.js",
+    "libournais.js",
+    "pomerol.js",
+    "rightbank.js",
+    "saintemilion.js",
+    "sauternes.js",
+    "sources/fiches/"
+   ],
+   "reads_data": [
+    "chateaux.js",
+    "cruartisan.js",
+    "crubourgeois.js",
+    "graves.js",
+    "libournais.js",
+    "pomerol.js",
+    "rightbank.js",
+    "saintemilion.js",
+    "sauternes.js",
+    "sources.json",
+    "websites.js"
+   ],
+   "writes_data": [
+    "sources.json"
+   ],
+   "writes_reports": [],
+   "writes_sources": [
+    "sources/fiches/"
+   ],
+   "writes_other": [],
+   "write_sites": [
+    {
+     "line": 336,
+     "targets": [
+      "sources/fiches/"
+     ],
+     "how": "placed by hand",
+     "reachable": true,
+     "before_gate": true
+    },
+    {
+     "line": 364,
+     "targets": [
+      "data/sources.json"
+     ],
+     "how": "literal",
+     "reachable": true,
+     "before_gate": false
+    }
+   ],
+   "unreachable_writes": [],
+   "unplaced_writes": [],
+   "flags": [
+    "--apply",
+    "--dry-run"
+   ],
+   "gated": true,
+   "gate_line": 302,
+   "ungated_store_writes": [],
+   "network": true,
+   "reads_evidence": false,
+   "writes_canonical": [],
+   "basename_first_match": false
+  },
+  {
+   "tool": "tools/merge-proposals.py",
+   "doc": "Add the vintages that have a sheet and no record, where it is safe to.",
+   "imports_local": [
+    "sheetreader",
+    "audit-sources",
+    "check-data",
+    "progress",
+    "read-sheets"
+   ],
+   "refs": [
+    "data/fiches.js",
+    "data/sources.json",
+    "reports/proposed.json"
+   ],
+   "reads_data": [
+    "fiches.js",
+    "sources.json"
+   ],
+   "writes_data": [
+    "fiches.js",
+    "sources.json"
+   ],
+   "writes_reports": [],
+   "writes_sources": [],
+   "writes_other": [],
+   "write_sites": [
+    {
+     "line": 147,
+     "targets": [
+      "data/fiches.js"
+     ],
+     "how": "variable",
+     "reachable": true,
+     "before_gate": false
+    },
+    {
+     "line": 164,
+     "targets": [
+      "data/sources.json"
+     ],
+     "how": "literal",
+     "reachable": true,
+     "before_gate": false
+    }
+   ],
+   "unreachable_writes": [],
+   "unplaced_writes": [],
+   "flags": [
+    "--apply"
+   ],
+   "gated": true,
+   "gate_line": 132,
+   "ungated_store_writes": [],
+   "network": false,
+   "reads_evidence": false,
+   "writes_canonical": [
+    "fiches.js"
+   ],
+   "basename_first_match": false
+  },
+  {
+   "tool": "tools/migrate-evidence-store.py",
+   "doc": "Move data/evidence-decisions.jsonl into data/evidence/, line for line.",
+   "imports_local": [
+    "evidence",
+    "evidence_store"
+   ],
+   "refs": [
+    "data/evidence",
+    "data/evidence-decisions.jsonl",
+    "index.json"
+   ],
+   "reads_data": [
+    "evidence",
+    "evidence-decisions.jsonl",
+    "index.json"
+   ],
+   "writes_data": [],
+   "writes_reports": [],
+   "writes_sources": [],
+   "writes_other": [],
+   "write_sites": [],
+   "unreachable_writes": [],
+   "unplaced_writes": [],
+   "flags": [
+    "--write"
+   ],
+   "gated": true,
+   "gate_line": 220,
+   "ungated_store_writes": [],
+   "network": false,
+   "reads_evidence": true,
+   "writes_canonical": [],
+   "basename_first_match": false
+  },
+  {
+   "tool": "tools/missing-fiches.py",
+   "doc": "Which estates have no technical sheet, by list.",
+   "imports_local": [
+    "sheetreader"
+   ],
+   "refs": [
+    "data/",
+    "data/fiches.js",
+    "data/sources.json",
+    "reports/missing-fiches.txt"
+   ],
+   "reads_data": [
+    "fiches.js",
+    "sources.json"
+   ],
+   "writes_data": [],
+   "writes_reports": [
+    "reports/missing-fiches.txt"
+   ],
+   "writes_sources": [],
+   "writes_other": [],
+   "write_sites": [
+    {
+     "line": 130,
+     "targets": [
+      "reports/missing-fiches.txt"
+     ],
+     "how": "literal",
+     "reachable": true,
+     "before_gate": true
+    }
+   ],
+   "unreachable_writes": [],
+   "unplaced_writes": [],
+   "flags": [],
+   "gated": false,
+   "gate_line": null,
+   "ungated_store_writes": [],
+   "network": false,
+   "reads_evidence": false,
+   "writes_canonical": [],
+   "basename_first_match": false
+  },
+  {
+   "tool": "tools/progress.py",
+   "doc": "Coverage, datapoint by datapoint: what is held, and what is left.",
+   "imports_local": [
+    "sheetreader",
+    "read-fiches"
+   ],
+   "refs": [
+    "data/chateaux.js",
+    "data/fiches-nl.js",
+    "data/fiches-url.js",
+    "data/fiches.js",
+    "data/plantings.js",
+    "data/sources.json",
+    "data/vintages.js",
+    "reports/fiches-read.json"
+   ],
+   "reads_data": [
+    "chateaux.js",
+    "fiches-nl.js",
+    "fiches-url.js",
+    "fiches.js",
+    "plantings.js",
+    "sources.json",
+    "vintages.js"
+   ],
+   "writes_data": [],
+   "writes_reports": [],
+   "writes_sources": [],
+   "writes_other": [
+    "PROGRESS.md",
+    "progress-history.tsv"
+   ],
+   "write_sites": [
+    {
+     "line": 230,
+     "targets": [
+      "progress-history.tsv"
+     ],
+     "how": "placed by hand",
+     "reachable": true,
+     "before_gate": true
+    },
+    {
+     "line": 339,
+     "targets": [
+      "PROGRESS.md"
+     ],
+     "how": "placed by hand",
+     "reachable": true,
+     "before_gate": true
+    }
+   ],
+   "unreachable_writes": [],
+   "unplaced_writes": [],
+   "flags": [],
+   "gated": false,
+   "gate_line": null,
+   "ungated_store_writes": [],
+   "network": false,
+   "reads_evidence": false,
+   "writes_canonical": [],
+   "basename_first_match": false
+  },
+  {
+   "tool": "tools/promote-urls.py",
+   "doc": "Lift every URL the manifest knows out of prose and into a field.",
+   "imports_local": [
+    "sheetreader"
+   ],
+   "refs": [
+    "data/fiches.js",
+    "data/sources.json"
+   ],
+   "reads_data": [
+    "fiches.js",
+    "sources.json"
+   ],
+   "writes_data": [
+    "sources.json"
+   ],
+   "writes_reports": [],
+   "writes_sources": [],
+   "writes_other": [],
+   "write_sites": [
+    {
+     "line": 85,
+     "targets": [
+      "data/sources.json"
+     ],
+     "how": "literal",
+     "reachable": true,
+     "before_gate": true
+    }
+   ],
+   "unreachable_writes": [],
+   "unplaced_writes": [],
+   "flags": [],
+   "gated": false,
+   "gate_line": null,
+   "ungated_store_writes": [
+    "sources.json"
+   ],
+   "network": false,
+   "reads_evidence": false,
+   "writes_canonical": [],
+   "basename_first_match": true
+  },
+  {
+   "tool": "tools/propose.py",
+   "doc": "Dry-run proposals. Nothing here is applied, by design and by code.",
+   "imports_local": [
+    "evidence_store"
+   ],
+   "refs": [
+    "attribution-candidates.jsonl",
+    "data/",
+    "data/proposals.jsonl",
+    "data/sources.json",
+    "wine-identity.jsonl"
+   ],
+   "reads_data": [
+    "attribution-candidates.jsonl",
+    "proposals.jsonl",
+    "sources.json",
+    "wine-identity.jsonl"
+   ],
+   "writes_data": [
+    "proposals.jsonl"
+   ],
+   "writes_reports": [],
+   "writes_sources": [],
+   "writes_other": [],
+   "write_sites": [
+    {
+     "line": 327,
+     "targets": [
+      "data/proposals.jsonl"
+     ],
+     "how": "variable",
+     "reachable": true,
+     "before_gate": false
+    }
+   ],
+   "unreachable_writes": [],
+   "unplaced_writes": [],
+   "flags": [
+    "--write"
+   ],
+   "gated": true,
+   "gate_line": 326,
+   "ungated_store_writes": [],
+   "network": false,
+   "reads_evidence": true,
+   "writes_canonical": [],
+   "basename_first_match": false
+  },
+  {
+   "tool": "tools/provenance.py",
+   "doc": "Which file a decision read, which bytes, and which code - established,",
+   "imports_local": [
+    "evidence_store"
+   ],
+   "refs": [
+    "data/evidence"
+   ],
+   "reads_data": [
+    "evidence"
+   ],
+   "writes_data": [],
+   "writes_reports": [],
+   "writes_sources": [],
+   "writes_other": [],
+   "write_sites": [],
+   "unreachable_writes": [],
+   "unplaced_writes": [],
+   "flags": [],
+   "gated": false,
+   "gate_line": null,
+   "ungated_store_writes": [],
+   "network": false,
+   "reads_evidence": true,
+   "writes_canonical": [],
+   "basename_first_match": false
+  },
+  {
+   "tool": "tools/read-fiches.py",
+   "doc": "Everything a fiche states, not just its blend.",
+   "imports_local": [
+    "conflicts",
+    "sheetreader",
+    "check-data",
+    "progress"
+   ],
+   "refs": [
+    "data/cuvee-src.js",
+    "data/cuvees.js",
+    "data/fiches.js",
+    "data/field-src.js",
+    "data/sources.json",
+    "reports/cuvee-wines-unlisted.txt",
+    "reports/fiches-read.json",
+    "reports/fiches-read.txt"
+   ],
+   "reads_data": [
+    "cuvee-src.js",
+    "cuvees.js",
+    "fiches.js",
+    "field-src.js",
+    "sources.json"
+   ],
+   "writes_data": [
+    "cuvee-src.js",
+    "cuvees.js",
+    "fiches.js",
+    "field-src.js"
+   ],
+   "writes_reports": [
+    "reports/cuvee-wines-unlisted.txt",
+    "reports/fiches-read.json",
+    "reports/fiches-read.txt"
+   ],
+   "writes_sources": [],
+   "writes_other": [],
+   "write_sites": [
+    {
+     "line": 533,
+     "targets": [
+      "reports/fiches-read.txt"
+     ],
+     "how": "literal",
+     "reachable": true,
+     "before_gate": true
+    },
+    {
+     "line": 558,
+     "targets": [
+      "reports/fiches-read.json"
+     ],
+     "how": "literal",
+     "reachable": true,
+     "before_gate": true
+    },
+    {
+     "line": 615,
+     "targets": [
+      "reports/cuvee-wines-unlisted.txt"
+     ],
+     "how": "literal",
+     "reachable": true,
+     "before_gate": true
+    },
+    {
+     "line": 890,
+     "targets": [
+      "data/cuvees.js",
+      "data/fiches.js"
+     ],
+     "how": "variable",
+     "reachable": true,
+     "before_gate": false
+    },
+    {
+     "line": 893,
+     "targets": [
+      "data/cuvee-src.js",
+      "data/field-src.js"
+     ],
+     "how": "variable",
+     "reachable": true,
+     "before_gate": false
+    }
+   ],
+   "unreachable_writes": [],
+   "unplaced_writes": [],
+   "flags": [
+    "--apply"
+   ],
+   "gated": true,
+   "gate_line": 634,
+   "ungated_store_writes": [],
+   "network": false,
+   "reads_evidence": false,
+   "writes_canonical": [
+    "cuvee-src.js",
+    "cuvees.js",
+    "fiches.js",
+    "field-src.js"
+   ],
+   "basename_first_match": true
+  },
+  {
+   "tool": "tools/read-plantings.py",
+   "doc": "What is planted in each vineyard, read off the sheets and recorded.",
+   "imports_local": [
+    "sheetreader",
+    "check-data",
+    "read-sheets"
+   ],
+   "refs": [
+    "data/chateaux.js",
+    "data/plantings.js",
+    "data/sources.json"
+   ],
+   "reads_data": [
+    "chateaux.js",
+    "plantings.js",
+    "sources.json"
+   ],
+   "writes_data": [
+    "plantings.js"
+   ],
+   "writes_reports": [],
+   "writes_sources": [],
+   "writes_other": [],
+   "write_sites": [
+    {
+     "line": 284,
+     "targets": [
+      "data/plantings.js"
+     ],
+     "how": "literal",
+     "reachable": true,
+     "before_gate": false
+    }
+   ],
+   "unreachable_writes": [],
+   "unplaced_writes": [],
+   "flags": [
+    "--dry-run"
+   ],
+   "gated": true,
+   "gate_line": 274,
+   "ungated_store_writes": [],
+   "network": false,
+   "reads_evidence": false,
+   "writes_canonical": [
+    "plantings.js"
+   ],
+   "basename_first_match": true
+  },
+  {
+   "tool": "tools/read-sheets.py",
+   "doc": "Read the sheets nothing has read yet, and propose what they say.",
+   "imports_local": [
+    "sheetreader",
+    "audit-sources",
+    "check-data",
+    "progress"
+   ],
+   "refs": [
+    "data/fiches.js",
+    "data/sources.json",
+    "reports/proposed%s.json",
+    "reports/proposed%s.txt"
+   ],
+   "reads_data": [
+    "fiches.js",
+    "sources.json"
+   ],
+   "writes_data": [
+    "fiches.js",
+    "sources.json"
+   ],
+   "writes_reports": [
+    "reports/proposed%s.json",
+    "reports/proposed%s.txt"
+   ],
+   "writes_sources": [],
+   "writes_other": [],
+   "write_sites": [
+    {
+     "line": 258,
+     "targets": [
+      "data/sources.json"
+     ],
+     "how": "literal",
+     "reachable": true,
+     "before_gate": true
+    },
+    {
+     "line": 376,
+     "targets": [
+      "reports/proposed%s.txt"
+     ],
+     "how": "literal",
+     "reachable": true,
+     "before_gate": true
+    },
+    {
+     "line": 378,
+     "targets": [
+      "reports/proposed%s.json"
+     ],
+     "how": "literal",
+     "reachable": true,
+     "before_gate": true
+    },
+    {
+     "line": 442,
+     "targets": [
+      "data/fiches.js"
+     ],
+     "how": "variable",
+     "reachable": true,
+     "before_gate": false
+    }
+   ],
+   "unreachable_writes": [],
+   "unplaced_writes": [],
+   "flags": [
+    "--apply"
+   ],
+   "gated": true,
+   "gate_line": 383,
+   "ungated_store_writes": [
+    "sources.json"
+   ],
+   "network": false,
+   "reads_evidence": false,
+   "writes_canonical": [
+    "fiches.js"
+   ],
+   "basename_first_match": false
+  },
+  {
+   "tool": "tools/read-terroir.py",
+   "doc": "The ground an estate sits on, and what it did in its cellar that year.",
+   "imports_local": [
+    "sheetreader",
+    "datapoints",
+    "read-plantings"
+   ],
+   "refs": [
+    "data/cellar.js",
+    "data/sources.json",
+    "data/terroir.js"
+   ],
+   "reads_data": [
+    "cellar.js",
+    "sources.json",
+    "terroir.js"
+   ],
+   "writes_data": [
+    "cellar.js",
+    "terroir.js"
+   ],
+   "writes_reports": [],
+   "writes_sources": [],
+   "writes_other": [],
+   "write_sites": [
+    {
+     "line": 197,
+     "targets": [
+      "data/terroir.js",
+      "data/cellar.js"
+     ],
+     "how": "placed by hand",
+     "reachable": true,
+     "before_gate": false
+    }
+   ],
+   "unreachable_writes": [],
+   "unplaced_writes": [],
+   "flags": [
+    "--apply",
+    "--dry-run"
+   ],
+   "gated": true,
+   "gate_line": 350,
+   "ungated_store_writes": [],
+   "network": false,
+   "reads_evidence": false,
+   "writes_canonical": [
+    "cellar.js",
+    "terroir.js"
+   ],
+   "basename_first_match": false
+  },
+  {
+   "tool": "tools/recharacterize.py",
+   "doc": "The 908 unattributed artifacts, asked in context.",
+   "imports_local": [
+    "evidence",
+    "provenance",
+    "sheetreader"
+   ],
+   "refs": [
+    "data/attribution-candidates.jsonl",
+    "data/sources.json"
+   ],
+   "reads_data": [
+    "attribution-candidates.jsonl",
+    "sources.json"
+   ],
+   "writes_data": [],
+   "writes_reports": [],
+   "writes_sources": [],
+   "writes_other": [],
+   "write_sites": [],
+   "unreachable_writes": [],
+   "unplaced_writes": [],
+   "flags": [
+    "--write"
+   ],
+   "gated": true,
+   "gate_line": 243,
+   "ungated_store_writes": [],
+   "network": false,
+   "reads_evidence": true,
+   "writes_canonical": [],
+   "basename_first_match": false
+  },
+  {
+   "tool": "tools/recheck-sources.py",
+   "doc": "Ask the guards again about documents they have already judged.",
+   "imports_local": [
+    "sheetreader",
+    "audit-sources",
+    "harvest",
+    "read-fiches",
+    "read-sheets"
+   ],
+   "refs": [
+    "data/fiches.js",
+    "data/sources.json"
+   ],
+   "reads_data": [
+    "fiches.js",
+    "sources.json"
+   ],
+   "writes_data": [
+    "sources.json"
+   ],
+   "writes_reports": [],
+   "writes_sources": [],
+   "writes_other": [],
+   "write_sites": [
+    {
+     "line": 100,
+     "targets": [
+      "(temporary file)"
+     ],
+     "how": "placed by hand",
+     "reachable": true,
+     "before_gate": true
+    },
+    {
+     "line": 379,
+     "targets": [
+      "data/sources.json"
+     ],
+     "how": "variable",
+     "reachable": true,
+     "before_gate": false
+    },
+    {
+     "line": 385,
+     "targets": [
+      "data/sources.json"
+     ],
+     "how": "variable",
+     "reachable": true,
+     "before_gate": false
+    }
+   ],
+   "unreachable_writes": [],
+   "unplaced_writes": [],
+   "flags": [
+    "--apply"
+   ],
+   "gated": true,
+   "gate_line": 368,
+   "ungated_store_writes": [],
+   "network": false,
+   "reads_evidence": false,
+   "writes_canonical": [],
+   "basename_first_match": false
+  },
+  {
+   "tool": "tools/reconcile.py",
+   "doc": "For every downloaded document, where did it end up?",
+   "imports_local": [],
+   "refs": [
+    "cuvee-src.js",
+    "cuvees.js",
+    "data/",
+    "data/sources.json",
+    "fiches.js",
+    "field-src.js"
+   ],
+   "reads_data": [
+    "cuvee-src.js",
+    "cuvees.js",
+    "fiches.js",
+    "field-src.js",
+    "sources.json"
+   ],
+   "writes_data": [],
+   "writes_reports": [],
+   "writes_sources": [],
+   "writes_other": [],
+   "write_sites": [],
+   "unreachable_writes": [],
+   "unplaced_writes": [],
+   "flags": [],
+   "gated": false,
+   "gate_line": null,
+   "ungated_store_writes": [],
+   "network": false,
+   "reads_evidence": false,
+   "writes_canonical": [],
+   "basename_first_match": true
+  },
+  {
+   "tool": "tools/recover-urls.py",
+   "doc": "Recover the address of a sheet already on disk, so the app can link.",
+   "imports_local": [
+    "build-fiche-links",
+    "harvest"
+   ],
+   "refs": [
+    "data/fiches.js",
+    "data/sources.json",
+    "data/websites.js"
+   ],
+   "reads_data": [
+    "fiches.js",
+    "sources.json",
+    "websites.js"
+   ],
+   "writes_data": [
+    "sources.json"
+   ],
+   "writes_reports": [],
+   "writes_sources": [],
+   "writes_other": [],
+   "write_sites": [
+    {
+     "line": 204,
+     "targets": [
+      "data/sources.json"
+     ],
+     "how": "literal",
+     "reachable": true,
+     "before_gate": false
+    }
+   ],
+   "unreachable_writes": [],
+   "unplaced_writes": [],
+   "flags": [
+    "--apply"
+   ],
+   "gated": true,
+   "gate_line": 203,
+   "ungated_store_writes": [],
+   "network": false,
+   "reads_evidence": false,
+   "writes_canonical": [],
+   "basename_first_match": false
+  },
+  {
+   "tool": "tools/refile-wine.py",
+   "doc": "File an estate's documents under the wine the guards say they are.",
+   "imports_local": [
+    "sheetreader",
+    "audit-sources",
+    "read-fiches",
+    "refile"
+   ],
+   "refs": [
+    "data/cuvees.js",
+    "data/sources.json"
+   ],
+   "reads_data": [
+    "cuvees.js",
+    "sources.json"
+   ],
+   "writes_data": [
+    "sources.json"
+   ],
+   "writes_reports": [],
+   "writes_sources": [],
+   "writes_other": [],
+   "write_sites": [
+    {
+     "line": 178,
+     "targets": [
+      "data/sources.json"
+     ],
+     "how": "variable",
+     "reachable": true,
+     "before_gate": false
+    },
+    {
+     "line": 183,
+     "targets": [
+      "data/sources.json"
+     ],
+     "how": "variable",
+     "reachable": true,
+     "before_gate": false
+    }
+   ],
+   "unreachable_writes": [],
+   "unplaced_writes": [],
+   "flags": [
+    "--apply"
+   ],
+   "gated": true,
+   "gate_line": 171,
+   "ungated_store_writes": [],
+   "network": false,
+   "reads_evidence": false,
+   "writes_canonical": [],
+   "basename_first_match": true
+  },
+  {
+   "tool": "tools/refile.py",
+   "doc": "Which estate does each sheet's filename name? REPORT ONLY for now.",
+   "imports_local": [
+    "sheetreader",
+    "check-data",
+    "read-sheets"
+   ],
+   "refs": [
+    "data/sources.json"
+   ],
+   "reads_data": [
+    "sources.json"
+   ],
+   "writes_data": [],
+   "writes_reports": [],
+   "writes_sources": [],
+   "writes_other": [],
+   "write_sites": [
+    {
+     "line": 274,
+     "targets": [
+      "data/sources.json"
+     ],
+     "how": "literal",
+     "reachable": false,
+     "before_gate": true
+    }
+   ],
+   "unreachable_writes": [
+    274
+   ],
+   "unplaced_writes": [],
+   "flags": [
+    "--apply"
+   ],
+   "gated": true,
+   "gate_line": 251,
+   "ungated_store_writes": [],
+   "network": false,
+   "reads_evidence": false,
+   "writes_canonical": [],
+   "basename_first_match": false
+  },
+  {
+   "tool": "tools/sheetreader.py",
+   "doc": "Reading a technical sheet: the rules, and why each one is here.",
+   "imports_local": [
+    "read-fiches",
+    "read-sheets",
+    "read-terroir",
+    "recheck-sources"
+   ],
+   "refs": [
+    "batch2.js",
+    "batch3.js",
+    "chateaux.js",
+    "cruartisan.js",
+    "crubourgeois.js",
+    "cuvees.js",
+    "graves.js",
+    "libournais.js",
+    "pomerol.js",
+    "rightbank.js",
+    "saintemilion.js",
+    "sauternes.js"
+   ],
+   "reads_data": [
+    "batch2.js",
+    "batch3.js",
+    "chateaux.js",
+    "cruartisan.js",
+    "crubourgeois.js",
+    "cuvees.js",
+    "graves.js",
+    "libournais.js",
+    "pomerol.js",
+    "rightbank.js",
+    "saintemilion.js",
+    "sauternes.js"
+   ],
+   "writes_data": [],
+   "writes_reports": [],
+   "writes_sources": [],
+   "writes_other": [],
+   "write_sites": [],
+   "unreachable_writes": [],
+   "unplaced_writes": [],
+   "flags": [],
+   "gated": false,
+   "gate_line": null,
+   "ungated_store_writes": [],
+   "network": false,
+   "reads_evidence": false,
+   "writes_canonical": [],
+   "basename_first_match": false
+  },
+  {
+   "tool": "tools/test-data.py",
+   "doc": "Invariants over the committed data. No archive needed.",
+   "imports_local": [
+    "sheetreader",
+    "census",
+    "census-compact",
+    "test-reader"
+   ],
+   "refs": [
+    "cuvee-src.js",
+    "cuvees.js",
+    "data/",
+    "data/*.js",
+    "data/artifact-census.jsonl",
+    "data/sources.json",
+    "fiches.js",
+    "field-src.js",
+    "service-worker.js"
+   ],
+   "reads_data": [
+    "*.js",
+    "artifact-census.jsonl",
+    "cuvee-src.js",
+    "cuvees.js",
+    "fiches.js",
+    "field-src.js",
+    "service-worker.js",
+    "sources.json"
+   ],
+   "writes_data": [],
+   "writes_reports": [],
+   "writes_sources": [],
+   "writes_other": [],
+   "write_sites": [],
+   "unreachable_writes": [],
+   "unplaced_writes": [],
+   "flags": [],
+   "gated": false,
+   "gate_line": null,
+   "ungated_store_writes": [],
+   "network": false,
+   "reads_evidence": false,
+   "writes_canonical": [],
+   "basename_first_match": false
+  },
+  {
+   "tool": "tools/test-phase2.py",
+   "doc": "Phase 2 invariants: the evidence stores, and canonical safety.",
+   "imports_local": [
+    "conflicts",
+    "evidence",
+    "evidence_store",
+    "sheetreader",
+    "read-fiches",
+    "test-data",
+    "test-reader"
+   ],
+   "refs": [
+    "data/attribution-candidates.jsonl",
+    "data/cuvee-src.js",
+    "data/cuvees.js",
+    "data/fiches.js",
+    "data/field-src.js",
+    "data/sources.json"
+   ],
+   "reads_data": [
+    "attribution-candidates.jsonl",
+    "cuvee-src.js",
+    "cuvees.js",
+    "fiches.js",
+    "field-src.js",
+    "sources.json"
+   ],
+   "writes_data": [],
+   "writes_reports": [],
+   "writes_sources": [],
+   "writes_other": [],
+   "write_sites": [],
+   "unreachable_writes": [],
+   "unplaced_writes": [],
+   "flags": [],
+   "gated": false,
+   "gate_line": null,
+   "ungated_store_writes": [],
+   "network": false,
+   "reads_evidence": true,
+   "writes_canonical": [],
+   "basename_first_match": false
+  },
+  {
+   "tool": "tools/test-phase21.py",
+   "doc": "Phase 2.1 invariants: context, vintage, and proposals that stay proposals.",
+   "imports_local": [
+    "evidence",
+    "evidence_store",
+    "sheetreader"
+   ],
+   "refs": [
+    "data/cuvee-src.js",
+    "data/cuvees.js",
+    "data/fiches.js",
+    "data/field-src.js",
+    "data/proposals.jsonl",
+    "data/sources.json"
+   ],
+   "reads_data": [
+    "cuvee-src.js",
+    "cuvees.js",
+    "fiches.js",
+    "field-src.js",
+    "proposals.jsonl",
+    "sources.json"
+   ],
+   "writes_data": [],
+   "writes_reports": [],
+   "writes_sources": [],
+   "writes_other": [],
+   "write_sites": [],
+   "unreachable_writes": [],
+   "unplaced_writes": [],
+   "flags": [],
+   "gated": false,
+   "gate_line": null,
+   "ungated_store_writes": [],
+   "network": false,
+   "reads_evidence": true,
+   "writes_canonical": [],
+   "basename_first_match": false
+  },
+  {
+   "tool": "tools/test-phase210.py",
+   "doc": "Phase 2.10: the v5 evidence is what it says it is, and v1-v4 are",
+   "imports_local": [
+    "evidence",
+    "evidence_store",
+    "provenance",
+    "evidence-wines"
+   ],
+   "refs": [
+    "data/chateaux.js",
+    "data/cuvee-src.js",
+    "data/cuvees.js",
+    "data/evidence/decisions-v1.jsonl",
+    "data/evidence/decisions-v2.jsonl",
+    "data/evidence/decisions-v3.jsonl",
+    "data/evidence/decisions-v4.jsonl",
+    "data/evidence/provenance-failures-v4.jsonl",
+    "data/fiches.js",
+    "data/field-src.js",
+    "data/sources.json",
+    "data/v4-v5-comparison.json",
+    "sources/fiches"
+   ],
+   "reads_data": [
+    "chateaux.js",
+    "cuvee-src.js",
+    "cuvees.js",
+    "evidence/",
+    "fiches.js",
+    "field-src.js",
+    "sources.json",
+    "v4-v5-comparison.json"
+   ],
+   "writes_data": [],
+   "writes_reports": [],
+   "writes_sources": [],
+   "writes_other": [],
+   "write_sites": [],
+   "unreachable_writes": [],
+   "unplaced_writes": [],
+   "flags": [],
+   "gated": false,
+   "gate_line": null,
+   "ungated_store_writes": [],
+   "network": false,
+   "reads_evidence": true,
+   "writes_canonical": [],
+   "basename_first_match": false
+  },
+  {
+   "tool": "tools/test-phase211.py",
+   "doc": "Phase 2.11: the Terrasses de Saint-Christophe audit, made repeatable.",
+   "imports_local": [
+    "evidence",
+    "evidence_store",
+    "sheetreader"
+   ],
+   "refs": [
+    "data/chateaux.js",
+    "data/cuvee-src.js",
+    "data/cuvees.js",
+    "data/evidence/",
+    "data/fiches.js",
+    "data/field-src.js",
+    "data/sources.json",
+    "sources/fiches/"
+   ],
+   "reads_data": [
+    "chateaux.js",
+    "cuvee-src.js",
+    "cuvees.js",
+    "evidence/",
+    "fiches.js",
+    "field-src.js",
+    "sources.json"
+   ],
+   "writes_data": [],
+   "writes_reports": [],
+   "writes_sources": [],
+   "writes_other": [],
+   "write_sites": [],
+   "unreachable_writes": [],
+   "unplaced_writes": [],
+   "flags": [],
+   "gated": false,
+   "gate_line": null,
+   "ungated_store_writes": [],
+   "network": false,
+   "reads_evidence": true,
+   "writes_canonical": [],
+   "basename_first_match": false
+  },
+  {
+   "tool": "tools/test-phase212.py",
+   "doc": "Phase 2.12: the Phase 2 exit invariants.",
+   "imports_local": [
+    "evidence",
+    "evidence_store",
+    "sheetreader"
+   ],
+   "refs": [
+    "data/chateaux.js",
+    "data/cuvee-src.js",
+    "data/cuvees.js",
+    "data/evidence",
+    "data/evidence/",
+    "data/fiches-nl.js",
+    "data/fiches.js",
+    "data/field-src.js",
+    "data/saintemilion.js",
+    "data/sources.json"
+   ],
+   "reads_data": [
+    "chateaux.js",
+    "cuvee-src.js",
+    "cuvees.js",
+    "evidence",
+    "evidence/",
+    "fiches-nl.js",
+    "fiches.js",
+    "field-src.js",
+    "saintemilion.js",
+    "sources.json"
+   ],
+   "writes_data": [],
+   "writes_reports": [],
+   "writes_sources": [],
+   "writes_other": [],
+   "write_sites": [],
+   "unreachable_writes": [],
+   "unplaced_writes": [],
+   "flags": [],
+   "gated": false,
+   "gate_line": null,
+   "ungated_store_writes": [],
+   "network": false,
+   "reads_evidence": true,
+   "writes_canonical": [],
+   "basename_first_match": false
+  },
+  {
+   "tool": "tools/test-phase22.py",
+   "doc": "Phase 2.2: what must stay true, and the two defects, named.",
+   "imports_local": [
+    "sheetreader"
+   ],
+   "refs": [
+    "data/cuvee-src.js",
+    "data/cuvees.js",
+    "data/fiches.js",
+    "data/field-src.js",
+    "data/sources.json"
+   ],
+   "reads_data": [
+    "cuvee-src.js",
+    "cuvees.js",
+    "fiches.js",
+    "field-src.js",
+    "sources.json"
+   ],
+   "writes_data": [],
+   "writes_reports": [],
+   "writes_sources": [],
+   "writes_other": [],
+   "write_sites": [],
+   "unreachable_writes": [],
+   "unplaced_writes": [],
+   "flags": [],
+   "gated": false,
+   "gate_line": null,
+   "ungated_store_writes": [],
+   "network": false,
+   "reads_evidence": false,
+   "writes_canonical": [],
+   "basename_first_match": false
+  },
+  {
+   "tool": "tools/test-phase23.py",
+   "doc": "Phase 2.3: a reader that can tell the Echo from the grand vin and the Blanc.",
+   "imports_local": [
+    "sheetreader"
+   ],
+   "refs": [
+    "data/cuvee-src.js",
+    "data/cuvees.js",
+    "data/fiches.js",
+    "data/field-src.js",
+    "data/sources.json"
+   ],
+   "reads_data": [
+    "cuvee-src.js",
+    "cuvees.js",
+    "fiches.js",
+    "field-src.js",
+    "sources.json"
+   ],
+   "writes_data": [],
+   "writes_reports": [],
+   "writes_sources": [],
+   "writes_other": [],
+   "write_sites": [],
+   "unreachable_writes": [],
+   "unplaced_writes": [],
+   "flags": [],
+   "gated": false,
+   "gate_line": null,
+   "ungated_store_writes": [],
+   "network": false,
+   "reads_evidence": false,
+   "writes_canonical": [],
+   "basename_first_match": false
+  },
+  {
+   "tool": "tools/test-phase24.py",
+   "doc": "Phase 2.4: the evidence store keeps what it was given, and refuses",
+   "imports_local": [
+    "evidence",
+    "evidence_store",
+    "migrate-evidence-store",
+    "provenance"
+   ],
+   "refs": [
+    "data/cuvee-src.js",
+    "data/cuvees.js",
+    "data/evidence-decisions.jsonl",
+    "data/evidence/*.jsonl",
+    "data/fiches.js",
+    "data/field-src.js",
+    "data/sources.json",
+    "decisions-v4.jsonl",
+    "evidence-decisions.jsonl",
+    "index.json"
+   ],
+   "reads_data": [
+    "cuvee-src.js",
+    "cuvees.js",
+    "decisions-v4.jsonl",
+    "evidence-decisions.jsonl",
+    "evidence/",
+    "fiches.js",
+    "field-src.js",
+    "index.json",
+    "sources.json"
+   ],
+   "writes_data": [],
+   "writes_reports": [],
+   "writes_sources": [],
+   "writes_other": [],
+   "write_sites": [],
+   "unreachable_writes": [],
+   "unplaced_writes": [],
+   "flags": [],
+   "gated": false,
+   "gate_line": null,
+   "ungated_store_writes": [],
+   "network": false,
+   "reads_evidence": true,
+   "writes_canonical": [],
+   "basename_first_match": false
+  },
+  {
+   "tool": "tools/test-phase25.py",
+   "doc": "Phase 2.5: a decision can be tied to the bytes it read and the code",
+   "imports_local": [
+    "evidence",
+    "evidence_store",
+    "provenance"
+   ],
+   "refs": [
+    "data/cuvee-src.js",
+    "data/cuvees.js",
+    "data/evidence/decisions-v1.jsonl",
+    "data/evidence/decisions-v2.jsonl",
+    "data/evidence/decisions-v3.jsonl",
+    "data/evidence/decisions-v4.jsonl",
+    "data/fiches.js",
+    "data/field-src.js",
+    "data/provenance-audit.jsonl",
+    "data/sources.json",
+    "decisions-v4.jsonl",
+    "index.json",
+    "sources/fiches",
+    "sources/fiches/estate-a/sheet.pdf",
+    "sources/fiches/estate-b/sheet.pdf",
+    "sources/fiches/estate-c/same.pdf",
+    "sources/fiches/estate-d/same.pdf",
+    "sources/fiches/estate-g/Upper-Case.pdf",
+    "sources/fiches/pages/estate-f/both.txt",
+    "sources/pages/estate-e/2020__page.txt",
+    "sources/pages/estate-f/both.txt"
+   ],
+   "reads_data": [
+    "cuvee-src.js",
+    "cuvees.js",
+    "decisions-v4.jsonl",
+    "evidence/",
+    "fiches.js",
+    "field-src.js",
+    "index.json",
+    "provenance-audit.jsonl",
+    "sources.json"
+   ],
+   "writes_data": [],
+   "writes_reports": [],
+   "writes_sources": [],
+   "writes_other": [],
+   "write_sites": [
+    {
+     "line": 52,
+     "targets": [],
+     "how": "unplaced",
+     "reachable": true,
+     "before_gate": true
+    }
+   ],
+   "unreachable_writes": [],
+   "unplaced_writes": [
+    52
+   ],
+   "flags": [],
+   "gated": false,
+   "gate_line": null,
+   "ungated_store_writes": [],
+   "network": false,
+   "reads_evidence": true,
+   "writes_canonical": [],
+   "basename_first_match": false
+  },
+  {
+   "tool": "tools/test-phase26.py",
+   "doc": "Phase 2.6: \"a second wine\" is a role, \"this second wine\" is an",
+   "imports_local": [
+    "evidence",
+    "sheetreader"
+   ],
+   "refs": [
+    "data/cuvee-src.js",
+    "data/cuvees.js",
+    "data/evidence/decisions-v%d.jsonl",
+    "data/fiches.js",
+    "data/field-src.js",
+    "data/sources.json",
+    "sources/fiches/lynch-bages/Blanc-de-Lynch-Bages-*"
+   ],
+   "reads_data": [
+    "cuvee-src.js",
+    "cuvees.js",
+    "evidence/",
+    "fiches.js",
+    "field-src.js",
+    "sources.json"
+   ],
+   "writes_data": [],
+   "writes_reports": [],
+   "writes_sources": [],
+   "writes_other": [],
+   "write_sites": [
+    {
+     "line": 126,
+     "targets": [],
+     "how": "unplaced",
+     "reachable": true,
+     "before_gate": true
+    }
+   ],
+   "unreachable_writes": [],
+   "unplaced_writes": [
+    126
+   ],
+   "flags": [],
+   "gated": false,
+   "gate_line": null,
+   "ungated_store_writes": [],
+   "network": false,
+   "reads_evidence": true,
+   "writes_canonical": [],
+   "basename_first_match": false
+  },
+  {
+   "tool": "tools/test-phase27.py",
+   "doc": "Phase 2.7: the v4 evidence is what it says it is.",
+   "imports_local": [
+    "evidence",
+    "evidence_store",
+    "provenance",
+    "evidence-wines"
+   ],
+   "refs": [
+    "data/cuvee-src.js",
+    "data/cuvees.js",
+    "data/fiches.js",
+    "data/field-src.js",
+    "data/sources.json",
+    "sources/fiches"
+   ],
+   "reads_data": [
+    "cuvee-src.js",
+    "cuvees.js",
+    "fiches.js",
+    "field-src.js",
+    "sources.json"
+   ],
+   "writes_data": [],
+   "writes_reports": [],
+   "writes_sources": [],
+   "writes_other": [],
+   "write_sites": [],
+   "unreachable_writes": [],
+   "unplaced_writes": [],
+   "flags": [],
+   "gated": false,
+   "gate_line": null,
+   "ungated_store_writes": [],
+   "network": false,
+   "reads_evidence": true,
+   "writes_canonical": [],
+   "basename_first_match": false
+  },
+  {
+   "tool": "tools/test-phase28.py",
+   "doc": "Phase 2.8: the grand-vin audit measures what it says, the same way",
+   "imports_local": [
+    "sheetreader",
+    "audit-grand-marks"
+   ],
+   "refs": [
+    "data/chateaux.js",
+    "data/cuvee-src.js",
+    "data/cuvees.js",
+    "data/evidence",
+    "data/evidence/",
+    "data/fiches.js",
+    "data/field-src.js",
+    "data/phase28-grand-audit.jsonl",
+    "data/sources.json"
+   ],
+   "reads_data": [
+    "chateaux.js",
+    "cuvee-src.js",
+    "cuvees.js",
+    "evidence",
+    "evidence/",
+    "fiches.js",
+    "field-src.js",
+    "phase28-grand-audit.jsonl",
+    "sources.json"
+   ],
+   "writes_data": [],
+   "writes_reports": [],
+   "writes_sources": [],
+   "writes_other": [],
+   "write_sites": [],
+   "unreachable_writes": [],
+   "unplaced_writes": [],
+   "flags": [],
+   "gated": false,
+   "gate_line": null,
+   "ungated_store_writes": [],
+   "network": false,
+   "reads_evidence": true,
+   "writes_canonical": [],
+   "basename_first_match": false
+  },
+  {
+   "tool": "tools/test-phase29.py",
+   "doc": "Phase 2.9: the grand-vin check tells each wine from the grand vin, and",
+   "imports_local": [
+    "sheetreader",
+    "audit-grand-marks"
+   ],
+   "refs": [
+    "data/chateaux.js",
+    "data/cuvee-src.js",
+    "data/cuvees.js",
+    "data/evidence",
+    "data/evidence/",
+    "data/fiches.js",
+    "data/field-src.js",
+    "data/sources.json",
+    "sources/fiches/%s/%s"
+   ],
+   "reads_data": [
+    "chateaux.js",
+    "cuvee-src.js",
+    "cuvees.js",
+    "evidence",
+    "evidence/",
+    "fiches.js",
+    "field-src.js",
+    "sources.json"
+   ],
+   "writes_data": [],
+   "writes_reports": [],
+   "writes_sources": [],
+   "writes_other": [],
+   "write_sites": [],
+   "unreachable_writes": [],
+   "unplaced_writes": [],
+   "flags": [],
+   "gated": false,
+   "gate_line": null,
+   "ungated_store_writes": [],
+   "network": false,
+   "reads_evidence": true,
+   "writes_canonical": [],
+   "basename_first_match": false
+  },
+  {
+   "tool": "tools/test-phase30.py",
+   "doc": "Phase 3.0: scope and the authoritative universe, checked.",
+   "imports_local": [
+    "evidence",
+    "evidence_store",
+    "sheetreader",
+    "build-universe",
+    "compare-universe",
+    "test-phase212"
+   ],
+   "refs": [
+    "data/attribution-candidates.jsonl",
+    "data/chateaux.js",
+    "data/cuvee-src.js",
+    "data/cuvees.js",
+    "data/evidence",
+    "data/evidence/",
+    "data/fiches.js",
+    "data/field-src.js",
+    "data/proposals.jsonl",
+    "data/scope/authoritative-universe.json",
+    "data/scope/canonical-discrepancies.jsonl",
+    "data/scope/corpus-discrepancies.jsonl",
+    "data/sources.json",
+    "sources/scope"
+   ],
+   "reads_data": [
+    "attribution-candidates.jsonl",
+    "chateaux.js",
+    "cuvee-src.js",
+    "cuvees.js",
+    "evidence",
+    "evidence/",
+    "fiches.js",
+    "field-src.js",
+    "proposals.jsonl",
+    "scope/authoritative-universe.json",
+    "scope/canonical-discrepancies.jsonl",
+    "scope/corpus-discrepancies.jsonl",
+    "sources.json"
+   ],
+   "writes_data": [],
+   "writes_reports": [],
+   "writes_sources": [],
+   "writes_other": [],
+   "write_sites": [],
+   "unreachable_writes": [],
+   "unplaced_writes": [],
+   "flags": [],
+   "gated": false,
+   "gate_line": null,
+   "ungated_store_writes": [],
+   "network": false,
+   "reads_evidence": true,
+   "writes_canonical": [],
+   "basename_first_match": false
+  },
+  {
+   "tool": "tools/test-phase31.py",
+   "doc": "Phase 3.1: the structural audit's invariants.",
+   "imports_local": [
+    "evidence",
+    "evidence_store",
+    "sheetreader",
+    "audit-structure",
+    "build-universe",
+    "compare-universe",
+    "merge-proposals",
+    "promote-urls",
+    "read-fiches",
+    "read-plantings",
+    "read-sheets",
+    "test-phase30"
+   ],
+   "refs": [
+    "attribution-candidates.jsonl",
+    "batch2.js",
+    "batch3.js",
+    "batch4.js",
+    "chateaux.js",
+    "cuvee-src.js",
+    "data/",
+    "data/attribution-candidates.jsonl",
+    "data/audit/phase31-structure.json",
+    "data/chateaux.js",
+    "data/cuvee-src.js",
+    "data/cuvees.js",
+    "data/evidence",
+    "data/evidence/",
+    "data/fiches.js",
+    "data/field-conflicts.jsonl",
+    "data/field-src.js",
+    "data/proposals.jsonl",
+    "data/scope",
+    "data/scope/",
+    "data/sources.json",
+    "field-src.js",
+    "graves.js",
+    "libournais.js",
+    "pomerol.js",
+    "proposals.jsonl",
+    "saintemilion.js",
+    "sauternes.js",
+    "service-worker.js",
+    "sources.json",
+    "sources/scope"
+   ],
+   "reads_data": [
+    "attribution-candidates.jsonl",
+    "audit/phase31-structure.json",
+    "batch2.js",
+    "batch3.js",
+    "batch4.js",
+    "chateaux.js",
+    "cuvee-src.js",
+    "cuvees.js",
+    "evidence",
+    "evidence/",
+    "fiches.js",
+    "field-conflicts.jsonl",
+    "field-src.js",
+    "graves.js",
+    "libournais.js",
+    "pomerol.js",
+    "proposals.jsonl",
+    "saintemilion.js",
+    "sauternes.js",
+    "scope",
+    "scope/",
+    "service-worker.js",
+    "sources.json"
+   ],
+   "writes_data": [],
+   "writes_reports": [],
+   "writes_sources": [],
+   "writes_other": [],
+   "write_sites": [],
+   "unreachable_writes": [],
+   "unplaced_writes": [],
+   "flags": [],
+   "gated": false,
+   "gate_line": null,
+   "ungated_store_writes": [],
+   "network": false,
+   "reads_evidence": true,
+   "writes_canonical": [],
+   "basename_first_match": false
+  },
+  {
+   "tool": "tools/test-reader.py",
+   "doc": "Every sheet I have had to reason about, and what it should say.",
+   "imports_local": [
+    "sheetreader",
+    "harvest"
+   ],
+   "refs": [
+    "sources/fiches",
+    "sources/fiches/*",
+    "sources/pages",
+    "sources/pages/*"
+   ],
+   "reads_data": [],
+   "writes_data": [],
+   "writes_reports": [],
+   "writes_sources": [],
+   "writes_other": [],
+   "write_sites": [],
+   "unreachable_writes": [],
+   "unplaced_writes": [],
+   "flags": [],
+   "gated": false,
+   "gate_line": null,
+   "ungated_store_writes": [],
+   "network": false,
+   "reads_evidence": false,
+   "writes_canonical": [],
+   "basename_first_match": false
+  },
+  {
+   "tool": "tools/to-translate.py",
+   "doc": "What still needs Dutch, and which text to translate from.",
+   "imports_local": [
+    "sheetreader"
+   ],
+   "refs": [
+    "data/chateaux.js",
+    "data/fiches-nl.js",
+    "data/fiches.js",
+    "data/field-src.js",
+    "data/sources.json"
+   ],
+   "reads_data": [
+    "chateaux.js",
+    "fiches-nl.js",
+    "fiches.js",
+    "field-src.js",
+    "sources.json"
+   ],
+   "writes_data": [],
+   "writes_reports": [],
+   "writes_sources": [],
+   "writes_other": [],
+   "write_sites": [],
+   "unreachable_writes": [],
+   "unplaced_writes": [],
+   "flags": [],
+   "gated": false,
+   "gate_line": null,
+   "ungated_store_writes": [],
+   "network": false,
+   "reads_evidence": false,
+   "writes_canonical": [],
+   "basename_first_match": false
+  },
+  {
+   "tool": "tools/trace-second-wine-cases.py",
+   "doc": "Phase 2.4 section 7: why each surviving v3 second-wine acceptance passed.",
+   "imports_local": [
+    "sheetreader"
+   ],
+   "refs": [],
+   "reads_data": [],
+   "writes_data": [],
+   "writes_reports": [],
+   "writes_sources": [],
+   "writes_other": [],
+   "write_sites": [],
+   "unreachable_writes": [],
+   "unplaced_writes": [],
+   "flags": [],
+   "gated": false,
+   "gate_line": null,
+   "ungated_store_writes": [],
+   "network": false,
+   "reads_evidence": false,
+   "writes_canonical": [],
+   "basename_first_match": false
+  },
+  {
+   "tool": "tools/unread.py",
+   "doc": "Documents that state something no record holds.",
+   "imports_local": [
+    "sheetreader"
+   ],
+   "refs": [
+    "data/fiches.js",
+    "data/sources.json"
+   ],
+   "reads_data": [
+    "fiches.js",
+    "sources.json"
+   ],
+   "writes_data": [],
+   "writes_reports": [],
+   "writes_sources": [],
+   "writes_other": [],
+   "write_sites": [],
+   "unreachable_writes": [],
+   "unplaced_writes": [],
+   "flags": [],
+   "gated": false,
+   "gate_line": null,
+   "ungated_store_writes": [],
+   "network": false,
+   "reads_evidence": false,
+   "writes_canonical": [],
+   "basename_first_match": false
+  },
+  {
+   "tool": "tools/whose-site.py",
+   "doc": "Does the address on file belong to the estate it is filed under?",
+   "imports_local": [
+    "sheetreader"
+   ],
+   "refs": [
+    "data/chateaux.js",
+    "data/sources.json",
+    "data/websites.js"
+   ],
+   "reads_data": [
+    "chateaux.js",
+    "sources.json",
+    "websites.js"
+   ],
+   "writes_data": [],
+   "writes_reports": [],
+   "writes_sources": [],
+   "writes_other": [],
+   "write_sites": [],
+   "unreachable_writes": [],
+   "unplaced_writes": [],
+   "flags": [],
+   "gated": false,
+   "gate_line": null,
+   "ungated_store_writes": [],
+   "network": true,
+   "reads_evidence": false,
+   "writes_canonical": [],
+   "basename_first_match": false
+  },
+  {
+   "tool": "tools/wine-identity.py",
+   "doc": "The 56 wine-identity cases, with the reasoning shown.",
+   "imports_local": [
+    "sheetreader"
+   ],
+   "refs": [
+    "data/artifact-census.jsonl",
+    "data/sources.json",
+    "data/wine-identity.jsonl"
+   ],
+   "reads_data": [
+    "artifact-census.jsonl",
+    "sources.json",
+    "wine-identity.jsonl"
+   ],
+   "writes_data": [
+    "wine-identity.jsonl"
+   ],
+   "writes_reports": [],
+   "writes_sources": [],
+   "writes_other": [],
+   "write_sites": [
+    {
+     "line": 231,
+     "targets": [
+      "data/wine-identity.jsonl"
+     ],
+     "how": "variable",
+     "reachable": true,
+     "before_gate": false
+    }
+   ],
+   "unreachable_writes": [],
+   "unplaced_writes": [],
+   "flags": [
+    "--write"
+   ],
+   "gated": true,
+   "gate_line": 230,
+   "ungated_store_writes": [],
+   "network": false,
+   "reads_evidence": false,
+   "writes_canonical": [],
+   "basename_first_match": false
+  }
+ ],
+ "data": {
+  "appellations.js": {
+   "kind": "REFERENCE",
+   "loaded_by_app": true,
+   "read_by": [
+    "tools/audit-structure.py"
+   ],
+   "written_by": []
+  },
+  "artifact-census.jsonl": {
+   "kind": "ANALYSIS",
+   "loaded_by_app": false,
+   "read_by": [
+    "tools/attribute.py",
+    "tools/audit-structure.py",
+    "tools/census-compact.py",
+    "tools/test-data.py",
+    "tools/wine-identity.py"
+   ],
+   "written_by": [
+    "tools/census-compact.py"
+   ]
+  },
+  "attribution-candidates.jsonl": {
+   "kind": "PROPOSAL",
+   "loaded_by_app": false,
+   "read_by": [
+    "tools/attribute.py",
+    "tools/audit-structure.py",
+    "tools/propose.py",
+    "tools/recharacterize.py",
+    "tools/test-phase2.py",
+    "tools/test-phase30.py",
+    "tools/test-phase31.py"
+   ],
+   "written_by": [
+    "tools/attribute.py"
+   ]
+  },
+  "audit/": {
+   "kind": "ANALYSIS",
+   "loaded_by_app": false,
+   "read_by": [],
+   "written_by": []
+  },
+  "batch2.js": {
+   "kind": "CANONICAL",
+   "loaded_by_app": true,
+   "read_by": [
+    "tools/audit-structure.py",
+    "tools/sheetreader.py",
+    "tools/test-phase31.py"
+   ],
+   "written_by": []
+  },
+  "batch3.js": {
+   "kind": "CANONICAL",
+   "loaded_by_app": true,
+   "read_by": [
+    "tools/audit-structure.py",
+    "tools/sheetreader.py",
+    "tools/test-phase31.py"
+   ],
+   "written_by": []
+  },
+  "batch4.js": {
+   "kind": "CANONICAL",
+   "loaded_by_app": true,
+   "read_by": [
+    "tools/audit-structure.py",
+    "tools/test-phase31.py"
+   ],
+   "written_by": []
+  },
+  "cellar.js": {
+   "kind": "CANONICAL",
+   "loaded_by_app": true,
+   "read_by": [
+    "tools/audit-structure.py",
+    "tools/read-terroir.py"
+   ],
+   "written_by": [
+    "tools/read-terroir.py"
+   ]
+  },
+  "chateaux.js": {
+   "kind": "CANONICAL",
+   "loaded_by_app": true,
+   "read_by": [
+    "tools/attribute.py",
+    "tools/audit-grand-marks.py",
+    "tools/audit-structure.py",
+    "tools/audit-websites.py",
+    "tools/check-language.py",
+    "tools/estate-report.py",
+    "tools/find-doc-urls.py",
+    "tools/find-vintages.py",
+    "tools/harvest.py",
+    "tools/progress.py",
+    "tools/read-plantings.py",
+    "tools/sheetreader.py",
+    "tools/test-phase210.py",
+    "tools/test-phase211.py",
+    "tools/test-phase212.py",
+    "tools/test-phase28.py",
+    "tools/test-phase29.py",
+    "tools/test-phase30.py",
+    "tools/test-phase31.py",
+    "tools/to-translate.py",
+    "tools/whose-site.py"
+   ],
+   "written_by": []
+  },
+  "classifications.js": {
+   "kind": "REFERENCE",
+   "loaded_by_app": true,
+   "read_by": [
+    "tools/audit-structure.py",
+    "tools/compare-universe.py"
+   ],
+   "written_by": []
+  },
+  "climate.js": {
+   "kind": "REFERENCE",
+   "loaded_by_app": true,
+   "read_by": [
+    "tools/audit-structure.py"
+   ],
+   "written_by": []
+  },
+  "coords.js": {
+   "kind": "CANONICAL",
+   "loaded_by_app": true,
+   "read_by": [
+    "tools/audit-structure.py"
+   ],
+   "written_by": []
+  },
+  "cruartisan.js": {
+   "kind": "CANONICAL",
+   "loaded_by_app": true,
+   "read_by": [
+    "tools/audit-structure.py",
+    "tools/harvest.py",
+    "tools/sheetreader.py"
+   ],
+   "written_by": []
+  },
+  "crubourgeois.js": {
+   "kind": "CANONICAL",
+   "loaded_by_app": true,
+   "read_by": [
+    "tools/audit-structure.py",
+    "tools/harvest.py",
+    "tools/sheetreader.py"
+   ],
+   "written_by": []
+  },
+  "cuvee-src.js": {
+   "kind": "CANONICAL_PROV",
+   "loaded_by_app": false,
+   "read_by": [
+    "tools/audit-consistency.py",
+    "tools/audit-estate.py",
+    "tools/audit-structure.py",
+    "tools/census-conflicts.py",
+    "tools/census.py",
+    "tools/read-fiches.py",
+    "tools/reconcile.py",
+    "tools/test-data.py",
+    "tools/test-phase2.py",
+    "tools/test-phase21.py",
+    "tools/test-phase210.py",
+    "tools/test-phase211.py",
+    "tools/test-phase212.py",
+    "tools/test-phase22.py",
+    "tools/test-phase23.py",
+    "tools/test-phase24.py",
+    "tools/test-phase25.py",
+    "tools/test-phase26.py",
+    "tools/test-phase27.py",
+    "tools/test-phase28.py",
+    "tools/test-phase29.py",
+    "tools/test-phase30.py",
+    "tools/test-phase31.py"
+   ],
+   "written_by": [
+    "tools/read-fiches.py"
+   ]
+  },
+  "cuvee-url.js": {
+   "kind": "DERIVED_VIEW",
+   "loaded_by_app": true,
+   "read_by": [
+    "tools/audit-estate.py",
+    "tools/audit-structure.py",
+    "tools/build-fiche-links.py",
+    "tools/estate-report.py"
+   ],
+   "written_by": [
+    "tools/build-fiche-links.py"
+   ]
+  },
+  "cuvees.js": {
+   "kind": "CANONICAL",
+   "loaded_by_app": true,
+   "read_by": [
+    "tools/add-wine.py",
+    "tools/audit-consistency.py",
+    "tools/audit-estate.py",
+    "tools/audit-structure.py",
+    "tools/build-fiche-links.py",
+    "tools/census-conflicts.py",
+    "tools/census.py",
+    "tools/check-data.py",
+    "tools/check-language.py",
+    "tools/echo-baseline.py",
+    "tools/estate-report.py",
+    "tools/find-doc-urls.py",
+    "tools/read-fiches.py",
+    "tools/reconcile.py",
+    "tools/refile-wine.py",
+    "tools/sheetreader.py",
+    "tools/test-data.py",
+    "tools/test-phase2.py",
+    "tools/test-phase21.py",
+    "tools/test-phase210.py",
+    "tools/test-phase211.py",
+    "tools/test-phase212.py",
+    "tools/test-phase22.py",
+    "tools/test-phase23.py",
+    "tools/test-phase24.py",
+    "tools/test-phase25.py",
+    "tools/test-phase26.py",
+    "tools/test-phase27.py",
+    "tools/test-phase28.py",
+    "tools/test-phase29.py",
+    "tools/test-phase30.py",
+    "tools/test-phase31.py"
+   ],
+   "written_by": [
+    "tools/add-wine.py",
+    "tools/read-fiches.py"
+   ]
+  },
+  "echo-baseline.jsonl": {
+   "kind": "ANALYSIS",
+   "loaded_by_app": false,
+   "read_by": [
+    "tools/audit-structure.py",
+    "tools/echo-baseline.py"
+   ],
+   "written_by": [
+    "tools/echo-baseline.py"
+   ]
+  },
+  "evidence/": {
+   "kind": "EVIDENCE",
+   "loaded_by_app": false,
+   "read_by": [
+    "tools/audit-structure.py",
+    "tools/evidence_store.py",
+    "tools/test-phase210.py",
+    "tools/test-phase211.py",
+    "tools/test-phase212.py",
+    "tools/test-phase24.py",
+    "tools/test-phase25.py",
+    "tools/test-phase26.py",
+    "tools/test-phase28.py",
+    "tools/test-phase29.py",
+    "tools/test-phase30.py",
+    "tools/test-phase31.py"
+   ],
+   "written_by": [
+    "tools/evidence_store.py"
+   ]
+  },
+  "fiches-nl.js": {
+   "kind": "CANONICAL",
+   "loaded_by_app": true,
+   "read_by": [
+    "tools/add-dutch.py",
+    "tools/audit-structure.py",
+    "tools/check-data.py",
+    "tools/check-language.py",
+    "tools/progress.py",
+    "tools/test-phase212.py",
+    "tools/to-translate.py"
+   ],
+   "written_by": [
+    "tools/add-dutch.py"
+   ]
+  },
+  "fiches-url.js": {
+   "kind": "DERIVED_VIEW",
+   "loaded_by_app": true,
+   "read_by": [
+    "tools/audit-estate.py",
+    "tools/audit-structure.py",
+    "tools/build-fiche-links.py",
+    "tools/check-language.py",
+    "tools/estate-report.py",
+    "tools/progress.py"
+   ],
+   "written_by": [
+    "tools/build-fiche-links.py"
+   ]
+  },
+  "fiches.js": {
+   "kind": "CANONICAL",
+   "loaded_by_app": true,
+   "read_by": [
+    "tools/add-dutch.py",
+    "tools/audit-consistency.py",
+    "tools/audit-estate.py",
+    "tools/audit-sources.py",
+    "tools/audit-structure.py",
+    "tools/build-fiche-links.py",
+    "tools/build-workbook.py",
+    "tools/census-conflicts.py",
+    "tools/census.py",
+    "tools/check-data.py",
+    "tools/check-language.py",
+    "tools/datapoints.py",
+    "tools/estate-report.py",
+    "tools/find-doc-urls.py",
+    "tools/merge-proposals.py",
+    "tools/missing-fiches.py",
+    "tools/progress.py",
+    "tools/promote-urls.py",
+    "tools/read-fiches.py",
+    "tools/read-sheets.py",
+    "tools/recheck-sources.py",
+    "tools/reconcile.py",
+    "tools/recover-urls.py",
+    "tools/test-data.py",
+    "tools/test-phase2.py",
+    "tools/test-phase21.py",
+    "tools/test-phase210.py",
+    "tools/test-phase211.py",
+    "tools/test-phase212.py",
+    "tools/test-phase22.py",
+    "tools/test-phase23.py",
+    "tools/test-phase24.py",
+    "tools/test-phase25.py",
+    "tools/test-phase26.py",
+    "tools/test-phase27.py",
+    "tools/test-phase28.py",
+    "tools/test-phase29.py",
+    "tools/test-phase30.py",
+    "tools/test-phase31.py",
+    "tools/to-translate.py",
+    "tools/unread.py"
+   ],
+   "written_by": [
+    "tools/merge-proposals.py",
+    "tools/read-fiches.py",
+    "tools/read-sheets.py"
+   ]
+  },
+  "field-src.js": {
+   "kind": "CANONICAL_PROV",
+   "loaded_by_app": false,
+   "read_by": [
+    "tools/audit-consistency.py",
+    "tools/audit-estate.py",
+    "tools/audit-structure.py",
+    "tools/census-conflicts.py",
+    "tools/census.py",
+    "tools/check-language.py",
+    "tools/read-fiches.py",
+    "tools/reconcile.py",
+    "tools/test-data.py",
+    "tools/test-phase2.py",
+    "tools/test-phase21.py",
+    "tools/test-phase210.py",
+    "tools/test-phase211.py",
+    "tools/test-phase212.py",
+    "tools/test-phase22.py",
+    "tools/test-phase23.py",
+    "tools/test-phase24.py",
+    "tools/test-phase25.py",
+    "tools/test-phase26.py",
+    "tools/test-phase27.py",
+    "tools/test-phase28.py",
+    "tools/test-phase29.py",
+    "tools/test-phase30.py",
+    "tools/test-phase31.py",
+    "tools/to-translate.py"
+   ],
+   "written_by": [
+    "tools/read-fiches.py"
+   ]
+  },
+  "geography.js": {
+   "kind": "REFERENCE",
+   "loaded_by_app": true,
+   "read_by": [
+    "tools/audit-structure.py"
+   ],
+   "written_by": []
+  },
+  "grapes-nl.js": {
+   "kind": "REFERENCE",
+   "loaded_by_app": true,
+   "read_by": [
+    "tools/audit-structure.py"
+   ],
+   "written_by": []
+  },
+  "grapes.js": {
+   "kind": "REFERENCE",
+   "loaded_by_app": true,
+   "read_by": [
+    "tools/audit-structure.py"
+   ],
+   "written_by": []
+  },
+  "graves.js": {
+   "kind": "CANONICAL",
+   "loaded_by_app": true,
+   "read_by": [
+    "tools/attribute.py",
+    "tools/audit-structure.py",
+    "tools/harvest.py",
+    "tools/sheetreader.py",
+    "tools/test-phase31.py"
+   ],
+   "written_by": []
+  },
+  "libournais.js": {
+   "kind": "CANONICAL",
+   "loaded_by_app": true,
+   "read_by": [
+    "tools/audit-structure.py",
+    "tools/harvest.py",
+    "tools/sheetreader.py",
+    "tools/test-phase31.py"
+   ],
+   "written_by": []
+  },
+  "notes-nl.js": {
+   "kind": "REFERENCE",
+   "loaded_by_app": true,
+   "read_by": [
+    "tools/audit-structure.py"
+   ],
+   "written_by": []
+  },
+  "notes.js": {
+   "kind": "REFERENCE",
+   "loaded_by_app": true,
+   "read_by": [
+    "tools/audit-structure.py"
+   ],
+   "written_by": []
+  },
+  "overrides.js": {
+   "kind": "CANONICAL",
+   "loaded_by_app": true,
+   "read_by": [
+    "tools/audit-structure.py",
+    "tools/build-workbook.py"
+   ],
+   "written_by": []
+  },
+  "phase26-impact.jsonl": {
+   "kind": "ANALYSIS",
+   "loaded_by_app": false,
+   "read_by": [
+    "tools/audit-structure.py",
+    "tools/compare-v4.py",
+    "tools/dryrun-second-identity.py"
+   ],
+   "written_by": [
+    "tools/dryrun-second-identity.py"
+   ]
+  },
+  "phase28-grand-audit.jsonl": {
+   "kind": "ANALYSIS",
+   "loaded_by_app": false,
+   "read_by": [
+    "tools/audit-grand-marks.py",
+    "tools/audit-structure.py",
+    "tools/test-phase28.py"
+   ],
+   "written_by": [
+    "tools/audit-grand-marks.py"
+   ]
+  },
+  "phase29-grand-dryrun.json": {
+   "kind": "ANALYSIS",
+   "loaded_by_app": false,
+   "read_by": [
+    "tools/audit-structure.py",
+    "tools/compare-v5.py",
+    "tools/dryrun-grand-identity.py"
+   ],
+   "written_by": [
+    "tools/dryrun-grand-identity.py"
+   ]
+  },
+  "phenology.js": {
+   "kind": "REFERENCE",
+   "loaded_by_app": true,
+   "read_by": [
+    "tools/audit-structure.py"
+   ],
+   "written_by": []
+  },
+  "plantings.js": {
+   "kind": "CANONICAL",
+   "loaded_by_app": true,
+   "read_by": [
+    "tools/audit-estate.py",
+    "tools/audit-structure.py",
+    "tools/check-data.py",
+    "tools/check-language.py",
+    "tools/progress.py",
+    "tools/read-plantings.py"
+   ],
+   "written_by": [
+    "tools/read-plantings.py"
+   ]
+  },
+  "pomerol.js": {
+   "kind": "CANONICAL",
+   "loaded_by_app": true,
+   "read_by": [
+    "tools/audit-structure.py",
+    "tools/harvest.py",
+    "tools/sheetreader.py",
+    "tools/test-phase31.py"
+   ],
+   "written_by": []
+  },
+  "proposals.jsonl": {
+   "kind": "PROPOSAL",
+   "loaded_by_app": false,
+   "read_by": [
+    "tools/audit-structure.py",
+    "tools/propose.py",
+    "tools/test-phase21.py",
+    "tools/test-phase30.py",
+    "tools/test-phase31.py"
+   ],
+   "written_by": [
+    "tools/propose.py"
+   ]
+  },
+  "provenance-audit.jsonl": {
+   "kind": "ANALYSIS",
+   "loaded_by_app": false,
+   "read_by": [
+    "tools/audit-provenance.py",
+    "tools/audit-structure.py",
+    "tools/compare-v4.py",
+    "tools/compare-v5.py",
+    "tools/conflicts-v4.py",
+    "tools/test-phase25.py"
+   ],
+   "written_by": [
+    "tools/audit-provenance.py"
+   ]
+  },
+  "ratings.js": {
+   "kind": "CANONICAL",
+   "loaded_by_app": true,
+   "read_by": [
+    "tools/audit-structure.py"
+   ],
+   "written_by": []
+  },
+  "rightbank.js": {
+   "kind": "CANONICAL",
+   "loaded_by_app": true,
+   "read_by": [
+    "tools/audit-structure.py",
+    "tools/harvest.py",
+    "tools/sheetreader.py"
+   ],
+   "written_by": []
+  },
+  "saintemilion.js": {
+   "kind": "CANONICAL",
+   "loaded_by_app": true,
+   "read_by": [
+    "tools/attribute.py",
+    "tools/audit-structure.py",
+    "tools/harvest.py",
+    "tools/sheetreader.py",
+    "tools/test-phase212.py",
+    "tools/test-phase31.py"
+   ],
+   "written_by": []
+  },
+  "sauternes.js": {
+   "kind": "CANONICAL",
+   "loaded_by_app": true,
+   "read_by": [
+    "tools/attribute.py",
+    "tools/audit-grand-marks.py",
+    "tools/audit-structure.py",
+    "tools/harvest.py",
+    "tools/sheetreader.py",
+    "tools/test-phase31.py"
+   ],
+   "written_by": []
+  },
+  "scope/": {
+   "kind": "SCOPE",
+   "loaded_by_app": false,
+   "read_by": [
+    "tools/test-phase31.py"
+   ],
+   "written_by": []
+  },
+  "site-recipes.json": {
+   "kind": "CONFIG",
+   "loaded_by_app": false,
+   "read_by": [
+    "tools/audit-structure.py"
+   ],
+   "written_by": []
+  },
+  "sources.json": {
+   "kind": "MANIFEST",
+   "loaded_by_app": false,
+   "read_by": [
+    "tools/add-sheet.py",
+    "tools/ask-site.py",
+    "tools/audit-consistency.py",
+    "tools/audit-estate.py",
+    "tools/audit-multiwine.py",
+    "tools/audit-provenance.py",
+    "tools/audit-sources.py",
+    "tools/audit-structure.py",
+    "tools/build-fiche-links.py",
+    "tools/build-workbook.py",
+    "tools/census-conflicts.py",
+    "tools/census.py",
+    "tools/check-data.py",
+    "tools/check-language.py",
+    "tools/compare-universe.py",
+    "tools/crawl-pages.py",
+    "tools/datapoints.py",
+    "tools/diagnose-second-mode.py",
+    "tools/dryrun-second-identity.py",
+    "tools/echo-baseline.py",
+    "tools/estate-report.py",
+    "tools/evidence-wines.py",
+    "tools/evidence.py",
+    "tools/find-doc-urls.py",
+    "tools/find-vintages.py",
+    "tools/harvest.py",
+    "tools/merge-proposals.py",
+    "tools/missing-fiches.py",
+    "tools/progress.py",
+    "tools/promote-urls.py",
+    "tools/propose.py",
+    "tools/read-fiches.py",
+    "tools/read-plantings.py",
+    "tools/read-sheets.py",
+    "tools/read-terroir.py",
+    "tools/recharacterize.py",
+    "tools/recheck-sources.py",
+    "tools/reconcile.py",
+    "tools/recover-urls.py",
+    "tools/refile-wine.py",
+    "tools/refile.py",
+    "tools/test-data.py",
+    "tools/test-phase2.py",
+    "tools/test-phase21.py",
+    "tools/test-phase210.py",
+    "tools/test-phase211.py",
+    "tools/test-phase212.py",
+    "tools/test-phase22.py",
+    "tools/test-phase23.py",
+    "tools/test-phase24.py",
+    "tools/test-phase25.py",
+    "tools/test-phase26.py",
+    "tools/test-phase27.py",
+    "tools/test-phase28.py",
+    "tools/test-phase29.py",
+    "tools/test-phase30.py",
+    "tools/test-phase31.py",
+    "tools/to-translate.py",
+    "tools/unread.py",
+    "tools/whose-site.py",
+    "tools/wine-identity.py"
+   ],
+   "written_by": [
+    "tools/add-sheet.py",
+    "tools/audit-multiwine.py",
+    "tools/crawl-pages.py",
+    "tools/find-doc-urls.py",
+    "tools/harvest.py",
+    "tools/merge-proposals.py",
+    "tools/promote-urls.py",
+    "tools/read-sheets.py",
+    "tools/recheck-sources.py",
+    "tools/recover-urls.py",
+    "tools/refile-wine.py"
+   ]
+  },
+  "terroir.js": {
+   "kind": "CANONICAL",
+   "loaded_by_app": true,
+   "read_by": [
+    "tools/audit-structure.py",
+    "tools/read-terroir.py"
+   ],
+   "written_by": [
+    "tools/read-terroir.py"
+   ]
+  },
+  "v3-recharacterization.jsonl": {
+   "kind": "ANALYSIS",
+   "loaded_by_app": false,
+   "read_by": [
+    "tools/audit-structure.py",
+    "tools/compare-v3.py"
+   ],
+   "written_by": [
+    "tools/compare-v3.py"
+   ]
+  },
+  "v3-v4-comparison.jsonl": {
+   "kind": "ANALYSIS",
+   "loaded_by_app": false,
+   "read_by": [
+    "tools/audit-structure.py",
+    "tools/compare-v4.py"
+   ],
+   "written_by": [
+    "tools/compare-v4.py"
+   ]
+  },
+  "v4-identity-conflicts.jsonl": {
+   "kind": "ANALYSIS",
+   "loaded_by_app": false,
+   "read_by": [
+    "tools/audit-structure.py",
+    "tools/conflicts-v4.py"
+   ],
+   "written_by": [
+    "tools/conflicts-v4.py"
+   ]
+  },
+  "v4-v5-comparison.json": {
+   "kind": "ANALYSIS",
+   "loaded_by_app": false,
+   "read_by": [
+    "tools/audit-structure.py",
+    "tools/compare-v5.py",
+    "tools/test-phase210.py"
+   ],
+   "written_by": [
+    "tools/compare-v5.py"
+   ]
+  },
+  "vintages-nl.js": {
+   "kind": "REFERENCE",
+   "loaded_by_app": true,
+   "read_by": [
+    "tools/audit-structure.py"
+   ],
+   "written_by": []
+  },
+  "vintages.js": {
+   "kind": "REFERENCE",
+   "loaded_by_app": true,
+   "read_by": [
+    "tools/audit-structure.py",
+    "tools/build-workbook.py",
+    "tools/progress.py"
+   ],
+   "written_by": []
+  },
+  "water.js": {
+   "kind": "REFERENCE",
+   "loaded_by_app": true,
+   "read_by": [
+    "tools/audit-structure.py"
+   ],
+   "written_by": []
+  },
+  "websites.js": {
+   "kind": "CANONICAL",
+   "loaded_by_app": true,
+   "read_by": [
+    "tools/ask-site.py",
+    "tools/audit-structure.py",
+    "tools/audit-websites.py",
+    "tools/crawl-pages.py",
+    "tools/find-vintages.py",
+    "tools/harvest.py",
+    "tools/recover-urls.py",
+    "tools/whose-site.py"
+   ],
+   "written_by": []
+  },
+  "wine-identity.jsonl": {
+   "kind": "ANALYSIS",
+   "loaded_by_app": false,
+   "read_by": [
+    "tools/audit-structure.py",
+    "tools/echo-baseline.py",
+    "tools/propose.py",
+    "tools/wine-identity.py"
+   ],
+   "written_by": [
+    "tools/wine-identity.py"
+   ]
+  }
+ },
+ "edges": [
+  [
+   "*.js",
+   "tools/check-data.py",
+   "reads"
+  ],
+  [
+   "appellations.js",
+   "tools/audit-structure.py",
+   "reads"
+  ],
+  [
+   "artifact-census.json",
+   "tools/census-compact.py",
+   "reads"
+  ],
+  [
+   "artifact-census.json",
+   "tools/census.py",
+   "reads"
+  ],
+  [
+   "artifact-census.jsonl",
+   "tools/attribute.py",
+   "reads"
+  ],
+  [
+   "artifact-census.jsonl",
+   "tools/audit-structure.py",
+   "reads"
+  ],
+  [
+   "artifact-census.jsonl",
+   "tools/census-compact.py",
+   "reads"
+  ],
+  [
+   "artifact-census.jsonl",
+   "tools/wine-identity.py",
+   "reads"
+  ],
+  [
+   "attribution-candidates.jsonl",
+   "tools/attribute.py",
+   "reads"
+  ],
+  [
+   "attribution-candidates.jsonl",
+   "tools/audit-structure.py",
+   "reads"
+  ],
+  [
+   "attribution-candidates.jsonl",
+   "tools/propose.py",
+   "reads"
+  ],
+  [
+   "attribution-candidates.jsonl",
+   "tools/recharacterize.py",
+   "reads"
+  ],
+  [
+   "audit/phase31-structure.json",
+   "tools/audit-structure.py",
+   "reads"
+  ],
+  [
+   "batch2.js",
+   "tools/audit-structure.py",
+   "reads"
+  ],
+  [
+   "batch2.js",
+   "tools/sheetreader.py",
+   "reads"
+  ],
+  [
+   "batch3.js",
+   "tools/audit-structure.py",
+   "reads"
+  ],
+  [
+   "batch3.js",
+   "tools/sheetreader.py",
+   "reads"
+  ],
+  [
+   "batch4.js",
+   "tools/audit-structure.py",
+   "reads"
+  ],
+  [
+   "cellar.js",
+   "tools/audit-structure.py",
+   "reads"
+  ],
+  [
+   "cellar.js",
+   "tools/read-terroir.py",
+   "reads"
+  ],
+  [
+   "chateaux.js",
+   "tools/attribute.py",
+   "reads"
+  ],
+  [
+   "chateaux.js",
+   "tools/audit-grand-marks.py",
+   "reads"
+  ],
+  [
+   "chateaux.js",
+   "tools/audit-structure.py",
+   "reads"
+  ],
+  [
+   "chateaux.js",
+   "tools/audit-websites.py",
+   "reads"
+  ],
+  [
+   "chateaux.js",
+   "tools/check-language.py",
+   "reads"
+  ],
+  [
+   "chateaux.js",
+   "tools/estate-report.py",
+   "reads"
+  ],
+  [
+   "chateaux.js",
+   "tools/find-doc-urls.py",
+   "reads"
+  ],
+  [
+   "chateaux.js",
+   "tools/find-vintages.py",
+   "reads"
+  ],
+  [
+   "chateaux.js",
+   "tools/harvest.py",
+   "reads"
+  ],
+  [
+   "chateaux.js",
+   "tools/progress.py",
+   "reads"
+  ],
+  [
+   "chateaux.js",
+   "tools/read-plantings.py",
+   "reads"
+  ],
+  [
+   "chateaux.js",
+   "tools/sheetreader.py",
+   "reads"
+  ],
+  [
+   "chateaux.js",
+   "tools/to-translate.py",
+   "reads"
+  ],
+  [
+   "chateaux.js",
+   "tools/whose-site.py",
+   "reads"
+  ],
+  [
+   "classifications.js",
+   "tools/audit-structure.py",
+   "reads"
+  ],
+  [
+   "classifications.js",
+   "tools/compare-universe.py",
+   "reads"
+  ],
+  [
+   "climate.js",
+   "tools/audit-structure.py",
+   "reads"
+  ],
+  [
+   "coords.js",
+   "tools/audit-structure.py",
+   "reads"
+  ],
+  [
+   "cruartisan.js",
+   "tools/audit-structure.py",
+   "reads"
+  ],
+  [
+   "cruartisan.js",
+   "tools/harvest.py",
+   "reads"
+  ],
+  [
+   "cruartisan.js",
+   "tools/sheetreader.py",
+   "reads"
+  ],
+  [
+   "crubourgeois.js",
+   "tools/audit-structure.py",
+   "reads"
+  ],
+  [
+   "crubourgeois.js",
+   "tools/harvest.py",
+   "reads"
+  ],
+  [
+   "crubourgeois.js",
+   "tools/sheetreader.py",
+   "reads"
+  ],
+  [
+   "cuvee-src.js",
+   "tools/audit-consistency.py",
+   "reads"
+  ],
+  [
+   "cuvee-src.js",
+   "tools/audit-estate.py",
+   "reads"
+  ],
+  [
+   "cuvee-src.js",
+   "tools/audit-structure.py",
+   "reads"
+  ],
+  [
+   "cuvee-src.js",
+   "tools/census-conflicts.py",
+   "reads"
+  ],
+  [
+   "cuvee-src.js",
+   "tools/census.py",
+   "reads"
+  ],
+  [
+   "cuvee-src.js",
+   "tools/read-fiches.py",
+   "reads"
+  ],
+  [
+   "cuvee-src.js",
+   "tools/reconcile.py",
+   "reads"
+  ],
+  [
+   "cuvee-url.js",
+   "tools/audit-estate.py",
+   "reads"
+  ],
+  [
+   "cuvee-url.js",
+   "tools/audit-structure.py",
+   "reads"
+  ],
+  [
+   "cuvee-url.js",
+   "tools/build-fiche-links.py",
+   "reads"
+  ],
+  [
+   "cuvee-url.js",
+   "tools/estate-report.py",
+   "reads"
+  ],
+  [
+   "cuvees.js",
+   "tools/add-wine.py",
+   "reads"
+  ],
+  [
+   "cuvees.js",
+   "tools/audit-consistency.py",
+   "reads"
+  ],
+  [
+   "cuvees.js",
+   "tools/audit-estate.py",
+   "reads"
+  ],
+  [
+   "cuvees.js",
+   "tools/audit-structure.py",
+   "reads"
+  ],
+  [
+   "cuvees.js",
+   "tools/build-fiche-links.py",
+   "reads"
+  ],
+  [
+   "cuvees.js",
+   "tools/census-conflicts.py",
+   "reads"
+  ],
+  [
+   "cuvees.js",
+   "tools/census.py",
+   "reads"
+  ],
+  [
+   "cuvees.js",
+   "tools/check-data.py",
+   "reads"
+  ],
+  [
+   "cuvees.js",
+   "tools/check-language.py",
+   "reads"
+  ],
+  [
+   "cuvees.js",
+   "tools/echo-baseline.py",
+   "reads"
+  ],
+  [
+   "cuvees.js",
+   "tools/estate-report.py",
+   "reads"
+  ],
+  [
+   "cuvees.js",
+   "tools/find-doc-urls.py",
+   "reads"
+  ],
+  [
+   "cuvees.js",
+   "tools/read-fiches.py",
+   "reads"
+  ],
+  [
+   "cuvees.js",
+   "tools/reconcile.py",
+   "reads"
+  ],
+  [
+   "cuvees.js",
+   "tools/refile-wine.py",
+   "reads"
+  ],
+  [
+   "cuvees.js",
+   "tools/sheetreader.py",
+   "reads"
+  ],
+  [
+   "echo-baseline.jsonl",
+   "tools/audit-structure.py",
+   "reads"
+  ],
+  [
+   "echo-baseline.jsonl",
+   "tools/echo-baseline.py",
+   "reads"
+  ],
+  [
+   "evidence",
+   "tools/audit-structure.py",
+   "reads"
+  ],
+  [
+   "evidence",
+   "tools/migrate-evidence-store.py",
+   "reads"
+  ],
+  [
+   "evidence",
+   "tools/provenance.py",
+   "reads"
+  ],
+  [
+   "evidence-decisions.jsonl",
+   "tools/migrate-evidence-store.py",
+   "reads"
+  ],
+  [
+   "evidence/",
+   "tools/audit-structure.py",
+   "reads"
+  ],
+  [
+   "evidence/",
+   "tools/evidence_store.py",
+   "reads"
+  ],
+  [
+   "fiches-nl.js",
+   "tools/add-dutch.py",
+   "reads"
+  ],
+  [
+   "fiches-nl.js",
+   "tools/audit-structure.py",
+   "reads"
+  ],
+  [
+   "fiches-nl.js",
+   "tools/check-data.py",
+   "reads"
+  ],
+  [
+   "fiches-nl.js",
+   "tools/check-language.py",
+   "reads"
+  ],
+  [
+   "fiches-nl.js",
+   "tools/progress.py",
+   "reads"
+  ],
+  [
+   "fiches-nl.js",
+   "tools/to-translate.py",
+   "reads"
+  ],
+  [
+   "fiches-url.js",
+   "tools/audit-estate.py",
+   "reads"
+  ],
+  [
+   "fiches-url.js",
+   "tools/audit-structure.py",
+   "reads"
+  ],
+  [
+   "fiches-url.js",
+   "tools/build-fiche-links.py",
+   "reads"
+  ],
+  [
+   "fiches-url.js",
+   "tools/check-language.py",
+   "reads"
+  ],
+  [
+   "fiches-url.js",
+   "tools/estate-report.py",
+   "reads"
+  ],
+  [
+   "fiches-url.js",
+   "tools/progress.py",
+   "reads"
+  ],
+  [
+   "fiches.js",
+   "tools/add-dutch.py",
+   "reads"
+  ],
+  [
+   "fiches.js",
+   "tools/audit-consistency.py",
+   "reads"
+  ],
+  [
+   "fiches.js",
+   "tools/audit-estate.py",
+   "reads"
+  ],
+  [
+   "fiches.js",
+   "tools/audit-sources.py",
+   "reads"
+  ],
+  [
+   "fiches.js",
+   "tools/audit-structure.py",
+   "reads"
+  ],
+  [
+   "fiches.js",
+   "tools/build-fiche-links.py",
+   "reads"
+  ],
+  [
+   "fiches.js",
+   "tools/build-workbook.py",
+   "reads"
+  ],
+  [
+   "fiches.js",
+   "tools/census-conflicts.py",
+   "reads"
+  ],
+  [
+   "fiches.js",
+   "tools/census.py",
+   "reads"
+  ],
+  [
+   "fiches.js",
+   "tools/check-data.py",
+   "reads"
+  ],
+  [
+   "fiches.js",
+   "tools/check-language.py",
+   "reads"
+  ],
+  [
+   "fiches.js",
+   "tools/datapoints.py",
+   "reads"
+  ],
+  [
+   "fiches.js",
+   "tools/estate-report.py",
+   "reads"
+  ],
+  [
+   "fiches.js",
+   "tools/find-doc-urls.py",
+   "reads"
+  ],
+  [
+   "fiches.js",
+   "tools/merge-proposals.py",
+   "reads"
+  ],
+  [
+   "fiches.js",
+   "tools/missing-fiches.py",
+   "reads"
+  ],
+  [
+   "fiches.js",
+   "tools/progress.py",
+   "reads"
+  ],
+  [
+   "fiches.js",
+   "tools/promote-urls.py",
+   "reads"
+  ],
+  [
+   "fiches.js",
+   "tools/read-fiches.py",
+   "reads"
+  ],
+  [
+   "fiches.js",
+   "tools/read-sheets.py",
+   "reads"
+  ],
+  [
+   "fiches.js",
+   "tools/recheck-sources.py",
+   "reads"
+  ],
+  [
+   "fiches.js",
+   "tools/reconcile.py",
+   "reads"
+  ],
+  [
+   "fiches.js",
+   "tools/recover-urls.py",
+   "reads"
+  ],
+  [
+   "fiches.js",
+   "tools/to-translate.py",
+   "reads"
+  ],
+  [
+   "fiches.js",
+   "tools/unread.py",
+   "reads"
+  ],
+  [
+   "field-conflicts.jsonl",
+   "tools/conflicts.py",
+   "reads"
+  ],
+  [
+   "field-src.js",
+   "tools/audit-consistency.py",
+   "reads"
+  ],
+  [
+   "field-src.js",
+   "tools/audit-estate.py",
+   "reads"
+  ],
+  [
+   "field-src.js",
+   "tools/audit-structure.py",
+   "reads"
+  ],
+  [
+   "field-src.js",
+   "tools/census-conflicts.py",
+   "reads"
+  ],
+  [
+   "field-src.js",
+   "tools/census.py",
+   "reads"
+  ],
+  [
+   "field-src.js",
+   "tools/check-language.py",
+   "reads"
+  ],
+  [
+   "field-src.js",
+   "tools/read-fiches.py",
+   "reads"
+  ],
+  [
+   "field-src.js",
+   "tools/reconcile.py",
+   "reads"
+  ],
+  [
+   "field-src.js",
+   "tools/to-translate.py",
+   "reads"
+  ],
+  [
+   "geography.js",
+   "tools/audit-structure.py",
+   "reads"
+  ],
+  [
+   "grapes-nl.js",
+   "tools/audit-structure.py",
+   "reads"
+  ],
+  [
+   "grapes.js",
+   "tools/audit-structure.py",
+   "reads"
+  ],
+  [
+   "graves.js",
+   "tools/attribute.py",
+   "reads"
+  ],
+  [
+   "graves.js",
+   "tools/audit-structure.py",
+   "reads"
+  ],
+  [
+   "graves.js",
+   "tools/harvest.py",
+   "reads"
+  ],
+  [
+   "graves.js",
+   "tools/sheetreader.py",
+   "reads"
+  ],
+  [
+   "index.json",
+   "tools/evidence_store.py",
+   "reads"
+  ],
+  [
+   "index.json",
+   "tools/migrate-evidence-store.py",
+   "reads"
+  ],
+  [
+   "libournais.js",
+   "tools/audit-structure.py",
+   "reads"
+  ],
+  [
+   "libournais.js",
+   "tools/harvest.py",
+   "reads"
+  ],
+  [
+   "libournais.js",
+   "tools/sheetreader.py",
+   "reads"
+  ],
+  [
+   "notes-nl.js",
+   "tools/audit-structure.py",
+   "reads"
+  ],
+  [
+   "notes.js",
+   "tools/audit-structure.py",
+   "reads"
+  ],
+  [
+   "overrides.js",
+   "tools/audit-structure.py",
+   "reads"
+  ],
+  [
+   "overrides.js",
+   "tools/build-workbook.py",
+   "reads"
+  ],
+  [
+   "phase26-impact.jsonl",
+   "tools/audit-structure.py",
+   "reads"
+  ],
+  [
+   "phase26-impact.jsonl",
+   "tools/compare-v4.py",
+   "reads"
+  ],
+  [
+   "phase26-impact.jsonl",
+   "tools/dryrun-second-identity.py",
+   "reads"
+  ],
+  [
+   "phase28-grand-audit.jsonl",
+   "tools/audit-grand-marks.py",
+   "reads"
+  ],
+  [
+   "phase28-grand-audit.jsonl",
+   "tools/audit-structure.py",
+   "reads"
+  ],
+  [
+   "phase29-grand-dryrun.json",
+   "tools/audit-structure.py",
+   "reads"
+  ],
+  [
+   "phase29-grand-dryrun.json",
+   "tools/compare-v5.py",
+   "reads"
+  ],
+  [
+   "phase29-grand-dryrun.json",
+   "tools/dryrun-grand-identity.py",
+   "reads"
+  ],
+  [
+   "phenology.js",
+   "tools/audit-structure.py",
+   "reads"
+  ],
+  [
+   "plantings.js",
+   "tools/audit-estate.py",
+   "reads"
+  ],
+  [
+   "plantings.js",
+   "tools/audit-structure.py",
+   "reads"
+  ],
+  [
+   "plantings.js",
+   "tools/check-data.py",
+   "reads"
+  ],
+  [
+   "plantings.js",
+   "tools/check-language.py",
+   "reads"
+  ],
+  [
+   "plantings.js",
+   "tools/progress.py",
+   "reads"
+  ],
+  [
+   "plantings.js",
+   "tools/read-plantings.py",
+   "reads"
+  ],
+  [
+   "pomerol.js",
+   "tools/audit-structure.py",
+   "reads"
+  ],
+  [
+   "pomerol.js",
+   "tools/harvest.py",
+   "reads"
+  ],
+  [
+   "pomerol.js",
+   "tools/sheetreader.py",
+   "reads"
+  ],
+  [
+   "proposals.jsonl",
+   "tools/audit-structure.py",
+   "reads"
+  ],
+  [
+   "proposals.jsonl",
+   "tools/propose.py",
+   "reads"
+  ],
+  [
+   "provenance-audit.jsonl",
+   "tools/audit-provenance.py",
+   "reads"
+  ],
+  [
+   "provenance-audit.jsonl",
+   "tools/audit-structure.py",
+   "reads"
+  ],
+  [
+   "provenance-audit.jsonl",
+   "tools/compare-v4.py",
+   "reads"
+  ],
+  [
+   "provenance-audit.jsonl",
+   "tools/compare-v5.py",
+   "reads"
+  ],
+  [
+   "provenance-audit.jsonl",
+   "tools/conflicts-v4.py",
+   "reads"
+  ],
+  [
+   "ratings.js",
+   "tools/audit-structure.py",
+   "reads"
+  ],
+  [
+   "rightbank.js",
+   "tools/audit-structure.py",
+   "reads"
+  ],
+  [
+   "rightbank.js",
+   "tools/harvest.py",
+   "reads"
+  ],
+  [
+   "rightbank.js",
+   "tools/sheetreader.py",
+   "reads"
+  ],
+  [
+   "saintemilion.js",
+   "tools/attribute.py",
+   "reads"
+  ],
+  [
+   "saintemilion.js",
+   "tools/audit-structure.py",
+   "reads"
+  ],
+  [
+   "saintemilion.js",
+   "tools/harvest.py",
+   "reads"
+  ],
+  [
+   "saintemilion.js",
+   "tools/sheetreader.py",
+   "reads"
+  ],
+  [
+   "sauternes.js",
+   "tools/attribute.py",
+   "reads"
+  ],
+  [
+   "sauternes.js",
+   "tools/audit-grand-marks.py",
+   "reads"
+  ],
+  [
+   "sauternes.js",
+   "tools/audit-structure.py",
+   "reads"
+  ],
+  [
+   "sauternes.js",
+   "tools/harvest.py",
+   "reads"
+  ],
+  [
+   "sauternes.js",
+   "tools/sheetreader.py",
+   "reads"
+  ],
+  [
+   "scope/authoritative-universe.json",
+   "tools/build-universe.py",
+   "reads"
+  ],
+  [
+   "scope/authoritative-universe.json",
+   "tools/compare-universe.py",
+   "reads"
+  ],
+  [
+   "scope/canonical-discrepancies.jsonl",
+   "tools/audit-structure.py",
+   "reads"
+  ],
+  [
+   "scope/canonical-discrepancies.jsonl",
+   "tools/compare-universe.py",
+   "reads"
+  ],
+  [
+   "scope/corpus-discrepancies.jsonl",
+   "tools/audit-structure.py",
+   "reads"
+  ],
+  [
+   "scope/corpus-discrepancies.jsonl",
+   "tools/compare-universe.py",
+   "reads"
+  ],
+  [
+   "service-worker.js",
+   "tools/check-language.py",
+   "reads"
+  ],
+  [
+   "sheet-expectations.json",
+   "tools/audit-consistency.py",
+   "reads"
+  ],
+  [
+   "site-recipes.json",
+   "tools/audit-structure.py",
+   "reads"
+  ],
+  [
+   "sources.json",
+   "tools/add-sheet.py",
+   "reads"
+  ],
+  [
+   "sources.json",
+   "tools/ask-site.py",
+   "reads"
+  ],
+  [
+   "sources.json",
+   "tools/audit-consistency.py",
+   "reads"
+  ],
+  [
+   "sources.json",
+   "tools/audit-estate.py",
+   "reads"
+  ],
+  [
+   "sources.json",
+   "tools/audit-multiwine.py",
+   "reads"
+  ],
+  [
+   "sources.json",
+   "tools/audit-provenance.py",
+   "reads"
+  ],
+  [
+   "sources.json",
+   "tools/audit-sources.py",
+   "reads"
+  ],
+  [
+   "sources.json",
+   "tools/audit-structure.py",
+   "reads"
+  ],
+  [
+   "sources.json",
+   "tools/build-fiche-links.py",
+   "reads"
+  ],
+  [
+   "sources.json",
+   "tools/build-workbook.py",
+   "reads"
+  ],
+  [
+   "sources.json",
+   "tools/census-conflicts.py",
+   "reads"
+  ],
+  [
+   "sources.json",
+   "tools/census.py",
+   "reads"
+  ],
+  [
+   "sources.json",
+   "tools/check-data.py",
+   "reads"
+  ],
+  [
+   "sources.json",
+   "tools/check-language.py",
+   "reads"
+  ],
+  [
+   "sources.json",
+   "tools/compare-universe.py",
+   "reads"
+  ],
+  [
+   "sources.json",
+   "tools/crawl-pages.py",
+   "reads"
+  ],
+  [
+   "sources.json",
+   "tools/datapoints.py",
+   "reads"
+  ],
+  [
+   "sources.json",
+   "tools/diagnose-second-mode.py",
+   "reads"
+  ],
+  [
+   "sources.json",
+   "tools/dryrun-second-identity.py",
+   "reads"
+  ],
+  [
+   "sources.json",
+   "tools/echo-baseline.py",
+   "reads"
+  ],
+  [
+   "sources.json",
+   "tools/estate-report.py",
+   "reads"
+  ],
+  [
+   "sources.json",
+   "tools/evidence-wines.py",
+   "reads"
+  ],
+  [
+   "sources.json",
+   "tools/evidence.py",
+   "reads"
+  ],
+  [
+   "sources.json",
+   "tools/find-doc-urls.py",
+   "reads"
+  ],
+  [
+   "sources.json",
+   "tools/find-vintages.py",
+   "reads"
+  ],
+  [
+   "sources.json",
+   "tools/harvest.py",
+   "reads"
+  ],
+  [
+   "sources.json",
+   "tools/merge-proposals.py",
+   "reads"
+  ],
+  [
+   "sources.json",
+   "tools/missing-fiches.py",
+   "reads"
+  ],
+  [
+   "sources.json",
+   "tools/progress.py",
+   "reads"
+  ],
+  [
+   "sources.json",
+   "tools/promote-urls.py",
+   "reads"
+  ],
+  [
+   "sources.json",
+   "tools/propose.py",
+   "reads"
+  ],
+  [
+   "sources.json",
+   "tools/read-fiches.py",
+   "reads"
+  ],
+  [
+   "sources.json",
+   "tools/read-plantings.py",
+   "reads"
+  ],
+  [
+   "sources.json",
+   "tools/read-sheets.py",
+   "reads"
+  ],
+  [
+   "sources.json",
+   "tools/read-terroir.py",
+   "reads"
+  ],
+  [
+   "sources.json",
+   "tools/recharacterize.py",
+   "reads"
+  ],
+  [
+   "sources.json",
+   "tools/recheck-sources.py",
+   "reads"
+  ],
+  [
+   "sources.json",
+   "tools/reconcile.py",
+   "reads"
+  ],
+  [
+   "sources.json",
+   "tools/recover-urls.py",
+   "reads"
+  ],
+  [
+   "sources.json",
+   "tools/refile-wine.py",
+   "reads"
+  ],
+  [
+   "sources.json",
+   "tools/refile.py",
+   "reads"
+  ],
+  [
+   "sources.json",
+   "tools/to-translate.py",
+   "reads"
+  ],
+  [
+   "sources.json",
+   "tools/unread.py",
+   "reads"
+  ],
+  [
+   "sources.json",
+   "tools/whose-site.py",
+   "reads"
+  ],
+  [
+   "sources.json",
+   "tools/wine-identity.py",
+   "reads"
+  ],
+  [
+   "terroir.js",
+   "tools/audit-structure.py",
+   "reads"
+  ],
+  [
+   "terroir.js",
+   "tools/read-terroir.py",
+   "reads"
+  ],
+  [
+   "tools/add-dutch.py",
+   "fiches-nl.js",
+   "writes"
+  ],
+  [
+   "tools/add-sheet.py",
+   "sources.json",
+   "writes"
+  ],
+  [
+   "tools/add-wine.py",
+   "cuvees.js",
+   "writes"
+  ],
+  [
+   "tools/attribute.py",
+   "attribution-candidates.jsonl",
+   "writes"
+  ],
+  [
+   "tools/audit-consistency.py",
+   "sheet-expectations.json",
+   "writes"
+  ],
+  [
+   "tools/audit-grand-marks.py",
+   "phase28-grand-audit.jsonl",
+   "writes"
+  ],
+  [
+   "tools/audit-multiwine.py",
+   "sources.json",
+   "writes"
+  ],
+  [
+   "tools/audit-provenance.py",
+   "provenance-audit.jsonl",
+   "writes"
+  ],
+  [
+   "tools/audit-structure.py",
+   "audit/phase31-structure.json",
+   "writes"
+  ],
+  [
+   "tools/build-fiche-links.py",
+   "cuvee-url.js",
+   "writes"
+  ],
+  [
+   "tools/build-fiche-links.py",
+   "fiches-url.js",
+   "writes"
+  ],
+  [
+   "tools/build-universe.py",
+   "scope/authoritative-universe.json",
+   "writes"
+  ],
+  [
+   "tools/census-compact.py",
+   "artifact-census.jsonl",
+   "writes"
+  ],
+  [
+   "tools/compare-universe.py",
+   "scope/canonical-discrepancies.jsonl",
+   "writes"
+  ],
+  [
+   "tools/compare-universe.py",
+   "scope/corpus-discrepancies.jsonl",
+   "writes"
+  ],
+  [
+   "tools/compare-v3.py",
+   "v3-recharacterization.jsonl",
+   "writes"
+  ],
+  [
+   "tools/compare-v4.py",
+   "v3-v4-comparison.jsonl",
+   "writes"
+  ],
+  [
+   "tools/compare-v5.py",
+   "v4-v5-comparison.json",
+   "writes"
+  ],
+  [
+   "tools/conflicts-v4.py",
+   "v4-identity-conflicts.jsonl",
+   "writes"
+  ],
+  [
+   "tools/conflicts.py",
+   "field-conflicts.jsonl",
+   "writes"
+  ],
+  [
+   "tools/crawl-pages.py",
+   "sources.json",
+   "writes"
+  ],
+  [
+   "tools/dryrun-grand-identity.py",
+   "phase29-grand-dryrun.json",
+   "writes"
+  ],
+  [
+   "tools/dryrun-second-identity.py",
+   "phase26-impact.jsonl",
+   "writes"
+  ],
+  [
+   "tools/echo-baseline.py",
+   "echo-baseline.jsonl",
+   "writes"
+  ],
+  [
+   "tools/evidence_store.py",
+   "evidence/",
+   "writes"
+  ],
+  [
+   "tools/evidence_store.py",
+   "index.json",
+   "writes"
+  ],
+  [
+   "tools/find-doc-urls.py",
+   "sources.json",
+   "writes"
+  ],
+  [
+   "tools/harvest.py",
+   "sources.json",
+   "writes"
+  ],
+  [
+   "tools/merge-proposals.py",
+   "fiches.js",
+   "writes"
+  ],
+  [
+   "tools/merge-proposals.py",
+   "sources.json",
+   "writes"
+  ],
+  [
+   "tools/promote-urls.py",
+   "sources.json",
+   "writes"
+  ],
+  [
+   "tools/propose.py",
+   "proposals.jsonl",
+   "writes"
+  ],
+  [
+   "tools/read-fiches.py",
+   "cuvee-src.js",
+   "writes"
+  ],
+  [
+   "tools/read-fiches.py",
+   "cuvees.js",
+   "writes"
+  ],
+  [
+   "tools/read-fiches.py",
+   "fiches.js",
+   "writes"
+  ],
+  [
+   "tools/read-fiches.py",
+   "field-src.js",
+   "writes"
+  ],
+  [
+   "tools/read-plantings.py",
+   "plantings.js",
+   "writes"
+  ],
+  [
+   "tools/read-sheets.py",
+   "fiches.js",
+   "writes"
+  ],
+  [
+   "tools/read-sheets.py",
+   "sources.json",
+   "writes"
+  ],
+  [
+   "tools/read-terroir.py",
+   "cellar.js",
+   "writes"
+  ],
+  [
+   "tools/read-terroir.py",
+   "terroir.js",
+   "writes"
+  ],
+  [
+   "tools/recheck-sources.py",
+   "sources.json",
+   "writes"
+  ],
+  [
+   "tools/recover-urls.py",
+   "sources.json",
+   "writes"
+  ],
+  [
+   "tools/refile-wine.py",
+   "sources.json",
+   "writes"
+  ],
+  [
+   "tools/wine-identity.py",
+   "wine-identity.jsonl",
+   "writes"
+  ],
+  [
+   "v3-recharacterization.jsonl",
+   "tools/audit-structure.py",
+   "reads"
+  ],
+  [
+   "v3-recharacterization.jsonl",
+   "tools/compare-v3.py",
+   "reads"
+  ],
+  [
+   "v3-v4-comparison.jsonl",
+   "tools/audit-structure.py",
+   "reads"
+  ],
+  [
+   "v3-v4-comparison.jsonl",
+   "tools/compare-v4.py",
+   "reads"
+  ],
+  [
+   "v4-identity-conflicts.jsonl",
+   "tools/audit-structure.py",
+   "reads"
+  ],
+  [
+   "v4-identity-conflicts.jsonl",
+   "tools/conflicts-v4.py",
+   "reads"
+  ],
+  [
+   "v4-v5-comparison.json",
+   "tools/audit-structure.py",
+   "reads"
+  ],
+  [
+   "v4-v5-comparison.json",
+   "tools/compare-v5.py",
+   "reads"
+  ],
+  [
+   "vintages-nl.js",
+   "tools/audit-structure.py",
+   "reads"
+  ],
+  [
+   "vintages.js",
+   "tools/audit-structure.py",
+   "reads"
+  ],
+  [
+   "vintages.js",
+   "tools/build-workbook.py",
+   "reads"
+  ],
+  [
+   "vintages.js",
+   "tools/progress.py",
+   "reads"
+  ],
+  [
+   "water.js",
+   "tools/audit-structure.py",
+   "reads"
+  ],
+  [
+   "website-audit.json",
+   "tools/audit-websites.py",
+   "reads"
+  ],
+  [
+   "websites.js",
+   "tools/ask-site.py",
+   "reads"
+  ],
+  [
+   "websites.js",
+   "tools/audit-structure.py",
+   "reads"
+  ],
+  [
+   "websites.js",
+   "tools/audit-websites.py",
+   "reads"
+  ],
+  [
+   "websites.js",
+   "tools/crawl-pages.py",
+   "reads"
+  ],
+  [
+   "websites.js",
+   "tools/find-vintages.py",
+   "reads"
+  ],
+  [
+   "websites.js",
+   "tools/harvest.py",
+   "reads"
+  ],
+  [
+   "websites.js",
+   "tools/recover-urls.py",
+   "reads"
+  ],
+  [
+   "websites.js",
+   "tools/whose-site.py",
+   "reads"
+  ],
+  [
+   "wine-identity.jsonl",
+   "tools/audit-structure.py",
+   "reads"
+  ],
+  [
+   "wine-identity.jsonl",
+   "tools/echo-baseline.py",
+   "reads"
+  ],
+  [
+   "wine-identity.jsonl",
+   "tools/propose.py",
+   "reads"
+  ],
+  [
+   "wine-identity.jsonl",
+   "tools/wine-identity.py",
+   "reads"
+  ],
+  [
+   "x.js",
+   "tools/audit-structure.py",
+   "reads"
+  ]
+ ],
+ "tool_cycles": [
+  [
+   "tools/add-sheet.py",
+   "tools/add-wine.py",
+   "tools/audit-multiwine.py",
+   "tools/crawl-pages.py",
+   "tools/find-doc-urls.py",
+   "tools/harvest.py",
+   "tools/merge-proposals.py",
+   "tools/promote-urls.py",
+   "tools/read-fiches.py",
+   "tools/read-sheets.py",
+   "tools/recheck-sources.py",
+   "tools/recover-urls.py",
+   "tools/refile-wine.py"
+  ]
+ ],
+ "tools_rewriting_their_own_input": [
+  "tools/add-dutch.py",
+  "tools/add-sheet.py",
+  "tools/add-wine.py",
+  "tools/attribute.py",
+  "tools/audit-consistency.py",
+  "tools/audit-grand-marks.py",
+  "tools/audit-multiwine.py",
+  "tools/audit-provenance.py",
+  "tools/audit-structure.py",
+  "tools/build-fiche-links.py",
+  "tools/build-universe.py",
+  "tools/census-compact.py",
+  "tools/compare-universe.py",
+  "tools/compare-v3.py",
+  "tools/compare-v4.py",
+  "tools/compare-v5.py",
+  "tools/conflicts-v4.py",
+  "tools/conflicts.py",
+  "tools/crawl-pages.py",
+  "tools/dryrun-grand-identity.py",
+  "tools/dryrun-second-identity.py",
+  "tools/echo-baseline.py",
+  "tools/evidence_store.py",
+  "tools/find-doc-urls.py",
+  "tools/harvest.py",
+  "tools/merge-proposals.py",
+  "tools/promote-urls.py",
+  "tools/propose.py",
+  "tools/read-fiches.py",
+  "tools/read-plantings.py",
+  "tools/read-sheets.py",
+  "tools/read-terroir.py",
+  "tools/recheck-sources.py",
+  "tools/recover-urls.py",
+  "tools/refile-wine.py",
+  "tools/wine-identity.py"
+ ],
+ "measures": {
+  "manifest": {
+   "rows": 13032,
+   "distinct_folder_file": 12771,
+   "distinct_basename": 11944,
+   "distinct_sha1": 12019,
+   "rows_with_url": 6783,
+   "rows_without_estate": 908,
+   "basenames_in_more_than_one_row": 852,
+   "fields": [
+    "bytes",
+    "colour",
+    "estate",
+    "estateName",
+    "file",
+    "folder",
+    "how",
+    "note",
+    "role",
+    "sha1",
+    "slug",
+    "url",
+    "wine",
+    "year"
+   ],
+   "roles": {
+    "unknown": 4368,
+    "grand": 2566,
+    "second": 1387,
+    "skip": 1097,
+    "other": 1502,
+    "group report": 14,
+    "page": 2096,
+    "combined": 2
+   }
+  },
+  "field-src.js": {
+   "records": 2277,
+   "field_values": 5845,
+   "distinct_documents_named": 2808,
+   "names_matching_more_than_one_manifest_row": 146,
+   "of_which_rows_differ_in_bytes": 46,
+   "of_which_rows_differ_in_estate": 40,
+   "field_values_naming_an_ambiguous_document": 301,
+   "names_not_in_manifest": 0,
+   "provenance_carries_folder_or_hash": false
+  },
+  "cuvee-src.js": {
+   "records": 977,
+   "field_values": 2679,
+   "distinct_documents_named": 1181,
+   "names_matching_more_than_one_manifest_row": 32,
+   "of_which_rows_differ_in_bytes": 26,
+   "of_which_rows_differ_in_estate": 0,
+   "field_values_naming_an_ambiguous_document": 63,
+   "names_not_in_manifest": 0,
+   "provenance_carries_folder_or_hash": false
+  },
+  "records": {
+   "fiches_key_parts": {
+    "2": 2725
+   },
+   "fiches_records": 2725,
+   "cuvees_key_parts": {
+    "3": 1174
+   },
+   "cuvee_records": 1174,
+   "cuvee_wines_listed": 135,
+   "cuvee_wine_roles": {
+    "other": 58,
+    "second": 77
+   }
+  },
+  "estate_record": {
+   "chateaux_fields": [
+    "appellation",
+    "blend",
+    "cat",
+    "commune",
+    "growth",
+    "ha",
+    "id",
+    "lat",
+    "lng",
+    "name",
+    "owner",
+    "perf",
+    "second",
+    "style"
+   ],
+   "owner_is_one_string": true,
+   "second_is_one_string": true
+  },
+  "identity": {
+   "sparse_ids_from_name_in_app_js": true,
+   "sparse_ids_from_name_in_sheetreader": true,
+   "cls_defaulted_from_cat_in_app_js": true
+  }
+ }
+}

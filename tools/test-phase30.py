@@ -53,17 +53,31 @@ def jsonl(p):
     return [json.loads(l) for l in io.open(ROOT + p, encoding='utf-8') if l.strip()]
 
 
-# 1-3. what moved since Phase 2 closed
-changed = set(git(['diff', '--name-only', BASE]).split()) | set(
-    l[3:] for l in git(['status', '--porcelain=v1', '--untracked-files=all']).splitlines())
-says('since %s only Phase 3.0\'s own files changed' % BASE, changed <= OWN,
+def phase_changes(base, subject):
+    """The files this phase changed: its own commits after `base` (by
+    subject) or, while it has none yet, the working tree. A later phase's
+    files are not this phase's business - checking the whole tree since
+    `base` failed as soon as Phase 3.1 began."""
+    log = [l.split(' ', 1) for l in git(['log', '--format=%H %s', base + '..HEAD']).splitlines()]
+    mine = [h for h, s in log if s.startswith(subject)]
+    files = set()
+    for h in mine:
+        files |= set(git(['diff-tree', '--no-commit-id', '--name-only', '-r', h]).split())
+    if not mine:
+        files |= set(l[3:] for l in git(['status', '--porcelain=v1',
+                                          '--untracked-files=all']).splitlines())
+    return files
+
+
+# 1-3. what Phase 3.0 moved
+changed = phase_changes(BASE, 'Phase 3.0')
+says('Phase 3.0 changed only its own files', changed <= OWN,
      ', '.join(sorted(changed - OWN))[:40])
-out = git(['diff', '--name-only', BASE, '--'] + list(CANON) +
-          ['data/proposals.jsonl', 'data/attribution-candidates.jsonl']).strip()
-says('canonical files and Phase 2 proposals unchanged', out == '', out[:30])
-out = git(['diff', '--name-only', BASE, '--', 'data/evidence/']).strip()
+out = changed & set(CANON + ('data/proposals.jsonl', 'data/attribution-candidates.jsonl'))
+says('canonical files and Phase 2 proposals unchanged', not out, ', '.join(out)[:30])
+out = {f for f in changed if f.startswith('data/evidence/')}
 says('the evidence store is as at %s, verifies, 177,127 decisions, no v6' % BASE,
-     out == '' and ST.verify() == [] and sum(1 for _ in ST.iter_rows()) == 177127
+     not out and ST.verify() == [] and sum(1 for _ in ST.iter_rows()) == 177127
      and ST.versions() == [1, 2, 3, 4, 5]
      and not any(re.match(r'(decisions|provenance-failures)-v6', f)
                  for f in os.listdir(ROOT + 'data/evidence')))

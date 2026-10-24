@@ -2928,6 +2928,22 @@ function openDrawer(id) {
         }).join('') +
       '</div></div>';
 
+  /* Older than the vintage file, and only where there is something.
+     Kept in its own section so the span in the heading above stays
+     true and these rows are not mistaken for rated ones. */
+  var early = state.wine === 'grand' ? earlyYears(ch) : [];
+  if (early.length) {
+    body +=
+      '<div class="section"><h3>Earlier vintages, ' +
+        early[early.length - 1] + '\u2013' + early[0] +
+        '<span class="hint">' + early.length +
+        ' with a record \u00b7 no rating or window before ' +
+        YEARS[YEARS.length - 1] + '</span></h3>' +
+        '<div class="vintagelist">' +
+          early.map(function (yr) { return earlyRow(ch, yr); }).join('') +
+        '</div></div>';
+  }
+
   el.drawerBody.innerHTML = body;
   el.drawerBody.scrollTop = 0;
   el.drawer.classList.add('is-open');
@@ -3305,13 +3321,18 @@ function seasonBlock(ch, yr, v, o, slug) {
      was drawn in, so Sarget's row carried Gruaud-Larose's words
      under Sarget's name. */
   var f = wineFiche(ch, slug || 'grand', yr);
-  var weather = (f && f.note) ? f.note : vintage(yr).weather;
+  /* Nothing before 1982: the vintage file starts there, and these
+     paragraphs are the region's rather than the estate's. An old
+     vintage shows the estate's own words and no stand-in. */
+  var v0 = vintage(yr) || {};
+  var weather = (f && f.note) ? f.note : v0.weather;
   /* ntl and ttl mark a passage the estate published in French and that is
      shown here in English. It is still the estate's note, so it is said on
      the line that was already there rather than announced separately. */
   var wSrc = (f && f.note) ? (f.ntl ? 'this estate, translated' : 'this estate')
                            : 'Bordeaux';
-  var wine = (f && f.taste) ? f.taste : ((o && o.note) ? o.note : vintage(yr).report);
+  var wine = (f && f.taste) ? f.taste
+    : ((o && o.note) ? o.note : v0.report);
   /* The sheet is the estate's own either way; what changes is where it
      was got. A sheet a chateau does not publish, taken from the house
      that sells its wine, is still the chateau's words - but saying so
@@ -3324,16 +3345,22 @@ function seasonBlock(ch, yr, v, o, slug) {
   /* Only the estate's own lines get the link: the regional account and a
      reported note did not come off this estate's sheet, so pointing at
      one would be a false citation. */
-  return '<p class="subhead">The ' + yr + ' season</p>' +
-    '<p class="vintagereport">' + weather + '</p>' +
-    '<p class="src">' +
-      ((f && f.note) ? srcLine(ch, yr, wSrc, slug) : wSrc) + '</p>' +
-    '<p class="vintagereport">' + wine + '</p>' +
-    '<p class="src">' +
-      ((f && f.taste) ? srcLine(ch, yr, tSrc, slug) : tSrc) + '</p>' +
-    aromaWheel(englishTaste(ch, yr, slug) || wine) +
+  var out = '';
+  if (weather) {
+    out += '<p class="vintagereport">' + weather + '</p>' +
+      '<p class="src">' +
+        ((f && f.note) ? srcLine(ch, yr, wSrc, slug) : wSrc) + '</p>';
+  }
+  if (wine) {
+    out += '<p class="vintagereport">' + wine + '</p>' +
+      '<p class="src">' +
+        ((f && f.taste) ? srcLine(ch, yr, tSrc, slug) : tSrc) + '</p>';
+  }
+  var tail = aromaWheel(englishTaste(ch, yr, slug) || wine || '') +
     phenologyLine(yr, ch) +
     appellationLine(ch, yr);
+  if (!out && !tail) return '';
+  return '<p class="subhead">The ' + yr + ' season</p>' + out + tail;
 }
 
 /* ------------------------------- the cellar ------------------------------ */
@@ -3927,6 +3954,53 @@ function vintageRow(ch, yr) {
    on the grand vin. What a second wine's sheet does carry - its own
    blend, its alcohol, its time in wood - is what this shows, and a year
    with no sheet says so rather than pretending to be empty. */
+/* The vintages older than the vintage file, for the estates that have
+   any. Only the years with a record: 1945 to 1981 is 37 further rows,
+   and of 468 estates eleven hold anything at all, so a grid would be
+   37 rows of "no record" at every other estate. */
+function earlyYears(ch) {
+  var F = window.BDX_FICHES || {}, out = [], floor = YEARS[YEARS.length - 1];
+  for (var k in F) {
+    var p = k.split('|');
+    if (p[0] !== ch.id) continue;
+    var y = parseInt(p[1], 10);
+    if (y && y < floor) out.push(y);
+  }
+  return out.sort(function (a, b) { return b - a; });
+}
+
+/* One of them. No score and no maturity: both are the appellation's
+   reading of the year and there is none before 1982. Everything else
+   is the estate's own and is drawn by the blocks the grand vin uses. */
+function earlyRow(ch, yr) {
+  var f = fiche(ch, yr);
+  if (!f) return '';
+  var bits = [];
+  if (f.alc) bits.push(f.alc + '%');
+  if (f.months) bits.push(f.months + ' months in barrel');
+  if (f.yld) bits.push(f.yld + ' hl/ha');
+  var teaser = bits.join(' · ');
+  if (!teaser) {
+    /* The first clause of whatever the estate said, so the collapsed
+       row is worth running an eye down. */
+    var t = f.taste || f.note || '';
+    teaser = t ? escText(t).slice(0, 90) + (t.length > 90 ? '…' : '') : '';
+  }
+  return '<div class="vrow" data-year="' + yr + '" ' +
+      'style="border-left:3px solid var(--border-strong)">' +
+    '<button class="vrow-head"><span class="yr">' + yr + '</span>' +
+      '<span class="sc"></span>' +
+      '<span class="mat mat-none"></span>' +
+      '<span class="teaser">' + heldMark(ch, 'grand', yr) + teaser + '</span>' +
+      '<span class="chev">▾</span></button>' +
+    '<div class="vrow-body">' +
+      fichesBlock(ch, yr) +
+      drinkBlock(ch, yr) +
+      bottleControl(ch, 'grand', yr) +
+      seasonBlock(ch, yr, null, null) +
+    '</div></div>';
+}
+
 function cuveeRow(ch, slug, yr) {
   var f = wineFiche(ch, slug, yr);
   var v = V[yr];

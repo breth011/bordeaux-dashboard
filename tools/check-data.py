@@ -401,15 +401,27 @@ if known:
 # "Blend : 60% Cabernet Sauvignon, 40% Merlot" for the vintage and
 # "Encepagement : 65% / 33% / 2%" for the vineyard. 60/40 matches no
 # planting, so nothing is said about it.
+#
+# And HOW each one is known, because that decides what a match means.
+# plantings.js holds two different things under one key: 43 entries read
+# off the estate's own sheets under a vineyard label, and 50 copied from
+# chateaux.js's `blend`, which is the estate's typical ASSEMBLAGE. A
+# vintage equal to the first is a wine that matches its vineyard. A
+# vintage equal to the second is a wine that matches the estate's usual
+# wine, which is not news. They are counted apart below.
 PLANTINGS = {}
+PLANT_HOW = {}
 _p = os.path.join(ROOT, 'data', 'plantings.js')
 if os.path.exists(_p):
     for _line in io.open(_p, encoding='utf-8'):
-        _m = re.match(r"^'([a-z0-9-]+)':\{blend:\{([^}]*)\}", _line.rstrip())
+        _m = re.match(r"^'([a-z0-9-]+)':\{blend:\{([^}]*)\}(.*)",
+                      _line.rstrip())
         if _m:
             PLANTINGS[_m.group(1)] = tuple(sorted(
                 (k, float(v)) for k, v in
                 re.findall(r"([A-Z]+):([\d.]+)", _m.group(2))))
+            _h = re.search(r"how:'([a-z]+)'", _m.group(3))
+            PLANT_HOW[_m.group(1)] = _h.group(1) if _h else '?'
 
 #
 # Reported, NOT failed. The first version of this counted as a defect
@@ -441,7 +453,8 @@ if PLANTINGS:
         other = [b for y, b in years.items() if b != planted]
         if not same or not other:
             continue
-        plant_hits.append((eid, same, planted))
+        plant_hits.append((eid, same, planted,
+                           PLANT_HOW.get(eid, '?')))
 
 # ---------------------------------------------------------------------
 # THE APPELLATION THE SHEET STATES, against the one the estate is
@@ -502,18 +515,38 @@ if app_hits:
     if len(app_hits) > 18:
         print('   ... and %d more' % (len(app_hits) - 18))
 
-if plant_hits:
-    print('\n%d estates have a vintage whose blend is exactly what the '
-          'vineyard is planted with.\nSome of these are right - an estate '
-          'planted 80/20 may well blend 80/20 - so this is\na list to '
-          'glance at, not a complaint:' % len(plant_hits))
-    for eid, same, planted in plant_hits[:18]:
+_read_hits = [h for h in plant_hits if h[3] == 'read']
+_decl_hits = [h for h in plant_hits if h[3] != 'read']
+
+
+def _plant_lines(hits):
+    for eid, same, planted, _how in hits[:18]:
         print('   %-34s %-22s %s'
               % (eid[:34],
                  ','.join('%s%g' % kv for kv in planted)[:22],
                  ','.join(same)[:30]))
-    if len(plant_hits) > 18:
-        print('   ... and %d more' % (len(plant_hits) - 18))
+    if len(hits) > 18:
+        print('   ... and %d more' % (len(hits) - 18))
+
+
+if _read_hits:
+    print('\n%d estates have a vintage whose blend is exactly what the '
+          'vineyard is planted with,\nread off the estate\'s own sheets '
+          'under a vineyard label. Some of these are right -\nan estate '
+          'planted 80/20 may well blend 80/20 - so this is a list to '
+          'glance at,\nnot a complaint:' % len(_read_hits))
+    _plant_lines(_read_hits)
+
+if _decl_hits:
+    print('\n%d estates have a vintage whose blend equals the typical '
+          'assemblage declared\nfor them in chateaux.js. That is the '
+          'expected kind of coincidence and is listed\nonly so it is not '
+          'mistaken for the kind above: a wine matching its estate\'s '
+          'usual\nwine is not news. Pontet-Canet prints its assemblage '
+          'under "Grape varieties"\nand moves it every year - 17 figures '
+          'across 145 sheets - so its eight at\n65/30/4/1 are the '
+          'commonest one, not a planting:' % len(_decl_hits))
+    _plant_lines(_decl_hits)
 
 # Worth knowing, but not a defect: records whose estate the dashboard no
 # longer lists. The 2025 Cru Bourgeois revision cut 79 estates from 249,

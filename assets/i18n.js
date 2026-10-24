@@ -458,6 +458,8 @@
     'Saint-Émilion’s plateau': 'het plateau van Saint-Émilion',
     'the gravel that named the region': 'het grind dat de regio zijn naam gaf',
     'dry white between the rivers': 'droge witte wijn tussen de rivieren',
+    'The Médoc beyond the lists': 'De Médoc buiten de lijsten',
+    'the gravel of Grand-Poujeaux': 'het grind van Grand-Poujeaux',
 
     /* the settings panel */
     'English': 'English',

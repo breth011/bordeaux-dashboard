@@ -1,6 +1,6 @@
 'use strict';
 
-var CACHE_NAME = 'bordeaux-classified-v167';
+var CACHE_NAME = 'bordeaux-classified-v168';
 var APP_SHELL = [
   './',
   './index.html',
@@ -18,6 +18,7 @@ var APP_SHELL = [
   './assets/icon.svg',
   './data/batch2.js',
   './data/batch3.js',
+  './data/batch4.js',
   './data/chateaux.js',
   './data/classifications.js',
   './data/grapes.js',

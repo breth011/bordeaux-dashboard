@@ -723,6 +723,17 @@ window.BDX_CLASSIFICATION_NOTES = {
     + 'separate appellation and a separate list.',
   revision: 'Nothing to revise.',
   sources: 'Taste France; The Wine Cellar Insider'
+},
+
+'medoc-hors': {
+  official: false,
+  origin:
+    'These Médoc estates are on no official list. Chasse-Spleen was a Cru '
+    + 'Bourgeois Exceptionnel from 1932 until the courts annulled that '
+    + 'classification in 2007, and it is not on the 2025 list. The groups '
+    + 'below are appellations, not ranks.',
+  revision: 'There is no classification here to revise.',
+  sources: 'Wikipedia; The Wine Cellar Insider'
 }
 
 };

@@ -157,10 +157,17 @@ def main():
             lines[n] = "'%s':{%s}," % (key, body)
             have[key] = (n, got)
         else:
-            # New rows go at the end; the file is not sorted and the
-            # reader does not care.
-            lines.append("'%s':{%s}," % (key, chunk))
-            have[key] = (len(lines) - 1, {field: chunk})
+            # New rows go at the end of the OBJECT - before its closing
+            # '};', not after it. Appending to the file put 88 rows
+            # outside the object, which is a syntax error, and the
+            # browser then dropped the whole file: every Dutch fiche
+            # field on the site was gone, not only the new ones.
+            # The file is not sorted and the reader does not care.
+            at = max(i for i, l in enumerate(lines) if l.strip() == '};')
+            lines.insert(at, "'%s':{%s}," % (key, chunk))
+            have = dict((k, (n2 + 1 if n2 >= at else n2, g))
+                        for k, (n2, g) in have.items())
+            have[key] = (at, {field: chunk})
 
     io.open(ROOT + 'data/fiches-nl.js', 'w', encoding='utf-8',
             newline='').write('\n'.join(lines))

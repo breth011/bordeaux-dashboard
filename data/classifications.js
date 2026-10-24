@@ -75,7 +75,7 @@ window.BDX_CLASSIFICATIONS = [
 },
 {
   id: 'libournais', name: 'Fronsac & Lalande-de-Pomerol',
-  region: 'Right Bank \u2014 Libournais', year: null, cat: 'red', estates: 15,
+  region: 'Right Bank \u2014 Libournais', year: null, cat: 'red', estates: 16,
   editorial: true,
   blurb: 'The appellations around Saint-\u00c9milion and Pomerol that were never classified \u2014 and where the clay-limestone can be as good as the ground two kilometres south.',
   detail: 'None of these appellations has a classification. The groups below are appellations, not ranks. Fronsac sold for more than Saint-\u00c9milion in the eighteenth century, fell away after phylloxera, and has been climbing back since the late 1970s. Lalande-de-Pomerol sits across the Barbanne stream from Pomerol itself, on the same N\u00e9ac gravel.',
@@ -115,6 +115,16 @@ window.BDX_CLASSIFICATIONS = [
   detail: 'Properties are typically under five hectares and family-run. Admission turns on an estate visit and a blind tasting. The roster shown is the 2006 homologation plus the 2012 additions; later revisions have trimmed it.',
   tiers: [
     { growth: 1, label: 'Crus Artisans', note: 'no ranking within the list', base: 86.5 }
+  ]
+},
+{
+  id: 'medoc-hors', name: 'The Médoc beyond the lists', region: 'Médoc',
+  year: null, cat: 'red', estates: 1,
+  editorial: true,
+  blurb: 'Médoc estates on none of the official lists \u2014 some because they left the Crus Bourgeois \u2014 that are still among the best-known names on the Left Bank.',
+  detail: 'None of these is classified; the groups below are appellations, not ranks. The courts annulled the Cru Bourgeois classification in 2007, and several of its leading estates did not return when it was rebuilt. The 1855 list has been closed since Mouton\u2019s promotion in 1973.',
+  tiers: [
+    { growth: 1, label: 'Moulis-en-Médoc', note: 'the gravel of Grand-Poujeaux', base: 90 }
   ]
 }
 ];

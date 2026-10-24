@@ -276,7 +276,8 @@ var SHORT_RANK = {
   'libournais': ['', 'Fronsac', 'Canon-Fronsac', 'Lalande-de-Pomerol'],
   'cotes':      ['', 'Côtes de Bourg', 'Blaye Côtes de Bordeaux',
                  'Castillon Côtes de Bordeaux'],
-  'graves-doux': ['', 'Graves', '', 'Entre-Deux-Mers']
+  'graves-doux': ['', 'Graves', '', 'Entre-Deux-Mers'],
+  'medoc-hors': ['', 'Moulis-en-Médoc']
 };
 function rankLabel(ch) {
   var a = SHORT_RANK[ch.cls];

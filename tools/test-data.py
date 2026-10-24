@@ -232,6 +232,51 @@ check('manifest rows duplicating another row exactly',
       'two rows for one file in one folder: every manifest count is '
       'inflated by this much')
 
+# Found 2026-10-24 by loading the site in a browser, not by any test:
+# data/fiches-nl.js had 88 rows written after its closing '};' and
+# data/websites.js had '#' comments, and each is a syntax error that
+# makes the browser drop the WHOLE file. Python cannot run JavaScript,
+# so this checks the two shapes that broke, which are the shapes a
+# Python tool writing a .js file gets wrong.
+import glob
+bad_hash, bad_tail = [], []
+for f in sorted(glob.glob(ROOT + 'data/*.js')):
+    txt = io.open(f, encoding='utf-8').read()
+    name = os.path.basename(f)
+    if re.search(r'(?m)^#', txt):
+        bad_hash.append(name)
+    # After the last top-level close, only comments and blank lines.
+    closes = list(re.finditer(r'(?m)^(?:\}|\]|\}\))\)?;\s*$', txt))
+    if closes:
+        rest = txt[closes[-1].end():]
+        rest = re.sub(r'(?s)/\*.*?\*/', '', rest)
+        rest = re.sub(r'(?m)^\s*//.*$', '', rest)
+        # Another statement after the close is fine (a file may set two
+        # globals); a bare object row is not.
+        if re.search(r"(?m)^'[^']*':\{", rest):
+            bad_tail.append(name)
+# Where Node is installed, ask the real parser as well: the two shapes
+# above are what broke, not everything that can.
+import shutil
+import subprocess
+node = shutil.which('node')
+if node:
+    unparsed = []
+    for f in sorted(glob.glob(ROOT + 'data/*.js')
+                    + glob.glob(ROOT + 'assets/*.js')
+                    + [ROOT + 'service-worker.js']):
+        if subprocess.call([node, '--check', f], stdout=subprocess.DEVNULL,
+                           stderr=subprocess.DEVNULL):
+            unparsed.append(os.path.basename(f))
+    check('JavaScript files Node cannot parse', len(unparsed), 0,
+          'fix: %s' % ', '.join(unparsed))
+else:
+    print('MISSING  node not on PATH - the full JavaScript parse is skipped')
+check('data files with "#" comments (not JavaScript)', len(bad_hash), 0,
+      'fix: %s' % ', '.join(bad_hash))
+check('data files with rows after their closing brace', len(bad_tail), 0,
+      'fix: %s' % ', '.join(bad_tail))
+
 print('\n%d check(s), %s'
       % (checks, 'all pass' if not fails
          else '%d FAILED: %s' % (len(fails), ', '.join(fails))))

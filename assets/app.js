@@ -920,12 +920,18 @@ function chateauById(id) {
    across the width. A vertical repeats its estate's appellation and rank in
    every column otherwise, which is four copies of a fact that is not what
    is being compared - but dropping the row would lose the fact, and it is
-   worth stating once. */
-function cmpRow(label, wines, value) {
+   worth stating once.
+
+   `perWine` turns that off, for a row where identical cells are not one
+   shared fact. Four wines' source sheets that happen to render the same
+   are four sheets, and one cell spanning the table would say they were
+   one. */
+function cmpRow(label, wines, value, perWine) {
   var cells = wines.map(value);
   var any = cells.some(function (c) { return c !== null && c !== ''; });
   if (!any) return '';
-  var same = wines.length > 1 && cells.every(function (c) { return c === cells[0]; });
+  var same = !perWine && wines.length > 1 &&
+    cells.every(function (c) { return c === cells[0]; });
   var body = same
     ? '<td class="cmp-same" colspan="' + wines.length + '">' + cells[0] + '</td>'
     : cells.map(function (c) {
@@ -1062,7 +1068,20 @@ function cmpTable(wines) {
     cmpRow('The estate on the wine', wines, function (w) {
       var f = fiche(w.ch, w.yr);
       return f && f.taste ? '<span class="cmp-prose">' + f.taste + '</span>' : null;
-    });
+    }) +
+    /* And the document all of it was read from. Last, the way the
+       drawer puts its sourcing last, and per wine rather than
+       collapsed: these are different sheets even where they render
+       alike. A dash where the address is not known, so the row means
+       one thing - this one can be opened. */
+    cmpRow('Sheet', wines, function (w) {
+      if (!ficheUrl(w.ch, w.yr, 'grand')) return null;
+      var f = fiche(w.ch, w.yr);
+      var label = 'the ' + w.yr + ' sheet' +
+        (f && f.via === 'trade' ? ', via the trade' : '');
+      return '<span class="fichelink">' +
+        srcLine(w.ch, w.yr, label, 'grand') + '</span>';
+    }, true);
 
   return '<div class="cmp-scroll"><table class="cmp cmp-' + wines.length + '">' +
     '<thead>' + head + '</thead><tbody>' + body + '</tbody></table></div>';

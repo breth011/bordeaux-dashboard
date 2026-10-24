@@ -131,6 +131,45 @@ def commit():
         return None
 
 
+def row_key(d):
+    """What makes one decision one decision.
+
+    Every part of this is here because leaving it out produced
+    duplicates, and the idempotence test found each one:
+
+      artifact               the obvious part
+      folder                 a basename occurs in more than one
+                             folder 888 times
+      estate, wine           the manifest's claim
+      field                  a record can hold a pin on two fields
+      vintage                the manifest's year
+      target_wine            WHICH of the estate's wines the reader
+      target_vintage         was asked about, and for which year.
+                             Phase 2 asked neither, so its rows carry
+                             None and never collide with Phase 2.1's.
+      target_role            AS WHAT it was asked. 102 estates list
+                             their second wine among their cuvees as
+                             well, so one wine is evaluated twice: as
+                             the second (a real verdict, via
+                             is_second) and as a named cuvee
+                             (GUARD_HAS_NO_CUVEE_MODE). Without the
+                             role in the key those two collided, and
+                             8,181 of the colliding pairs disagreed -
+                             so the collision was hiding a verdict,
+                             not de-duplicating one.
+      v                      the decider version
+
+    One function, used by the reader and the writer, because the three
+    previous versions of this key were two copies of a tuple and one of
+    them was always behind.
+    """
+    c = d.get('ctx', {}) or {}
+    return (d.get('artifact'), c.get('folder'), c.get('estate'),
+            c.get('wine'), c.get('field'), c.get('vintage'),
+            c.get('target_estate'), c.get('target_wine'),
+            c.get('target_role'), c.get('target_vintage'), d.get('v'))
+
+
 def existing_keys():
     """What is already recorded, so a re-run adds nothing."""
     seen = set()
@@ -145,10 +184,7 @@ def existing_keys():
                 d = json.loads(line)
             except Exception:
                 continue
-            c = d.get('ctx', {}) or {}
-            seen.add((d.get('artifact'), c.get('folder'),
-                      c.get('estate'), c.get('wine'),
-                      c.get('field'), c.get('vintage'), d.get('v')))
+            seen.add(row_key(d))
     return seen
 
 
@@ -338,14 +374,7 @@ def main():
 
     if a.write:
         seen = existing_keys()
-        # Keyed on the folder too: the same basename sits in more
-        # than one folder 888 times, so (file, estate, wine) is not
-        # a row identity.
-        fresh = [r for r in rows
-                 if (r['artifact'], r['ctx'].get('folder'),
-                     r['ctx'].get('estate'), r['ctx'].get('wine'),
-                     r['ctx'].get('field'), r['ctx'].get('vintage'),
-                     r['v']) not in seen]
+        fresh = [r for r in rows if row_key(r) not in seen]
         new = not os.path.exists(OUT)
         with io.open(OUT, 'a', encoding='utf-8', newline='') as f:
             if new:

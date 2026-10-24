@@ -81,9 +81,16 @@ if rows:
           sum(1 for r in rows if not (r.get('v') and r.get('reader'))), 0,
           'a refusal is what one version of one rule concluded, not a '
           'fact about the document')
+    # The estate it was evaluated as is in `estate` for an artifact the
+    # manifest attributes, and in `target_estate` for one of the 908
+    # it does not - where the folder's estate is used as a labelled
+    # hypothesis and `estate` stays None on purpose, so nobody mistakes
+    # the folder for the manifest.
     check('refusals with no identity context',
           sum(1 for r in refused
-              if not (r.get('ctx') or {}).get('estate', 'x')), 0,
+              if not ((r.get('ctx') or {}).get('estate')
+                      or (r.get('ctx') or {}).get('target_estate')
+                      or 'estate' not in (r.get('ctx') or {}))), 0,
           'a refusal that does not say what it was evaluated as')
     check('refusals that lost their original wording',
           sum(1 for r in refused if r.get('raw') is None), 0,
@@ -109,13 +116,18 @@ if rows:
     # pass reproduces them. The invariant is therefore "no more
     # duplicates than the manifest itself has", which stays true - and
     # tightens automatically - if the manifest is ever cleaned.
-    seen = collections.Counter(
-        (r.get('artifact'), (r.get('ctx') or {}).get('folder'),
-         (r.get('ctx') or {}).get('estate'),
-         (r.get('ctx') or {}).get('wine'),
-         (r.get('ctx') or {}).get('field'),
-         (r.get('ctx') or {}).get('vintage'), r.get('v'))
-        for r in rows)
+    #
+    # And a fourth time, in THIS file: the tuple above was a private
+    # copy of the key, and when Phase 2.1 added the target context to
+    # evidence.py this copy did not follow, so every contextual
+    # decision looked like a duplicate of the others for its artifact
+    # - 28,702 of them. The key is now imported, so there is one.
+    #
+    # Scoped to version 1: this file tests the Phase 2 pass.
+    # test-phase21.py tests the contextual one.
+    import evidence as _EV
+    seen = collections.Counter(_EV.row_key(r) for r in rows
+                               if r.get('v') == 1)
     man_dupes = 0
     try:
         _m = json.load(io.open(ROOT + 'data/sources.json',

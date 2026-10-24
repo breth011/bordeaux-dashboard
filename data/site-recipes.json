@@ -13,41 +13,168 @@
   "is a finding worth keeping, because 'this estate publishes no fiche' is",
   "the answer to a question that otherwise gets asked every year.",
   "",
-  "`watch` is what went wrong last time and would go wrong again."
+  "`watch` is what went wrong last time and would go wrong again.",
+  "",
+  "A site that publishes for more than one estate. `serves` lists them. This is evidence about the source, not a rule: the estate of a document is still decided by reading the document."
  ],
- "margaux": {
-  "site": "https://chateau-margaux.com",
+ "chateau-poitevin": {
   "checked": "2026-10-24",
-  "robots": "User-agent: * Allow: / ; sitemap at /sitemap.xml",
-  "sitemaps": [
-   "https://chateau-margaux.com/sitemap_en.xml",
-   "https://chateau-margaux.com/sitemap_fr-FR.xml"
+  "evidence": "homepage title 'Chateau Poitevin - Cru Bourgeois situe sur la commune de Jau-Dignac-et-Loirac'; Poitevin named 14 times, Moulin de Canhaut once",
+  "multi_estate": true,
+  "robots": "User-agent: * ; only WooCommerce paths disallowed",
+  "serves": [
+   "bourgeois-chateau-poitevin",
+   "bourgeois-chateau-moulin-de-canhaut"
   ],
-  "pdfs": "none. No PDF in either sitemap, and /wp-json/wp/v2/media answers 404, so there is no WordPress media library to ask. Margaux publishes no fiche technique: everything is on the vintage pages.",
+  "site": "https://chateau-poitevin.com",
+  "why_it_matters": "the same shape as Vignobles Bernaleau, and the reason Poitevin and Moulin-de-Canhaut cross-cite 10 times. It also explains why both estates hold the same 'CARNET DE BORD DU MILLESIME' season note: it is one document.",
+  "wines": []
+ },
+ "clerc-milon": {
+  "checked": "2026-10-24",
+  "commands": [
+   "python tools/refile-wine.py --estate clerc-milon --apply",
+   "python tools/read-fiches.py --cuvees --estate clerc-milon --prose --apply"
+  ],
+  "site": "https://www.chateau-clerc-milon.com",
+  "watch": [
+   "Its blends carry CM, Carmenere, which Clerc-Milon is one of very few Medoc estates still to grow. That is the wine's own signature, not a misread.",
+   "Its season notes open on 'Weather and harvest conditions.', the AXA and Mouton house heading, now a registered label."
+  ],
   "wines": [
    {
-    "wine": "grand",
-    "pattern": "https://chateau-margaux.com/en/vins/grand-vin-du-chateau-margaux-{year}",
-    "years": "1900-2025",
-    "note": "126 vintages, back to 1900. The 1900-1949 half was only fetched on 2026-10-24."
+    "note": "30 records",
+    "wine": "grand"
    },
    {
-    "wine": "Pavillon Rouge du Château Margaux",
-    "pattern": "https://chateau-margaux.com/en/vins/pavillon-rouge-du-chateau-margaux-{year}",
-    "years": "1978-2025"
-   },
-   {
-    "wine": "Pavillon Blanc du Château Margaux",
-    "pattern": "https://chateau-margaux.com/en/vins/pavillon-blanc-du-chateau-margaux-{year}",
-    "years": "1978-2025"
-   },
-   {
-    "wine": "Margaux du Château Margaux",
-    "pattern": "https://chateau-margaux.com/en/vins/margaux-du-chateau-margaux-{year}",
-    "years": "2009-2019",
-    "note": "The third wine, made only in those years."
+    "note": "the second wine, 14 records 2009-2023, added 2026-10-24",
+    "wine": "Pastourelle de Clerc Milon"
    }
+  ]
+ },
+ "ducru-beaucaillou": {
+  "checked": "2026-10-24",
+  "commands": [],
+  "site": "https://chateau-ducru-beaucaillou.com",
+  "watch": [
+   "chateaux.js calls the second wine 'La Croix Ducru-Beaucaillou' and BDX_CUVEE_WINES calls it 'La Croix de Beaucaillou'. They are one wine. Adding the first name creates a duplicate that splits the wine's vintages across two keys - I did exactly that on 2026-10-24 and took it back off. add-wine.py refuses a name it already holds, but it matches on the name, so the other spelling gets through."
   ],
+  "wines": [
+   {
+    "note": "only 8 records against 15 documents for La Croix",
+    "wine": "grand"
+   },
+   {
+    "note": "the second wine, 8 records",
+    "wine": "La Croix de Beaucaillou"
+   },
+   {
+    "wine": "Le Petit Ducru de Ducru-Beaucaillou"
+   },
+   {
+    "wine": "Madame de Beaucaillou"
+   }
+  ]
+ },
+ "grand-puy-ducasse": {
+  "checked": "2026-10-24",
+  "commands": [
+   "python tools/recover-urls.py --estate grand-puy-ducasse --apply"
+  ],
+  "pdfs": "its media library holds all 86 of its documents.",
+  "robots": "allows; sitemap lists 50 vintage addresses, 1970-2024, all held",
+  "site": "https://grandpuyducasse.fr",
+  "watch": [
+   "USE THE BARE HOST. https://www.grandpuyducasse.fr serves a certificate that does not verify; https://grandpuyducasse.fr answers normally and carries the media library. recover-urls.py tries both forms now, but anything else pointed at the www. form will fail with SSL: CERTIFICATE_VERIFY_FAILED.",
+   "Every sheet opens with the same 1,100 characters of estate history - 'Tout commence lorsqu'Arnaud Ducasse fait l'acquisition en 1675' - and only then the vintage, unlabelled. Ten documents make no record for that reason: the prose reader's at-start candidate gets the history and rejects it, correctly, and never reaches the vintage. A reader that can walk past a standing preamble would read all ten.",
+   "The footer is a flattened two-column block: 'ASSEMBLAGE L'HISTOIRE LE MILLESIME 62 38 ALCOOL % Cab. Sauvignon % Merlot 13% vol'. Those figures are byte-identical on the 1970, 1971 and 1975 sheets, so they are the estate's standing figures and not the vintage's. Do not write a rule to read numbers that precede their variety names."
+  ],
+  "wines": [
+   {
+    "note": "86 documents, every one a PDF; no crawled pages at all.",
+    "wine": "grand"
+   },
+   {
+    "note": "15 records, 2007-2021.",
+    "wine": "Prélude à Grand-Puy Ducasse"
+   }
+  ]
+ },
+ "lafite": {
+  "checked": "2026-10-24",
+  "commands": [],
+  "pdfs": "one per vintage, Chateau-Lafite-Rothschild-<year>.pdf, but their addresses are not recorded and cannot be recovered - see watch.",
+  "site": "https://www.lafite.com",
+  "watch": [
+   "ADDRESSES ARE UNREACHABLE HERE. Lafite, Rieussec and Duhart-Milon share lafite.com, whose media library does not name their files, and only 2 of Lafite's pages have addresses on record - neither links the PDFs. All 49 records wanting an address will keep wanting one until the documents are re-fetched with harvest.py, which records the address at fetch time.",
+   "THE ESTATE PRINTS NOTES ON THE WRONG SHEET. Chateau-Lafite-Rothschild-1976.pdf carries the 1975 note word for word and names the year inside itself - 'One of the most beautiful 1975!'. The 2016 sheet carries 2007's. Both are pinned absent in read-fiches.py. If more pairs appear, the duplicate check in audit-estate.py is what finds them.",
+   "Carruades de Lafite is in chateaux.js as the second wine, is not in BDX_CUVEE_WINES, and no document on disk names it."
+  ],
+  "wines": [
+   {
+    "note": "50 records",
+    "wine": "grand"
+   }
+  ]
+ },
+ "latour": {
+  "checked": "2026-10-24",
+  "commands": [
+   "python tools/crawl-pages.py --estate latour --split \"https://www.chateau-latour.com/en/a-time-for-sharing/vintages\" --apply",
+   "python tools/read-fiches.py --estate latour --prose --apply",
+   "python tools/build-fiche-links.py"
+  ],
+  "pdfs": "none. No PDF in the sitemap and /wp-json/wp/v2/media answers 404.",
+  "robots": "User-agent: * with /cgi-bin/, /assets/, /uploads/, /application/ disallowed. No Sitemap: line; /sitemap.xml answers with 69 urls.",
+  "site": "https://www.chateau-latour.com",
+  "sitemaps": [
+   "https://www.chateau-latour.com/sitemap.xml"
+  ],
+  "watch": [
+   "Les Forts de Latour and Le Pauillac de Chateau Latour are DELIBERATELY NOT in BDX_CUVEE_WINES. The site publishes no per-vintage page for either - one descriptive page each, no years in the markup - so there is nothing to file under them. Listing them costs five of the grand vin's own pages, because Latour's extracts never name Chateau Latour in their text and names_another_wine then hands the page to whichever other wine is mentioned: 1966 says Les Forts was first made that year, 1987 says vats were downgraded to generic Pauillac, and 2016/2018/2019 carry the availability line.",
+   "1966 is still refused, because chateaux.js records Les Forts as Latour's `second` independently of cuvees.js. One record, one document.",
+   "The layout is 'Signature Wine style: <tasting>' then 'Vineyard & harvest Weather conditions: <season>'. Both are registered labels now. If tasting notes start appearing under the season heading again, that is what broke.",
+   "Latour does not release a grand vin every year and says so on the page. That is not the same as not making one, so do not mark those vintages not-produced.",
+   "No assemblage anywhere. Asked of all 75 documents with no guard and no gate: not one pairs a variety with a percentage."
+  ],
+  "wines": [
+   {
+    "note": "Every vintage is on this one page behind a #year fragment, so there is no per-vintage address. tools/crawl-pages.py --split is what cuts it into one record per year.",
+    "page": "https://www.chateau-latour.com/en/a-time-for-sharing/vintages",
+    "wine": "grand",
+    "years": "1945-2019"
+   }
+  ]
+ },
+ "lynch-bages": {
+  "checked": "2026-10-24",
+  "commands": [
+   "python tools/recover-urls.py --estate lynch-bages --apply"
+  ],
+  "pdfs": "a media library with over 100, in several languages per vintage (FR, GB, CN).",
+  "robots": "allows; sitemap lists 32 vintage addresses, 1988-2025",
+  "site": "https://www.lynchbages.com",
+  "watch": [
+   "THE ESTATE CONTRADICTS ITSELF. Its French sheet calls the figures Encepagement and its English sheet calls the same figures Blending, on the same vintage. 2003 and 2007 both hold CS 75 / ME 15 / CF 8 / PV 2, which is also exactly the planting plantings.js read from the 2007 French sheet. By 2010 the English sheet states 79/18/2/1, which differs from the planting, so from then on it is a real assemblage. The 2003 and 2007 figures are left as the estate published them and the contradiction is recorded.",
+   "Chateau-Lynch-Bages-1989-FR.pdf is the 1990 sheet - it ends 'Millesime 1990 Proprietaire Jean-Michel CAZES'. The manifest files it from its contents, which is right; do not 'correct' it to 1989.",
+   "Three season notes end on tasting language with no taste field."
+  ],
+  "wines": [
+   {
+    "wine": "grand"
+   },
+   {
+    "note": "the dry white, 17 records",
+    "wine": "Blanc de Lynch-Bages"
+   },
+   {
+    "note": "the second wine, 13 records",
+    "wine": "Echo de Lynch-Bages"
+   }
+  ]
+ },
+ "margaux": {
+  "checked": "2026-10-24",
   "commands": [
    "python tools/crawl-pages.py --estate margaux --pattern \"https://chateau-margaux.com/en/vins/grand-vin-du-chateau-margaux-{year}\" --years 1900-2026 --limit 140 --apply",
    "python tools/crawl-pages.py --estate margaux --pattern \"https://chateau-margaux.com/en/vins/pavillon-rouge-du-chateau-margaux-{year}\" --years 1978-2026 --limit 60 --apply",
@@ -57,211 +184,113 @@
    "python tools/read-fiches.py --cuvees --estate margaux --prose --apply",
    "python tools/build-fiche-links.py && python tools/build-fiche-links.py --cuvees"
   ],
+  "pdfs": "none. No PDF in either sitemap, and /wp-json/wp/v2/media answers 404, so there is no WordPress media library to ask. Margaux publishes no fiche technique: everything is on the vintage pages.",
+  "robots": "User-agent: * Allow: / ; sitemap at /sitemap.xml",
+  "site": "https://chateau-margaux.com",
+  "sitemaps": [
+   "https://chateau-margaux.com/sitemap_en.xml",
+   "https://chateau-margaux.com/sitemap_fr-FR.xml"
+  ],
   "watch": [
    "The news feed. /en/actualites/ carries six pages for 2025 alone, and one of them gave the grand vin a season note about Pavillon Blanc's harvest while the vintage page beside it stated the yield, the blend, the season and the tasting note. read-fiches.py now ranks /actualites/ last; if a note looks like it is about the estate rather than the wine, that is where it came from.",
    "One paragraph, two jobs. The vintage pages write the year's story and the wine's tasting as a single block, with inline labels - '... superb length. Blend: 89% cabernet sauvignon ... Climate: Le millesime 2025 est marque ...'. PROSE_STOP now stops at Blend: and Climate:, but the season note still ends on tasting language for 1964 and 2025 and there is no taste field for either.",
    "French on the English page. The 'Climate:' paragraph for 2025 is untranslated on the English URL, so a reader that takes it puts French in an English field - which is what happened to Pavillon Rouge 2025 before the stop was added.",
    "The host. The sitemap says chateau-margaux.com and the manifest holds www.chateau-margaux.com for the pages fetched before 2026-10-24. Comparing the two naively reports every page as missing.",
    "No assemblage before 2005. The pages for 1900-2004 state no blend at all - asked of all 76 with probes looser than the reader's, and none pairs a variety with a percentage. 2005 states only two varieties (85% cabernet sauvignon, 8% merlot) and so has no full blend either."
-  ]
- },
- "latour": {
-  "site": "https://www.chateau-latour.com",
-  "checked": "2026-10-24",
-  "robots": "User-agent: * with /cgi-bin/, /assets/, /uploads/, /application/ disallowed. No Sitemap: line; /sitemap.xml answers with 69 urls.",
-  "sitemaps": [
-   "https://www.chateau-latour.com/sitemap.xml"
   ],
-  "pdfs": "none. No PDF in the sitemap and /wp-json/wp/v2/media answers 404.",
   "wines": [
    {
+    "note": "126 vintages, back to 1900. The 1900-1949 half was only fetched on 2026-10-24.",
+    "pattern": "https://chateau-margaux.com/en/vins/grand-vin-du-chateau-margaux-{year}",
     "wine": "grand",
-    "page": "https://www.chateau-latour.com/en/a-time-for-sharing/vintages",
-    "years": "1945-2019",
-    "note": "Every vintage is on this one page behind a #year fragment, so there is no per-vintage address. tools/crawl-pages.py --split is what cuts it into one record per year."
-   }
-  ],
-  "commands": [
-   "python tools/crawl-pages.py --estate latour --split \"https://www.chateau-latour.com/en/a-time-for-sharing/vintages\" --apply",
-   "python tools/read-fiches.py --estate latour --prose --apply",
-   "python tools/build-fiche-links.py"
-  ],
-  "watch": [
-   "Les Forts de Latour and Le Pauillac de Chateau Latour are DELIBERATELY NOT in BDX_CUVEE_WINES. The site publishes no per-vintage page for either - one descriptive page each, no years in the markup - so there is nothing to file under them. Listing them costs five of the grand vin's own pages, because Latour's extracts never name Chateau Latour in their text and names_another_wine then hands the page to whichever other wine is mentioned: 1966 says Les Forts was first made that year, 1987 says vats were downgraded to generic Pauillac, and 2016/2018/2019 carry the availability line.",
-   "1966 is still refused, because chateaux.js records Les Forts as Latour's `second` independently of cuvees.js. One record, one document.",
-   "The layout is 'Signature Wine style: <tasting>' then 'Vineyard & harvest Weather conditions: <season>'. Both are registered labels now. If tasting notes start appearing under the season heading again, that is what broke.",
-   "Latour does not release a grand vin every year and says so on the page. That is not the same as not making one, so do not mark those vintages not-produced.",
-   "No assemblage anywhere. Asked of all 75 documents with no guard and no gate: not one pairs a variety with a percentage."
-  ]
- },
- "grand-puy-ducasse": {
-  "site": "https://grandpuyducasse.fr",
-  "checked": "2026-10-24",
-  "robots": "allows; sitemap lists 50 vintage addresses, 1970-2024, all held",
-  "pdfs": "its media library holds all 86 of its documents.",
-  "wines": [
-   {
-    "wine": "grand",
-    "note": "86 documents, every one a PDF; no crawled pages at all."
+    "years": "1900-2025"
    },
    {
-    "wine": "Prélude à Grand-Puy Ducasse",
-    "note": "15 records, 2007-2021."
+    "pattern": "https://chateau-margaux.com/en/vins/pavillon-rouge-du-chateau-margaux-{year}",
+    "wine": "Pavillon Rouge du Château Margaux",
+    "years": "1978-2025"
+   },
+   {
+    "pattern": "https://chateau-margaux.com/en/vins/pavillon-blanc-du-chateau-margaux-{year}",
+    "wine": "Pavillon Blanc du Château Margaux",
+    "years": "1978-2025"
+   },
+   {
+    "note": "The third wine, made only in those years.",
+    "pattern": "https://chateau-margaux.com/en/vins/margaux-du-chateau-margaux-{year}",
+    "wine": "Margaux du Château Margaux",
+    "years": "2009-2019"
    }
-  ],
-  "commands": [
-   "python tools/recover-urls.py --estate grand-puy-ducasse --apply"
-  ],
+  ]
+ },
+ "montrose": {
+  "checked": "2026-10-24",
+  "commands": [],
+  "site": "https://www.chateau-montrose.com",
   "watch": [
-   "USE THE BARE HOST. https://www.grandpuyducasse.fr serves a certificate that does not verify; https://grandpuyducasse.fr answers normally and carries the media library. recover-urls.py tries both forms now, but anything else pointed at the www. form will fail with SSL: CERTIFICATE_VERIFY_FAILED.",
-   "Every sheet opens with the same 1,100 characters of estate history - 'Tout commence lorsqu'Arnaud Ducasse fait l'acquisition en 1675' - and only then the vintage, unlabelled. Ten documents make no record for that reason: the prose reader's at-start candidate gets the history and rejects it, correctly, and never reaches the vintage. A reader that can walk past a standing preamble would read all ten.",
-   "The footer is a flattened two-column block: 'ASSEMBLAGE L'HISTOIRE LE MILLESIME 62 38 ALCOOL % Cab. Sauvignon % Merlot 13% vol'. Those figures are byte-identical on the 1970, 1971 and 1975 sheets, so they are the estate's standing figures and not the vintage's. Do not write a rule to read numbers that precede their variety names."
+   "BDX_CUVEE_WINES USED TO LIST 'La Vieille Dame de Trottevieille' UNDER MONTROSE. That is Trotte Vieille's second wine. Nineteen of Montrose's documents were filed under it and nine records sat on that key, all of them La Dame de Montrose's. Corrected 2026-10-24. If the name reappears here, something is matching on the word Dame.",
+   "The estate abbreviates La Dame to DA- in its filenames: DA-2023-EN.pdf opens 'DAME DE MONTROSE 2023'.",
+   "Fiche_technique_Chateau_MONTROSE_EST_RO_2021_Francais.pdf is the GRAND VIN's sheet and was filed as the second wine's. EST_RO appears on both wines' filenames and says nothing about which."
+  ],
+  "wines": [
+   {
+    "note": "16 records",
+    "wine": "grand"
+   },
+   {
+    "note": "the second wine, 9 records 2012-2022",
+    "wine": "La Dame de Montrose"
+   }
   ]
  },
  "palmer": {
-  "site": "https://www.chateau-palmer.com",
   "checked": "2026-10-24",
-  "robots": "allows; sitemap lists 57 vintage addresses, 1959-2025",
+  "commands": [
+   "python tools/find-doc-urls.py --estate palmer --apply"
+  ],
   "pdfs": "one per vintage, named with a Webflow CDN hash - 6708fceb328ad893ef618242_Fiche_millesime_EN_1978.pdf - and linked from the vintage pages. No media library: the site is Webflow and /wp-json answers 404.",
+  "robots": "allows; sitemap lists 57 vintage addresses, 1959-2025",
+  "site": "https://www.chateau-palmer.com",
+  "watch": [
+   "The addresses come off the pages, not from a library. find-doc-urls.py fetched 18 pages and found all 49 missing addresses; recover-urls.py can do nothing here.",
+   "Alter Ego de Palmer is in chateaux.js as the second wine and not in BDX_CUVEE_WINES, and no document on disk names it. It waits on a crawl of the estate's own pages for that wine, not on an edit to the list."
+  ],
   "wines": [
    {
     "wine": "grand",
     "years": "1959-2025"
    }
-  ],
-  "commands": [
-   "python tools/find-doc-urls.py --estate palmer --apply"
-  ],
-  "watch": [
-   "The addresses come off the pages, not from a library. find-doc-urls.py fetched 18 pages and found all 49 missing addresses; recover-urls.py can do nothing here.",
-   "Alter Ego de Palmer is in chateaux.js as the second wine and not in BDX_CUVEE_WINES, and no document on disk names it. It waits on a crawl of the estate's own pages for that wine, not on an edit to the list."
-  ]
- },
- "lynch-bages": {
-  "site": "https://www.lynchbages.com",
-  "checked": "2026-10-24",
-  "robots": "allows; sitemap lists 32 vintage addresses, 1988-2025",
-  "pdfs": "a media library with over 100, in several languages per vintage (FR, GB, CN).",
-  "wines": [
-   {
-    "wine": "grand"
-   },
-   {
-    "wine": "Blanc de Lynch-Bages",
-    "note": "the dry white, 17 records"
-   },
-   {
-    "wine": "Echo de Lynch-Bages",
-    "note": "the second wine, 13 records"
-   }
-  ],
-  "commands": [
-   "python tools/recover-urls.py --estate lynch-bages --apply"
-  ],
-  "watch": [
-   "THE ESTATE CONTRADICTS ITSELF. Its French sheet calls the figures Encepagement and its English sheet calls the same figures Blending, on the same vintage. 2003 and 2007 both hold CS 75 / ME 15 / CF 8 / PV 2, which is also exactly the planting plantings.js read from the 2007 French sheet. By 2010 the English sheet states 79/18/2/1, which differs from the planting, so from then on it is a real assemblage. The 2003 and 2007 figures are left as the estate published them and the contradiction is recorded.",
-   "Chateau-Lynch-Bages-1989-FR.pdf is the 1990 sheet - it ends 'Millesime 1990 Proprietaire Jean-Michel CAZES'. The manifest files it from its contents, which is right; do not 'correct' it to 1989.",
-   "Three season notes end on tasting language with no taste field."
-  ]
- },
- "lafite": {
-  "site": "https://www.lafite.com",
-  "checked": "2026-10-24",
-  "pdfs": "one per vintage, Chateau-Lafite-Rothschild-<year>.pdf, but their addresses are not recorded and cannot be recovered - see watch.",
-  "wines": [
-   {
-    "wine": "grand",
-    "note": "50 records"
-   }
-  ],
-  "commands": [],
-  "watch": [
-   "ADDRESSES ARE UNREACHABLE HERE. Lafite, Rieussec and Duhart-Milon share lafite.com, whose media library does not name their files, and only 2 of Lafite's pages have addresses on record - neither links the PDFs. All 49 records wanting an address will keep wanting one until the documents are re-fetched with harvest.py, which records the address at fetch time.",
-   "THE ESTATE PRINTS NOTES ON THE WRONG SHEET. Chateau-Lafite-Rothschild-1976.pdf carries the 1975 note word for word and names the year inside itself - 'One of the most beautiful 1975!'. The 2016 sheet carries 2007's. Both are pinned absent in read-fiches.py. If more pairs appear, the duplicate check in audit-estate.py is what finds them.",
-   "Carruades de Lafite is in chateaux.js as the second wine, is not in BDX_CUVEE_WINES, and no document on disk names it."
   ]
  },
  "pouget": {
-  "site": "http://www.chateau-pouget.com",
   "checked": "2026-10-24",
-  "pdfs": "Fiche-Pouget-<year>.pdf, on Boyd-Cantenac's stationery.",
-  "wines": [
-   {
-    "wine": "grand",
-    "note": "30 records"
-   }
-  ],
   "commands": [],
+  "pdfs": "Fiche-Pouget-<year>.pdf, on Boyd-Cantenac's stationery.",
+  "site": "http://www.chateau-pouget.com",
   "watch": [
    "ITS SHEETS CARRY BOYD-CANTENAC'S LETTERHEAD, because the two estates share the Guillemet family. Fiche-Pouget-2016.pdf opens 'Chateau Boyd-Cantenac 11 Route de Jean Faure - 33460 Cantenac www.boyd-cantenac.fr'. It is still Pouget's sheet: 'Acreage : 10 ha' is Pouget, where Boyd-Cantenac is about seventeen.",
    "Eighteen of its 71 documents state nothing a reader can take, and the refusal is right: a flattened run of critics' scores with no critic attached to any of them - '16 16,5 89 91 16 89 91 91 92' - and the estate's standing description of its soils, identical on every sheet.",
    "Its vintage pages put the estate's masthead and language switcher in front of the prose; LEAD_MASTHEAD handles that."
-  ]
- },
- "clerc-milon": {
-  "site": "https://www.chateau-clerc-milon.com",
-  "checked": "2026-10-24",
+  ],
   "wines": [
    {
-    "wine": "grand",
-    "note": "30 records"
-   },
-   {
-    "wine": "Pastourelle de Clerc Milon",
-    "note": "the second wine, 14 records 2009-2023, added 2026-10-24"
+    "note": "30 records",
+    "wine": "grand"
    }
-  ],
-  "commands": [
-   "python tools/refile-wine.py --estate clerc-milon --apply",
-   "python tools/read-fiches.py --cuvees --estate clerc-milon --prose --apply"
-  ],
-  "watch": [
-   "Its blends carry CM, Carmenere, which Clerc-Milon is one of very few Medoc estates still to grow. That is the wine's own signature, not a misread.",
-   "Its season notes open on 'Weather and harvest conditions.', the AXA and Mouton house heading, now a registered label."
   ]
  },
- "montrose": {
-  "site": "https://www.chateau-montrose.com",
+ "vignobles-bernaleau": {
   "checked": "2026-10-24",
-  "wines": [
-   {
-    "wine": "grand",
-    "note": "16 records"
-   },
-   {
-    "wine": "La Dame de Montrose",
-    "note": "the second wine, 9 records 2012-2022"
-   }
+  "evidence": "homepage title 'Vignobles Bernaleau, des vins d'exception'; de Braude named 7 times, Galland 6, Mongravey 5",
+  "multi_estate": true,
+  "robots": "User-agent: * ; only WooCommerce paths disallowed",
+  "serves": [
+   "bourgeois-chateau-de-braude",
+   "bourgeois-chateau-mongravey",
+   "Chateau Galland (not in the dashboard)"
   ],
-  "commands": [],
-  "watch": [
-   "BDX_CUVEE_WINES USED TO LIST 'La Vieille Dame de Trottevieille' UNDER MONTROSE. That is Trotte Vieille's second wine. Nineteen of Montrose's documents were filed under it and nine records sat on that key, all of them La Dame de Montrose's. Corrected 2026-10-24. If the name reappears here, something is matching on the word Dame.",
-   "The estate abbreviates La Dame to DA- in its filenames: DA-2023-EN.pdf opens 'DAME DE MONTROSE 2023'.",
-   "Fiche_technique_Chateau_MONTROSE_EST_RO_2021_Francais.pdf is the GRAND VIN's sheet and was filed as the second wine's. EST_RO appears on both wines' filenames and says nothing about which."
-  ]
- },
- "ducru-beaucaillou": {
-  "site": "https://chateau-ducru-beaucaillou.com",
-  "checked": "2026-10-24",
-  "wines": [
-   {
-    "wine": "grand",
-    "note": "only 8 records against 15 documents for La Croix"
-   },
-   {
-    "wine": "La Croix de Beaucaillou",
-    "note": "the second wine, 8 records"
-   },
-   {
-    "wine": "Le Petit Ducru de Ducru-Beaucaillou"
-   },
-   {
-    "wine": "Madame de Beaucaillou"
-   }
-  ],
-  "commands": [],
-  "watch": [
-   "chateaux.js calls the second wine 'La Croix Ducru-Beaucaillou' and BDX_CUVEE_WINES calls it 'La Croix de Beaucaillou'. They are one wine. Adding the first name creates a duplicate that splits the wine's vintages across two keys - I did exactly that on 2026-10-24 and took it back off. add-wine.py refuses a name it already holds, but it matches on the name, so the other spelling gets through."
-  ]
+  "site": "https://vignobles-bernaleau.com",
+  "why_it_matters": "its PDFs live under /wp-content/uploads/ with names like FT-Ch-de-Braude-2016-GB.pdf and FT-Ch-Mongravey-2016-GB.pdf. A crawl of the site files them all under whichever estate it was fetching for, and the reader then assigns each by its filename - which is why de Braude and Mongravey appear to cross-cite 35 times. The records are right; the manifest folder is the thing that is wrong.",
+  "wines": []
  }
 }

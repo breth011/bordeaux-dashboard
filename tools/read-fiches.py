@@ -81,6 +81,7 @@ import io, json, os, re, sys, argparse, collections
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__))) + os.sep
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 import sheetreader as sr
+import conflicts
 
 # The rules for reading a fiche - the gates, the patterns and the
 # stop-list - live in sheetreader.py with every other reading rule in
@@ -631,6 +632,10 @@ def main():
               % (len(UNLISTED), sum(UNLISTED.values())))
     print('\nreport in reports/fiches-read.txt')
     if not a.apply:
+        # The conflicts were collected while reading, which happens on
+        # a dry run too - so they can be recorded without --apply and
+        # therefore without touching any canonical file.
+        conflicts.flush()
         print('nothing written to fiches.js; read the report, then --apply')
         return 0
 
@@ -702,6 +707,17 @@ def main():
                 continue
             if f == 'taste' and SAME_AS_NOTE(r):
                 continue
+            # The first document in the sort order takes the
+            # field. Before this line the loser's value was
+            # dropped here with no trace: both are in hand, so
+            # the disagreement is recorded. Which one wins is
+            # unchanged.
+            prev = best.setdefault(key, {}).get(f)
+            if prev is not None and prev[1] != r['src']:
+                conflicts.note(key, f, prev[0], prev[1],
+                               r['got'][f], r['src'],
+                               'first in the sort order, which is the estate\u2019s own page before its news feed, then by name',
+                               kind='SUPERSEDED')
             best.setdefault(key, {}).setdefault(f, (r['got'][f], r['src']))
 
     lines = io.open(ROOT + DATA, encoding='utf-8').read().split('\n')
@@ -822,6 +838,17 @@ def main():
         add, pk = [], key
         for f, (v, src) in sorted(best[key].items()):
             if f in held:          # never overwrite
+                # Keeping the record's value is what makes a
+                # re-read safe and is not in question. What was
+                # wrong is that the document's value vanished
+                # with no note of having differed.
+                was = re.search(r'(?:^|,)' + f + r':([^,}]+)',
+                                body)
+                if was:
+                    conflicts.note(pk, f, was.group(1), 'on record',
+                                   v, src,
+                                   'already on the record; --apply never overwrites',
+                                   kind='INCUMBENT_HELD')
                 continue
             if (pk, f) in REFUSED:
                 refused[f] += 1
@@ -900,6 +927,7 @@ def main():
         print('   %-8s %5d' % (f, n))
     print('provenance for %d records in %s' % (len(prov), SRCF))
     _refresh_progress()
+    conflicts.flush()
     print('\nnow run: python tools/check-data.py  and  check-language.py')
     return 0
 

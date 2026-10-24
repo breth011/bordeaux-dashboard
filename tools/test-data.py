@@ -214,6 +214,24 @@ else:
     print('MISSING  data/artifact-census.jsonl - run tools/census.py '
           '--write && tools/census-compact.py')
 
+# ------------------------------------------------------------------ 8
+# Manifest rows that duplicate another on every identifying field.
+# Found by the Phase 2 idempotence test failing: a decision store keyed
+# on (file, estate, wine) had 654 duplicates, and the cause was not the
+# key - the manifest holds two rows for the same physical file in the
+# same folder for the same wine and year.
+#
+# Harmless to the readers, which iterate rows and do the same work
+# twice, but it inflates every count taken from the manifest: 13,032
+# sheets are 12,858 distinct ones.
+dupe = collections.Counter(
+    (s.get('file'), s.get('folder'), s.get('estate'), s.get('wine'),
+     s.get('year')) for s in SHEETS)
+check('manifest rows duplicating another row exactly',
+      sum(n - 1 for n in dupe.values() if n > 1), 174,
+      'two rows for one file in one folder: every manifest count is '
+      'inflated by this much')
+
 print('\n%d check(s), %s'
       % (checks, 'all pass' if not fails
          else '%d FAILED: %s' % (len(fails), ', '.join(fails))))

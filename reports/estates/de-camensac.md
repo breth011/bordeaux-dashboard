@@ -1,6 +1,10 @@
 # Château de Camensac — fifth growth, Haut-Médoc
 
-Checked 2026-10-24. 
+<!-- fingerprint f1df6010c1ecca36 over 42 record(s); rebuild with tools/estate-report.py --estate de-camensac --out -->
+
+Checked 2026-10-24. <!-- fill in: estate N of 61 -->
+
+<!-- numbers rebuilt 2026-10-24 -->
 
 ## What it holds
 

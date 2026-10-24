@@ -1,6 +1,10 @@
 # Château Grand-Puy-Lacoste — fifth growth, Pauillac
 
+<!-- fingerprint c8c67fa016c7d91a over 29 record(s); rebuild with tools/estate-report.py --estate grand-puy-lacoste --out -->
+
 Checked 2026-10-24. <!-- fill in: estate N of 61 -->
+
+<!-- numbers rebuilt 2026-10-24 -->
 
 ## What it holds
 

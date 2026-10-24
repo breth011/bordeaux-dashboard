@@ -1,6 +1,10 @@
 # Château Cantenac-Brown — third growth, Margaux
 
-Checked 2026-10-24. 
+<!-- fingerprint ad13ffad23ce6aff over 46 record(s); rebuild with tools/estate-report.py --estate cantenac-brown --out -->
+
+Checked 2026-10-24. <!-- fill in: estate N of 61 -->
+
+<!-- numbers rebuilt 2026-10-24 -->
 
 ## What it holds
 
@@ -12,7 +16,7 @@ Checked 2026-10-24.
 | in barrel | 13 (65%) | 1 (12%) | 11 (61%) |
 | new oak | 20 (100%) | 6 (75%) | 17 (94%) |
 | picking dates | 19 (95%) | 3 (38%) | 17 (94%) |
-| season note | 17 (85%) | 3 (38%) | 16 (89%) |
+| season note | 17 (85%) | 2 (25%) | 16 (89%) |
 | tasting note | 10 (50%) | 1 (12%) | 2 (11%) |
 | links to its source | 2 of 20 | | |
 
@@ -25,7 +29,7 @@ By role: page 102, unknown 72, second 64, other 24, grand 20, skip 1.
 ## What the audit still says
 
 - no address — 44
-- note opens on capitals — 8
+- note opens on capitals — 6
 - NO RECORD, 2 document(s) on disk — 1
 - note reads as a tasting note (aromas of, on the palate) and there is no taste field — 1
 

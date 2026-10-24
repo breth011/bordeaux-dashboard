@@ -1,6 +1,10 @@
 # Château Léoville-Poyferré — second growth, Saint-Julien
 
+<!-- fingerprint 3f8559064af64539 over 25 record(s); rebuild with tools/estate-report.py --estate leoville-poyferre --out -->
+
 Checked 2026-10-24. <!-- fill in: estate N of 61 -->
+
+<!-- numbers rebuilt 2026-10-24 -->
 
 ## What it holds
 

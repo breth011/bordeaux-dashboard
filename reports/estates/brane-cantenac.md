@@ -1,6 +1,10 @@
 # Château Brane-Cantenac — second growth, Margaux
 
-Checked 2026-10-24. 
+<!-- fingerprint 60820e16e8392a54 over 6 record(s); rebuild with tools/estate-report.py --estate brane-cantenac --out -->
+
+Checked 2026-10-24. <!-- fill in: estate N of 61 -->
+
+<!-- numbers rebuilt 2026-10-24 -->
 
 ## What it holds
 

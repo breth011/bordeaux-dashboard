@@ -1,6 +1,10 @@
 # Château La Lagune — third growth, Haut-Médoc
 
+<!-- fingerprint 757b7d874382ad79 over 13 record(s); rebuild with tools/estate-report.py --estate la-lagune --out -->
+
 Checked 2026-10-24. <!-- fill in: estate N of 61 -->
+
+<!-- numbers rebuilt 2026-10-24 -->
 
 ## What it holds
 

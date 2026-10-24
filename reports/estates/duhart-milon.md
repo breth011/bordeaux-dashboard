@@ -1,6 +1,10 @@
 # Château Duhart-Milon — fourth growth, Pauillac
 
+<!-- fingerprint 1fb8518985eb9ac9 over 58 record(s); rebuild with tools/estate-report.py --estate duhart-milon --out -->
+
 Checked 2026-10-24. <!-- fill in: estate N of 61 -->
+
+<!-- numbers rebuilt 2026-10-24 -->
 
 ## What it holds
 

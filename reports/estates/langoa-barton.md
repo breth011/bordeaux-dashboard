@@ -1,6 +1,10 @@
 # Château Langoa-Barton — third growth, Saint-Julien
 
+<!-- fingerprint e69c8464ccb37e2e over 32 record(s); rebuild with tools/estate-report.py --estate langoa-barton --out -->
+
 Checked 2026-10-24. <!-- fill in: estate N of 61 -->
+
+<!-- numbers rebuilt 2026-10-24 -->
 
 ## What it holds
 

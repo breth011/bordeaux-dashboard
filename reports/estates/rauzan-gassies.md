@@ -1,6 +1,10 @@
 # Château Rauzan-Gassies — second growth, Margaux
 
+<!-- fingerprint da39a3ee5e6b4b0d over 0 record(s); rebuild with tools/estate-report.py --estate rauzan-gassies --out -->
+
 Checked 2026-10-24. <!-- fill in: estate N of 61 -->
+
+<!-- numbers rebuilt 2026-10-24 -->
 
 ## What it holds
 

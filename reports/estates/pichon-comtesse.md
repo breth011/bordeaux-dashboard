@@ -1,6 +1,10 @@
 # Château Pichon Longueville Comtesse de Lalande — second growth, Pauillac
 
+<!-- fingerprint 78b028ec5373e82f over 5 record(s); rebuild with tools/estate-report.py --estate pichon-comtesse --out -->
+
 Checked 2026-10-24. <!-- fill in: estate N of 61 -->
+
+<!-- numbers rebuilt 2026-10-24 -->
 
 ## What it holds
 

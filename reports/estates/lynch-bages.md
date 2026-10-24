@@ -1,6 +1,10 @@
 # Château Lynch-Bages — fifth growth, Pauillac
 
+<!-- fingerprint fec01c45b1f81509 over 61 record(s); rebuild with tools/estate-report.py --estate lynch-bages --out -->
+
 Checked 2026-10-24. <!-- fill in: estate N of 61 -->
+
+<!-- numbers rebuilt 2026-10-24 -->
 
 ## What it holds
 
@@ -30,7 +34,6 @@ By role: other 101, unknown 86, grand 28, second 19.
 ## What the audit still says
 
 - no address — 27
-- blend is exactly the planting, which is a different claim — 2
 - NO RECORD, 1 document(s) on disk — 1
 - note reads as a tasting note (aromas of, tannic structure) and there is no taste field — 1
 - note reads as a tasting note (on the palate, silky tannins) and there is no taste field — 1

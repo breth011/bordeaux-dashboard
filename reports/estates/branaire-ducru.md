@@ -1,6 +1,10 @@
 # Château Branaire-Ducru — fourth growth, Saint-Julien
 
+<!-- fingerprint 5d1393a1341d40fb over 35 record(s); rebuild with tools/estate-report.py --estate branaire-ducru --out -->
+
 Checked 2026-10-24. <!-- fill in: estate N of 61 -->
+
+<!-- numbers rebuilt 2026-10-24 -->
 
 ## What it holds
 

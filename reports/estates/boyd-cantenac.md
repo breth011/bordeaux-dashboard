@@ -1,6 +1,10 @@
 # Château Boyd-Cantenac — third growth, Margaux
 
-Checked 2026-10-24. 
+<!-- fingerprint a61f5186857a8e7d over 9 record(s); rebuild with tools/estate-report.py --estate boyd-cantenac --out -->
+
+Checked 2026-10-24. <!-- fill in: estate N of 61 -->
+
+<!-- numbers rebuilt 2026-10-24 -->
 
 ## What it holds
 

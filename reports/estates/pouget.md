@@ -1,6 +1,10 @@
 # Château Pouget — fourth growth, Margaux
 
+<!-- fingerprint 779e072109af8e2a over 30 record(s); rebuild with tools/estate-report.py --estate pouget --out -->
+
 Checked 2026-10-24. <!-- fill in: estate N of 61 -->
+
+<!-- numbers rebuilt 2026-10-24 -->
 
 ## What it holds
 

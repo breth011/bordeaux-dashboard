@@ -331,6 +331,61 @@ for out, ins, how in DERIVED:
                 str(datetime.timedelta(
                     seconds=int(newest - mtime(ROOT + out)))), how))
 
+# ------------------------------------------- the estate reports
+# Each report in reports/estates/ counts what one estate's records
+# hold, and carries a fingerprint of the records it counted. A read
+# since then makes those numbers quietly false, and a report that is
+# still read but no longer true is worse than none.
+#
+# Not a modification time: any read of any estate rewrites fiches.js,
+# which would mark all 61 stale at once. The fingerprint is over the
+# estate's own records, so a day's work on 24 estates marks 24.
+import hashlib
+
+_FP = re.compile(r'<!--\s*fingerprint\s+([0-9a-f]{8,40})\s+over\s+'
+                 r'(\d+)\s+record')
+
+
+def _estate_fp(eid):
+    lines = []
+    for _name in ('fiches.js', 'cuvees.js'):
+        _p = ROOT + 'data/' + _name
+        if not os.path.exists(_p):
+            continue
+        for _line in io.open(_p, encoding='utf-8'):
+            _s = _line.rstrip()
+            _m = re.match(r"^'([a-z0-9-]+)\|", _s)
+            if _m and _m.group(1) == eid:
+                lines.append(_s)
+    return (hashlib.sha1(('\n'.join(sorted(lines))).encode('utf-8'))
+            .hexdigest()[:16], len(lines))
+
+
+_rep_dir = ROOT + 'reports/estates'
+if os.path.isdir(_rep_dir):
+    _unstamped = []
+    for _f in sorted(os.listdir(_rep_dir)):
+        if not _f.endswith('.md') or _f == 'LEDGER.md':
+            continue
+        _eid = _f[:-3]
+        _text = io.open(os.path.join(_rep_dir, _f),
+                        encoding='utf-8').read()
+        _m = _FP.search(_text)
+        _now, _n = _estate_fp(_eid)
+        if not _m:
+            _unstamped.append(_eid)
+        elif _m.group(1) != _now:
+            note("an estate report that no longer describes its estate",
+                 '%-26s was written over %s record(s), now %s; '
+                 'run tools/estate-report.py --estate %s --out'
+                 % (_eid[:26], _m.group(2), _n, _eid))
+    if _unstamped:
+        note('an estate report with no fingerprint',
+             '%d report(s) predate the guard and cannot be checked: '
+             'rebuild them to stamp one (%s)'
+             % (len(_unstamped), ', '.join(_unstamped[:6]) +
+                ('...' if len(_unstamped) > 6 else '')))
+
 wb = ROOT + 'reports/bordeaux-coverage.xlsx'
 newest_data = max([mtime(ROOT + 'data/' + f)
                    for f in os.listdir(ROOT + 'data')

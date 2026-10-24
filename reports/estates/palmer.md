@@ -1,6 +1,10 @@
 # Château Palmer — third growth, Margaux
 
+<!-- fingerprint f29595e66a9e4d5a over 56 record(s); rebuild with tools/estate-report.py --estate palmer --out -->
+
 Checked 2026-10-24. <!-- fill in: estate N of 61 -->
+
+<!-- numbers rebuilt 2026-10-24 -->
 
 ## What it holds
 

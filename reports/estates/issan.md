@@ -1,6 +1,10 @@
 # Château d’Issan — third growth, Margaux
 
+<!-- fingerprint 54b1049cd06873c0 over 45 record(s); rebuild with tools/estate-report.py --estate issan --out -->
+
 Checked 2026-10-24. <!-- fill in: estate N of 61 -->
+
+<!-- numbers rebuilt 2026-10-24 -->
 
 ## What it holds
 

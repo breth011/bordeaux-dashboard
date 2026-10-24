@@ -1,6 +1,10 @@
 # Château Prieuré-Lichine — fourth growth, Margaux
 
+<!-- fingerprint 7b2a8d08166b5601 over 41 record(s); rebuild with tools/estate-report.py --estate prieure-lichine --out -->
+
 Checked 2026-10-24. <!-- fill in: estate N of 61 -->
+
+<!-- numbers rebuilt 2026-10-24 -->
 
 ## What it holds
 

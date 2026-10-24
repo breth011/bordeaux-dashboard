@@ -1,6 +1,10 @@
 # Château Ferrière — third growth, Margaux
 
+<!-- fingerprint 020f767b2d8943d9 over 12 record(s); rebuild with tools/estate-report.py --estate ferriere --out -->
+
 Checked 2026-10-24. <!-- fill in: estate N of 61 -->
+
+<!-- numbers rebuilt 2026-10-24 -->
 
 ## What it holds
 

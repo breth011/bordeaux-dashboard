@@ -1,6 +1,10 @@
 # Château Latour — first growth, Pauillac
 
+<!-- fingerprint 1771b72420f5e52f over 74 record(s); rebuild with tools/estate-report.py --estate latour --out -->
+
 Checked 2026-10-24. <!-- fill in: estate N of 61 -->
+
+<!-- numbers rebuilt 2026-10-24 -->
 
 ## What it holds
 

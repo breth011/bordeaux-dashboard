@@ -1,6 +1,10 @@
 # Château Haut-Bages Libéral — fifth growth, Pauillac
 
+<!-- fingerprint 0c5f5ce02adc56af over 12 record(s); rebuild with tools/estate-report.py --estate haut-bages-liberal --out -->
+
 Checked 2026-10-24. <!-- fill in: estate N of 61 -->
+
+<!-- numbers rebuilt 2026-10-24 -->
 
 ## What it holds
 
@@ -28,7 +32,6 @@ By role: unknown 11, grand 9, second 2, skip 1.
 ## What the audit still says
 
 - no address — 12
-- blend is exactly the planting, which is a different claim — 1
 
 ## Findings
 

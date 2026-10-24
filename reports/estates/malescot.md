@@ -1,6 +1,10 @@
 # Château Malescot St. Exupéry — third growth, Margaux
 
+<!-- fingerprint d4ca94c800c00736 over 26 record(s); rebuild with tools/estate-report.py --estate malescot --out -->
+
 Checked 2026-10-24. <!-- fill in: estate N of 61 -->
+
+<!-- numbers rebuilt 2026-10-24 -->
 
 ## What it holds
 

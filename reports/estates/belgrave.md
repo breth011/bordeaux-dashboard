@@ -1,6 +1,10 @@
 # Château Belgrave — fifth growth, Haut-Médoc
 
-Checked 2026-10-24. 
+<!-- fingerprint 1583b78bce2a99e5 over 8 record(s); rebuild with tools/estate-report.py --estate belgrave --out -->
+
+Checked 2026-10-24. <!-- fill in: estate N of 61 -->
+
+<!-- numbers rebuilt 2026-10-24 -->
 
 ## What it holds
 

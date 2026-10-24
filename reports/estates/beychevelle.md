@@ -1,6 +1,10 @@
 # Château Beychevelle — fourth growth, Saint-Julien
 
-Checked 2026-10-24. 
+<!-- fingerprint f4d8d5370bf240ae over 48 record(s); rebuild with tools/estate-report.py --estate beychevelle --out -->
+
+Checked 2026-10-24. <!-- fill in: estate N of 61 -->
+
+<!-- numbers rebuilt 2026-10-24 -->
 
 ## What it holds
 

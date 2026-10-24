@@ -1,6 +1,10 @@
 # Château Lafite Rothschild — first growth, Pauillac
 
+<!-- fingerprint a07eb42af7eb6d17 over 50 record(s); rebuild with tools/estate-report.py --estate lafite --out -->
+
 Checked 2026-10-24. <!-- fill in: estate N of 61 -->
+
+<!-- numbers rebuilt 2026-10-24 -->
 
 ## What it holds
 

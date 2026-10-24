@@ -1,6 +1,10 @@
 # Château Dauzac — fifth growth, Margaux
 
+<!-- fingerprint 34f9f300fc65c205 over 70 record(s); rebuild with tools/estate-report.py --estate dauzac --out -->
+
 Checked 2026-10-24. <!-- fill in: estate N of 61 -->
+
+<!-- numbers rebuilt 2026-10-24 -->
 
 ## What it holds
 
@@ -31,7 +35,6 @@ By role: other 33, grand 26, page 26, second 13.
 ## What the audit still says
 
 - no address — 43
-- note opens on capitals — 4
 - blend is exactly the planting, which is a different claim — 2
 
 ## Findings

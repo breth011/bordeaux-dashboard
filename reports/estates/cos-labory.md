@@ -1,6 +1,10 @@
 # Château Cos Labory — fifth growth, Saint-Estèphe
 
+<!-- fingerprint 7391e1b417adbf70 over 2 record(s); rebuild with tools/estate-report.py --estate cos-labory --out -->
+
 Checked 2026-10-24. <!-- fill in: estate N of 61 -->
+
+<!-- numbers rebuilt 2026-10-24 -->
 
 ## What it holds
 

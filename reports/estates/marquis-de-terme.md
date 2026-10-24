@@ -1,6 +1,10 @@
 # Château Marquis de Terme — fourth growth, Margaux
 
+<!-- fingerprint b11e6c40532b2d7e over 14 record(s); rebuild with tools/estate-report.py --estate marquis-de-terme --out -->
+
 Checked 2026-10-24. <!-- fill in: estate N of 61 -->
+
+<!-- numbers rebuilt 2026-10-24 -->
 
 ## What it holds
 
@@ -32,7 +36,6 @@ By role: unknown 42, grand 23, other 6, skip 1.
 - NO RECORD, 2 document(s) on disk — 1
 - NO RECORD, 1 document(s) on disk — 1
 - taste is word for word marquis-de-terme|YYYY’s — 1
-- blend is exactly the planting, which is a different claim — 1
 - taste is word for word marquis-de-terme|cuvee-YYYY|YYYY’s — 1
 - note opens on capitals — 1
 

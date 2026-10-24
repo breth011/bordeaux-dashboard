@@ -1,6 +1,10 @@
 # Château Haut-Batailley — fifth growth, Pauillac
 
+<!-- fingerprint f505898af4f1e7a8 over 18 record(s); rebuild with tools/estate-report.py --estate haut-batailley --out -->
+
 Checked 2026-10-24. <!-- fill in: estate N of 61 -->
+
+<!-- numbers rebuilt 2026-10-24 -->
 
 ## What it holds
 

@@ -1,6 +1,10 @@
 # Château Desmirail — third growth, Margaux
 
+<!-- fingerprint f35ec3291d5c0096 over 38 record(s); rebuild with tools/estate-report.py --estate desmirail --out -->
+
 Checked 2026-10-24. <!-- fill in: estate N of 61 -->
+
+<!-- numbers rebuilt 2026-10-24 -->
 
 ## What it holds
 
@@ -26,7 +30,6 @@ By role: second 77, other 20, page 7, grand 4, unknown 4, skip 1.
 ## What the audit still says
 
 - no address — 36
-- note opens on capitals — 3
 - NO RECORD, 1 document(s) on disk — 1
 
 ## Findings

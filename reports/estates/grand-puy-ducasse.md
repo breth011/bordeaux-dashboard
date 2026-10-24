@@ -1,6 +1,10 @@
 # Château Grand-Puy-Ducasse — fifth growth, Pauillac
 
+<!-- fingerprint 63a99b24b03f830d over 55 record(s); rebuild with tools/estate-report.py --estate grand-puy-ducasse --out -->
+
 Checked 2026-10-24. <!-- fill in: estate N of 61 -->
+
+<!-- numbers rebuilt 2026-10-24 -->
 
 ## What it holds
 

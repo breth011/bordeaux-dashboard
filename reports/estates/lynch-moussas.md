@@ -1,6 +1,10 @@
 # Château Lynch-Moussas — fifth growth, Pauillac
 
+<!-- fingerprint 627f43f71eb229a6 over 9 record(s); rebuild with tools/estate-report.py --estate lynch-moussas --out -->
+
 Checked 2026-10-24. <!-- fill in: estate N of 61 -->
+
+<!-- numbers rebuilt 2026-10-24 -->
 
 ## What it holds
 

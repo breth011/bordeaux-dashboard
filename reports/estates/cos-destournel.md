@@ -1,6 +1,10 @@
 # Château Cos d’Estournel — second growth, Saint-Estèphe
 
-Checked 2026-10-24. 
+<!-- fingerprint 1b9ede654f18982f over 116 record(s); rebuild with tools/estate-report.py --estate cos-destournel --out -->
+
+Checked 2026-10-24. <!-- fill in: estate N of 61 -->
+
+<!-- numbers rebuilt 2026-10-24 -->
 
 ## What it holds
 

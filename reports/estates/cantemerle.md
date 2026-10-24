@@ -1,6 +1,10 @@
 # Château Cantemerle — fifth growth, Haut-Médoc
 
+<!-- fingerprint fb16c2ddab4a1b56 over 18 record(s); rebuild with tools/estate-report.py --estate cantemerle --out -->
+
 Checked 2026-10-24. <!-- fill in: estate N of 61 -->
+
+<!-- numbers rebuilt 2026-10-24 -->
 
 ## What it holds
 

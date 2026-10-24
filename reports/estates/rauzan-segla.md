@@ -1,6 +1,10 @@
 # Château Rauzan-Ségla — second growth, Margaux
 
+<!-- fingerprint 27b17aa590fa38ab over 11 record(s); rebuild with tools/estate-report.py --estate rauzan-segla --out -->
+
 Checked 2026-10-24. <!-- fill in: estate N of 61 -->
+
+<!-- numbers rebuilt 2026-10-24 -->
 
 ## What it holds
 

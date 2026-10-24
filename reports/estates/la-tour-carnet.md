@@ -1,6 +1,10 @@
 # Château La Tour Carnet — fourth growth, Haut-Médoc
 
+<!-- fingerprint b514997234331be3 over 14 record(s); rebuild with tools/estate-report.py --estate la-tour-carnet --out -->
+
 Checked 2026-10-24. <!-- fill in: estate N of 61 -->
+
+<!-- numbers rebuilt 2026-10-24 -->
 
 ## What it holds
 
@@ -28,8 +32,6 @@ By role: page 32, unknown 16, grand 11, other 7.
 ## What the audit still says
 
 - no address — 10
-- blend is exactly the planting, which is a different claim — 1
-- note opens on capitals — 1
 
 ## Findings
 

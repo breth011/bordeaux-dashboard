@@ -1,6 +1,10 @@
 # Château Clerc Milon — fifth growth, Pauillac
 
+<!-- fingerprint 27b0eb2f4e1dcc7a over 44 record(s); rebuild with tools/estate-report.py --estate clerc-milon --out -->
+
 Checked 2026-10-24. <!-- fill in: estate N of 61 -->
+
+<!-- numbers rebuilt 2026-10-24 -->
 
 ## What it holds
 

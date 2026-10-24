@@ -1,6 +1,10 @@
 # Château Montrose — second growth, Saint-Estèphe
 
+<!-- fingerprint b5d28b02a38f3921 over 25 record(s); rebuild with tools/estate-report.py --estate montrose --out -->
+
 Checked 2026-10-24. <!-- fill in: estate N of 61 -->
+
+<!-- numbers rebuilt 2026-10-24 -->
 
 ## What it holds
 

@@ -1,6 +1,10 @@
 # Château Pontet-Canet — fifth growth, Pauillac
 
+<!-- fingerprint fd4761eb3820859f over 26 record(s); rebuild with tools/estate-report.py --estate pontet-canet --out -->
+
 Checked 2026-10-24. <!-- fill in: estate N of 61 -->
+
+<!-- numbers rebuilt 2026-10-24 -->
 
 ## What it holds
 

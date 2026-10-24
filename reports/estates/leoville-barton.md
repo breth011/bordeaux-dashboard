@@ -1,6 +1,10 @@
 # Château Léoville-Barton — second growth, Saint-Julien
 
+<!-- fingerprint 519e4a3466390723 over 32 record(s); rebuild with tools/estate-report.py --estate leoville-barton --out -->
+
 Checked 2026-10-24. <!-- fill in: estate N of 61 -->
+
+<!-- numbers rebuilt 2026-10-24 -->
 
 ## What it holds
 

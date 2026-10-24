@@ -1,6 +1,10 @@
 # Château Talbot — fourth growth, Saint-Julien
 
+<!-- fingerprint 6ecd18a6de5bf754 over 49 record(s); rebuild with tools/estate-report.py --estate talbot --out -->
+
 Checked 2026-10-24. <!-- fill in: estate N of 61 -->
+
+<!-- numbers rebuilt 2026-10-24 -->
 
 ## What it holds
 

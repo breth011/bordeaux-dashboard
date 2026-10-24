@@ -1,6 +1,10 @@
 # Château Gruaud-Larose — second growth, Saint-Julien
 
+<!-- fingerprint 017b333049de1770 over 70 record(s); rebuild with tools/estate-report.py --estate gruaud-larose --out -->
+
 Checked 2026-10-24. <!-- fill in: estate N of 61 -->
+
+<!-- numbers rebuilt 2026-10-24 -->
 
 ## What it holds
 
@@ -15,7 +19,7 @@ Checked 2026-10-24. <!-- fill in: estate N of 61 -->
 | new oak | 37 (97%) | 31 (97%) |
 | picking dates | 4 (11%) | 5 (16%) |
 | harvest, in words | 2 (5%) | — |
-| season note | 24 (63%) | 24 (75%) |
+| season note | 28 (74%) | 29 (91%) |
 | tasting note | 2 (5%) | 1 (3%) |
 | food pairing | — | 1 (3%) |
 | links to its source | 37 of 38 | |
@@ -29,6 +33,7 @@ By role: second 114, unknown 112, grand 40, page 37.
 ## What the audit still says
 
 - no address — 18
+- note is word for word gruaud-larose|sarget-de-gruaud-larose|YYYY’s — 3
 - food is a paragraph (259 chars), not a line — 1
 
 ## Findings

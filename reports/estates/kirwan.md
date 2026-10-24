@@ -1,6 +1,10 @@
 # Château Kirwan — third growth, Margaux
 
+<!-- fingerprint c2298904f02a271d over 17 record(s); rebuild with tools/estate-report.py --estate kirwan --out -->
+
 Checked 2026-10-24. <!-- fill in: estate N of 61 -->
+
+<!-- numbers rebuilt 2026-10-24 -->
 
 ## What it holds
 

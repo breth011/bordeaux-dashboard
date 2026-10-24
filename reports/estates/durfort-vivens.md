@@ -1,6 +1,10 @@
 # Château Durfort-Vivens — second growth, Margaux
 
-Checked 2026-10-24. 
+<!-- fingerprint dadc3dc75875e0f3 over 2 record(s); rebuild with tools/estate-report.py --estate durfort-vivens --out -->
+
+Checked 2026-10-24. <!-- fill in: estate N of 61 -->
+
+<!-- numbers rebuilt 2026-10-24 -->
 
 ## What it holds
 

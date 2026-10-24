@@ -1,6 +1,10 @@
 # Château Lafon-Rochet — fourth growth, Saint-Estèphe
 
+<!-- fingerprint 04a42ccef5c4fac6 over 24 record(s); rebuild with tools/estate-report.py --estate lafon-rochet --out -->
+
 Checked 2026-10-24. <!-- fill in: estate N of 61 -->
+
+<!-- numbers rebuilt 2026-10-24 -->
 
 ## What it holds
 

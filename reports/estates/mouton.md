@@ -1,6 +1,10 @@
 # Château Mouton Rothschild — first growth, Pauillac
 
+<!-- fingerprint 150b67dbcb1efec0 over 86 record(s); rebuild with tools/estate-report.py --estate mouton --out -->
+
 Checked 2026-10-24. <!-- fill in: estate N of 61 -->
+
+<!-- numbers rebuilt 2026-10-24 -->
 
 ## What it holds
 

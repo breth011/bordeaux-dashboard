@@ -1,6 +1,10 @@
 # Château Pédesclaux — fifth growth, Pauillac
 
+<!-- fingerprint 1b7cd850acce45f3 over 19 record(s); rebuild with tools/estate-report.py --estate pedesclaux --out -->
+
 Checked 2026-10-24. <!-- fill in: estate N of 61 -->
+
+<!-- numbers rebuilt 2026-10-24 -->
 
 ## What it holds
 
@@ -31,7 +35,6 @@ By role: second 18, unknown 12, grand 9, page 4.
 
 - no address — 17
 - NO RECORD, 2 document(s) on disk — 2
-- blend is exactly the planting, which is a different claim — 1
 - taste is word for word pedesclaux|fleur-de-pedesclaux|YYYY’s — 1
 
 ## Findings

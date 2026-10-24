@@ -1,6 +1,10 @@
 # Château Margaux — first growth, Margaux
 
+<!-- fingerprint 4b0627eaf7465523 over 223 record(s); rebuild with tools/estate-report.py --estate margaux --out -->
+
 Checked 2026-10-24. <!-- fill in: estate N of 61 -->
+
+<!-- numbers rebuilt 2026-10-24 -->
 
 ## What it holds
 

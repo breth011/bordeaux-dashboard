@@ -22,6 +22,7 @@ The counts come from the data files, not from a cache, so a report
 rebuilt after a read is correct without being re-read by hand.
 """
 import io, json, os, re, sys, argparse, collections, subprocess
+import hashlib
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__))) + os.sep
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
@@ -40,6 +41,48 @@ NAMES = {'blend': 'blend', 'alc': 'alcohol', 'ph': 'pH',
          'ta': 'total acidity', 'temp': 'serving temperature',
          'window': 'drinking window', 'decant': 'decanting',
          'food': 'food pairing'}
+
+
+def was_checked(eid):
+    """The date already in the report, if it has one.
+
+    `Checked 2026-10-24.` is the day a person read the estate vintage
+    by vintage, and rebuilding the counts is not that. It is the one
+    fact in the report that cannot be recomputed, so it is kept rather
+    than replaced with the placeholder BDX_DATE falls back to.
+    """
+    p = os.path.join(ROOT, 'reports', 'estates', eid + '.md')
+    if not os.path.exists(p):
+        return None
+    m = re.search(r'^Checked\s+(\d{4}-\d\d-\d\d)\.',
+                  io.open(p, encoding='utf-8').read(), re.M)
+    return m.group(1) if m else None
+
+
+def fingerprint(eid):
+    """A hash of the estate's own records, as they are right now.
+
+    What the report counts, and nothing else. Over the estate's own
+    records rather than over the files, because any read of any estate
+    rewrites fiches.js - a modification time would mark all 61 reports
+    stale at once and the warning would be ignored inside a week.
+
+    Sensitive to values as well as to which fields exist: a corrected
+    note is an insight too, and rebuilding a report costs nothing
+    because the hand-written half is kept.
+    """
+    lines = []
+    for name in ('fiches.js', 'cuvees.js'):
+        p = os.path.join(ROOT, 'data', name)
+        if not os.path.exists(p):
+            continue
+        for line in io.open(p, encoding='utf-8'):
+            s = line.rstrip()
+            m = re.match(r"^'([a-z0-9-]+)\|", s)
+            if m and m.group(1) == eid:
+                lines.append(s)
+    h = hashlib.sha1(('\n'.join(sorted(lines))).encode('utf-8'))
+    return h.hexdigest()[:16], len(lines)
 
 
 def records(path, parts):
@@ -127,8 +170,22 @@ def main():
                   (' — %s, %s' % (gc, e.get('app') or ''))
                   .rstrip(', ') if gc or e.get('app') else ''))
     w()
-    w('Checked %s. <!-- fill in: estate N of 61 -->'
-      % os.environ.get('BDX_DATE', 'YYYY-MM-DD'))
+    _fp, _n = fingerprint(eid)
+    # The guard: check-language.py compares this with the data and says
+    # so when the report has stopped describing its estate. Keep it on
+    # one line and in this shape - that is what the check looks for.
+    w('<!-- fingerprint %s over %d record(s); rebuild with '
+      'tools/estate-report.py --estate %s --out -->' % (_fp, _n, eid))
+    w()
+    # BDX_DATE for a genuine re-check; otherwise whatever the report
+    # already says, because rebuilding the numbers is not re-checking
+    # the estate and the placeholder would destroy the real date.
+    _checked = (os.environ.get('BDX_DATE') or was_checked(eid)
+                or 'YYYY-MM-DD')
+    w('Checked %s. <!-- fill in: estate N of 61 -->' % _checked)
+    w()
+    w('<!-- numbers rebuilt %s -->'
+      % __import__('datetime').date.today().isoformat())
     w()
 
     # ------------------------------------------------------ the records

@@ -10,9 +10,9 @@ One row per day, from `progress-history.tsv`.
    date         records   blend   taste    note     url      nl
    2026-10-22      2210    1639     782     504     784     660
    2026-10-23      2637    2000     956    1054     811     595
-   2026-10-24      2648    2001     957    1060    1180     639
+   2026-10-24      2648    2001     957    1060    1180     638
 
-   since 2026-10-22: records +438, blend +362, taste +175, note +556, url +396, nl -21
+   since 2026-10-22: records +438, blend +362, taste +175, note +556, url +396, nl -22
 
    THE 61 CLASSIFIED GROWTHS, share of what they could hold
    date         estates   blend   taste    note     alc      ph     yld  months     oak    pick
@@ -42,16 +42,16 @@ harvest   harvest, as the sheet words it         154    6%   0.7%  0.1%  0.3%  0
 temp      serving temperature                     62    2%   0.3%  0.0%  0.0%  0.3%  0.6%  0.6% 
 wy        drinking window, as years               42    2%   0.2%  0.0%  0.0%  0.1%  0.4%  0.6% 
 window    drinking window, in words               41    2%   0.2%  0.1%  0.2%  0.3%  0.2%  0.2% 
-decant    decanting                               21    1%   0.1%  0.0%  0.1%  0.3%  0.1%  0.0% 
+decant    decanting                               38    1%   0.2%  0.0%  0.1%  0.5%  0.3%  0.0% 
 food      food pairing                            51    2%   0.2%  0.0%  0.0%  0.0%  0.8%  0.4% 
 
 ABOUT THE RECORD ITSELF:
    src    names the document it was read from            2,647  100% of records
    url    can link to that document in the app           1,180   45% of records
-   nl     has Dutch for its prose                          639   24% of records
+   nl     has Dutch for its prose                          638   24% of records
 
 STILL TO MERGE - a document states it and no record holds it:
-   note         2
+   decant      17
    (from reports/fiches-read.json; re-run tools/read-fiches.py --prose to refresh)
 
 THE 61 CLASSIFIED GROWTHS, APART FROM THE LONG TAIL:

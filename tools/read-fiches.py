@@ -343,6 +343,11 @@ def main():
                      'role': w.group(3), 'colour': w.group(4)})
 
     UNLISTED = collections.Counter()
+    LEADING_ART = re.compile(u"(?i)^(?:les?|la|l[\u2019']|the)\\s*")
+
+    def _bare(n):
+        return sr.packed(LEADING_ART.sub('', n.strip()))
+
 
     def wine_of(eid, name):
         """The list's entry for this wine, or None.
@@ -364,6 +369,15 @@ def main():
         want = sr.packed(name)
         for w in WINES.get(eid, ()):
             if sr.packed(w['name']) == want:
+                return w
+        # And again without a leading article, which is not a
+        # different wine: the manifest says Le Haut-Medoc de
+        # Lascombes where the list says Haut-Medoc de Lascombes.
+        # The trailing colour word is never dropped - in this list
+        # it is what tells two entries apart.
+        bare = _bare(name)
+        for w in WINES.get(eid, ()):
+            if _bare(w['name']) == bare:
                 return w
         UNLISTED[(eid, name)] += 1
         return None

@@ -2627,7 +2627,11 @@ function estateProse(ch) {
    Franc-Mayne's 2002 was made in concrete vats and its 2013 in
    gravity-fed stainless, and 38 estates in this archive describe
    theirs more than one way. See tools/read-terroir.py. */
-function cellarNote(ch, yr) {
+function cellarNote(ch, yr, slug) {
+  /* Read per vintage off the grand vin's sheet and keyed
+     estate|year. There is no cuvee equivalent on disk, and the
+     grand vin's vats are not this wine's. */
+  if (slug && slug !== 'grand') return '';
   var C = (window.BDX_CELLAR || {})[ch.id + '|' + yr];
   if (!C || !C.v) return '';
   return '<p class="subhead">In the cellar, ' + yr + '</p>' +
@@ -2960,16 +2964,17 @@ function closeDrawer() {
    its own season or its own wine, that is what is shown, and the regional
    text is not repeated underneath. Sourcing is kept quiet - a short grey
    line, not a badge - because it should be checkable, not loud. */
-function fiche(ch, yr) {
-  var F = window.BDX_FICHES;
-  var en = (F && F[ch.id + '|' + yr]) || null;
+/* The Dutch laid over the English, field by field, so a tasting note
+   that has been translated shows in Dutch even when the vintage note
+   beside it has not.
+
+   Shared by both stores. It was inside fiche() and so applied to the
+   grand vin only: a second wine's note stayed in English however much
+   of it had been translated, because wineFiche read cuvees.js raw. */
+function withDutch(en, alt) {
   if (!en) return null;
   var lang = window.BDX_LANG ? BDX_LANG.get() : 'en';
-  if (lang === 'en') return en;
-  var alt = (window.BDX_FICHES_NL || {})[ch.id + '|' + yr];
-  if (!alt) return en;
-  /* Field by field, so a tasting note that has been translated shows in
-     Dutch even when the vintage note beside it has not. */
+  if (lang === 'en' || !alt) return en;
   var out = {};
   for (var k in en) out[k] = en[k];
   if (alt.note) out.note = alt.note;
@@ -2978,6 +2983,12 @@ function fiche(ch, yr) {
   if (alt.window) out.window = alt.window;
   if (alt.food) out.food = alt.food;
   return out;
+}
+
+function fiche(ch, yr) {
+  var F = window.BDX_FICHES, k = ch.id + '|' + yr;
+  return withDutch((F && F[k]) || null,
+                   (window.BDX_FICHES_NL || {})[k]);
 }
 
 /* The address of the sheet this vintage was read from, where one was
@@ -2989,9 +3000,14 @@ function fiche(ch, yr) {
    manifest kept them were thrown away. So this returns a plain label
    whenever it cannot do better, and the line reads exactly as it did
    before. */
-function ficheUrl(ch, yr) {
+function ficheUrl(ch, yr, slug) {
+  if (!ch) return null;
+  if (slug && slug !== 'grand') {
+    var C = window.BDX_CUVEE_URL;
+    return (C && C[ch.id + '|' + slug + '|' + yr]) || null;
+  }
   var U = window.BDX_FICHE_URL;
-  return (U && ch && U[ch.id + '|' + yr]) || null;
+  return (U && U[ch.id + '|' + yr]) || null;
 }
 
 /* The sourcing line, as a link when the document can be reached.
@@ -2999,8 +3015,8 @@ function ficheUrl(ch, yr) {
    badge - and a grey line you can open is the same line doing its job
    properly. target=_blank so the dashboard is not navigated away from,
    and rel=noopener because the page being opened is somebody else's. */
-function srcLine(ch, yr, label) {
-  var u = ficheUrl(ch, yr);
+function srcLine(ch, yr, label, slug) {
+  var u = ficheUrl(ch, yr, slug);
   if (!u) return label;
   /* Written in English like the rest of the markup; assets/i18n.js says
      it in Dutch on the way out, which is how every other label here
@@ -3055,8 +3071,16 @@ var AROMA = [
    the same wheel in either language - what the wine smells of does not
    change when the page does - so it is read from the English record
    and only its family names are translated. */
-function englishTaste(ch, yr) {
-  var F = window.BDX_FICHES, en = F && ch && F[ch.id + '|' + yr];
+function englishTaste(ch, yr, slug) {
+  if (!ch) return '';
+  /* The aroma wheel is built from English words, so it always reads the
+     untranslated field - whichever wine's store that is in. */
+  if (slug && slug !== 'grand') {
+    var C = window.BDX_CUVEES;
+    var cv = C && C[ch.id + '|' + slug + '|' + yr];
+    return (cv && cv.taste) || '';
+  }
+  var F = window.BDX_FICHES, en = F && F[ch.id + '|' + yr];
   return (en && en.taste) || '';
 }
 
@@ -3130,8 +3154,8 @@ function aromaWheel(text) {
     '</div>';
 }
 
-function fichesBlock(ch, yr) {
-  var f = fiche(ch, yr);
+function fichesBlock(ch, yr, slug) {
+  var f = wineFiche(ch, slug || 'grand', yr);
   if (!f) return '';
   var s = '';
 
@@ -3149,6 +3173,11 @@ function fichesBlock(ch, yr) {
       usual = P[ch.id].blend;
       what = 'what the vineyard is planted with';
     }
+    /* Not behind a cuvee's blend. The usual assemblage and the
+       planting are both the grand vin's, and a second wine is
+       often the other half of the same vineyard - the ghost bar
+       would invite a comparison between two different wines. */
+    if (slug && slug !== 'grand') { usual = null; what = null; }
     s += '<p class="subhead">Blend, ' + yr + '</p>' +
       blendBar(f.blend, usual, what) +
       '<div class="tableview' + (state.tables ? ' on' : '') + '">' +
@@ -3196,7 +3225,7 @@ function fichesBlock(ch, yr) {
     }
   }
 
-  s += cellarNote(ch, yr);
+  s += cellarNote(ch, yr, slug);
 
   /* What the château suggests drinking it with. */
   if (f.food) {
@@ -3229,7 +3258,7 @@ function fichesBlock(ch, yr) {
 
      It is deliberately the last thing in the block. The figures above
      are what the reader came for; this is how they check them. */
-  var fu = ficheUrl(ch, yr);
+  var fu = ficheUrl(ch, yr, slug);
   if (fu) {
     s += '<p class="fichelink">' +
       '<a class="src-link" href="' +
@@ -3271,8 +3300,11 @@ function appellationLine(ch, yr) {
 /* The season, told by the estate where it told it, and by the region where
    it did not. Each half falls back on its own: an estate that published a
    tasting note but no weather still gets the regional weather beneath it. */
-function seasonBlock(ch, yr, v, o) {
-  var f = fiche(ch, yr);
+function seasonBlock(ch, yr, v, o, slug) {
+  /* The wine's own note. This read the grand vin's whatever row it
+     was drawn in, so Sarget's row carried Gruaud-Larose's words
+     under Sarget's name. */
+  var f = wineFiche(ch, slug || 'grand', yr);
   var weather = (f && f.note) ? f.note : vintage(yr).weather;
   /* ntl and ttl mark a passage the estate published in French and that is
      shown here in English. It is still the estate's note, so it is said on
@@ -3295,11 +3327,11 @@ function seasonBlock(ch, yr, v, o) {
   return '<p class="subhead">The ' + yr + ' season</p>' +
     '<p class="vintagereport">' + weather + '</p>' +
     '<p class="src">' +
-      ((f && f.note) ? srcLine(ch, yr, wSrc) : wSrc) + '</p>' +
+      ((f && f.note) ? srcLine(ch, yr, wSrc, slug) : wSrc) + '</p>' +
     '<p class="vintagereport">' + wine + '</p>' +
     '<p class="src">' +
-      ((f && f.taste) ? srcLine(ch, yr, tSrc) : tSrc) + '</p>' +
-    aromaWheel(englishTaste(ch, yr) || wine) +
+      ((f && f.taste) ? srcLine(ch, yr, tSrc, slug) : tSrc) + '</p>' +
+    aromaWheel(englishTaste(ch, yr, slug) || wine) +
     phenologyLine(yr, ch) +
     appellationLine(ch, yr);
 }
@@ -3524,10 +3556,13 @@ function wineById(ch, slug) {
   return list[0];
 }
 
-/* The record for one wine in one year, whichever store it lives in. */
+/* The record for one wine in one year, whichever store it lives in,
+   and in Dutch where there is Dutch for it. */
 function wineFiche(ch, slug, yr) {
   if (!slug || slug === 'grand') return fiche(ch, yr);
-  return CUVEES[ch.id + '|' + slug + '|' + yr] || null;
+  var k = ch.id + '|' + slug + '|' + yr;
+  return withDutch(CUVEES[k] || null,
+                   (window.BDX_CUVEES_NL || {})[k]);
 }
 
 var ROLE_LABEL = { grand: 'the grand vin', second: 'second wine',
@@ -3789,11 +3824,18 @@ function wireBottles(root, after) {
   });
 }
 
-function drinkBlock(ch, yr) {
-  var w = drinkWindow(ch, yr);
+function drinkBlock(ch, yr, slug) {
+  var cuvee = !!(slug && slug !== 'grand');
+  var f = wineFiche(ch, cuvee ? slug : 'grand', yr);
+  /* A cuvee's window is its own or none. The modelled one is built
+     from the estate's rank and the grand vin's blend, and a second
+     wine is not on that schedule - showing it here would be a
+     number computed for another wine. */
+  var w = cuvee
+    ? (f && f.wy ? { from: f.wy[0], to: f.wy[1], src: 'estate' } : null)
+    : drinkWindow(ch, yr);
   if (!w) return '';
   var m = maturity(w);
-  var f = fiche(ch, yr);
   var s = '<p class="subhead">When to drink</p>' +
     '<div class="drink">' +
       '<span class="drinkspan">' + w.from + '–' + w.to + '</span>' +
@@ -3893,42 +3935,30 @@ function cuveeRow(ch, slug, yr) {
       '<button class="vrow-head" disabled><span class="yr">' + yr + '</span>' +
       '<span class="teaser">No sheet on file for this wine</span></button></div>';
   }
+  /* The collapsed head answers "which of these do I open?", so it
+     carries what the sheet states in one line - and the maturity only
+     where the estate published a window for this wine, because the
+     modelled one is the grand vin's schedule. */
   var bits = [];
   if (f.alc) bits.push(f.alc + '%');
   if (f.months) bits.push(f.months + ' months in barrel');
   if (f.yld) bits.push(f.yld + ' hl/ha');
+  var m = f.wy ? maturity({ from: f.wy[0], to: f.wy[1] }) : null;
 
   return '<div class="vrow" data-year="' + yr + '" ' +
       'style="border-left:3px solid ' + ratingColor(vintageRating(ch, yr)) + '">' +
     '<button class="vrow-head"><span class="yr">' + yr + '</span>' +
       '<span class="sc"></span>' +
-      '<span class="mat mat-none"></span>' +
+      (m ? '<span class="mat mat-' + m.k + '">' + m.label + '</span>'
+         : '<span class="mat mat-none"></span>') +
       '<span class="teaser">' + heldMark(ch, slug, yr) +
         (bits.join(' · ') || v.report) + '</span>' +
       '<span class="chev">▾</span></button>' +
     '<div class="vrow-body">' +
-      (f.blend
-        ? '<p class="subhead">Blend, ' + yr + '</p>' + blendBar(f.blend) +
-          '<div class="tableview' + (state.tables ? ' on' : '') + '">' +
-            blendTable(f.blend) + '</div>'
-        : '') +
-      (bits.length
-        ? '<dl class="factgrid">' +
-            (f.alc ? '<div class="fact"><dt>Alcohol</dt><dd>' + f.alc + '%</dd></div>' : '') +
-            (f.months ? '<div class="fact"><dt>In barrel</dt><dd>' + f.months + ' months</dd></div>' : '') +
-            (f.oak ? '<div class="fact"><dt>New oak</dt><dd>' + f.oak + '%</dd></div>' : '') +
-            (f.yld ? '<div class="fact"><dt>Yield</dt><dd>' + f.yld + ' hl/ha</dd></div>' : '') +
-            (f.harvest ? '<div class="fact"><dt>Picked</dt><dd>' + f.harvest + '</dd></div>' : '') +
-          '</dl>'
-        : '') +
-      (f.note ? '<p class="subhead">The estate on the year</p>' +
-                '<p class="notetext">' + f.note + '</p>' : '') +
-      (f.taste ? '<p class="subhead">The estate on the wine</p>' +
-                 '<p class="notetext">' + f.taste + '</p>' : '') +
-      (f.food ? '<p class="subhead">Serve it with</p>' +
-                '<p class="notetext">' + f.food + '</p>' : '') +
+      fichesBlock(ch, yr, slug) +
+      drinkBlock(ch, yr, slug) +
       bottleControl(ch, slug, yr) +
-      '<p class="src">this estate’s own sheet for this wine</p>' +
+      seasonBlock(ch, yr, v, null, slug) +
     '</div></div>';
 }
 

@@ -2655,6 +2655,19 @@ ADVICE = (
 # here"), the estate block ("10 a 15 ans SECOND VIN : Les Angelots de
 # Villemaurine PROPRIETAIRE : Justin Onclin"), or the tasting note
 # itself ("2023 et 2042. Le 2020 Badette presente une robe grenat").
+# Advice with no heading over it, printed as the closing sentence of
+# the note: "A generous wine. For maximum enjoyment Decant the wine
+# 2 hours before serving." Malescot prints it under every vintage
+# and sixteen records hold it inside the tasting note.
+#
+# Both halves are required, at the very end of the field. "Decant"
+# alone is a word a note may use about itself - a wine that needs
+# decanting is a remark about the wine - and "for maximum
+# enjoyment" alone is a sales phrase that could precede anything.
+TAIL_DECANT = re.compile(
+    r'(?i)\s*for\s+maximum\s+enjoyment\s+decant\b'
+    r'[^.!?]{0,90}[.!?]?\s*$')
+
 ADVICE_STOP = re.compile(
     r'(?i)('
     # The shop's own table, printed under the advice. Caillou's 2019
@@ -4065,6 +4078,22 @@ def whose_sheet(path, filename=None, grand=None, others=(), second=None,
     return None
 
 
+def is_ocr(path):
+    """Is this an OCR text layer rather than a readable document?
+
+    A scan run through OCR has no layout: where an extractor knows a
+    page has two columns, OCR guesses, and the guess interleaves them
+    a phrase at a time. Batailley's Lions sheets come out with the
+    estate's story about the lions on its gate woven through the
+    tasting note, and Dauzac's La Bastide with its technical block
+    inside it and the characters misread as well.
+
+    Named by the harvester, which writes .ocr.txt when it has had to
+    OCR a scan. Nothing else distinguishes the file afterwards.
+    """
+    return str(path).lower().endswith('.ocr.txt')
+
+
 def fields_of(path, grand=None, others=(), second=None, cat=None,
               filename=None, year=None, is_second=False):
     """Everything a sheet states, or nothing if it is not this wine's.
@@ -4132,12 +4161,31 @@ def fields_of(path, grand=None, others=(), second=None, cat=None,
         if b:
             got['blend'] = b
             how['blend'] = 'stated in prose'
-    more, howm = read_prose(
-        text, page=is_page(path),
-        shop=_is_shop(filename))
-    got.update(more)
-    how.update(howm)
-    more, howm = read_advice(text)
-    got.update(more)
-    how.update(howm)
+    # The figures off an OCR layer are kept - every one has a gate
+    # and a misread character fails it - but not the prose, which
+    # has no gate and here no layout either. Measured: 4 prose
+    # proposals come off an OCR layer and all 4 are two columns
+    # interleaved.
+    if not is_ocr(path):
+        more, howm = read_prose(
+            text, page=is_page(path),
+            shop=_is_shop(filename))
+        got.update(more)
+        how.update(howm)
+        more, howm = read_advice(text)
+        got.update(more)
+        how.update(howm)
+        # The advice that is the note's last sentence rather than a
+        # heading with text under it. Moved to the field it belongs
+        # in, and only where something is left that is still a note.
+        for f in ('taste', 'note'):
+            if f not in got:
+                continue
+            t = TAIL_DECANT.search(got[f])
+            if not t or t.start() < 40:
+                continue
+            got[f] = got[f][:t.start()].rstrip()
+            if 'decant' not in got:
+                got['decant'] = ' '.join(t.group(0).split())
+                how['decant'] = 'the last sentence of the %s' % f
     return got, how

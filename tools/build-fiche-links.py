@@ -45,7 +45,21 @@ ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__))) + os.sep
 def main():
     ap = argparse.ArgumentParser()
     ap.add_argument('--dry-run', action='store_true')
+    ap.add_argument('--cuvees', action='store_true',
+                    help="the estate's other wines, from "
+                         'data/cuvees.js into data/cuvee-url.js')
     a = ap.parse_args()
+
+    # Which store. The join below is the same either way; what
+    # changes is the file, the key shape and where it is written.
+    DATA = 'data/cuvees.js' if a.cuvees else 'data/fiches.js'
+    OUTF = 'data/cuvee-url.js' if a.cuvees else 'data/fiches-url.js'
+    VAR = 'BDX_CUVEE_URL' if a.cuvees else 'BDX_FICHE_URL'
+    WHAT = 'wine and vintage' if a.cuvees else 'vintage'
+    ROW = re.compile(
+        r"^'([a-z0-9-]+\|[a-z0-9-]+\|\d{4})':\{(.*)\},$"
+        if a.cuvees else
+        r"^'([a-z0-9-]+\|\d{4})':\{(.*)\},$")
 
     man = json.load(io.open(ROOT + 'data/sources.json', encoding='utf-8'))
     url, titled = {}, {}
@@ -55,8 +69,8 @@ def main():
             titled.setdefault(s['file'], s.get('wine') or s.get('estateName'))
 
     out, why = {}, collections.Counter()
-    for line in io.open(ROOT + 'data/fiches.js', encoding='utf-8'):
-        m = re.match(r"^'([a-z0-9-]+\|\d{4})':\{(.*)\},$", line.rstrip())
+    for line in io.open(ROOT + DATA, encoding='utf-8'):
+        m = ROW.match(line.rstrip())
         if not m:
             continue
         sm = re.search(r"src:'((?:[^'\\]|\\.)*)'", m.group(2))
@@ -105,11 +119,12 @@ def main():
             print('   %-34s %s' % (k, out[k][:88]))
         return 0
 
-    o = io.open(ROOT + 'data/fiches-url.js', 'w', encoding='utf-8',
+    o = io.open(ROOT + OUTF, 'w', encoding='utf-8',
                 newline='')
     o.write('/* ======================================================'
             '===================\n'
-            '   Bordeaux Dashboard — where each vintage’s sheet can be read\n'
+            '   Bordeaux Dashboard — where each %s’s sheet '
+            'can be read\n' % WHAT +
             '   -------------------------------------------------------'
             '------------------\n'
             '   Built by tools/build-fiche-links.py. Do not edit by hand.\n'
@@ -122,13 +137,13 @@ def main():
             '   address for the sheet it cites.\n'
             '   ========================================================'
             '================= */\n'
-            'window.BDX_FICHE_URL = {\n')
+            'window.%s = {\n' % VAR)
     for k in sorted(out):
         o.write("'%s':'%s',\n" % (k, out[k].replace('\\', '\\\\')
                                  .replace("'", "\\'")))
     o.write('};\n')
     o.close()
-    print('written to data/fiches-url.js')
+    print('written to %s' % OUTF)
     return 0
 
 

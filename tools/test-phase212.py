@@ -41,12 +41,13 @@ def git(args):
                                    stderr=subprocess.DEVNULL).decode()
 
 
-# 1. the starting state: since 2072abe only Phase 2.12's own files moved
-changed = set(git(['diff', '--name-only', BASE]).split()) | set(
-    l[3:] for l in git(['status', '--porcelain=v1',
-                        '--untracked-files=all']).splitlines())
+# 1. Phase 2.12 itself, its commit 8964131, changed only its document
+# and test. Fixed to that range: a later phase's files are not this
+# phase's business (the whole-tree form of this check failed as soon as
+# Phase 3.0 added files).
+changed = set(git(['diff', '--name-only', BASE, '8964131']).split())
 allowed = {DOC, 'tools/test-phase212.py'}
-says('since %s only Phase 2.12\'s document and test changed' % BASE,
+says('Phase 2.12 (%s..8964131) changed only its document and test' % BASE,
      changed <= allowed, ', '.join(sorted(changed - allowed))[:40])
 # 2. canonical files
 out = git(['diff', '--name-only', BASE, '--'] + list(CANON)).strip()

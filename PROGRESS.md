@@ -10,9 +10,9 @@ One row per day, from `progress-history.tsv`.
    date         records   blend   taste    note     url      nl
    2026-10-22      2210    1639     782     504     784     660
    2026-10-23      2637    2000     956    1054     811     595
-   2026-10-24      2698    2001    1003    1116    1229     667
+   2026-10-24      2698    2001    1003    1116    1264     667
 
-   since 2026-10-22: records +488, blend +362, taste +221, note +612, url +445, nl +7
+   since 2026-10-22: records +488, blend +362, taste +221, note +612, url +480, nl +7
 
    THE 61 CLASSIFIED GROWTHS, share of what they could hold
    date         estates   blend   taste    note     alc      ph     yld  months     oak    pick
@@ -47,12 +47,14 @@ food      food pairing                            49    2%   0.2%  0.0%  0.0%  0
 
 ABOUT THE RECORD ITSELF:
    src    names the document it was read from            2,697  100% of records
-   url    can link to that document in the app           1,229   46% of records
+   url    can link to that document in the app           1,264   47% of records
    nl     has Dutch for its prose                          667   25% of records
 
 STILL TO MERGE - a document states it and no record holds it:
-   taste       21
-   note         8
+   blend       14
+   pick        14
+   taste       14
+   note         5
    (from reports/fiches-read.json; re-run tools/read-fiches.py --prose to refresh)
 
 THE 61 CLASSIFIED GROWTHS, APART FROM THE LONG TAIL:
@@ -86,7 +88,7 @@ tasting note and growing season is absent across the estate’s records:
 
    estate                     gc  recs blend taste  note  link  spare
    margaux                     1   118    19    34    93   118      8
-   grand-puy-ducasse           5    40    19     0    13     0     10
+   grand-puy-ducasse           5    40    19     0    13    35     10
    latour                      1    74     0    67    72    74      1
    palmer                      3    56    56     4    43     7      2
    lafite                      1    50    48    42     3     1      0
@@ -162,7 +164,7 @@ tasting note and growing season is absent across the estate’s records:
 
    estate                     gc  recs blend taste  note  link  spare
    margaux                     1   118    19    34    93   118      8
-   grand-puy-ducasse           5    40    19     0    13     0     10
+   grand-puy-ducasse           5    40    19     0    13    35     10
    latour                      1    74     0    67    72    74      1
    palmer                      3    56    56     4    43     7      2
    lafite                      1    50    48    42     3     1      0

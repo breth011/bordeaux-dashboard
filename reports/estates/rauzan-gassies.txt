@@ -1,8 +1,0 @@
-========================================================================
-rauzan-gassies
-========================================================================
-1 document(s) in the manifest, 0 vintage(s) of them
-the estate's other wines, from cuvees.js:
-   none listed - if the estate makes any, that is the first thing to fix
-
-grand: 0 vintage(s) with something to look at

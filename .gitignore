@@ -15,6 +15,12 @@ reports/*
 # were overwritten by a regeneration and there was nothing to restore them
 # from.
 !reports/estates/
+# but only the reports themselves. audit-estate.py writes its raw dump
+# beside them as <estate>.txt, which is working output.
+reports/estates/*.txt
+
+# Backups the tools take before rewriting a data file.
+*.bak
 
 # Python bytecode from the tools.
 __pycache__/

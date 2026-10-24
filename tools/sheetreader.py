@@ -830,28 +830,350 @@ def named_wines(text, grand, wines):
             if not any(o != w and ws[w] < ws[o] for o in found)]
 
 
+# Words that stand in front of an estate's name without naming a wine:
+# a document's furniture ("Grand Vin de", "Fiche technique du") and a
+# filename's or address's ("FT-", "primeur-", "packshot-"). A name made
+# only of these, COMMON words and the estate's own words is the estate
+# talking about itself.
+GENERIC_NAME_WORDS = set((
+    'vin vins wine wines second seconde deuxieme premier premiere first '
+    'grand grands cru crus classe classes fiche fiches technique '
+    'techniques technical sheet sheets data millesime millesimes vintage '
+    'vintages note notes degustation tasting propriete property '
+    'vignoble vignobles vineyard vineyards sec seche dry doux moelleux '
+    'liquoreux sweet aoc aop appellation famille family maison house '
+    'ft fr en gb uk eng ang us cn es it nl jp pdf doc web min bd hd '
+    'compressed final version primeur primeurs produit produits '
+    'certificat analyse purete liste gencods equipe coffret packshot '
+    'recette magnum bouteille bouteilles etiquette ratings dp cp press '
+    'presse france saint').split())
+
+# House words as names, filenames and addresses write them: "Ch.",
+# "Cht", and "Ch-teau" where an address lost the accented letter.
+NAME_HOUSE = set(('chateau', 'clos', 'domaine', 'ch', 'cht', 'chat',
+                  'cha', 'teau', 'chateaux'))
+_NAME_ARTICLES = set(('la', 'le', 'les', 'l'))
+_NAME_LINKS = set(('de', 'du', 'd', 'des'))
+
+
+def estate_core(grand):
+    """The estate's own name as words, the house word and articles off:
+    "Chateau Cos d'Estournel" -> ['cos', 'estournel']."""
+    return [p for p in (packed(w) for w in _name_words(grand))
+            if p and p not in HOUSE_WORDS and p not in ARTICLES]
+
+
+def wine_shaped_names(text, grand, prose=True):
+    """Names in a text built on the estate's own name, the way Bordeaux
+    names its wines - with their position in the text.
+
+    Les Erables de Caillou, Echo de Lynch-Bages, Lacroix-Martillac: a
+    wine is named "X de <estate>" or as a hyphenated compound onto the
+    estate's name. So wherever the estate's name appears, the words just
+    in front of it are read back - up to three, through "de"/"du"/"d'",
+    to an article or a house word - and kept only if they have that
+    shape: a "de" link, or a hyphen joining them to the estate's name.
+    "Chateau Bahans Haut-Brion", "Decouvrez Giscours" and "Renomme
+    Haut-Bailly" have neither, and are not wine names.
+
+    In prose (a title, a body) the walk also stops at a word in lower
+    case, which a proper name is not made of: "le nez de Duluc de
+    Branaire-Ducru" gives "Duluc de Branaire-Ducru", and "la fois a
+    Branaire-Ducru" gives nothing. A filename or an address is all one
+    case, so there the shape alone decides.
+
+    This finds names whether or not anyone listed the wine - the point,
+    since named_wines() can only find what is on the estate's list.
+    Returns [(name, position)], each name once, in text order.
+    """
+    core = estate_core(grand)
+    if not core or not text:
+        return []
+    toks = [(m.group(0), m.start(), m.end())
+            for m in re.finditer(r'[A-Za-z0-9À-ÿ]+', text)]
+    pk = [packed(t[0]) for t in toks]
+
+    def gap(a, b):
+        return text[toks[a][2]:toks[b][1]]
+
+    def joined(a, b):
+        # One name runs across spaces, an apostrophe, or a hyphen with
+        # no space around it. " - " is a dash between two things.
+        g = gap(a, b)
+        return re.match(r"^(?:\s+|\s*['’]\s*|-)$", g) is not None \
+            or g == ''
+
+    # Where the estate's own name is a hyphenated pair, its wines may
+    # borrow only the second half: Latour-Martillac makes
+    # Lagrave-Martillac and Lacroix-Martillac.
+    pair = None
+    gw = _name_words(grand)
+    if len(core) >= 2 and re.search(r'(?i)%s-%s' % (
+            re.escape(gw[-2]), re.escape(gw[-1])), grand or ''):
+        pair = core[-1]
+    anchors = []
+    n = len(core)
+    for i in range(len(toks)):
+        if pk[i:i + n] == core and all(joined(k, k + 1)
+                                       for k in range(i, i + n - 1)):
+            anchors.append((i, n))
+        elif pair and pk[i] == pair and i > 0 and pk[i - 1] != core[-2] \
+                and gap(i - 1, i) == '-':
+            anchors.append((i, 1))
+    out, seen = [], set()
+    for i, n in anchors:
+        start, words, linked = i, 0, False
+        j = i - 1
+        while j >= 0 and joined(j, j + 1):
+            t, raw = pk[j], toks[j][0]
+            if not t or t.isdigit():
+                break
+            if t in NAME_HOUSE or t in _NAME_ARTICLES:
+                start = j
+                break
+            if t in _NAME_LINKS:
+                start = j
+                j -= 1
+                continue
+            if t in GENERIC_NAME_WORDS or (prose and raw[:1].islower()):
+                break
+            if words == 3:
+                break
+            words += 1
+            start = j
+            j -= 1
+        while start < i and pk[start] in _NAME_LINKS:
+            start += 1
+        if start == i:
+            continue
+        span = range(start, i)
+        linked = any(pk[k] in _NAME_LINKS for k in span)
+        hyphen = gap(i - 1, i) == '-' and pk[i - 1] not in NAME_HOUSE \
+            and pk[i - 1] not in _NAME_ARTICLES
+        if not (linked or hyphen):
+            continue
+        name = re.sub(r'\s+', ' ', text[toks[start][1]:toks[i + n - 1][2]])
+        if name not in seen:
+            seen.add(name)
+            out.append((name.strip(), toks[start][1]))
+    return out
+
+
+def classify_name(name, grand, wines):
+    """What a wine-shaped name is to this estate.
+
+    ('estate', None)   only the estate's own and house words
+    ('generic', None)  those plus furniture: Grand Vin de X
+    ('listed', w)      one of the estate's listed wines, w - also when
+                       the name carries w whole with something in front:
+                       "France Castelnau de Suduiraut" off an address
+                       line, "Olivier Bernard Esprit de Chevalier" off a
+                       signature
+    ('unlisted', name) a wine the estate's list does not hold
+    """
+    core = set(estate_core(grand))
+    ws = wset(name) - NAME_HOUSE
+    own = ws - core
+    if not own:
+        return ('estate', None)
+
+    # The same name run together: "LABASTIDE-DAUZAC" is La Bastide
+    # Dauzac, and an address line's "France Castelnau de Suduiraut"
+    # ends in Castelnau de Suduiraut.
+    def run(x):
+        return ''.join(packed(w) for w in _name_words(x)
+                       if packed(w) not in NAME_HOUSE
+                       and packed(w) not in _NAME_LINKS)
+    rn = run(name)
+    best = None
+    for w in wines or ():
+        if not w or w == grand:
+            continue
+        rw = run(w)
+        if len(rw) >= 6 and (rn == rw or rn.endswith(rw)) \
+                and (best is None or len(rw) > len(run(best))):
+            best = w
+    if best:
+        return ('listed', best)
+    for w in wines or ():
+        if not w or w == grand:
+            continue
+        lw = wset(w) - NAME_HOUSE
+        if not (lw - core):
+            continue
+        if lw == ws:
+            return ('listed', w)
+        if lw <= ws and (best is None or len(lw) > len(wset(best))):
+            best = w
+    if best:
+        return ('listed', best)
+    if not (own - COMMON - GENERIC_NAME_WORDS):
+        return ('generic', None)
+    return ('unlisted', name)
+
+
+def second_wine_claim(path):
+    """What the document's opening says about a second wine.
+
+    'this'  it calls itself a second wine: "SECOND VIN DU CHATEAU
+            BELGRAVE", "Second Vin blanc sec du Chateau Caillou"
+    'both'  it speaks of the first and the second wine together:
+            "CARTOGRAPHIE DU PREMIER ET SECOND VIN"
+    None    neither
+
+    is_second_wine() answers a different question - is this some
+    second wine's document, so not the grand vin's - and keeps its own
+    contract for the grand-vin guard and the blend reader. This exists
+    because second-wine mode needs to know more than that, and because
+    is_second_wine's check for "premier et second" compares a
+    three-character slice with the two-letter "et" and never fires.
+    That bug is left where it is: fixing it changes what the grand-vin
+    guard refuses, and that is a change to measure on its own.
+    """
+    import unicodedata
+    try:
+        head = flat(path, 1)
+    except Exception:
+        return None
+    s = re.sub(r'\s+', '', head)[:400].lower()
+    s = ''.join(c for c in unicodedata.normalize('NFD', s)
+                if not unicodedata.combining(c))
+    found = None
+    for phrase in ('secondvin', 'deuxiemevin', 'secondwine'):
+        i = s.find(phrase)
+        if i < 0 or i > 120:
+            continue
+        after = s[i + len(phrase):i + len(phrase) + 1]
+        if after == ':':
+            continue
+        if after == 's' or s[max(0, i - 2):i] == 'et' \
+                or s[max(0, i - 3):i] == 'and':
+            found = found or 'both'
+            continue
+        return 'this'
+    return found
+
+
+def _first_position(text, mark):
+    words = [w for w in re.split(r'[^a-z0-9]+', norm(mark)) if w]
+    if not words:
+        return None
+    m = re.search(r'(?<![a-z0-9])' + r'\s*'.join(re.escape(w) for w in words)
+                  + r'(?![a-z0-9])', norm(text))
+    return m.start() if m else None
+
+
+def wine_identity(path, named, grand, wines, filename=None):
+    """What a document says about which wine it is, in separate parts so
+    that no one of them is mistaken for another.
+
+      estate          the name or the title carries the estate's name
+      generic         is_second_wine(): some second wine (the grand-vin
+                      guard's and the blend reader's question)
+      claim           second_wine_claim(): 'this', 'both' or None
+      name_listed     listed wines the name (filename, or a page's URL)
+                      names
+      name_unlisted   wine-shaped names in it that no list holds
+      title_unlisted  wine-shaped names in the title no list holds
+      title_first     the first wine the title names - listed or not,
+                      the estate itself and furniture left aside - as
+                      ('listed', wine) or ('unlisted', name), or None.
+                      The title's FIRST wine, by the rule
+                      names_another_wine already trusts: a page about
+                      Pavillon Rouge that also mentions Pavillon Blanc
+                      in its menu is Pavillon Rouge's.
+
+    A crawled page's name is its URL, not its filename: the filename is
+    the URL docked at the front ("2020__agrave-martillac" for
+    "lagrave-martillac"), and a docked word is not a wine.
+    """
+    wines = [w for w in dict.fromkeys(wines or ()) if w and w != grand]
+    if is_page(path):
+        u = page_url(path)
+        name_src = re.sub(r'^https?://[^/]+', '', u).replace('/', ' ') \
+            if u else (filename or named)
+    else:
+        name_src = filename or named
+    try:
+        title = without_other_wine_labels(
+            body_without_letterhead(path, 1))[:TITLE * 2]
+    except Exception:
+        title = ''
+
+    nl, nu = [], []
+    for nm, _ in wine_shaped_names(name_src, grand, prose=False):
+        kind, w = classify_name(nm, grand, wines)
+        if kind == 'listed' and w not in nl:
+            nl.append(w)
+        elif kind == 'unlisted' and w not in nu:
+            nu.append(w)
+    for w in named_wines(name_src, grand, wines):
+        if w != grand and w not in nl:
+            nl.append(w)
+
+    firsts, tu = [], []
+    for nm, at in wine_shaped_names(title, grand, prose=True):
+        kind, w = classify_name(nm, grand, wines)
+        if kind == 'unlisted':
+            tu.append(w)
+            pos = _first_position(title, nm)
+            firsts.append((pos if pos is not None else at, 'unlisted', w))
+    for w in named_wines(title, grand, wines):
+        if w == grand:
+            continue
+        mk = mark_of(w, grand, siblings=[x for x in wines if x != w])
+        pos = _first_position(title, mk or w)
+        if pos is not None:
+            firsts.append((pos, 'listed', w))
+    firsts.sort(key=lambda x: x[0])
+    listed_in_title = [w for _, kind, w in firsts if kind == 'listed']
+    core = ' '.join(estate_core(grand))
+    try:
+        generic = is_second_wine(path)
+    except Exception:
+        generic = False
+    return {
+        'estate': bool(core) and (says(named or '', core)
+                                  or says(title, core)),
+        'generic': generic,
+        'claim': second_wine_claim(path),
+        'name_listed': nl, 'name_unlisted': nu,
+        'title_unlisted': tu,
+        'title_listed': listed_in_title,
+        'title_first': (firsts[0][1], firsts[0][2]) if firsts else None,
+    }
+
+
 def second_wine_verdict(path, named, grand, others, second, filename=None):
-    """Is this document the SECOND wine's? None when it is.
+    """Is this document the SECOND wine's - this one, not some second
+    wine? None when it is.
 
-    Second-wine mode used to mean "not refused for naming the second
-    wine", which is not the same thing: it accepted 107 of Lynch-Bages'
-    grand-vin sheets as the Echo, because nothing ever asked a document
-    to be the second wine's. This asks, in the order the reader already
-    trusts:
+    Phase 2.3 made second-wine mode ask positively. Phase 2.6 makes it
+    ask for the specific wine: "this is a second wine" (is_second_wine)
+    says which ROLE a document plays, not which WINE it is, and five
+    acceptances survived on that difference - Caillou's Les Murets taken
+    for Les Erables, a La Mission page for Le Clarence, Pedesclaux's
+    two-wine map for Fleur. So, in order:
 
-      1. the filename names another of the estate's cuvees - it is that
-         cuvee's
-      2. the document calls itself the second wine - it is, whatever
-         its filename says (Belgrave 2023, see is_second_wine)
-      3. the filename names the second wine - it is
-      4. the filename names only the grand vin - it is not
-      5. the filename names no wine: the document's TITLE must name the
-         second wine, by the rule names_another_wine already applies for
-         the grand vin - letterhead off, and the wine named first in the
-         title is the one the sheet is for. A window over the opening
-         text was tried first and accepted chocolate descriptions, price
-         lists and vintage reports that mention the second wine in
-         passing; the title rule is the one the reader already trusts.
+      1. the name (filename, or a page's URL) names another listed
+         cuvee - it is that cuvee's; with the second wine too, ambiguous
+      2. the name names a wine no list holds (wine_shaped_names) - with
+         the second wine too, ambiguous; alone, it is that wine's
+      3. the document calls itself a second wine (second_wine_claim
+         'this', not 'both') - accepted only if its title names no
+         other wine, listed or not; otherwise it is the other wine's
+      4. the name names the second wine - accepted unless the title
+         names a different wine
+      5. the name names only the grand vin - it is not
+      6. the title names the second wine, by names_another_wine's rule
+         - accepted unless the title also names a wine no list holds
+      7. otherwise nothing identifies it
+
+    A wine nobody listed is reported as such - "a wine the estate's list
+    does not hold: Les Murets de Caillou" - and not added anywhere. The
+    reader can now say "this document is second wine Y, and Y is not
+    known for this estate", which is a different statement from "this is
+    the target".
     """
     if not second:
         return {'why': 'the estate records no second wine',
@@ -882,16 +1204,55 @@ def second_wine_verdict(path, named, grand, others, second, filename=None):
     if cuv:
         return {'why': 'the filename names %s as well as the second '
                        'wine' % cuv[0], 'role': 'unknown', 'wine': None}
-    try:
-        if is_second_wine(path):
+
+    ident = wine_identity(path, named, grand, wines, filename)
+    second_named = second_named or any(is_sec(w)
+                                       for w in ident['name_listed'])
+    if ident['name_unlisted']:
+        u = ident['name_unlisted'][0]
+        if second_named:
+            return {'why': 'its filename or address names %s as well as '
+                           'the second wine' % u,
+                    'role': 'unknown', 'wine': None}
+        return {'why': 'its filename or address names a wine the '
+                       'estate\u2019s list does not hold: %s' % u,
+                'role': 'other', 'wine': None, 'unlisted': u}
+
+    def title_says_other(listed_counts=True):
+        # A title that names the second wine anywhere does not contradict
+        # it. And when the filename or address already names the second
+        # wine, another LISTED wine in the opening does not either: an
+        # estate's own pages and sheets carry its range in their menus
+        # and headers - Pavillon Rouge's page opens on a menu naming
+        # Pavillon Blanc, Petit Mouton's sheet on the estate's range.
+        # What does contradict it is a wine no list holds, named first:
+        # that is a different wine, not the estate's furniture.
+        if any(is_sec(w) for w in ident['title_listed']):
             return None
-    except Exception:
-        pass
+        tf = ident['title_first']
+        if not tf:
+            return None
+        kind, w = tf
+        if kind == 'listed' and (is_sec(w) or not listed_counts):
+            return None
+        if kind == 'unlisted':
+            return {'why': 'the document names a wine the estate\u2019s '
+                           'list does not hold: %s' % w,
+                    'role': 'other', 'wine': None, 'unlisted': w}
+        return {'why': 'the document names another of the '
+                       'estate\u2019s wines: %s' % w,
+                'role': 'other', 'wine': w}
+
     if second_named:
-        return None
+        return title_says_other(listed_counts=False)
+    if ident['claim'] == 'this':
+        return title_says_other()
     if grand in fn:
         return {'why': 'the filename names the grand vin, not %s'
                        % second, 'role': 'grand', 'wine': grand}
+    tf = ident['title_first']
+    if tf and tf[0] == 'unlisted':
+        return title_says_other()
     sibs = [w for w in wines if not is_sec(w)]
     try:
         if names_another_wine(path, filename or named, grand, second,
@@ -908,7 +1269,7 @@ def second_wine_verdict(path, named, grand, others, second, filename=None):
             hit = None
         if hit:
             return {'why': 'the document names another of the '
-                           'estate’s wines: %s' % o,
+                           'estate\u2019s wines: %s' % o,
                     'role': 'other', 'wine': o}
     return {'why': 'nothing identifies this as %s' % second,
             'role': 'unknown', 'wine': None}

@@ -98,6 +98,9 @@ CODES = (
     (re.compile(r'(?i)^the (filename|document) names another of the '
                 r'estate'), 'WRONG_WINE'),
     (re.compile(r'(?i)^nothing identifies this as'), 'NOT_IDENTIFIED'),
+    # Phase 2.6: a wine-shaped name no estate list holds.
+    (re.compile(r'(?i)a wine the estate.s list does not hold'),
+     'UNLISTED_WINE'),
     (re.compile(r'(?i)^the name spells another of the estate'),
      'WRONG_WINE'),
     (re.compile(r'(?i)^the filename abbreviates another'), 'WRONG_WINE'),

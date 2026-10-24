@@ -10,9 +10,9 @@ One row per day, from `progress-history.tsv`.
    date         records   blend   taste    note     url      nl
    2026-10-22      2210    1639     782     504     784     660
    2026-10-23      2637    2000     956    1054     811     595
-   2026-10-24      2725    2037    1010    1156    1355     650
+   2026-10-24      2725    2037    1010    1160    1355     649
 
-   since 2026-10-22: records +515, blend +398, taste +228, note +652, url +571, nl -10
+   since 2026-10-22: records +515, blend +398, taste +228, note +656, url +571, nl -11
 
    THE 61 CLASSIFIED GROWTHS, share of what they could hold
    date         estates   blend   taste    note     alc      ph     yld  months     oak    pick
@@ -31,7 +31,7 @@ field     what it is                         records    of of grid  1980s 1990s 
                                                       recs       
 blend     the assemblage, variety by variety   2,037   75%   9.7%  1.3%  2.8%  7.8%  19.7% 19.2%
 taste     the tasting note                     1,010   37%   4.6%  1.1%  2.3%  5.3%  7.7%  6.9% 
-note      the growing season                   1,156   42%   5.1%  1.0%  1.9%  3.9%  9.4%  11.0%
+note      the growing season                   1,160   43%   5.2%  1.0%  2.0%  3.9%  9.5%  10.9%
 alc       alcohol                                950   35%   4.6%  0.7%  1.8%  3.5%  8.6%  9.4% 
 ph        pH                                     332   12%   1.6%  0.0%  0.0%  0.5%  3.0%  6.0% 
 yld       yield, hl/ha                         1,054   39%   5.1%  0.3%  0.8%  3.2%  11.3% 11.3%
@@ -48,20 +48,13 @@ food      food pairing                            49    2%   0.2%  0.0%  0.0%  0
 ABOUT THE RECORD ITSELF:
    src    names the document it was read from            2,724  100% of records
    url    can link to that document in the app           1,355   50% of records
-   nl     has Dutch for its prose                          650   24% of records
-
-STILL TO MERGE - a document states it and no record holds it:
-   blend       23
-   pick        23
-   note        19
-   taste       10
-   (from reports/fiches-read.json; re-run tools/read-fiches.py --prose to refresh)
+   nl     has Dutch for its prose                          649   24% of records
 
 THE 61 CLASSIFIED GROWTHS, APART FROM THE LONG TAIL:
    field                            classified    the rest
    blend     the assemblage, variet 1034   39%   1003    6%
    taste     the tasting note        638   24%    372    2%
-   note      the growing season      714   27%    442    2%
+   note      the growing season      718   27%    442    2%
    alc       alcohol                 377   14%    573    3%
    ph        pH                      121    5%    211    1%
    yld       yield, hl/ha            278   10%    776    4%
@@ -73,11 +66,11 @@ THE 61 CLASSIFIED GROWTHS, APART FROM THE LONG TAIL:
 
 WHOSE WORDS THE PROSE IS:
    taste   831 the estate’s own English,  179 translated from its French
-   note    993 the estate’s own English,  163 translated from its French
+   note    997 the estate’s own English,  163 translated from its French
 
 33 fields are pinned absent - the document states something and it was judged not to belong
 
-121 estates have a recorded planting, which is the vineyard’s and not a vintage’s
+93 estates have a recorded planting, which is the vineyard’s and not a vintage’s
 
 THE ESTATES WITH NOTHING: 258 of 468
    37 have documents that might still be read
@@ -96,8 +89,8 @@ tasting note and growing season is absent across the estate’s records:
    pouget                      4    30     3     1    30    28      6
    langoa-barton               3    32    32    11     0    21      0
    malescot                    3    26     1    25     0    25      3
-   gruaud-larose               2    38    37     2    24    37      0
    leoville-barton             2    32    32    14     0    20      0
+   gruaud-larose               2    38    37     2    28    37      0
    lascombes                   2    25    25     0     3     5      1
    cos-destournel              2    41    41    37     1     0      6
    talbot                      4    21    21     0     0    17      0
@@ -172,8 +165,8 @@ tasting note and growing season is absent across the estate’s records:
    pouget                      4    30     3     1    30    28      6
    langoa-barton               3    32    32    11     0    21      0
    malescot                    3    26     1    25     0    25      3
-   gruaud-larose               2    38    37     2    24    37      0
    leoville-barton             2    32    32    14     0    20      0
+   gruaud-larose               2    38    37     2    28    37      0
    lascombes                   2    25    25     0     3     5      1
    cos-destournel              2    41    41    37     1     0      6
    talbot                      4    21    21     0     0    17      0

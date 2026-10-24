@@ -2546,6 +2546,59 @@ def _unlabelled_is_prose(win):
     return True
 
 
+# The document's own title, left on the front of the prose by a label
+# that was a heading. "LE MILLESIME Apres un debourrement precoce" at
+# Les Fiefs de Lagrange, "CHATEAU MONTROSE 2018 Hiver : debut tres
+# pluvieux" at Montrose.
+#
+# A run of one to six words in capitals, and then one of three things
+# has to follow or the rule declines:
+#
+#   the year as part of the title, which a capital or a digit after it
+#   means - "CHATEAU MONTROSE 2018 Hiver :" loses the year too;
+#
+#   the year as the sentence's SUBJECT, which a lower-case word after
+#   it gives away - "BLENDING 2000 is among the precocious years"
+#   loses only BLENDING, because cutting the year would leave the
+#   sentence with nothing to be about;
+#
+#   or a sentence starting straight after - "LE MILLESIME Apres un
+#   debourrement precoce".
+#
+# A run of capitals on its own is NOT enough, and that is the guard.
+# Domaine de Chevalier's 2015 note opens "SUNNY AND DRY YEAR HIGH
+# QUALITY, BOTH IN WHITE AND RED", which is the estate's verdict on the
+# year written in capitals; an earlier draft cut "SUNNY" off it. For
+# the same reason OF, AND and THE are not among the joining words -
+# with them in, the run walked the whole headline. Only the words a
+# NAME uses, plus VINTAGE and MILLESIME, which sheets put in titles.
+#
+# The first word must be three letters or more, so the stray "D" that
+# opens two of de Camensac's notes - "D 2005 laissera le souvenir d'un
+# millesime de grande qualite" - is not read as a title. That is a
+# defect too, and a different one.
+#
+# Measured over the 3,062 stored taste and note fields: 68 cut, each
+# one read, and 0 of the 410 fields with a year inside the first
+# sentence touched.
+_T_CAP = r'[A-Z\u00c0-\u00dd]'
+_T_LOW = r'[a-z\u00e0-\u00ff]'
+_T_WORD = _T_CAP + r"{3,}[A-Z\u00c0-\u00dd'\u2019\-]*"
+_T_JOIN = r"(?:DE|DU|DES|LA|LE|LES|ET|VINTAGE|MILL[E\u00c9]SIME|D\u2019|D')"
+_T_YEAR = r'(?:19|20)\d\d'
+
+LEAD_TITLE = re.compile(
+    r'^(?:(?:LE|LA|LES|DE|DU|DES|AU|AUX)\s+)?'
+    r'(?:' + _T_WORD + r'(?:\s+' + _T_JOIN + r')*\s+){1,6}'
+    r'(?:'
+    r'(?:' + _T_YEAR + r')'
+    r'(?:\s*(?:VINTAGE|MILL[E\u00c9]SIME)\s*:?)?'
+    r'\s+(?=' + _T_CAP + r'|\d)'
+    r'|(?=' + _T_YEAR + r'[,;:]?\s+' + _T_LOW + r')'
+    r'|(?=' + _T_CAP + _T_LOW + r')'
+    r')')
+
+
 # An estate's own typo, where leaving it in would read as ours.
 #
 # The rule for this project is that the estate's words are printed as
@@ -2597,9 +2650,14 @@ def read_prose(text, page=False, shop=False, year=None):
         # LES FIEFS DE LAGRANGE 2014`, and the blurb won on four
         # vintages because Climat comes first in the document.
         #
-        # Ahead of the language test, which was the only key: that
-        # one picks between two ways of saying the same thing, and
-        # this one picks between two different things.
+        # BEHIND the language test, not ahead of it. Ahead, it
+        # replaced Lagrange's 2009 note - good English prose -
+        # with a French candidate whose label named 2009, and the
+        # dashboard shows English. The two keys do not compete:
+        # language chooses the voice, and the year chooses, among
+        # the labels in that voice, the one about this vintage.
+        # Lagrange's own case is settled either way, because there
+        # both candidates are French.
         yr = str(year) if year else None
 
         def _names_year(c):
@@ -2608,8 +2666,8 @@ def read_prose(text, page=False, shop=False, year=None):
             return yr in text[c.start():c.end() + 60]
 
         cands.sort(key=lambda c: (
-            0 if _names_year(c) else 1,
-            0 if ENGLISH_LABEL.search(c.group(0)) else 1))
+            0 if ENGLISH_LABEL.search(c.group(0)) else 1,
+            0 if _names_year(c) else 1))
         # And last, for a page, the page itself: Margaux 1995 opens
         # "1995 is a truly great vintage ... Today the nose is not
         # exactly closed ... On the palate, it is obviously the power
@@ -2731,6 +2789,16 @@ def read_prose(text, page=False, shop=False, year=None):
             win = LEAD_CLIMATE.sub('', win)
             win = LEAD_CREDIT.sub('', win)
             win = win.lstrip(' :–-—«“”"')
+            # And the document's own title, which a label that was
+            # a heading leaves in front of the text. Anchored, so
+            # only the front of the window is in reach, and after
+            # the lstrip so an opening quote cannot hide it.
+            #
+            # Before the sentence-start check below, which is the
+            # point: with the title gone the window begins on a
+            # sentence, and 68 of them now pass that check instead
+            # of being judged on a heading.
+            win = LEAD_TITLE.sub('', win)
             # And never end inside a word: the stop-list can cut anywhere.
             if win and not win[-1].isspace() and ' ' in win:
                 if not re.search(r'[.!?"\u201d]$', win):
@@ -2835,6 +2903,7 @@ def read_prose(text, page=False, shop=False, year=None):
             # pass already cleaned, both are no-ops.
             win = LEAD_PRIMEURS.sub('', win)
             win = LEAD_CLIMATE.sub('', win)
+            win = LEAD_TITLE.sub('', win)
             # And the shop's availability line off the end.
             _cut = TAIL_AVAILABLE.sub('', win)
             if len(_cut) >= 40:

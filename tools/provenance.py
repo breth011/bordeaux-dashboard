@@ -203,17 +203,27 @@ def _git(args, root):
                                    stderr=subprocess.DEVNULL)
 
 
+# The evidence store is what a run WRITES, not code that runs: no verdict
+# reads it, only the store's own duplicate check does. It lives in the
+# repository, so without this the first writer of a pass made the tree
+# "dirty" for the second (Phase 2.7: recharacterize.py refused to run
+# after evidence-wines.py had written), and no exact rerun could ever
+# start clean. Everything else - code, data/*.js, the manifest - counts.
+OUTPUT_PATHS = ('data/evidence',)
+
+
 def git_state(root=None):
     """{'commit', 'dirty', 'status_hash'} for the repository at root."""
     root = root or ROOT
     commit = _git(['rev-parse', 'HEAD'], root).decode().strip()
+    spec = ['--', '.'] + [':(exclude)%s' % p for p in OUTPUT_PATHS]
     status = _git(['status', '--porcelain=v1', '-z',
-                   '--untracked-files=all'], root)
+                   '--untracked-files=all'] + spec, root)
     if not status:
         return {'commit': commit, 'dirty': False, 'status_hash': None}
     h = hashlib.sha256()
     h.update(status)
-    h.update(_git(['diff', 'HEAD', '--binary'], root))
+    h.update(_git(['diff', 'HEAD', '--binary'] + spec, root))
     for entry in status.split(b'\0'):
         if entry.startswith(b'?? '):
             rel = entry[3:].decode('utf-8', 'replace')

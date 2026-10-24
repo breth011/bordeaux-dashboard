@@ -184,6 +184,16 @@ try:
          and g5['commit'] != head and g5['dirty'] is False)
     says('23. the recorded commit is the code that ran, not its parent',
          g5['commit'] != git(['rev-parse', 'HEAD~1'], tmp))
+    # Phase 2.7: the evidence store is a run's output. One writer of a
+    # pass must not make the tree dirty for the next.
+    put(tmp, 'data/evidence/decisions-v4.jsonl', b'{}\n')
+    says('23b. evidence written under data/evidence/ leaves the tree clean',
+         PV.git_state(tmp)['dirty'] is False)
+    put(tmp, 'code.py', b'print(7)\n')
+    says('23c. ...while a code change beside it still makes it dirty',
+         PV.git_state(tmp)['dirty'] is True)
+    git(['checkout', '-q', '--', 'code.py'], tmp)
+    os.remove(os.path.join(tmp, 'data', 'evidence', 'decisions-v4.jsonl'))
 
     # ================================================= the store, v4
     print()
@@ -313,7 +323,17 @@ else:
     says('40. data/evidence/ is unchanged from HEAD', out == '',
          out.replace('\n', ' ')[:40])
 ix = json.load(io.open(ST.INDEX, encoding='utf-8'))
-says('41. no v4 exists', '4' not in ix.get('versions', {}))
+# Phase 2.5 wrote no v4; Phase 2.7 did. What has to hold for good is that
+# writing v4 left v1-v3 exactly as Phase 2.5 found them.
+try:
+    old = json.loads(subprocess.check_output(
+        ['git', 'show', '4370382:data/evidence/index.json'], cwd=ROOT,
+        stderr=subprocess.DEVNULL))
+    same = all(old['versions'][v]['parts'] == ix['versions'][v]['parts']
+               for v in ('1', '2', '3'))
+except Exception:
+    same = False
+says('41. v1/v2/v3 parts identical to Phase 2.5 (4370382)', same)
 
 # ================================== the known same-name cases, for real
 print()

@@ -309,6 +309,21 @@ def main():
                 return p
         return where.get(s['file'])
 
+    # An estate's news feed, by the path its addresses sit under.
+    # Margaux publishes six /actualites/ pages for 2025 alone, and
+    # one of them gave the grand vin a season note about Pavillon
+    # Blanc's harvest while the vintage page beside it stated the
+    # yield, the blend, the season and the tasting note.
+    #
+    # Ranked last rather than refused: an article is still the best
+    # source for a field nothing else states.
+    NEWSY = set()
+    for s in man['sheets']:
+        u = (s.get('url') or '').lower()
+        if re.search(r'/(?:actualit[eé]s?|news|nouvelles|blog|'
+                     r'presse|press-?room|noticias|notizie)/', u):
+            NEWSY.add(s['file'])
+
     # Keyed by the record's own key as a string, which is the one
     # thing both shapes have in common.
     recs = {}
@@ -652,7 +667,11 @@ def main():
     # again. Whether to write is decided at write time, against the line
     # as it then stands.
     best = {}
-    for r in sorted(found, key=lambda x: (x['key'], x['src'])):
+    # The estate's own page before its news feed, then by name so
+    # the choice stays the same from run to run.
+    for r in sorted(found, key=lambda x: (x['key'],
+                                          x['src'] in NEWSY,
+                                          x['src'])):
         key = r['key']
         for f in r['got']:
             if f not in fields:

@@ -1,0 +1,69 @@
+{
+ "_about": [
+  "How to re-scrape each estate, so next year's pass is a command and not an",
+  "investigation. One entry per estate, written when that estate's pass was",
+  "done, with the date it was checked.",
+  "",
+  "`wines` lists the addresses that carry a vintage: `pattern` has {year} in",
+  "it and is fed to tools/crawl-pages.py --pattern, `years` is the range the",
+  "site actually answers for. `wine` names the wine in BDX_CUVEE_WINES that",
+  "the pages belong to, or 'grand' for the grand vin.",
+  "",
+  "`pdfs` says where a technical sheet lives, or that there is none - which",
+  "is a finding worth keeping, because 'this estate publishes no fiche' is",
+  "the answer to a question that otherwise gets asked every year.",
+  "",
+  "`watch` is what went wrong last time and would go wrong again."
+ ],
+
+ "margaux": {
+  "site": "https://chateau-margaux.com",
+  "checked": "2026-10-24",
+  "robots": "User-agent: * Allow: / ; sitemap at /sitemap.xml",
+  "sitemaps": [
+   "https://chateau-margaux.com/sitemap_en.xml",
+   "https://chateau-margaux.com/sitemap_fr-FR.xml"
+  ],
+  "pdfs": "none. No PDF in either sitemap, and /wp-json/wp/v2/media answers 404, so there is no WordPress media library to ask. Margaux publishes no fiche technique: everything is on the vintage pages.",
+  "wines": [
+   {
+    "wine": "grand",
+    "pattern": "https://chateau-margaux.com/en/vins/grand-vin-du-chateau-margaux-{year}",
+    "years": "1900-2025",
+    "note": "126 vintages, back to 1900. The 1900-1949 half was only fetched on 2026-10-24."
+   },
+   {
+    "wine": "Pavillon Rouge du Château Margaux",
+    "pattern": "https://chateau-margaux.com/en/vins/pavillon-rouge-du-chateau-margaux-{year}",
+    "years": "1978-2025"
+   },
+   {
+    "wine": "Pavillon Blanc du Château Margaux",
+    "pattern": "https://chateau-margaux.com/en/vins/pavillon-blanc-du-chateau-margaux-{year}",
+    "years": "1978-2025"
+   },
+   {
+    "wine": "Margaux du Château Margaux",
+    "pattern": "https://chateau-margaux.com/en/vins/margaux-du-chateau-margaux-{year}",
+    "years": "2009-2019",
+    "note": "The third wine, made only in those years."
+   }
+  ],
+  "commands": [
+   "python tools/crawl-pages.py --estate margaux --pattern \"https://chateau-margaux.com/en/vins/grand-vin-du-chateau-margaux-{year}\" --years 1900-2026 --limit 140 --apply",
+   "python tools/crawl-pages.py --estate margaux --pattern \"https://chateau-margaux.com/en/vins/pavillon-rouge-du-chateau-margaux-{year}\" --years 1978-2026 --limit 60 --apply",
+   "python tools/crawl-pages.py --estate margaux --pattern \"https://chateau-margaux.com/en/vins/pavillon-blanc-du-chateau-margaux-{year}\" --years 1978-2026 --limit 60 --apply",
+   "python tools/refile-wine.py --estate margaux --apply",
+   "python tools/read-fiches.py --estate margaux --prose --apply",
+   "python tools/read-fiches.py --cuvees --estate margaux --prose --apply",
+   "python tools/build-fiche-links.py && python tools/build-fiche-links.py --cuvees"
+  ],
+  "watch": [
+   "The news feed. /en/actualites/ carries six pages for 2025 alone, and one of them gave the grand vin a season note about Pavillon Blanc's harvest while the vintage page beside it stated the yield, the blend, the season and the tasting note. read-fiches.py now ranks /actualites/ last; if a note looks like it is about the estate rather than the wine, that is where it came from.",
+   "One paragraph, two jobs. The vintage pages write the year's story and the wine's tasting as a single block, with inline labels - '... superb length. Blend: 89% cabernet sauvignon ... Climate: Le millesime 2025 est marque ...'. PROSE_STOP now stops at Blend: and Climate:, but the season note still ends on tasting language for 1964 and 2025 and there is no taste field for either.",
+   "French on the English page. The 'Climate:' paragraph for 2025 is untranslated on the English URL, so a reader that takes it puts French in an English field - which is what happened to Pavillon Rouge 2025 before the stop was added.",
+   "The host. The sitemap says chateau-margaux.com and the manifest holds www.chateau-margaux.com for the pages fetched before 2026-10-24. Comparing the two naively reports every page as missing.",
+   "No assemblage before 2005. The pages for 1900-2004 state no blend at all - asked of all 76 with probes looser than the reader's, and none pairs a variety with a percentage. 2005 states only two varieties (85% cabernet sauvignon, 8% merlot) and so has no full blend either."
+  ]
+ }
+}

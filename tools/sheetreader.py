@@ -1490,11 +1490,37 @@ PROSE_STOP = re.compile(
     # du 17 au 18 octobre Production". Those dates are read into pick,
     # which is the field for them.
     r'dates?\s+de\s+r[eé]colte|harvest\s+dates?\s*:|'
+    # The English labels beside the French ones already here.
+    # Margaux's vintage pages set their sections inline -
+    # "... superb length. Blend: 89% cabernet sauvignon ...
+    # Climate: Le millesime 2025 est marque ..." - and one
+    # field held the tasting note, the assemblage and a French
+    # paragraph. "Assemblage :" has stopped a passage for
+    # months; its English twin never did.
+    #
+    # The colon is required. Both are ordinary words in a note:
+    # Margaux 2012's own says "the cabernet sauvignon (87% of
+    # the blend) is remarkable".
+    # Opening a sentence, not inside one. Boyd-Cantenac 2018 says
+    # "marked by a contrasting climate: a cool spring followed by
+    # a warm, dry summer", where the colon explains rather than
+    # heads, and cutting there loses a sound note.
+    r'(?:(?<=[.!?\)\]])\s*|^\s*)(?:blend|climate|climat)\s*:|'
+    # And the same heading mid-passage, which is where Palmer
+    # 1982's tasting note runs on into the year's weather. The
+    # sentence boundary is required for the same reason as above.
+    r'(?<=[.!?\)\]])\s*(?:weather(?:\s+and\s+harvest)?\s+conditions|'
+    r'climatic\s+conditions)\b|'
     # The bare headings, in capitals, that Haut-Bailly sets over the
     # next section: its 2021 season note ran into "VENDANGES C'est la
     # premiere recolte vinifiee dans nos nouveaux chais" and its 2023
     # into "VINS A la satisfaction des epreuves surmontees".
-    r'vendanges\s+[A-Z]|\bvins\s+[A-Z]|\bwines\s+[A-Z]|'
+    # (?-i:) because PROSE_STOP opens with (?i), which made [A-Z]
+    # match any letter and `wines` match `wines`: "The wines were
+    # rather green" cut Margaux 1925's note at 48 characters and
+    # left eight of its older vintages with no record at all.
+    # These three are the bare capitals heading and nothing else.
+    r'(?-i:VENDANGES\s+[A-Z]|\bVINS\s+[A-Z]|\bWINES\s+[A-Z])|'
     # Coutet prints its whole technical block under the season heading,
     # with no colons anywhere: "VENDANGES ... DATES DE VENDANGES 14
     # septembre au 3 octobre 2011 NOMBRE DE PASSAGES 4 tries ...
@@ -1813,7 +1839,14 @@ LEAD_PRIMEURS = re.compile(
 # throw away the half of the note that is genuine.
 LEAD_CLIMATE = re.compile(
     r'(?i)^\s*(?:climatic\s+conditions|conditions\s+climatiques|'
-    r'climate\s+conditions)'
+    r'climate\s+conditions|'
+    # The AXA and Mouton house layout, which heads the section
+    # with these words and no colon: "Weather and harvest
+    # conditions. The year 2012 was particularly one of
+    # contrasts." Four fields open on it.
+    r'weather(?:\s+and\s+harvest)?\s+conditions|'
+    r'harvest\s+and\s+weather\s+conditions|'
+    r'climatic\s+and\s+harvest\s+conditions)'
     # The label's own tail, where it has one: Pouget writes
     # "Climatic conditions of this vintage:".
     r'(?:\s+(?:of|de)\s+(?:this|ce|cette)\s+'
@@ -1827,7 +1860,7 @@ LEAD_CLIMATE = re.compile(
     # [A-Z] match a lower-case letter, and that distinction is the
     # whole test: a capital means the heading ended and the
     # sentence began, a lower-case word means there was no heading.
-    r'(?:\s*[:\u2013\u2014-]\s*|\s+(?=(?-i:[A-Z\u00c0-\u00dd])|(?:19|20)\d\d\b))')
+    r'(?:\s*[.:\u2013\u2014-]\s*|\s+(?=(?-i:[A-Z\u00c0-\u00dd])|(?:19|20)\d\d\b))')
 
 LEAD_JUNK = re.compile(
     r'^(?:[•▪●·v]\s+|'
@@ -2672,6 +2705,10 @@ def read_prose(text, page=False, shop=False):
             # pass already cleaned, both are no-ops.
             win = LEAD_PRIMEURS.sub('', win)
             win = LEAD_CLIMATE.sub('', win)
+            # And the shop's availability line off the end.
+            _cut = TAIL_AVAILABLE.sub('', win)
+            if len(_cut) >= 40:
+                win = _cut
             win = win.lstrip(' :\u2013-\u2014')
             out[field], how[field] = win, m.group(0)[:40]
             break
@@ -2726,6 +2763,18 @@ ADVICE = (
 TAIL_DECANT = re.compile(
     r'(?i)\s*for\s+maximum\s+enjoyment\s+decant\b'
     r'[^.!?]{0,90}[.!?]?\s*$')
+
+# The shop's line about which wine you can buy, at the end of a
+# tasting note. Latour stopped releasing a grand vin every year
+# when it left the primeurs system, and its 2016, 2018 and 2019
+# notes each end on "Vintage available only for Les Forts de
+# Latour and Pauillac de Chateau Latour."
+#
+# Both halves required, at the very end: a note may say a wine is
+# available and may name the estate's other wines, but not in
+# those words in that order.
+TAIL_AVAILABLE = re.compile(
+    r'(?i)\s*vintage\s+available\s+only\s+for\b[^.!?]{0,120}[.!?]?\s*$')
 
 ADVICE_STOP = re.compile(
     r'(?i)('

@@ -63,6 +63,11 @@ def at_base(path):
 log = [l.split(' ', 1) for l in git(['log', '--format=%H %s', BASE + '..HEAD']).splitlines()]
 mine = [h for h, s in log if s.startswith('Phase 3.1')]
 later = [h for h, s in log if not s.startswith('Phase 3.1')]
+# A later phase's uncommitted files count as later too: the reproduction
+# checks below describe the tree as Phase 3.1 left it, and a new tool in
+# the working tree is not part of that (Phase 3.2 found this).
+later += sorted(set(l[3:] for l in git(['status', '--porcelain=v1',
+                                         '--untracked-files=all']).splitlines()) - OWN)
 changed = set()
 for h in mine:
     changed |= set(git(['diff-tree', '--no-commit-id', '--name-only', '-r', h]).split())

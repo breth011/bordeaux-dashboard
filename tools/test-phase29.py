@@ -254,10 +254,18 @@ m2 = [(o, sr.mark_of(o, e['name'], against_grand=True))
 says('the rule is deterministic', m1 == m2, '%d marks' % len(m1))
 says('nothing canonical and no evidence was touched by these tests',
      digest() == before)
+# Against HEAD: canonical files and every COMMITTED evidence file. The
+# store grows by design (a new version plus its index entry), so the
+# whole directory is not the invariant.
+committed = subprocess.check_output(
+    ['git', 'ls-files', 'data/evidence/'], cwd=ROOT,
+    stderr=subprocess.DEVNULL).decode().split()
 out = subprocess.check_output(
-    ['git', 'diff', '--name-only', 'HEAD', '--'] + WATCH, cwd=ROOT,
+    ['git', 'diff', '--name-only', 'HEAD', '--']
+    + [p for p in WATCH if not p.startswith('data/evidence/')]
+    + [p for p in committed if p.endswith('.jsonl')], cwd=ROOT,
     stderr=subprocess.DEVNULL).decode().strip()
-says('canonical files, chateaux.js and the evidence store match HEAD',
+says('canonical files and every committed evidence file match HEAD',
      out == '', 'clean' if not out else out.replace('\n', ' ')[:30])
 print('\n%d check(s), %s'
       % (checks, 'all pass' if not fails

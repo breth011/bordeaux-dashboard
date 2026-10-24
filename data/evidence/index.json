@@ -85,6 +85,29 @@
     "c12eb3102b45"
    ],
    "rows": 40772
+  },
+  "5": {
+   "commits": [
+    "fb125c85bd795f59a242151e5b5717eef7704d91"
+   ],
+   "failures": {
+    "bytes": 63940,
+    "file": "provenance-failures-v5.jsonl",
+    "rows": 123,
+    "sha256": "51c5460ddfb5e7aa3de2d0689eee944db423f9d5d66beb315d1a4ab0e8f43e22"
+   },
+   "parts": [
+    {
+     "bytes": 39336361,
+     "file": "decisions-v5.jsonl",
+     "rows": 40772,
+     "sha256": "1f7b724aa1e0f03344360bf6daa3fbdc6adb0b3e8139bd4175e642317ac2d699"
+    }
+   ],
+   "readers": [
+    "7e8cfed1c24e"
+   ],
+   "rows": 40772
   }
  }
 }

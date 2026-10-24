@@ -1,0 +1,2043 @@
+{
+ "conflicts": {
+  "gone_in_v5": 9,
+  "new_in_v5": [],
+  "tertre_in_v5_grand_and_second": [],
+  "tertre_v4": [
+   "Hauts-du-Tertre-2011-FT-FR-C1145.pdf",
+   "Hauts-du-Tertre-2011-FT-GB-C1145.pdf",
+   "Hauts-du-Tertre-2016-FT-FR-C1145.pdf",
+   "Hauts-du-Tertre-2016-FT-GB-C1145.pdf",
+   "Hauts-du-Tertre-2017-FT-FR.pdf",
+   "Hauts-du-Tertre-2017-FT-GB.pdf",
+   "Hauts-du-Tertre-2018-FT-FRGB-1.pdf",
+   "Hauts-du-Tertre-2021-FT-GB.pdf"
+  ],
+  "v4_documents": 312,
+  "v4_relations": {
+   "GRAND_AND_SECOND": 8,
+   "SEVERAL_ESTATES": 1,
+   "SEVERAL_VINTAGES": 303
+  },
+  "v5_documents": 303,
+  "v5_relations": {
+   "SEVERAL_ESTATES": 1,
+   "SEVERAL_VINTAGES": 302
+  }
+ },
+ "echo": {
+  "accepted_documents": {
+   "grand vin": 0,
+   "other cuvee": 0,
+   "second": 64
+  },
+  "documents": {
+   "grand vin": 103,
+   "other cuvee": 52,
+   "second": 64
+  },
+  "echo_contexts": {
+   "ACCEPTED": 64,
+   "WRONG_VINTAGE": 11
+  },
+  "missing_vintages": {
+   "2008": [
+    "Echo-de-Lynch-Bages-2008-CN.pdf",
+    "Echo-de-Lynch-Bages-2008-EN.pdf"
+   ],
+   "2009": [
+    "Echo-de-Lynch-Bages-2009-CN.pdf",
+    "Echo-de-Lynch-Bages-2009-EN.pdf",
+    "Echo-de-Lynch-Bages-2009-FR.pdf"
+   ],
+   "2010": [
+    "Echo-de-Lynch-Bages-2010-CN.pdf",
+    "Echo-de-Lynch-Bages-2010-EN.pdf",
+    "Echo-de-Lynch-Bages-2010-FR.pdf"
+   ],
+   "2015": [
+    "Echo-de-Lynch-Bages-2015-CN.pdf",
+    "Echo-de-Lynch-Bages-2015-EN.pdf",
+    "Echo-de-Lynch-Bages-2015-FR.pdf"
+   ],
+   "2016": [
+    "Echo-Lynch-Bages-2016-FT-FR-C0888.pdf",
+    "Echo-de-Lynch-Bages-2016-CN.pdf",
+    "Echo-de-Lynch-Bages-2016-EN.pdf",
+    "Echo-de-Lynch-Bages-2016-FR.pdf"
+   ]
+  }
+ },
+ "edge_cases": {
+  "chevalier_2014": [
+   [
+    "Domaine-de-Chevalier-2014-FT-FR-363.pdf",
+    2014,
+    "WRONG_WINE",
+    "WRONG_WINE"
+   ],
+   [
+    "Domaine-de-Chevalier-2014-FT-FR-60.pdf",
+    2014,
+    "ACCEPTED",
+    "ACCEPTED"
+   ],
+   [
+    "Domaine-de-Chevalier-2014-FT-GB-363.pdf",
+    2014,
+    "WRONG_WINE",
+    "WRONG_WINE"
+   ]
+  ],
+  "fieuzal_2022": [
+   [
+    "de-fieuzal-2022-003d410c.pdf",
+    2022,
+    "WRONG_WINE",
+    "WRONG_WINE"
+   ],
+   [
+    "de-fieuzal-2022-40a91932.pdf",
+    2022,
+    "ACCEPTED",
+    "ACCEPTED"
+   ],
+   [
+    "de-fieuzal-2022-656504d6.pdf",
+    2022,
+    "WRONG_WINE",
+    "WRONG_WINE"
+   ],
+   [
+    "de-fieuzal-2022-6bdbd2f5.pdf",
+    2022,
+    "WRONG_WINE",
+    "WRONG_WINE"
+   ],
+   [
+    "de-fieuzal-2022-73cca906.pdf",
+    2022,
+    "ACCEPTED",
+    "ACCEPTED"
+   ],
+   [
+    "de-fieuzal-2022-7c05e34a.pdf",
+    2022,
+    "WRONG_WINE",
+    "WRONG_WINE"
+   ],
+   [
+    "de-fieuzal-2022-9fde43dd.pdf",
+    2022,
+    "WRONG_WINE",
+    "WRONG_WINE"
+   ],
+   [
+    "de-fieuzal-2022-eaa964e9.pdf",
+    2022,
+    "WRONG_WINE",
+    "WRONG_WINE"
+   ]
+  ],
+  "guiraud_G": [
+   [
+    "G-DE-GUIRAUD-2025-EN.pdf",
+    2025,
+    "ACCEPTED",
+    "WRONG_WINE"
+   ],
+   [
+    "G-DE-GUIRAUD-2025-FR.pdf",
+    2025,
+    "ACCEPTED",
+    "WRONG_WINE"
+   ],
+   [
+    "G-Guiraud-2015-FT-FR-C0789.pdf",
+    2015,
+    "ACCEPTED",
+    "ACCEPTED"
+   ],
+   [
+    "G-de-Chateau-Guiraud-2013-FT-GB-FR.pdf",
+    2013,
+    "WRONG_WINE",
+    "WRONG_WINE"
+   ],
+   [
+    "G-de-Chateau-Guiraud_2017.pdf",
+    2017,
+    "WRONG_WINE",
+    "WRONG_WINE"
+   ],
+   [
+    "G-de-Guiraud-2010-FT-GB-C0789.pdf",
+    2010,
+    "ACCEPTED",
+    "WRONG_WINE"
+   ],
+   [
+    "G-de-Guiraud-2013-FT-FR-C0789.pdf",
+    2013,
+    "ACCEPTED",
+    "WRONG_WINE"
+   ],
+   [
+    "G-de-Guiraud-2014-FT-FR-C0789.pdf",
+    2014,
+    "ACCEPTED",
+    "WRONG_WINE"
+   ],
+   [
+    "G-de-Guiraud-2014-FT-GB-C0789.pdf",
+    2014,
+    "ACCEPTED",
+    "WRONG_WINE"
+   ],
+   [
+    "G-de-Guiraud-2016-FT-FR-C0789.pdf",
+    2016,
+    "ACCEPTED",
+    "WRONG_WINE"
+   ],
+   [
+    "G-de-Guiraud-2016-FT-GB-C0789.pdf",
+    2016,
+    "ACCEPTED",
+    "WRONG_WINE"
+   ],
+   [
+    "G-de-Guiraud-2019-FT-FR.pdf",
+    2019,
+    "ACCEPTED",
+    "WRONG_WINE"
+   ],
+   [
+    "G-de-Guiraud-2019-FT-GB.pdf",
+    2019,
+    "ACCEPTED",
+    "WRONG_WINE"
+   ],
+   [
+    "G-de-Guiraud-2021-EN.pdf",
+    2021,
+    "ACCEPTED",
+    "WRONG_WINE"
+   ],
+   [
+    "G-de-Guiraud-2021-FR-1.pdf",
+    2021,
+    "ACCEPTED",
+    "WRONG_WINE"
+   ],
+   [
+    "GUIRAUD-2016-FT_FR.pdf",
+    2016,
+    "ACCEPTED",
+    "ACCEPTED"
+   ],
+   [
+    "GUIRAUD-CP-primeur-2020-version-anglaise-VF-fusionne.pdf",
+    2020,
+    "ACCEPTED",
+    "ACCEPTED"
+   ],
+   [
+    "GUIRAUD-CP-primeur-2020-version-francaise-fusionne.pdf",
+    2020,
+    "ACCEPTED",
+    "ACCEPTED"
+   ],
+   [
+    "Guiraud-2010-FT-FR-89.pdf",
+    2010,
+    "ACCEPTED",
+    "ACCEPTED"
+   ],
+   [
+    "Guiraud-2011-FT-FR-89.pdf",
+    2011,
+    "ACCEPTED",
+    "ACCEPTED"
+   ],
+   [
+    "Guiraud-2012-FT-FR-89.pdf",
+    2012,
+    "ACCEPTED",
+    "ACCEPTED"
+   ],
+   [
+    "Guiraud-2013-FT-FR-89.pdf",
+    2013,
+    "ACCEPTED",
+    "ACCEPTED"
+   ],
+   [
+    "Guiraud-2015-FT-FR-89.pdf",
+    2015,
+    "ACCEPTED",
+    "ACCEPTED"
+   ],
+   [
+    "Guiraud-2017-FT-FR.pdf",
+    2017,
+    "ACCEPTED",
+    "ACCEPTED"
+   ],
+   [
+    "Guiraud-2017-FT-GB-1.pdf",
+    2017,
+    "ACCEPTED",
+    "ACCEPTED"
+   ],
+   [
+    "g-de-chateau-guiraud-2023_en.pdf",
+    2023,
+    "WRONG_WINE",
+    "WRONG_WINE"
+   ],
+   [
+    "g-de-chateau-guiraud-2023_fr.pdf",
+    2023,
+    "WRONG_WINE",
+    "WRONG_WINE"
+   ]
+  ],
+  "malle_weddings": [
+   [
+    "2027-LES-MARIAGES-TRAITEUR-O-PLAISIR-GOURMAND.pdf",
+    2027,
+    "WRONG_WINE",
+    "WRONG_WINE"
+   ],
+   [
+    "Les-mariages-Florifera-avec-grille-tarifaire.pdf",
+    null,
+    "WRONG_WINE",
+    "WRONG_WINE"
+   ]
+  ],
+  "smith_HDS_PHL": [
+   [
+    "2017-HDS-BLANC-EN.pdf",
+    2017,
+    "WRONG_COLOUR",
+    "WRONG_COLOUR"
+   ],
+   [
+    "2017-HDS-BLANC-FR.pdf",
+    2017,
+    "WRONG_COLOUR",
+    "WRONG_COLOUR"
+   ],
+   [
+    "2017-HDS-ROUGE-EN.pdf",
+    2017,
+    "ACCEPTED",
+    "WRONG_WINE"
+   ],
+   [
+    "2017-HDS-ROUGE-FR.pdf",
+    2017,
+    "ACCEPTED",
+    "WRONG_WINE"
+   ],
+   [
+    "2017-PHL-BLANC-EN.pdf",
+    2017,
+    "WRONG_COLOUR",
+    "WRONG_COLOUR"
+   ],
+   [
+    "2017-PHL-BLANC-FR.pdf",
+    2017,
+    "WRONG_COLOUR",
+    "WRONG_COLOUR"
+   ],
+   [
+    "2017-PHL-ROUGE-EN.pdf",
+    2017,
+    "ACCEPTED",
+    "WRONG_WINE"
+   ],
+   [
+    "2017-PHL-ROUGE-FR.pdf",
+    2017,
+    "ACCEPTED",
+    "WRONG_WINE"
+   ],
+   [
+    "2018-HDS-BLANC-EN.pdf",
+    2018,
+    "WRONG_COLOUR",
+    "WRONG_COLOUR"
+   ],
+   [
+    "2018-HDS-BLANC-FR.pdf",
+    2018,
+    "WRONG_COLOUR",
+    "WRONG_COLOUR"
+   ],
+   [
+    "2018-HDS-ROUGE-EN.pdf",
+    2018,
+    "ACCEPTED",
+    "WRONG_WINE"
+   ],
+   [
+    "2018-HDS-ROUGE-FR.pdf",
+    2018,
+    "ACCEPTED",
+    "WRONG_WINE"
+   ],
+   [
+    "2018-PHL-BLANC-EN.pdf",
+    2018,
+    "WRONG_COLOUR",
+    "WRONG_COLOUR"
+   ],
+   [
+    "2018-PHL-BLANC-FR.pdf",
+    2018,
+    "WRONG_COLOUR",
+    "WRONG_COLOUR"
+   ],
+   [
+    "2018-PHL-ROUGE-EN.pdf",
+    2018,
+    "ACCEPTED",
+    "WRONG_WINE"
+   ],
+   [
+    "2018-PHL-ROUGE-FR.pdf",
+    2018,
+    "ACCEPTED",
+    "WRONG_WINE"
+   ],
+   [
+    "2019-HDS-Blanc-EN.pdf",
+    2019,
+    "WRONG_COLOUR",
+    "WRONG_COLOUR"
+   ],
+   [
+    "2019-HDS-Blanc-FR.pdf",
+    2019,
+    "WRONG_COLOUR",
+    "WRONG_COLOUR"
+   ],
+   [
+    "2019-HDS-Rouge-FR.pdf",
+    2019,
+    "ACCEPTED",
+    "ACCEPTED"
+   ],
+   [
+    "2019-PHL-Blanc-EN.pdf",
+    2019,
+    "WRONG_COLOUR",
+    "WRONG_COLOUR"
+   ],
+   [
+    "2019-PHL-Blanc-FR.pdf",
+    2019,
+    "WRONG_COLOUR",
+    "WRONG_COLOUR"
+   ],
+   [
+    "2019-PHL-Rouge-FR.pdf",
+    2019,
+    "ACCEPTED",
+    "ACCEPTED"
+   ],
+   [
+    "2019-PHL-Rouge-GB.pdf",
+    2019,
+    "ACCEPTED",
+    "ACCEPTED"
+   ],
+   [
+    "2020-HDS-BLANC-EN-Sans-notes.pdf",
+    2020,
+    "WRONG_COLOUR",
+    "WRONG_COLOUR"
+   ],
+   [
+    "2020-HDS-BLANC-FR-avec-notes.pdf",
+    2020,
+    "WRONG_COLOUR",
+    "WRONG_COLOUR"
+   ],
+   [
+    "2020-HDS-ROUGE-EN-avec-notes.pdf",
+    2020,
+    "ACCEPTED",
+    "WRONG_WINE"
+   ],
+   [
+    "2020-HDS-ROUGE-FR-Sans-notes.pdf",
+    2020,
+    "ACCEPTED",
+    "WRONG_WINE"
+   ],
+   [
+    "2020-HDS-ROUGE-FR-avec-notes.pdf",
+    2020,
+    "ACCEPTED",
+    "WRONG_WINE"
+   ],
+   [
+    "2020-PHL-BLANC-FR-avec-notes.pdf",
+    2020,
+    "WRONG_COLOUR",
+    "WRONG_COLOUR"
+   ],
+   [
+    "2020-PHL-BLANC-GB-avec-notes.pdf",
+    2020,
+    "WRONG_COLOUR",
+    "WRONG_COLOUR"
+   ],
+   [
+    "2020-PHL-ROUGE-FR-avec-notes.pdf",
+    2020,
+    "ACCEPTED",
+    "ACCEPTED"
+   ],
+   [
+    "2020-PHL-ROUGE-GB-avec-notes.pdf",
+    2020,
+    "ACCEPTED",
+    "ACCEPTED"
+   ],
+   [
+    "2020-PHL-ROUGE-GB.pdf",
+    2020,
+    "ACCEPTED",
+    "ACCEPTED"
+   ],
+   [
+    "2021-HDS-BLANC-EN.pdf",
+    2021,
+    "WRONG_COLOUR",
+    "WRONG_COLOUR"
+   ],
+   [
+    "2021-HDS-BLANC-FR.pdf",
+    2021,
+    "WRONG_COLOUR",
+    "WRONG_COLOUR"
+   ],
+   [
+    "2021-HDS-ROUGE-EN.pdf",
+    2021,
+    "ACCEPTED",
+    "WRONG_WINE"
+   ],
+   [
+    "2021-HDS-ROUGE-FR.pdf",
+    2021,
+    "ACCEPTED",
+    "WRONG_WINE"
+   ]
+  ],
+  "terrasses": [
+   [
+    "FICHE-TECHNIQUE-LES-TERRASSES-DE-SAINT-CHRISTOPHE-2016.pdf",
+    2016,
+    "PRESS_DOCUMENT",
+    "PRESS_DOCUMENT"
+   ],
+   [
+    "FICHE-TECHNIQUE-LES-TERRASSES-DE-SAINT-CHRISTOPHE-2016.pdf",
+    2016,
+    "WRONG_WINE",
+    "WRONG_WINE"
+   ],
+   [
+    "FICHE-TECHNIQUE-LES-TERRASSES-DE-SAINT-CHRISTOPHE-2017.pdf",
+    2017,
+    "ACCEPTED",
+    "ACCEPTED"
+   ],
+   [
+    "FICHE-TECHNIQUE-LES-TERRASSES-DE-SAINT-CHRISTOPHE-2017.pdf",
+    2017,
+    "WRONG_WINE",
+    "WRONG_WINE"
+   ],
+   [
+    "FICHE-TECHNIQUE-LES-TERRASSES-DE-SAINT-CHRISTOPHE-2018.pdf",
+    2018,
+    "ACCEPTED",
+    "ACCEPTED"
+   ],
+   [
+    "FICHE-TECHNIQUE-LES-TERRASSES-DE-SAINT-CHRISTOPHE-2018.pdf",
+    2018,
+    "WRONG_WINE",
+    "WRONG_WINE"
+   ],
+   [
+    "FICHE-TECHNIQUE-LES-TERRASSES-DE-SAINT-CHRISTOPHE-2019.pdf",
+    2019,
+    "ACCEPTED",
+    "ACCEPTED"
+   ],
+   [
+    "FICHE-TECHNIQUE-LES-TERRASSES-DE-SAINT-CHRISTOPHE-2019.pdf",
+    2019,
+    "WRONG_WINE",
+    "WRONG_WINE"
+   ],
+   [
+    "FICHE-TECHNIQUE-LES-TERRASSES-DE-SAINT-CHRISTOPHE-2020.pdf",
+    2020,
+    "ACCEPTED",
+    "ACCEPTED"
+   ],
+   [
+    "FICHE-TECHNIQUE-LES-TERRASSES-DE-SAINT-CHRISTOPHE-2020.pdf",
+    2020,
+    "WRONG_WINE",
+    "WRONG_WINE"
+   ],
+   [
+    "FICHE-TECHNIQUE-LES-TERRASSES-DE-SAINT-CHRISTOPHE-2021.pdf",
+    2021,
+    "ACCEPTED",
+    "ACCEPTED"
+   ],
+   [
+    "FICHE-TECHNIQUE-LES-TERRASSES-DE-SAINT-CHRISTOPHE-2021.pdf",
+    2021,
+    "WRONG_WINE",
+    "WRONG_WINE"
+   ],
+   [
+    "FICHE-TECHNIQUE-LES-TERRASSES-DE-SAINT-CHRISTOPHE-2022.pdf",
+    2022,
+    "ACCEPTED",
+    "ACCEPTED"
+   ],
+   [
+    "FICHE-TECHNIQUE-LES-TERRASSES-DE-SAINT-CHRISTOPHE-2022.pdf",
+    2022,
+    "WRONG_WINE",
+    "WRONG_WINE"
+   ],
+   [
+    "FICHE-TECHNIQUE-LES-TERRASSES-DE-SAINT-CHRISTOPHE-2023.pdf",
+    2023,
+    "ACCEPTED",
+    "ACCEPTED"
+   ],
+   [
+    "FICHE-TECHNIQUE-LES-TERRASSES-DE-SAINT-CHRISTOPHE-2023.pdf",
+    2023,
+    "WRONG_WINE",
+    "WRONG_WINE"
+   ],
+   [
+    "PRODUCT-SHEET-LES-TERRASSES-DE-SAINT-CHRISTOPHE-2016.pdf",
+    2016,
+    "ACCEPTED",
+    "ACCEPTED"
+   ],
+   [
+    "PRODUCT-SHEET-LES-TERRASSES-DE-SAINT-CHRISTOPHE-2016.pdf",
+    2016,
+    "TRADE_LISTING",
+    "TRADE_LISTING"
+   ],
+   [
+    "PRODUCT-SHEET-LES-TERRASSES-DE-SAINT-CHRISTOPHE-2017.pdf",
+    2017,
+    "ACCEPTED",
+    "ACCEPTED"
+   ],
+   [
+    "PRODUCT-SHEET-LES-TERRASSES-DE-SAINT-CHRISTOPHE-2017.pdf",
+    2017,
+    "TRADE_LISTING",
+    "TRADE_LISTING"
+   ],
+   [
+    "PRODUCT-SHEET-LES-TERRASSES-DE-SAINT-CHRISTOPHE-2018.pdf",
+    2018,
+    "ACCEPTED",
+    "ACCEPTED"
+   ],
+   [
+    "PRODUCT-SHEET-LES-TERRASSES-DE-SAINT-CHRISTOPHE-2018.pdf",
+    2018,
+    "TRADE_LISTING",
+    "TRADE_LISTING"
+   ],
+   [
+    "PRODUCT-SHEET-LES-TERRASSES-DE-SAINT-CHRISTOPHE-2019.pdf",
+    2019,
+    "ACCEPTED",
+    "ACCEPTED"
+   ],
+   [
+    "PRODUCT-SHEET-LES-TERRASSES-DE-SAINT-CHRISTOPHE-2019.pdf",
+    2019,
+    "TRADE_LISTING",
+    "TRADE_LISTING"
+   ],
+   [
+    "TECHNICAL-SHEET-LES-TERRASSES-DE-SAINT-CHRISTOPHE-2020.pdf",
+    2020,
+    "ACCEPTED",
+    "ACCEPTED"
+   ],
+   [
+    "TECHNICAL-SHEET-LES-TERRASSES-DE-SAINT-CHRISTOPHE-2020.pdf",
+    2020,
+    "WRONG_WINE",
+    "WRONG_WINE"
+   ],
+   [
+    "TECHNICAL-SHEET-LES-TERRASSES-DE-SAINT-CHRISTOPHE-2021.pdf",
+    2021,
+    "ACCEPTED",
+    "ACCEPTED"
+   ],
+   [
+    "TECHNICAL-SHEET-LES-TERRASSES-DE-SAINT-CHRISTOPHE-2021.pdf",
+    2021,
+    "WRONG_WINE",
+    "WRONG_WINE"
+   ],
+   [
+    "TECHNICAL-SHEET-LES-TERRASSES-DE-SAINT-CHRISTOPHE-2022.pdf",
+    2022,
+    "ACCEPTED",
+    "ACCEPTED"
+   ],
+   [
+    "TECHNICAL-SHEET-LES-TERRASSES-DE-SAINT-CHRISTOPHE-2022.pdf",
+    2022,
+    "WRONG_WINE",
+    "WRONG_WINE"
+   ],
+   [
+    "TECHNICAL-SHEET-LES-TERRASSES-DE-SAINT-CHRISTOPHE-2023.pdf",
+    2023,
+    "ACCEPTED",
+    "ACCEPTED"
+   ],
+   [
+    "TECHNICAL-SHEET-LES-TERRASSES-DE-SAINT-CHRISTOPHE-2023.pdf",
+    2023,
+    "WRONG_WINE",
+    "WRONG_WINE"
+   ]
+  ]
+ },
+ "grand_withdrawals": [
+  {
+   "class": "ACCEPTED_TO_REFUSED",
+   "key": [
+    "stem-chateau-laroque",
+    "FT_NUMERIQUE_TOURS_DE_LAROQUE_2017.pdf",
+    "stem-chateau-laroque",
+    "grand",
+    2017
+   ],
+   "v4": "ACCEPTED",
+   "v4_why": "",
+   "v5": "WRONG_WINE",
+   "v5_why": "the sheet names another of the estate’s wines: Les Tours de Laroque"
+  },
+  {
+   "class": "ACCEPTED_TO_REFUSED",
+   "key": [
+    "du-tertre",
+    "Hauts-du-Tertre-2021-FT-GB.pdf",
+    "du-tertre",
+    "grand",
+    2021
+   ],
+   "v4": "ACCEPTED",
+   "v4_why": "",
+   "v5": "WRONG_WINE",
+   "v5_why": "the sheet names another of the estate’s wines: Les Hauts du Tertre"
+  },
+  {
+   "class": "ACCEPTED_TO_REFUSED",
+   "key": [
+    "du-tertre",
+    "Hauts-du-Tertre-2016-FT-FR-C1145.pdf",
+    "du-tertre",
+    "grand",
+    2016
+   ],
+   "v4": "ACCEPTED",
+   "v4_why": "",
+   "v5": "WRONG_WINE",
+   "v5_why": "the sheet names another of the estate’s wines: Les Hauts du Tertre"
+  },
+  {
+   "class": "ACCEPTED_TO_REFUSED",
+   "key": [
+    "stem-chateau-bellefont-belcier",
+    "FICHE-TECHNIQUE-LES-TOURS-DE-BELCIER-2017.pdf",
+    "stem-chateau-bellefont-belcier",
+    "grand",
+    2017
+   ],
+   "v4": "ACCEPTED",
+   "v4_why": "",
+   "v5": "WRONG_WINE",
+   "v5_why": "the sheet names another of the estate’s wines: Les Tours de Belcier"
+  },
+  {
+   "class": "ACCEPTED_TO_REFUSED",
+   "key": [
+    "stem-chateau-tour-saint-christophe",
+    "TECHNICAL-SHEET-LES-TOURS-DE-BELCIER-2022.pdf",
+    "stem-chateau-bellefont-belcier",
+    "grand",
+    2022
+   ],
+   "v4": "ACCEPTED",
+   "v4_why": "",
+   "v5": "WRONG_WINE",
+   "v5_why": "the sheet names another of the estate’s wines: Les Tours de Belcier"
+  },
+  {
+   "class": "ACCEPTED_TO_REFUSED",
+   "key": [
+    "bourgeois-chateau-beaumont",
+    "tours-de-beaumont-2023-en.pdf",
+    "bourgeois-chateau-beaumont",
+    "grand",
+    2023
+   ],
+   "v4": "ACCEPTED",
+   "v4_why": "",
+   "v5": "WRONG_WINE",
+   "v5_why": "the sheet names another of the estate’s wines: Les Tours de Beaumont"
+  },
+  {
+   "class": "ACCEPTED_TO_REFUSED",
+   "key": [
+    "guiraud",
+    "G-de-Guiraud-2014-FT-FR-C0789.pdf",
+    "guiraud",
+    "grand",
+    2014
+   ],
+   "v4": "ACCEPTED",
+   "v4_why": "",
+   "v5": "WRONG_WINE",
+   "v5_why": "the sheet names another of the estate’s wines: Le G de Château Guiraud Blanc"
+  },
+  {
+   "class": "ACCEPTED_TO_REFUSED",
+   "key": [
+    "stem-chateau-laroque",
+    "FT_NUMERIQUE_TOURS_DE_LAROQUE_2020.pdf",
+    "stem-chateau-laroque",
+    "grand",
+    2020
+   ],
+   "v4": "ACCEPTED",
+   "v4_why": "",
+   "v5": "WRONG_WINE",
+   "v5_why": "the sheet names another of the estate’s wines: Les Tours de Laroque"
+  },
+  {
+   "class": "ACCEPTED_TO_REFUSED",
+   "key": [
+    "smith-haut-lafitte",
+    "2020-HDS-ROUGE-EN-avec-notes.pdf",
+    "smith-haut-lafitte",
+    "grand",
+    2020
+   ],
+   "v4": "ACCEPTED",
+   "v4_why": "",
+   "v5": "WRONG_WINE",
+   "v5_why": "the sheet names another of the estate’s wines: Les Hauts de Smith"
+  },
+  {
+   "class": "ACCEPTED_TO_REFUSED",
+   "key": [
+    "stem-chateau-tour-saint-christophe",
+    "PRODUCT-SHEET-LES-TOURS-DE-BELCIER-2017.pdf",
+    "stem-chateau-bellefont-belcier",
+    "grand",
+    2017
+   ],
+   "v4": "ACCEPTED",
+   "v4_why": "",
+   "v5": "WRONG_WINE",
+   "v5_why": "the sheet names another of the estate’s wines: Les Tours de Belcier"
+  },
+  {
+   "class": "ACCEPTED_TO_REFUSED",
+   "key": [
+    "smith-haut-lafitte",
+    "Le-Petit-Haut-Lafitte-rouge-2015.pdf",
+    "smith-haut-lafitte",
+    "grand",
+    2015
+   ],
+   "v4": "ACCEPTED",
+   "v4_why": "",
+   "v5": "WRONG_WINE",
+   "v5_why": "the sheet names another of the estate’s wines: Le Petit Haut Lafitte"
+  },
+  {
+   "class": "ACCEPTED_TO_REFUSED",
+   "key": [
+    "stem-chateau-tour-saint-christophe",
+    "PRODUCT-SHEET-LES-TOURS-DE-BELCIER-2020.pdf",
+    "stem-chateau-bellefont-belcier",
+    "grand",
+    2020
+   ],
+   "v4": "ACCEPTED",
+   "v4_why": "",
+   "v5": "WRONG_WINE",
+   "v5_why": "the sheet names another of the estate’s wines: Les Tours de Belcier"
+  },
+  {
+   "class": "ACCEPTED_TO_REFUSED",
+   "key": [
+    "smith-haut-lafitte",
+    "2020-HDS-ROUGE-FR-avec-notes.pdf",
+    "smith-haut-lafitte",
+    "grand",
+    2020
+   ],
+   "v4": "ACCEPTED",
+   "v4_why": "",
+   "v5": "WRONG_WINE",
+   "v5_why": "the sheet names another of the estate’s wines: Les Hauts de Smith"
+  },
+  {
+   "class": "ACCEPTED_TO_REFUSED",
+   "key": [
+    "stem-chateau-laroque",
+    "FT_NUMERIQUE_TOURS_DE_LAROQUE_2021.pdf",
+    "stem-chateau-laroque",
+    "grand",
+    2021
+   ],
+   "v4": "ACCEPTED",
+   "v4_why": "",
+   "v5": "WRONG_WINE",
+   "v5_why": "the sheet names another of the estate’s wines: Les Tours de Laroque"
+  },
+  {
+   "class": "ACCEPTED_TO_REFUSED",
+   "key": [
+    "stem-chateau-bellefont-belcier",
+    "TECHNICAL-SHEET-LES-TOURS-DE-BELCIER-2021.pdf",
+    "stem-chateau-bellefont-belcier",
+    "grand",
+    2021
+   ],
+   "v4": "ACCEPTED",
+   "v4_why": "",
+   "v5": "WRONG_WINE",
+   "v5_why": "the sheet names another of the estate’s wines: Les Tours de Belcier"
+  },
+  {
+   "class": "ACCEPTED_TO_REFUSED",
+   "key": [
+    "smith-haut-lafitte",
+    "2017-PHL-ROUGE-FR.pdf",
+    "smith-haut-lafitte",
+    "grand",
+    2017
+   ],
+   "v4": "ACCEPTED",
+   "v4_why": "",
+   "v5": "WRONG_WINE",
+   "v5_why": "the sheet names another of the estate’s wines: Le Petit Haut Lafitte"
+  },
+  {
+   "class": "ACCEPTED_TO_REFUSED",
+   "key": [
+    "bourgeois-chateau-beaumont",
+    "tours-de-beaumont-2023-fr.pdf",
+    "bourgeois-chateau-beaumont",
+    "grand",
+    2023
+   ],
+   "v4": "ACCEPTED",
+   "v4_why": "",
+   "v5": "WRONG_WINE",
+   "v5_why": "the sheet names another of the estate’s wines: Les Tours de Beaumont"
+  },
+  {
+   "class": "ACCEPTED_TO_REFUSED",
+   "key": [
+    "smith-haut-lafitte",
+    "2017-HDS-ROUGE-EN.pdf",
+    "smith-haut-lafitte",
+    "grand",
+    2017
+   ],
+   "v4": "ACCEPTED",
+   "v4_why": "",
+   "v5": "WRONG_WINE",
+   "v5_why": "the sheet names another of the estate’s wines: Les Hauts de Smith"
+  },
+  {
+   "class": "ACCEPTED_TO_REFUSED",
+   "key": [
+    "stem-chateau-tour-saint-christophe",
+    "FICHE-TECHNIQUE-LES-TOURS-DE-BELCIER-2020.pdf",
+    "stem-chateau-bellefont-belcier",
+    "grand",
+    2020
+   ],
+   "v4": "ACCEPTED",
+   "v4_why": "",
+   "v5": "WRONG_WINE",
+   "v5_why": "the sheet names another of the estate’s wines: Les Tours de Belcier"
+  },
+  {
+   "class": "ACCEPTED_TO_REFUSED",
+   "key": [
+    "smith-haut-lafitte",
+    "Les-Hauts-de-Smith-rouge-2016-Fiche-technique.pdf",
+    "smith-haut-lafitte",
+    "grand",
+    2016
+   ],
+   "v4": "ACCEPTED",
+   "v4_why": "",
+   "v5": "WRONG_WINE",
+   "v5_why": "the sheet names another of the estate’s wines: Les Hauts de Smith"
+  },
+  {
+   "class": "ACCEPTED_TO_REFUSED",
+   "key": [
+    "du-tertre",
+    "Hauts-du-Tertre-2011-FT-GB-C1145.pdf",
+    "du-tertre",
+    "grand",
+    2011
+   ],
+   "v4": "ACCEPTED",
+   "v4_why": "",
+   "v5": "WRONG_WINE",
+   "v5_why": "the sheet names another of the estate’s wines: Les Hauts du Tertre"
+  },
+  {
+   "class": "ACCEPTED_TO_REFUSED",
+   "key": [
+    "stem-chateau-bellefont-belcier",
+    "FICHE-TECHNIQUE-LES-TOURS-DE-BELCIER-2021.pdf",
+    "stem-chateau-bellefont-belcier",
+    "grand",
+    2021
+   ],
+   "v4": "ACCEPTED",
+   "v4_why": "",
+   "v5": "WRONG_WINE",
+   "v5_why": "the sheet names another of the estate’s wines: Les Tours de Belcier"
+  },
+  {
+   "class": "ACCEPTED_TO_REFUSED",
+   "key": [
+    "smith-haut-lafitte",
+    "2018-PHL-ROUGE-FR.pdf",
+    "smith-haut-lafitte",
+    "grand",
+    2018
+   ],
+   "v4": "ACCEPTED",
+   "v4_why": "",
+   "v5": "WRONG_WINE",
+   "v5_why": "the sheet names another of the estate’s wines: Le Petit Haut Lafitte"
+  },
+  {
+   "class": "ACCEPTED_TO_REFUSED",
+   "key": [
+    "stem-chateau-bellefont-belcier",
+    "PRODUCT-SHEET-LES-TOURS-DE-BELCIER-2017.pdf",
+    "stem-chateau-bellefont-belcier",
+    "grand",
+    2017
+   ],
+   "v4": "ACCEPTED",
+   "v4_why": "",
+   "v5": "WRONG_WINE",
+   "v5_why": "the sheet names another of the estate’s wines: Les Tours de Belcier"
+  },
+  {
+   "class": "ACCEPTED_TO_REFUSED",
+   "key": [
+    "guiraud",
+    "G-DE-GUIRAUD-2025-EN.pdf",
+    "guiraud",
+    "grand",
+    2025
+   ],
+   "v4": "ACCEPTED",
+   "v4_why": "",
+   "v5": "WRONG_WINE",
+   "v5_why": "the sheet names another of the estate’s wines: Le G de Château Guiraud Blanc"
+  },
+  {
+   "class": "ACCEPTED_TO_REFUSED",
+   "key": [
+    "stem-chateau-tour-saint-christophe",
+    "FICHE-TECHNIQUE-LES-TOURS-DE-BELCIER-2019.pdf",
+    "stem-chateau-bellefont-belcier",
+    "grand",
+    2019
+   ],
+   "v4": "ACCEPTED",
+   "v4_why": "",
+   "v5": "WRONG_WINE",
+   "v5_why": "the sheet names another of the estate’s wines: Les Tours de Belcier"
+  },
+  {
+   "class": "ACCEPTED_TO_REFUSED",
+   "key": [
+    "smith-haut-lafitte",
+    "2018-PHL-ROUGE-EN.pdf",
+    "smith-haut-lafitte",
+    "grand",
+    2018
+   ],
+   "v4": "ACCEPTED",
+   "v4_why": "",
+   "v5": "WRONG_WINE",
+   "v5_why": "the sheet names another of the estate’s wines: Le Petit Haut Lafitte"
+  },
+  {
+   "class": "ACCEPTED_TO_REFUSED",
+   "key": [
+    "guiraud",
+    "G-de-Guiraud-2013-FT-FR-C0789.pdf",
+    "guiraud",
+    "grand",
+    2013
+   ],
+   "v4": "ACCEPTED",
+   "v4_why": "",
+   "v5": "WRONG_WINE",
+   "v5_why": "the sheet names another of the estate’s wines: Le G de Château Guiraud Blanc"
+  },
+  {
+   "class": "ACCEPTED_TO_REFUSED",
+   "key": [
+    "stem-chateau-tour-saint-christophe",
+    "FICHE-TECHNIQUE-LES-TOURS-DE-BELCIER-2021.pdf",
+    "stem-chateau-bellefont-belcier",
+    "grand",
+    2021
+   ],
+   "v4": "ACCEPTED",
+   "v4_why": "",
+   "v5": "WRONG_WINE",
+   "v5_why": "the sheet names another of the estate’s wines: Les Tours de Belcier"
+  },
+  {
+   "class": "ACCEPTED_TO_REFUSED",
+   "key": [
+    "du-tertre",
+    "Hauts-du-Tertre-2016-FT-GB-C1145.pdf",
+    "du-tertre",
+    "grand",
+    2016
+   ],
+   "v4": "ACCEPTED",
+   "v4_why": "",
+   "v5": "WRONG_WINE",
+   "v5_why": "the sheet names another of the estate’s wines: Les Hauts du Tertre"
+  },
+  {
+   "class": "ACCEPTED_TO_REFUSED",
+   "key": [
+    "smith-haut-lafitte",
+    "Les-Hauts-de-Smith-rouge-2015-Fiche-technique.pdf",
+    "smith-haut-lafitte",
+    "grand",
+    2015
+   ],
+   "v4": "ACCEPTED",
+   "v4_why": "",
+   "v5": "WRONG_WINE",
+   "v5_why": "the sheet names another of the estate’s wines: Les Hauts de Smith"
+  },
+  {
+   "class": "ACCEPTED_TO_REFUSED",
+   "key": [
+    "stem-chateau-bellefont-belcier",
+    "FICHE-TECHNIQUE-LES-TOURS-DE-BELCIER-2016.pdf",
+    "stem-chateau-bellefont-belcier",
+    "grand",
+    2016
+   ],
+   "v4": "ACCEPTED",
+   "v4_why": "",
+   "v5": "WRONG_WINE",
+   "v5_why": "the sheet names another of the estate’s wines: Les Tours de Belcier"
+  },
+  {
+   "class": "ACCEPTED_TO_REFUSED",
+   "key": [
+    "stem-chateau-bellefont-belcier",
+    "FICHE-TECHNIQUE-LES-TOURS-DE-BELCIER-2019.pdf",
+    "stem-chateau-bellefont-belcier",
+    "grand",
+    2019
+   ],
+   "v4": "ACCEPTED",
+   "v4_why": "",
+   "v5": "WRONG_WINE",
+   "v5_why": "the sheet names another of the estate’s wines: Les Tours de Belcier"
+  },
+  {
+   "class": "ACCEPTED_TO_REFUSED",
+   "key": [
+    "stem-chateau-laroque",
+    "FT_NUMERIQUE_TOURS_DE_LAROQUE_2018.pdf",
+    "stem-chateau-laroque",
+    "grand",
+    2018
+   ],
+   "v4": "ACCEPTED",
+   "v4_why": "",
+   "v5": "WRONG_WINE",
+   "v5_why": "the sheet names another of the estate’s wines: Les Tours de Laroque"
+  },
+  {
+   "class": "ACCEPTED_TO_REFUSED",
+   "key": [
+    "du-tertre",
+    "Haut-du-Tertre-2013-FT-GB-C1145.pdf",
+    "du-tertre",
+    "grand",
+    2013
+   ],
+   "v4": "ACCEPTED",
+   "v4_why": "",
+   "v5": "WRONG_WINE",
+   "v5_why": "the sheet names another of the estate’s wines: Les Hauts du Tertre"
+  },
+  {
+   "class": "ACCEPTED_TO_REFUSED",
+   "key": [
+    "stem-chateau-tour-saint-christophe",
+    "FICHE-TECHNIQUE-LES-TOURS-DE-BELCIER-2022.pdf",
+    "stem-chateau-bellefont-belcier",
+    "grand",
+    2022
+   ],
+   "v4": "ACCEPTED",
+   "v4_why": "",
+   "v5": "WRONG_WINE",
+   "v5_why": "the sheet names another of the estate’s wines: Les Tours de Belcier"
+  },
+  {
+   "class": "ACCEPTED_TO_REFUSED",
+   "key": [
+    "smith-haut-lafitte",
+    "menu-smith-haut-lafitte.pdf",
+    "smith-haut-lafitte",
+    "grand",
+    2014
+   ],
+   "v4": "ACCEPTED",
+   "v4_why": "",
+   "v5": "WRONG_WINE",
+   "v5_why": "the sheet names another of the estate’s wines: Les Hauts de Smith"
+  },
+  {
+   "class": "ACCEPTED_TO_REFUSED",
+   "key": [
+    "stem-chateau-tour-saint-christophe",
+    "FICHE-TECHNIQUE-LES-TOURS-DE-BELCIER-2018.pdf",
+    "stem-chateau-bellefont-belcier",
+    "grand",
+    2018
+   ],
+   "v4": "ACCEPTED",
+   "v4_why": "",
+   "v5": "WRONG_WINE",
+   "v5_why": "the sheet names another of the estate’s wines: Les Tours de Belcier"
+  },
+  {
+   "class": "ACCEPTED_TO_REFUSED",
+   "key": [
+    "smith-haut-lafitte",
+    "2020-HDS-ROUGE-FR-Sans-notes.pdf",
+    "smith-haut-lafitte",
+    "grand",
+    2020
+   ],
+   "v4": "ACCEPTED",
+   "v4_why": "",
+   "v5": "WRONG_WINE",
+   "v5_why": "the sheet names another of the estate’s wines: Les Hauts de Smith"
+  },
+  {
+   "class": "ACCEPTED_TO_REFUSED",
+   "key": [
+    "smith-haut-lafitte",
+    "2018-HDS-ROUGE-FR.pdf",
+    "smith-haut-lafitte",
+    "grand",
+    2018
+   ],
+   "v4": "ACCEPTED",
+   "v4_why": "",
+   "v5": "WRONG_WINE",
+   "v5_why": "the sheet names another of the estate’s wines: Les Hauts de Smith"
+  },
+  {
+   "class": "ACCEPTED_TO_REFUSED",
+   "key": [
+    "smith-haut-lafitte",
+    "2017-HDS-ROUGE-FR.pdf",
+    "smith-haut-lafitte",
+    "grand",
+    2017
+   ],
+   "v4": "ACCEPTED",
+   "v4_why": "",
+   "v5": "WRONG_WINE",
+   "v5_why": "the sheet names another of the estate’s wines: Les Hauts de Smith"
+  },
+  {
+   "class": "ACCEPTED_TO_REFUSED",
+   "key": [
+    "stem-chateau-bellefont-belcier",
+    "FICHE-TECHNIQUE-LES-TOURS-DE-BELCIER-2020.pdf",
+    "stem-chateau-bellefont-belcier",
+    "grand",
+    2020
+   ],
+   "v4": "ACCEPTED",
+   "v4_why": "",
+   "v5": "WRONG_WINE",
+   "v5_why": "the sheet names another of the estate’s wines: Les Tours de Belcier"
+  },
+  {
+   "class": "ACCEPTED_TO_REFUSED",
+   "key": [
+    "stem-chateau-bellefont-belcier",
+    "PRODUCT-SHEET-LES-TOURS-DE-BELCIER-2016.pdf",
+    "stem-chateau-bellefont-belcier",
+    "grand",
+    2016
+   ],
+   "v4": "ACCEPTED",
+   "v4_why": "",
+   "v5": "WRONG_WINE",
+   "v5_why": "the sheet names another of the estate’s wines: Les Tours de Belcier"
+  },
+  {
+   "class": "ACCEPTED_TO_REFUSED",
+   "key": [
+    "guiraud",
+    "G-DE-GUIRAUD-2025-FR.pdf",
+    "guiraud",
+    "grand",
+    2025
+   ],
+   "v4": "ACCEPTED",
+   "v4_why": "",
+   "v5": "WRONG_WINE",
+   "v5_why": "the sheet names another of the estate’s wines: Le G de Château Guiraud Blanc"
+  },
+  {
+   "class": "ACCEPTED_TO_REFUSED",
+   "key": [
+    "smith-haut-lafitte",
+    "2021-HDS-ROUGE-EN.pdf",
+    "smith-haut-lafitte",
+    "grand",
+    2021
+   ],
+   "v4": "ACCEPTED",
+   "v4_why": "",
+   "v5": "WRONG_WINE",
+   "v5_why": "the sheet names another of the estate’s wines: Les Hauts de Smith"
+  },
+  {
+   "class": "ACCEPTED_TO_REFUSED",
+   "key": [
+    "smith-haut-lafitte",
+    "2021-HDS-ROUGE-FR.pdf",
+    "smith-haut-lafitte",
+    "grand",
+    2021
+   ],
+   "v4": "ACCEPTED",
+   "v4_why": "",
+   "v5": "WRONG_WINE",
+   "v5_why": "the sheet names another of the estate’s wines: Les Hauts de Smith"
+  },
+  {
+   "class": "ACCEPTED_TO_REFUSED",
+   "key": [
+    "guiraud",
+    "G-de-Guiraud-2021-EN.pdf",
+    "guiraud",
+    "grand",
+    2021
+   ],
+   "v4": "ACCEPTED",
+   "v4_why": "",
+   "v5": "WRONG_WINE",
+   "v5_why": "the sheet names another of the estate’s wines: Le G de Château Guiraud Blanc"
+  },
+  {
+   "class": "ACCEPTED_TO_REFUSED",
+   "key": [
+    "stem-chateau-bellefont-belcier",
+    "FICHE-TECHNIQUE-LES-TOURS-DE-BELCIER-2022.pdf",
+    "stem-chateau-bellefont-belcier",
+    "grand",
+    2022
+   ],
+   "v4": "ACCEPTED",
+   "v4_why": "",
+   "v5": "WRONG_WINE",
+   "v5_why": "the sheet names another of the estate’s wines: Les Tours de Belcier"
+  },
+  {
+   "class": "ACCEPTED_TO_REFUSED",
+   "key": [
+    "stem-chateau-tour-saint-christophe",
+    "PRODUCT-SHEET-LES-TOURS-DE-BELCIER-2018.pdf",
+    "stem-chateau-bellefont-belcier",
+    "grand",
+    2018
+   ],
+   "v4": "ACCEPTED",
+   "v4_why": "",
+   "v5": "WRONG_WINE",
+   "v5_why": "the sheet names another of the estate’s wines: Les Tours de Belcier"
+  },
+  {
+   "class": "ACCEPTED_TO_REFUSED",
+   "key": [
+    "stem-chateau-tour-saint-christophe",
+    "FICHE-TECHNIQUE-LES-TOURS-DE-BELCIER-2015.pdf",
+    "stem-chateau-bellefont-belcier",
+    "grand",
+    2015
+   ],
+   "v4": "ACCEPTED",
+   "v4_why": "",
+   "v5": "WRONG_WINE",
+   "v5_why": "the sheet names another of the estate’s wines: Les Tours de Belcier"
+  },
+  {
+   "class": "ACCEPTED_TO_REFUSED",
+   "key": [
+    "stem-chateau-tour-saint-christophe",
+    "FICHE-TECHNIQUE-LES-TOURS-DE-BELCIER-2017.pdf",
+    "stem-chateau-bellefont-belcier",
+    "grand",
+    2017
+   ],
+   "v4": "ACCEPTED",
+   "v4_why": "",
+   "v5": "WRONG_WINE",
+   "v5_why": "the sheet names another of the estate’s wines: Les Tours de Belcier"
+  },
+  {
+   "class": "ACCEPTED_TO_REFUSED",
+   "key": [
+    "caillou",
+    "Croix-de-Beaucaillou-2013-FT-FR-202.pdf",
+    "ducru-beaucaillou",
+    "grand",
+    2013
+   ],
+   "v4": "ACCEPTED",
+   "v4_why": "",
+   "v5": "WRONG_WINE",
+   "v5_why": "the sheet names another of the estate’s wines: La Croix de Beaucaillou"
+  },
+  {
+   "class": "ACCEPTED_TO_REFUSED",
+   "key": [
+    "stem-chateau-bellefont-belcier",
+    "PRODUCT-SHEET-LES-TOURS-DE-BELCIER-2015.pdf",
+    "stem-chateau-bellefont-belcier",
+    "grand",
+    2015
+   ],
+   "v4": "ACCEPTED",
+   "v4_why": "",
+   "v5": "WRONG_WINE",
+   "v5_why": "the sheet names another of the estate’s wines: Les Tours de Belcier"
+  },
+  {
+   "class": "ACCEPTED_TO_REFUSED",
+   "key": [
+    "stem-chateau-bellefont-belcier",
+    "TECHNICAL-SHEET-LES-TOURS-DE-BELCIER-2022.pdf",
+    "stem-chateau-bellefont-belcier",
+    "grand",
+    2022
+   ],
+   "v4": "ACCEPTED",
+   "v4_why": "",
+   "v5": "WRONG_WINE",
+   "v5_why": "the sheet names another of the estate’s wines: Les Tours de Belcier"
+  },
+  {
+   "class": "ACCEPTED_TO_REFUSED",
+   "key": [
+    "du-tertre",
+    "Hauts-du-Tertre-2011-FT-FR-C1145.pdf",
+    "du-tertre",
+    "grand",
+    2011
+   ],
+   "v4": "ACCEPTED",
+   "v4_why": "",
+   "v5": "WRONG_WINE",
+   "v5_why": "the sheet names another of the estate’s wines: Les Hauts du Tertre"
+  },
+  {
+   "class": "ACCEPTED_TO_REFUSED",
+   "key": [
+    "stem-chateau-tour-saint-christophe",
+    "PRODUCT-SHEET-LES-TOURS-DE-BELCIER-2015.pdf",
+    "stem-chateau-bellefont-belcier",
+    "grand",
+    2015
+   ],
+   "v4": "ACCEPTED",
+   "v4_why": "",
+   "v5": "WRONG_WINE",
+   "v5_why": "the sheet names another of the estate’s wines: Les Tours de Belcier"
+  },
+  {
+   "class": "ACCEPTED_TO_REFUSED",
+   "key": [
+    "guiraud",
+    "G-de-Guiraud-2010-FT-GB-C0789.pdf",
+    "guiraud",
+    "grand",
+    2010
+   ],
+   "v4": "ACCEPTED",
+   "v4_why": "",
+   "v5": "WRONG_WINE",
+   "v5_why": "the sheet names another of the estate’s wines: Le G de Château Guiraud Blanc"
+  },
+  {
+   "class": "ACCEPTED_TO_REFUSED",
+   "key": [
+    "smith-haut-lafitte",
+    "2017-PHL-ROUGE-EN.pdf",
+    "smith-haut-lafitte",
+    "grand",
+    2017
+   ],
+   "v4": "ACCEPTED",
+   "v4_why": "",
+   "v5": "WRONG_WINE",
+   "v5_why": "the sheet names another of the estate’s wines: Le Petit Haut Lafitte"
+  },
+  {
+   "class": "ACCEPTED_TO_REFUSED",
+   "key": [
+    "stem-chateau-tour-saint-christophe",
+    "FICHE-TECHNIQUE-LES-TOURS-DE-BELCIER-2016.pdf",
+    "stem-chateau-bellefont-belcier",
+    "grand",
+    2016
+   ],
+   "v4": "ACCEPTED",
+   "v4_why": "",
+   "v5": "WRONG_WINE",
+   "v5_why": "the sheet names another of the estate’s wines: Les Tours de Belcier"
+  },
+  {
+   "class": "ACCEPTED_TO_REFUSED",
+   "key": [
+    "guiraud",
+    "G-de-Guiraud-2021-FR-1.pdf",
+    "guiraud",
+    "grand",
+    2021
+   ],
+   "v4": "ACCEPTED",
+   "v4_why": "",
+   "v5": "WRONG_WINE",
+   "v5_why": "the sheet names another of the estate’s wines: Le G de Château Guiraud Blanc"
+  },
+  {
+   "class": "ACCEPTED_TO_REFUSED",
+   "key": [
+    "stem-chateau-laroque",
+    "FT_NUMERIQUE_TOURS_DE_LAROQUE_2018_ANG.pdf",
+    "stem-chateau-laroque",
+    "grand",
+    2018
+   ],
+   "v4": "ACCEPTED",
+   "v4_why": "",
+   "v5": "WRONG_WINE",
+   "v5_why": "the sheet names another of the estate’s wines: Les Tours de Laroque"
+  },
+  {
+   "class": "ACCEPTED_TO_REFUSED",
+   "key": [
+    "caillou",
+    "Croix-de-Beaucaillou-2011-FT-FR-202.pdf",
+    "ducru-beaucaillou",
+    "grand",
+    2011
+   ],
+   "v4": "ACCEPTED",
+   "v4_why": "",
+   "v5": "WRONG_WINE",
+   "v5_why": "the sheet names another of the estate’s wines: La Croix de Beaucaillou"
+  },
+  {
+   "class": "ACCEPTED_TO_REFUSED",
+   "key": [
+    "smith-haut-lafitte",
+    "Le-Petit-Haut-Lafitte-Red-2016-Technical-Sheet.pdf",
+    "smith-haut-lafitte",
+    "grand",
+    2016
+   ],
+   "v4": "ACCEPTED",
+   "v4_why": "",
+   "v5": "WRONG_WINE",
+   "v5_why": "the sheet names another of the estate’s wines: Le Petit Haut Lafitte"
+  },
+  {
+   "class": "ACCEPTED_TO_REFUSED",
+   "key": [
+    "stem-chateau-laroque",
+    "FT_NUMERIQUE_TOURS_DE_LAROQUE_2017_ANG.pdf",
+    "stem-chateau-laroque",
+    "grand",
+    2017
+   ],
+   "v4": "ACCEPTED",
+   "v4_why": "",
+   "v5": "WRONG_WINE",
+   "v5_why": "the sheet names another of the estate’s wines: Les Tours de Laroque"
+  },
+  {
+   "class": "ACCEPTED_TO_REFUSED",
+   "key": [
+    "smith-haut-lafitte",
+    "Menus-2023-GB-H.pdf",
+    "smith-haut-lafitte",
+    "grand",
+    2014
+   ],
+   "v4": "ACCEPTED",
+   "v4_why": "",
+   "v5": "WRONG_WINE",
+   "v5_why": "the sheet names another of the estate’s wines: Les Hauts de Smith"
+  },
+  {
+   "class": "ACCEPTED_TO_REFUSED",
+   "key": [
+    "stem-chateau-bellefont-belcier",
+    "PRODUCT-SHEET-LES-TOURS-DE-BELCIER-2019.pdf",
+    "stem-chateau-bellefont-belcier",
+    "grand",
+    2019
+   ],
+   "v4": "ACCEPTED",
+   "v4_why": "",
+   "v5": "WRONG_WINE",
+   "v5_why": "the sheet names another of the estate’s wines: Les Tours de Belcier"
+  },
+  {
+   "class": "ACCEPTED_TO_REFUSED",
+   "key": [
+    "du-tertre",
+    "Hauts-du-Tertre-2017-FT-FR.pdf",
+    "du-tertre",
+    "grand",
+    2017
+   ],
+   "v4": "ACCEPTED",
+   "v4_why": "",
+   "v5": "WRONG_WINE",
+   "v5_why": "the sheet names another of the estate’s wines: Les Hauts du Tertre"
+  },
+  {
+   "class": "ACCEPTED_TO_REFUSED",
+   "key": [
+    "guiraud",
+    "G-de-Guiraud-2019-FT-FR.pdf",
+    "guiraud",
+    "grand",
+    2019
+   ],
+   "v4": "ACCEPTED",
+   "v4_why": "",
+   "v5": "WRONG_WINE",
+   "v5_why": "the sheet names another of the estate’s wines: Le G de Château Guiraud Blanc"
+  },
+  {
+   "class": "ACCEPTED_TO_REFUSED",
+   "key": [
+    "stem-chateau-laroque",
+    "FT_NUMERIQUE_TOURS_DE_LAROQUE_2021_ANG.pdf",
+    "stem-chateau-laroque",
+    "grand",
+    2021
+   ],
+   "v4": "ACCEPTED",
+   "v4_why": "",
+   "v5": "WRONG_WINE",
+   "v5_why": "the sheet names another of the estate’s wines: Les Tours de Laroque"
+  },
+  {
+   "class": "ACCEPTED_TO_REFUSED",
+   "key": [
+    "stem-chateau-tour-saint-christophe",
+    "PRODUCT-SHEET-LES-TOURS-DE-BELCIER-2019.pdf",
+    "stem-chateau-bellefont-belcier",
+    "grand",
+    2019
+   ],
+   "v4": "ACCEPTED",
+   "v4_why": "",
+   "v5": "WRONG_WINE",
+   "v5_why": "the sheet names another of the estate’s wines: Les Tours de Belcier"
+  },
+  {
+   "class": "ACCEPTED_TO_REFUSED",
+   "key": [
+    "stem-chateau-bellefont-belcier",
+    "PRODUCT-SHEET-LES-TOURS-DE-BELCIER-2020.pdf",
+    "stem-chateau-bellefont-belcier",
+    "grand",
+    2020
+   ],
+   "v4": "ACCEPTED",
+   "v4_why": "",
+   "v5": "WRONG_WINE",
+   "v5_why": "the sheet names another of the estate’s wines: Les Tours de Belcier"
+  },
+  {
+   "class": "ACCEPTED_TO_REFUSED",
+   "key": [
+    "smith-haut-lafitte",
+    "2018-HDS-ROUGE-EN.pdf",
+    "smith-haut-lafitte",
+    "grand",
+    2018
+   ],
+   "v4": "ACCEPTED",
+   "v4_why": "",
+   "v5": "WRONG_WINE",
+   "v5_why": "the sheet names another of the estate’s wines: Les Hauts de Smith"
+  },
+  {
+   "class": "ACCEPTED_TO_REFUSED",
+   "key": [
+    "smith-haut-lafitte",
+    "Le-Petit-Haut-Lafitte-rouge-2016.pdf",
+    "smith-haut-lafitte",
+    "grand",
+    2016
+   ],
+   "v4": "ACCEPTED",
+   "v4_why": "",
+   "v5": "WRONG_WINE",
+   "v5_why": "the sheet names another of the estate’s wines: Le Petit Haut Lafitte"
+  },
+  {
+   "class": "ACCEPTED_TO_REFUSED",
+   "key": [
+    "stem-chateau-tour-saint-christophe",
+    "PRODUCT-SHEET-LES-TOURS-DE-BELCIER-2016.pdf",
+    "stem-chateau-bellefont-belcier",
+    "grand",
+    2016
+   ],
+   "v4": "ACCEPTED",
+   "v4_why": "",
+   "v5": "WRONG_WINE",
+   "v5_why": "the sheet names another of the estate’s wines: Les Tours de Belcier"
+  },
+  {
+   "class": "ACCEPTED_TO_REFUSED",
+   "key": [
+    "guiraud",
+    "G-de-Guiraud-2016-FT-GB-C0789.pdf",
+    "guiraud",
+    "grand",
+    2016
+   ],
+   "v4": "ACCEPTED",
+   "v4_why": "",
+   "v5": "WRONG_WINE",
+   "v5_why": "the sheet names another of the estate’s wines: Le G de Château Guiraud Blanc"
+  },
+  {
+   "class": "ACCEPTED_TO_REFUSED",
+   "key": [
+    "guiraud",
+    "G-de-Guiraud-2019-FT-GB.pdf",
+    "guiraud",
+    "grand",
+    2019
+   ],
+   "v4": "ACCEPTED",
+   "v4_why": "",
+   "v5": "WRONG_WINE",
+   "v5_why": "the sheet names another of the estate’s wines: Le G de Château Guiraud Blanc"
+  },
+  {
+   "class": "ACCEPTED_TO_REFUSED",
+   "key": [
+    "stem-chateau-bellefont-belcier",
+    "FICHE-TECHNIQUE-LES-TOURS-DE-BELCIER-2015.pdf",
+    "stem-chateau-bellefont-belcier",
+    "grand",
+    2015
+   ],
+   "v4": "ACCEPTED",
+   "v4_why": "",
+   "v5": "WRONG_WINE",
+   "v5_why": "the sheet names another of the estate’s wines: Les Tours de Belcier"
+  },
+  {
+   "class": "ACCEPTED_TO_REFUSED",
+   "key": [
+    "guiraud",
+    "G-de-Guiraud-2016-FT-FR-C0789.pdf",
+    "guiraud",
+    "grand",
+    2016
+   ],
+   "v4": "ACCEPTED",
+   "v4_why": "",
+   "v5": "WRONG_WINE",
+   "v5_why": "the sheet names another of the estate’s wines: Le G de Château Guiraud Blanc"
+  },
+  {
+   "class": "ACCEPTED_TO_REFUSED",
+   "key": [
+    "du-tertre",
+    "Hauts-du-Tertre-2018-FT-FRGB-1.pdf",
+    "du-tertre",
+    "grand",
+    2018
+   ],
+   "v4": "ACCEPTED",
+   "v4_why": "",
+   "v5": "WRONG_WINE",
+   "v5_why": "the sheet names another of the estate’s wines: Les Hauts du Tertre"
+  },
+  {
+   "class": "ACCEPTED_TO_REFUSED",
+   "key": [
+    "smith-haut-lafitte",
+    "Le-Petit-Haut-Lafitte-RED-2015-Technical-Sheet.pdf",
+    "smith-haut-lafitte",
+    "grand",
+    2015
+   ],
+   "v4": "ACCEPTED",
+   "v4_why": "",
+   "v5": "WRONG_WINE",
+   "v5_why": "the sheet names another of the estate’s wines: Le Petit Haut Lafitte"
+  },
+  {
+   "class": "ACCEPTED_TO_REFUSED",
+   "key": [
+    "smith-haut-lafitte",
+    "Menus-2023-GB-H.pdf",
+    "smith-haut-lafitte",
+    "grand",
+    2023
+   ],
+   "v4": "ACCEPTED",
+   "v4_why": "",
+   "v5": "WRONG_WINE",
+   "v5_why": "the sheet names another of the estate’s wines: Les Hauts de Smith"
+  },
+  {
+   "class": "ACCEPTED_TO_REFUSED",
+   "key": [
+    "smith-haut-lafitte",
+    "Les-Hauts-de-Smith-RED-2015-Fiche-technique.pdf",
+    "smith-haut-lafitte",
+    "grand",
+    2015
+   ],
+   "v4": "ACCEPTED",
+   "v4_why": "",
+   "v5": "WRONG_WINE",
+   "v5_why": "the sheet names another of the estate’s wines: Les Hauts de Smith"
+  },
+  {
+   "class": "ACCEPTED_TO_REFUSED",
+   "key": [
+    "guiraud",
+    "G-de-Guiraud-2014-FT-GB-C0789.pdf",
+    "guiraud",
+    "grand",
+    2014
+   ],
+   "v4": "ACCEPTED",
+   "v4_why": "",
+   "v5": "WRONG_WINE",
+   "v5_why": "the sheet names another of the estate’s wines: Le G de Château Guiraud Blanc"
+  },
+  {
+   "class": "ACCEPTED_TO_REFUSED",
+   "key": [
+    "stem-chateau-tour-saint-christophe",
+    "TECHNICAL-SHEET-LES-TOURS-DE-BELCIER-2021.pdf",
+    "stem-chateau-bellefont-belcier",
+    "grand",
+    2021
+   ],
+   "v4": "ACCEPTED",
+   "v4_why": "",
+   "v5": "WRONG_WINE",
+   "v5_why": "the sheet names another of the estate’s wines: Les Tours de Belcier"
+  },
+  {
+   "class": "ACCEPTED_TO_REFUSED",
+   "key": [
+    "stem-chateau-bellefont-belcier",
+    "PRODUCT-SHEET-LES-TOURS-DE-BELCIER-2018.pdf",
+    "stem-chateau-bellefont-belcier",
+    "grand",
+    2018
+   ],
+   "v4": "ACCEPTED",
+   "v4_why": "",
+   "v5": "WRONG_WINE",
+   "v5_why": "the sheet names another of the estate’s wines: Les Tours de Belcier"
+  },
+  {
+   "class": "ACCEPTED_TO_REFUSED",
+   "key": [
+    "du-tertre",
+    "Hauts-du-Tertre-2017-FT-GB.pdf",
+    "du-tertre",
+    "grand",
+    2017
+   ],
+   "v4": "ACCEPTED",
+   "v4_why": "",
+   "v5": "WRONG_WINE",
+   "v5_why": "the sheet names another of the estate’s wines: Les Hauts du Tertre"
+  },
+  {
+   "class": "ACCEPTED_TO_REFUSED",
+   "key": [
+    "stem-chateau-bellefont-belcier",
+    "FICHE-TECHNIQUE-LES-TOURS-DE-BELCIER-2018.pdf",
+    "stem-chateau-bellefont-belcier",
+    "grand",
+    2018
+   ],
+   "v4": "ACCEPTED",
+   "v4_why": "",
+   "v5": "WRONG_WINE",
+   "v5_why": "the sheet names another of the estate’s wines: Les Tours de Belcier"
+  }
+ ],
+ "other_cuvees": {
+  "contexts": 18449,
+  "evaluated": 0,
+  "not_evaluated": 18449
+ },
+ "prediction": {
+  "both_same_verdict": 87,
+  "observed": 87,
+  "observed_not_predicted": [],
+  "predicted": 87,
+  "predicted_not_observed": []
+ },
+ "provenance": {
+  "failures_v4": {
+   "ARTIFACT_NAME_MISMATCH": 20,
+   "ARTIFACT_NOT_FOUND": 103
+  },
+  "failures_v5": {
+   "ARTIFACT_NAME_MISMATCH": 20,
+   "ARTIFACT_NOT_FOUND": 103
+  },
+  "v5_decisions_on_wrong_bytes_files": 278,
+  "v5_decisions_on_wrong_folder_files": 1747,
+  "v5_hash_equals_audit": 278,
+  "wrong_bytes_rows": 46,
+  "wrong_folder_rows": 866
+ },
+ "reconciliation": {
+  "classes": {
+   "ACCEPTED_TO_REFUSED": 87,
+   "UNCHANGED": 40685
+  },
+  "only_v4": 0,
+  "only_v5": 0,
+  "same_questions": 40772,
+  "same_verdict_different_read": 0
+ },
+ "role_grand": {
+  "accepted_v4": 9467,
+  "accepted_v5": 9380,
+  "changes": {
+   "ACCEPTED_TO_REFUSED": 87
+  },
+  "same_questions": 14134
+ },
+ "role_other": {
+  "accepted_v4": 0,
+  "accepted_v5": 0,
+  "changes": {},
+  "same_questions": 18449
+ },
+ "role_second": {
+  "accepted_v4": 1115,
+  "accepted_v5": 1115,
+  "changes": {},
+  "same_questions": 8189
+ },
+ "run": {
+  "attributed": 39510,
+  "by_role": {
+   "grand": 14134,
+   "other": 18449,
+   "second": 8189
+  },
+  "decisions": 40772,
+  "distinct_identities": 40772,
+  "failures": {
+   "ARTIFACT_NAME_MISMATCH": 20,
+   "ARTIFACT_NOT_FOUND": 103
+  },
+  "failures_v4": {
+   "ARTIFACT_NAME_MISMATCH": 20,
+   "ARTIFACT_NOT_FOUND": 103
+  },
+  "git": [
+   "fb125c85bd795f59a242151e5b5717eef7704d91 dirty=False: 40772"
+  ],
+  "readers": {
+   "7e8cfed1c24e": 40772
+  },
+  "unattributed": 1262,
+  "with_vintage": 39864,
+  "without_vintage": 908
+ }
+}

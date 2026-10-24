@@ -112,16 +112,25 @@ says('a wine with a distinctive word is A (Echo de Lynch-Bages)',
 
 says('running the audit changed no canonical file and no evidence file',
      before == after)
+# Against HEAD: the canonical files and the HISTORICAL evidence files.
+# The store grows by design - a new version is appended beside the old
+# ones and index.json records it - so the whole directory is not the
+# invariant; that each committed evidence file is unchanged is.
 try:
+    committed = subprocess.check_output(
+        ['git', 'ls-files', 'data/evidence/'], cwd=ROOT,
+        stderr=subprocess.DEVNULL).decode().split()
+    hist = [p for p in committed if p.endswith('.jsonl')]
     out = subprocess.check_output(
-        ['git', 'diff', '--name-only', 'HEAD', '--'] + WATCH, cwd=ROOT,
-        stderr=subprocess.DEVNULL).decode().strip()
+        ['git', 'diff', '--name-only', 'HEAD', '--']
+        + [p for p in WATCH if not p.startswith('data/evidence/')] + hist,
+        cwd=ROOT, stderr=subprocess.DEVNULL).decode().strip()
 except Exception:
     out = None
 if out is None:
     print('MISSING  git unavailable')
 else:
-    says('canonical files, chateaux.js and the evidence store match HEAD',
+    says('canonical files and every committed evidence file match HEAD',
          out == '', 'clean' if not out else out.replace('\n', ' ')[:30])
 
 # The committed inventory is what the tool writes now.

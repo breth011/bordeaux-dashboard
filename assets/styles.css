@@ -387,6 +387,16 @@ a { color: var(--seq-450); }
   padding: 6px 20px 7px;
   background: var(--surface-1);
   border-bottom: 1px solid var(--border);
+  /* A stacking context above the map, so the type-ahead under the
+     search box is not painted over by it. The bar is in normal flow
+     and the map's own furniture - its legend, its header strip, its
+     zoom buttons - is absolutely positioned at z-index 500 inside a
+     .pane-map that creates no context of its own, so those 500s
+     competed at the root and beat the dropdown's 70.
+     Below the drawer and its scrim at 900/901, which should cover
+     the filters when open. */
+  position: relative;
+  z-index: 800;
 }
 .filters label { font-size: 11.5px; color: var(--text-muted); display: block; margin-bottom: 3px; }
 .field { display: flex; flex-direction: column; }
@@ -1541,6 +1551,20 @@ body.map-page .pane-list.is-open ~ .list-close:hover {
 /* The vintage against the estate's usual blend: a bar either side of a
    line, right for more of that grape than usual and left for less. */
 @media (max-width: 520px) {
+  /* The filter bar on a phone. Four controls, two of them dropdowns
+     with a label above, cost more vertical room than the map they
+     filter, on the one tab where the map is the point. Only the search
+     box is kept; its placeholder already says what it searches, so the
+     label goes too and the box takes the full width.
+
+     The chips are deliberately left: a filter set on a wider screen is
+     still in force here, and removing a chip is the only way to undo
+     it once the dropdowns are gone. Empty, the row has no height. */
+  .filters .narrow-hide { display: none; }
+  .filters { padding: 7px 14px; gap: 8px; }
+  .filters .field { flex: 1 1 100%; }
+  .filters .field label[for="search"] { display: none; }
+  .filters input[type="search"] { width: 100%; min-width: 0; }
 }
 
 /* A wine you hold, marked on the collapsed row. */

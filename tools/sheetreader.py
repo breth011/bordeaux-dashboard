@@ -1484,6 +1484,17 @@ PROSE_STOP = re.compile(
     r'technical\s+(?:manager|director)\s*[-–]|'
     r'date\s+de\s+mise\s+en\s+bouteille|mise\s+en\s+bouteille\s*:|'
     r'bottling\s+date|analyse\s|analyses\s*:|'
+    # The figures themselves, which sit beside those labels in
+    # the same block. A label, a colon and a figure - that whole
+    # shape is required, which is what makes it safe without the
+    # sentence-boundary test the heading rules need: a note may
+    # use the word alcohol or elevage or blend, but it does not
+    # write "Alcohol: 13,5". Twenty-two fields ran into it,
+    # thirteen of them Gruaud-Larose's, whose sheets print the
+    # phenology and the analysis as one flattened run.
+    r'(?:alcools?|alcohol|degr[eé]s?|rendements?|yields?|'
+    r'[eé]levage|ageing|aging|acidit[eé](?:\s+totale)?|'
+    r'total\s+acidity|assemblages?|blend)\s*:\s*(?=[<\d])|'
     r'harvest\s+time|dates?\s+de\s+vendanges?|'
     # Pavie-Macquin's 2012 and 2013 season notes were its picking
     # dates: "Dates de recolte : Merlots du 13 au 18 octobre Cabernets

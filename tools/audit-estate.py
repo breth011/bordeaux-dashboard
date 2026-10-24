@@ -64,7 +64,7 @@ import sheetreader as sr
 sys.stdout.reconfigure(encoding='utf-8', errors='replace')
 
 PROSE = ('taste', 'note', 'window', 'decant', 'food')
-FIELD = re.compile(r"(?:\{|,)([a-z]+[a-z0-9]*)"
+FIELD = re.compile(r"(?:^|\{|,)([a-z]+[a-z0-9]*)"
                    r"(:'(?:[^'\\]|\\.)*'|:\{[^}]*\}|:\[[^\]]*\]|:[\d.]+)")
 
 # Narrower than GATES in sheetreader, which has to let through whatever
@@ -173,6 +173,12 @@ def suspicions(key, yr, flds, seen_prose, plant):
         if not v:
             continue
         for nm in LEADS:
+            # TAIL_DECANT identifies the decanting advice, so a decant
+            # field matching it is the advice sitting where it belongs.
+            # Malescot's eighteen read "For maximum enjoyment Decant
+            # the wine 2 hours before serving" and nothing else.
+            if nm == 'TAIL_DECANT' and f == 'decant':
+                continue
             rx = getattr(sr, nm, None)
             if rx is not None and rx.search(v):
                 out.append('%s opens on %s: %s' % (f, nm, v[:70]))
@@ -214,11 +220,17 @@ def suspicions(key, yr, flds, seen_prose, plant):
                            'doing both jobs'
                            % ', '.join(sorted(set(
                                h.lower() for h in hits))[:3]))
-        other = seen_prose.get((f, v[:120]))
-        if other and other != key:
-            out.append('%s is word for word %s’s' % (f, other))
-        else:
-            seen_prose[(f, v[:120])] = key
+        # Repeated verbatim across vintages. Not for the advisory
+        # fields: a decanting instruction, a drinking window and a food
+        # pairing are the estate's standing advice and are meant to be
+        # the same every year. Malescot prints one decant line under
+        # every vintage, and flagging fourteen of them says nothing.
+        if f in ('taste', 'note'):
+            other = seen_prose.get((f, v[:120]))
+            if other and other != key:
+                out.append('%s is word for word %s’s' % (f, other))
+            else:
+                seen_prose[(f, v[:120])] = key
 
     for f, (lo, hi) in BAND.items():
         v = flds.get(f)

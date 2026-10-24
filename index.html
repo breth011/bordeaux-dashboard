@@ -53,18 +53,22 @@
     <label for="search">Search</label>
     <input type="search" id="search" placeholder="Château, commune, proprietor…">
   </div>
-  <div class="field">
+  <!-- narrow-hide: on a phone this bar took more of the screen than the
+       map it filters, so only the search box is kept. The chips below
+       are not hidden, because they are the one way to see and undo a
+       filter that was set on a wider screen. -->
+  <div class="field narrow-hide">
     <label for="appellation">Appellation</label>
     <select id="appellation"></select>
   </div>
-  <div class="field">
+  <div class="field narrow-hide">
     <label for="vintage">Show scores from</label>
     <select id="vintage"></select>
   </div>
-  <div class="field" style="align-self:flex-end">
+  <div class="field narrow-hide" style="align-self:flex-end">
     <button class="iconbtn" id="resetBtn">Reset</button>
   </div>
-  <span class="resultcount" id="resultcount"></span>
+  <span class="resultcount narrow-hide" id="resultcount"></span>
   <div class="chips" id="chips" style="flex-basis:100%"></div>
 </div>
 

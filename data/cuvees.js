@@ -30,7 +30,7 @@ window.BDX_CUVEE_WINES = {
 'doisy-vedrines':[{slug:'chevalier-de-vedrines',name:'Chevalier de Védrines',role:'second',colour:'white'}],
 'domaine-de-chevalier':[{slug:'domaine-de-chevalier-blanc',name:'Domaine de Chevalier Blanc',role:'other',colour:'white'},{slug:'esprit-de-chevalier',name:'L’Esprit de Chevalier',role:'second',colour:'red'},{slug:'rose-de-chevalier',name:'Rosé de Chevalier',role:'other',colour:'rose'}],
 'du-tertre':[{slug:'les-hauts-du-tertre',name:'Les Hauts du Tertre',role:'second',colour:'red'}],
-'ducru-beaucaillou':[{slug:'la-croix-de-beaucaillou',name:'La Croix de Beaucaillou',role:'second',colour:'red'},{slug:'le-petit-ducru-de-ducru-beaucaillou',name:'Le Petit Ducru de Ducru-Beaucaillou',role:'other',colour:'red'},{slug:'madame-de-beaucaillou',name:'Madame de Beaucaillou',role:'other',colour:'red'}],
+'ducru-beaucaillou':[{slug:'la-croix-de-beaucaillou',name:'La Croix de Beaucaillou',role:'second',colour:'red'},{slug:'la-croix-ducru-beaucaillou',name:'La Croix Ducru-Beaucaillou',role:'second',colour:'red'},{slug:'le-petit-ducru-de-ducru-beaucaillou',name:'Le Petit Ducru de Ducru-Beaucaillou',role:'other',colour:'red'},{slug:'madame-de-beaucaillou',name:'Madame de Beaucaillou',role:'other',colour:'red'}],
 'duhart-milon':[{slug:'le-blanc-de-duhart-milon',name:'Le Blanc de Duhart-Milon',role:'other',colour:'white'},{slug:'moulin-de-duhart',name:'Moulin de Duhart',role:'second',colour:'red'}],
 'giscours':[{slug:'la-sir-ne-de-giscours',name:'La Sirène de Giscours',role:'second',colour:'red'},{slug:'le-haut-medoc-de-giscours',name:'Le Haut-Médoc de Giscours',role:'other',colour:'red'}],
 'grand-puy-ducasse':[{slug:'prelude-a-grand-puy-ducasse',name:'Prélude à Grand-Puy Ducasse',role:'second',colour:'red'}],
@@ -46,13 +46,13 @@ window.BDX_CUVEE_WINES = {
 'lagrange':[{slug:'les-fiefs-de-lagrange',name:'Les Fiefs de Lagrange',role:'second',colour:'red'}],
 'larcis-ducasse':[{slug:'murmure-de-larcis-ducasse',name:'Murmure de Larcis Ducasse',role:'second',colour:'red'}],
 'lascombes':[{slug:'chevalier-de-lascombes',name:'Chevalier de Lascombes',role:'second',colour:'red'},{slug:'haut-m-doc-de-lascombes',name:'Haut-Médoc de Lascombes',role:'other',colour:'red'}],
-'leoville-poyferre':[{slug:'moulin-riche',name:'Moulin Riche',role:'other',colour:'red'}],
+'leoville-poyferre':[{slug:'moulin-riche',name:'Moulin Riche',role:'other',colour:'red'},{slug:'pavillon-de-poyferre',name:'Pavillon de Poyferré',role:'second',colour:'red'}],
 'lynch-bages':[{slug:'blanc-de-lynch-bages',name:'Blanc de Lynch-Bages',role:'other',colour:'white'},{slug:'echo-de-lynch-bages',name:'Echo de Lynch-Bages',role:'second',colour:'red'}],
 'lynch-moussas':[{slug:'les-hauts-de-lynch-moussas',name:'Les Hauts de Lynch-Moussas',role:'second',colour:'red'}],
 'malartic-lagraviere':[{slug:'le-comte-de-malartic',name:'Le Comte de Malartic',role:'second',colour:'red'}],
 'margaux':[{slug:'margaux-du-chateau-margaux',name:'Margaux du Château Margaux',role:'other',colour:'red'},{slug:'pavillon-blanc-du-chateau-margaux',name:'Pavillon Blanc du Château Margaux',role:'other',colour:'white'},{slug:'pavillon-rouge-du-chateau-margaux',name:'Pavillon Rouge du Château Margaux',role:'second',colour:'red'}],
 'marquis-de-terme':[{slug:'cuvee-1762',name:'Cuvée 1762',role:'other',colour:'red'},{slug:'empreinte-de-marquis-de-terme',name:'Empreinte de Marquis de Terme',role:'other',colour:'red'}],
-'montrose':[{slug:'la-vieille-dame-de-trottevieille',name:'La Vieille Dame de Trottevieille',role:'second',colour:'red'}],
+'montrose':[{slug:'la-dame-de-montrose',name:'La Dame de Montrose',role:'second',colour:'red'},{slug:'la-vieille-dame-de-trottevieille',name:'La Vieille Dame de Trottevieille',role:'second',colour:'red'}],
 'mouton':[{slug:'aile-d-argent',name:'Aile d’Argent',role:'other',colour:'white'},{slug:'le-petit-mouton',name:'Le Petit Mouton de Mouton Rothschild',role:'second',colour:'red'}],
 'olivier':[{slug:'chateau-olivier-blanc',name:'Château Olivier Blanc',role:'other',colour:'white'},{slug:'le-dauphin-d-olivier',name:'Le Dauphin d\'Olivier',role:'second',colour:'red'},{slug:'le-dauphin-d-olivier-blanc',name:'Le Dauphin d\'Olivier Blanc',role:'second',colour:'white'}],
 'pedesclaux':[{slug:'fleur-de-pedesclaux',name:'Fleur de Pédesclaux',role:'second',colour:'red'}],
@@ -90,6 +90,7 @@ window.BDX_CUVEE_WINES = {
 'stem-chateau-chauvin':[{slug:'folie-de-chauvin',name:'Folie de Chauvin',role:'second',colour:'red'}],
 'valandraud':[{slug:'virginie-de-valandraud',name:'Virginie de Valandraud',role:'second',colour:'red'}],
 'yquem':[{slug:'y-d-yquem',name:'Y d’Yquem',role:'other',colour:'white'}],
+'clerc-milon':[{slug:'pastourelle-de-clerc-milon',name:'Pastourelle de Clerc Milon',role:'second',colour:'red'}],
 };
 
 window.BDX_CUVEES = {

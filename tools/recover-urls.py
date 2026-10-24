@@ -90,6 +90,22 @@ def hosts_known(man):
     return dict((k, v.most_common(1)[0][0]) for k, v in out.items())
 
 
+def both_hosts(where):
+    """The address as recorded, and the same with www. toggled.
+
+    A certificate issued for one form and not the other is a
+    common misconfiguration: Grand-Puy Ducasse's www. host fails
+    to verify and its bare host serves the library that holds all
+    86 of its documents. The recorded form is tried first.
+    """
+    out = [where]
+    if "://www." in where:
+        out.append(where.replace("://www.", "://", 1))
+    else:
+        out.append(re.sub(r"^(https?://)", r"\1www.", where, count=1))
+    return [u for u in out if u]
+
+
 def main():
     ap = argparse.ArgumentParser()
     ap.add_argument('--apply', action='store_true')
@@ -147,10 +163,18 @@ def main():
         if not where:
             why['no website on record, and no address to infer one from'] += 1
             continue
-        try:
-            urls = h.media_library(where)
-        except Exception as e:
-            why['the library could not be read: %s' % str(e)[:30]] += 1
+        urls, last = None, None
+        for host in both_hosts(where):
+            try:
+                urls = h.media_library(host)
+            except Exception as e:
+                last = str(e)[:30]
+                continue
+            if urls:
+                where = host
+                break
+        if urls is None:
+            why['the library could not be read: %s' % last] += 1
             continue
         if not urls:
             why['the site holds no media library'] += 1

@@ -345,15 +345,16 @@ PROTECTED = ('data/sources.json', 'data/fiches.js', 'data/cuvees.js',
 try:
     out = subprocess.check_output(
         ['git', 'diff', '--name-only', 'HEAD', '--'] + list(PROTECTED)
-        + ['data/evidence/'], cwd=ROOT,
-        stderr=subprocess.DEVNULL).decode().strip()
+        # the historical evidence; a later version is appended beside it
+        + ['data/evidence/decisions-v%d.jsonl' % v for v in (1, 2, 3)],
+        cwd=ROOT, stderr=subprocess.DEVNULL).decode().strip()
 except Exception:
     out = None
 print()
 if out is None:
     print('MISSING  git unavailable')
 else:
-    says('canonical files and the evidence store unmodified vs HEAD',
+    says('canonical files and v1-v3 evidence unmodified vs HEAD',
          out == '', 'clean' if out == '' else out.replace('\n', ' ')[:28])
 
 print('\n%d check(s), %s'

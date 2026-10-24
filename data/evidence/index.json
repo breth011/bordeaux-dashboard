@@ -62,6 +62,29 @@
     "ba6795763d67"
    ],
    "rows": 41259
+  },
+  "4": {
+   "commits": [
+    "61f17e990ee57c9679f695563ceb689c0a72a7e9"
+   ],
+   "failures": {
+    "bytes": 63940,
+    "file": "provenance-failures-v4.jsonl",
+    "rows": 123,
+    "sha256": "65d525c722f554e069157f1d51c00aeb6a7010a43298d2b34a02496128253735"
+   },
+   "parts": [
+    {
+     "bytes": 39328226,
+     "file": "decisions-v4.jsonl",
+     "rows": 40772,
+     "sha256": "1965fa41826ebf7a05fda46fdf9d38f148bf158413c50357d7309b2543685517"
+    }
+   ],
+   "readers": [
+    "c12eb3102b45"
+   ],
+   "rows": 40772
   }
  }
 }

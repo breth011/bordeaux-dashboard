@@ -313,14 +313,19 @@ says('39. v1/v2/v3 parts match their recorded hashes', ST.verify() == [],
      '; '.join(ST.verify())[:40])
 try:
     out = subprocess.check_output(
-        ['git', 'diff', '--name-only', 'HEAD', '--', 'data/evidence/'],
+        # The historical files, not the whole store: a new version is
+        # appended beside them (v4, Phase 2.7) and must not count.
+        ['git', 'diff', '--name-only', 'HEAD', '--',
+         'data/evidence/decisions-v1.jsonl',
+         'data/evidence/decisions-v2.jsonl',
+         'data/evidence/decisions-v3.jsonl'],
         cwd=ROOT, stderr=subprocess.DEVNULL).decode().strip()
 except Exception:
     out = None
 if out is None:
     print('MISSING  git unavailable')
 else:
-    says('40. data/evidence/ is unchanged from HEAD', out == '',
+    says('40. the v1-v3 evidence files are unchanged from HEAD', out == '',
          out.replace('\n', ' ')[:40])
 ix = json.load(io.open(ST.INDEX, encoding='utf-8'))
 # Phase 2.5 wrote no v4; Phase 2.7 did. What has to hold for good is that

@@ -894,7 +894,6 @@ window.BDX_FICHE_URL = {
 'mouton|2009':'https://www.chateau-mouton-rothschild.com/chateau-mouton-rothschild/chateau-mouton-rothschild-2009',
 'mouton|2010':'https://www.chateau-mouton-rothschild.com/chateau-mouton-rothschild/chateau-mouton-rothschild-2010',
 'mouton|2011':'https://www.chateau-mouton-rothschild.com/chateau-mouton-rothschild/chateau-mouton-rothschild-2011',
-'mouton|2012':'https://www.chateau-mouton-rothschild.com/chateau-mouton-rothschild/chateau-mouton-rothschild-2012',
 'mouton|2013':'https://www.chateau-mouton-rothschild.com/lee-ufan-illustrates-the-label-of-chateau-mouton-rothschild-2013',
 'mouton|2014':'https://www.chateau-mouton-rothschild.com/world-gourmet-summit-26-march-5-april-2014',
 'mouton|2015':'https://www.chateau-mouton-rothschild.com/chateau-mouton-rothschild/chateau-mouton-rothschild-2015',

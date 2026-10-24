@@ -1784,6 +1784,51 @@ _M = r'(?:septembre|octobre|ao[uû]t|novembre|september|october|august)'
 LEAD_SIGNATURE = re.compile(
     r'(?i)^signature\s+wine\s+style\s*:\s*')
 
+# A vintage page's banner, welded to the front of the paragraph
+# under it: "Primeurs Chateau Mouton Rothschild 1982: Climatic
+# conditions The winter of 1982 was unusually mild". Eighteen of
+# Mouton's season notes open on it.
+#
+# The year and the colon are both required. "Primeurs" alone is
+# ordinary wine English and a note may say a wine showed well en
+# primeur; the banner is the word followed by a name and a year
+# and punctuated like a title.
+LEAD_PRIMEURS = re.compile(
+    # 110 and not 70: Le Petit Mouton 1995's banner carries the
+    # site's own placeholder text - "Primeurs this is a quote
+    # and this is the citation Le Petit Mouton de Mouton
+    # Rothschild - 1995" - and the year sits 92 characters in.
+    r'(?i)^\s*primeurs\b[^.!?:]{0,110}?(?:19|20)\d\d'
+    # Then a colon, a dash, or simply the next word: Mouton
+    # punctuates it three different ways across its own pages.
+    r'(?:\s*[:\u2013\u2014-]\s*|\s+|$)')
+
+# And the heading of the paragraph, which on these pages sits
+# inside the paragraph: "Climatic conditions The winter of 1982".
+# 25 fields open on it, 18 of them behind the banner above.
+#
+# Only at the start. The phrase occurs 43 times in the archive and
+# most of those are mid-field, which means a note has run across a
+# section boundary - a different fault, and cutting there would
+# throw away the half of the note that is genuine.
+LEAD_CLIMATE = re.compile(
+    r'(?i)^\s*(?:climatic\s+conditions|conditions\s+climatiques|'
+    r'climate\s+conditions)'
+    # The label's own tail, where it has one: Pouget writes
+    # "Climatic conditions of this vintage:".
+    r'(?:\s+(?:of|de)\s+(?:this|ce|cette)\s+'
+    r'(?:vintage|mill[eé]sime|year|ann[eé]e))?'
+    # Either punctuated as a heading, or followed by the capital
+    # that starts the sentence it was standing over. A lower-case
+    # word means these two words are the subject of the sentence
+    # and not a title: "Climatic conditions turned out to be
+    # quite balanced" at Grand-Puy-Ducasse 2023.
+    # (?-i:) because the (?i) at the front would otherwise let
+    # [A-Z] match a lower-case letter, and that distinction is the
+    # whole test: a capital means the heading ended and the
+    # sentence began, a lower-case word means there was no heading.
+    r'(?:\s*[:\u2013\u2014-]\s*|\s+(?=(?-i:[A-Z\u00c0-\u00dd])|(?:19|20)\d\d\b))')
+
 LEAD_JUNK = re.compile(
     r'^(?:[•▪●·v]\s+|'
     r'(?:merlots?|cabernets?(?:\s+\w+)?|petits?\s+verdots?|malbec|'
@@ -2518,6 +2563,9 @@ def read_prose(text, page=False, shop=False):
             # "+ 10 = 15", the 05 having looked like a page number.
             win = LEAD_MASTHEAD.sub('', win)
             win = LEAD_SIGNATURE.sub('', win)
+            # The banner first, then the heading it sat in front of.
+            win = LEAD_PRIMEURS.sub('', win)
+            win = LEAD_CLIMATE.sub('', win)
             win = LEAD_CREDIT.sub('', win)
             win = win.lstrip(' :–-—«“”"')
             # And never end inside a word: the stop-list can cut anywhere.
@@ -2614,6 +2662,17 @@ def read_prose(text, page=False, shop=False):
             # season note begins there. Margaux prints the two
             # together under one label.
             win = _at_the_season(field, win)
+            # The banner and the heading, once more. The strips
+            # above ran on the window; _put_the_label_back then
+            # put the label's sentence back on the front, which
+            # is right for a label that was a sentence's subject
+            # and hands back furniture for a label that was a
+            # heading. Pouget 2008 kept "Climatic conditions of
+            # this vintage:" that way. On a window the first
+            # pass already cleaned, both are no-ops.
+            win = LEAD_PRIMEURS.sub('', win)
+            win = LEAD_CLIMATE.sub('', win)
+            win = win.lstrip(' :\u2013-\u2014')
             out[field], how[field] = win, m.group(0)[:40]
             break
     return out, how

@@ -2366,6 +2366,79 @@ ENGLISH_LABEL = re.compile(r'(?i)(tasting|growing\s+season|'
 AT_START = re.compile(r'')
 
 
+# A tasting note that names the wine rather than labelling itself:
+# "Lynch-Bages 2008 displays nice aromas of cranberry". The three
+# patterns below are what separates it from the other sentences that
+# open the same way. See named_candidate.
+#
+# The name is being used INSIDE a sentence, not starting one.
+NAMED_MID = re.compile(
+    r'(?i)\b(?:in|at|of|for|than|like|as|and|or|with|from|on|to|'
+    r'dans|comme|que|qu|de|du|des|et|ou|avec|chez|pour)\s*$')
+# What was DONE to the wine, which is a different sentence from what
+# the wine IS: "Lynch-Bages 2005 was aged in 80% new oak ... powerful
+# tannins" has the vocabulary and is about the elevage.
+NAMED_PASSIVE = re.compile(
+    r'(?i)^\s*(?:was|were|has\s+been|have\s+been|'
+    r'a\s+[e\u00e9]t[e\u00e9]|ont\s+[e\u00e9]t[e\u00e9]|fut|furent)\b')
+# The verb that says the sentence IS a description. Stronger than any
+# word list: "2002 is fleshy and ample" and "1997 se caracterise par
+# une tres bonne maturite" are notes with no TASTES_OF word in them.
+NAMED_VERB = re.compile(
+    r'(?i)^\s*(?:is|are|displays?|offers?|shows?|has|have|presents?|'
+    r'exhibits?|combines?|reveals?|opens?|delivers?|expresses?|'
+    r'est|sont|pr[e\u00e9]sente|offre|montre|r[e\u00e9]v[e\u00e8]le|'
+    r'se\s+caract[e\u00e9]rise|se\s+pr[e\u00e9]sente|'
+    r'd[e\u00e9]voile|exprime|allie|poss[e\u00e8]de)\b')
+# Plainly about something else, wherever the verb sits.
+NAMED_OTHER = re.compile(
+    r'(?i)\b(?:harvest|bottl|mis\s+en\s+bouteille|r[e\u00e9]colt|'
+    r'vendang|assembl|yield|rendement|points?|/100|awarded|rated)\b')
+_NAMED_PRE = r'(?:(?i:ch[a\u00e2]teau|clos|domaine)\s+)?'
+
+
+def _named_forms(name):
+    """The ways a sheet writes a wine's name, longest first."""
+    nm = (name or '').strip()
+    if not nm:
+        return []
+    out = {nm}
+    bare = re.sub(r'(?i)^(?:ch[a\u00e2]teau|clos|domaine|le\s+domaine)\s+',
+                  '', nm).strip()
+    if bare:
+        out.add(bare)
+    return sorted(out, key=len, reverse=True)
+
+
+def named_candidate(text, name, year):
+    """A zero-width candidate at "<wine> <year> displays ...".
+
+    Zero-width on purpose, the same as AT_START: the window then
+    begins AT the name, so the stored note reads "Lynch-Bages 2008
+    displays nice aromas" and keeps the subject of its own sentence.
+    Returns None unless the sentence describes the wine.
+    """
+    if not name or not year:
+        return None
+    for nm in _named_forms(name):
+        body = _NAMED_PRE + re.escape(nm) + r'\s+' + str(year) + r'\b'
+        for m in re.finditer(r'(?=' + body + r')', text):
+            if NAMED_MID.search(text[max(0, m.start() - 24):m.start()]):
+                continue
+            w = re.match(body + r'(.*)', text[m.start():m.start() + 400],
+                         re.S)
+            if not w:
+                continue
+            tail = w.group(1)
+            if NAMED_PASSIVE.match(tail):
+                continue
+            if NAMED_OTHER.search(tail[:90]):
+                continue
+            if NAMED_VERB.match(tail) or TASTES_OF.search(tail[:170]):
+                return m
+    return None
+
+
 # A label that is also an ordinary subject of a sentence. Montrose
 # prints "The year could have tipped into excess." and LABEL_NOTE
 # matches "The year" in the middle of it.
@@ -2633,11 +2706,80 @@ def mend_typos(win):
     return win
 
 
-def read_prose(text, page=False, shop=False, year=None):
+# Being compared with a sibling is not being the subject of the note.
+COMPARES = re.compile(
+    r'(?i)\b(?:than|unlike|versus|vs|compared|alongside|beside|'
+    r'against|whereas|comme|que|qu|par\s+rapport|contre|'
+    r'face\s+[aà]|aupr[eè]s\s+de)\b')
+
+
+def opens_on_another_wine(win, others=(), second=None, reach=150):
+    """Does this passage open by naming a different wine of the estate?
+
+    blend_of has done this for figures from the start - a sheet that
+    prints two blends must not hand the second to the first wine - and
+    prose had no equivalent. Lynch-Bages' negociant sheet covers the
+    grand vin, the Echo and the Blanc together, and its labelled
+    "Tasting note" was offered to the grand vin although the sentence
+    begins "The Blanc de Lynch-Bages 2017 is a pale-yellow colour".
+
+    The OPENING only: a note may name a sibling further down and still
+    be about this wine, because "fuller than the Echo" is a comparison
+    and not a change of subject.
+
+    By the full name, not by mark_of's distinctive word: the mark of
+    "Blanc de Lynch-Bages" is "blanc", which is an ordinary adjective
+    in a French tasting note.
+    """
+    if not win:
+        return None
+    head = win[:reach]
+    for nm in tuple(others or ()) + ((second,) if second else ()):
+        if not nm or not says(head, nm):
+            continue
+        # Unless it is being compared with, which is a mention and not
+        # the subject: "Lynch-Bages 2018 offers a seductive mouthfeel
+        # with powerful yet silky tannins, fuller than the Echo de
+        # Lynch-Bages of the same year" is the grand vin's note.
+        #
+        # Looked for in the words BEFORE the name rather than at the
+        # end of them, because the article sits between: "fuller than
+        # the Echo". And a reach of 150 is needed for the subject
+        # itself - "D'une couleur jaune pale aux reflets verts, le
+        # Blanc de Lynch-Bages 2017 presente" puts it 59 characters in
+        # - so the comparison has to be recognised rather than
+        # out-distanced.
+        at = _first_at(head, nm)
+        if at is not None and COMPARES.search(head[max(0, at - 30):at]):
+            continue
+        return nm
+    return None
+
+
+def _first_at(text, name):
+    """Where `says` matched, in the text as given."""
+    words = [w for w in re.split(r'[^a-z0-9]+', norm(name)) if w]
+    if not words:
+        return None
+    pat = (r'(?<![a-z])' + r'[^a-z0-9]*'.join(re.escape(w) for w in words)
+           + r'(?![a-z])')
+    m = re.search(pat, norm(text))
+    return m.start() if m else None
+
+
+def read_prose(text, page=False, shop=False, year=None, name=None,
+               others=(), second=None):
     """The labelled tasting and season windows, cut at the stop-list.
 
     `year` is the vintage being read, and it settles which of two
     competing labels to believe: see the sort below.
+
+    `name` is the wine's, and lets an unlabelled note be found by
+    the fact that it names the wine: see named_candidate.
+
+    `others` and `second` are the estate's OTHER wines, and a
+    window that opens by naming one of them is that wine's: see
+    opens_on_another_wine.
     """
     out, how = {}, {}
     for field, lab in (('taste', LABEL_TASTE), ('note', LABEL_NOTE)):
@@ -2687,6 +2829,16 @@ def read_prose(text, page=False, shop=False, year=None):
         # SEASON_OF, which asks whether the passage is about the
         # weather. Palmer's article pages, which open on a cookie
         # banner and the 1855 classification, fail it.
+        # An unlabelled note that names the wine, at the name
+        # rather than at the top of the document: "Lynch-Bages
+        # 2008 displays nice aromas of cranberry". Appended, so
+        # a labelled note still wins, and it passes the same
+        # tests - the stop-list, SEASON_OF, and
+        # _unlabelled_is_prose - with its own three on top.
+        if field == 'taste' and not shop:
+            nc = named_candidate(text, name, year)
+            if nc is not None:
+                cands.append(nc)
         if field == 'note' and not shop:
             cands.append(AT_START.match(text))
         if page and field == 'taste' and not shop:
@@ -2870,6 +3022,11 @@ def read_prose(text, page=False, shop=False, year=None):
                     and SEASON_OF.search(win[:300])):
                 continue
             if field == 'note' and not SEASON_OF.search(win[:300]):
+                continue
+            # And it has to be about THIS wine. A sheet that covers
+            # several of the estate's wines labels each passage the
+            # same way, so the label cannot say which.
+            if opens_on_another_wine(win, others, second):
                 continue
             # An opening with no label over it has to look like a
             # season note on its own account: see
@@ -4514,7 +4671,8 @@ def fields_of(path, grand=None, others=(), second=None, cat=None,
     if not is_ocr(path):
         more, howm = read_prose(
             text, page=is_page(path),
-            shop=_is_shop(filename), year=year)
+            shop=_is_shop(filename), year=year, name=grand,
+            others=others, second=second)
         got.update(more)
         how.update(howm)
         more, howm = read_advice(text)

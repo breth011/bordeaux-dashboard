@@ -402,7 +402,9 @@ function placeRatingPanel(wrap) {
   var panel = wrap.querySelector('.ratingpanel');
   if (!panel) return;
   panel.classList.remove('up', 'leftward');
-  var bound = wrap.closest('.refpage, .drawer-body, .pane-list, .vintagegrid');
+  /* .cmp-scroll scrolls sideways, so it clips: without it here
+     the panel on the right-hand column opened into the clip. */
+  var bound = wrap.closest('.refpage, .drawer-body, .pane-list, .vintagegrid, .cmp-scroll');
   var b = bound ? bound.getBoundingClientRect()
                 : { top: 0, left: 0,
                     bottom: window.innerHeight, right: window.innerWidth };
@@ -952,8 +954,16 @@ function cmpTable(wines) {
       if (r.notMade) return '<span class="cmp-nil">not made</span>';
       if (r.none) return null;
       var col = scoreColor(r.score);
-      return '<span class="cmp-score" style="background:' + col + ';color:' +
+      /* With the critics behind it on hover, as everywhere else
+         a rating appears. This is the page where "95 against
+         93" is read, so it is the page where "according to
+         whom?" is most likely to be asked. */
+      var chip = '<span class="cmp-score" style="background:' + col + ';color:' +
         (inkOn(col) ? '#121211' : '#fff') + '">' + r.score + '</span>';
+      return r.panel
+        ? '<span class="ratingwrap">' + chip + ratingPanel(r) +
+          '</span>'
+        : chip;
     }) +
     cmpRow('When to drink', wines, function (w) {
       var win = drinkWindow(w.ch, w.yr);
@@ -975,13 +985,75 @@ function cmpTable(wines) {
       return blendBar(b) + (f && f.blend ? '' :
         '<span class="cmp-note">the estate’s usual</span>');
     }) +
+    /* pickBits, which is what the drawer asks, and not f.harvest:
+       that is the old flat field and 154 records have it, against
+       1,728 for pick. The page built for comparing harvest dates was
+       showing them for 6% of the wines. */
     cmpRow('Picked', wines, function (w) {
       var f = fiche(w.ch, w.yr);
-      return (f && f.harvest) || null;
+      if (!f) return null;
+      var bits = pickBits(f);
+      if (bits.length) return bits.join('<br>');
+      return f.harvest || null;
     }) +
+    /* The figures, in the drawer's order and under the drawer's
+       labels: the same number named two different ways in two places
+       is a reason to doubt both.
+
+       Each row disappears where no wine on screen states it, so the
+       sparse ones - pH on 12% of records, serve-at on 2% - cost
+       nothing until they have something to say. */
     cmpRow('Yield', wines, function (w) {
       var f = fiche(w.ch, w.yr);
       return f && f.yld ? f.yld + ' hl/ha' : null;
+    }) +
+    cmpRow('Alcohol', wines, function (w) {
+      var f = fiche(w.ch, w.yr);
+      return f && f.alc ? f.alc + '% vol' : null;
+    }) +
+    cmpRow('In barrel', wines, function (w) {
+      var f = fiche(w.ch, w.yr);
+      return f && f.months ? f.months + ' months' : null;
+    }) +
+    cmpRow('New oak', wines, function (w) {
+      var f = fiche(w.ch, w.yr);
+      return f && f.oak ? f.oak + '%' : null;
+    }) +
+    cmpRow('pH', wines, function (w) {
+      var f = fiche(w.ch, w.yr);
+      return f && f.ph ? String(f.ph) : null;
+    }) +
+    /* The estate's "under" is kept: "< 2 g/l" is a weaker claim than
+       a bare 2 and the estate chose to make it. */
+    cmpRow('Residual sugar', wines, function (w) {
+      var f = fiche(w.ch, w.yr);
+      if (!f || f.sug == null) return null;
+      return (f.sugl ? 'under ' : '') + f.sug + ' g/l';
+    }) +
+    /* With the scale the sheet named, where it named one. 3.6 g/l
+       H2SO4 is about 5.5 g/l tartaric, so a figure without its scale
+       cannot be read against one with it - and is shown without a
+       guess rather than with one. */
+    cmpRow('Total acidity', wines, function (w) {
+      var f = fiche(w.ch, w.yr);
+      if (!f || f.ta == null) return null;
+      return f.ta + ' g/l' +
+        (f.tau === 'H2SO4' ? ' H\u2082SO\u2084'
+         : f.tau === 'tartaric' ? ' tartaric'
+         : '<span class="cmp-note">scale not stated</span>');
+    }) +
+    cmpRow('Serve at', wines, function (w) {
+      var f = fiche(w.ch, w.yr);
+      return f && f.temp ? f.temp.join('\u2013') + ' \u00b0C' : null;
+    }) +
+    cmpRow('Serve it with', wines, function (w) {
+      var f = fiche(w.ch, w.yr);
+      return f && f.food ? '<span class="cmp-prose">' + f.food +
+        '</span>' : null;
+    }) +
+    cmpRow('Decant', wines, function (w) {
+      var f = fiche(w.ch, w.yr);
+      return f && f.decant ? f.decant : null;
     }) +
     cmpRow('The estate on the year', wines, function (w) {
       var f = fiche(w.ch, w.yr);

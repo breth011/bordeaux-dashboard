@@ -1053,6 +1053,11 @@ table.dt td.num { font-family: var(--mono); text-align: right; }
   display: inline-block; min-width: 30px; padding: 1px 6px; border-radius: 4px;
   font-family: var(--mono); font-size: 12px; font-weight: 700; text-align: center;
 }
+/* The row labels down the left are sticky and carry a z-index, so
+   a rating panel opening leftward from the first column would go
+   under them. It belongs on top. */
+.cmp td .ratingwrap { z-index: 3; }
+.cmp td .ratingpanel { z-index: 61; }
 .cmp-win { font-family: var(--mono); font-weight: 600; margin-right: 7px; }
 .cmp-nil { color: var(--text-muted); }
 /* A fact that is the same for every wine is stated once, quietly: it is

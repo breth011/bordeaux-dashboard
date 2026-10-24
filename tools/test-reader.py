@@ -512,5 +512,153 @@ for eid, name, want, note in PROSE_BLEND:
           % ('ok' if ok else 'FAIL', name[:46], str(got)[:22],
              '' if ok else '!= ' + str(want)))
 
+# ---------------------------------------------------------------------
+# The rules that need no document.
+#
+# Everything above reads sources/, which is not committed, so on a fresh
+# clone it all prints MISSING and protects nothing. These cases are the
+# text itself, so they run anywhere - and they were written because the
+# rules below were each measured once in a scratch script that then ran
+# never again.
+#
+# (callable, args, text, expected, why this document is hard)
+NAMED_TASTE = [
+    ('Lynch-Bages 2008 displays nice aromas of cranberry, dried floral '
+     'notes, and tobacco.', 2008, True,
+     'the note names the wine where another sheet says "Tasting note:"'),
+    ('Lynch-Bages 2002 is fleshy and ample, and exudes charm.', 2002,
+     True, 'a real note with no tasting vocabulary in it: taken on '
+     'the verb'),
+    ('Lynch-Bages 1997 se caractérise par une très bonne '
+     'maturité.', 1997, True, 'the same in French'),
+    ('Harvest took place between September 25th and October 10th '
+     'Lynch-Bages 2000 displays a wonderful bouquet of blackberries.',
+     2000, True, 'no full stop before the name - the extraction lost '
+     'it, and a sentence-start test refused the clearest note at the '
+     'estate'),
+    ('Lynch-Bages 2005 was aged in 80% new oak which is the most we '
+     'have ever used, to cloak the fruit and powerful tannins.', 2005,
+     False, 'has "tannins" and is about the elevage: the past passive '
+     'is what tells them apart'),
+    ('Château Lynch-Bages 2017 Blend: 70% Cabernet Sauvignon 24% '
+     'Merlot Ageing: 18 months', 2017, False,
+     'the document title over the analysis block'),
+    ('It drinks as well as in Lynch-Bages 2000, which was superb.',
+     2000, False, 'the name used inside a sentence, after "in"'),
+]
+
+OTHER_WINE = [
+    ('(March 2018) The Blanc de Lynch-Bages 2017 is a pale-yellow '
+     'colour with green hues', 'Blanc de Lynch-Bages',
+     'the white\'s labelled note on a sheet covering three wines - it '
+     'was offered to the grand vin'),
+    ("(mars 2018) D'une couleur jaune pâle aux reflets verts, le "
+     'Blanc de Lynch-Bages 2017 présente', 'Blanc de Lynch-Bages',
+     'the subject sits 59 characters in, so a short reach cannot do '
+     'the work'),
+    ('Lynch-Bages 2008 displays nice aromas of cranberry, dried floral '
+     'notes, and tobacco.', None, 'the grand vin\'s own note'),
+    ('Lynch-Bages 2018 offers a seductive mouthfeel with powerful yet '
+     'silky tannins, fuller than the Echo de Lynch-Bages of the same '
+     'year.', None,
+     'names the second wine in a COMPARISON, which is not a change of '
+     'subject'),
+    ('Echo de Lynch-Bages 2018 is supple and forward, with soft '
+     'tannins.', 'Echo de Lynch-Bages', 'the second wine\'s own note'),
+]
+
+LEAD_TITLES = [
+    ('LE MILLESIME Après un débourrement précoce',
+     'Après un débourrement précoce',
+     'Les Fiefs de Lagrange, four vintages'),
+    ('CHÂTEAU MONTROSE 2018 Hiver : début très pluvieux',
+     'Hiver : début très pluvieux',
+     'the year belongs to the title'),
+    ('BLENDING 2000 is among the precocious years.',
+     '2000 is among the precocious years.',
+     'the year is the SUBJECT - cutting it leaves no subject'),
+    ('THE VINTAGE 2019, just like 2018, will be remembered',
+     '2019, just like 2018, will be remembered',
+     'the same, with a comma after the year'),
+    ('SUNNY AND DRY YEAR HIGH QUALITY, BOTH IN WHITE AND RED - Very dry',
+     'SUNNY AND DRY YEAR HIGH QUALITY, BOTH IN WHITE AND RED - Very dry',
+     "the estate's verdict written in capitals: a run of capitals on "
+     'its own is not a title'),
+    ('D 2005 laissera le souvenir',
+     'D 2005 laissera le souvenir',
+     'a stray single letter is not a name'),
+    ('In the spring of 2010, temperatures slightly cooler',
+     'In the spring of 2010, temperatures slightly cooler',
+     'one of 410 fields with a year inside the first sentence'),
+]
+
+TYPOS = [
+    ('the winter of 20x22 was mild', 'the winter of 2022 was mild',
+     "Chateau Margaux's own typo, on its live site, on three 2022 "
+     'pages'),
+    ('doors at 19h30 and tasting at 20h00',
+     'doors at 19h30 and tasting at 20h00',
+     'French clock times, which the shape of the rule would have eaten'),
+]
+
+LB = ('Blanc de Lynch-Bages', 'Echo de Lynch-Bages')
+
+for text, yr, want, note in NAMED_TASTE:
+    got = sr.named_candidate(text, 'Château Lynch-Bages', yr) \
+        is not None
+    ok = got == want
+    fails += 0 if ok else 1
+    print('%-4s taste   %-46s %-22s %s'
+          % ('ok' if ok else 'FAIL', text[:46],
+             'taken' if got else 'refused',
+             '' if ok else '!= ' + ('taken' if want else 'refused')))
+
+for text, want, note in OTHER_WINE:
+    got = sr.opens_on_another_wine(text, LB, 'Echo de Lynch-Bages')
+    ok = got == want
+    fails += 0 if ok else 1
+    print('%-4s wine    %-46s %-22s %s'
+          % ('ok' if ok else 'FAIL', text[:46], str(got)[:22],
+             '' if ok else '!= ' + str(want)))
+
+for text, want, note in LEAD_TITLES:
+    got = sr.LEAD_TITLE.sub('', text)
+    ok = got == want
+    fails += 0 if ok else 1
+    print('%-4s title   %-46s %-22s %s'
+          % ('ok' if ok else 'FAIL', text[:46], got[:22],
+             '' if ok else '!= ' + want[:30]))
+
+for text, want, note in TYPOS:
+    got = sr.mend_typos(text)
+    ok = got == want
+    fails += 0 if ok else 1
+    print('%-4s typo    %-46s %-22s %s'
+          % ('ok' if ok else 'FAIL', text[:46], got[:22],
+             '' if ok else '!= ' + want))
+
+# And the structural one: read-plantings' two label patterns both feed
+# `return got, m.group(1).lower()`, and for months one of them had no
+# group 1 - so every planting read through it raised IndexError and the
+# caller's bare `except` dropped the sheet. 70 documents across 17
+# estates, discarded in silence.
+import importlib.util as _ilu
+_spec = _ilu.spec_from_file_location(
+    '_rp', os.path.join(ROOT, 'tools', 'read-plantings.py'))
+_rp = _ilu.module_from_spec(_spec)
+try:
+    _spec.loader.exec_module(_rp)
+    for _nm in ('VINE', 'MAYBE'):
+        _pat = getattr(_rp, _nm)
+        ok = _pat.groups >= 1
+        fails += 0 if ok else 1
+        print('%-4s groups  %-46s %-22s %s'
+              % ('ok' if ok else 'FAIL',
+                 'read-plantings %s has a group 1' % _nm,
+                 '%d group(s)' % _pat.groups,
+                 '' if ok else 'block() returns m.group(1)'))
+except Exception as _e:
+    print('MISSING  read-plantings.py (%s)' % type(_e).__name__)
+
 print('\n%s' % ('all pass' if not fails else '%d FAILED' % fails))
 sys.exit(1 if fails else 0)

@@ -15,7 +15,6 @@
   "",
   "`watch` is what went wrong last time and would go wrong again."
  ],
-
  "margaux": {
   "site": "https://chateau-margaux.com",
   "checked": "2026-10-24",
@@ -64,6 +63,35 @@
    "French on the English page. The 'Climate:' paragraph for 2025 is untranslated on the English URL, so a reader that takes it puts French in an English field - which is what happened to Pavillon Rouge 2025 before the stop was added.",
    "The host. The sitemap says chateau-margaux.com and the manifest holds www.chateau-margaux.com for the pages fetched before 2026-10-24. Comparing the two naively reports every page as missing.",
    "No assemblage before 2005. The pages for 1900-2004 state no blend at all - asked of all 76 with probes looser than the reader's, and none pairs a variety with a percentage. 2005 states only two varieties (85% cabernet sauvignon, 8% merlot) and so has no full blend either."
+  ]
+ },
+ "latour": {
+  "site": "https://www.chateau-latour.com",
+  "checked": "2026-10-24",
+  "robots": "User-agent: * with /cgi-bin/, /assets/, /uploads/, /application/ disallowed. No Sitemap: line; /sitemap.xml answers with 69 urls.",
+  "sitemaps": [
+   "https://www.chateau-latour.com/sitemap.xml"
+  ],
+  "pdfs": "none. No PDF in the sitemap and /wp-json/wp/v2/media answers 404.",
+  "wines": [
+   {
+    "wine": "grand",
+    "page": "https://www.chateau-latour.com/en/a-time-for-sharing/vintages",
+    "years": "1945-2019",
+    "note": "Every vintage is on this one page behind a #year fragment, so there is no per-vintage address. tools/crawl-pages.py --split is what cuts it into one record per year."
+   }
+  ],
+  "commands": [
+   "python tools/crawl-pages.py --estate latour --split \"https://www.chateau-latour.com/en/a-time-for-sharing/vintages\" --apply",
+   "python tools/read-fiches.py --estate latour --prose --apply",
+   "python tools/build-fiche-links.py"
+  ],
+  "watch": [
+   "Les Forts de Latour and Le Pauillac de Chateau Latour are DELIBERATELY NOT in BDX_CUVEE_WINES. The site publishes no per-vintage page for either - one descriptive page each, no years in the markup - so there is nothing to file under them. Listing them costs five of the grand vin's own pages, because Latour's extracts never name Chateau Latour in their text and names_another_wine then hands the page to whichever other wine is mentioned: 1966 says Les Forts was first made that year, 1987 says vats were downgraded to generic Pauillac, and 2016/2018/2019 carry the availability line.",
+   "1966 is still refused, because chateaux.js records Les Forts as Latour's `second` independently of cuvees.js. One record, one document.",
+   "The layout is 'Signature Wine style: <tasting>' then 'Vineyard & harvest Weather conditions: <season>'. Both are registered labels now. If tasting notes start appearing under the season heading again, that is what broke.",
+   "Latour does not release a grand vin every year and says so on the page. That is not the same as not making one, so do not mark those vintages not-produced.",
+   "No assemblage anywhere. Asked of all 75 documents with no guard and no gate: not one pairs a variety with a percentage."
   ]
  }
 }

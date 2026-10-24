@@ -1679,6 +1679,9 @@ LABEL_TASTE = re.compile(
     # caps over the English half of its 2025 sheet, and requiring a
     # noun after it meant the English was never a candidate at all.
     r'tasting\s*:|'
+    # Latour heads the tasting note on all 75 of its vintage
+    # extracts with this, and a colon follows it.
+    r'signature\s+wine\s+style|'
     r'fiche\s+de\s+d[eé]gustation)')
 # The plural mattered. Beychevelle prints "DEGUSTATIONS 2004" and a
 # pattern ending at "DEGUSTATION" left the S behind, so every tasting
@@ -1937,6 +1940,11 @@ LABEL_NOTE = re.compile(
     # colder than those of the previous years, caused late, but
     # perfectly regular bud-break". _is_heading still has to accept it,
     # so "the climate was mild" in the middle of a sentence is not one.
+    # And the heading Latour, AXA and Mouton set over it, which
+    # on Latour's pages reads "Vineyard & harvest Weather
+    # conditions:" - the section name and the label together.
+    r'weather(?:\s+and\s+harvest)?\s+conditions|'
+    r'harvest\s+and\s+weather\s+conditions|'
     r'\bclimate\b|\bclimat\b)')
 
 # A label only counts where it stands as a heading, which on a fiche

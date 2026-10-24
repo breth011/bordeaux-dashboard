@@ -191,8 +191,15 @@ def suspicions(key, yr, flds, seen_prose, plant):
         # vintage's note. Margaux compares vintages in almost every
         # note it writes - "reminiscent of the 1986", "as in 1996 and
         # 2000" - and flagging those buries the real thing.
+        # Twenty characters, not sixty. Latour 1949's own note opens
+        # "While it does not have the silkiness of the 1945", which is
+        # a comparison and not another vintage's note; an estate that
+        # never repeats the year in its prose would be flagged on every
+        # record. The real defect - a publication date read as a
+        # vintage - is refused by declares_another_vintage at read
+        # time, so this only asks about a passage opening on a year.
         if f in ('note', 'taste') and str(yr) not in v:
-            lead = set(YEARS.findall(v[:60]))
+            lead = set(YEARS.findall(v[:20]))
             if lead:
                 out.append('%s never says %s and opens on %s'
                            % (f, yr, ', '.join(sorted(lead))))
@@ -367,9 +374,16 @@ def main():
                         notes.append('no address: cannot link to its source')
                     src = flds.get('src') or ''
                     for nm in [x.strip() for x in src.split(',') if x.strip()]:
-                        if nm not in on_disk and not nm.startswith('http'):
-                            notes.append('cited source not on disk: %s'
-                                         % nm[:52])
+                        # A src that is itself an address, which is
+                        # how the records of an estate publishing no
+                        # sheets cite their source. Latour writes it
+                        # without a scheme.
+                        if nm in on_disk or nm.startswith('http'):
+                            continue
+                        if re.match(r'^[a-z0-9-]+\.[a-z]{2,}/', nm):
+                            continue
+                        notes.append('cited source not on disk: %s'
+                                     % nm[:52])
                     notes += suspicions(key, yr, flds, seen_prose,
                                         PL.get(eid))
                 if not notes and a.quiet:

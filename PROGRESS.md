@@ -10,15 +10,15 @@ One row per day, from `progress-history.tsv`.
    date         records   blend   taste    note     url      nl
    2026-10-22      2210    1639     782     504     784     660
    2026-10-23      2637    2000     956    1054     811     595
-   2026-10-24      2698    2001     981    1108    1229     668
+   2026-10-24      2698    2001    1003    1116    1229     667
 
-   since 2026-10-22: records +488, blend +362, taste +199, note +604, url +445, nl +8
+   since 2026-10-22: records +488, blend +362, taste +221, note +612, url +445, nl +7
 
    THE 61 CLASSIFIED GROWTHS, share of what they could hold
    date         estates   blend   taste    note     alc      ph     yld  months     oak    pick
    2026-10-22                                                                                  
    2026-10-23       97%     37%     22%     23%     14%      5%     10%     15%     20%     21%
-   2026-10-24       97%     37%     23%     25%     14%      5%     10%     15%     20%     35%
+   2026-10-24       97%     37%     24%     25%     14%      5%     10%     15%     20%     35%
 ```
 
 ## What is held
@@ -30,8 +30,8 @@ THE GRID: 468 estates x 44 vintages (1982-2025) = 20,592 cells
 field     what it is                         records    of of grid  1980s 1990s 2000s 2010s 2020s
                                                       recs       
 blend     the assemblage, variety by variety   2,001   74%   9.6%  1.1%  2.6%  7.6%  19.5% 19.2%
-taste     the tasting note                       981   36%   4.6%  1.1%  2.2%  5.2%  7.7%  6.9% 
-note      the growing season                   1,108   41%   4.9%  0.9%  1.8%  3.7%  9.0%  10.8%
+taste     the tasting note                     1,003   37%   4.6%  1.1%  2.2%  5.2%  7.7%  6.9% 
+note      the growing season                   1,116   41%   4.9%  0.9%  1.8%  3.7%  9.0%  10.8%
 alc       alcohol                                950   35%   4.6%  0.7%  1.8%  3.5%  8.6%  9.4% 
 ph        pH                                     332   12%   1.6%  0.0%  0.0%  0.5%  3.0%  6.0% 
 yld       yield, hl/ha                         1,051   39%   5.1%  0.3%  0.8%  3.2%  11.3% 11.3%
@@ -48,17 +48,18 @@ food      food pairing                            49    2%   0.2%  0.0%  0.0%  0
 ABOUT THE RECORD ITSELF:
    src    names the document it was read from            2,697  100% of records
    url    can link to that document in the app           1,229   46% of records
-   nl     has Dutch for its prose                          668   25% of records
+   nl     has Dutch for its prose                          667   25% of records
 
 STILL TO MERGE - a document states it and no record holds it:
-   taste        1
+   taste       21
+   note         8
    (from reports/fiches-read.json; re-run tools/read-fiches.py --prose to refresh)
 
 THE 61 CLASSIFIED GROWTHS, APART FROM THE LONG TAIL:
    field                            classified    the rest
    blend     the assemblage, variet  998   37%   1003    6%
-   taste     the tasting note        609   23%    372    2%
-   note      the growing season      672   25%    436    2%
+   taste     the tasting note        631   24%    372    2%
+   note      the growing season      680   25%    436    2%
    alc       alcohol                 377   14%    573    3%
    ph        pH                      121    5%    211    1%
    yld       yield, hl/ha            276   10%    775    4%
@@ -69,8 +70,8 @@ THE 61 CLASSIFIED GROWTHS, APART FROM THE LONG TAIL:
    2684 classified vintage cells - 61 estates x 44 vintages, 1982 to 2025
 
 WHOSE WORDS THE PROSE IS:
-   taste   802 the estate’s own English,  179 translated from its French
-   note    945 the estate’s own English,  163 translated from its French
+   taste   824 the estate’s own English,  179 translated from its French
+   note    953 the estate’s own English,  163 translated from its French
 
 30 fields are pinned absent - the document states something and it was judged not to belong
 
@@ -85,8 +86,8 @@ tasting note and growing season is absent across the estate’s records:
 
    estate                     gc  recs blend taste  note  link  spare
    margaux                     1   118    19    34    93   118      8
-   latour                      1    74     0    45    64    74      1
    grand-puy-ducasse           5    40    19     0    13     0     10
+   latour                      1    74     0    67    72    74      1
    palmer                      3    56    56     4    43     7      2
    lafite                      1    50    48    42     3     1      0
    lynch-bages                 5    31    26     0    10    27      0
@@ -161,8 +162,8 @@ tasting note and growing season is absent across the estate’s records:
 
    estate                     gc  recs blend taste  note  link  spare
    margaux                     1   118    19    34    93   118      8
-   latour                      1    74     0    45    64    74      1
    grand-puy-ducasse           5    40    19     0    13     0     10
+   latour                      1    74     0    67    72    74      1
    palmer                      3    56    56     4    43     7      2
    lafite                      1    50    48    42     3     1      0
    lynch-bages                 5    31    26     0    10    27      0

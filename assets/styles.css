@@ -1066,9 +1066,27 @@ table.dt td.num { font-family: var(--mono); text-align: right; }
 .cmp-note { display: block; font-size: 10.5px; color: var(--text-muted); margin-top: 4px; }
 .cmp-prose { font-size: 12px; line-height: 1.5; }
 .cmp-empty { color: var(--text-muted); margin-top: 18px; }
+/* A comparison table is wide by nature, so on a phone it stays wide and
+   scrolls rather than being squeezed. Narrowing the columns does not make
+   it fit - it makes every cell wrap into a column of single words - so the
+   columns keep their full width here and the scroller does its job.
+
+   The scroller breaks out of the page's side padding to take the whole
+   screen, because nothing should go to gutters when the content is
+   already too wide for the screen. */
 @media (max-width: 620px) {
-  .cmp thead th { min-width: 150px; }
-  .cmp th, .cmp td { padding: 7px 8px; }
+  .cmp thead th { min-width: 190px; }
+  .cmp th, .cmp td { padding: 8px 10px; }
+  .cmp-scroll {
+    margin-left: -20px;
+    margin-right: -20px;
+    padding-left: 20px;
+    padding-right: 20px;
+    -webkit-overflow-scrolling: touch;
+  }
+  /* The row labels are already sticky; the shadow is what says there is
+     more table to the right and which column is being read. */
+  .cmp tbody th { box-shadow: 2px 0 6px -3px rgba(0, 0, 0, .35); }
 }
 
 /* The type-ahead under the search box. */

@@ -893,16 +893,33 @@ function renderClassificationPage(id) {
    Columns rather than rows, because the columns are the wines - that is how
    they stand on the table - and reading down a column is reading one glass. */
 
+/* Six wines side by side on a desktop, three on a phone. Three
+   columns at a readable width is what a phone fits and swipes through;
+   six means swiping past wines you have forgotten by the time you
+   reach the far end. */
 var CMP_MAX = 6;
+var CMP_MAX_NARROW = 3;
+
+function cmpMax() {
+  return (window.matchMedia &&
+          window.matchMedia('(max-width: 620px)').matches)
+    ? CMP_MAX_NARROW : CMP_MAX;
+}
 
 function cmpWines() {
   var c = state.cmp;
+  /* Clamped here and not only in the pickers: six wines chosen on a
+     desktop and opened on a phone would otherwise arrive as six
+     columns on a screen that fits three. */
+  var n = cmpMax();
   if (c.mode === 'vertical') {
     var ch = chateauById(c.estate);
     if (!ch) return [];
-    return c.years.map(function (yr) { return { ch: ch, yr: yr }; });
+    return c.years.slice(0, n).map(function (yr) {
+      return { ch: ch, yr: yr };
+    });
   }
-  return c.estates.map(function (id) {
+  return c.estates.slice(0, n).map(function (id) {
     return { ch: chateauById(id), yr: c.vintage };
   }).filter(function (w) { return w.ch; });
 }
@@ -1061,10 +1078,12 @@ function cmpTable(wines) {
       var f = fiche(w.ch, w.yr);
       return f && f.decant ? f.decant : null;
     }) +
-    cmpRow('The estate on the year', wines, function (w) {
-      var f = fiche(w.ch, w.yr);
-      return f && f.note ? '<span class="cmp-prose">' + f.note + '</span>' : null;
-    }) +
+    /* The season narrative is not here. It is the one thing on the
+       page that cannot be read across - a number is compared by
+       glancing and two paragraphs by reading both - and in a vertical
+       it filled four columns with weather. The estate on the WINE
+       stays, because that is what the wines are being weighed on. The
+       season is in the drawer and on the vintage page. */
     cmpRow('The estate on the wine', wines, function (w) {
       var f = fiche(w.ch, w.yr);
       return f && f.taste ? '<span class="cmp-prose">' + f.taste + '</span>' : null;
@@ -1109,10 +1128,10 @@ function renderCompare() {
       }).join('');
     picker = '<div class="cmp-pick"><div class="field"><label for="cmpEstate">Estate</label>' +
       '<select id="cmpEstate">' + opts + '</select></div></div>' +
-      '<p class="cmp-help">Choose up to ' + CMP_MAX + ' vintages.</p>' +
+      '<p class="cmp-help">Choose up to ' + cmpMax() + ' vintages.</p>' +
       '<div class="cmp-years">' + YEARS.map(function (yr) {
         var on = c.years.indexOf(yr) !== -1;
-        var full = !on && c.years.length >= CMP_MAX;
+        var full = !on && c.years.length >= cmpMax();
         return '<button class="cmp-year' + (on ? ' on' : '') + '"' +
           (full ? ' disabled' : '') + ' data-cyear="' + yr + '">' + yr + '</button>';
       }).join('') + '</div>';
@@ -1134,11 +1153,11 @@ function renderCompare() {
       '<div class="field"><label for="cmpVintage">Vintage</label>' +
         '<select id="cmpVintage">' + yopts + '</select></div>' +
       '<div class="field"><label for="cmpAdd">Add an estate</label>' +
-        '<select id="cmpAdd"' + (c.estates.length >= CMP_MAX ? ' disabled' : '') + '>' +
+        '<select id="cmpAdd"' + (c.estates.length >= cmpMax() ? ' disabled' : '') + '>' +
         '<option value="">Choose…</option>' + addable + '</select></div>' +
       '</div>' +
       (chosen ? '<div class="cmp-chosenrow">' + chosen + '</div>'
-              : '<p class="cmp-help">Add up to ' + CMP_MAX + ' estates.</p>');
+              : '<p class="cmp-help">Add up to ' + cmpMax() + ' estates.</p>');
   }
 
   el.compare.innerHTML =
@@ -1173,7 +1192,7 @@ function wireCompare() {
       var yr = Number(b.getAttribute('data-cyear'));
       var at = state.cmp.years.indexOf(yr);
       if (at !== -1) state.cmp.years.splice(at, 1);
-      else if (state.cmp.years.length < CMP_MAX) state.cmp.years.push(yr);
+      else if (state.cmp.years.length < cmpMax()) state.cmp.years.push(yr);
       /* Oldest first, left to right: a vertical is read as a sequence. */
       state.cmp.years.sort(function (a, b2) { return a - b2; });
       renderCompare();
@@ -1188,7 +1207,7 @@ function wireCompare() {
 
   var add = root.querySelector('#cmpAdd');
   if (add) add.addEventListener('change', function () {
-    if (add.value && state.cmp.estates.length < CMP_MAX) {
+    if (add.value && state.cmp.estates.length < cmpMax()) {
       state.cmp.estates.push(add.value);
       renderCompare();
     }
@@ -4669,6 +4688,18 @@ function init() {
     clearTimeout(rsz);
     rsz = setTimeout(function () { rescaleLabels(); renderMarkers(); updateScaleBar(); }, 120);
   });
+
+  /* The compare limit is 3 under 620px and 6 above it, so crossing
+     that line - rotating a phone, dragging a window - has to redraw
+     the table rather than leave a stale one. */
+  if (window.matchMedia) {
+    var narrow = window.matchMedia('(max-width: 620px)');
+    if (narrow.addEventListener) {
+      narrow.addEventListener('change', function () {
+        if (state.view === 'compare') renderCompare();
+      });
+    }
+  }
 
   window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', function () {
     if (!document.documentElement.getAttribute('data-theme')) {

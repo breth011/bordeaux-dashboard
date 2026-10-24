@@ -73,7 +73,11 @@ import provenance as PV
 # sibling-aware marks, so its second-wine verdicts mean something
 # different from version 2's. A new version, not an overwrite: the v2
 # rows stay as the record of what the old reader concluded.
-DECIDER_VERSION = 3
+#
+# 4: Phase 2.7. The Phase 2.6 reader (specific second-wine identity),
+# with Phase 2.5's provenance: each row records the file read, the
+# SHA-256 of its bytes, and the git state of the code that decided.
+DECIDER_VERSION = 4
 MAX_YEARS = 3
 YEAR_IN = re.compile(r'(?<!\d)((?:19|20)\d\d)(?!\d)')
 YEAR_DECLARED = re.compile(

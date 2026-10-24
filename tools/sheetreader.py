@@ -2546,14 +2546,70 @@ def _unlabelled_is_prose(win):
     return True
 
 
-def read_prose(text, page=False, shop=False):
-    """The labelled tasting and season windows, cut at the stop-list."""
+# An estate's own typo, where leaving it in would read as ours.
+#
+# The rule for this project is that the estate's words are printed as
+# the estate wrote them. This is the one exception, and it is narrow on
+# purpose: a misprint that a reader would blame on the scraper. Meeting
+# "the winter of 20x22" in a dashboard built out of scraped PDFs, nobody
+# concludes that Chateau Margaux mistyped it - they conclude we did, and
+# then they doubt the figures too.
+#
+# Each entry is an exact string, not a shape. The shape
+# \b(19|20)[a-z]\d\d\b matches 13 times across the 2,711 text files
+# here, and 7 of those are French clock times - 19h30, 20h00 - which are
+# real text and have to survive. So:
+#
+#   20x22   6 sightings, all six in Margaux's three 2022 pages
+#           (grand vin, Pavillon Rouge, Pavillon Blanc), and on the
+#           live site as well as in our copy of it
+#
+# Add to this only after measuring the same way: the archive is the
+# test, and a rule that has not been run across it does not go in.
+SITE_TYPOS = (
+    (re.compile(r'\b20x22\b'), '2022',
+     "Chateau Margaux's 2022 pages, in their own words: "
+     '"the winter of 20x22 was mild"'),
+)
+
+
+def mend_typos(win):
+    """The estate's misprints that would be read as the reader's."""
+    for rx, good, _why in SITE_TYPOS:
+        win = rx.sub(good, win)
+    return win
+
+
+def read_prose(text, page=False, shop=False, year=None):
+    """The labelled tasting and season windows, cut at the stop-list.
+
+    `year` is the vintage being read, and it settles which of two
+    competing labels to believe: see the sort below.
+    """
     out, how = {}, {}
     for field, lab in (('taste', LABEL_TASTE), ('note', LABEL_NOTE)):
         cands = [c for c in lab.finditer(text) if _is_heading(text, c)]
-        # English first, then in the order the sheet prints them.
-        cands.sort(key=lambda c: 0 if ENGLISH_LABEL.search(c.group(0))
-                   else 1)
+
+        # A label that names the vintage being read is about that
+        # vintage; one that does not may be about anything. Les
+        # Fiefs de Lagrange prints its standing terroir blurb under
+        # `Climat` and the year's own weather under `LE MILLESIME :
+        # LES FIEFS DE LAGRANGE 2014`, and the blurb won on four
+        # vintages because Climat comes first in the document.
+        #
+        # Ahead of the language test, which was the only key: that
+        # one picks between two ways of saying the same thing, and
+        # this one picks between two different things.
+        yr = str(year) if year else None
+
+        def _names_year(c):
+            if not yr:
+                return False
+            return yr in text[c.start():c.end() + 60]
+
+        cands.sort(key=lambda c: (
+            0 if _names_year(c) else 1,
+            0 if ENGLISH_LABEL.search(c.group(0)) else 1))
         # And last, for a page, the page itself: Margaux 1995 opens
         # "1995 is a truly great vintage ... Today the nose is not
         # exactly closed ... On the palate, it is obviously the power
@@ -2784,6 +2840,9 @@ def read_prose(text, page=False, shop=False):
             if len(_cut) >= 40:
                 win = _cut
             win = win.lstrip(' :\u2013-\u2014')
+            # Last, on the text that is about to be stored, so it
+            # reaches the prose and not a figure or a label.
+            win = mend_typos(win)
             out[field], how[field] = win, m.group(0)[:40]
             break
     return out, how
@@ -4386,7 +4445,7 @@ def fields_of(path, grand=None, others=(), second=None, cat=None,
     if not is_ocr(path):
         more, howm = read_prose(
             text, page=is_page(path),
-            shop=_is_shop(filename))
+            shop=_is_shop(filename), year=year)
         got.update(more)
         how.update(howm)
         more, howm = read_advice(text)

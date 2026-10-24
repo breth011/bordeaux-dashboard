@@ -10,34 +10,34 @@ One row per day, from `progress-history.tsv`.
    date         records   blend   taste    note     url      nl
    2026-10-22      2210    1639     782     504     784     660
    2026-10-23      2637    2000     956    1054     811     595
-   2026-10-24      2702    2014    1000    1137    1355     650
+   2026-10-24      2725    2037    1010    1156    1355     650
 
-   since 2026-10-22: records +492, blend +375, taste +218, note +633, url +571, nl -10
+   since 2026-10-22: records +515, blend +398, taste +228, note +652, url +571, nl -10
 
    THE 61 CLASSIFIED GROWTHS, share of what they could hold
    date         estates   blend   taste    note     alc      ph     yld  months     oak    pick
    2026-10-22                                                                                  
    2026-10-23       97%     37%     22%     23%     14%      5%     10%     15%     20%     21%
-   2026-10-24       97%     38%     23%     26%     14%      5%     10%     15%     20%     35%
+   2026-10-24       97%     39%     24%     27%     14%      5%     10%     15%     20%     36%
 ```
 
 ## What is held
 
 ```
 THE GRID: 468 estates x 44 vintages (1982-2025) = 20,592 cells
-2,702 records, 2,546 on the grid, 156 older than 1982; 210 of 468 estates have one
+2,725 records, 2,569 on the grid, 156 older than 1982; 210 of 468 estates have one
 
 field     what it is                         records    of of grid  1980s 1990s 2000s 2010s 2020s
                                                       recs       
-blend     the assemblage, variety by variety   2,014   75%   9.6%  1.2%  2.6%  7.6%  19.5% 19.2%
-taste     the tasting note                     1,000   37%   4.6%  1.1%  2.2%  5.2%  7.7%  6.9% 
-note      the growing season                   1,137   42%   5.1%  1.0%  1.8%  3.8%  9.3%  10.9%
+blend     the assemblage, variety by variety   2,037   75%   9.7%  1.3%  2.8%  7.8%  19.7% 19.2%
+taste     the tasting note                     1,010   37%   4.6%  1.1%  2.3%  5.3%  7.7%  6.9% 
+note      the growing season                   1,156   42%   5.1%  1.0%  1.9%  3.9%  9.4%  11.0%
 alc       alcohol                                950   35%   4.6%  0.7%  1.8%  3.5%  8.6%  9.4% 
 ph        pH                                     332   12%   1.6%  0.0%  0.0%  0.5%  3.0%  6.0% 
 yld       yield, hl/ha                         1,054   39%   5.1%  0.3%  0.8%  3.2%  11.3% 11.3%
-months    months in barrel                     1,287   48%   6.2%  0.6%  1.2%  4.0%  14.1% 12.7%
+months    months in barrel                     1,287   47%   6.2%  0.6%  1.2%  4.0%  14.1% 12.7%
 oak       new oak, per cent                    1,299   48%   6.3%  0.3%  1.2%  4.7%  13.2% 13.8%
-pick      picking dates                        1,705   63%   7.7%  1.3%  2.3%  6.2%  14.6% 16.1%
+pick      picking dates                        1,728   63%   7.8%  1.3%  2.5%  6.3%  14.8% 16.2%
 harvest   harvest, as the sheet words it         154    6%   0.7%  0.1%  0.3%  0.7%  1.4%  1.5% 
 temp      serving temperature                     62    2%   0.3%  0.0%  0.0%  0.3%  0.6%  0.6% 
 wy        drinking window, as years               42    2%   0.2%  0.0%  0.0%  0.1%  0.4%  0.6% 
@@ -46,31 +46,34 @@ decant    decanting                               39    1%   0.2%  0.0%  0.1%  0
 food      food pairing                            49    2%   0.2%  0.0%  0.0%  0.0%  0.8%  0.3% 
 
 ABOUT THE RECORD ITSELF:
-   src    names the document it was read from            2,701  100% of records
+   src    names the document it was read from            2,724  100% of records
    url    can link to that document in the app           1,355   50% of records
    nl     has Dutch for its prose                          650   24% of records
 
 STILL TO MERGE - a document states it and no record holds it:
-   blend        2
+   blend       23
+   pick        23
+   note        19
+   taste       10
    (from reports/fiches-read.json; re-run tools/read-fiches.py --prose to refresh)
 
 THE 61 CLASSIFIED GROWTHS, APART FROM THE LONG TAIL:
    field                            classified    the rest
-   blend     the assemblage, variet 1011   38%   1003    6%
-   taste     the tasting note        628   23%    372    2%
-   note      the growing season      695   26%    442    2%
+   blend     the assemblage, variet 1034   39%   1003    6%
+   taste     the tasting note        638   24%    372    2%
+   note      the growing season      714   27%    442    2%
    alc       alcohol                 377   14%    573    3%
    ph        pH                      121    5%    211    1%
    yld       yield, hl/ha            278   10%    776    4%
    months    months in barrel        412   15%    875    5%
    oak       new oak, per cent       547   20%    752    4%
-   pick      picking dates           941   35%    764    4%
+   pick      picking dates           964   36%    764    4%
    59 of the 61 classified growths have at least one record
    2684 classified vintage cells - 61 estates x 44 vintages, 1982 to 2025
 
 WHOSE WORDS THE PROSE IS:
-   taste   821 the estate’s own English,  179 translated from its French
-   note    974 the estate’s own English,  163 translated from its French
+   taste   831 the estate’s own English,  179 translated from its French
+   note    993 the estate’s own English,  163 translated from its French
 
 33 fields are pinned absent - the document states something and it was judged not to belong
 
@@ -113,6 +116,7 @@ tasting note and growing season is absent across the estate’s records:
    cantemerle                  5    15    15     1     8     6      0
    giscours                    3    12    11     1     4     2      0
    clerc-milon                 5    30    30    30    11    30      3
+   darmailhac                  5    37    36    24    33    13      0
    lafon-rochet                4    16    16    13     1    15      0
    ferriere                    3    12    11     1     7     0      0
    haut-bages-liberal          5    10     9     0     4     0      0
@@ -141,7 +145,6 @@ tasting note and growing season is absent across the estate’s records:
    pichon-comtesse             2     4     4     4     1     0      0
    saint-pierre                4     5     5     3     4     0      1
    pontet-canet                5    26    26    24    26    24      0
-   darmailhac                  5    14    13    14    14    13     23
    haut-brion                  1    37    37    37    37    37      0
 
    gc    the 1855 or Graves rank, where recorded
@@ -189,6 +192,7 @@ tasting note and growing season is absent across the estate’s records:
    cantemerle                  5    15    15     1     8     6      0
    giscours                    3    12    11     1     4     2      0
    clerc-milon                 5    30    30    30    11    30      3
+   darmailhac                  5    37    36    24    33    13      0
    lafon-rochet                4    16    16    13     1    15      0
    ferriere                    3    12    11     1     7     0      0
    haut-bages-liberal          5    10     9     0     4     0      0
@@ -217,7 +221,6 @@ tasting note and growing season is absent across the estate’s records:
    pichon-comtesse             2     4     4     4     1     0      0
    saint-pierre                4     5     5     3     4     0      1
    pontet-canet                5    26    26    24    26    24      0
-   darmailhac                  5    14    13    14    14    13     23
    haut-brion                  1    37    37    37    37    37      0
 
    gc    the 1855 or Graves rank, where recorded

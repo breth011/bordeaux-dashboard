@@ -83,7 +83,13 @@ VINE = re.compile(r'(?i)\b(enc[eé]pagement(?:\s+du\s+vignoble)?|'
 # Franc, 45% de Merlot, 5% de Malbec Age des vignes : 45 ans", and
 # Croix de Reverdi puts its under Surface, Rendements and Age du
 # vignoble. That is a description of a property, not of a year.
-MAYBE = re.compile(r'(?i)\bc[eé]pages?\b')
+# The group is not decoration: block() returns m.group(1) as the
+# label it read under, and VINE has one. Without it every planting
+# accepted through this route raised IndexError on the last line,
+# and the caller's `except Exception: continue` dropped the sheet
+# without counting it - so the figures were found, checked, and
+# silently thrown away.
+MAYBE = re.compile(r'(?i)\b(c[eé]pages?)\b')
 VINEFACT = re.compile(r'(?i)\b([aâ]ge\s+(?:moyen\s+)?(?:du\s+vignoble|'
                       r'des\s+vignes)|densit[eé]|surface|superficie|'
                       r'rendements?|vines?\s+age|average\s+age|'
@@ -212,11 +218,40 @@ def main():
         row = None
         if seen.get(eid):
             key, n = seen[eid].most_common(1)[0]
-            if n >= 2:
+            # And it has to agree with itself. The modal figure on
+            # two sheets is enough to stop a one-off and not enough
+            # to stop a vineyard label that reports the assemblage:
+            # at Lynch-Bages the same figures appear under
+            # Encepagement on the French sheet and Blending on the
+            # English one for the same vintage, and its modal
+            # figure holds 2 sightings out of 21.
+            #
+            # Asked of every document at the nine estates whose
+            # blend equals their planting, the two cases separate
+            # with nothing in between:
+            #
+            #   la-conseillante      70 of 70 sightings    100%
+            #   marquis-dalesme      16 of 16              100%
+            #   clos-haut-peyraguey  22 of 28               79%
+            #   moulin-rouge         28 of 38               74%
+            #   ----------------------------------------------
+            #   haut-bages-liberal    2 of 4                50%
+            #   dauzac               16 of 41               39%
+            #   la-tour-carnet        5 of 25               20%
+            #   lynch-bages           2 of 21               10%
+            #
+            # A vineyard changes over decades, not vintages.
+            total = sum(seen[eid].values())
+            share = (100.0 * n / total) if total else 0
+            if n >= 2 and share >= 70:
                 f, label = gave[eid][key]
                 row = {'blend': dict(key), 'how': 'read',
                        'label': label, 'seen': n, 'src': f}
                 why['read off %d or more of the estate’s sheets' % 2] += 1
+            elif n >= 2:
+                why['its own vineyard label disagrees with itself '
+                    '(modal figure under 70% of sightings), so it '
+                    'is reporting the assemblage'] += 1
             else:
                 why['seen on one sheet only, not written'] += 1
         if row is None and eid in declared:

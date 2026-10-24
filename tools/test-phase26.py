@@ -247,13 +247,35 @@ else:
         if inspect.isfunction(o) and o.__module__ == sr.__name__
         and hasattr(OLD, n) and inspect.getsource(getattr(OLD, n))
         != inspect.getsource(o))
-    says('the only existing function changed is second_wine_verdict',
-         changed == ['second_wine_verdict'], ', '.join(changed))
-    for fn in ('is_second_wine', 'blend_of', 'names_another_wine',
-               'whose_sheet', 'mark_of', 'named_wines'):
+    # Phase 2.9 changed three more on purpose, for the GRAND-VIN path
+    # only: mark_of gained against_grand (default off), names_another_wine
+    # passes it when it has no siblings, abbreviates_other_wine gained a
+    # comment. What this suite protects is that second-wine mode and the
+    # blend reader see exactly the marks they saw - checked below by
+    # behaviour, for every wine, instead of by source.
+    PHASE29 = {'mark_of', 'names_another_wine', 'abbreviates_other_wine'}
+    says('the existing functions changed are second_wine_verdict and '
+         'Phase 2.9\'s',
+         set(changed) <= {'second_wine_verdict'} | PHASE29,
+         ', '.join(changed))
+    for fn in ('is_second_wine', 'blend_of', 'whose_sheet', 'named_wines'):
         says('%s is byte-for-byte the Phase 2.5 one' % fn,
              inspect.getsource(getattr(OLD, fn))
              == inspect.getsource(getattr(sr, fn)))
+    E0 = sr.estates(ROOT)
+    n = same = 0
+    for e in E0.values():
+        ws = [w for w in dict.fromkeys((e.get('cuvees') or [])
+                                       + [e.get('second')]) if w
+              and w != e['name']]
+        for w in ws:
+            sib = [x for x in ws if x != w]
+            n += 2
+            same += sr.mark_of(w, e['name']) == OLD.mark_of(w, e['name'])
+            same += (sr.mark_of(w, e['name'], siblings=sib)
+                     == OLD.mark_of(w, e['name'], siblings=sib))
+    says('mark_of gives second-wine mode and blend_of the Phase 2.5 marks',
+         same == n, '%d/%d' % (same, n))
     shutil.rmtree(d, ignore_errors=True)
 callers = []
 for f in glob.glob(ROOT + 'tools/*.py'):

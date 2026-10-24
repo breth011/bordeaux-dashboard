@@ -715,21 +715,132 @@ def says_in_name(filename, name):
             or packed(name) in packed(filename or ''))
 
 
-def mark_of(other, grand, siblings=None):
+def mark_of(other, grand, siblings=None, against_grand=False):
     """What distinguishes this wine's name, as words says() can find.
 
     `siblings` is optional and no existing caller passes it, so with it
     left out the mark is exactly what it always was. Given the estate's
     other wines, a mark one of them also carries is extended until it
     is this wine's alone - see _refine_mark.
+
+    `against_grand` is passed only by the grand-vin path's identity
+    tests (names_another_wine without siblings, abbreviates_other_wine):
+    there the mark must tell the wine from the GRAND VIN, and a mark of
+    articles and the estate's own words does not - see _grand_mark.
+    Every other caller - blend_of, the second-wine path, check-data -
+    gets exactly the mark it always got.
     """
     mark = _base_mark(other, grand)
+    if against_grand:
+        return _grand_mark(other, grand, mark)
     if not mark or not siblings:
         return mark
     clash = [s for s in siblings if s and s != other and says(s, mark)]
     if not clash:
         return mark
     return _refine_mark(other, grand, siblings, clash) or mark
+
+
+def _own_tokens(words, grand):
+    """Which of a wine's words its grand vin's name does not have.
+
+    A word counts when it is not one of the grand vin's identifying
+    words, not a house word, and not an article - except that a single
+    capital letter is a wine's initial, not the article "d": the D of
+    "D de Dauzac Blanc", the G of "Le G de Chateau Guiraud", the Y of
+    "Y d'Yquem". COMMON words DO count here: "hauts", "tours", "petit"
+    are generic in prose and are the whole identity of Les Hauts du
+    Tertre or Les Tours de Belcier.
+    """
+    gw = wset(grand)
+    out = []
+    for i, w in enumerate(words):
+        p = packed(w)
+        if not p or p in gw or p in HOUSE_WORDS:
+            continue
+        if p in ARTICLES and not (len(w) == 1 and w.isupper()):
+            continue
+        out.append(i)
+    return out
+
+
+def _grand_mark(other, grand, mark):
+    """The mark, as the grand-vin check needs it: one that names
+    something the grand vin is not.
+
+    Phase 2.8 measured what _mark_of gives a wine whose only words beyond
+    the grand vin's are COMMON ones or a single letter: "les du tertre",
+    "les de belcier", "le lafitte", "le g de guiraud" - articles and the
+    estate's own name, which no filename or title writes in that order.
+    Nothing refused those wines' sheets, and v4 accepted 77 of them as
+    the grand vin.
+
+    The principle is second-wine mode's (_refine_mark): a COMMON word is
+    kept when it is the word that separates two wines, anchored to a
+    real word and never on its own. Here the other wine is the grand
+    vin, so:
+
+      1. Filenames drop a leading article ("Le G de Chateau Guiraud" is
+         filed G-DE-GUIRAUD), so the mark drops articles at either end.
+         House words stay: see trim() for why.
+      2. If the mark then holds a word of this wine that the grand vin's
+         name lacks, it identifies the wine: kept as it is.
+      3. If the wine has no such word at all, its name is the grand vin's
+         (Vivens, Segla, Mondot): no name can tell them apart, and none
+         is invented - the mark stays what it was.
+      4. Otherwise the mark is rebuilt as the span of the wine's name
+         from its first to its last own word - so several common words
+         that distinguish it together stay together - extended to the
+         nearest word of the estate's name, with no article at either
+         end: "hauts du tertre", "tours de belcier", "petit haut".
+    """
+    words = _name_words(other)
+    pw = [packed(w) for w in words]
+    own = _own_tokens(words, grand)
+    own_p = set(pw[i] for i in own)
+    # The wine's initials. A mark is lower case, so "d" there cannot say
+    # whether it was the article or the D of "D de Dauzac Blanc" - the
+    # name can.
+    initials = set(pw[i] for i in own if len(words[i]) == 1)
+
+    def trim(ws):
+        # Articles only. Dropping the house word too was tried and
+        # measured: "chateau de fieuzal blanc" became "fieuzal blanc",
+        # which in a title now starts AFTER the grand vin's "de Fieuzal",
+        # so names_another_wine's first-named rule called the white's
+        # own sheets the grand vin's (Fieuzal Blanc 2022, Domaine de
+        # Chevalier Blanc 2014).
+        while ws and packed(ws[0]) in ARTICLES and not (
+                len(ws[0]) == 1 and (ws[0].isupper()
+                                     or packed(ws[0]) in initials)):
+            ws = ws[1:]
+        while ws and packed(ws[-1]) in ARTICLES:
+            ws = ws[:-1]
+        return ws
+
+    if mark:
+        mw = trim(mark.split())
+        if mw and re.search(r'[a-z]{3}', packed(''.join(mw))):
+            mark = ' '.join(w.lower() for w in mw)
+    if not own:
+        return mark
+    if mark and any(packed(w) in own_p for w in mark.split()):
+        return mark
+    gw = wset(grand)
+    lo, hi = own[0], own[-1]
+    if not any(pw[k] in gw for k in range(lo, hi + 1)):
+        right = next((k for k in range(hi + 1, len(words)) if pw[k] in gw),
+                     None)
+        left = next((k for k in range(lo - 1, -1, -1) if pw[k] in gw),
+                    None)
+        if right is not None:
+            hi = right
+        elif left is not None:
+            lo = left
+    span = trim(words[lo:hi + 1])
+    if not span or not re.search(r'[a-z]{3}', packed(''.join(span))):
+        return mark
+    return ' '.join(w.lower() for w in span)
 
 
 def _base_mark(other, grand):
@@ -1615,9 +1726,13 @@ def names_another_wine(path, filename, grand, second, siblings=None):
     # the grand vin's name does not. "Duluc de Branaire-Ducru" against
     # "Chateau Branaire-Ducru" leaves "duluc".
     #
-    # `siblings` is passed only by second-wine mode, so the grand-vin
-    # path computes exactly the mark it always did.
-    mark = mark_of(second, grand, siblings=siblings)
+    # `siblings` is passed only by second-wine mode. Without it this is
+    # the grand-vin path asking "is this another wine's sheet, not the
+    # grand vin's?", and the mark must tell that wine from the grand vin
+    # (Phase 2.9, _grand_mark). With it, the mark is exactly what
+    # second-wine mode always used.
+    mark = mark_of(second, grand, siblings=siblings,
+                   against_grand=siblings is None)
     if not mark:
         return None
 
@@ -4124,6 +4239,13 @@ def abbreviates_other_wine(filename, grand, others=()):
     if nb and nb in bare_name(filename):
         return None
     for nm in others or ():
+        # The plain mark, deliberately. Phase 2.9's grand-vin mark was
+        # tried here and measured: this test is shared by second-wine
+        # mode (one second-wine verdict changed), and with real marks
+        # it stops refusing documents it only ever refused by accident -
+        # a filename word "les" begins a degenerate "les de belcier" -
+        # which let a sister estate's sheets and wedding brochures
+        # through as the grand vin. Those need a guard of their own.
         mark = mark_of(nm, grand)
         if not mark:
             continue

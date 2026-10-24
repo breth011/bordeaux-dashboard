@@ -6,7 +6,8 @@
     python tools/evidence.py --pins                    migrate REFUSED
     python tools/evidence.py --show lynch-bages        read it back
 
-Writes one file, data/evidence-decisions.jsonl, and nothing else.
+Writes to the evidence store, data/evidence/, through
+tools/evidence_store.py, and nothing else.
 sources.json, fiches.js, cuvees.js, field-src.js and cuvee-src.js are
 never opened for writing.
 
@@ -69,7 +70,10 @@ sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 import sheetreader as sr
 
 DECIDER_VERSION = 1
-OUT = ROOT + 'data/evidence-decisions.jsonl'
+# The store, one file per decider version, since Phase 2.4. The old
+# single file is in git history at a36b35c; evidence_store.py says
+# why it moved.
+import evidence_store as ST
 
 # Each entry maps a verdict the guard chain really returns to a code.
 # The order matters only where one string contains another.
@@ -182,20 +186,7 @@ def row_key(d):
 
 def existing_keys():
     """What is already recorded, so a re-run adds nothing."""
-    seen = set()
-    if not os.path.exists(OUT):
-        return seen
-    with io.open(OUT, encoding='utf-8') as f:
-        for line in f:
-            line = line.strip()
-            if not line or line.startswith('{"_"'):
-                continue
-            try:
-                d = json.loads(line)
-            except Exception:
-                continue
-            seen.add(row_key(d))
-    return seen
+    return ST.existing_keys()
 
 
 def pins():
@@ -231,12 +222,13 @@ def main():
     a = ap.parse_args()
 
     if a.show:
-        if not os.path.exists(OUT):
+        if not ST.versions():
             print('no decisions recorded yet')
             return
         n = 0
-        with io.open(OUT, encoding='utf-8') as f:
-            for line in f:
+        for v in ST.versions():
+            for line in ST.iter_lines(v):
+                line = line.decode('utf-8')
                 if a.show not in line:
                     continue
                 d = json.loads(line)
@@ -383,27 +375,12 @@ def main():
             print('   %-28s %5d' % (k, c))
 
     if a.write:
-        seen = existing_keys()
-        fresh = [r for r in rows if row_key(r) not in seen]
-        new = not os.path.exists(OUT)
-        with io.open(OUT, 'a', encoding='utf-8', newline='') as f:
-            if new:
-                f.write(json.dumps({
-                    '_': 'Why the reader accepted or refused each '
-                         'document. Append-only: a later decider '
-                         'version adds decisions beside the earlier '
-                         'ones and never rewrites them. An analysis, '
-                         'not a source of truth.',
-                    'decider_version': DECIDER_VERSION,
-                }, ensure_ascii=False, sort_keys=True) + '\n')
-            for r in fresh:
-                f.write(json.dumps(r, ensure_ascii=False,
-                                   sort_keys=True) + '\n')
-        print('\n%d decision(s) appended to data/evidence-decisions.jsonl'
-              % len(fresh))
-        if len(fresh) != len(rows):
+        n = ST.append(rows, DECIDER_VERSION)
+        print('\n%d decision(s) appended to data/evidence/ at v%d'
+              % (n, DECIDER_VERSION))
+        if n != len(rows):
             print('%d already recorded at version %d and left alone'
-                  % (len(rows) - len(fresh), DECIDER_VERSION))
+                  % (len(rows) - n, DECIDER_VERSION))
     else:
         print('\nnothing written; pass --write')
 

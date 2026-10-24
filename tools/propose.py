@@ -87,7 +87,8 @@ def main():
 
     ident = read_jsonl('wine-identity.jsonl')
     attrib = read_jsonl('attribution-candidates.jsonl')
-    dec = read_jsonl('evidence-decisions.jsonl')
+    import evidence_store as ST
+    dec = list(ST.iter_rows())
 
     # What the contextual pass accepted, per artifact, so a proposal
     # can say whether the reader would actually take the document once

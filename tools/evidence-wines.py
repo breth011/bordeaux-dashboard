@@ -5,7 +5,7 @@
     python tools/evidence-wines.py --write          the whole archive
     python tools/evidence-wines.py --changed        what the vintage changed
 
-Appends to data/evidence-decisions.jsonl - the same store Phase 2
+Appends to the evidence store (data/evidence/) - the same store Phase 2
 wrote, with the same row_key(), so there is one persistence mechanism
 and not two. Writes nothing else. No canonical dataset file is opened
 for writing.
@@ -139,17 +139,10 @@ def main():
 
     # What the no-vintage pass concluded, so the change is reportable.
     before = {}
-    if os.path.exists(EV.OUT):
-        with io.open(EV.OUT, encoding='utf-8') as f:
-            for line in f:
-                try:
-                    d = json.loads(line)
-                except Exception:
-                    continue
-                if d.get('v') == 1 and d.get('kind') == 'guard':
-                    before[(d.get('artifact'),
-                            (d.get('ctx') or {}).get('folder'))] = \
-                        d.get('code')
+    for d in EV.ST.iter_rows([1]):
+        if d.get('kind') == 'guard':
+            before[(d.get('artifact'),
+                    (d.get('ctx') or {}).get('folder'))] = d.get('code')
 
     fp, cm = EV.reader_fingerprint(), EV.commit()
     rows, counts = [], collections.Counter()
@@ -326,24 +319,11 @@ def main():
     print('   %-34s %6d' % ('estate/wine/vintage', len(accepted_for)))
 
     if a.write:
-        seen = EV.existing_keys()
-        fresh = [r for r in rows if EV.row_key(r) not in seen]
-        new = not os.path.exists(EV.OUT)
-        with io.open(EV.OUT, 'a', encoding='utf-8', newline='') as f:
-            if new:
-                f.write(json.dumps({
-                    '_': 'Why the reader accepted or refused each '
-                         'document, per estate, wine and vintage. '
-                         'Append-only.',
-                    'decider_version': DECIDER_VERSION,
-                }, ensure_ascii=False, sort_keys=True) + '\n')
-            for r in fresh:
-                f.write(json.dumps(r, ensure_ascii=False,
-                                   sort_keys=True) + '\n')
-        print('\n%d decision(s) appended' % len(fresh))
-        if len(fresh) != len(rows):
+        n = EV.ST.append(rows, DECIDER_VERSION)
+        print('\n%d decision(s) appended' % n)
+        if n != len(rows):
             print('%d already recorded at version %d and left alone'
-                  % (len(rows) - len(fresh), DECIDER_VERSION))
+                  % (len(rows) - n, DECIDER_VERSION))
     else:
         print('\nnothing written; pass --write')
 

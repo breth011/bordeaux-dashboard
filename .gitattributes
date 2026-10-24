@@ -1,0 +1,6 @@
+# The evidence store is an append-only log whose rows are proven
+# byte-identical to what was written (tools/evidence_store.py). With
+# core.autocrlf, checkout turned old rows CRLF while new ones stayed LF,
+# so the working copy was not the bytes the hashes describe.
+data/evidence/*.jsonl text eol=lf
+data/evidence/index.json text eol=lf

@@ -1,0 +1,67 @@
+{
+ "_": "The evidence decisions, one file per decider version. Append-only: tools/evidence_store.py is the only writer. An analysis, not a source of truth.",
+ "migrated_from": {
+  "bytes": 64270999,
+  "commit": "a36b35c",
+  "header": [
+   "{\"_\": \"Why the reader accepted or refused each document. Append-only: a later decider version adds decisions beside the earlier ones and never rewrites them. An analysis, not a source of truth.\", \"decider_version\": 1}"
+  ],
+  "how": "tools/migrate-evidence-store.py: lines moved verbatim; header + v1 + v2 + v3 reproduces the source byte for byte",
+  "lines": 95584,
+  "path": "data/evidence-decisions.jsonl",
+  "sha256": "d8b37a7f424479b22ad3e8edc340c4742b5923a8fe8207bee4a02119db79f64e"
+ },
+ "versions": {
+  "1": {
+   "commits": [
+    "0c8617f"
+   ],
+   "parts": [
+    {
+     "bytes": 5772579,
+     "file": "decisions-v1.jsonl",
+     "rows": 13065,
+     "sha256": "ea9a9b61421542931ffbbab306fdb72512f3139ccd079613a776bd461d259f5f"
+    }
+   ],
+   "readers": [
+    "c2086a5a8918"
+   ],
+   "rows": 13065
+  },
+  "2": {
+   "commits": [
+    "90f7bbb"
+   ],
+   "parts": [
+    {
+     "bytes": 29100190,
+     "file": "decisions-v2.jsonl",
+     "rows": 41259,
+     "sha256": "fe3ab4932ba2a4337f043ff0e540e90b254c404467d8bb914a9948d1a5924776"
+    }
+   ],
+   "readers": [
+    "c2086a5a8918"
+   ],
+   "rows": 41259
+  },
+  "3": {
+   "commits": [
+    "bb2d42f"
+   ],
+   "parts": [
+    {
+     "bytes": 29398012,
+     "file": "decisions-v3.jsonl",
+     "rows": 41259,
+     "sha256": "f004060201aa3d102b5b0881d5bcd927723b5c9844ad83db3f68cc874cc00008"
+    }
+   ],
+   "readers": [
+    "ba6795763d67"
+   ],
+   "rows": 41259
+  }
+ }
+}

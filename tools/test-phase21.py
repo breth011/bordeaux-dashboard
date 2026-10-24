@@ -103,20 +103,11 @@ else:
          right_year is None, 'accepted')
 
 # ===================================== the store holds both passes
-DEC = ROOT + 'data/evidence-decisions.jsonl'
-if not os.path.exists(DEC):
-    print('MISSING  data/evidence-decisions.jsonl')
+import evidence_store as ST
+if not ST.versions():
+    print('MISSING  data/evidence/')
 else:
-    rows = []
-    with io.open(DEC, encoding='utf-8') as f:
-        for line in f:
-            try:
-                d = json.loads(line)
-            except Exception:
-                continue
-            if '_' in d and 'decider_version' in d:
-                continue
-            rows.append(d)
+    rows = list(ST.iter_rows())
     vers = collections.Counter(r.get('v') for r in rows)
     says('the store holds the no-vintage pass', vers.get(1, 0) > 0,
          '%d rows at v1' % vers.get(1, 0))

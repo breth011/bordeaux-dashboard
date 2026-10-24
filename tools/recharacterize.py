@@ -5,7 +5,7 @@
     python tools/recharacterize.py --write
     python tools/recharacterize.py --estate doisy-daene
 
-Appends to data/evidence-decisions.jsonl - the same store, the same
+Appends to the evidence store (data/evidence/) - the same store, the same
 row_key - and writes nothing else.
 
                           WHY A SEPARATE PASS
@@ -226,16 +226,10 @@ def main():
         print('   %-18s %-28s %5d' % (was[:18], now[:28], c))
 
     if a.write:
-        seen = EV.existing_keys()
-        fresh = [r for r in rows if EV.row_key(r) not in seen]
-        with io.open(EV.OUT, 'a', encoding='utf-8', newline='') as f:
-            for r in fresh:
-                f.write(json.dumps(r, ensure_ascii=False,
-                                   sort_keys=True) + '\n')
-        print('\n%d decision(s) appended' % len(fresh))
-        if len(fresh) != len(rows):
-            print('%d already recorded and left alone'
-                  % (len(rows) - len(fresh)))
+        n = EV.ST.append(rows, DECIDER_VERSION)
+        print('\n%d decision(s) appended' % n)
+        if n != len(rows):
+            print('%d already recorded and left alone' % (len(rows) - n))
     else:
         print('\nnothing written; pass --write')
 

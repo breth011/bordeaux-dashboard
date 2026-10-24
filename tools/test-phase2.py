@@ -52,19 +52,14 @@ def says(name, ok, shown=''):
 
 
 # ===================================================== refusals persist
-DEC = ROOT + 'data/evidence-decisions.jsonl'
-if not os.path.exists(DEC):
-    print('MISSING  data/evidence-decisions.jsonl '
-          '(tools/evidence.py --write --pins)')
+# The store moved to data/evidence/ in Phase 2.4; read it through the
+# store's own code, so this tests what the tools see.
+import evidence_store as ST
+if not ST.versions():
+    print('MISSING  data/evidence/ (tools/evidence.py --write --pins)')
     rows = []
 else:
-    rows = []
-    with io.open(DEC, encoding='utf-8') as f:
-        for line in f:
-            d = json.loads(line)
-            if 'decider_version' in d and '_' in d:
-                continue
-            rows.append(d)
+    rows = list(ST.iter_rows())
 
 if rows:
     refused = [r for r in rows if r.get('decision') == 'REFUSED']

@@ -4,7 +4,7 @@
     python tools/compare-v3.py
     python tools/compare-v3.py --write    data/v3-recharacterization.jsonl
 
-Reads data/evidence-decisions.jsonl. Writes nothing else, and never a
+Reads the evidence store, data/evidence/. Writes nothing else, and never a
 canonical file. v2 rows are not altered: this compares them with the v3
 rows appended beside them.
 
@@ -53,16 +53,11 @@ def main():
     a = ap.parse_args()
 
     v2, v3 = {}, {}
-    with io.open(EV.OUT, encoding='utf-8') as f:
-        for line in f:
-            try:
-                d = json.loads(line)
-            except Exception:
-                continue
-            if d.get('v') == 2:
-                v2[ctx_key(d)] = d
-            elif d.get('v') == 3:
-                v3[ctx_key(d)] = d
+    for d in EV.ST.iter_rows([2, 3]):
+        if d.get('v') == 2:
+            v2[ctx_key(d)] = d
+        elif d.get('v') == 3:
+            v3[ctx_key(d)] = d
 
     print('v2 contexts %d, v3 contexts %d, in both %d\n'
           % (len(v2), len(v3), len(set(v2) & set(v3))))

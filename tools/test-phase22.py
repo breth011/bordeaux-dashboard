@@ -116,23 +116,29 @@ if p_lb89:
 
 # ======================================================= the defects
 print()
-mk = sr.mark_of('Blanc de Lynch-Bages', e['name'])
-known("mark_of('Blanc de Lynch-Bages') collides with the Echo's name",
-      sr.says('Echo de Lynch-Bages', mk), 'mark=%r' % mk)
-known('mark_of drops "blanc" when it is the only distinctive word',
-      'blanc' not in (mk or ''), '"blanc" in COMMON')
+# Fixed in Phase 2.3, so these are assertions now rather than KNOWN
+# lines, as this file said they should become. mark_of() without
+# siblings is deliberately unchanged - no existing caller's behaviour
+# moved - so the fix is tested the way the second-wine reader uses it,
+# with the estate's other wines as siblings.
+mk = sr.mark_of('Blanc de Lynch-Bages', e['name'],
+                siblings=[x for x in e['cuvees']
+                          if x != 'Blanc de Lynch-Bages'])
+says("mark_of('Blanc de Lynch-Bages') no longer inside the Echo's name",
+     not sr.says('Echo de Lynch-Bages', mk), 'mark=%r' % mk)
+says('"blanc" is kept when it is the only distinctive word',
+     'blanc' in (mk or ''), repr(mk))
 if p_echo:
     fn = os.path.basename(p_echo)
     v = sr.whose_sheet(p_echo, fn, *args, year=2008, is_second=True)
-    known('an Echo sheet is refused AS the Echo (second-wine mode)',
-          v is not None, (v or {}).get('why', '')[:44])
+    says('an Echo sheet is ACCEPTED as the Echo (second-wine mode)',
+         v is None, (v or {}).get('why', 'accepted')[:44])
 p_gv = find('Chateau-Lynch-Bages-2008-EN.pdf')
 if p_gv:
     fn = os.path.basename(p_gv)
     v = sr.whose_sheet(p_gv, fn, *args, year=2008, is_second=True)
-    known('a GRAND VIN sheet is accepted as the Echo (second mode)',
-          v is None,
-          'is_second has no positive requirement' if v is None else '')
+    says('a GRAND VIN sheet is REFUSED as the Echo (second mode)',
+         v is not None, (v or {}).get('why', '')[:44])
 
 # ================================================== canonical safety
 PROTECTED = ('data/sources.json', 'data/fiches.js', 'data/cuvees.js',

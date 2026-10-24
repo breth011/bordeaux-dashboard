@@ -127,11 +127,25 @@ def verdict_correct(p, fn, e, yr):
 
 
 def population(fn, e):
-    """Which wine's sheet this is known to be, from its own filename."""
+    """Which wine's sheet this is known to be, from its own filename.
+
+    By WORD CONTAINMENT, deliberately independent of the reader's own
+    matching - a measuring instrument built like the thing it measures
+    agrees with it. The first version used says() on the full name,
+    which needs the words contiguous, and so labelled
+    Echo-Lynch-Bages-2016-FT-FR-C0888.pdf (no "de") as the grand vin's
+    and reported the reader's correct acceptance of it as a false one.
+    """
+    import re as _re
+    fw = set(sr.packed(w) for w in _re.split(r'[^A-Za-z0-9]+', fn) if w)
     sec = e.get('second') or ''
-    for nm in sorted(e['cuvees'], key=len, reverse=True):
-        if sr.says(fn, nm):
-            return 'second' if nm == sec else 'other cuvee'
+    best, size = None, 0
+    for nm in e['cuvees']:
+        ws = sr.wset(nm) - sr.wset(e.get('name') or '')
+        if ws and ws <= fw and len(ws) > size:
+            best, size = nm, len(ws)
+    if best:
+        return 'second' if best == sec else 'other cuvee'
     return 'grand vin'
 
 

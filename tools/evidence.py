@@ -84,6 +84,16 @@ CODES = (
     (re.compile(r'(?i)^the filename names another ch'), 'WRONG_ESTATE'),
     (re.compile(r'(?i)^the sheet names a sibling property'),
      'WRONG_ESTATE'),
+    # Second-wine mode's own verdicts (Phase 2.3, decider v3). It now
+    # asks a document to BE the second wine's, so it can say why not.
+    (re.compile(r'(?i)^the estate records no second wine'),
+     'NO_SECOND_WINE'),
+    (re.compile(r'(?i)as well as the second wine'), 'AMBIGUOUS_WINE'),
+    (re.compile(r'(?i)^the filename names the grand vin, not'),
+     'IS_GRAND_VIN'),
+    (re.compile(r'(?i)^the (filename|document) names another of the '
+                r'estate'), 'WRONG_WINE'),
+    (re.compile(r'(?i)^nothing identifies this as'), 'NOT_IDENTIFIED'),
     (re.compile(r'(?i)^the name spells another of the estate'),
      'WRONG_WINE'),
     (re.compile(r'(?i)^the filename abbreviates another'), 'WRONG_WINE'),

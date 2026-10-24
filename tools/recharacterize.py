@@ -54,7 +54,8 @@ sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 import sheetreader as sr
 import evidence as EV
 
-DECIDER_VERSION = 2
+# 3: Phase 2.3, the corrected reader. See evidence-wines.py.
+DECIDER_VERSION = 3
 YEAR_IN = re.compile(r'(?<!\d)((?:19|20)\d\d)(?!\d)')
 YEAR_DECLARED = re.compile(
     r'(?i)\b(?:mill[eé]sime|vintage|a[nñ]ada|annata)\b'

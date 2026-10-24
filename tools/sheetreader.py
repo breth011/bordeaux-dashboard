@@ -715,7 +715,24 @@ def says_in_name(filename, name):
             or packed(name) in packed(filename or ''))
 
 
-def mark_of(other, grand):
+def mark_of(other, grand, siblings=None):
+    """What distinguishes this wine's name, as words says() can find.
+
+    `siblings` is optional and no existing caller passes it, so with it
+    left out the mark is exactly what it always was. Given the estate's
+    other wines, a mark one of them also carries is extended until it
+    is this wine's alone - see _refine_mark.
+    """
+    mark = _base_mark(other, grand)
+    if not mark or not siblings:
+        return mark
+    clash = [s for s in siblings if s and s != other and says(s, mark)]
+    if not clash:
+        return mark
+    return _refine_mark(other, grand, siblings, clash) or mark
+
+
+def _base_mark(other, grand):
     mark = _mark_of(other, grand)
     # A mark has to be a word. "Cuvee 1762" reduced to 1762, which is
     # the founding year Marquis de Terme prints in its history, so the
@@ -723,6 +740,178 @@ def mark_of(other, grand):
     if mark and not re.search(r'[a-z]{3}', mark):
         return None
     return mark
+
+
+# The words that name a house rather than a wine. Kept apart from
+# COMMON, which is about prose: these are about names.
+HOUSE_WORDS = set(('chateau', 'clos', 'domaine'))
+
+
+def _name_words(name):
+    """A wine's name as words, its parenthetical note left out."""
+    name = re.sub(r'\s*\([^)]*\)', '', name or '').strip()
+    return [w for w in re.split(r'[^A-Za-z0-9\u00c0-\u00ff]+', name) if w]
+
+
+def wset(name):
+    """The words that identify a wine, for comparing one with another.
+
+    No articles and no house word, so "Pavillon Rouge du Chateau
+    Margaux" is {pavillon, rouge, margaux}. Colour words stay: they are
+    what tells Pavillon Blanc from Pavillon Rouge.
+    """
+    return set(p for p in (packed(w) for w in _name_words(name))
+               if p and p not in ARTICLES and p not in HOUSE_WORDS)
+
+
+def _refine_mark(other, grand, siblings, clash):
+    """The shortest span of this wine's name that no sibling carries.
+
+    A colour word may sit inside it - "pavillon blanc", "blanc de
+    lynch" - but is never the whole of it, so a mark still cannot match
+    "Sauvignon Blanc". Nor may it start or end on an article, the same
+    rule _mark_of already applies to a pair. It must contain a word a
+    clashing sibling lacks, or it distinguishes nothing.
+
+    None when no span qualifies: the shorter of two names, where the
+    longer contains it entirely. named_wines() settles those.
+    """
+    g = packed(grand)
+    words = _name_words(other)
+    pw = [packed(w) for w in words]
+    for n in range(1, len(words) + 1):
+        for i in range(0, len(words) - n + 1):
+            sp = pw[i:i + n]
+            if not any(p not in ARTICLES and p not in COMMON
+                       and p not in HOUSE_WORDS for p in sp):
+                continue
+            if sp[0] in ARTICLES or sp[-1] in ARTICLES:
+                continue
+            if ''.join(sp) in g:
+                continue
+            cand = ' '.join(w.lower() for w in words[i:i + n])
+            if any(says(s, cand) for s in siblings if s and s != other):
+                continue
+            mine = set(p for p in sp if p not in ARTICLES)
+            if not any(mine - wset(c) for c in clash):
+                continue
+            return cand
+    return None
+
+
+def named_wines(text, grand, wines):
+    """Which of an estate's wines a text names, the most specific only.
+
+    `wines` are the estate's other wines; the grand vin is looked for
+    by its name less the house word. Marks are sibling-aware, so Blanc
+    and Echo de Lynch-Bages are told apart.
+
+    Then the more specific wins. A white sheet saying "Pagodes de Cos
+    Blanc" also carries the red's mark, 'pagodes', and is the white's:
+    a wine is dropped when another named wine's identifying words are a
+    strict superset of its own. The same drops the grand vin from an
+    Echo sheet's filename - Echo-de-Lynch-Bages carries "lynch bages"
+    too - because the Echo's words contain the grand vin's.
+    """
+    if not text:
+        return []
+    wines = [w for w in dict.fromkeys(wines or ()) if w and w != grand]
+    found = []
+    for w in wines:
+        mk = mark_of(w, grand or '', siblings=[x for x in wines if x != w])
+        if mk and says(text, mk):
+            found.append(w)
+    core = ' '.join(w.lower() for w in _name_words(grand)
+                    if packed(w) not in HOUSE_WORDS)
+    if core and re.search(r'[a-z]{3}', packed(core)) and says(text, core):
+        found.append(grand)
+    ws = dict((w, wset(w)) for w in found)
+    return [w for w in found
+            if not any(o != w and ws[w] < ws[o] for o in found)]
+
+
+def second_wine_verdict(path, named, grand, others, second, filename=None):
+    """Is this document the SECOND wine's? None when it is.
+
+    Second-wine mode used to mean "not refused for naming the second
+    wine", which is not the same thing: it accepted 107 of Lynch-Bages'
+    grand-vin sheets as the Echo, because nothing ever asked a document
+    to be the second wine's. This asks, in the order the reader already
+    trusts:
+
+      1. the filename names another of the estate's cuvees - it is that
+         cuvee's
+      2. the document calls itself the second wine - it is, whatever
+         its filename says (Belgrave 2023, see is_second_wine)
+      3. the filename names the second wine - it is
+      4. the filename names only the grand vin - it is not
+      5. the filename names no wine: the document's TITLE must name the
+         second wine, by the rule names_another_wine already applies for
+         the grand vin - letterhead off, and the wine named first in the
+         title is the one the sheet is for. A window over the opening
+         text was tried first and accepted chocolate descriptions, price
+         lists and vintage reports that mention the second wine in
+         passing; the title rule is the one the reader already trusts.
+    """
+    if not second:
+        return {'why': 'the estate records no second wine',
+                'role': 'unknown', 'wine': None}
+    wines = list(dict.fromkeys([w for w in (others or ()) if w]
+                               + [second]))
+    # Two names with the same identifying words are one wine written
+    # twice: Issan lists "Blason d'Issan" and "Blason d’Issan", Kirwan
+    # "Charmes de Kirwan" and "Les Charmes de Kirwan", Yquem its dry
+    # white with and without a note in brackets. Six estates do it.
+    # Treated as different wines, a Blason sheet would "name the second
+    # wine AND another cuvee" and be refused as ambiguous. The data is
+    # left as it is - fixing the lists is a separate job - and the
+    # reader stops being misled by it. Colour words count as identifying
+    # words, so Pagodes de Cos and Pagodes de Cos Blanc stay two wines.
+    sec_words = wset(second)
+
+    def is_sec(w):
+        return w == second or (bool(sec_words) and wset(w) == sec_words)
+
+    fn = named_wines(named, grand, wines)
+    cuv = [w for w in fn if not is_sec(w) and w != grand]
+    second_named = any(is_sec(w) for w in fn)
+    if cuv and not second_named:
+        return {'why': 'the filename names another of the estate\u2019s '
+                       'wines: %s' % cuv[0],
+                'role': 'other', 'wine': cuv[0]}
+    if cuv:
+        return {'why': 'the filename names %s as well as the second '
+                       'wine' % cuv[0], 'role': 'unknown', 'wine': None}
+    try:
+        if is_second_wine(path):
+            return None
+    except Exception:
+        pass
+    if second_named:
+        return None
+    if grand in fn:
+        return {'why': 'the filename names the grand vin, not %s'
+                       % second, 'role': 'grand', 'wine': grand}
+    sibs = [w for w in wines if not is_sec(w)]
+    try:
+        if names_another_wine(path, filename or named, grand, second,
+                              siblings=sibs):
+            return None
+    except Exception:
+        pass
+    # The title names one of the other cuvees instead: it is that one's.
+    for o in sibs:
+        try:
+            hit = names_another_wine(path, filename or named, grand, o,
+                                     siblings=[w for w in wines if w != o])
+        except Exception:
+            hit = None
+        if hit:
+            return {'why': 'the document names another of the '
+                           'estate’s wines: %s' % o,
+                    'role': 'other', 'wine': o}
+    return {'why': 'nothing identifies this as %s' % second,
+            'role': 'unknown', 'wine': None}
 
 
 def _mark_of(other, grand):
@@ -1047,7 +1236,7 @@ def is_second_wine(path):
     return False
 
 
-def names_another_wine(path, filename, grand, second):
+def names_another_wine(path, filename, grand, second, siblings=None):
     """Does this sheet name the second wine rather than the grand vin?
 
     Branaire-Ducru's library holds Duluc de Branaire-Ducru sheets, and
@@ -1064,7 +1253,10 @@ def names_another_wine(path, filename, grand, second):
     # The distinctive part of the other wine's name: what it has that
     # the grand vin's name does not. "Duluc de Branaire-Ducru" against
     # "Chateau Branaire-Ducru" leaves "duluc".
-    mark = mark_of(second, grand)
+    #
+    # `siblings` is passed only by second-wine mode, so the grand-vin
+    # path computes exactly the mark it always did.
+    mark = mark_of(second, grand, siblings=siblings)
     if not mark:
         return None
 
@@ -4534,13 +4726,23 @@ def whose_sheet(path, filename=None, grand=None, others=(), second=None,
             return {'why': sold, 'role': 'other', 'wine': None}
         # A cuvee whose name contains the estate's own, spelled out in
         # full: Margaux du Chateau Margaux, on its own page.
-        spelt = naming_spells_cuvee(named, grand, others, second)
+        # In second-wine mode the second wine is the one being asked
+        # for, so it is not "another of the estate's wines".
+        if is_second:
+            spelt = naming_spells_cuvee(
+                named, grand, [o for o in (others or ()) if o != second],
+                None)
+        else:
+            spelt = naming_spells_cuvee(named, grand, others, second)
         if spelt:
             return {'why': 'the name spells another of the estate’s '
                            'wines in full: %s' % spelt,
                     'role': ('second' if spelt == second else 'other'),
                     'wine': spelt}
-        abbrev = abbreviates_other_wine(named, grand, others)
+        abbrev = abbreviates_other_wine(
+            named, grand,
+            [o for o in (others or ()) if o != second] if is_second
+            else others)
         if abbrev:
             return {'why': 'the filename abbreviates another of the '
                            'estate’s wines: %s' % abbrev,
@@ -4560,7 +4762,14 @@ def whose_sheet(path, filename=None, grand=None, others=(), second=None,
         if not is_second and is_second_wine(path):
             return {'why': 'the document calls itself the second wine',
                     'role': 'second', 'wine': second}
-        for nm in (second,) + tuple(others or ()):
+        # Second-wine mode asks a different question, and asks it
+        # positively: see second_wine_verdict.
+        if is_second:
+            sv = second_wine_verdict(path, named, grand, others, second,
+                                     filename)
+            if sv:
+                return sv
+        for nm in (() if is_second else (second,) + tuple(others or ())):
             if nm and names_another_wine(path, filename, grand, nm):
                 return {'why': 'the sheet names another of the '
                                'estate’s wines: %s' % nm,

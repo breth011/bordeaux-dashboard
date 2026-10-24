@@ -3313,6 +3313,32 @@ function appellationLine(ch, yr) {
     'Quinney</span></div>';
 }
 
+/* The year's characterisation, where it is about this wine's colour.
+   data/vintages.js carries one report per year and it describes the
+   reds - 2022's says "deep colour, ripe tannin" - so it is not a
+   stand-in for a white or a Sauternes. vintages.js already says as
+   much about its ratings and its drinking windows; this is the same
+   rule for its prose.
+
+   Returns '' rather than a substitute. Every caller has something
+   truer to fall back on: the year's weather, which is the same for
+   every colour, or the wine's own figures. */
+function vintageWine(yr, cat) {
+  var v = vintage(yr);
+  if (!v || !v.report) return '';
+  return (cat && cat !== 'red') ? '' : v.report;
+}
+
+/* The colour of the wine a row is drawn for, which is the estate's
+   unless one of its other wines is being shown. */
+function wineCat(ch, slug) {
+  if (slug && slug !== 'grand') {
+    var w = wineById(ch, slug);
+    return (w && w.colour) || ch.cat;
+  }
+  return ch.cat;
+}
+
 /* The season, told by the estate where it told it, and by the region where
    it did not. Each half falls back on its own: an estate that published a
    tasting note but no weather still gets the regional weather beneath it. */
@@ -3331,8 +3357,12 @@ function seasonBlock(ch, yr, v, o, slug) {
      the line that was already there rather than announced separately. */
   var wSrc = (f && f.note) ? (f.ntl ? 'this estate, translated' : 'this estate')
                            : 'Bordeaux';
+  /* Not the red characterisation on Pavillon Blanc or a Sauternes:
+     the paragraph is dropped rather than filled with another
+     wine's description, and the regional weather above it stays. */
   var wine = (f && f.taste) ? f.taste
-    : ((o && o.note) ? o.note : v0.report);
+    : ((o && o.note) ? o.note
+       : vintageWine(yr, wineCat(ch, slug)));
   /* The sheet is the estate's own either way; what changes is where it
      was got. A sheet a chateau does not publish, taken from the house
      that sells its wine, is still the chateau's words - but saying so
@@ -3896,12 +3926,17 @@ function vintageRow(ch, yr) {
       '<button class="vrow-head"><span class="yr">' + yr + '</span><span class="sc">—</span>' +
       '<span class="teaser">No grand vin produced — the estate declared no vintage.</span>' +
       '<span class="chev">▾</span></button>' +
-      '<div class="vrow-body"><p class="vintagereport">' + v.report + '</p></div></div>';
+      '<div class="vrow-body"><p class="vintagereport">' +
+        (vintageWine(yr, ch.cat) || v.weather) + '</p></div></div>';
   }
 
   var rated = !r.none;
   var edge = rated ? scoreColor(r.score) : 'var(--border)';
-  var teaser = rated && o && o.note ? o.note : v.report;
+  /* The weather where the report is not this estate's colour: at a
+     Sauternes or a white-wine estate the reds' characterisation is
+     not a description of the wine in this row. */
+  var teaser = rated && o && o.note ? o.note
+    : (vintageWine(yr, ch.cat) || v.weather);
   /* The maturity sits in the collapsed head so that the question these rows
      are really asked - which of these should I open? - can be answered by
      running an eye down the list, without opening any of them. */
@@ -4026,7 +4061,9 @@ function cuveeRow(ch, slug, yr) {
       (m ? '<span class="mat mat-' + m.k + '">' + m.label + '</span>'
          : '<span class="mat mat-none"></span>') +
       '<span class="teaser">' + heldMark(ch, slug, yr) +
-        (bits.join(' · ') || v.report) + '</span>' +
+        (bits.join(' · ')
+         || vintageWine(yr, wineCat(ch, slug))
+         || v.weather) + '</span>' +
       '<span class="chev">▾</span></button>' +
     '<div class="vrow-body">' +
       fichesBlock(ch, yr, slug) +
@@ -4119,7 +4156,9 @@ function vintageTable(r) {
         Math.max(0, Math.min(100, (rt - 60) * 2.5)).toFixed(0) +
         '%;background:' + ratingColor(rt) + '"></span></span>' +
         '<b class="vt-num">' + rt + '</b></td>' +
-      '<td class="vt-rep">' + v.report +
+      // regionCat already knows Sauternes and Barsac are not red.
+      '<td class="vt-rep">' +
+        (vintageWine(yr, regionCat(r)) || v.weather) +
         (open ? vintageRoster(r, yr) : '') + '</td></tr>';
   }).join('');
   return '<table class="vintable"><caption>Season by season in ' + r.name +
@@ -4228,9 +4267,14 @@ function renderVintages() {
     if (rb.app) Object.keys(rb.app).forEach(function (k) { d.push(k + ' ' + (rb.app[k] > 0 ? '+' : '') + rb.app[k]); });
     html += '<article class="vgcard">' +
       '<div><div class="vgyear">' + yr + '</div>' +
-        '<div style="font-size:11px;color:var(--text-muted);margin-top:4px">Drink ' +
+        '<div style="font-size:11px;color:var(--text-muted);margin-top:4px">Reds drink ' +
           v.drinkFrom + '–' + v.drinkTo + '</div></div>' +
-      '<div><p class="weather"><b>Weather.</b> ' + v.weather + '</p><p>' + v.report + '</p>' +
+      /* This card prints all four appellation groups side by side,
+         Sauternes among them, and the report is the reds'. It is the
+         region's page and the paragraph belongs on it, so it says
+         whose wines it is about rather than being dropped. */
+      '<div><p class="weather"><b>Weather.</b> ' + v.weather + '</p>' +
+        '<p><b>The reds.</b> ' + v.report + '</p>' +
         phenologyLine(yr) +
         '<div class="ratings">' + chips + '</div>' +
         (open ? rosterHtml(CH.filter(function (ch) {

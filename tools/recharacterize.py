@@ -56,8 +56,9 @@ import evidence as EV
 import provenance as PV
 
 # 3: Phase 2.3, the corrected reader. 4: Phase 2.7, the Phase 2.6
-# reader with established provenance. See evidence-wines.py.
-DECIDER_VERSION = 4
+# reader with established provenance. 5: Phase 2.10, the Phase 2.9
+# reader. See evidence-wines.py.
+DECIDER_VERSION = 5
 YEAR_IN = re.compile(r'(?<!\d)((?:19|20)\d\d)(?!\d)')
 YEAR_DECLARED = re.compile(
     r'(?i)\b(?:mill[eé]sime|vintage|a[nñ]ada|annata)\b'

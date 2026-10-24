@@ -77,7 +77,11 @@ import provenance as PV
 # 4: Phase 2.7. The Phase 2.6 reader (specific second-wine identity),
 # with Phase 2.5's provenance: each row records the file read, the
 # SHA-256 of its bytes, and the git state of the code that decided.
-DECIDER_VERSION = 4
+#
+# 5: Phase 2.10. The Phase 2.9 reader (grand-vin identity: a wine's
+# own words, common ones included, against the grand vin), same
+# provenance.
+DECIDER_VERSION = 5
 MAX_YEARS = 3
 YEAR_IN = re.compile(r'(?<!\d)((?:19|20)\d\d)(?!\d)')
 YEAR_DECLARED = re.compile(

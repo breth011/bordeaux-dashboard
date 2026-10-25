@@ -13,3 +13,5 @@ data/app/** text eol=lf
 # The document-date audit (historical M2) is checked byte for byte by
 # tools/extract-document-dates.py --check and read by the migration.
 data/history/** text eol=lf
+# The M3 candidate audit is checked byte for byte by tools/extract-historical-m3.py --check.
+data/audit/historical-m3-*.jsonl text eol=lf

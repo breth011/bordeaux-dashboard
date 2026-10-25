@@ -169,7 +169,7 @@ def evidence_links(m):
     im = {(r['namespace'], r['legacy_key']): r for r in m.rows('identity/identity-map.jsonl')}
     n = collections.Counter()
     for v in (4, 5):
-        for d in L.jsonl_lines(L.ROOT + 'data/evidence/decisions-v%d.jsonl' % v):
+        for d in L.evidence('decisions-v%d.jsonl' % v):
             c = d.get('ctx') or {}
             row = {'row_key': row_key(d), 'evidence_version': v}
             rd = d.get('read') or {}

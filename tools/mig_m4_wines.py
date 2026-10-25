@@ -27,7 +27,6 @@ candidates); with none, a white Wine is minted with name_status UNKNOWN
 (D8: the names found in Phase 3.4 are not applied).
 """
 import collections
-import glob
 import re
 import unicodedata
 
@@ -221,8 +220,8 @@ def display_names(m):
         if r.get('stable_id'):
             names[k].add(r['stable_id'])
     used = collections.Counter()
-    for p in sorted(glob.glob(L.ROOT + 'data/evidence/decisions-v*.jsonl')):
-        for d in L.jsonl_lines(p):
+    for name in L.evidence_files('decisions-v*.jsonl'):
+        for d in L.evidence(name):
             c = d.get('ctx') or {}
             if c.get('target_wine') and c.get('estate'):
                 used[(c['estate'], c['target_wine'])] += 1

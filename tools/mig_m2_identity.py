@@ -141,8 +141,8 @@ def legacy_estate_uses():
     for r in L.sources_rows()['sheets']:
         if r['estate']:
             used[r['estate']]['sources.json'] += 1
-    for p in sorted(glob.glob(L.ROOT + 'data/evidence/*.jsonl')):
-        for d in L.jsonl_lines(p):
+    for name in L.evidence_files('*.jsonl'):
+        for d in L.evidence(name):
             c = d.get('ctx') or {}
             for f in ('estate', 'target_estate'):
                 if c.get(f):
@@ -217,13 +217,13 @@ def documents(m):
     read_bytes = {}
     failures = {}
     for v in (4, 5):
-        for d in L.jsonl_lines(L.ROOT + 'data/evidence/decisions-v%d.jsonl' % v):
+        for d in L.evidence('decisions-v%d.jsonl' % v):
             rd = d.get('read')
             if rd and rd.get('sha256'):
                 p = rd['path'].replace('\\', '/')
                 reads[p].add(rd['sha256'])
                 read_bytes[rd['sha256']] = rd.get('bytes')
-        for d in L.jsonl_lines(L.ROOT + 'data/evidence/provenance-failures-v%d.jsonl' % v):
+        for d in L.evidence('provenance-failures-v%d.jsonl' % v):
             folder = d['ctx']['folder']
             p = sources_path({'folder': folder, 'file': d['artifact']})
             failures[(p, d['manifest_sha1'])] = d['code']

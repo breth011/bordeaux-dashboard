@@ -35,13 +35,20 @@ def git(*a):
     return subprocess.check_output(['git'] + list(a), cwd=L.ROOT).decode('utf-8')
 
 
-_rows = []
+_all = []
+
+
+def all_rows():
+    """Every run appended to the log (M0 and the re-measurements after it)."""
+    if not _all:
+        _all.extend(L.jsonl_lines(BENCH))
+    return _all
 
 
 def rows():
-    if not _rows:
-        _rows.extend(L.jsonl_lines(BENCH))
-    return _rows
+    """The M0 baseline run: the first run, made at the Phase 4 commit."""
+    first = all_rows()[0]['run']
+    return [r for r in all_rows() if r['run'] == first]
 
 
 @check
@@ -58,7 +65,7 @@ def benchmark_records_have_the_schema():
             'elapsed_ms', 'peak_memory_mb', 'input_counts', 'output_counts', 'free_disk_before_mb',
             'free_disk_after_mb', 'status', 'notes', 'runs_ms', 'min_ms', 'max_ms', 'run', 'timestamp'}
     assert rows()
-    for r in rows():
+    for r in all_rows():
         assert need <= set(r), (r['benchmark_id'], need - set(r))
         if r['runs_ms']:
             assert r['iteration'] == len(r['runs_ms'])
@@ -71,6 +78,21 @@ def benchmark_records_identify_the_phase4_commit():
     env = [r for r in rows() if r['benchmark_id'] == 'env.machine'][0]['detail']
     assert env['commit'] == START
     assert set(env['dirty_files']) <= {f for f in env['dirty_files'] if f.startswith(OWN)}, env['dirty_files']
+
+
+@check
+def later_runs_name_real_commits_and_pass():
+    runs = collections.OrderedDict()
+    for r in all_rows():
+        runs.setdefault(r['run'], set()).add(r['commit'])
+    first = next(iter(runs))
+    for run, commits in runs.items():
+        assert len(commits) == 1, (run, commits)
+        c = next(iter(commits))
+        assert subprocess.call(['git', 'merge-base', '--is-ancestor', START, c], cwd=L.ROOT) == 0, (run, c)
+        if run != first:
+            assert c != START, 'a re-measurement attributed to the baseline commit'
+    assert not [r for r in all_rows() if r['status'] != 'OK']
 
 
 @check
@@ -185,9 +207,19 @@ def application_unchanged():
 
 @check
 def only_phase5_baseline_artifacts_changed():
-    changed = set(l[3:] for l in git('status', '--porcelain', '--untracked-files=all').splitlines())
-    changed |= set(git('diff', '--name-only', START, 'HEAD').split())
+    # M0 itself was measurement only: its commit touched nothing but its own paths.
+    log = [l.split(' ', 1) for l in git('log', '--format=%H %s', START + '..HEAD').splitlines()]
+    m0 = [h for h, s in log if s.startswith('Phase 5 M0')]
+    assert len(m0) == 1, 'the M0 commit'
+    changed = set(git('diff-tree', '--no-commit-id', '--name-only', '-r', m0[0]).split())
     assert all(f.startswith(OWN) for f in changed), sorted(f for f in changed if not f.startswith(OWN))
+    # Later Phase 5 work may change tools, never data, the model or the application
+    # (the hash checks above hold those; this names the paths).
+    later = set(git('diff', '--name-only', START, 'HEAD').split()) | \
+        set(l[3:] for l in git('status', '--porcelain', '--untracked-files=all').splitlines())
+    banned = [f for f in later if (f.startswith('data/') and not f.startswith('data/performance/'))
+              or f.startswith(('assets/', 'index.html', 'service-worker.js', 'sources/'))]
+    assert not banned, sorted(banned)[:5]
 
 
 def main():

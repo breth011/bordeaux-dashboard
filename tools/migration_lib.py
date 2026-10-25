@@ -105,8 +105,25 @@ def estate_files():
 
 
 def sources_rows():
-    d = json.load(open(ROOT + 'data/sources.json', encoding='utf-8'))
-    return d
+    """The manifest, parsed once per process. Read-only: callers must not mutate it."""
+    if 'sources' not in _cache:
+        _cache['sources'] = json.load(open(ROOT + 'data/sources.json', encoding='utf-8'))
+    return _cache['sources']
+
+
+def evidence(name):
+    """One file of data/evidence/ (e.g. 'decisions-v5.jsonl'), parsed once per
+    process (Phase 5 C1: the migration used to parse the store about four
+    times per run). Read-only: callers must not mutate the rows."""
+    key = 'evidence:' + name
+    if key not in _cache:
+        _cache[key] = jsonl_lines(ROOT + 'data/evidence/' + name)
+    return _cache[key]
+
+
+def evidence_files(pattern):
+    """The names of data/evidence/ files matching a glob, sorted as glob.glob sorted them."""
+    return [os.path.basename(p) for p in sorted(glob.glob(ROOT + 'data/evidence/' + pattern))]
 
 
 def jsonl_lines(p):

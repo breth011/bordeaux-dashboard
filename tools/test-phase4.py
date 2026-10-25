@@ -1076,7 +1076,18 @@ def m12_app_reads_nothing_past_the_boundary():
     assert contract <= set(P), contract - set(P)
     assert len(contract) == 23
     saved = json.load(open(L.MODEL + 'checks/app-boundary.json', encoding='utf-8'))
-    assert saved['loads'] == r['loads']
+    # The committed report is the boundary at M12, before the application source
+    # switch (Phase 5). Switched, the page must load exactly those files with the
+    # 23 contract paths moved from data/ to data/app/, the generated model output.
+    spec = importlib.util.spec_from_file_location('src', L.ROOT + 'tools/app-source.py')
+    src = importlib.util.module_from_spec(spec)
+    spec.loader.exec_module(src)
+    expected = saved['loads']
+    if src.state() == 'model':
+        expected = {('data/app/' + p[5:] if p[5:] in src.CONTRACT else p): v for p, v in expected.items()}
+    else:
+        assert src.state() == 'legacy', src.state()
+    assert expected == r['loads'], sorted(set(expected) ^ set(r['loads']))[:6]
 
 
 # ---------------------------------------------------------------- M13 and rollback

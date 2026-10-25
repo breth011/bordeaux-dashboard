@@ -300,14 +300,17 @@ class CDP:
 
 
 class Server:
-    """The repository, served read-only as the page is published."""
+    """The repository (or a copy of the site), served read-only as the page is published."""
+
+    def __init__(self, root=None):
+        self.root = root or L.ROOT
 
     def __enter__(self):
         class Quiet(http.server.SimpleHTTPRequestHandler):
             def log_message(self, *a):
                 pass
         self.srv = http.server.ThreadingHTTPServer(('127.0.0.1', 0),
-                                                   functools.partial(Quiet, directory=L.ROOT))
+                                                   functools.partial(Quiet, directory=self.root))
         threading.Thread(target=self.srv.serve_forever, daemon=True).start()
         self.url = 'http://127.0.0.1:%d/index.html' % self.srv.server_address[1]
         return self

@@ -201,8 +201,32 @@ def normalized_model_byte_identical():
 
 @check
 def application_unchanged():
-    assert not git('diff', '--stat', START, '--', 'index.html', 'assets', 'service-worker.js', 'data/*.js',
-                   'data/sources.json').strip()
+    # The code and the legacy data are untouched. index.html and the service worker
+    # differ from Phase 4 by exactly the source switch: the 23 contract paths moved
+    # to data/app/ and the cache name bumped once per switch (tools/app-source.py).
+    assert not git('diff', '--stat', START, '--', 'assets', 'data/*.js', 'data/sources.json').strip()
+    src = load_tool('app-source.py')
+    idx = open(L.ROOT + 'index.html', encoding='utf-8').read()
+    sw = open(L.ROOT + 'service-worker.js', encoding='utf-8').read()
+    for f in src.CONTRACT:
+        idx = idx.replace('"data/app/%s"' % f, '"data/%s"' % f)
+        sw = sw.replace("'./data/app/%s'" % f, "'./data/%s'" % f)
+    old_idx = git('show', START + ':index.html')
+    old_sw = git('show', START + ':service-worker.js')
+    assert idx == old_idx, 'index.html changed beyond the switch'
+    n0 = int(src.CACHE_RE.search(old_sw).group(1))
+    n1 = int(src.CACHE_RE.search(sw).group(1))
+    assert n1 > n0
+    assert src.CACHE_RE.sub('', sw) == src.CACHE_RE.sub('', old_sw), \
+        'service-worker.js changed beyond the switch'
+
+
+def load_tool(name):
+    import importlib.util
+    spec = importlib.util.spec_from_file_location(name.replace('-', '_')[:-3], L.ROOT + 'tools/' + name)
+    m = importlib.util.module_from_spec(spec)
+    spec.loader.exec_module(m)
+    return m
 
 
 @check
@@ -217,8 +241,10 @@ def only_phase5_baseline_artifacts_changed():
     # (the hash checks above hold those; this names the paths).
     later = set(git('diff', '--name-only', START, 'HEAD').split()) | \
         set(l[3:] for l in git('status', '--porcelain', '--untracked-files=all').splitlines())
-    banned = [f for f in later if (f.startswith('data/') and not f.startswith('data/performance/'))
-              or f.startswith(('assets/', 'index.html', 'service-worker.js', 'sources/'))]
+    # The source switch adds data/app/ (generated) and rewrites index.html and the
+    # service worker, which application_unchanged holds to exactly that.
+    banned = [f for f in later if (f.startswith('data/') and not f.startswith(('data/performance/', 'data/app/')))
+              or f.startswith(('assets/', 'sources/'))]
     assert not banned, sorted(banned)[:5]
 
 
@@ -283,6 +309,115 @@ def known_raw_file_anomalies_preserved():
         folder, file = rel[len('sources/fiches/'):].rsplit('/', 1)
         b = open(L.ROOT + rel, 'rb').read()
         assert sheets[(folder, file)] != hashlib.sha1(b).hexdigest(), 'no longer an anomaly: ' + rel
+
+
+# ---------------------------------------------------------------- the application source switch
+
+@check
+def switch_app_reads_generated_model_output():
+    src = load_tool('app-source.py')
+    assert src.state() == 'model', src.state()
+    bad = load_tool('build-app-data.py')
+    files = bad.render()
+    for f, b in files.items():
+        assert open(L.ROOT + 'data/app/' + f, 'rb').read() == b, 'data/app/%s is not the model' % f
+    assert sorted(os.listdir(L.ROOT + 'data/app')) == sorted(files), 'data/app holds more than the contract'
+
+
+@check
+def switch_app_reads_no_prohibited_input():
+    src = load_tool('app-source.py')
+    idx = open(L.ROOT + 'index.html', encoding='utf-8').read()
+    sw = open(L.ROOT + 'service-worker.js', encoding='utf-8').read()
+    for f in src.CONTRACT:
+        assert '"data/%s"' % f not in idx and "'./data/%s'" % f not in sw, 'still loads legacy data/' + f
+    ab = load_tool('app-boundary.py')
+    r = ab.build()
+    assert not r['forbidden'], r['forbidden']
+    loads = set(r['loads'])
+    allowed_legacy = {'data/%s' % f for f in os.listdir(L.ROOT + 'data')
+                      if f.endswith('.js') and f not in src.CONTRACT}
+    for p in loads:
+        assert p.startswith(('data/app/', 'assets/')) or p in allowed_legacy, p
+
+
+@check
+def switch_no_runtime_migration():
+    # The page loads only assets/*.js and data files; none of them reaches the
+    # migration, the evidence, the discovery corpus, the raw store or the tools.
+    idx = open(L.ROOT + 'index.html', encoding='utf-8').read()
+    srcs = re.findall(r'<script[^>]*src="([^"]+)"', idx)
+    assert srcs and all(s.startswith(('assets/', 'data/')) for s in srcs), srcs
+    banned = ('tools/', 'data/model', 'data/evidence', 'data/discovery', 'sources/', 'sources.json',
+              'migrate', 'model_reader', 'evidence_store')
+    for f in [L.ROOT + 'assets/' + x for x in os.listdir(L.ROOT + 'assets') if x.endswith('.js')] + \
+            [L.ROOT + 'service-worker.js']:
+        text = open(f, encoding='utf-8').read()
+        # code, not prose: block comments and whole-line // comments removed
+        text = re.sub(r'/\*.*?\*/', '', text, flags=re.S)
+        text = '\n'.join(l for l in text.split('\n') if not l.lstrip().startswith('//'))
+        hit = [b for b in banned if b in text]
+        assert not hit, (f, hit)
+    for f in os.listdir(L.ROOT + 'data/app'):
+        lines = open(L.ROOT + 'data/app/' + f, encoding='utf-8').read().split('\n')
+        code = [l for l in lines[2:] if l.strip()]
+        assert code and all(l.startswith('window.BDX_') for l in code), f
+
+
+@check
+def switch_outputs_agree_with_the_control():
+    ar = load_tool('app-reference.py')
+    ref = json.load(open(ar.FIXTURE, encoding='utf-8'))
+    now = ar.capture()
+    r = ar.compare(ref, now)
+    assert not r['unexplained'], r['unexplained'][:5]
+    assert not now['health'], now['health']
+    assert all(u.startswith('data/app/') or u.split('/')[-1] not in load_tool('app-source.py').CONTRACT
+               for u in now['data_requests']), now['data_requests']
+    # every difference is the accepted presentation order (Phase 4 M8; backlog)
+    assert set(r['summary']) <= {'IDENTICAL', 'EXPECTED: PRESENTATION ORDER'}, r['summary']
+    assert r['summary']['IDENTICAL'] >= 10700
+
+
+@check
+def switch_rollback_restores_the_legacy_source():
+    import shutil
+    import tempfile
+    before = {g: L.group_hashes(g)['digest'] for g in L.GROUPS}
+    src = load_tool('app-source.py')
+    ar = load_tool('app-reference.py')
+    ref = json.load(open(ar.FIXTURE, encoding='utf-8'))
+    site = tempfile.mkdtemp(prefix='bdx-rollback-site-')
+    try:
+        for f in ('index.html', 'service-worker.js', 'manifest.webmanifest'):
+            shutil.copyfile(L.ROOT + f, os.path.join(site, f))
+        shutil.copytree(L.ROOT + 'assets', os.path.join(site, 'assets'))
+        os.makedirs(os.path.join(site, 'data', 'app'))
+        for f in os.listdir(L.ROOT + 'data'):
+            if f.endswith('.js'):
+                shutil.copyfile(L.ROOT + 'data/' + f, os.path.join(site, 'data', f))
+        for f in os.listdir(L.ROOT + 'data/app'):
+            shutil.copyfile(L.ROOT + 'data/app/' + f, os.path.join(site, 'data', 'app', f))
+        root = site.replace('\\', '/') + '/'
+        assert src.state(root) == 'model'
+        assert src.switch('legacy', root) and src.state(root) == 'legacy'
+        back = ar.compare(ref, ar.capture(root))
+        assert back['summary'] == {'IDENTICAL': sum(back['summary'].values())}, back['summary']
+        assert src.switch('model', root) and src.state(root) == 'model'
+        again = ar.compare(ref, ar.capture(root))
+        assert not again['unexplained'], again['unexplained'][:3]
+    finally:
+        shutil.rmtree(site, ignore_errors=True)
+    after = {g: L.group_hashes(g)['digest'] for g in L.GROUPS}
+    assert before == after, 'a protected group changed during rollback'
+    assert os.path.isdir(L.MODEL + 'identity'), 'the model must survive a rollback'
+
+
+@check
+def switch_dual_read_still_passes():
+    d = load_tool('dual-read.py')
+    r = d.build()
+    assert r['pass'], (r['page_path']['disagreements'][:3], r['query_disagreements'][:3])
 
 
 def main():

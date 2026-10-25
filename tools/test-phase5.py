@@ -204,7 +204,7 @@ def application_unchanged():
     # The code and the legacy data are untouched. index.html and the service worker
     # differ from Phase 4 by exactly the source switch: the 23 contract paths moved
     # to data/app/ and the cache name bumped once per switch (tools/app-source.py).
-    assert not git('diff', '--stat', START, '--', 'assets', 'data/*.js', 'data/sources.json').strip()
+    assert not git('diff', '--stat', START, '--', 'assets', ':(glob)data/*.js', 'data/sources.json').strip()
     src = load_tool('app-source.py')
     idx = open(L.ROOT + 'index.html', encoding='utf-8').read()
     sw = open(L.ROOT + 'service-worker.js', encoding='utf-8').read()

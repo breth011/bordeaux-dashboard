@@ -7,3 +7,6 @@ data/evidence/index.json text eol=lf
 # The normalized model (Phase 4) is rebuilt byte for byte by
 # tools/migrate.py --check; checkout must not change its bytes either.
 data/model/** text eol=lf
+# The generated application data (Phase 5) is checked byte for byte against
+# the model by tools/build-app-data.py --check; checkout must not change it.
+data/app/** text eol=lf

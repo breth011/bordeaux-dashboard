@@ -224,8 +224,23 @@ def gap_ids_are_stable_and_the_register_keeps_its_history():
     for r in audit():
         assert r['gap_id'] in reg, r['key']
         assert reg[r['gap_id']]['gap_key'].startswith('FIG_UNSOURCED|'), r['key']
-    old = {json.loads(l)['gap_id'] for l in git('show', '6880c16:data/audit/data-gap-register.jsonl').splitlines()}
-    assert old <= set(reg), 'a gap was dropped from the register'
+    m31 = {json.loads(l)['gap_id']: json.loads(l) for l in git('show', '6880c16:data/audit/data-gap-register.jsonl').splitlines()}
+    assert set(m31) <= set(reg), 'a gap was dropped from the register'
+    # a resolved gap keeps its id, tier and original count, and names what resolved it
+    commits = json.load(open(L.ROOT + 'data/audit/m32-resolutions.json', encoding='utf-8'))
+    recovered = 0
+    for gid, r in reg.items():
+        if 'resolution' not in r:
+            continue
+        o = m31[gid]
+        assert (r['priority'], r['affected_count'], r['gap_key']) == (o['priority'], o['affected_count'], o['gap_key']), gid
+        res = r['resolution']
+        assert res['affected_before'] == r['affected_count'] and res['affected_after'] == r['affected_count'] - res['recovered']
+        assert res['status'] == ('RESOLVED' if res['affected_after'] == 0 else 'PARTIALLY_RESOLVED')
+        for b in res['by']:
+            assert b['commit'] == commits[b['phase']]['commit'], gid
+        recovered += res['recovered']
+    assert recovered == sum(1 for r in audit() if r['disposition'] == 'APPLY_PROVENANCE'), recovered
 
 
 @check

@@ -629,8 +629,35 @@ def other_rows():
     return rows
 
 
+RESOLUTIONS = L.ROOT + 'data/audit/m32-resolutions.json'
+
+
+def resolve(rows):
+    """Record, on each gap a recovery stream reduced, what was resolved and by which commit. The gap
+    keeps its id, its tier and its original affected count: the register is a historical record."""
+    if not os.path.exists(RESOLUTIONS):
+        return
+    applied = json.load(open(RESOLUTIONS, encoding='utf-8'))
+    recovered = collections.Counter()
+    for f in A.unsourced_figures():
+        if f.get('recovered'):
+            stream = f['recovered']['stream']
+            recovered[('FIG_UNSOURCED|%s|%s' % (f['group'], A.estate_of_record(f['record'])), stream)] += 1
+    for r in rows:
+        done = {s: n for (k, s), n in recovered.items() if k == r['gap_key'] and s in applied}
+        if not done:
+            continue
+        n = sum(done.values())
+        after = r['affected_count'] - n
+        r['resolution'] = {'status': 'RESOLVED' if after == 0 else 'PARTIALLY_RESOLVED',
+                           'affected_before': r['affected_count'], 'affected_after': after, 'recovered': n,
+                           'by': [{'phase': s, 'commit': applied[s]['commit'], 'method': applied[s]['method'], 'items': k}
+                                  for s, k in sorted(done.items())]}
+
+
 def build():
     rows = figure_rows() + corpus_rows() + ocr_rows() + source_rows() + identity_rows() + evidence_rows() + historical_rows() + other_rows()
+    resolve(rows)
     seen = collections.Counter(r['gap_id'] for r in rows)
     assert max(seen.values()) == 1, [k for k, n in seen.items() if n > 1][:3]
     rows.sort(key=rank_key)
@@ -854,6 +881,24 @@ def report(rows):
     }
     for k, rs in sorted(dfam.items()):
         w('| %s | %d | %s | %s |' % (k, len(rs), _fmt(sum(r['affected_count'] for r in rs)), why[k]))
+    res = [r for r in rows if r.get('resolution')]
+    if res:
+        w('\n## Resolved since M3.1\n')
+        w('Gaps a recovery stream reduced. Each keeps its id, tier and original count; the resolution '
+          'records what changed and by which commit (`data/audit/m32-resolutions.json`).\n')
+        st = collections.Counter(r['resolution']['status'] for r in res)
+        by = collections.defaultdict(lambda: [0, 0])
+        for r in res:
+            for b in r['resolution']['by']:
+                by[(b['phase'], b['commit'], b['method'])][0] += 1
+                by[(b['phase'], b['commit'], b['method'])][1] += b['items']
+        w('| Phase | Commit | Method | Gaps | Items recovered |')
+        w('|---|---|---|---:|---:|')
+        for (ph, cm, me), (gaps_n, items_n) in sorted(by.items()):
+            w('| %s | `%s` | %s | %d | %s |' % (ph, cm, me, gaps_n, _fmt(items_n)))
+        w('\n%d gaps resolved outright, %d partly; %s of their %s affected items recovered, %s remain.\n' % (
+            st['RESOLVED'], st['PARTIALLY_RESOLVED'], _fmt(sum(r['resolution']['recovered'] for r in res)),
+            _fmt(sum(r['resolution']['affected_before'] for r in res)), _fmt(sum(r['resolution']['affected_after'] for r in res))))
     w('\n## Method and limits\n')
     w('- **State.** MISSING: the information is not held. UNMAPPED: it is held and not connected. CONFLICTING: held '
       'statements disagree. UNRESOLVED: evidence exists and does not settle it. Every row has exactly one primary '

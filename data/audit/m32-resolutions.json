@@ -1,0 +1,4 @@
+{
+ "_": "M3.2: the commit that applied each recovery stream. tools/build-data-gap-register.py records it on the gaps the stream resolved; the register keeps every gap, with its original id and counts.",
+ "M3.2A": {"commit": "ba5aaa4", "method": "PROVENANCE_REPAIR", "what": "figures gain their own held sheet as source (APPLY_PROVENANCE rows of data/audit/m32-recovery-candidates.jsonl)"}
+}

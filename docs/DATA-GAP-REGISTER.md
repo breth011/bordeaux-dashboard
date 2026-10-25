@@ -234,6 +234,17 @@ Not worth resolving yet, unavailable, or not a gap at all.
 | WINES_WITHOUT_ESTATE | 1 | 0 | checked and clean: every model wine has an estate |
 | WRONG_VINTAGE_REFUSED | 1 | 1,321 | the guard kept these sheets off the wrong vintage; no wrong-vintage attachment exists |
 
+## Resolved since M3.1
+
+Gaps a recovery stream reduced. Each keeps its id, tier and original count; the resolution records what changed and by which commit (`data/audit/m32-resolutions.json`).
+
+| Phase | Commit | Method | Gaps | Items recovered |
+|---|---|---|---:|---:|
+| M3.2A | `ba5aaa4` | PROVENANCE_REPAIR | 58 | 716 |
+
+22 gaps resolved outright, 36 partly; 716 of their 1,198 affected items recovered, 482 remain.
+
+
 ## Method and limits
 
 - **State.** MISSING: the information is not held. UNMAPPED: it is held and not connected. CONFLICTING: held statements disagree. UNRESOLVED: evidence exists and does not settle it. Every row has exactly one primary category and one state.

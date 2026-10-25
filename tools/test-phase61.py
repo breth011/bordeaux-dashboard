@@ -269,7 +269,9 @@ def existing_generated_files_and_protected_data_unchanged():
     b = json.load(open(L.MODEL + 'baseline.json', encoding='utf-8'))['groups']
     for g in ('canonical', 'evidence', 'discovery', 'scope', 'phase_records'):
         assert L.group_hashes(g)['digest'] == b[g]['digest'], g
-    assert not git('diff', '--stat', '8b13cb0', '--', 'data/model').strip(), 'the model changed'
+    # Historical M2 adds document dates to three model files, additions only; nothing else changes.
+    import historical_m2_scope
+    historical_m2_scope.model_changes_are_m2_only('8b13cb0')
 
 
 def main():

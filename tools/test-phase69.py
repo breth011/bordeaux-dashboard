@@ -366,7 +366,9 @@ def generated_change_is_exactly_the_sheet_years_and_the_three_counts():
 
 @check
 def model_and_protected_data_unchanged():
-    assert not git('diff', '--stat', BEFORE, '--', 'data/model').strip(), 'the model changed'
+    # Historical M2 adds document dates to three model files, additions only; nothing else changes.
+    import historical_m2_scope
+    historical_m2_scope.model_changes_are_m2_only(BEFORE)
     assert not git('diff', '--stat', BEFORE, '--', ':(glob)data/*.js', 'data/sources.json', 'data/evidence',
                    'data/discovery').strip()
     b = json.load(open(L.MODEL + 'baseline.json', encoding='utf-8'))['groups']

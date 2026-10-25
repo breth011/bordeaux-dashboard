@@ -654,7 +654,9 @@ def no_essential_provenance_in_a_title_only():
 
 @check
 def model_and_protected_data_unchanged():
-    assert not git('diff', '--stat', BEFORE, '--', 'data/model').strip(), 'the model changed'
+    # Historical M2 adds document dates to three model files, additions only; nothing else changes.
+    import historical_m2_scope
+    historical_m2_scope.model_changes_are_m2_only(BEFORE)
     assert not git('diff', '--stat', BEFORE, '--', 'docs/PHASE-6.4-PROVENANCE-EVIDENCE-AUDIT.md').strip()
     assert not git('diff', '--stat', BEFORE, '--', ':(glob)data/*.js', 'data/sources.json', 'data/evidence',
                    'data/discovery').strip()

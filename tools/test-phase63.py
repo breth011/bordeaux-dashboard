@@ -273,7 +273,9 @@ def search_lookups_and_values_unchanged_against_phase62():
 @check
 def model_and_protected_data_unchanged():
     git = lambda *a: subprocess.check_output(['git'] + list(a), cwd=L.ROOT).decode()
-    assert not git('diff', '--stat', BEFORE, '--', 'data/model').strip(), 'the model changed'
+    # Historical M2 adds document dates to three model files, additions only; nothing else changes.
+    import historical_m2_scope
+    historical_m2_scope.model_changes_are_m2_only(BEFORE)
     changed = [f for f in git('diff', '--name-only', BEFORE, '--', 'data/app').split()
                if not f.endswith(('second-status.js', 'source-facts.js',      # Phase 6.3, 6.5
                                   'wine-established.js'))]                    # Phase 6.7

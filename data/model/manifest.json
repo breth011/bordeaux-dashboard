@@ -20,13 +20,13 @@
   },
   "cross/provenance.jsonl": {
    "entity": "Provenance",
-   "rows": 25895,
-   "sha256": "8740803c5c25372cd0d70b7bdabe0aa6cdd0617d229be585db95974060382e9b"
+   "rows": 25974,
+   "sha256": "62d84523880f9b50c0ef31e0eebf38e5ba18574879c622e5e0e570597cbcc4e1"
   },
   "document/artifact-dates.jsonl": {
    "entity": "ArtifactDate",
-   "rows": 0,
-   "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+   "rows": 79,
+   "sha256": "a78896373869f3a635e86d4c52cb1d86a7f4597c7cd705d72ef6d64801c8cd8d"
   },
   "document/artifact-relations.jsonl": {
    "entity": "ArtifactRelation",
@@ -334,6 +334,19 @@
     "v5": 40772,
     "with artifact": 81544,
     "with wine": 74804
+   },
+   "document dates (historical M2 audit)": {
+    "ACCEPTED_DOCUMENT_DATE": 79,
+    "AMBIGUOUS": 11,
+    "NO_DOCUMENT_DATE": 1,
+    "NO_TEXT_HELD": 5851,
+    "REJECTED_ELSEWHERE_ON_PAGE": 32,
+    "REJECTED_EXTERNAL_REFERENCE": 56,
+    "REJECTED_FILENAME_ONLY": 10014,
+    "REJECTED_METADATA_ONLY": 5177,
+    "REJECTED_RETRIEVAL_DATE": 6462,
+    "REJECTED_URL_ONLY": 6509,
+    "REJECTED_VINTAGE_ONLY": 2875
    }
   },
   "M7": {

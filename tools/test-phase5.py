@@ -196,7 +196,9 @@ def normalized_model_byte_identical():
     import hashlib
     for rel, info in man['files'].items():
         assert hashlib.sha256(open(L.MODEL + rel, 'rb').read()).hexdigest() == info['sha256'], rel
-    assert not git('diff', '--stat', START, '--', 'data/model').strip(), 'data/model changed since Phase 4'
+    # Historical M2 adds document dates to three model files, additions only; nothing else changes.
+    import historical_m2_scope
+    historical_m2_scope.model_changes_are_m2_only(START)
 
 
 @check

@@ -6,8 +6,9 @@
     python tools/migrate.py --revert M5    drop what M5 and later stages added
 
 Additive: no stage reads or writes anything outside data/model/ except to
-read the legacy files, the evidence store and the discovery data, which are
-never written (tools/phase4-baseline.py --check). Each stage is a function
+read the legacy files, the evidence store, the discovery data and the
+document-date audit (data/history/document-dates.jsonl), which are never
+written (tools/phase4-baseline.py --check). Each stage is a function
 over one in-memory model; the runner validates every row against the
 Phase 3.4 contract (tools/model_schema.py), refuses dangling references,
 and writes each table sorted by its key. Reverting a stage is rebuilding up

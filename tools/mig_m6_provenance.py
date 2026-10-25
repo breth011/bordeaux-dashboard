@@ -27,6 +27,10 @@ the record's (I13):
   field-src names the field, not one artifact LEGACY_AMBIGUOUS_SOURCE
   only the record has a src                   LEGACY_RECORD_SOURCE
   neither                                     LEGACY_UNSOURCED
+
+Document dates (historical M2): the accepted rows of the committed audit
+data/history/document-dates.jsonl (tools/extract-document-dates.py) become
+ArtifactDate STATED_IN_TEXT rows; see docs/PHASE-M2-DOCUMENT-DATES.md.
 """
 import collections
 import glob
@@ -226,9 +230,38 @@ def documentation(m):
            code_state={'documentation': {k: d[k] for k in ('note', 'roles', 'how')}})
 
 
+DOCUMENT_DATES = 'data/history/document-dates.jsonl'
+DOCUMENT_DATES_ACTOR = 'tools/extract-document-dates.py'
+
+
+def document_dates(m):
+    """Historical model M2: a document's own date, where its text states it.
+
+    Only the audit's ACCEPTED_DOCUMENT_DATE rows enter the model, each as one
+    ArtifactDate STATED_IN_TEXT on the calendar axis, its basis a DOCUMENT
+    provenance quoting the words that date it and naming where they stand.
+    Every other category stays in the audit: no date is taken from a file
+    name, an address, a vintage, metadata or a retrieval."""
+    n = collections.Counter()
+    for r in L.jsonl_lines(L.ROOT + DOCUMENT_DATES):
+        n[r['category']] += 1
+        if r['category'] != 'ACCEPTED_DOCUMENT_DATE':
+            continue
+        pid = m.prov('DOCUMENT', DOCUMENT_DATES_ACTOR, artifact=r['artifact'], quote=r['quote'],
+                     code_state={'extractor': r['extractor'], 'label': r['label'], 'locus': r['locus'],
+                                 'text': r['text']})
+        m.add('document/artifact-dates.jsonl', {
+            'id': S.hid('ArtifactDate', r['artifact'], 'STATED_IN_TEXT', r['value']),
+            'artifact': r['artifact'], 'kind': 'STATED_IN_TEXT',
+            'value': S.bound('EXACT', r['value'], 'CALENDAR', r['precision'], pid),
+            'provenance': pid})
+    m.stat('M6', 'document dates (historical M2 audit)', dict(sorted(n.items())))
+
+
 def run(m):
     documentation(m)
     sources(m)
     attributions(m)
     evidence_links(m)
     prepare_value_prov(m)
+    document_dates(m)

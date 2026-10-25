@@ -266,7 +266,9 @@ def c20_every_legacy_row_valid_with_historical_fields_absent():
         errs = S.check_row(entity, row)
         if errs:
             bad.append((rel, row.get('id'), errs[:1]))
-    assert n == 333022 and not bad, (n, bad[:3])
+    # 333022 rows at M1; M2 adds one ArtifactDate and one DOCUMENT provenance per accepted date
+    m2 = 2 * len(L.read_table('document/artifact-dates.jsonl'))
+    assert n == 333022 + m2 and not bad, (n, m2, bad[:3])
 
 
 @check
@@ -275,7 +277,8 @@ def nothing_populated():
     found = [(rel, row.get('id')) for rel, _, row in all_rows() if fields & set(row)]
     assert not found, found[:3]
     assert not L.read_table('identity/transitions.jsonl'), 'an identity transition was written'
-    assert not L.read_table('document/artifact-dates.jsonl'), 'a document date was written'
+    # M2 writes document dates (STATED_IN_TEXT only); M1 itself wrote none, and nothing else dates a document
+    assert all(r['kind'] == 'STATED_IN_TEXT' for r in L.read_table('document/artifact-dates.jsonl')), 'a document date not from M2'
     assert not [n for n in L.read_table('identity/names.jsonl') if n['kind'] != 'CURRENT'], 'a former name'
 
 
@@ -296,7 +299,9 @@ def the_extension_makes_no_current_fact_historical():
 
 @check
 def model_generated_data_and_protected_groups_unchanged():
-    assert not git('diff', '--stat', BEFORE, '--', 'data/model', 'data/app').strip(), 'model or generated data changed'
+    assert not git('diff', '--stat', BEFORE, '--', 'data/app').strip(), 'generated data changed'
+    import historical_m2_scope                    # M2's document dates: three files, additions only
+    historical_m2_scope.model_changes_are_m2_only(BEFORE)
     b0 = json.load(open(L.MODEL + 'baseline.json', encoding='utf-8'))['groups']
     for g in b0:
         assert L.group_hashes(g)['digest'] == b0[g]['digest'], g

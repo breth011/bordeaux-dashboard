@@ -56,3 +56,17 @@ measurement is the reference.
   document (about 105 s), which adds about 85 s to the full run. A narrower check, rerunning only
   the accepted, ambiguous and rejected-reference rows, would keep most of the proof at a fraction
   of the time.
+
+## Browser checks that flake under parallel load
+
+*Recorded 2026-10-25.*
+
+Two headless-Chrome checks have each failed once under the two-worker full run and passed when
+rerun, alone and in later full runs, with no change to the app:
+
+- `test-phase65.py` (historical M1): a touch-target timing check.
+- `test-phase61.py` `values_search_and_lookups_unchanged` (after M3.1): an uncaught exception in
+  `chateauById` on the page, read before the page's data had loaded.
+
+Both read the page before it is ready when the machine is loaded. The fix is a condition wait
+for the data (as Phase 6.6C did for the touch check), not a longer sleep.

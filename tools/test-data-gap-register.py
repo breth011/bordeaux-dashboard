@@ -23,6 +23,7 @@ import data_gap_analysis as A  # noqa: E402
 import migration_lib as L  # noqa: E402
 
 BEFORE = 'f911873'               # M3: the state before M3.1
+M31 = '6880c16'                  # the M3.1 commit
 REGISTER = L.ROOT + 'data/audit/data-gap-register.jsonl'
 CHECKS = []
 
@@ -235,11 +236,11 @@ def t16_no_model_evidence_canonical_or_app_mutation():
     b0 = json.load(open(L.MODEL + 'baseline.json', encoding='utf-8'))['groups']
     for g in b0:
         assert L.group_hashes(g)['digest'] == b0[g]['digest'], g
-    changed = sorted(set(git('diff', '--name-only', BEFORE).split()) |
-                     {l[3:] for l in git('status', '--porcelain').splitlines() if l.startswith('??')})
+    # the M3.1 commit itself touched only M3.1's files (later commits are their own phases)
+    changed = set(git('show', '--name-only', '--format=', M31).split())
     allowed = {'data/audit/data-gap-register.jsonl', 'docs/DATA-GAP-REGISTER.md', 'tools/build-data-gap-register.py',
                'tools/data_gap_analysis.py', 'tools/test-data-gap-register.py', '.gitattributes'}
-    assert set(changed) <= allowed, sorted(set(changed) - allowed)
+    assert changed == allowed, sorted(changed ^ allowed)
 
 
 # -- found in the audit ----------------------------------------------------------------------------

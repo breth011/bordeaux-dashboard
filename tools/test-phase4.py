@@ -244,6 +244,7 @@ def model_rebuilds_byte_for_byte_deterministic():
     assert not diff, diff[:5]
     on_disk = {rel for rel in list(S.LAYOUT) + ['manifest.json'] if os.path.exists(L.MODEL + rel)}
     assert on_disk == set(built), sorted(on_disk ^ set(built))
+    _scratch['M7'] = None                 # compared; only the M6 snapshot is needed later (t31)
 
 
 _scratch = {}
@@ -253,8 +254,27 @@ def scratch():
     """One from-scratch build, rendered at M6 and at M7 (Phase 5 C2): it serves the
     determinism check and the rollback check, which used to build separately."""
     if not _scratch:
-        import migrate
-        _scratch.update(migrate.snapshots(('M6', 'M7')))
+        # Built in a child process: in this one the build's memory stayed with
+        # the test for the rest of its run and doubled its peak (2.5 GB).
+        import shutil
+        import subprocess
+        import tempfile
+        tmp = tempfile.mkdtemp(prefix='bdx-scratch-')
+        try:
+            code = ('import os, sys; sys.path.insert(0, %r); import migrate\n'
+                    'for st, files in migrate.snapshots(("M6", "M7")).items():\n'
+                    '    for rel, b in files.items():\n'
+                    '        p = os.path.join(%r, st, rel); os.makedirs(os.path.dirname(p), exist_ok=True)\n'
+                    '        open(p, "wb").write(b)\n') % (L.ROOT + 'tools', tmp)
+            r = subprocess.run([sys.executable, '-c', code], cwd=L.ROOT, capture_output=True)
+            assert r.returncode == 0, r.stderr.decode()[-600:]
+            for st in ('M6', 'M7'):
+                d = os.path.join(tmp, st)
+                _scratch[st] = {os.path.relpath(os.path.join(dp, f), d).replace(os.sep, '/'):
+                                open(os.path.join(dp, f), 'rb').read()
+                                for dp, _, fn in os.walk(d) for f in fn}
+        finally:
+            shutil.rmtree(tmp, ignore_errors=True)
     return _scratch
 
 
@@ -291,6 +311,10 @@ def m2_every_canonical_estate_resolves_to_exactly_one_estate():
 def m2_every_legacy_estate_id_resolved_or_classified_unresolved():
     import mig_m2_identity as M2
     used = set(M2.legacy_estate_uses())
+    # The migration's parse-once evidence cache is not needed by any later check;
+    # held for the rest of the run it adds to the rebuild children's memory.
+    for k in [k for k in L._cache if k.startswith('evidence:')]:
+        del L._cache[k]
     im = {r['legacy_key']: r for r in T('identity/identity-map.jsonl') if r['namespace'] == 'estate'}
     missing = used - set(im)
     assert not missing, sorted(missing)[:5]

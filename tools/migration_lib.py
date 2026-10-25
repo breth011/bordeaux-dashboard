@@ -111,13 +111,24 @@ def sources_rows():
     return _cache['sources']
 
 
+EVIDENCE_FIELDS = ('artifact', 'ctx', 'read', 'v', 'code', 'manifest_sha1')
+
+
 def evidence(name):
     """One file of data/evidence/ (e.g. 'decisions-v5.jsonl'), parsed once per
     process (Phase 5 C1: the migration used to parse the store about four
-    times per run). Read-only: callers must not mutate the rows."""
+    times per run), keeping only the fields the migration reads: whole rows
+    held for a run raised a build's peak memory from 424 MB to 1 GB.
+    Read-only: callers must not mutate the rows."""
     key = 'evidence:' + name
     if key not in _cache:
-        _cache[key] = jsonl_lines(ROOT + 'data/evidence/' + name)
+        rows = []
+        with open(ROOT + 'data/evidence/' + name, encoding='utf-8') as f:
+            for x in f:
+                if x.strip():
+                    d = json.loads(x)
+                    rows.append({k: d[k] for k in EVIDENCE_FIELDS if k in d})
+        _cache[key] = rows
     return _cache[key]
 
 

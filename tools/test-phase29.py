@@ -267,6 +267,10 @@ out = subprocess.check_output(
     stderr=subprocess.DEVNULL).decode().strip()
 says('canonical files and every committed evidence file match HEAD',
      out == '', 'clean' if not out else out.replace('\n', ' ')[:30])
+# The copy of the old reader was needed until the last inspect.getsource above.
+import shutil
+shutil.rmtree(tmp, ignore_errors=True)
+
 print('\n%d check(s), %s'
       % (checks, 'all pass' if not fails
          else '%d FAILED: %s' % (len(fails), '; '.join(fails[:4]))))

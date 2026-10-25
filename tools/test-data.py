@@ -260,6 +260,13 @@ for f in sorted(glob.glob(ROOT + 'data/*.js')):
 import shutil
 import subprocess
 node = shutil.which('node')
+if not node:
+    # Node installed by WinGet is not on PATH. The project's tools look there too
+    # (tools/migration_lib.py node()); without this the parse below was skipped
+    # wherever Node was installed that way, and the suite still said "all pass".
+    found = glob.glob(os.path.expandvars(
+        r'%LOCALAPPDATA%\Microsoft\WinGet\Packages\OpenJS.NodeJS*\node-*\node.exe'))
+    node = found[0] if found else None
 if node:
     unparsed = []
     for f in sorted(glob.glob(ROOT + 'data/*.js')

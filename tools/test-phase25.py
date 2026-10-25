@@ -304,7 +304,15 @@ try:
     finally:
         ST.DIR, ST.INDEX = real_dir, real_index
 finally:
-    shutil.rmtree(tmp, ignore_errors=True)
+    # git writes its objects read-only; on Windows rmtree cannot delete those, and
+    # ignore_errors alone left every run's .git behind.
+    def _writable(func, path, _exc):
+        os.chmod(path, 0o700)
+        func(path)
+    try:
+        shutil.rmtree(tmp, onerror=_writable)
+    except OSError:
+        pass
 
 # ================================================ the real evidence
 print()

@@ -107,9 +107,14 @@ def source_facts_are_the_models():
 
 @check
 def other_generated_files_byte_identical_and_deterministic():
-    changed = git('diff', '--name-only', BEFORE, '--', 'data/app').split()
-    assert not changed, 'an existing generated file changed: %s' % changed
-    assert git('ls-files', 'data/app/source-facts.js').strip() or os.path.exists(L.ROOT + 'data/app/source-facts.js')
+    # Against BEFORE, the only difference in data/app may be this phase's own file, added.
+    # (Uncommitted, the new file is untracked and git diff does not list it; committed, it is
+    # listed as added. Either way no existing generated file may change.)
+    changed = git('diff', '--name-status', BEFORE, '--', 'data/app').splitlines()
+    assert [l for l in changed if l.split()[-1] != 'data/app/source-facts.js'] == [], \
+        'an existing generated file changed: %s' % changed
+    assert all(l.split()[0] == 'A' for l in changed), changed
+    assert os.path.exists(L.ROOT + 'data/app/source-facts.js')
     bad = tool('build-app-data.py')
     a, b = bad.render(), bad.render()
     assert a == b, 'generation is not deterministic'

@@ -57,3 +57,61 @@ page's data files.
 
 Each implemented candidate would be measured again with `tools/benchmark-phase5.py --only <family>`
 against the M0 records.
+
+## 4. Implemented: C1, C2, C3 (chosen 2026-10-25)
+
+You chose C1, C2 and C3; C4–C9 were not implemented. Each was measured again with
+`tools/benchmark-phase5.py`. The new runs are appended to `data/performance/benchmarks.jsonl`, and each
+carries its own commit.
+
+| Measure | M0 (`b1ce39b`) | After (`c780bbb`) | Change |
+|---|---:|---:|---:|
+| Model rebuild, from scratch | 13.95 s | **10.08 s** | −28 % |
+| Rebuild peak memory | 424 MB | 646 MB | +52 % |
+| Full suite (21 suites, 641 checks), cold / warm | 215.2 / 211.1 s | **176.9 / 175.6 s** | −18 % |
+| test-phase4 alone | 83.7 s | 50.9 s | −39 % |
+| Full suite peak memory | 1,184 MB | 1,463 MB | +24 % |
+| Raw store, physical (a linked file counted once) | 21.55 GB | **16.30 GB** | −5.25 GB |
+| Free disk | 13.8 GB | 18.8 GB | +5.0 GB |
+| Model output | — | byte-identical | unchanged |
+
+**C1, parse the evidence once** (`d6156e4`, memory fix `1bfbe7f`).
+
+- `migration_lib.evidence()` parses each evidence file once per process.
+- It keeps only the fields the migration reads (artifact, ctx, read, v, code, manifest_sha1).
+- Stage M4 went from 1.68 s to 0.08 s, and M6 from 1.68 s to 0.66 s.
+- The first version kept whole rows and raised a build's peak to 999 MB. Keeping the fields alone
+  brought it to 646 MB.
+- That is the trade: 3.9 s per build for about 220 MB more peak memory.
+
+**C2, share the builds in test-phase4** (`f016f36`, memory fix `1bfbe7f`).
+
+- One from-scratch build, rendered at M6 and at M7 (`migrate.snapshots`), serves both the
+  determinism check and the rollback check. Before, they ran five full builds between them.
+- Every property is still asserted:
+  - the scratch build at M7 equals `data/model/`;
+  - a registry rebuild to M6 (the rollback's revert) equals the scratch build at M6;
+  - reverting to M1 leaves only the manifest;
+  - no protected group changes.
+- A probe that altered one byte of a copy of the model was caught.
+- Building in the test's own process doubled its peak (2.5 GB), so the build runs in a child, and the
+  evidence cache is dropped after use.
+
+**C3, hard links in the raw store** (`c780bbb`).
+
+- `tools/link-duplicates.py` hashed 5,620 candidate files itself and linked 5,379 paths in 4,639
+  groups. They are legacy files at several paths, and legacy files whose bytes are also a raw
+  discovery blob.
+- Every linked path was re-hashed against its pre-link hash: none differs.
+- Each change is recorded in the local journal `sources/.link-journal.jsonl`;
+  `python tools/link-duplicates.py --revert` gives each path its own copy again.
+- The five write sites in `add-sheet.py`, `harvest.py` and `crawl-pages.py` used to write into
+  existing files. They now remove the file first, so a write can never change a linked twin.
+- A linked path now carries its keeper's timestamps.
+- Found on the way, and pre-existing: two linked paths hold bytes that match no manifest version.
+  - Domaine de Chevalier 2020 rouge equals what the reader hashed in v4/v5.
+  - Virginie de Valandraud was never read.
+
+**Unchanged:** canonical data, evidence, discovery data, scope, the Phase 3.4 contract, the proposal
+records, the normalized model and the application (`test-phase5`, 18 checks). The startup, search and
+lookup figures stand as in M0, because the application did not change.

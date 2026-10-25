@@ -1,0 +1,58 @@
+{
+  "meta": {
+    "title": "Historical model M1: contract extension",
+    "status": "IN FORCE from M1. tools/model_schema.py merges this into docs/phase34-model.json when it loads the contract.",
+    "base_contract": "docs/phase34-model.json (Phase 3.4, unchanged and protected)",
+    "proposal": "docs/schema/historical-m1-proposal.json (M0, c0a4b4b)",
+    "document": "docs/PHASE-M1-HISTORICAL-STRUCTURAL-EXTENSION.md",
+    "not_included": "the evaluator's EvaluationStatus and Holds (M0 section 6): M1 implements no evaluator, so they are not part of the contract yet"
+  },
+  "enums_added": {
+    "StatementMode": {
+      "values": ["EXPLICIT", "IMPLIED"],
+      "note": "EXPLICIT: the source states the temporal fact in words. IMPLIED: it follows only from the document's framing (its date, a sheet's vintage, a title year)."
+    },
+    "CandidateDisposition": {
+      "values": ["SELECTED", "CONSISTENT", "CONTRADICTS", "REJECTED", "NOT_ASSESSED"],
+      "note": "A property of a candidate within one Reconciliation, not of the Observation."
+    }
+  },
+  "enum_values_added": {
+    "TransitionKind": {
+      "add": ["RELATED_UNSPECIFIED"],
+      "note": "Provisional name (decision O3; the brief's RELATED_NOT_ESTABLISHED names the same meaning). Related, the relationship not established; always certainty UNRESOLVED."
+    }
+  },
+  "value_types_added": {
+    "TimeWindow": {
+      "fields": {"earliest": "TemporalBound", "latest": "TemporalBound"},
+      "rules": [
+        "both bounds are present; each follows the TemporalBound rules",
+        "OPEN and NOT_APPLICABLE are not allowed in a window",
+        "dated bounds share one axis",
+        "earliest is not after latest where both are dated",
+        "a point event is earliest == latest"
+      ],
+      "meaning": "when a source claims, or the model concludes, an event happened; never the document's publication, retrieval or reconciliation date"
+    }
+  },
+  "entity_fields_added": {
+    "Observation": {
+      "claimed_validity": {"type": "Validity", "required": false},
+      "claimed_window": {"type": "TimeWindow", "required": false},
+      "statement_mode": {"type": "enum:StatementMode", "required": false}
+    },
+    "IdentityTransition": {
+      "occurred": {"type": "TimeWindow", "required": false}
+    },
+    "Reconciliation": {
+      "dispositions": {"type": "Dispositions", "required": false}
+    }
+  },
+  "entity_fields_changed": {
+    "IdentityTransition.at": {"required": false, "was": true,
+      "note": "a transition has exactly one of at and occurred"}
+  },
+  "historical_reconciliation_fields": ["valid_from", "valid_to", "exists", "kind", "occurred"],
+  "historical_reconciliation_rules_allowed_before_D5": ["ONLY_CANDIDATE", "UNANIMOUS", "MANUAL_DECISION"]
+}

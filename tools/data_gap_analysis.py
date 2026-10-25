@@ -116,6 +116,11 @@ def figures():
             if s not in linked or s not in rec_of:
                 continue
             p = pv[c['provenance']]
+            recovered = None
+            if p['kind'] == 'DOCUMENT' and str((p.get('code_state') or {}).get('stream', '')).startswith('M3.2'):
+                # recovered by M3.2: measured as it stood before (M3.1 stays reproducible), flagged
+                recovered = {'stream': p['code_state']['stream'], 'provenance': p['id']}
+                p = pv[p['derived_from'][0]]
             if p['kind'] == 'LEGACY_FIELD_SOURCE':
                 state = 'LINKED' if urls[p.get('artifact')] else 'FILE_ONLY'
             elif p['kind'] == 'LEGACY_AMBIGUOUS_SOURCE':
@@ -123,7 +128,7 @@ def figures():
             else:
                 state = 'NONE'
             out.append({'subject': s, 'record': rec_of[s], 'file': file_of[s], 'field': c['field'],
-                        'value': c['value'], 'state': state, 'provenance': p})
+                        'value': c['value'], 'state': state, 'provenance': p, 'recovered': recovered})
         return sorted(out, key=lambda f: (f['record'], f['field'], f['subject']))
     return cached('figures', build)
 

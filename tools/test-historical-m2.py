@@ -230,14 +230,17 @@ def the_audit_is_reproducible():
 @check
 def the_model_changed_only_by_m2_additions():
     changed = H.model_changes_are_m2_only(BEFORE)
-    assert sorted(changed) == sorted(H.M2_FILES), changed
+    # every M2 file changed; M3.2's named provenance-only changes may be there too
+    assert set(H.M2_FILES) <= set(changed) <= H.ALLOWED, changed
     old = [l for l in git('show', BEFORE + ':data/model/document/artifact-dates.jsonl').splitlines() if l.strip()]
     assert not old and len(model_dates()) == sum(1 for r in audit() if r['category'] == D.ACCEPTED)
 
 
 @check
 def generated_data_and_protected_groups_unchanged():
-    assert not git('diff', '--stat', BEFORE, '--', 'data/app').strip(), 'generated app data changed'
+    # M3.2: figure-sources.js by exactly the recovered figures
+    assert not H.app_files_changed_beyond_m32(git('diff', '--name-only', BEFORE, '--', 'data/app').split()), \
+        'generated app data changed'
     b0 = json.load(open(L.MODEL + 'baseline.json', encoding='utf-8'))['groups']
     for g in b0:
         assert L.group_hashes(g)['digest'] == b0[g]['digest'], g

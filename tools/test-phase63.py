@@ -250,6 +250,9 @@ def search_lookups_and_values_unchanged_against_phase62():
     r = ar.compare(ref, ar.capture())
     assert not r['unexplained'], r['unexplained'][:5]
     assert set(r['summary']) <= {'IDENTICAL', 'EXPECTED: SECOND-WINE STATUS PRESENTATION',
+                                 # M3.2: figures gain their recovered own sheets (checked by test-m32)
+                                 'EXPECTED: CHANGED FIGURE PROVENANCE: RECOVERED OWN SHEETS (M3.2)',
+                                 'EXPECTED: PROVENANCE AND ESTABLISHED WINE FACTS AND VINTAGE LIST HEADING PRESENTATION',
                                  'EXPECTED: ADDED SECOND-WINE STATUS (Phase 6.3)',
                                  # Phase 6.5, named: its source facts and provenance wording
                                  'EXPECTED: ADDED SOURCE FACTS (Phase 6.5)',
@@ -279,7 +282,8 @@ def model_and_protected_data_unchanged():
     changed = [f for f in git('diff', '--name-only', BEFORE, '--', 'data/app').split()
                if not f.endswith(('second-status.js', 'source-facts.js',      # Phase 6.3, 6.5
                                   'wine-established.js'))]                    # Phase 6.7
-    assert not changed, changed
+    # M3.2: figure-sources.js may differ by exactly the recovered figures, nothing else
+    assert not historical_m2_scope.app_files_changed_beyond_m32(changed), changed
     b = json.load(open(L.MODEL + 'baseline.json', encoding='utf-8'))['groups']
     for g in ('canonical', 'evidence', 'discovery', 'scope', 'phase_records'):
         assert L.group_hashes(g)['digest'] == b[g]['digest'], g

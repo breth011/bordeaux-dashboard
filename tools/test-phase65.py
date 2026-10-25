@@ -113,6 +113,10 @@ def other_generated_files_byte_identical_and_deterministic():
     # Either way no existing generated file may change.)
     added = ('data/app/source-facts.js', 'data/app/wine-established.js')
     changed = git('diff', '--name-status', BEFORE, '--', 'data/app').splitlines()
+    # M3.2: figure-sources.js may differ by exactly the recovered figures, nothing else
+    import historical_m2_scope
+    rest = historical_m2_scope.app_files_changed_beyond_m32([l.split()[-1] for l in changed])
+    changed = [l for l in changed if l.split()[-1] in rest]
     assert [l for l in changed if l.split()[-1] not in added] == [], \
         'an existing generated file changed: %s' % changed
     assert all(l.split()[0] == 'A' for l in changed), changed

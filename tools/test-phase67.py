@@ -391,7 +391,9 @@ def model_and_protected_data_unchanged():
     import historical_m2_scope
     historical_m2_scope.model_changes_are_m2_only(BEFORE)
     changed = git('diff', '--name-status', BEFORE, '--', 'data/app').splitlines()
-    assert all(l.split()[-1] == 'data/app/wine-established.js' for l in changed), changed
+    # M3.2: figure-sources.js may differ by exactly the recovered figures, nothing else
+    rest = historical_m2_scope.app_files_changed_beyond_m32([l.split()[-1] for l in changed])
+    assert all(f == 'data/app/wine-established.js' for f in rest), changed
     assert not git('diff', '--stat', BEFORE, '--', ':(glob)data/*.js', 'data/sources.json', 'data/evidence',
                    'data/discovery').strip()
     b = json.load(open(L.MODEL + 'baseline.json', encoding='utf-8'))['groups']

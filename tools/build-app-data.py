@@ -80,6 +80,14 @@ def figure_sources(model=None):
         elif p['kind'] == 'LEGACY_AMBIGUOUS_SOURCE':
             r = refs[(lr['origin'], lr['record_key'], lr.get('field'), lr['basename'])]
             src = {'a': lr['basename'], 'c': len(r['candidates'])}
+        elif p['kind'] == 'DOCUMENT' and str((p.get('code_state') or {}).get('stream', '')).startswith('M3.2'):
+            # M3.2: the figure's own sheet, recovered from the held document; an address only where
+            # those exact bytes have one, otherwise an on-file source
+            src = {'n': p['code_state']['basename']}
+            us = sorted(urls.get(p['artifact'], []))
+            if us:
+                own = record_url.get(ex['record'])
+                src['u'] = own if own in us else us[0]
         else:
             continue
         out.setdefault(ex['record'], {})[o['field']] = src

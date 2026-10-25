@@ -353,8 +353,12 @@ def c21_snapshots_are_not_stored():
 
 @check
 def c22_current_state_data_remains_unchanged():
-    assert not git('diff', '--stat', BEFORE, '--', 'data/model', 'data/app', 'data/evidence', 'data/history',
-                   'assets', 'index.html').strip(), 'model, app, evidence or audit data changed'
+    assert not git('diff', '--stat', BEFORE, '--', 'data/evidence', 'data/history',
+                   'assets', 'index.html').strip(), 'evidence, audit or app code changed'
+    # M3.2 (existing-data recovery) changes the model and figure-sources.js in named ways only
+    import historical_m2_scope
+    historical_m2_scope.model_changes_are_m2_only(BEFORE)
+    assert not historical_m2_scope.app_files_changed_beyond_m32(git('diff', '--name-only', BEFORE, '--', 'data/app').split())
     b0 = json.load(open(L.MODEL + 'baseline.json', encoding='utf-8'))['groups']
     for g in b0:
         assert L.group_hashes(g)['digest'] == b0[g]['digest'], g

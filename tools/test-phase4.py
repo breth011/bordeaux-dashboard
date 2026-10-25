@@ -752,9 +752,15 @@ def m7_record_source_never_promoted_badette_2020_oak():
     assert c['status'] == 'LEGACY_RECORD_SOURCE_ONLY', c['status']
     assert prov[c['provenance']]['kind'] == 'LEGACY_RECORD_SOURCE'
     assert 'artifact' not in prov[c['provenance']]
-    # and in general: an artifact on a value's provenance only through a resolved field source
+    # and in general: an artifact on a value's provenance only through a resolved field source -
+    # or, after M3.2, through the record's own sheet proven from its labelled text (status SOURCED,
+    # the record source kept as what it was derived from): evidence, never the record's assumption
+    import historical_m2_scope
     for c in cv.values():
         p = prov[c['provenance']]
+        if 'artifact' in p and historical_m2_scope.is_m32_source(p):
+            assert c['status'] == 'SOURCED' and p['quote'] and prov[p['derived_from'][0]]['kind'] == 'LEGACY_RECORD_SOURCE'
+            continue
         if 'artifact' in p:
             assert p['kind'] == 'LEGACY_FIELD_SOURCE' and c['status'] == 'LEGACY_FIELD_SOURCE'
         if p['kind'] == 'LEGACY_AMBIGUOUS_SOURCE':
@@ -990,9 +996,12 @@ def t18_observations_preserve_source_wording():
 @check
 def t20_legacy_and_unsourced_values_remain_marked():
     st = collections.Counter(c['status'] for c in T('canonical/values.jsonl'))
+    # M3.2 marks exactly its recovered figures SOURCED; no other status appears
+    import historical_m2_scope
+    m32 = len(historical_m2_scope.m32_applied())
     assert set(st) <= {'LEGACY_FIELD_SOURCE', 'LEGACY_AMBIGUOUS_SOURCE', 'LEGACY_RECORD_SOURCE_ONLY',
-                       'LEGACY_UNSOURCED'}, st
-    assert st['LEGACY_UNSOURCED'] == 171 and 'SOURCED' not in st and 'MANUAL_UNSOURCED' not in st
+                       'LEGACY_UNSOURCED'} | ({'SOURCED'} if m32 else set()), st
+    assert st['LEGACY_UNSOURCED'] == 171 and st.get('SOURCED', 0) == m32 and 'MANUAL_UNSOURCED' not in st
     assert {o['confidence'] for o in T('observation/observations.jsonl')} == {'LEGACY'}
 
 

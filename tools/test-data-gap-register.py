@@ -230,9 +230,13 @@ def t15_report_totals_match_the_register():
 
 @check
 def t16_no_model_evidence_canonical_or_app_mutation():
-    assert not git('diff', '--stat', BEFORE, '--', 'data/model', 'data/evidence', 'data/app', 'data/history',
+    assert not git('diff', '--stat', BEFORE, '--', 'data/evidence', 'data/history',
                    'data/discovery', 'data/review', 'data/scope', ':(glob)data/*.js', 'data/sources.json',
                    'data/audit/historical-m3-candidates.jsonl', 'assets', 'index.html').strip()
+    # after M3.1: M3.2 changes the model and figure-sources.js in named ways only
+    import historical_m2_scope
+    historical_m2_scope.model_changes_are_m2_only(BEFORE)
+    assert not historical_m2_scope.app_files_changed_beyond_m32(git('diff', '--name-only', BEFORE, '--', 'data/app').split())
     b0 = json.load(open(L.MODEL + 'baseline.json', encoding='utf-8'))['groups']
     for g in b0:
         assert L.group_hashes(g)['digest'] == b0[g]['digest'], g

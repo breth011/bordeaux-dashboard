@@ -337,7 +337,9 @@ def generated_change_is_exactly_the_sheet_years_and_the_three_counts():
     for f, data in a.items():
         assert open(L.ROOT + 'data/app/' + f, 'rb').read() == data, f
     changed = git('diff', '--name-only', BEFORE, '--', 'data/app').split()
-    assert changed == ['data/app/wine-established.js'], changed
+    # M3.2: figure-sources.js may differ by exactly the recovered figures, nothing else
+    import historical_m2_scope
+    assert historical_m2_scope.app_files_changed_beyond_m32(changed) == ['data/app/wine-established.js'], changed
     old, new = established(git('show', BEFORE + ':data/app/wine-established.js')), established()
     assert set(old) == set(new)
     counts_changed = []

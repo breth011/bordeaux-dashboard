@@ -52,7 +52,10 @@ ADDED_GLOBALS = {'BDX_FIGURE_SRC': 'FIGURE PROVENANCE (Phase 6.1)',
 # Globals a later phase changed on purpose. Phase 6.9: wine-established.js gained each
 # wine's sheet years and counts the sheets that name their document with no figure taken
 # (tools/test-phase69.py holds the change to exactly that).
-CHANGED_GLOBALS = {'BDX_WINE_ESTABLISHED': 'WINE ESTABLISHED FACTS: SHEET YEARS (Phase 6.9)'}
+CHANGED_GLOBALS = {'BDX_WINE_ESTABLISHED': 'WINE ESTABLISHED FACTS: SHEET YEARS (Phase 6.9)',
+                   # M3.2: figures gain their own held sheet as source; exactly which, checked by
+                   # historical_m2_scope.figure_sources_change_is_m32_only and tools/test-m32.py
+                   'BDX_FIGURE_SRC': 'FIGURE PROVENANCE: RECOVERED OWN SHEETS (M3.2)'}
 QUERIES = [q for _, q in B.SEARCH] + ['margaux', 'saint-emilion', 'blanc', 'second', 'echo']
 ESTATES = ['lafite', 'margaux', 'haut-brion', 'yquem', 'lynch-bages', 'saint-pierre', 'caillou',
            'smith-haut-lafitte', 'stem-chateau-badette', 'bourgeois-chateau-beaumont',

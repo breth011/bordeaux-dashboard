@@ -34,6 +34,7 @@ ArtifactDate STATED_IN_TEXT rows; see docs/PHASE-M2-DOCUMENT-DATES.md.
 """
 import collections
 import glob
+import os
 from urllib.parse import urlparse
 
 import migration_lib as L
@@ -210,12 +211,39 @@ def value_prov(m, origin_src, key, field, record_file, record):
         return m.prov('LEGACY_AMBIGUOUS_SOURCE', 'data/' + origin_src,
                       legacy_reference=lref), 'LEGACY_AMBIGUOUS_SOURCE'
     if record.get('src'):
-        return m.prov('LEGACY_RECORD_SOURCE', 'data/' + record_file, quote=record['src'],
-                      code_state={'record': key}), 'LEGACY_RECORD_SOURCE_ONLY'
+        rec_prov = m.prov('LEGACY_RECORD_SOURCE', 'data/' + record_file, quote=record['src'],
+                          code_state={'record': key})
+        rc = m.recovered.get(('data/' + record_file, key, field))
+        if rc:
+            # M3.2: the record's own held sheet states this figure, labelled; the figure gains that
+            # sheet as its own source. The value is unchanged; the record-level provenance stays,
+            # named as what this one was derived from.
+            return m.prov('DOCUMENT', RECOVERY_ACTOR, artifact=rc['source']['artifact'],
+                          quote=rc['evidence']['quote'], derived_from=[rec_prov],
+                          code_state={'stream': 'M3.2' + rc['stream'], 'candidate': rc['id'],
+                                      'locus': rc['evidence']['locus'], 'record': key, 'field': field,
+                                      'basename': rc['source']['filename']}), 'SOURCED'
+        return rec_prov, 'LEGACY_RECORD_SOURCE_ONLY'
     return m.prov('LEGACY_UNSOURCED', 'data/' + record_file), 'LEGACY_UNSOURCED'
 
 
+RECOVERY = 'data/audit/m32-recovery-candidates.jsonl'
+RECOVERY_ACTOR = 'tools/m32-recovery.py'
+
+
+def recovered_sources():
+    """M3.2: (record file, record key, field) -> the audit row, for its APPLY_PROVENANCE rows only."""
+    out = {}
+    if os.path.exists(L.ROOT + RECOVERY):
+        for r in L.jsonl_lines(L.ROOT + RECOVERY):
+            if r['disposition'] == 'APPLY_PROVENANCE':
+                t = r['target']
+                out[(t['record_file'], t['record'], t['field'])] = r
+    return out
+
+
 def prepare_value_prov(m):
+    m.recovered = recovered_sources()
     m.refs_by_field = {}
     for r in m.rows('document/legacy-references.jsonl'):
         if r['origin'] in ('field-src.js', 'cuvee-src.js') and r.get('field'):

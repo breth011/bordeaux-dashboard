@@ -17,6 +17,7 @@ import sys
 import time
 
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+import historical_m2_scope  # noqa: E402  (M3.2's recovered own sources, named)
 import migration_lib as L  # noqa: E402
 
 CHECKS = []
@@ -125,6 +126,12 @@ def generated_data_carries_exactly_the_models_provenance():
         elif p['kind'] == 'LEGACY_AMBIGUOUS_SOURCE':
             assert s and 'a' in s and 'u' not in s, (ex['record'], o['field'])
             n['ambiguous'] += 1
+        elif historical_m2_scope.is_m32_source(p):
+            # M3.2: the record's own held sheet, proven from its labelled text; an address only
+            # where those exact bytes have one
+            assert s and s['n'] == p['code_state']['basename'], (ex['record'], o['field'])
+            assert ('u' in s) == bool(urls[p['artifact']]) and (s.get('u') in urls[p['artifact']] or 'u' not in s)
+            n['recovered own document'] += 1
         else:
             assert s is None, ('a source invented for', ex['record'], o['field'], p['kind'])
             n['no source'] += 1
@@ -170,6 +177,16 @@ def measure():
         elif p['kind'] == 'LEGACY_AMBIGUOUS_SOURCE':
             out['marked "source unclear"' if shown and 'a' in shown else
                 'linked to another document than its own'] += 1
+        elif historical_m2_scope.is_m32_source(p):
+            # M3.2: a recovered own source counts as the figure's own, by the same rules
+            own = urls[p['artifact']]
+            if shown is None:
+                out['shown without a source although one is known'] += 1
+            elif 'u' in shown:
+                out['linked to its own source' if shown['u'] in own else
+                    'linked to another document than its own'] += 1
+            else:
+                out['its own source named, no address recorded'] += 1
         else:
             out['no established source, none shown' if shown is None else
                 'linked to another document than its own'] += 1

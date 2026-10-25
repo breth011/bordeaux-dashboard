@@ -268,7 +268,10 @@ def c20_every_legacy_row_valid_with_historical_fields_absent():
             bad.append((rel, row.get('id'), errs[:1]))
     # 333022 rows at M1; M2 adds one ArtifactDate and one DOCUMENT provenance per accepted date
     m2 = 2 * len(L.read_table('document/artifact-dates.jsonl'))
-    assert n == 333022 + m2 and not bad, (n, m2, bad[:3])
+    # M3.2 adds one DOCUMENT provenance per recovered figure (it changes rows, adds no other)
+    import historical_m2_scope
+    m32 = sum(1 for p in L.read_table('cross/provenance.jsonl') if historical_m2_scope.is_m32_source(p))
+    assert n == 333022 + m2 + m32 and not bad, (n, m2, m32, bad[:3])
 
 
 @check
@@ -299,7 +302,9 @@ def the_extension_makes_no_current_fact_historical():
 
 @check
 def model_generated_data_and_protected_groups_unchanged():
-    assert not git('diff', '--stat', BEFORE, '--', 'data/app').strip(), 'generated data changed'
+    import historical_m2_scope                    # M3.2: figure-sources.js by exactly the recovered figures
+    assert not historical_m2_scope.app_files_changed_beyond_m32(
+        git('diff', '--name-only', BEFORE, '--', 'data/app').split()), 'generated data changed'
     import historical_m2_scope                    # M2's document dates: three files, additions only
     historical_m2_scope.model_changes_are_m2_only(BEFORE)
     b0 = json.load(open(L.MODEL + 'baseline.json', encoding='utf-8'))['groups']

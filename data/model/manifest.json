@@ -1,0 +1,11 @@
+{
+ "_": "The normalized model (Phase 4). Built by tools/migrate.py; do not edit by hand. Layout and id rules: tools/model_schema.py; storage decision D3 there.",
+ "stage": "M1",
+ "contract": "docs/phase34-model.json",
+ "files": {},
+ "views": {
+  "Observation": "data/discovery/observations/*.jsonl (163,582 harvested observations) are presented in the Observation shape, not copied",
+  "Placement": "data/discovery/locations/* are presented as Placements of the discovery artifacts, not copied"
+ },
+ "stats": {}
+}

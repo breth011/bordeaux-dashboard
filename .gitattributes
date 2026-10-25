@@ -4,3 +4,6 @@
 # so the working copy was not the bytes the hashes describe.
 data/evidence/*.jsonl text eol=lf
 data/evidence/index.json text eol=lf
+# The normalized model (Phase 4) is rebuilt byte for byte by
+# tools/migrate.py --check; checkout must not change its bytes either.
+data/model/** text eol=lf

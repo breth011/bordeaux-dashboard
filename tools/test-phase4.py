@@ -75,6 +75,16 @@ def scope_review_and_contract_unchanged():
 
 
 @check
+def phase34_contract_still_reproduced_by_its_generator():
+    # test-phase34 skips this once a later commit exists (by its design);
+    # Phase 4 builds on the contract, so it keeps the check running.
+    import subprocess
+    r = subprocess.run([sys.executable, '-I', L.ROOT + 'tools/build-phase34-model.py', '--check'],
+                       cwd=L.ROOT, capture_output=True)
+    assert r.returncode == 0, r.stdout.decode()[-300:]
+
+
+@check
 def baseline_counts_still_hold():
     import importlib.util
     spec = importlib.util.spec_from_file_location('b', L.ROOT + 'tools/phase4-baseline.py')
@@ -121,6 +131,73 @@ def frozen_role_vocabulary_and_dash():
     roles = collections.Counter(w['role'] for x in L.g('BDX_CUVEE_WINES').values() for w in x)
     assert set(roles) == {'second', 'other'}, roles
     assert sum(1 for _, r in L.estate_files() if r.get('second') == '—') == 34
+
+
+# ---------------------------------------------------------------- M1
+
+import model_schema as S  # noqa: E402
+
+
+@check
+def m1_every_contract_entity_has_a_home():
+    homed = {e for e, _, _ in S.LAYOUT.values()} | set(S.VIEWS)
+    missing = set(S.ENTITIES) - homed
+    assert not missing, sorted(missing)
+    assert len({p for p, _ in S.MINTED.values()} | set(S.HASHED.values())) == \
+        len(S.MINTED) + len(S.HASHED), 'two entities share an id prefix'
+
+
+@check
+def m1_validator_refuses_bad_rows():
+    good = {'id': 'es_00001', 'name_status': 'KNOWN'}
+    assert not S.check_row('Estate', good)
+    assert S.check_row('Estate', dict(good, colour='red')), 'unknown field accepted'
+    assert S.check_row('Estate', dict(good, name_status='MAYBE')), 'bad enum accepted'
+    assert S.check_row('Estate', {'name_status': 'KNOWN'}), 'missing id accepted'
+    rel = {'id': S.hid('EstateWineRelationship', 'x'), 'estate': 'es_00001', 'wine': 'wn_00001',
+           'status': 'ESTABLISHED', 'kind': 'PRODUCED_BY', 'provenance': 'pv_1',
+           'validity': S.UNKNOWN_VALIDITY}
+    assert S.check_row('EstateWineRelationship', rel, {'es_00001', 'wn_00001'}), \
+        'dangling provenance accepted'
+    assert S.check_row('EstateWineRelationship', dict(rel, wine='es_00001')), \
+        'an estate accepted where a wine is required'
+    dated = dict(rel, validity={'valid_from': {'kind': 'EXACT', 'value': '2016', 'axis': 'CALENDAR',
+                                               'precision': 'YEAR'}, 'valid_to': {'kind': 'OPEN'}})
+    assert any('basis' in e for e in S.check_row('EstateWineRelationship', dated)), \
+        'a date without a basis accepted'
+    opened = dict(rel, validity={'valid_from': {'kind': 'OPEN'}, 'valid_to': {'kind': 'OPEN'}})
+    assert S.check_row('EstateWineRelationship', opened), 'OPEN accepted as valid_from'
+
+
+@check
+def m1_storage_is_files_by_responsibility():
+    import glob
+    assert not [p for p in glob.glob(L.ROOT + '**/*', recursive=True)
+                if p.endswith(('.db', '.sqlite', '.sqlite3')) and '/sources/' not in p.replace('\\', '/')]
+    files = list(S.LAYOUT)
+    assert len(files) == len(set(files))
+    by_entity = collections.Counter(e for e, _, _ in S.LAYOUT.values())
+    assert max(by_entity.values()) == 1, 'an entity split over two files'
+    assert all(f.split('/')[0] in ('identity', 'state', 'document', 'observation',
+                                   'reconciliation', 'canonical', 'cross') for f in files)
+    attrs = open(L.ROOT + '.gitattributes', encoding='utf-8').read()
+    assert 'data/model/** text eol=lf' in attrs
+
+
+@check
+def m1_raw_store_addresses_by_digest():
+    import raw_store
+    rows = L.sources_rows()['sheets']
+    r = next(x for x in rows if x['folder'] == 'artisan-chateau-de-lauga'
+             and x['file'] == 'Fiche-technique-LAUGA-ENG.pdf')
+    p = raw_store.locate(sha1=r['sha1'], folder=r['folder'], file=r['file'])
+    assert p and raw_store.digests(p)[0] == r['sha1']
+    assert raw_store.locate(sha1='0' * 40, folder=r['folder'], file=r['file']) is None, \
+        'a path returned for bytes it does not hold'
+    a = json.loads(open(L.ROOT + 'data/discovery/artifacts.jsonl', encoding='utf-8').readline())
+    data = raw_store.read_blob(a['sha256'])
+    import hashlib
+    assert data is not None and hashlib.sha256(data).hexdigest() == a['sha256']
 
 
 def main():

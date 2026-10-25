@@ -102,16 +102,24 @@ def every_fact_is_a_model_record():
         assert f.get('c') == (sorted(mem[wine]) or None), key
         assert f.get('a') == (sorted(app[wine]) or None), key
         assert f.get('x') == (sorted(notmade[wine]) or None), key
-    # sheets on file: the fiche and cuvee records the wine's observations were read from
-    recs = collections.defaultdict(set)
+    # sheets on file: the fiche and cuvee records - those the wine's observations were read
+    # from, and (Phase 6.9) those that name their document with no figure taken from it
+    records = set()
     for o in T('observation/observations.jsonl'):
         ex = o['extraction']
         if ex['file'] in ('data/fiches.js', 'data/cuvees.js'):
-            p = ex['record'].split('|')
-            recs[p[0] + '|grand' if len(p) == 2 else p[0] + '|' + p[1]].add(int(p[-1]))
+            records.add(ex['record'])
+    for r in T('document/legacy-references.jsonl'):
+        if r['origin'] in ('fiches.js', 'cuvees.js') and r.get('field') is None:
+            records.add(r['record_key'])
+    recs = collections.defaultdict(set)
+    for rec in records:
+        p = rec.split('|')
+        recs[p[0] + '|grand' if len(p) == 2 else p[0] + '|' + p[1]].add(int(p[-1]))
     for key, f in g.items():
         ys = recs.get(key)
         assert f.get('s') == ([len(ys), min(ys), max(ys)] if ys else None), key
+        assert f.get('y') == (sorted(ys) if ys else None), key
 
 
 @check
@@ -207,7 +215,16 @@ def sheets_line(f):
     if not f.get('s'):
         return 'none'
     n, a, z = f['s']
-    return ('%d vintage, %d' % (n, a)) if n == 1 else ('%d vintages, %d–%d' % (n, a, z))
+    line = ('%d vintage, %d' % (n, a)) if n == 1 else ('%d vintages, %d–%d' % (n, a, z))
+    # Phase 6.9: sheets outside the years the list shows (the regional vintage file's span)
+    span = [int(y) for y in L.g('BDX_VINTAGES')]
+    before = sum(1 for y in f.get('y', []) if y < min(span))
+    after = sum(1 for y in f.get('y', []) if y > max(span))
+    if before:
+        line += '; %d before the years listed below' % before
+    if after:
+        line += '; %d after the years listed below' % after
+    return line
 
 
 @check

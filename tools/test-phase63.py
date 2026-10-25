@@ -101,6 +101,9 @@ FACT_JS = '''(function (id) {
   /* Phase 6.7's block of what is established about the wine is not part of the
      comparison; tools/test-phase67.py checks it. */
   Array.prototype.forEach.call(b.querySelectorAll('.wine-est'), function (e) { e.parentNode.removeChild(e); });
+  /* Nor is the vintage list's heading, which Phase 6.9 changed; tools/test-phase69.py checks it. */
+  var vl = b.querySelector('.vintagelist'), vh = vl && vl.parentNode.querySelector('h3');
+  if (vh) vh.parentNode.removeChild(vh);
   Array.prototype.forEach.call(b.querySelectorAll('.factgrid .fact'), function (f) {
     var dt = f.querySelector('dt');
     if (f.hasAttribute('data-sw') || (dt && dt.textContent === 'Second wine')) f.parentNode.removeChild(f);
@@ -258,7 +261,12 @@ def search_lookups_and_values_unchanged_against_phase62():
                                  'EXPECTED: PROVENANCE WORDING AND ESTABLISHED WINE FACTS PRESENTATION',
                                  'EXPECTED: PROVENANCE AND PROVENANCE WORDING AND ESTABLISHED WINE FACTS PRESENTATION',
                                  'EXPECTED: PROVENANCE AND SECOND-WINE STATUS AND ESTABLISHED WINE FACTS PRESENTATION',
-                                 'EXPECTED: SECOND-WINE STATUS AND ESTABLISHED WINE FACTS PRESENTATION'}, r['summary']
+                                 'EXPECTED: SECOND-WINE STATUS AND ESTABLISHED WINE FACTS PRESENTATION',
+                                 # Phase 6.9: the vintage list heading, with the presentations above
+                                 'EXPECTED: ESTABLISHED WINE FACTS AND VINTAGE LIST HEADING PRESENTATION',
+                                 'EXPECTED: SECOND-WINE STATUS AND ESTABLISHED WINE FACTS AND VINTAGE LIST HEADING PRESENTATION',
+                                 'EXPECTED: PROVENANCE WORDING AND ESTABLISHED WINE FACTS AND VINTAGE LIST HEADING PRESENTATION',
+                                 'EXPECTED: PROVENANCE WORDING AND VINTAGE LIST HEADING PRESENTATION'}, r['summary']
     assert not r['presentation_order'], 'order changed'
 
 

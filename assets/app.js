@@ -3081,7 +3081,6 @@ function openDrawer(id) {
   }).length;
   /* The other wines carry no critic score and no window, so the heading
      counts what they do have: the years with a sheet on file. */
-  var sel = wineById(ch, state.wine);
   var onFile = YEARS.filter(function (yr) {
     return wineFiche(ch, state.wine, yr);
   }).length;
@@ -3089,9 +3088,13 @@ function openDrawer(id) {
     ? ratedYears + ' of ' + YEARS.length + ' rated · ' + readyNow + ' ready to drink now'
     : onFile + ' of ' + YEARS.length + ' with a sheet on file';
   body +=
+    /* The span is the reference's years, the same for every wine
+       (BDX_VINTAGES), so the heading says so and names no wine: a current
+       name in front of 1982-2025 read as that name across those years
+       (Phase 6.8). The selector above names the wine; the block below says
+       what is established about it, its sheets included. */
     '<div class="section"><h3>' +
-      (state.wine === 'grand' ? 'All vintages, ' + SPAN
-                              : sel.name + ', ' + SPAN) +
+      'Vintages ' + SPAN + ' in this reference' +
       '<span class="hint">' + hint + '</span></h3>' +
       wineEstablished(ch, state.wine) +
       '<div class="vintagelist">' +
@@ -4143,9 +4146,17 @@ function wineEstablished(ch, slug) {
     rows.push(row('Appellation', '<span class="we-q">none recorded for this wine itself</span>',
       ch.appellation ? 'The estate’s appellation is shown above.' : ''));
   }
+  /* Every sheet on file is counted, those outside the years the list
+     shows included: they are said, not dropped (Phase 6.9) - a 2026 sheet
+     has no row, and only grand vins have an "Earlier vintages" section. */
+  var ys = f.y || [], lo = YEARS[YEARS.length - 1], hi = YEARS[0];
+  var before = ys.filter(function (y) { return y < lo; }).length;
+  var after = ys.filter(function (y) { return y > hi; }).length;
   rows.push(row('Sheets on file', f.s
     ? '<span class="we-n">' + f.s[0] + '</span> <span>' + (f.s[0] === 1 ? 'vintage' : 'vintages') +
-      '</span>' + (f.s[0] === 1 ? ', ' + f.s[1] : ', ' + f.s[1] + '–' + f.s[2])
+      '</span>' + (f.s[0] === 1 ? ', ' + f.s[1] : ', ' + f.s[1] + '–' + f.s[2]) +
+      (before ? '; <span class="we-n">' + before + '</span> <span>before the years listed below</span>' : '') +
+      (after ? '; <span class="we-n">' + after + '</span> <span>after the years listed below</span>' : '')
     : '<span class="we-q">none</span>'));
   if (f.x) rows.push(row('Recorded as not made', f.x.join(', ')));
   return '<div class="wine-est">' +

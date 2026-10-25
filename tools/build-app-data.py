@@ -213,8 +213,13 @@ def wine_established(model=None):
       "r"   the distinct RankAssertion tiers, and "rc" their claimants
       "c"   classification memberships: [rank, scheme, edition year, edition status]
       "a"   appellation memberships' names
-      "s"   sheets on file: [count, first year, last year], from the fiche and
-            cuvee records the wine's observations were extracted from
+      "s"   sheets on file: [count, first year, last year]
+      "y"   the years of those sheets (Phase 6.9: the page says how many lie
+            outside the years it lists). A sheet on file is a fiche or cuvee
+            record: one the wine's observations were extracted from, or one
+            that names its document with no figure taken from it (a record-level
+            legacy reference, e.g. Malescot 1995). Phase 6.7 counted only the
+            first kind, three records short of the records the page shows.
       "x"   years with a NOT_PRODUCED VintageStatement
     A wine without a fact simply lacks the key: an absent record is not a value."""
     M = model or R.Model()
@@ -255,16 +260,23 @@ def wine_established(model=None):
         key = im.get(m['wine'])
         if key is not None:
             out[key].setdefault('a', []).append(apps[m['appellation']])
-    years = {}
+    records = set()
     for o in M.rows('observation/observations.jsonl'):
         ex = o['extraction']
         if ex['file'] in ('data/fiches.js', 'data/cuvees.js'):
-            parts = ex['record'].split('|')
-            key = parts[0] + '|grand' if len(parts) == 2 else parts[0] + '|' + parts[1]
-            if key in out:
-                years.setdefault(key, set()).add(int(parts[-1]))
+            records.add(ex['record'])
+    for r in M.rows('document/legacy-references.jsonl'):
+        if r['origin'] in ('fiches.js', 'cuvees.js') and r.get('field') is None:
+            records.add(r['record_key'])
+    years = {}
+    for rec in records:
+        parts = rec.split('|')
+        key = parts[0] + '|grand' if len(parts) == 2 else parts[0] + '|' + parts[1]
+        if key in out:
+            years.setdefault(key, set()).add(int(parts[-1]))
     for key, ys in years.items():
         out[key]['s'] = [len(ys), min(ys), max(ys)]
+        out[key]['y'] = sorted(ys)
     for v in M.rows('state/vintage-statements.jsonl'):
         if v['kind'] != 'NOT_PRODUCED':
             continue

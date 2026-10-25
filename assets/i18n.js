@@ -490,6 +490,9 @@
     'vintage': 'jaargang',
     'vintages': 'jaargangen',
     'Recorded as not made': 'Vastgelegd als niet gemaakt',
+    /* Sheets outside the years the vintage list shows (Phase 6.9). */
+    'before the years listed below': 'vóór de jaren hieronder',
+    'after the years listed below': 'na de jaren hieronder',
     'A year without a sheet is not evidence that the wine was not made: only the years listed as not made are recorded as such.':
       'Een jaar zonder fiche bewijst niet dat de wijn niet is gemaakt: alleen de jaren die als niet gemaakt zijn vermeld, zijn zo vastgelegd.',
     'Rank and appellation are the estate’s current values, the same under every vintage; they are not established for each vintage.':
@@ -657,6 +660,10 @@
     [/^Add up to (\d+) estates\.$/, 'Voeg maximaal $1 domeinen toe.'],
     [/^(\d+) hl\/ha$/, '$1 hl/ha'],
     [/^All vintages, (\d+)–(\d+)$/, 'Alle jaargangen, $1–$2'],
+    /* The vintage list's heading: the reference's years, for every wine
+       (Phase 6.9), and the other wines' hint, which had no Dutch. */
+    [/^Vintages (\d+)–(\d+) in this reference$/, 'Jaargangen $1–$2 in deze gids'],
+    [/^(\d+) of (\d+) with a sheet on file$/, '$1 van $2 met een fiche in het archief'],
     [/^(\d+) critics, averaging ([\d.]+) · they differ by ([\d.]+) points$/,
      '$1 critici, gemiddeld $2 · ze verschillen $3 punten'],
     [/^(\d+) critics, averaging ([\d.]+)$/, '$1 critici, gemiddeld $2'],

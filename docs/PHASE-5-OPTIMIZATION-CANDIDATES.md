@@ -1,6 +1,6 @@
 # Phase 5 — Optimization candidates from the M0 baseline
 
-**A decision document. Nothing here has been implemented.**
+**A decision document.** Sections 1–3 were written before anything was implemented; section 4 records what was implemented, measured and decided.
 
 M0 (`docs/PHASE-5-BASELINE-BENCHMARK.md`, commit `e564eff`) measured the system. This document
 turns those measurements into candidate optimizations: what each would gain, what it would touch,
@@ -58,60 +58,117 @@ page's data files.
 Each implemented candidate would be measured again with `tools/benchmark-phase5.py --only <family>`
 against the M0 records.
 
-## 4. Implemented: C1, C2, C3 (chosen 2026-10-25)
+## 4. Results and decision
 
-You chose C1, C2 and C3; C4–C9 were not implemented. Each was measured again with
-`tools/benchmark-phase5.py`. The new runs are appended to `data/performance/benchmarks.jsonl`, and each
-carries its own commit.
+The selected C1–C3 optimizations were implemented and measured against the Phase 5 M0 baseline. The normalized model output, protected data, and application behavior remain unchanged.
 
-| Measure | M0 (`b1ce39b`) | After (`c780bbb`) | Change |
-|---|---:|---:|---:|
-| Model rebuild, from scratch | 13.95 s | **10.08 s** | −28 % |
-| Rebuild peak memory | 424 MB | 646 MB | +52 % |
-| Full suite (21 suites, 641 checks), cold / warm | 215.2 / 211.1 s | **176.9 / 175.6 s** | −18 % |
-| test-phase4 alone | 83.7 s | 50.9 s | −39 % |
-| Full suite peak memory | 1,184 MB | 1,463 MB | +24 % |
-| Raw store, physical (a linked file counted once) | 21.55 GB | **16.30 GB** | −5.25 GB |
-| Free disk | 13.8 GB | 18.8 GB | +5.0 GB |
-| Model output | — | byte-identical | unchanged |
+### 4.1 Storage reduction was the largest practical gain
 
-**C1, parse the evidence once** (`d6156e4`, memory fix `1bfbe7f`).
+C3 reduced the physical size of the raw document store from **21.55 GB to 16.30 GB**, a reduction of **5.25 GB**. Free disk space increased from approximately **13.8 GB to 18.8 GB**.
 
-- `migration_lib.evidence()` parses each evidence file once per process.
-- It keeps only the fields the migration reads (artifact, ctx, read, v, code, manifest_sha1).
-- Stage M4 went from 1.68 s to 0.08 s, and M6 from 1.68 s to 0.66 s.
-- The first version kept whole rows and raised a build's peak to 999 MB. Keeping the fields alone
-  brought it to 646 MB.
-- That is the trade: 3.9 s per build for about 220 MB more peak memory.
+The reduction was achieved by hard-linking files only where their content hashes proved them byte-identical. All source paths remain present, so the operation reduced physical duplication without removing source/location provenance.
 
-**C2, share the builds in test-phase4** (`f016f36`, memory fix `1bfbe7f`).
+In total:
 
-- One from-scratch build, rendered at M6 and at M7 (`migrate.snapshots`), serves both the
-  determinism check and the rollback check. Before, they ran five full builds between them.
-- Every property is still asserted:
-  - the scratch build at M7 equals `data/model/`;
-  - a registry rebuild to M6 (the rollback's revert) equals the scratch build at M6;
-  - reverting to M1 leaves only the manifest;
-  - no protected group changes.
-- A probe that altered one byte of a copy of the model was caught.
-- Building in the test's own process doubled its peak (2.5 GB), so the build runs in a child, and the
-  evidence cache is dropped after use.
+* **5,379 paths** now share storage with an identical copy;
+* these represent **4,639 duplicate groups**;
+* every affected path was re-hashed after linking;
+* no linked file changed content;
+* an explicit `--revert` operation remains available.
 
-**C3, hard links in the raw store** (`c780bbb`).
+The writers that could previously modify files in place were also changed so that they remove an existing file before writing. This prevents a future write from unexpectedly modifying another path through a hard link. A regression test protects this invariant.
 
-- `tools/link-duplicates.py` hashed 5,620 candidate files itself and linked 5,379 paths in 4,639
-  groups. They are legacy files at several paths, and legacy files whose bytes are also a raw
-  discovery blob.
-- Every linked path was re-hashed against its pre-link hash: none differs.
-- Each change is recorded in the local journal `sources/.link-journal.jsonl`;
-  `python tools/link-duplicates.py --revert` gives each path its own copy again.
-- The five write sites in `add-sheet.py`, `harvest.py` and `crawl-pages.py` used to write into
-  existing files. They now remove the file first, so a write can never change a linked twin.
-- A linked path now carries its keeper's timestamps.
-- Found on the way, and pre-existing: two linked paths hold bytes that match no manifest version.
-  - Domaine de Chevalier 2020 rouge equals what the reader hashed in v4/v5.
-  - Virginie de Valandraud was never read.
+This is therefore considered a safe storage optimization rather than an information-loss operation.
 
-**Unchanged:** canonical data, evidence, discovery data, scope, the Phase 3.4 contract, the proposal
-records, the normalized model and the application (`test-phase5`, 18 checks). The startup, search and
-lookup figures stand as in M0, because the application did not change.
+Two raw files were found whose current bytes no longer match any version recorded by the source list. These pre-existing anomalies were not altered. One is Domaine de Chevalier 2020 rouge, whose bytes correspond to material previously read by the reader; the other is Virginie de Valandraud, which was never read. Both remain preserved.
+
+### 4.2 Rebuild performance improved substantially
+
+C1 reduced model rebuild time from **13.95 s to 10.08 s**, a **28% improvement**.
+
+The principal change was to avoid repeatedly parsing the evidence during migration. The previous process read the evidence approximately four times per rebuild. The optimized process reads it once and retains only the six fields actually required by the migration.
+
+The evidence itself was not changed or discarded. This is an execution optimization only.
+
+Rebuild peak memory increased from **424 MB to 646 MB**, approximately **52%**. This is recorded as a deliberate trade-off and remains well below the memory pressure initially encountered during the first implementation of C1.
+
+The rebuilt model remains byte-identical to the committed model.
+
+### 4.3 Test-suite performance also improved
+
+C2 changed test-phase4 so that its two slowest checks share one complete model build rather than performing five separate builds.
+
+The full suite improved from:
+
+* **215 s → 177 s**
+* approximately **18% faster**
+
+Test-phase4 itself improved from:
+
+* **84 s → 51 s**
+* approximately **39% faster**
+
+All existing checks remain active. The rollback and deliberate-corruption checks continue to detect the conditions they were designed to detect.
+
+The first implementation placed the shared build inside the test process and raised peak memory to approximately 2.5 GB. The final implementation runs that expensive build in a separate process and releases the cache afterward.
+
+The resulting full-suite peak memory is **1,463 MB**, compared with **1,184 MB** at M0, an increase of approximately **24%**.
+
+This memory increase is accepted as a measured trade-off rather than treated as an unbounded optimization target. Future performance work must not assume that additional memory is free.
+
+### 4.4 Deferred candidates
+
+Two candidates were investigated but not selected:
+
+**C4 — lazy vintage loading**
+
+The baseline does not currently establish sufficient benefit to justify introducing the additional loading complexity. No implementation was made.
+
+**C5 — search redraw**
+
+The application currently redraws the list and map on every search input, producing approximately **19–40 ms per keystroke** in the baseline measurement.
+
+This is a real user-facing optimization opportunity, but it was deliberately not combined with C1–C3. The application remains unchanged, and the original measurement remains the reference point for any future search optimization.
+
+### 4.5 Overall decision
+
+C1–C3 are accepted.
+
+They improve the project in three different dimensions without changing its data meaning:
+
+| Measure                |       M0 |        C1–C3 |       Change |
+| ---------------------- | -------: | -----------: | -----------: |
+| Model rebuild          |  13.95 s |  **10.08 s** |     **−28%** |
+| Full test suite        |    215 s |    **177 s** |     **−18%** |
+| Test-phase4            |     84 s |     **51 s** |     **−39%** |
+| Raw document storage   | 21.55 GB | **16.30 GB** | **−5.25 GB** |
+| Rebuild peak memory    |   424 MB |   **646 MB** |     **+52%** |
+| Full-suite peak memory | 1,184 MB | **1,463 MB** |     **+24%** |
+
+The storage reduction is the most consequential result because disk capacity had previously become an operational constraint. The rebuild and test-suite improvements are substantial secondary gains.
+
+No evidence, provenance, canonical information, discovery information, or application behavior was sacrificed to obtain these improvements.
+
+The remaining optimization candidates are therefore deferred rather than rejected. Their baseline measurements are preserved so that they can be reconsidered later on the basis of actual user impact.
+
+### 4.6 Phase 5 direction
+
+The project should not continue optimizing indefinitely before using the normalized model.
+
+The next decision should be whether the already-proven application boundary can now be switched from today's legacy-shaped files to the generated normalized-model output.
+
+Before that switch, the following must remain true:
+
+* the normalized model rebuilds deterministically;
+* the application dual-read equivalence remains established;
+* protected data remains unchanged;
+* C3's hard-link safety invariant remains tested;
+* the known memory increase remains documented;
+* the two pre-existing raw-file anomalies remain preserved;
+* C4 and C5 remain explicitly deferred unless a later decision reopens them.
+
+The purpose of the next stage should therefore be **production transition and application-source switch**, not another general optimization cycle.
+
+### 4.7 Implementation record
+
+The commits behind the figures above are `d6156e4` (C1), `f016f36` (C2), `1bfbe7f` (the memory fix for C1 and C2), `c780bbb` (C3) and `7359268` (the re-measurements). Every measurement is in `data/performance/benchmarks.jsonl`, and each run carries its commit. The C3 journal is the local file `sources/.link-journal.jsonl`.

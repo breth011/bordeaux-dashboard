@@ -237,7 +237,15 @@ def values_search_and_lookups_unchanged():
                # Phase 6.5's source facts and corrected provenance wording, named the same way
                'EXPECTED: ADDED SOURCE FACTS (Phase 6.5)',
                'EXPECTED: PROVENANCE WORDING PRESENTATION',
-               'EXPECTED: PROVENANCE AND PROVENANCE WORDING PRESENTATION'}
+               'EXPECTED: PROVENANCE AND PROVENANCE WORDING PRESENTATION',
+               # Phase 6.7: the block of what is established about each wine, and its file
+               'EXPECTED: ADDED WINE ESTABLISHED FACTS (Phase 6.7)',
+               'EXPECTED: ESTABLISHED WINE FACTS PRESENTATION',
+               'EXPECTED: PROVENANCE AND ESTABLISHED WINE FACTS PRESENTATION',
+               'EXPECTED: PROVENANCE WORDING AND ESTABLISHED WINE FACTS PRESENTATION',
+               'EXPECTED: PROVENANCE AND PROVENANCE WORDING AND ESTABLISHED WINE FACTS PRESENTATION',
+               'EXPECTED: PROVENANCE AND SECOND-WINE STATUS AND ESTABLISHED WINE FACTS PRESENTATION',
+               'EXPECTED: SECOND-WINE STATUS AND ESTABLISHED WINE FACTS PRESENTATION'}
     assert set(r['summary']) <= allowed, r['summary']
     assert r['summary'].get('EXPECTED: ADDED FIGURE PROVENANCE (Phase 6.1)') == 1
 
@@ -248,7 +256,8 @@ def existing_generated_files_and_protected_data_unchanged():
     git = lambda *a: subprocess.check_output(['git'] + list(a), cwd=L.ROOT).decode()
     # the 23 generated contract files are byte-identical to Phase 6.0's
     changed = [f for f in git('diff', '--name-only', '8b13cb0', '--', 'data/app').split()
-               if not f.endswith(('figure-sources.js', 'second-status.js', 'source-facts.js'))]
+               if not f.endswith(('figure-sources.js', 'second-status.js', 'source-facts.js',
+                                  'wine-established.js'))]
     assert not changed, changed
     b = json.load(open(L.MODEL + 'baseline.json', encoding='utf-8'))['groups']
     for g in ('canonical', 'evidence', 'discovery', 'scope', 'phase_records'):

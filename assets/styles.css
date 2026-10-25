@@ -1178,6 +1178,27 @@ table.dt td.num { font-family: var(--mono); text-align: right; }
 .src-panel .sp-file { font-family: var(--mono); font-size: 11.5px; color: var(--text-primary); }
 .src-panel .sp-note { color: var(--text-muted); margin-top: 2px; }
 
+/* What is established about a wine (Phase 6.7): reference information above
+   its vintage list, quiet and compact, in the drawer's existing type. */
+.wine-est {
+  margin: 4px 0 14px; padding: 10px 12px;
+  border: 1px solid var(--border); border-radius: var(--radius-sm);
+  background: var(--surface-1); font-size: 12.5px; color: var(--text-secondary);
+}
+.wine-est .we-title {
+  margin: 0 0 6px; font-size: 11px; font-weight: 600; letter-spacing: .04em;
+  text-transform: uppercase; color: var(--text-muted);
+}
+.wine-est .we-list { margin: 0; display: grid; gap: 4px; }
+.wine-est .we-row { display: grid; grid-template-columns: 9.5em 1fr; gap: 8px; }
+.wine-est dt { color: var(--text-muted); }
+.wine-est dd { margin: 0; color: var(--text-primary); overflow-wrap: anywhere; }
+.wine-est .we-q { color: var(--text-muted); }
+.wine-est > .sitenote { margin: 8px 0 0; }
+@media (max-width: 480px) {
+  .wine-est .we-row { grid-template-columns: 1fr; gap: 0; }
+}
+
 /* The explicit link under a vintage's figures, which is the one a
    reader goes looking for. */
 .fichelink {

@@ -1118,8 +1118,14 @@ function cmpTable(wines) {
         srcLine(w.ch, w.yr, label, 'grand') + '</span>';
     }, true, true);
 
+  /* In a vertical, Rank and Appellation repeat the estate's current values
+     under every vintage; said once, so they are not read as established for
+     each year (Phase 6.7). */
   return '<div class="cmp-scroll"><table class="cmp cmp-' + wines.length + '">' +
-    '<thead>' + head + '</thead><tbody>' + body + '</tbody></table></div>';
+    '<thead>' + head + '</thead><tbody>' + body + '</tbody></table></div>' +
+    (vertical ? '<p class="cmp-help cmp-current">Rank and appellation are the estate’s ' +
+      'current values, the same under every vintage; they are not established for each ' +
+      'vintage.</p>' : '');
 }
 
 function renderCompare() {
@@ -3087,6 +3093,7 @@ function openDrawer(id) {
       (state.wine === 'grand' ? 'All vintages, ' + SPAN
                               : sel.name + ', ' + SPAN) +
       '<span class="hint">' + hint + '</span></h3>' +
+      wineEstablished(ch, state.wine) +
       '<div class="vintagelist">' +
         YEARS.map(function (yr) {
           return state.wine === 'grand' ? vintageRow(ch, yr)
@@ -4077,6 +4084,77 @@ function maturity(w) {
 /* The selector only appears where there is something to select. One wine
    needs no dropdown, and an estate with nothing but its grand vin on file
    should not be made to look as though something is missing. */
+/* What the model establishes about one wine, now (Phase 6.7,
+   data/app/wine-established.js, generated). The vintage list below runs
+   over the reference's years under the wine's current name; this block
+   says which of the wine's facts are current values whose start is not
+   recorded, which years actually have a sheet, and which are recorded as
+   not made - so a missing sheet is never read as a missing wine, and the
+   current name is never read as the name it always had. Nothing here is
+   dated that the model does not date. */
+var WINE_EST = window.BDX_WINE_ESTABLISHED || {};
+var RANK_WORDS = {
+  FIRST: 'first wine', SECOND: 'second wine', THIRD: 'third wine',
+  ABOVE_FIRST: 'ranked above the first wine', UNRANKED: 'explicitly unranked',
+  UNKNOWN: 'rank not established'
+};
+
+function wineEstablished(ch, slug) {
+  var f = WINE_EST[ch.id + '|' + (slug || 'grand')];
+  if (!f) return '';
+  function row(label, value, note) {
+    return '<div class="we-row"><dt>' + label + '</dt><dd>' + value +
+      (note ? '<span class="sitenote">' + note + '</span>' : '') + '</dd></div>';
+  }
+  var rows = [];
+  if (f.n) {
+    rows.push(row('Name', escText(f.n) + ' <span class="we-q">current name</span>',
+      f.nf ? '' : (f.fn ? '' : 'When it was adopted, and any earlier names, are not recorded.')));
+  } else {
+    rows.push(row('Name', '<span class="we-q">no current name is recorded</span>'));
+  }
+  if (f.r) {
+    var tiers = f.r.map(function (t) { return RANK_WORDS[t] || t; });
+    var note = '';
+    /* Phase 6.3's state, not a resolution of it: where the estate's records
+       disagree about its second wine, a wine listed as second says so. */
+    var sw = SECOND[ch.id];
+    if (f.r.indexOf('SECOND') !== -1 && sw && sw.s === 'unestablished') {
+      note = 'Which wine is the estate’s second wine is not established; see Second wine above.';
+    } else if (f.r.indexOf('SECOND') !== -1 && sw && sw.s === 'conflict') {
+      note = 'The estate’s records conflict about its second wine; see Second wine above.';
+    }
+    rows.push(row('Rank', tiers.join(', ') +
+      ' <span class="we-q">current, as this dataset records it</span>', note));
+  }
+  if (f.c) {
+    rows.push(row('Classification', f.c.map(function (c) {
+      return escText(c[0]) + ', ' + escText(c[1]) + ' <span class="we-q">' +
+        (c[3] === 'IN_FORCE' ? 'the current list' : 'a list no longer in force') +
+        (c[2] ? ' (' + c[2] + ')' : '') + '</span>';
+    }).join('; '), 'The list in force today; which list applied to each vintage is not recorded.'));
+  } else {
+    rows.push(row('Classification', '<span class="we-q">none recorded for this wine</span>'));
+  }
+  if (f.a) {
+    rows.push(row('Appellation', f.a.map(escText).join(', ') +
+      ' <span class="we-q">current</span>'));
+  } else {
+    rows.push(row('Appellation', '<span class="we-q">none recorded for this wine itself</span>',
+      ch.appellation ? 'The estate’s appellation is shown above.' : ''));
+  }
+  rows.push(row('Sheets on file', f.s
+    ? '<span class="we-n">' + f.s[0] + '</span> <span>' + (f.s[0] === 1 ? 'vintage' : 'vintages') +
+      '</span>' + (f.s[0] === 1 ? ', ' + f.s[1] : ', ' + f.s[1] + '–' + f.s[2])
+    : '<span class="we-q">none</span>'));
+  if (f.x) rows.push(row('Recorded as not made', f.x.join(', ')));
+  return '<div class="wine-est">' +
+    '<p class="we-title">What is established about this wine</p>' +
+    '<dl class="we-list">' + rows.join('') + '</dl>' +
+    '<p class="sitenote">A year without a sheet is not evidence that the wine was not made: ' +
+    'only the years listed as not made are recorded as such.</p></div>';
+}
+
 function wineSwitcher(ch) {
   var list = winesOf(ch);
   if (list.length < 2) return '';

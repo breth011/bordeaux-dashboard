@@ -98,6 +98,9 @@ FACT_JS = '''(function (id) {
     if (f.hasAttribute('data-sw') || (dt && dt.textContent === 'Second wine')) row = f;
   });
   var b = document.getElementById('drawerBody').cloneNode(true);
+  /* Phase 6.7's block of what is established about the wine is not part of the
+     comparison; tools/test-phase67.py checks it. */
+  Array.prototype.forEach.call(b.querySelectorAll('.wine-est'), function (e) { e.parentNode.removeChild(e); });
   Array.prototype.forEach.call(b.querySelectorAll('.factgrid .fact'), function (f) {
     var dt = f.querySelector('dt');
     if (f.hasAttribute('data-sw') || (dt && dt.textContent === 'Second wine')) f.parentNode.removeChild(f);
@@ -247,7 +250,15 @@ def search_lookups_and_values_unchanged_against_phase62():
                                  'EXPECTED: ADDED SECOND-WINE STATUS (Phase 6.3)',
                                  # Phase 6.5, named: its source facts and provenance wording
                                  'EXPECTED: ADDED SOURCE FACTS (Phase 6.5)',
-                                 'EXPECTED: PROVENANCE WORDING PRESENTATION'}, r['summary']
+                                 'EXPECTED: PROVENANCE WORDING PRESENTATION',
+                                 # Phase 6.7: the block of what is established about each wine
+                                 'EXPECTED: ADDED WINE ESTABLISHED FACTS (Phase 6.7)',
+                                 'EXPECTED: ESTABLISHED WINE FACTS PRESENTATION',
+                                 'EXPECTED: PROVENANCE AND ESTABLISHED WINE FACTS PRESENTATION',
+                                 'EXPECTED: PROVENANCE WORDING AND ESTABLISHED WINE FACTS PRESENTATION',
+                                 'EXPECTED: PROVENANCE AND PROVENANCE WORDING AND ESTABLISHED WINE FACTS PRESENTATION',
+                                 'EXPECTED: PROVENANCE AND SECOND-WINE STATUS AND ESTABLISHED WINE FACTS PRESENTATION',
+                                 'EXPECTED: SECOND-WINE STATUS AND ESTABLISHED WINE FACTS PRESENTATION'}, r['summary']
     assert not r['presentation_order'], 'order changed'
 
 
@@ -256,7 +267,8 @@ def model_and_protected_data_unchanged():
     git = lambda *a: subprocess.check_output(['git'] + list(a), cwd=L.ROOT).decode()
     assert not git('diff', '--stat', BEFORE, '--', 'data/model').strip(), 'the model changed'
     changed = [f for f in git('diff', '--name-only', BEFORE, '--', 'data/app').split()
-               if not f.endswith(('second-status.js', 'source-facts.js'))]     # Phase 6.3, 6.5
+               if not f.endswith(('second-status.js', 'source-facts.js',      # Phase 6.3, 6.5
+                                  'wine-established.js'))]                    # Phase 6.7
     assert not changed, changed
     b = json.load(open(L.MODEL + 'baseline.json', encoding='utf-8'))['groups']
     for g in ('canonical', 'evidence', 'discovery', 'scope', 'phase_records'):

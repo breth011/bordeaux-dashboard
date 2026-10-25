@@ -460,6 +460,40 @@
     'other estate': 'ander domein',
     'other estates': 'andere domeinen',
     'Sheet recorded for this vintage': 'Fiche vastgelegd bij deze jaargang',
+    /* What is established about a wine (Phase 6.7). */
+    'What is established about this wine': 'Wat over deze wijn vaststaat',
+    'Name': 'Naam',
+    'current name': 'huidige naam',
+    'When it was adopted, and any earlier names, are not recorded.':
+      'Wanneer deze naam is aangenomen, en eventuele eerdere namen, is niet vastgelegd.',
+    'no current name is recorded': 'er is geen huidige naam vastgelegd',
+    'first wine': 'eerste wijn',
+    'second wine': 'tweede wijn',
+    'third wine': 'derde wijn',
+    'ranked above the first wine': 'boven de eerste wijn geplaatst',
+    'explicitly unranked': 'uitdrukkelijk zonder rang',
+    'rank not established': 'rang niet vastgesteld',
+    'current, as this dataset records it': 'huidig, zoals deze dataset het vastlegt',
+    'Which wine is the estate’s second wine is not established; see Second wine above.':
+      'Welke wijn de tweede wijn van het domein is, staat niet vast; zie Tweede wijn hierboven.',
+    'The estate’s records conflict about its second wine; see Second wine above.':
+      'De gegevens van het domein spreken elkaar tegen over de tweede wijn; zie Tweede wijn hierboven.',
+    'the current list': 'de huidige lijst',
+    'a list no longer in force': 'een lijst die niet meer geldt',
+    'The list in force today; which list applied to each vintage is not recorded.':
+      'De lijst die vandaag geldt; welke lijst voor elke jaargang gold, is niet vastgelegd.',
+    'none recorded for this wine': 'niets vastgelegd voor deze wijn',
+    'current': 'huidig',
+    'none recorded for this wine itself': 'niets vastgelegd voor deze wijn zelf',
+    'The estate’s appellation is shown above.': 'De appellatie van het domein staat hierboven.',
+    'Sheets on file': 'Fiches in het archief',
+    'vintage': 'jaargang',
+    'vintages': 'jaargangen',
+    'Recorded as not made': 'Vastgelegd als niet gemaakt',
+    'A year without a sheet is not evidence that the wine was not made: only the years listed as not made are recorded as such.':
+      'Een jaar zonder fiche bewijst niet dat de wijn niet is gemaakt: alleen de jaren die als niet gemaakt zijn vermeld, zijn zo vastgelegd.',
+    'Rank and appellation are the estate’s current values, the same under every vintage; they are not established for each vintage.':
+      'Rang en appellatie zijn de huidige waarden van het domein, dezelfde onder elke jaargang; ze zijn niet per jaargang vastgesteld.',
     'each figure above cites its own source, where one is known; this opens a page outside this app':
       'elk cijfer hierboven noemt zijn eigen bron, waar die bekend is; dit opent een pagina buiten deze app',
     'this estate’s own suggestion': 'de eigen suggestie van dit domein',

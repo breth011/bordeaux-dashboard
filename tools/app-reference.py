@@ -47,7 +47,8 @@ AC_LIMIT = 9
 # Globals the page gained on purpose, after the control was captured.
 ADDED_GLOBALS = {'BDX_FIGURE_SRC': 'FIGURE PROVENANCE (Phase 6.1)',
                  'BDX_SECOND_STATUS': 'SECOND-WINE STATUS (Phase 6.3)',
-                 'BDX_SOURCE_FACTS': 'SOURCE FACTS (Phase 6.5)'}
+                 'BDX_SOURCE_FACTS': 'SOURCE FACTS (Phase 6.5)',
+                 'BDX_WINE_ESTABLISHED': 'WINE ESTABLISHED FACTS (Phase 6.7)'}
 QUERIES = [q for _, q in B.SEARCH] + ['margaux', 'saint-emilion', 'blanc', 'second', 'echo']
 ESTATES = ['lafite', 'margaux', 'haut-brion', 'yquem', 'lynch-bages', 'saint-pierre', 'caillou',
            'smith-haut-lafitte', 'stem-chateau-badette', 'bourgeois-chateau-beaumont',
@@ -117,10 +118,17 @@ DRAWER_JS = '''(function (id) {
      dropSw: without the second-wine row (Phase 6.3), whichever form it takes:
      the old "Second wine" fact, or the new one marked data-sw.
      dropWord: without the provenance wording Phase 6.5 corrected: the sparse
-     estates' notice, in its old ("A verified name and rank") or new form. */
-  function values(dropSrc, dropSw, dropWord) {
-    if (dropSrc === undefined) { dropSrc = true; dropSw = true; dropWord = true; }
+     estates' notice, in its old ("A verified name and rank") or new form.
+     dropEst: without the block of what is established about the wine
+     (Phase 6.7), which sits above a wine's vintage list. */
+  function values(dropSrc, dropSw, dropWord, dropEst) {
+    if (dropSrc === undefined) { dropSrc = true; dropSw = true; dropWord = true; dropEst = true; }
     var b = document.getElementById('drawerBody').cloneNode(true);
+    if (dropEst) {
+      Array.prototype.forEach.call(b.querySelectorAll('.wine-est'), function (e) {
+        e.parentNode.removeChild(e);
+      });
+    }
     if (dropSrc) {
       Array.prototype.forEach.call(b.querySelectorAll('.fig-src, .fichelink, .src-more, .src-panel'), function (e) {
         e.parentNode.removeChild(e);
@@ -158,7 +166,7 @@ DRAWER_JS = '''(function (id) {
     var s = document.getElementById('wineSel');
     if (s && s.value !== w) { s.value = w; s.dispatchEvent(new Event('change')); }
     var rows = Array.prototype.slice.call(document.querySelectorAll('#drawerBody .vrow[data-year]'));
-    var st = {wine: w, text: text(), values: values(), keepSw: values(true, false, true), keepSrc: values(false, true, true), keepWord: values(true, true, false), years: rows.map(function (r) { return r.getAttribute('data-year'); }), opened: []};
+    var st = {wine: w, text: text(), values: values(), keepSw: values(true, false, true, true), keepSrc: values(false, true, true, true), keepWord: values(true, true, false, true), keepEst: values(true, true, true, false), years: rows.map(function (r) { return r.getAttribute('data-year'); }), opened: []};
     /* The rows that hold a sheet's figures, so their values are compared. */
     rows.filter(function (r) { return r.querySelector('.factgrid, .blendbar, .fichelink, .presslist'); })
       .slice(0, 3).forEach(function (r) {
@@ -168,7 +176,7 @@ DRAWER_JS = '''(function (id) {
          nothing, so until Phase 6.1 the expanded vintage (the fiche
          figures) was not in the capture at all. */
       var head = again && again.querySelector('.vrow-head');
-      if (head) { head.click(); st.opened.push([y, text(), values(), values(true, false, true), values(false, true, true), values(true, true, false)]); }
+      if (head) { head.click(); st.opened.push([y, text(), values(), values(true, false, true, true), values(false, true, true, true), values(true, true, false, true), values(true, true, true, false)]); }
     });
     states.push(st);
   });
@@ -208,8 +216,9 @@ def capture(root=None):
                 continue
             pages[e] = [{'wine': s['wine'], 'text': sha(s['text']), 'chars': len(s['text']),
                          'values': sha(s['values']), 'keep_sw': sha(s['keepSw']), 'keep_src': sha(s['keepSrc']),
-                         'keep_word': sha(s['keepWord']), 'years': s['years'],
-                         'opened': [[y, sha(t), sha(v), sha(ks), sha(kr), sha(kw)] for y, t, v, ks, kr, kw in s['opened']],
+                         'keep_word': sha(s['keepWord']), 'keep_est': sha(s['keepEst']), 'years': s['years'],
+                         'opened': [[y, sha(t), sha(v), sha(ks), sha(kr), sha(kw), sha(ke)]
+                                    for y, t, v, ks, kr, kw, ke in s['opened']],
                          'empty': not s['text'].strip()} for s in r['states']]
         out['pages'] = pages
         for e in c.events:
@@ -295,15 +304,18 @@ def compare(ref, now):
             # The same values on the page; only named presentation changed. Which one is
             # told by the texts that keep it: a difference left with the second-wine row
             # kept is that row (Phase 6.3); with the source marks kept, those (Phase 6.1,
-            # 6.5); with the provenance wording kept, that wording (Phase 6.5).
+            # 6.5); with the provenance wording kept, that wording (Phase 6.5); with the
+            # established-wine block kept, that block (Phase 6.7).
             sw = any(x.get('keep_sw') != y.get('keep_sw') or [o[3:4] for o in x['opened']] != [o[3:4] for o in y['opened']]
                      for x, y in zip(a, b))
             src = any(x.get('keep_src') != y.get('keep_src') or [o[4:5] for o in x['opened']] != [o[4:5] for o in y['opened']]
                       for x, y in zip(a, b))
             word = any(x.get('keep_word') != y.get('keep_word') or [o[5:6] for o in x['opened']] != [o[5:6] for o in y['opened']]
                        for x, y in zip(a, b))
+            est = any(x.get('keep_est') != y.get('keep_est') or [o[6:7] for o in x['opened']] != [o[6:7] for o in y['opened']]
+                      for x, y in zip(a, b))
             named = [n for n, on in (('PROVENANCE', src), ('SECOND-WINE STATUS', sw),
-                                     ('PROVENANCE WORDING', word)) if on]
+                                     ('PROVENANCE WORDING', word), ('ESTABLISHED WINE FACTS', est)) if on]
             label = ('EXPECTED: ' + ' AND '.join(named) + ' PRESENTATION') if named else None
             if label is None:
                 same('value', 'page %s' % e, a, b)

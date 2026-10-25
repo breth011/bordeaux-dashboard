@@ -213,7 +213,8 @@ def application_unchanged():
     src = load_tool('app-source.py')
     idx = open(L.ROOT + 'index.html', encoding='utf-8').read()
     sw = open(L.ROOT + 'service-worker.js', encoding='utf-8').read()
-    for extra in ('figure-sources.js', 'second-status.js', 'source-facts.js'):  # Phase 6.1, 6.3, 6.5
+    for extra in ('figure-sources.js', 'second-status.js', 'source-facts.js',   # Phase 6.1, 6.3, 6.5
+                  'wine-established.js'):                                     # Phase 6.7
         idx = idx.replace('<script src="data/app/%s"></script>\n' % extra, '')
         sw = sw.replace("  './data/app/%s',\n" % extra, '')
     for f in src.CONTRACT:
@@ -269,7 +270,15 @@ PHASE61 = {'EXPECTED: PROVENANCE PRESENTATION', 'EXPECTED: ADDED FIGURE PROVENAN
            'EXPECTED: ADDED SECOND-WINE STATUS (Phase 6.3)',
            'EXPECTED: ADDED SOURCE FACTS (Phase 6.5)',
            'EXPECTED: PROVENANCE WORDING PRESENTATION',
-           'EXPECTED: PROVENANCE AND PROVENANCE WORDING PRESENTATION'}
+           'EXPECTED: PROVENANCE AND PROVENANCE WORDING PRESENTATION',
+           # Phase 6.7: the block of what is established about each wine, and its file
+           'EXPECTED: ADDED WINE ESTABLISHED FACTS (Phase 6.7)',
+           'EXPECTED: ESTABLISHED WINE FACTS PRESENTATION',
+           'EXPECTED: PROVENANCE AND ESTABLISHED WINE FACTS PRESENTATION',
+           'EXPECTED: PROVENANCE WORDING AND ESTABLISHED WINE FACTS PRESENTATION',
+           'EXPECTED: PROVENANCE AND PROVENANCE WORDING AND ESTABLISHED WINE FACTS PRESENTATION',
+           'EXPECTED: PROVENANCE AND SECOND-WINE STATUS AND ESTABLISHED WINE FACTS PRESENTATION',
+           'EXPECTED: SECOND-WINE STATUS AND ESTABLISHED WINE FACTS PRESENTATION'}
 
 
 @check

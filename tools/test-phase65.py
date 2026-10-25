@@ -107,11 +107,13 @@ def source_facts_are_the_models():
 
 @check
 def other_generated_files_byte_identical_and_deterministic():
-    # Against BEFORE, the only difference in data/app may be this phase's own file, added.
-    # (Uncommitted, the new file is untracked and git diff does not list it; committed, it is
-    # listed as added. Either way no existing generated file may change.)
+    # Against BEFORE, the only difference in data/app may be this phase's own file, added,
+    # and later phases' named additions (Phase 6.7's wine-established.js). (Uncommitted, a new
+    # file is untracked and git diff does not list it; committed, it is listed as added.
+    # Either way no existing generated file may change.)
+    added = ('data/app/source-facts.js', 'data/app/wine-established.js')
     changed = git('diff', '--name-status', BEFORE, '--', 'data/app').splitlines()
-    assert [l for l in changed if l.split()[-1] != 'data/app/source-facts.js'] == [], \
+    assert [l for l in changed if l.split()[-1] not in added] == [], \
         'an existing generated file changed: %s' % changed
     assert all(l.split()[0] == 'A' for l in changed), changed
     assert os.path.exists(L.ROOT + 'data/app/source-facts.js')

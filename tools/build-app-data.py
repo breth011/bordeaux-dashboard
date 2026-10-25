@@ -198,9 +198,93 @@ def pack(table):
             'rec': {k: {f: index[json.dumps(v, sort_keys=True)] for f, v in r.items()} for k, r in table.items()}}
 
 
+WINE_ESTABLISHED = 'wine-established.js'
+
+
+def wine_established(model=None):
+    """What the model establishes about each wine the page can show, now (Phase 6.7).
+
+    {"estate|slug": facts}, slug "grand" for an estate's grand vin (identity map
+    `grand-vin`) and the cuvee slug otherwise (`wine-by-slug`). Every fact is a
+    model record as it stands; nothing is dated that the model does not date:
+      "n"   the CURRENT NameRecord's name (absent if the wine has none)
+      "nf"  that record's valid_from, where it is anything but UNKNOWN
+      "fn"  FORMER names, where any are recorded (none are, at Phase 6.7)
+      "r"   the distinct RankAssertion tiers, and "rc" their claimants
+      "c"   classification memberships: [rank, scheme, edition year, edition status]
+      "a"   appellation memberships' names
+      "s"   sheets on file: [count, first year, last year], from the fiche and
+            cuvee records the wine's observations were extracted from
+      "x"   years with a NOT_PRODUCED VintageStatement
+    A wine without a fact simply lacks the key: an absent record is not a value."""
+    M = model or R.Model()
+    im = {}
+    for r in M.rows('identity/identity-map.jsonl'):
+        if r['namespace'] == 'grand-vin' and r.get('stable_id'):
+            im[r['stable_id']] = r['legacy_key'] + '|grand'
+        elif r['namespace'] == 'wine-by-slug' and r.get('stable_id'):
+            im[r['stable_id']] = r['legacy_key']
+    out = {key: {} for key in im.values()}
+    for n in M.rows('identity/names.jsonl'):
+        key = im.get(n['subject'])
+        if key is None:
+            continue
+        if n['kind'] == 'CURRENT':
+            out[key]['n'] = n['name']
+            if n['validity']['valid_from'].get('kind') != 'UNKNOWN':
+                out[key]['nf'] = n['validity']['valid_from']
+        elif n['kind'] == 'FORMER':
+            out[key].setdefault('fn', []).append(n['name'])
+    rel = {r['id']: r for r in M.rows('state/estate-wine.jsonl')}
+    for a in M.rows('state/rank-assertions.jsonl'):
+        key = im.get(rel[a['relationship']]['wine'])
+        if key is not None:
+            out[key].setdefault('r', set()).add(a['tier'])
+            out[key].setdefault('rc', set()).add(a['claimant'])
+    schemes = {r['id']: r['name'] for r in M.rows('state/classification-schemes.jsonl')}
+    editions = {r['id']: r for r in M.rows('state/classification-editions.jsonl')}
+    for m in M.rows('state/classification-memberships.jsonl'):
+        key = im.get(m['wine'])
+        if key is None:
+            continue
+        e = editions[m['edition']]
+        year = e['validity']['valid_from'].get('value') if e['validity']['valid_from'].get('kind') == 'EXACT' else None
+        out[key].setdefault('c', []).append([m['rank'], schemes[e['scheme']], year, e['status']])
+    apps = {r['id']: r['name'] for r in M.rows('state/appellations.jsonl')}
+    for m in M.rows('state/appellation-memberships.jsonl'):
+        key = im.get(m['wine'])
+        if key is not None:
+            out[key].setdefault('a', []).append(apps[m['appellation']])
+    years = {}
+    for o in M.rows('observation/observations.jsonl'):
+        ex = o['extraction']
+        if ex['file'] in ('data/fiches.js', 'data/cuvees.js'):
+            parts = ex['record'].split('|')
+            key = parts[0] + '|grand' if len(parts) == 2 else parts[0] + '|' + parts[1]
+            if key in out:
+                years.setdefault(key, set()).add(int(parts[-1]))
+    for key, ys in years.items():
+        out[key]['s'] = [len(ys), min(ys), max(ys)]
+    for v in M.rows('state/vintage-statements.jsonl'):
+        if v['kind'] != 'NOT_PRODUCED':
+            continue
+        _, wine, year = v['vintage'].split(':')
+        key = im.get(wine)
+        if key is not None:
+            out[key].setdefault('x', []).append(int(year))
+    for f in out.values():
+        for k in ('r', 'rc'):
+            if k in f:
+                f[k] = sorted(f[k])
+        for k in ('c', 'a', 'x', 'fn'):
+            if k in f:
+                f[k] = sorted(f[k])
+    return out
+
+
 def render():
     """{filename: bytes} for every contract file, the figure sources, the second-wine
-    states and the source facts."""
+    states, the source facts and what is established about each wine."""
     proj = R.project(classifications={c['id']: c for c in L.g('BDX_CLASSIFICATIONS')})
     out = {}
     for f in CONTRACT:
@@ -226,6 +310,8 @@ def render():
     out[SECOND_STATUS] = (HEADER + 'window.BDX_SECOND_STATUS = %s;\n' % js).encode('utf-8')
     js = json.dumps(pack(source_facts()), ensure_ascii=False, sort_keys=True, separators=(',', ':'))
     out[SOURCE_FACTS] = (HEADER + 'window.BDX_SOURCE_FACTS = %s;\n' % js).encode('utf-8')
+    js = json.dumps(wine_established(), ensure_ascii=False, sort_keys=True, separators=(',', ':'))
+    out[WINE_ESTABLISHED] = (HEADER + 'window.BDX_WINE_ESTABLISHED = %s;\n' % js).encode('utf-8')
     return out
 
 

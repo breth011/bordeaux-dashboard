@@ -242,7 +242,7 @@ def gap_ids_are_stable_and_the_register_keeps_its_history():
         for b in res['by']:
             assert b['commit'] == commits[b['phase']]['commit'], gid
         recovered += res['recovered']
-    assert recovered == sum(1 for r in audit() if r['disposition'] == 'APPLY_PROVENANCE'), recovered
+    assert recovered == sum(1 for r in audit() if r['disposition'].startswith('APPLY')), recovered
 
 
 @check

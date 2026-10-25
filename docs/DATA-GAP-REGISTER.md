@@ -241,8 +241,9 @@ Gaps a recovery stream reduced. Each keeps its id, tier and original count; the 
 | Phase | Commit | Method | Gaps | Items recovered |
 |---|---|---|---:|---:|
 | M3.2A | `ba5aaa4` | PROVENANCE_REPAIR | 58 | 716 |
+| M3.2B | `b4ec482` | DETERMINISTIC_MAPPING | 1 | 71 |
 
-22 gaps resolved outright, 36 partly; 716 of their 1,198 affected items recovered, 482 remain.
+23 gaps resolved outright, 36 partly; 787 of their 1,269 affected items recovered, 482 remain.
 
 
 ## Method and limits

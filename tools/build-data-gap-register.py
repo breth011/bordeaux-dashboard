@@ -643,6 +643,9 @@ def resolve(rows):
         if f.get('recovered'):
             stream = f['recovered']['stream']
             recovered[('FIG_UNSOURCED|%s|%s' % (f['group'], A.estate_of_record(f['record'])), stream)] += 1
+    for f in A.file_only_figures():
+        if f.get('recovered') and f['url_known']:
+            recovered[('FIG_FILE_ONLY|URL_IN_DISCOVERY', f['recovered']['stream'])] += 1
     for r in rows:
         done = {s: n for (k, s), n in recovered.items() if k == r['gap_key'] and s in applied}
         if not done:

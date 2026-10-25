@@ -204,9 +204,13 @@ def documents(m):
     for i, r in enumerate(sheets):
         path_rows[sources_path(r)].append((i, r))
     versions = {p: sorted({r['sha1'] for _, r in rows}) for p, rows in path_rows.items()}
-    sha1_bytes = {}
-    for _, r in enumerate(sheets):
-        sha1_bytes.setdefault(r['sha1'], r['bytes'])
+    sizes = collections.defaultdict(set)
+    for r in sheets:
+        sizes[r['sha1']].add(r['bytes'])
+    # One sha1, several byte counts: the manifest contradicts itself; the
+    # artifact takes no count and each row keeps its own (M6).
+    sha1_bytes = {s1: (next(iter(b)) if len(b) == 1 else None) for s1, b in sizes.items()}
+    m.size_conflicts = {s1: sorted(b) for s1, b in sizes.items() if len(b) > 1}
 
     # What the reader hashed (v4, v5) and what failed.
     reads = collections.defaultdict(set)                   # path -> {sha256}
@@ -293,7 +297,11 @@ def documents(m):
     for aid, r in rows.items():
         d = disc.get(r.get('sha256'))
         if 'sha1' in r and r['sha1'] in sha1_bytes:
-            r['bytes'] = sha1_bytes[r['sha1']]
+            if sha1_bytes[r['sha1']] is not None:
+                r['bytes'] = sha1_bytes[r['sha1']]
+            else:
+                m.finding(aid, 'CONFLICT', 'the manifest gives %s bytes for this one sha1' % ' and '.join(
+                    map(str, m.size_conflicts[r['sha1']])), ACTOR, p_mint)
         elif d:
             r['bytes'] = d['bytes']
         elif read_bytes.get(r.get('sha256')) is not None:

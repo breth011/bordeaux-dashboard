@@ -127,7 +127,16 @@ def translations(m, n):
 
 
 def single_value_files(m, n):
-    """ratings, cellar, BDX_SCORES: vintage-level; plantings, terroir: estate-level."""
+    """ratings, cellar, BDX_SCORES, the document URLs: vintage-level; plantings,
+    terroir: estate-level."""
+    for name, file in (('BDX_FICHE_URL', 'fiches-url.js'), ('BDX_CUVEE_URL', 'cuvee-url.js')):
+        p = m.prov('LEGACY_UNSOURCED', 'data/' + file)
+        for key, url in sorted(L.g(name).items()):
+            v = m.vintage_of.get(key)
+            if v:
+                observe(m, v, 'document_url', url, p,
+                        {'method': 'LEGACY', 'file': 'data/' + file, 'record': key})
+                n['observations ' + name] += 1
     for key, val in sorted(L.g('BDX_RATINGS').items()):
         v = m.vintage_of.get(key)
         if not v:

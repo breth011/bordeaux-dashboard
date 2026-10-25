@@ -15,13 +15,13 @@
   },
   "cross/findings.jsonl": {
    "entity": "QualityFinding",
-   "rows": 439,
-   "sha256": "513bc9aec77c5d5e5cfb9a8f62322c34fe225ed686f99d5013f9980172b817ea"
+   "rows": 444,
+   "sha256": "da97097809e3bba1f3252ebe983e52cfdfb0162692ab825b59b98834cf97b31d"
   },
   "cross/provenance.jsonl": {
    "entity": "Provenance",
-   "rows": 25892,
-   "sha256": "11ceef456e6776001e2801cc407b5b5bb47bbc5c8fe0768543effe98f5fe8e63"
+   "rows": 25895,
+   "sha256": "8740803c5c25372cd0d70b7bdabe0aa6cdd0617d229be585db95974060382e9b"
   },
   "document/artifact-dates.jsonl": {
    "entity": "ArtifactDate",
@@ -36,12 +36,12 @@
   "document/assessments.jsonl": {
    "entity": "ArtifactAssessment",
    "rows": 7577,
-   "sha256": "8f94c2831737b72d1828d805853b4b06ad52cfad0abd6bd57906b987d3a5b1ba"
+   "sha256": "9c30154097a28614e3f6bd1566ed051dc527a15386d1391a5b7d5d9d67c7e2c8"
   },
   "document/attributions.jsonl": {
    "entity": "Attribution",
-   "rows": 5455,
-   "sha256": "062ebf1d865dfd9b4ad66cf0fe38cee25f3b43630b25e324d2e7ee65dd2d3e38"
+   "rows": 12128,
+   "sha256": "b5db00d7acd46544b2185c69eb7dd2d7d7e0a5da19bf48d24660d7f9f1024ea2"
   },
   "document/families.jsonl": {
    "entity": "DocumentFamily",
@@ -66,7 +66,7 @@
   "identity/artifacts.jsonl": {
    "entity": "Artifact",
    "rows": 37067,
-   "sha256": "d4772009b844b057e0f5a2f3bff7c71637d6ff79557dfae9e2fce3ad1bb5006c"
+   "sha256": "b2469f56b9552f42237083002d704644d758e0002caab7423aa96b19df183138"
   },
   "identity/estates.jsonl": {
    "entity": "Estate",
@@ -115,8 +115,8 @@
   },
   "observation/observations.jsonl": {
    "entity": "Observation",
-   "rows": 20733,
-   "sha256": "af1f3f5a1cd030bb643a9c111d72033a97bfd84be9f64d187182a9a67f49426d"
+   "rows": 22437,
+   "sha256": "632252997fb7832350e6e09ef2ccc8ad3672b45a3185ce14c12cc1c35d274196"
   },
   "reconciliation/reconciliations.jsonl": {
    "entity": "Reconciliation",
@@ -322,6 +322,11 @@
     "attribution grand": 2566,
     "attribution other": 1502,
     "attribution second": 1387,
+    "attribution with no rank (combined)": 2,
+    "attribution with no rank (group report)": 14,
+    "attribution with no rank (page)": 2096,
+    "attribution with no rank (skip)": 810,
+    "attribution with no rank (unknown)": 3751,
     "wine named, not resolved": 181
    },
    "evidence links": {
@@ -343,7 +348,9 @@
     "field flags without their field": 1,
     "observations BDX_CELLAR": 644,
     "observations BDX_CUVEES": 4619,
+    "observations BDX_CUVEE_URL": 326,
     "observations BDX_FICHES": 11838,
+    "observations BDX_FICHE_URL": 1378,
     "observations BDX_PLANTINGS": 93,
     "observations BDX_RATINGS": 2462,
     "observations BDX_SCORES": 61,

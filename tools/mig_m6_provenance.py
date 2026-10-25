@@ -117,11 +117,23 @@ def attributions(m):
     out = collections.Counter()
     for i, r in enumerate(sheets):
         aid = m.art[('sha1', r['sha1'])]
-        keep = {k: r[k] for k in ('how', 'colour', 'year', 'wine', 'slug', 'estateName', 'role')
+        keep = {k: r[k] for k in ('how', 'colour', 'year', 'wine', 'slug', 'estateName', 'role', 'url')
                 if r.get(k) is not None}
         keep['row'] = i
+        if r['sha1'] in m.size_conflicts:
+            keep['bytes'] = r['bytes']
+        loc = {'kind': 'LOCAL_PATH', 'value': M2.sources_path(r)}
         p = m.prov('LEGACY_MANIFEST', 'data/sources.json', artifact=aid, quote=r.get('note'),
-                   code_state=keep)
+                   locator=loc, code_state=keep)
+        if r['role'] not in ROLE and r['estate']:
+            # What kind of document it is is an assessment; which estate it
+            # concerns is still an attribution, with no rank claimed.
+            row = {'id': S.hid('Attribution', aid, i), 'artifact': aid, 'method': 'LEGACY_UNKNOWN',
+                   'status': 'LEGACY', 'provenance': p}
+            if r['estate'] in m.estate:
+                row['estate'] = m.estate[r['estate']]
+            m.add('document/attributions.jsonl', row)
+            out['attribution with no rank (%s)' % r['role']] += 1
         if r['role'] in ROLE:
             row = {'id': S.hid('Attribution', aid, i), 'artifact': aid, 'role': ROLE[r['role']],
                    'method': 'LEGACY_UNKNOWN', 'status': 'LEGACY', 'provenance': p}
@@ -207,7 +219,15 @@ def prepare_value_prov(m):
     m.pl_artifact = {r['id']: r.get('artifact') for r in m.rows('document/placements.jsonl')}
 
 
+def documentation(m):
+    """The manifest's own vocabularies (note, roles, how), kept with the migration."""
+    d = L.sources_rows()
+    m.prov('LEGACY_MANIFEST', 'data/sources.json',
+           code_state={'documentation': {k: d[k] for k in ('note', 'roles', 'how')}})
+
+
 def run(m):
+    documentation(m)
     sources(m)
     attributions(m)
     evidence_links(m)

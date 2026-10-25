@@ -604,10 +604,15 @@ def m5_every_slug_vintage_key_maps_to_its_wine_or_is_kept():
 def m6_every_manifest_row_is_one_attribution_or_assessment():
     prov = {r['id']: r for r in T('cross/provenance.jsonl')}
     rows = collections.Counter()
+    sheets = L.sources_rows()['sheets']
     for t in ('document/attributions.jsonl', 'document/assessments.jsonl'):
         for r in T(t):
+            if t.startswith('document/attributions') and 'role' not in r:
+                # an estate claim beside an assessment
+                i = prov[r['provenance']]['code_state']['row']
+                assert sheets[i]['role'] not in ('grand', 'second', 'other') and sheets[i]['estate']
+                continue
             rows[prov[r['provenance']]['code_state']['row']] += 1
-    sheets = L.sources_rows()['sheets']
     assert set(rows) == set(range(len(sheets))) and set(rows.values()) == {1}
     att = T('document/attributions.jsonl')
     assert {r['method'] for r in att} == {'LEGACY_UNKNOWN'}, 'a legacy how text was classified (D6)'
@@ -739,6 +744,68 @@ def m7_reconciliations_keep_every_candidate_none_deleted():
         assert cv[(r['subject'], r['field'])]['reconciliation'] == r['id']
     assert {o['extraction']['method'] for o in T('observation/observations.jsonl')} == {'LEGACY'}, \
         'an observation re-extracted or copied from the harvest'
+
+
+# ---------------------------------------------------------------- M8
+
+_recon = {}
+
+
+def recon():
+    if not _recon:
+        import reconstruct
+        _recon['r'] = reconstruct.build()
+    return _recon['r']
+
+
+@check
+def m8_reconstruction_has_zero_unexplained_differences():
+    r = recon()
+    assert r['unexplained'] == 0, [d for d in r['differences'] if d['class'] == 'TRUE MIGRATION ERROR'][:5]
+    allowed = {'EXPECTED STRUCTURAL DIFFERENCE', 'TRUE MIGRATION ERROR', 'LEGACY AMBIGUITY',
+               'PRE-EXISTING DATA ISSUE', 'UNRESOLVED'}
+    assert set(r['summary']) <= allowed
+    saved = json.load(open(L.MODEL + 'checks/reconstruction.json', encoding='utf-8'))
+    assert saved['summary'] == r['summary'], 'the committed reconstruction report is stale'
+
+
+@check
+def m8_every_legacy_global_is_compared_or_classified():
+    import reconstruct
+    r = recon()
+    classified = {d['where'] for d in r['differences'] if d['where'].endswith('.js')}
+    for f, g in L.legacy().items():
+        if f in reconstruct.OUT_OF_SCOPE or f == 'classifications.js':
+            assert f in classified, f
+    # everything else is projected
+    import model_reader as R
+    P = R.project(classifications={c['id']: c for c in L.g('BDX_CLASSIFICATIONS')})
+    for f, g in L.legacy().items():
+        if f in reconstruct.OUT_OF_SCOPE or f == 'classifications.js':
+            continue
+        assert set(g) <= set(P.get(f, {})), (f, set(g) - set(P.get(f, {})))
+
+
+@check
+def m8_the_comparison_catches_injected_errors():
+    import copy
+    import reconstruct
+    import model_reader as R
+    P = R.project(classifications={c['id']: c for c in L.g('BDX_CLASSIFICATIONS')})
+    legacy = L.legacy()
+    for mutate in (
+            lambda p: p['fiches.js']['BDX_FICHES']['stem-chateau-badette|2020'].__setitem__('oak', 50),
+            lambda p: p['cuvees.js']['BDX_CUVEES'].pop(sorted(p['cuvees.js']['BDX_CUVEES'])[0]),
+            lambda p: p['chateaux.js']['BDX_CHATEAUX'][0].__setitem__('second', 'Invented'),
+            lambda p: p['saintemilion.js']['BDX_STEM_GCC'].pop(),
+            lambda p: p['cuvees.js']['BDX_CUVEE_WINES']['lynch-bages'][0].__setitem__('role', 'second')):
+        q = copy.deepcopy(P)
+        mutate(q)
+        errs = [d for d in reconstruct.compare(legacy, q) if d['class'] == 'TRUE MIGRATION ERROR']
+        assert errs, 'an injected error went unnoticed'
+    q = copy.deepcopy(P)
+    q['sources.json']['sheets'][5]['sha1'] = '0' * 40
+    assert reconstruct.manifest_diffs(q)
 
 
 def main():

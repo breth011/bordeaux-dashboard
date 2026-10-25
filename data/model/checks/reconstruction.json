@@ -1,0 +1,1774 @@
+{
+ "_": "Phase 4 M8: the legacy data reconstructed from the model and compared value by value (tools/reconstruct.py). Differences are what the projection does not reproduce; kept are values reproduced from records kept verbatim or with an open question.",
+ "summary": {
+  "EXPECTED STRUCTURAL DIFFERENCE": 47,
+  "LEGACY AMBIGUITY": 273,
+  "PRE-EXISTING DATA ISSUE": 13,
+  "UNRESOLVED": 19
+ },
+ "unexplained": 0,
+ "differences": [
+  {
+   "class": "EXPECTED STRUCTURAL DIFFERENCE",
+   "where": "appellations.js",
+   "detail": "outside the contract: appellation outlines for the map"
+  },
+  {
+   "class": "EXPECTED STRUCTURAL DIFFERENCE",
+   "where": "batch2.js BDX_CHATEAUX",
+   "detail": "records in presentation order; the model holds no order"
+  },
+  {
+   "class": "EXPECTED STRUCTURAL DIFFERENCE",
+   "where": "batch3.js BDX_CHATEAUX",
+   "detail": "records in presentation order; the model holds no order"
+  },
+  {
+   "class": "EXPECTED STRUCTURAL DIFFERENCE",
+   "where": "batch4.js BDX_CHATEAUX",
+   "detail": "records in presentation order; the model holds no order"
+  },
+  {
+   "class": "EXPECTED STRUCTURAL DIFFERENCE",
+   "where": "chateaux.js BDX_CHATEAUX",
+   "detail": "records in presentation order; the model holds no order"
+  },
+  {
+   "class": "EXPECTED STRUCTURAL DIFFERENCE",
+   "where": "classifications.js",
+   "detail": "classifications.js: editions, tiers and ranks are migrated; blurb, detail, region, tiers.base and estates (a derived count) are page assets"
+  },
+  {
+   "class": "EXPECTED STRUCTURAL DIFFERENCE",
+   "where": "climate.js",
+   "detail": "outside the contract: regional rainfall and yields"
+  },
+  {
+   "class": "EXPECTED STRUCTURAL DIFFERENCE",
+   "where": "cruartisan.js BDX_CRU_ARTISAN.current",
+   "detail": "list in presentation order; the model holds no order"
+  },
+  {
+   "class": "EXPECTED STRUCTURAL DIFFERENCE",
+   "where": "crubourgeois.js BDX_CRU_BOURGEOIS.bourgeois",
+   "detail": "list in presentation order; the model holds no order"
+  },
+  {
+   "class": "EXPECTED STRUCTURAL DIFFERENCE",
+   "where": "crubourgeois.js BDX_CRU_BOURGEOIS.exceptionnel",
+   "detail": "list in presentation order; the model holds no order"
+  },
+  {
+   "class": "EXPECTED STRUCTURAL DIFFERENCE",
+   "where": "crubourgeois.js BDX_CRU_BOURGEOIS.superieur",
+   "detail": "list in presentation order; the model holds no order"
+  },
+  {
+   "class": "EXPECTED STRUCTURAL DIFFERENCE",
+   "where": "cuvee-src.js BDX_CUVEE_SRC['gruaud-larose|sarget-de-gruaud-larose|2005']",
+   "detail": "an empty provenance record names no source; nothing to keep"
+  },
+  {
+   "class": "EXPECTED STRUCTURAL DIFFERENCE",
+   "where": "cuvee-src.js BDX_CUVEE_SRC['smith-haut-lafitte|hauts-de-smith|2016']",
+   "detail": "an empty provenance record names no source; nothing to keep"
+  },
+  {
+   "class": "EXPECTED STRUCTURAL DIFFERENCE",
+   "where": "cuvee-src.js BDX_CUVEE_SRC['talbot|caillou-blanc-du-chateau-talbot|2011']",
+   "detail": "an empty provenance record names no source; nothing to keep"
+  },
+  {
+   "class": "EXPECTED STRUCTURAL DIFFERENCE",
+   "where": "cuvee-src.js BDX_CUVEE_SRC['talbot|caillou-blanc-du-chateau-talbot|2012']",
+   "detail": "an empty provenance record names no source; nothing to keep"
+  },
+  {
+   "class": "EXPECTED STRUCTURAL DIFFERENCE",
+   "where": "cuvee-src.js BDX_CUVEE_SRC['talbot|caillou-blanc-du-chateau-talbot|2013']",
+   "detail": "an empty provenance record names no source; nothing to keep"
+  },
+  {
+   "class": "EXPECTED STRUCTURAL DIFFERENCE",
+   "where": "cuvee-src.js BDX_CUVEE_SRC['talbot|caillou-blanc-du-chateau-talbot|2014']",
+   "detail": "an empty provenance record names no source; nothing to keep"
+  },
+  {
+   "class": "EXPECTED STRUCTURAL DIFFERENCE",
+   "where": "cuvee-src.js BDX_CUVEE_SRC['talbot|caillou-blanc-du-chateau-talbot|2015']",
+   "detail": "an empty provenance record names no source; nothing to keep"
+  },
+  {
+   "class": "EXPECTED STRUCTURAL DIFFERENCE",
+   "where": "field-src.js BDX_FIELD_SRC['batailley|2010']",
+   "detail": "an empty provenance record names no source; nothing to keep"
+  },
+  {
+   "class": "EXPECTED STRUCTURAL DIFFERENCE",
+   "where": "field-src.js BDX_FIELD_SRC['batailley|2016']",
+   "detail": "an empty provenance record names no source; nothing to keep"
+  },
+  {
+   "class": "EXPECTED STRUCTURAL DIFFERENCE",
+   "where": "field-src.js BDX_FIELD_SRC['batailley|2018']",
+   "detail": "an empty provenance record names no source; nothing to keep"
+  },
+  {
+   "class": "EXPECTED STRUCTURAL DIFFERENCE",
+   "where": "field-src.js BDX_FIELD_SRC['bourgeois-chateau-les-tuileries|2024']",
+   "detail": "an empty provenance record names no source; nothing to keep"
+  },
+  {
+   "class": "EXPECTED STRUCTURAL DIFFERENCE",
+   "where": "field-src.js BDX_FIELD_SRC['bourgeois-chateau-moulin-de-canhaut|2018']",
+   "detail": "an empty provenance record names no source; nothing to keep"
+  },
+  {
+   "class": "EXPECTED STRUCTURAL DIFFERENCE",
+   "where": "field-src.js BDX_FIELD_SRC['branaire-ducru|2022']",
+   "detail": "an empty provenance record names no source; nothing to keep"
+  },
+  {
+   "class": "EXPECTED STRUCTURAL DIFFERENCE",
+   "where": "field-src.js BDX_FIELD_SRC['figeac|1995']",
+   "detail": "an empty provenance record names no source; nothing to keep"
+  },
+  {
+   "class": "EXPECTED STRUCTURAL DIFFERENCE",
+   "where": "field-src.js BDX_FIELD_SRC['la-tour-carnet|2011']",
+   "detail": "an empty provenance record names no source; nothing to keep"
+  },
+  {
+   "class": "EXPECTED STRUCTURAL DIFFERENCE",
+   "where": "field-src.js BDX_FIELD_SRC['lafaurie-peyraguey|2024']",
+   "detail": "an empty provenance record names no source; nothing to keep"
+  },
+  {
+   "class": "EXPECTED STRUCTURAL DIFFERENCE",
+   "where": "field-src.js BDX_FIELD_SRC['latour-martillac|2020']",
+   "detail": "an empty provenance record names no source; nothing to keep"
+  },
+  {
+   "class": "EXPECTED STRUCTURAL DIFFERENCE",
+   "where": "field-src.js BDX_FIELD_SRC['malescot|1995']",
+   "detail": "an empty provenance record names no source; nothing to keep"
+  },
+  {
+   "class": "EXPECTED STRUCTURAL DIFFERENCE",
+   "where": "field-src.js BDX_FIELD_SRC['stem-chateau-grand-corbin-despagne|2018']",
+   "detail": "an empty provenance record names no source; nothing to keep"
+  },
+  {
+   "class": "EXPECTED STRUCTURAL DIFFERENCE",
+   "where": "geography.js",
+   "detail": "outside the contract: map geometry"
+  },
+  {
+   "class": "EXPECTED STRUCTURAL DIFFERENCE",
+   "where": "grapes-nl.js",
+   "detail": "outside the contract: its Dutch"
+  },
+  {
+   "class": "EXPECTED STRUCTURAL DIFFERENCE",
+   "where": "grapes.js",
+   "detail": "outside the contract: grape reference"
+  },
+  {
+   "class": "EXPECTED STRUCTURAL DIFFERENCE",
+   "where": "graves.js BDX_CHATEAUX",
+   "detail": "records in presentation order; the model holds no order"
+  },
+  {
+   "class": "EXPECTED STRUCTURAL DIFFERENCE",
+   "where": "libournais.js BDX_CHATEAUX",
+   "detail": "records in presentation order; the model holds no order"
+  },
+  {
+   "class": "EXPECTED STRUCTURAL DIFFERENCE",
+   "where": "notes-nl.js",
+   "detail": "outside the contract: their Dutch translation"
+  },
+  {
+   "class": "EXPECTED STRUCTURAL DIFFERENCE",
+   "where": "notes.js",
+   "detail": "outside the contract: editorial notes on appellations and classifications"
+  },
+  {
+   "class": "EXPECTED STRUCTURAL DIFFERENCE",
+   "where": "phenology.js",
+   "detail": "outside the contract: regional phenology dates"
+  },
+  {
+   "class": "EXPECTED STRUCTURAL DIFFERENCE",
+   "where": "pomerol.js BDX_CHATEAUX",
+   "detail": "records in presentation order; the model holds no order"
+  },
+  {
+   "class": "EXPECTED STRUCTURAL DIFFERENCE",
+   "where": "pomerol.js BDX_POMEROL_OTHER",
+   "detail": "list in presentation order; the model holds no order"
+  },
+  {
+   "class": "EXPECTED STRUCTURAL DIFFERENCE",
+   "where": "rightbank.js",
+   "detail": "outside the contract: regional vintage scores"
+  },
+  {
+   "class": "EXPECTED STRUCTURAL DIFFERENCE",
+   "where": "saintemilion.js BDX_CHATEAUX",
+   "detail": "records in presentation order; the model holds no order"
+  },
+  {
+   "class": "EXPECTED STRUCTURAL DIFFERENCE",
+   "where": "saintemilion.js BDX_STEM_GCC",
+   "detail": "list in presentation order; the model holds no order"
+  },
+  {
+   "class": "EXPECTED STRUCTURAL DIFFERENCE",
+   "where": "sauternes.js BDX_CHATEAUX",
+   "detail": "records in presentation order; the model holds no order"
+  },
+  {
+   "class": "EXPECTED STRUCTURAL DIFFERENCE",
+   "where": "vintages-nl.js",
+   "detail": "outside the contract: their Dutch"
+  },
+  {
+   "class": "EXPECTED STRUCTURAL DIFFERENCE",
+   "where": "vintages.js",
+   "detail": "outside the contract: regional vintage reports"
+  },
+  {
+   "class": "EXPECTED STRUCTURAL DIFFERENCE",
+   "where": "water.js",
+   "detail": "outside the contract: map geometry"
+  }
+ ],
+ "kept": [
+  {
+   "class": "PRE-EXISTING DATA ISSUE",
+   "where": "data/fiches-nl.js BDX_FICHES_NL['mouton|2012'].taste",
+   "detail": "translates a field the English record does not hold"
+  },
+  {
+   "class": "UNRESOLVED",
+   "where": "data/ratings.js BDX_RATINGS['saint-julien|2022']",
+   "detail": "the estate id 'saint-julien' resolves to no estate with a grand-vin Wine"
+  },
+  {
+   "class": "UNRESOLVED",
+   "where": "data/ratings.js BDX_RATINGS['saint-julien|2017']",
+   "detail": "the estate id 'saint-julien' resolves to no estate with a grand-vin Wine"
+  },
+  {
+   "class": "UNRESOLVED",
+   "where": "data/cuvees.js BDX_CUVEES['dauzac|ch-teau-dauzac-blanc|2025']",
+   "detail": "the slug 'ch-teau-dauzac-blanc' is not listed for 'dauzac' in BDX_CUVEE_WINES"
+  },
+  {
+   "class": "PRE-EXISTING DATA ISSUE",
+   "where": "data/fiches.js BDX_FICHES['prieure-lichine|2021']",
+   "detail": "a record holding no value"
+  },
+  {
+   "class": "PRE-EXISTING DATA ISSUE",
+   "where": "data/fiches.js BDX_FICHES['malescot|1995']",
+   "detail": "a record holding no value"
+  },
+  {
+   "class": "UNRESOLVED",
+   "where": "data/ratings.js BDX_RATINGS['saint-julien|2020']",
+   "detail": "the estate id 'saint-julien' resolves to no estate with a grand-vin Wine"
+  },
+  {
+   "class": "UNRESOLVED",
+   "where": "data/ratings.js BDX_RATINGS['saint-julien|2009']",
+   "detail": "the estate id 'saint-julien' resolves to no estate with a grand-vin Wine"
+  },
+  {
+   "class": "UNRESOLVED",
+   "where": "data/cuvees.js BDX_CUVEES['la-mission-haut-brion|clart-de-haut-brion-blanc|2010']",
+   "detail": "the slug 'clart-de-haut-brion-blanc' is not listed for 'la-mission-haut-brion' in BDX_CUVEE_WINES"
+  },
+  {
+   "class": "PRE-EXISTING DATA ISSUE",
+   "where": "data/fiches-nl.js BDX_FICHES_NL['lafite|2016'].taste",
+   "detail": "translates a field the English record does not hold"
+  },
+  {
+   "class": "UNRESOLVED",
+   "where": "data/ratings.js BDX_RATINGS['saint-julien|2013']",
+   "detail": "the estate id 'saint-julien' resolves to no estate with a grand-vin Wine"
+  },
+  {
+   "class": "UNRESOLVED",
+   "where": "data/ratings.js BDX_RATINGS['saint-julien|2019']",
+   "detail": "the estate id 'saint-julien' resolves to no estate with a grand-vin Wine"
+  },
+  {
+   "class": "UNRESOLVED",
+   "where": "data/ratings.js BDX_RATINGS['saint-julien|2015']",
+   "detail": "the estate id 'saint-julien' resolves to no estate with a grand-vin Wine"
+  },
+  {
+   "class": "UNRESOLVED",
+   "where": "data/ratings.js BDX_RATINGS['saint-julien|2005']",
+   "detail": "the estate id 'saint-julien' resolves to no estate with a grand-vin Wine"
+  },
+  {
+   "class": "UNRESOLVED",
+   "where": "data/ratings.js BDX_RATINGS['saint-julien|2012']",
+   "detail": "the estate id 'saint-julien' resolves to no estate with a grand-vin Wine"
+  },
+  {
+   "class": "PRE-EXISTING DATA ISSUE",
+   "where": "data/fiches-nl.js BDX_FICHES_NL['malescot|1995'].taste",
+   "detail": "translates a field the English record does not hold"
+  },
+  {
+   "class": "UNRESOLVED",
+   "where": "data/ratings.js BDX_RATINGS['saint-julien|2008']",
+   "detail": "the estate id 'saint-julien' resolves to no estate with a grand-vin Wine"
+  },
+  {
+   "class": "UNRESOLVED",
+   "where": "data/ratings.js BDX_RATINGS['saint-julien|2011']",
+   "detail": "the estate id 'saint-julien' resolves to no estate with a grand-vin Wine"
+  },
+  {
+   "class": "PRE-EXISTING DATA ISSUE",
+   "where": "data/fiches.js BDX_FICHES['latour-martillac|2020']",
+   "detail": "a record holding no value"
+  },
+  {
+   "class": "UNRESOLVED",
+   "where": "data/ratings.js BDX_RATINGS['saint-julien|2010']",
+   "detail": "the estate id 'saint-julien' resolves to no estate with a grand-vin Wine"
+  },
+  {
+   "class": "PRE-EXISTING DATA ISSUE",
+   "where": "data/fiches-nl.js BDX_FICHES_NL['dauzac|2003'].window",
+   "detail": "translates a field the English record does not hold"
+  },
+  {
+   "class": "UNRESOLVED",
+   "where": "data/ratings.js BDX_RATINGS['saint-julien|2016']",
+   "detail": "the estate id 'saint-julien' resolves to no estate with a grand-vin Wine"
+  },
+  {
+   "class": "UNRESOLVED",
+   "where": "data/ratings.js BDX_RATINGS['saint-julien|2006']",
+   "detail": "the estate id 'saint-julien' resolves to no estate with a grand-vin Wine"
+  },
+  {
+   "class": "UNRESOLVED",
+   "where": "data/ratings.js BDX_RATINGS['saint-julien|2014']",
+   "detail": "the estate id 'saint-julien' resolves to no estate with a grand-vin Wine"
+  },
+  {
+   "class": "PRE-EXISTING DATA ISSUE",
+   "where": "data/fiches-nl.js BDX_FICHES_NL['lafite|1976'].taste",
+   "detail": "translates a field the English record does not hold"
+  },
+  {
+   "class": "UNRESOLVED",
+   "where": "data/ratings.js BDX_RATINGS['saint-julien|2018']",
+   "detail": "the estate id 'saint-julien' resolves to no estate with a grand-vin Wine"
+  },
+  {
+   "class": "UNRESOLVED",
+   "where": "data/ratings.js BDX_RATINGS['saint-julien|2007']",
+   "detail": "the estate id 'saint-julien' resolves to no estate with a grand-vin Wine"
+  },
+  {
+   "class": "LEGACY AMBIGUITY",
+   "where": "ob_3c1c9c9a3c62",
+   "detail": "the estate blend of data/batch3.js: plantings or the usual assemblage, decided per estate (D1); kept as an observation"
+  },
+  {
+   "class": "LEGACY AMBIGUITY",
+   "where": "ar_032981",
+   "detail": "the bytes read at fiches/coutet/2022_Chateau_Coutet_CCEN230329.pdf are not proven to be any version the manifest records there (6673b8beb957, 8e3cef47ac81)"
+  },
+  {
+   "class": "LEGACY AMBIGUITY",
+   "where": "ob_e610b9e10721",
+   "detail": "the estate blend of data/chateaux.js: plantings or the usual assemblage, decided per estate (D1); kept as an observation"
+  },
+  {
+   "class": "LEGACY AMBIGUITY",
+   "where": "ar_012860",
+   "detail": "the bytes read at fiches/coutet/2012_Chateau_Coutet_CCEN1411.pdf are not proven to be any version the manifest records there (357501ec50a5, af9a5bc709f9)"
+  },
+  {
+   "class": "LEGACY AMBIGUITY",
+   "where": "ob_1d3774d2f2c8",
+   "detail": "the estate blend of data/batch2.js: plantings or the usual assemblage, decided per estate (D1); kept as an observation"
+  },
+  {
+   "class": "LEGACY AMBIGUITY",
+   "where": "ar_025077",
+   "detail": "the bytes read at fiches/stem-chateau-fleur-cardinale/PRIMEURS-2025-Presentation-digitale.pdf are not proven to be any version the manifest records there (cc4b7b61d9a5, fe64aacb7775)"
+  },
+  {
+   "class": "LEGACY AMBIGUITY",
+   "where": "ob_60ca581e94f2",
+   "detail": "the estate blend of data/saintemilion.js: plantings or the usual assemblage, decided per estate (D1); kept as an observation"
+  },
+  {
+   "class": "LEGACY AMBIGUITY",
+   "where": "ob_886ab6a0c5a3",
+   "detail": "the estate blend of data/sauternes.js: plantings or the usual assemblage, decided per estate (D1); kept as an observation"
+  },
+  {
+   "class": "LEGACY AMBIGUITY",
+   "where": "ar_013519",
+   "detail": "the bytes read at fiches/prieure-lichine/Fiche-technique-Confidences-2010-FR.pdf are not proven to be any version the manifest records there (0beb9eb2848a, 5471262092f2)"
+  },
+  {
+   "class": "LEGACY AMBIGUITY",
+   "where": "ar_013777",
+   "detail": "the bytes read at fiches/clos-puy-arnaud/Commentaires-Cuv-e-les-Ormeaux.pdf are not proven to be any version the manifest records there (70b15bd9c694, ce4618bd0ac3)"
+  },
+  {
+   "class": "LEGACY AMBIGUITY",
+   "where": "ar_014011",
+   "detail": "the bytes read at fiches/clos-puy-arnaud/Fiche-technique-CPA-2019-FR.pdf are not proven to be any version the manifest records there (00cf71c0c6d3, 0a6e064f3713, 64007de7c9e5)"
+  },
+  {
+   "class": "LEGACY AMBIGUITY",
+   "where": "ob_a03d4f54a96d",
+   "detail": "the estate blend of data/chateaux.js: plantings or the usual assemblage, decided per estate (D1); kept as an observation"
+  },
+  {
+   "class": "LEGACY AMBIGUITY",
+   "where": "ob_3c5c567caf74",
+   "detail": "the estate blend of data/chateaux.js: plantings or the usual assemblage, decided per estate (D1); kept as an observation"
+  },
+  {
+   "class": "PRE-EXISTING DATA ISSUE",
+   "where": "ar_009171",
+   "detail": "the manifest gives 466330 and 1250315 bytes for this one sha1"
+  },
+  {
+   "class": "LEGACY AMBIGUITY",
+   "where": "ob_3f91b1553a75",
+   "detail": "the estate blend of data/chateaux.js: plantings or the usual assemblage, decided per estate (D1); kept as an observation"
+  },
+  {
+   "class": "LEGACY AMBIGUITY",
+   "where": "ob_16e14036cf61",
+   "detail": "the estate blend of data/pomerol.js: plantings or the usual assemblage, decided per estate (D1); kept as an observation"
+  },
+  {
+   "class": "LEGACY AMBIGUITY",
+   "where": "ob_2e86f0cc9799",
+   "detail": "the estate blend of data/chateaux.js: plantings or the usual assemblage, decided per estate (D1); kept as an observation"
+  },
+  {
+   "class": "LEGACY AMBIGUITY",
+   "where": "ob_477d76cee52e",
+   "detail": "the estate blend of data/batch4.js: plantings or the usual assemblage, decided per estate (D1); kept as an observation"
+  },
+  {
+   "class": "LEGACY AMBIGUITY",
+   "where": "ar_026115",
+   "detail": "the bytes read at fiches/bourgeois-chateau-les-lattes/FT-Bel-Air-DP.pdf are not proven to be any version the manifest records there (09a4c3765ff0, 2b90edae0752)"
+  },
+  {
+   "class": "LEGACY AMBIGUITY",
+   "where": "ob_ec1321f9410b",
+   "detail": "the estate blend of data/chateaux.js: plantings or the usual assemblage, decided per estate (D1); kept as an observation"
+  },
+  {
+   "class": "LEGACY AMBIGUITY",
+   "where": "ob_fc4ffdd7fbce",
+   "detail": "the estate blend of data/batch3.js: plantings or the usual assemblage, decided per estate (D1); kept as an observation"
+  },
+  {
+   "class": "LEGACY AMBIGUITY",
+   "where": "ob_8edbbb296a27",
+   "detail": "the estate blend of data/pomerol.js: plantings or the usual assemblage, decided per estate (D1); kept as an observation"
+  },
+  {
+   "class": "LEGACY AMBIGUITY",
+   "where": "ob_d79264151e16",
+   "detail": "the estate blend of data/chateaux.js: plantings or the usual assemblage, decided per estate (D1); kept as an observation"
+  },
+  {
+   "class": "LEGACY AMBIGUITY",
+   "where": "es_00387",
+   "detail": "cuvees.js lists 2 'second' wines (Les Hauts de Smith red, Les Hauts de Smith Blanc white): the legacy role does not say within which range (estate, or wine type) each is second"
+  },
+  {
+   "class": "LEGACY AMBIGUITY",
+   "where": "ob_e69dad85c866",
+   "detail": "the estate blend of data/chateaux.js: plantings or the usual assemblage, decided per estate (D1); kept as an observation"
+  },
+  {
+   "class": "LEGACY AMBIGUITY",
+   "where": "ob_20880442534b",
+   "detail": "the estate blend of data/sauternes.js: plantings or the usual assemblage, decided per estate (D1); kept as an observation"
+  },
+  {
+   "class": "LEGACY AMBIGUITY",
+   "where": "ob_a9bba2d9b2d0",
+   "detail": "the estate blend of data/sauternes.js: plantings or the usual assemblage, decided per estate (D1); kept as an observation"
+  },
+  {
+   "class": "LEGACY AMBIGUITY",
+   "where": "ob_7704b4869d60",
+   "detail": "the estate blend of data/sauternes.js: plantings or the usual assemblage, decided per estate (D1); kept as an observation"
+  },
+  {
+   "class": "LEGACY AMBIGUITY",
+   "where": "ob_44937c8b2ce1",
+   "detail": "the estate blend of data/chateaux.js: plantings or the usual assemblage, decided per estate (D1); kept as an observation"
+  },
+  {
+   "class": "LEGACY AMBIGUITY",
+   "where": "ob_b23b8ab75936",
+   "detail": "the estate blend of data/chateaux.js: plantings or the usual assemblage, decided per estate (D1); kept as an observation"
+  },
+  {
+   "class": "LEGACY AMBIGUITY",
+   "where": "es_00338",
+   "detail": "cuvees.js lists 2 'second' wines (Le Dauphin d'Olivier red, Le Dauphin d'Olivier Blanc white): the legacy role does not say within which range (estate, or wine type) each is second"
+  },
+  {
+   "class": "LEGACY AMBIGUITY",
+   "where": "ob_5ce03f2de693",
+   "detail": "the estate blend of data/chateaux.js: plantings or the usual assemblage, decided per estate (D1); kept as an observation"
+  },
+  {
+   "class": "LEGACY AMBIGUITY",
+   "where": "ar_027099",
+   "detail": "the bytes read at fiches/stem-chateau-laroque/FT_TDL_2016_UK.pdf are not proven to be any version the manifest records there (1bae7a50074b, a4838f4b0501)"
+  },
+  {
+   "class": "LEGACY AMBIGUITY",
+   "where": "ar_024392",
+   "detail": "the bytes read at fiches/stem-chateau-laroque/FT_CL_2017-1.pdf are not proven to be any version the manifest records there (9cf91f696d64)"
+  },
+  {
+   "class": "LEGACY AMBIGUITY",
+   "where": "ob_1ecb0c00528a",
+   "detail": "the estate blend of data/libournais.js: plantings or the usual assemblage, decided per estate (D1); kept as an observation"
+  },
+  {
+   "class": "LEGACY AMBIGUITY",
+   "where": "ar_026747",
+   "detail": "the bytes read at fiches/bourgeois-chateau-de-braude/FT-Ch-Braude-Fellonneau-2018.pdf are not proven to be any version the manifest records there (15c2b58dd4e9, 821b4c92eb14)"
+  },
+  {
+   "class": "LEGACY AMBIGUITY",
+   "where": "ob_f0b44cddff35",
+   "detail": "the estate blend of data/chateaux.js: plantings or the usual assemblage, decided per estate (D1); kept as an observation"
+  },
+  {
+   "class": "LEGACY AMBIGUITY",
+   "where": "ob_8ae419aefe30",
+   "detail": "the estate blend of data/chateaux.js: plantings or the usual assemblage, decided per estate (D1); kept as an observation"
+  },
+  {
+   "class": "LEGACY AMBIGUITY",
+   "where": "ob_243ad89d9cd1",
+   "detail": "the estate blend of data/graves.js: plantings or the usual assemblage, decided per estate (D1); kept as an observation"
+  },
+  {
+   "class": "LEGACY AMBIGUITY",
+   "where": "ob_3a43fa8bc3e5",
+   "detail": "the estate blend of data/chateaux.js: plantings or the usual assemblage, decided per estate (D1); kept as an observation"
+  },
+  {
+   "class": "LEGACY AMBIGUITY",
+   "where": "ob_749842d18888",
+   "detail": "the estate blend of data/graves.js: plantings or the usual assemblage, decided per estate (D1); kept as an observation"
+  },
+  {
+   "class": "LEGACY AMBIGUITY",
+   "where": "ob_5e696b3de01d",
+   "detail": "the estate blend of data/chateaux.js: plantings or the usual assemblage, decided per estate (D1); kept as an observation"
+  },
+  {
+   "class": "LEGACY AMBIGUITY",
+   "where": "ob_4282977d8415",
+   "detail": "the estate blend of data/batch3.js: plantings or the usual assemblage, decided per estate (D1); kept as an observation"
+  },
+  {
+   "class": "LEGACY AMBIGUITY",
+   "where": "es_00285",
+   "detail": "data/chateaux.js names 'Charmes de Kirwan' as the second wine; cuvees.js lists Château Kirwan Blanc (other), Les Charmes de Kirwan (second); whether it is one of them (renamed, succeeded) or another wine is not decided here"
+  },
+  {
+   "class": "LEGACY AMBIGUITY",
+   "where": "ob_26700abcf069",
+   "detail": "the estate blend of data/chateaux.js: plantings or the usual assemblage, decided per estate (D1); kept as an observation"
+  },
+  {
+   "class": "LEGACY AMBIGUITY",
+   "where": "ar_018410",
+   "detail": "the bytes read at fiches/domaine-de-chevalier/Domaine-de-Chevalier-Blanc-2025-Primeur-Francais.pdf are not proven to be any version the manifest records there (631b948215c4)"
+  },
+  {
+   "class": "LEGACY AMBIGUITY",
+   "where": "ar_026747",
+   "detail": "the bytes read at fiches/bourgeois-chateau-mongravey/FT-Ch-Braude-Fellonneau-2018.pdf are not proven to be any version the manifest records there (15c2b58dd4e9, 821b4c92eb14)"
+  },
+  {
+   "class": "LEGACY AMBIGUITY",
+   "where": "ar_028162",
+   "detail": "the bytes read at fiches/gruaud-larose/Sarget-de-Gruaud-Larose-2016-ang.pdf are not proven to be any version the manifest records there (00f982119ff2, 9c8ee7fd961f)"
+  },
+  {
+   "class": "LEGACY AMBIGUITY",
+   "where": "ob_0a3fe8d50b9a",
+   "detail": "the estate blend of data/sauternes.js: plantings or the usual assemblage, decided per estate (D1); kept as an observation"
+  },
+  {
+   "class": "LEGACY AMBIGUITY",
+   "where": "ob_c06e8f56e677",
+   "detail": "the estate blend of data/saintemilion.js: plantings or the usual assemblage, decided per estate (D1); kept as an observation"
+  },
+  {
+   "class": "LEGACY AMBIGUITY",
+   "where": "es_00278",
+   "detail": "data/graves.js names 'La Parde de Haut-Bailly' as the second wine; cuvees.js lists Haut-Bailly II (second); whether it is one of them (renamed, succeeded) or another wine is not decided here"
+  },
+  {
+   "class": "LEGACY AMBIGUITY",
+   "where": "ob_875c0a9d79c5",
+   "detail": "the estate blend of data/chateaux.js: plantings or the usual assemblage, decided per estate (D1); kept as an observation"
+  },
+  {
+   "class": "LEGACY AMBIGUITY",
+   "where": "ar_026115",
+   "detail": "the bytes read at fiches/broustet/FT-Bel-Air-DP.pdf are not proven to be any version the manifest records there (09a4c3765ff0, 2b90edae0752)"
+  },
+  {
+   "class": "LEGACY AMBIGUITY",
+   "where": "ob_8f67075e8f66",
+   "detail": "the estate blend of data/pomerol.js: plantings or the usual assemblage, decided per estate (D1); kept as an observation"
+  },
+  {
+   "class": "LEGACY AMBIGUITY",
+   "where": "ar_019074",
+   "detail": "the bytes read at fiches/stem-chateau-de-ferrand/ofa-et-tarif-entreprises-fr-2025.pdf are not proven to be any version the manifest records there (9e955428557f, d4e21f2cae28)"
+  },
+  {
+   "class": "LEGACY AMBIGUITY",
+   "where": "ob_bf442391ec5d",
+   "detail": "the estate blend of data/saintemilion.js: plantings or the usual assemblage, decided per estate (D1); kept as an observation"
+  },
+  {
+   "class": "LEGACY AMBIGUITY",
+   "where": "ob_072fdcd16ada",
+   "detail": "the estate blend of data/saintemilion.js: plantings or the usual assemblage, decided per estate (D1); kept as an observation"
+  },
+  {
+   "class": "LEGACY AMBIGUITY",
+   "where": "ob_8a7023a53812",
+   "detail": "the estate blend of data/saintemilion.js: plantings or the usual assemblage, decided per estate (D1); kept as an observation"
+  },
+  {
+   "class": "LEGACY AMBIGUITY",
+   "where": "es_00317",
+   "detail": "data/chateaux.js second is not a plain name: 'Le Petit Lion (Clos du Marquis is a separate cuvée)'; no wine and no rank taken from it"
+  },
+  {
+   "class": "LEGACY AMBIGUITY",
+   "where": "ob_91f8669995cf",
+   "detail": "the estate blend of data/libournais.js: plantings or the usual assemblage, decided per estate (D1); kept as an observation"
+  },
+  {
+   "class": "LEGACY AMBIGUITY",
+   "where": "ob_e0eb69d29637",
+   "detail": "the estate blend of data/pomerol.js: plantings or the usual assemblage, decided per estate (D1); kept as an observation"
+  },
+  {
+   "class": "LEGACY AMBIGUITY",
+   "where": "ar_031369",
+   "detail": "the bytes read at fiches/coutet/2010_Chateau_Coutet_CCEN1411.pdf are not proven to be any version the manifest records there (b1f276b60ec7, fe3808ccb884)"
+  },
+  {
+   "class": "LEGACY AMBIGUITY",
+   "where": "ob_471663d37f4d",
+   "detail": "the estate blend of data/saintemilion.js: plantings or the usual assemblage, decided per estate (D1); kept as an observation"
+  },
+  {
+   "class": "LEGACY AMBIGUITY",
+   "where": "ar_012932",
+   "detail": "the bytes read at fiches/bourgeois-chateau-mongravey/FT-Ch-Braude-Fellonneau-2020.pdf are not proven to be any version the manifest records there (5ae3baec45f3, 80963fa6cda7)"
+  },
+  {
+   "class": "LEGACY AMBIGUITY",
+   "where": "ob_c7c35f8fe031",
+   "detail": "the estate blend of data/saintemilion.js: plantings or the usual assemblage, decided per estate (D1); kept as an observation"
+  },
+  {
+   "class": "LEGACY AMBIGUITY",
+   "where": "ob_1e36fd4b70b1",
+   "detail": "the estate blend of data/sauternes.js: plantings or the usual assemblage, decided per estate (D1); kept as an observation"
+  },
+  {
+   "class": "LEGACY AMBIGUITY",
+   "where": "ob_a1fe1bbee66c",
+   "detail": "the estate blend of data/chateaux.js: plantings or the usual assemblage, decided per estate (D1); kept as an observation"
+  },
+  {
+   "class": "LEGACY AMBIGUITY",
+   "where": "ob_e49d92c87db3",
+   "detail": "the estate blend of data/chateaux.js: plantings or the usual assemblage, decided per estate (D1); kept as an observation"
+  },
+  {
+   "class": "LEGACY AMBIGUITY",
+   "where": "ob_9e5a7091fdf4",
+   "detail": "the estate blend of data/sauternes.js: plantings or the usual assemblage, decided per estate (D1); kept as an observation"
+  },
+  {
+   "class": "LEGACY AMBIGUITY",
+   "where": "es_00329",
+   "detail": "data/chateaux.js names 'Les Gondats de Marquis de Terme' as the second wine; cuvees.js lists Cuvée 1762 (other), Empreinte de Marquis de Terme (other); whether it is one of them (renamed, succeeded) or another wine is not decided here"
+  },
+  {
+   "class": "LEGACY AMBIGUITY",
+   "where": "ob_4d13302921e6",
+   "detail": "the estate blend of data/batch2.js: plantings or the usual assemblage, decided per estate (D1); kept as an observation"
+  },
+  {
+   "class": "LEGACY AMBIGUITY",
+   "where": "es_00338",
+   "detail": "data/graves.js names 'La Seigneurie d’Olivier' as the second wine; cuvees.js lists Château Olivier Blanc (other), Le Dauphin d'Olivier (second), Le Dauphin d'Olivier Blanc (second); whether it is one of them (renamed, succeeded) or another wine is not decided here"
+  },
+  {
+   "class": "LEGACY AMBIGUITY",
+   "where": "ob_0d42a1b60d4e",
+   "detail": "the estate blend of data/batch3.js: plantings or the usual assemblage, decided per estate (D1); kept as an observation"
+  },
+  {
+   "class": "LEGACY AMBIGUITY",
+   "where": "ar_016719",
+   "detail": "the bytes read at fiches/prieure-lichine/Fiche-technique-Confidences-2016-GB.pdf are not proven to be any version the manifest records there (6a1deb672087, eadd4d93a026)"
+  },
+  {
+   "class": "LEGACY AMBIGUITY",
+   "where": "ar_031214",
+   "detail": "the bytes read at fiches/stem-chateau-laroque/FT_TDL_2015_UK.pdf are not proven to be any version the manifest records there (c45abe2d588b, f0415850675e)"
+  },
+  {
+   "class": "LEGACY AMBIGUITY",
+   "where": "ob_183792d6086a",
+   "detail": "the estate blend of data/saintemilion.js: plantings or the usual assemblage, decided per estate (D1); kept as an observation"
+  },
+  {
+   "class": "LEGACY AMBIGUITY",
+   "where": "ar_017218",
+   "detail": "the bytes read at fiches/stem-chateau-fleur-cardinale/2025-EN-PRIMEURS-Digital-presentation.pdf are not proven to be any version the manifest records there (14f0a1105c85, 6238b1f6342b)"
+  },
+  {
+   "class": "LEGACY AMBIGUITY",
+   "where": "es_00238",
+   "detail": "data/chateaux.js names 'Les Pagodes de Cos' as the second wine; cuvees.js lists Cos d'Estournel Blanc (other), G d'Estournel (other), Goulée by Cos d'Estournel (other), Pagodes de Cos (second), Pagodes de Cos Blanc (other); whether it is one of them (renamed, succeeded) or another wine is not decided here"
+  },
+  {
+   "class": "LEGACY AMBIGUITY",
+   "where": "ob_cd6f216d9ffd",
+   "detail": "the estate blend of data/saintemilion.js: plantings or the usual assemblage, decided per estate (D1); kept as an observation"
+  },
+  {
+   "class": "LEGACY AMBIGUITY",
+   "where": "ob_6e4c8a339a2c",
+   "detail": "the estate blend of data/batch3.js: plantings or the usual assemblage, decided per estate (D1); kept as an observation"
+  },
+  {
+   "class": "LEGACY AMBIGUITY",
+   "where": "ar_014782",
+   "detail": "the bytes read at fiches/stem-chateau-fleur-cardinale/Fleur-Cardinale-blanc-2024-Technical-Sheet.pdf are not proven to be any version the manifest records there (2e5c85385261)"
+  },
+  {
+   "class": "LEGACY AMBIGUITY",
+   "where": "es_00470",
+   "detail": "data/sauternes.js second is not a plain name: 'Y d’Yquem (a dry white, not a second wine)'; no wine and no rank taken from it"
+  },
+  {
+   "class": "LEGACY AMBIGUITY",
+   "where": "ob_492c82d23c8c",
+   "detail": "the estate blend of data/pomerol.js: plantings or the usual assemblage, decided per estate (D1); kept as an observation"
+  },
+  {
+   "class": "LEGACY AMBIGUITY",
+   "where": "ob_98f1dab6ece8",
+   "detail": "the estate blend of data/sauternes.js: plantings or the usual assemblage, decided per estate (D1); kept as an observation"
+  },
+  {
+   "class": "LEGACY AMBIGUITY",
+   "where": "ar_025972",
+   "detail": "the bytes read at fiches/prieure-lichine/Dates-de-mise-en-bouteilles-pour-le-Chateau-Prieure-Lichine.pdf are not proven to be any version the manifest records there (0d936f3b65bc, c9d4456e33b2)"
+  },
+  {
+   "class": "LEGACY AMBIGUITY",
+   "where": "ob_432dce0b0697",
+   "detail": "the estate blend of data/pomerol.js: plantings or the usual assemblage, decided per estate (D1); kept as an observation"
+  },
+  {
+   "class": "LEGACY AMBIGUITY",
+   "where": "ob_230063bf42a4",
+   "detail": "the estate blend of data/pomerol.js: plantings or the usual assemblage, decided per estate (D1); kept as an observation"
+  },
+  {
+   "class": "LEGACY AMBIGUITY",
+   "where": "ob_d08fbbf9f947",
+   "detail": "the estate blend of data/chateaux.js: plantings or the usual assemblage, decided per estate (D1); kept as an observation"
+  },
+  {
+   "class": "LEGACY AMBIGUITY",
+   "where": "ob_0f24f7080dca",
+   "detail": "the estate blend of data/sauternes.js: plantings or the usual assemblage, decided per estate (D1); kept as an observation"
+  },
+  {
+   "class": "LEGACY AMBIGUITY",
+   "where": "ar_015018",
+   "detail": "the bytes read at fiches/domaine-de-chevalier/Domaine-de-Chevalier-Blanc-2025-Primeur-Anglais.pdf are not proven to be any version the manifest records there (d378f0bd47f6)"
+  },
+  {
+   "class": "LEGACY AMBIGUITY",
+   "where": "ob_a7e74dba4f47",
+   "detail": "the estate blend of data/chateaux.js: plantings or the usual assemblage, decided per estate (D1); kept as an observation"
+  },
+  {
+   "class": "LEGACY AMBIGUITY",
+   "where": "ob_bdfd9d91b0e2",
+   "detail": "the estate blend of data/batch3.js: plantings or the usual assemblage, decided per estate (D1); kept as an observation"
+  },
+  {
+   "class": "LEGACY AMBIGUITY",
+   "where": "ob_744cd1602c14",
+   "detail": "the estate blend of data/sauternes.js: plantings or the usual assemblage, decided per estate (D1); kept as an observation"
+  },
+  {
+   "class": "LEGACY AMBIGUITY",
+   "where": "ob_431aecb06fde",
+   "detail": "the estate blend of data/pomerol.js: plantings or the usual assemblage, decided per estate (D1); kept as an observation"
+  },
+  {
+   "class": "LEGACY AMBIGUITY",
+   "where": "ob_222704296f0e",
+   "detail": "the estate blend of data/graves.js: plantings or the usual assemblage, decided per estate (D1); kept as an observation"
+  },
+  {
+   "class": "LEGACY AMBIGUITY",
+   "where": "ob_2e3550b57524",
+   "detail": "the estate blend of data/chateaux.js: plantings or the usual assemblage, decided per estate (D1); kept as an observation"
+  },
+  {
+   "class": "LEGACY AMBIGUITY",
+   "where": "es_00250",
+   "detail": "data/libournais.js second is not a plain name: 'Haut-Carles (prestige cuvée)'; no wine and no rank taken from it"
+  },
+  {
+   "class": "LEGACY AMBIGUITY",
+   "where": "ob_74c637928662",
+   "detail": "the estate blend of data/batch3.js: plantings or the usual assemblage, decided per estate (D1); kept as an observation"
+  },
+  {
+   "class": "LEGACY AMBIGUITY",
+   "where": "ob_dc9eb060f67a",
+   "detail": "the estate blend of data/sauternes.js: plantings or the usual assemblage, decided per estate (D1); kept as an observation"
+  },
+  {
+   "class": "LEGACY AMBIGUITY",
+   "where": "ob_55bee0a9e1ee",
+   "detail": "the estate blend of data/chateaux.js: plantings or the usual assemblage, decided per estate (D1); kept as an observation"
+  },
+  {
+   "class": "LEGACY AMBIGUITY",
+   "where": "ar_016622",
+   "detail": "the bytes read at fiches/prieure-lichine/Commentaires-Ch.-Prieure-Lichine-2020.pdf are not proven to be any version the manifest records there (260f04962548, 585fae77c62c)"
+  },
+  {
+   "class": "LEGACY AMBIGUITY",
+   "where": "ar_019082",
+   "detail": "the bytes read at fiches/clos-puy-arnaud/Commentaires-Clos-Puy-Arnaud.pdf are not proven to be any version the manifest records there (3c01e9929884, 4bcfc1bf5875)"
+  },
+  {
+   "class": "LEGACY AMBIGUITY",
+   "where": "ob_09ddfc07a41c",
+   "detail": "the estate blend of data/pomerol.js: plantings or the usual assemblage, decided per estate (D1); kept as an observation"
+  },
+  {
+   "class": "LEGACY AMBIGUITY",
+   "where": "ob_ba365a7db9e8",
+   "detail": "the estate blend of data/chateaux.js: plantings or the usual assemblage, decided per estate (D1); kept as an observation"
+  },
+  {
+   "class": "LEGACY AMBIGUITY",
+   "where": "ob_7b6db878c03e",
+   "detail": "the estate blend of data/batch3.js: plantings or the usual assemblage, decided per estate (D1); kept as an observation"
+  },
+  {
+   "class": "LEGACY AMBIGUITY",
+   "where": "es_00277",
+   "detail": "data/chateaux.js names 'La Chapelle de Bages' as the second wine; cuvees.js lists La Chapelle de Haut-Bages Libéral (second); whether it is one of them (renamed, succeeded) or another wine is not decided here"
+  },
+  {
+   "class": "LEGACY AMBIGUITY",
+   "where": "ob_e72d68526361",
+   "detail": "the estate blend of data/chateaux.js: plantings or the usual assemblage, decided per estate (D1); kept as an observation"
+  },
+  {
+   "class": "LEGACY AMBIGUITY",
+   "where": "ar_029964",
+   "detail": "the bytes read at fiches/prieure-lichine/Fiche-technique-Confidences-2010-GB.pdf are not proven to be any version the manifest records there (089463205ff1, eb2d2b9fb6fd)"
+  },
+  {
+   "class": "LEGACY AMBIGUITY",
+   "where": "ob_c3579f97bd94",
+   "detail": "the estate blend of data/libournais.js: plantings or the usual assemblage, decided per estate (D1); kept as an observation"
+  },
+  {
+   "class": "LEGACY AMBIGUITY",
+   "where": "ob_7f7401b9605e",
+   "detail": "the estate blend of data/batch4.js: plantings or the usual assemblage, decided per estate (D1); kept as an observation"
+  },
+  {
+   "class": "LEGACY AMBIGUITY",
+   "where": "ar_029670",
+   "detail": "the bytes read at fiches/haut-brion/Fiche-technique_ChateauHBR_2017_EN.pdf are not proven to be any version the manifest records there (1f34bc777c2f, b360c602f9eb)"
+  },
+  {
+   "class": "LEGACY AMBIGUITY",
+   "where": "es_00323",
+   "detail": "data/chateaux.js says the estate has no second wine ('—'); cuvees.js lists Les Hauts de Lynch-Moussas as its second"
+  },
+  {
+   "class": "LEGACY AMBIGUITY",
+   "where": "ar_032439",
+   "detail": "the bytes read at fiches/coutet/2011_Chateau_Coutet_CCEN1411.pdf are not proven to be any version the manifest records there (682f15dac242, 7f181083a6c8)"
+  },
+  {
+   "class": "LEGACY AMBIGUITY",
+   "where": "ar_014208",
+   "detail": "the bytes read at fiches/prieure-lichine/Fiche-technique-Confidences-2014-FR.pdf are not proven to be any version the manifest records there (154f354252eb, 19ab4ba64c6d)"
+  },
+  {
+   "class": "LEGACY AMBIGUITY",
+   "where": "ob_05816d115161",
+   "detail": "the estate blend of data/batch3.js: plantings or the usual assemblage, decided per estate (D1); kept as an observation"
+  },
+  {
+   "class": "LEGACY AMBIGUITY",
+   "where": "ar_021563",
+   "detail": "the bytes read at fiches/stem-chateau-fleur-cardinale/Fleur-Cardinale-blanc-2024-Fiche-Technique.pdf are not proven to be any version the manifest records there (d274553673a2)"
+  },
+  {
+   "class": "LEGACY AMBIGUITY",
+   "where": "ar_026115",
+   "detail": "the bytes read at fiches/bourgeois-chateau-carcanieux/FT-Bel-Air-DP.pdf are not proven to be any version the manifest records there (09a4c3765ff0, 2b90edae0752)"
+  },
+  {
+   "class": "LEGACY AMBIGUITY",
+   "where": "ob_3c35b7b411cc",
+   "detail": "the estate blend of data/pomerol.js: plantings or the usual assemblage, decided per estate (D1); kept as an observation"
+  },
+  {
+   "class": "LEGACY AMBIGUITY",
+   "where": "ob_56d1ec2db0e9",
+   "detail": "the estate blend of data/chateaux.js: plantings or the usual assemblage, decided per estate (D1); kept as an observation"
+  },
+  {
+   "class": "LEGACY AMBIGUITY",
+   "where": "ar_012932",
+   "detail": "the bytes read at fiches/bourgeois-chateau-de-braude/FT-Ch-Braude-Fellonneau-2020.pdf are not proven to be any version the manifest records there (5ae3baec45f3, 80963fa6cda7)"
+  },
+  {
+   "class": "LEGACY AMBIGUITY",
+   "where": "es_00276",
+   "detail": "cuvees.js lists 2 'second' wines (Petit Guiraud sweet, Petit Guiraud Blanc sweet): the legacy role does not say within which range (estate, or wine type) each is second"
+  },
+  {
+   "class": "LEGACY AMBIGUITY",
+   "where": "ob_ee1413d8a370",
+   "detail": "the estate blend of data/chateaux.js: plantings or the usual assemblage, decided per estate (D1); kept as an observation"
+  },
+  {
+   "class": "LEGACY AMBIGUITY",
+   "where": "ob_bf1710c04174",
+   "detail": "the estate blend of data/graves.js: plantings or the usual assemblage, decided per estate (D1); kept as an observation"
+  },
+  {
+   "class": "LEGACY AMBIGUITY",
+   "where": "ob_a5e3836cb9ac",
+   "detail": "the estate blend of data/pomerol.js: plantings or the usual assemblage, decided per estate (D1); kept as an observation"
+  },
+  {
+   "class": "LEGACY AMBIGUITY",
+   "where": "ob_b80f65a4fc3d",
+   "detail": "the estate blend of data/sauternes.js: plantings or the usual assemblage, decided per estate (D1); kept as an observation"
+  },
+  {
+   "class": "LEGACY AMBIGUITY",
+   "where": "ob_5563122c77ca",
+   "detail": "the estate blend of data/chateaux.js: plantings or the usual assemblage, decided per estate (D1); kept as an observation"
+  },
+  {
+   "class": "LEGACY AMBIGUITY",
+   "where": "ob_f56410dbebcd",
+   "detail": "the estate blend of data/pomerol.js: plantings or the usual assemblage, decided per estate (D1); kept as an observation"
+  },
+  {
+   "class": "LEGACY AMBIGUITY",
+   "where": "ob_ff3fd5b77681",
+   "detail": "the estate blend of data/batch2.js: plantings or the usual assemblage, decided per estate (D1); kept as an observation"
+  },
+  {
+   "class": "LEGACY AMBIGUITY",
+   "where": "ob_0cc8048fe421",
+   "detail": "the estate blend of data/graves.js: plantings or the usual assemblage, decided per estate (D1); kept as an observation"
+  },
+  {
+   "class": "LEGACY AMBIGUITY",
+   "where": "ob_1a07e2642a43",
+   "detail": "the estate blend of data/graves.js: plantings or the usual assemblage, decided per estate (D1); kept as an observation"
+  },
+  {
+   "class": "LEGACY AMBIGUITY",
+   "where": "ob_770f70a4d767",
+   "detail": "the estate blend of data/chateaux.js: plantings or the usual assemblage, decided per estate (D1); kept as an observation"
+  },
+  {
+   "class": "LEGACY AMBIGUITY",
+   "where": "ar_022751",
+   "detail": "the bytes read at fiches/prieure-lichine/Dates-de-mise-en-bouteilles-pour-Confidences-de-Prieure-Lichine.pdf are not proven to be any version the manifest records there (3a3661a3ea72, d30cdc0f9a72)"
+  },
+  {
+   "class": "LEGACY AMBIGUITY",
+   "where": "ar_028312",
+   "detail": "the bytes read at fiches/dalem/Presse-DALEM-2022-primeurs.pdf are not proven to be any version the manifest records there (c8f2c5a6aa30, fc35b4888adb)"
+  },
+  {
+   "class": "LEGACY AMBIGUITY",
+   "where": "ar_035396",
+   "detail": "the bytes read at fiches/coutet/2021_Chateau_Coutet_CCEN220330.pdf are not proven to be any version the manifest records there (19cdb27da705, 4253ca46766e)"
+  },
+  {
+   "class": "LEGACY AMBIGUITY",
+   "where": "ob_cceb2f7c594a",
+   "detail": "the estate blend of data/chateaux.js: plantings or the usual assemblage, decided per estate (D1); kept as an observation"
+  },
+  {
+   "class": "LEGACY AMBIGUITY",
+   "where": "ob_de0cdc742760",
+   "detail": "the estate blend of data/pomerol.js: plantings or the usual assemblage, decided per estate (D1); kept as an observation"
+  },
+  {
+   "class": "LEGACY AMBIGUITY",
+   "where": "ob_bb6ea74481c4",
+   "detail": "the estate blend of data/graves.js: plantings or the usual assemblage, decided per estate (D1); kept as an observation"
+  },
+  {
+   "class": "LEGACY AMBIGUITY",
+   "where": "ar_002286",
+   "detail": "the bytes read at fiches/domaine-de-chevalier/2020-blanc-domaine-de-chevalier-francais.pdf are not proven to be any version the manifest records there (8f25e8cbe2ba)"
+  },
+  {
+   "class": "LEGACY AMBIGUITY",
+   "where": "ob_4d51c001e88d",
+   "detail": "the estate blend of data/chateaux.js: plantings or the usual assemblage, decided per estate (D1); kept as an observation"
+  },
+  {
+   "class": "LEGACY AMBIGUITY",
+   "where": "ar_012138",
+   "detail": "the bytes read at fiches/bourgeois-chateau-mongravey/Ch-Braude-Fellonneau-2020.pdf are not proven to be any version the manifest records there (973374d66b1e, f7cb717fc9c3)"
+  },
+  {
+   "class": "LEGACY AMBIGUITY",
+   "where": "ob_3a2dc2fc7f41",
+   "detail": "the estate blend of data/chateaux.js: plantings or the usual assemblage, decided per estate (D1); kept as an observation"
+  },
+  {
+   "class": "LEGACY AMBIGUITY",
+   "where": "ob_326d967d1376",
+   "detail": "the estate blend of data/batch3.js: plantings or the usual assemblage, decided per estate (D1); kept as an observation"
+  },
+  {
+   "class": "LEGACY AMBIGUITY",
+   "where": "ob_893a79adc9f8",
+   "detail": "the estate blend of data/chateaux.js: plantings or the usual assemblage, decided per estate (D1); kept as an observation"
+  },
+  {
+   "class": "LEGACY AMBIGUITY",
+   "where": "ob_d0aeff9c198e",
+   "detail": "the estate blend of data/graves.js: plantings or the usual assemblage, decided per estate (D1); kept as an observation"
+  },
+  {
+   "class": "LEGACY AMBIGUITY",
+   "where": "ar_016129",
+   "detail": "the bytes read at fiches/prieure-lichine/Fiche-technique-Confidences-2016-FR.pdf are not proven to be any version the manifest records there (a4538dc289fd, daefdae1f3f1)"
+  },
+  {
+   "class": "LEGACY AMBIGUITY",
+   "where": "ob_12b102b26792",
+   "detail": "the estate blend of data/chateaux.js: plantings or the usual assemblage, decided per estate (D1); kept as an observation"
+  },
+  {
+   "class": "LEGACY AMBIGUITY",
+   "where": "ob_14f3cd65e9bc",
+   "detail": "the estate blend of data/graves.js: plantings or the usual assemblage, decided per estate (D1); kept as an observation"
+  },
+  {
+   "class": "LEGACY AMBIGUITY",
+   "where": "ob_18feaf593c53",
+   "detail": "the estate blend of data/libournais.js: plantings or the usual assemblage, decided per estate (D1); kept as an observation"
+  },
+  {
+   "class": "LEGACY AMBIGUITY",
+   "where": "ob_62d75021e7ec",
+   "detail": "the estate blend of data/chateaux.js: plantings or the usual assemblage, decided per estate (D1); kept as an observation"
+  },
+  {
+   "class": "LEGACY AMBIGUITY",
+   "where": "ob_a96c80421626",
+   "detail": "the estate blend of data/sauternes.js: plantings or the usual assemblage, decided per estate (D1); kept as an observation"
+  },
+  {
+   "class": "LEGACY AMBIGUITY",
+   "where": "ar_024563",
+   "detail": "the bytes read at fiches/stem-chateau-laroque/FT_CL_2017.pdf are not proven to be any version the manifest records there (9cf91f696d64)"
+  },
+  {
+   "class": "LEGACY AMBIGUITY",
+   "where": "ob_b74ff3dbea11",
+   "detail": "the estate blend of data/chateaux.js: plantings or the usual assemblage, decided per estate (D1); kept as an observation"
+  },
+  {
+   "class": "LEGACY AMBIGUITY",
+   "where": "ar_021280",
+   "detail": "the bytes read at fiches/prieure-lichine/Fiche-technique-Confidences-2017-GB.pdf are not proven to be any version the manifest records there (12ea7334b88b, 93120da2411e)"
+  },
+  {
+   "class": "LEGACY AMBIGUITY",
+   "where": "ar_022355",
+   "detail": "the bytes read at fiches/malartic-lagraviere/malartic-lagraviere-rouge-2019-1.pdf are not proven to be any version the manifest records there (1b3823f6046a, 49662de84d1b)"
+  },
+  {
+   "class": "LEGACY AMBIGUITY",
+   "where": "ob_1c31a178074d",
+   "detail": "the estate blend of data/batch3.js: plantings or the usual assemblage, decided per estate (D1); kept as an observation"
+  },
+  {
+   "class": "LEGACY AMBIGUITY",
+   "where": "ob_b2494441b5d4",
+   "detail": "the estate blend of data/pomerol.js: plantings or the usual assemblage, decided per estate (D1); kept as an observation"
+  },
+  {
+   "class": "LEGACY AMBIGUITY",
+   "where": "ob_3493bce7424c",
+   "detail": "the estate blend of data/chateaux.js: plantings or the usual assemblage, decided per estate (D1); kept as an observation"
+  },
+  {
+   "class": "LEGACY AMBIGUITY",
+   "where": "ob_8a2eb2a607c3",
+   "detail": "the estate blend of data/chateaux.js: plantings or the usual assemblage, decided per estate (D1); kept as an observation"
+  },
+  {
+   "class": "PRE-EXISTING DATA ISSUE",
+   "where": "ar_011026",
+   "detail": "the manifest gives 503843 and 676034 bytes for this one sha1"
+  },
+  {
+   "class": "LEGACY AMBIGUITY",
+   "where": "ob_e6aa336a5d2b",
+   "detail": "the estate blend of data/batch2.js: plantings or the usual assemblage, decided per estate (D1); kept as an observation"
+  },
+  {
+   "class": "PRE-EXISTING DATA ISSUE",
+   "where": "ar_010336",
+   "detail": "the manifest gives 394634 and 519717 bytes for this one sha1"
+  },
+  {
+   "class": "LEGACY AMBIGUITY",
+   "where": "ar_012026",
+   "detail": "the bytes read at fiches/clos-puy-arnaud/Tarifs-particuliers-2024-.pdf are not proven to be any version the manifest records there (0ab9e11d0352, b3ae30d0c1ac)"
+  },
+  {
+   "class": "LEGACY AMBIGUITY",
+   "where": "ob_931221f271f7",
+   "detail": "the estate blend of data/chateaux.js: plantings or the usual assemblage, decided per estate (D1); kept as an observation"
+  },
+  {
+   "class": "LEGACY AMBIGUITY",
+   "where": "ar_030683",
+   "detail": "the bytes read at fiches/giscours/FT-Chateau-Giscours-2025.pdf are not proven to be any version the manifest records there (192c9f75bd39, 7625cff5a59e)"
+  },
+  {
+   "class": "LEGACY AMBIGUITY",
+   "where": "ob_921328550f2e",
+   "detail": "the estate blend of data/libournais.js: plantings or the usual assemblage, decided per estate (D1); kept as an observation"
+  },
+  {
+   "class": "LEGACY AMBIGUITY",
+   "where": "ar_033353",
+   "detail": "the bytes read at fiches/bourgeois-chateau-de-braude/FT-Ch-Braude-Fellonneau-2016.pdf are not proven to be any version the manifest records there (05d528c9d914, d5675482ea39)"
+  },
+  {
+   "class": "LEGACY AMBIGUITY",
+   "where": "ar_031990",
+   "detail": "the bytes read at fiches/stem-chateau-de-ferrand/ofa-et-tarif-grossistes-fr-2025.pdf are not proven to be any version the manifest records there (1cdf4e71e9d1, 93584318a9e1, bbd7b809f141)"
+  },
+  {
+   "class": "LEGACY AMBIGUITY",
+   "where": "ob_03d25c3393b3",
+   "detail": "the estate blend of data/chateaux.js: plantings or the usual assemblage, decided per estate (D1); kept as an observation"
+  },
+  {
+   "class": "LEGACY AMBIGUITY",
+   "where": "ob_c0edcf408500",
+   "detail": "the estate blend of data/pomerol.js: plantings or the usual assemblage, decided per estate (D1); kept as an observation"
+  },
+  {
+   "class": "LEGACY AMBIGUITY",
+   "where": "ar_035393",
+   "detail": "the bytes read at fiches/stem-chateau-de-ferrand/ofa-et-tarif-chr-ferrand-2025.pdf are not proven to be any version the manifest records there (2c70d0a8a992, 3643be3933db, d9b953aa4d07)"
+  },
+  {
+   "class": "LEGACY AMBIGUITY",
+   "where": "ob_68134cd39572",
+   "detail": "the estate blend of data/chateaux.js: plantings or the usual assemblage, decided per estate (D1); kept as an observation"
+  },
+  {
+   "class": "LEGACY AMBIGUITY",
+   "where": "ar_029581",
+   "detail": "the bytes read at fiches/stem-chateau-fleur-cardinale/Intuition-de-Fleur-Cardinale-blanc-2024-Technical-Sheet.pdf are not proven to be any version the manifest records there (ec259fca9b2a)"
+  },
+  {
+   "class": "LEGACY AMBIGUITY",
+   "where": "ar_014711",
+   "detail": "the bytes read at fiches/giscours/LA-SIRENE-DE-GISCOURS-2024-EN-2.pdf are not proven to be any version the manifest records there (7649c55fd4d5, ed5eec7ce61f)"
+  },
+  {
+   "class": "LEGACY AMBIGUITY",
+   "where": "ar_022845",
+   "detail": "the bytes read at fiches/stem-chateau-laroque/Packshot-bouteille_Chateau-Laroque-2024_75cl.pdf are not proven to be any version the manifest records there (04989456b6c5, f8881d94e626)"
+  },
+  {
+   "class": "LEGACY AMBIGUITY",
+   "where": "ob_d921cd5db744",
+   "detail": "the estate blend of data/chateaux.js: plantings or the usual assemblage, decided per estate (D1); kept as an observation"
+  },
+  {
+   "class": "LEGACY AMBIGUITY",
+   "where": "ob_e66084108c5f",
+   "detail": "the estate blend of data/chateaux.js: plantings or the usual assemblage, decided per estate (D1); kept as an observation"
+  },
+  {
+   "class": "LEGACY AMBIGUITY",
+   "where": "ob_6871e2878af7",
+   "detail": "the estate blend of data/sauternes.js: plantings or the usual assemblage, decided per estate (D1); kept as an observation"
+  },
+  {
+   "class": "LEGACY AMBIGUITY",
+   "where": "es_00387",
+   "detail": "data/graves.js classifies the estate 'red and white'; cuvees.js lists 3 white wines (Château Smith Haut Lafitte Blanc, Les Hauts de Smith Blanc, Le Petit Haut Lafitte Blanc); which is the classified white is not decided here (D8)"
+  },
+  {
+   "class": "LEGACY AMBIGUITY",
+   "where": "es_00289",
+   "detail": "data/libournais.js names 'Le Plus de La Fleur de Boüard' as the second wine; cuvees.js lists Le Plus de La Fleur de Bouärd (other); whether it is one of them (renamed, succeeded) or another wine is not decided here"
+  },
+  {
+   "class": "LEGACY AMBIGUITY",
+   "where": "ob_a55d2af0331b",
+   "detail": "the estate blend of data/batch2.js: plantings or the usual assemblage, decided per estate (D1); kept as an observation"
+  },
+  {
+   "class": "LEGACY AMBIGUITY",
+   "where": "ob_f9c869b64c68",
+   "detail": "the estate blend of data/pomerol.js: plantings or the usual assemblage, decided per estate (D1); kept as an observation"
+  },
+  {
+   "class": "LEGACY AMBIGUITY",
+   "where": "ob_aadecf30c146",
+   "detail": "the estate blend of data/batch3.js: plantings or the usual assemblage, decided per estate (D1); kept as an observation"
+  },
+  {
+   "class": "LEGACY AMBIGUITY",
+   "where": "ob_245e77224106",
+   "detail": "the estate blend of data/saintemilion.js: plantings or the usual assemblage, decided per estate (D1); kept as an observation"
+  },
+  {
+   "class": "LEGACY AMBIGUITY",
+   "where": "ob_473f5ab26a4e",
+   "detail": "the estate blend of data/batch2.js: plantings or the usual assemblage, decided per estate (D1); kept as an observation"
+  },
+  {
+   "class": "PRE-EXISTING DATA ISSUE",
+   "where": "ar_008385",
+   "detail": "the manifest gives 18891 and 25257 bytes for this one sha1"
+  },
+  {
+   "class": "LEGACY AMBIGUITY",
+   "where": "ob_60b04edf13bc",
+   "detail": "the estate blend of data/sauternes.js: plantings or the usual assemblage, decided per estate (D1); kept as an observation"
+  },
+  {
+   "class": "LEGACY AMBIGUITY",
+   "where": "ob_9c7c669deab3",
+   "detail": "the estate blend of data/batch3.js: plantings or the usual assemblage, decided per estate (D1); kept as an observation"
+  },
+  {
+   "class": "LEGACY AMBIGUITY",
+   "where": "ob_3f17cb3ae91e",
+   "detail": "the estate blend of data/graves.js: plantings or the usual assemblage, decided per estate (D1); kept as an observation"
+  },
+  {
+   "class": "LEGACY AMBIGUITY",
+   "where": "ob_ccf4a5453eee",
+   "detail": "the estate blend of data/saintemilion.js: plantings or the usual assemblage, decided per estate (D1); kept as an observation"
+  },
+  {
+   "class": "LEGACY AMBIGUITY",
+   "where": "ar_014007",
+   "detail": "the bytes read at fiches/coutet/2023_Chateau_Coutet_CCEN240411.pdf are not proven to be any version the manifest records there (a990c77ef95b, f8dda8520396)"
+  },
+  {
+   "class": "LEGACY AMBIGUITY",
+   "where": "es_00318",
+   "detail": "data/chateaux.js second is not a plain name: 'Pavillon de Poyferré (also Château Moulin Riche)'; no wine and no rank taken from it"
+  },
+  {
+   "class": "LEGACY AMBIGUITY",
+   "where": "ob_176a1fe051a4",
+   "detail": "the estate blend of data/graves.js: plantings or the usual assemblage, decided per estate (D1); kept as an observation"
+  },
+  {
+   "class": "LEGACY AMBIGUITY",
+   "where": "ob_d1ec3824d19c",
+   "detail": "the estate blend of data/chateaux.js: plantings or the usual assemblage, decided per estate (D1); kept as an observation"
+  },
+  {
+   "class": "LEGACY AMBIGUITY",
+   "where": "ob_76ed493662a0",
+   "detail": "the estate blend of data/libournais.js: plantings or the usual assemblage, decided per estate (D1); kept as an observation"
+  },
+  {
+   "class": "LEGACY AMBIGUITY",
+   "where": "ob_69ae74dbdde1",
+   "detail": "the estate blend of data/batch3.js: plantings or the usual assemblage, decided per estate (D1); kept as an observation"
+  },
+  {
+   "class": "LEGACY AMBIGUITY",
+   "where": "ob_51ee82bdcd02",
+   "detail": "the estate blend of data/sauternes.js: plantings or the usual assemblage, decided per estate (D1); kept as an observation"
+  },
+  {
+   "class": "LEGACY AMBIGUITY",
+   "where": "ar_005693",
+   "detail": "the bytes read at fiches/domaine-de-chevalier/2020-rouge-domaine-de-chevalier-francais.pdf are not proven to be any version the manifest records there (dab45df82180)"
+  },
+  {
+   "class": "LEGACY AMBIGUITY",
+   "where": "ob_7c396f26e214",
+   "detail": "the estate blend of data/pomerol.js: plantings or the usual assemblage, decided per estate (D1); kept as an observation"
+  },
+  {
+   "class": "LEGACY AMBIGUITY",
+   "where": "ar_035173",
+   "detail": "the bytes read at fiches/stem-chateau-de-ferrand/ofa-et-tarif-export-gb-2025.pdf are not proven to be any version the manifest records there (896f7e4bdd11, 8b752ad99159, a2317d25b8ba)"
+  },
+  {
+   "class": "LEGACY AMBIGUITY",
+   "where": "ob_08073aea9498",
+   "detail": "the estate blend of data/sauternes.js: plantings or the usual assemblage, decided per estate (D1); kept as an observation"
+  },
+  {
+   "class": "LEGACY AMBIGUITY",
+   "where": "ar_034982",
+   "detail": "the bytes read at fiches/stem-chateau-de-ferrand/ofa-et-tarif-entreprises-gb-2025.pdf are not proven to be any version the manifest records there (99525897824c, a7ceaa2ce6b2, c68c38964747)"
+  },
+  {
+   "class": "LEGACY AMBIGUITY",
+   "where": "ar_027296",
+   "detail": "the bytes read at fiches/de-malle/Chateau-de-Malle-_-Brochure-Affaires-et-Mice-HD-FR.pdf are not proven to be any version the manifest records there (097c26a1fde4, a8a652be5a3a)"
+  },
+  {
+   "class": "LEGACY AMBIGUITY",
+   "where": "ob_906be3feefb2",
+   "detail": "the estate blend of data/chateaux.js: plantings or the usual assemblage, decided per estate (D1); kept as an observation"
+  },
+  {
+   "class": "LEGACY AMBIGUITY",
+   "where": "ob_c3fc021d0db5",
+   "detail": "the estate blend of data/chateaux.js: plantings or the usual assemblage, decided per estate (D1); kept as an observation"
+  },
+  {
+   "class": "LEGACY AMBIGUITY",
+   "where": "es_00257",
+   "detail": "data/sauternes.js names 'Petit Védrines' as the second wine; cuvees.js lists Chevalier de Védrines (second); whether it is one of them (renamed, succeeded) or another wine is not decided here"
+  },
+  {
+   "class": "LEGACY AMBIGUITY",
+   "where": "ob_e5475bedc06b",
+   "detail": "the estate blend of data/graves.js: plantings or the usual assemblage, decided per estate (D1); kept as an observation"
+  },
+  {
+   "class": "LEGACY AMBIGUITY",
+   "where": "ar_026051",
+   "detail": "the bytes read at fiches/gruaud-larose/Sarget-de-Gruaud-Larose-2019-FR.pdf are not proven to be any version the manifest records there (0ac9ba8c0763)"
+  },
+  {
+   "class": "LEGACY AMBIGUITY",
+   "where": "ar_015745",
+   "detail": "the bytes read at fiches/prieure-lichine/Fiche-technique-Confidences-2015-GB.pdf are not proven to be any version the manifest records there (549c67939cca, d33ec9fc4388)"
+  },
+  {
+   "class": "LEGACY AMBIGUITY",
+   "where": "ob_bf6e8186cce1",
+   "detail": "the estate blend of data/chateaux.js: plantings or the usual assemblage, decided per estate (D1); kept as an observation"
+  },
+  {
+   "class": "LEGACY AMBIGUITY",
+   "where": "ar_012138",
+   "detail": "the bytes read at fiches/bourgeois-chateau-de-braude/Ch-Braude-Fellonneau-2020.pdf are not proven to be any version the manifest records there (973374d66b1e, f7cb717fc9c3)"
+  },
+  {
+   "class": "LEGACY AMBIGUITY",
+   "where": "ob_73962471842d",
+   "detail": "the estate blend of data/sauternes.js: plantings or the usual assemblage, decided per estate (D1); kept as an observation"
+  },
+  {
+   "class": "LEGACY AMBIGUITY",
+   "where": "ob_c6bc80bcbee7",
+   "detail": "the estate blend of data/chateaux.js: plantings or the usual assemblage, decided per estate (D1); kept as an observation"
+  },
+  {
+   "class": "LEGACY AMBIGUITY",
+   "where": "ob_c5099587871a",
+   "detail": "the estate blend of data/chateaux.js: plantings or the usual assemblage, decided per estate (D1); kept as an observation"
+  },
+  {
+   "class": "LEGACY AMBIGUITY",
+   "where": "ob_61acab75b416",
+   "detail": "the estate blend of data/batch2.js: plantings or the usual assemblage, decided per estate (D1); kept as an observation"
+  },
+  {
+   "class": "LEGACY AMBIGUITY",
+   "where": "ob_53d53ca1b2f5",
+   "detail": "the estate blend of data/libournais.js: plantings or the usual assemblage, decided per estate (D1); kept as an observation"
+  },
+  {
+   "class": "LEGACY AMBIGUITY",
+   "where": "ob_439f6798b2e8",
+   "detail": "the estate blend of data/graves.js: plantings or the usual assemblage, decided per estate (D1); kept as an observation"
+  },
+  {
+   "class": "LEGACY AMBIGUITY",
+   "where": "ar_025004",
+   "detail": "the bytes read at fiches/stem-chateau-fleur-cardinale/Intuition-de-Fleur-Cardinale-blanc-2024-Fiche-Technique.pdf are not proven to be any version the manifest records there (1d6060de5421)"
+  },
+  {
+   "class": "LEGACY AMBIGUITY",
+   "where": "ar_024529",
+   "detail": "the bytes read at fiches/stem-chateau-laroque/FT_CL_2016_UK.pdf are not proven to be any version the manifest records there (4e55de7c704d, c3049382fd48)"
+  },
+  {
+   "class": "LEGACY AMBIGUITY",
+   "where": "ar_030319",
+   "detail": "the bytes read at fiches/smith-haut-lafitte/2019-SHL-Rouge-GB.pdf are not proven to be any version the manifest records there (db7064642437)"
+  },
+  {
+   "class": "LEGACY AMBIGUITY",
+   "where": "ob_b149f1fa63d1",
+   "detail": "the estate blend of data/chateaux.js: plantings or the usual assemblage, decided per estate (D1); kept as an observation"
+  },
+  {
+   "class": "LEGACY AMBIGUITY",
+   "where": "ob_a66b20954bbd",
+   "detail": "the estate blend of data/sauternes.js: plantings or the usual assemblage, decided per estate (D1); kept as an observation"
+  },
+  {
+   "class": "LEGACY AMBIGUITY",
+   "where": "ob_5f39028b6086",
+   "detail": "the estate blend of data/batch3.js: plantings or the usual assemblage, decided per estate (D1); kept as an observation"
+  },
+  {
+   "class": "LEGACY AMBIGUITY",
+   "where": "ar_031608",
+   "detail": "the bytes read at fiches/coutet/2013_Chateau_Coutet_CCEN1411.pdf are not proven to be any version the manifest records there (943d3baa353f, e9b59ada60f0)"
+  },
+  {
+   "class": "LEGACY AMBIGUITY",
+   "where": "ob_8b42a7c87008",
+   "detail": "the estate blend of data/libournais.js: plantings or the usual assemblage, decided per estate (D1); kept as an observation"
+  },
+  {
+   "class": "LEGACY AMBIGUITY",
+   "where": "ob_2671fd3de0cf",
+   "detail": "the estate blend of data/libournais.js: plantings or the usual assemblage, decided per estate (D1); kept as an observation"
+  },
+  {
+   "class": "LEGACY AMBIGUITY",
+   "where": "ar_033353",
+   "detail": "the bytes read at fiches/bourgeois-chateau-mongravey/FT-Ch-Braude-Fellonneau-2016.pdf are not proven to be any version the manifest records there (05d528c9d914, d5675482ea39)"
+  },
+  {
+   "class": "LEGACY AMBIGUITY",
+   "where": "ob_08dc8204f680",
+   "detail": "the estate blend of data/sauternes.js: plantings or the usual assemblage, decided per estate (D1); kept as an observation"
+  },
+  {
+   "class": "LEGACY AMBIGUITY",
+   "where": "ar_016722",
+   "detail": "the bytes read at fiches/prieure-lichine/Fiche-technique-Confidences-2017-FR.pdf are not proven to be any version the manifest records there (8294bb17edd0, bc3d0503c7eb)"
+  },
+  {
+   "class": "LEGACY AMBIGUITY",
+   "where": "ar_029170",
+   "detail": "the bytes read at fiches/domaine-de-chevalier/2020-rouge-domaine-de-chevalier-francais-1.pdf are not proven to be any version the manifest records there (dab45df82180)"
+  },
+  {
+   "class": "LEGACY AMBIGUITY",
+   "where": "ob_b0c9b0290011",
+   "detail": "the estate blend of data/sauternes.js: plantings or the usual assemblage, decided per estate (D1); kept as an observation"
+  },
+  {
+   "class": "LEGACY AMBIGUITY",
+   "where": "ob_4c492f913f43",
+   "detail": "the estate blend of data/chateaux.js: plantings or the usual assemblage, decided per estate (D1); kept as an observation"
+  },
+  {
+   "class": "LEGACY AMBIGUITY",
+   "where": "ob_c8974982e41a",
+   "detail": "the estate blend of data/chateaux.js: plantings or the usual assemblage, decided per estate (D1); kept as an observation"
+  },
+  {
+   "class": "LEGACY AMBIGUITY",
+   "where": "ar_016483",
+   "detail": "the bytes read at fiches/clos-puy-arnaud/Article-Vigneron-magazine-english-version-V1.pdf are not proven to be any version the manifest records there (9452b79bcb2c, bb57123833ea)"
+  },
+  {
+   "class": "LEGACY AMBIGUITY",
+   "where": "ob_9220b29cf365",
+   "detail": "the estate blend of data/saintemilion.js: plantings or the usual assemblage, decided per estate (D1); kept as an observation"
+  },
+  {
+   "class": "LEGACY AMBIGUITY",
+   "where": "ar_034316",
+   "detail": "the bytes read at fiches/stem-chateau-de-ferrand/ofa-et-tarif-chr-2025-comptoir.pdf are not proven to be any version the manifest records there (88c6e5a3a2db, cbe02d56a77d)"
+  },
+  {
+   "class": "LEGACY AMBIGUITY",
+   "where": "ar_020964",
+   "detail": "the bytes read at fiches/clos-puy-arnaud/Fiche-technique-OPA-2021-FR.pdf are not proven to be any version the manifest records there (102f0eb95735, d7930fe32dfc)"
+  },
+  {
+   "class": "LEGACY AMBIGUITY",
+   "where": "ar_015200",
+   "detail": "the bytes read at fiches/prieure-lichine/Fiche-technique-Confidences-2015-FR.pdf are not proven to be any version the manifest records there (0cc6f4924e69, a96ce5769ac8)"
+  },
+  {
+   "class": "LEGACY AMBIGUITY",
+   "where": "ob_a585bb104660",
+   "detail": "the estate blend of data/chateaux.js: plantings or the usual assemblage, decided per estate (D1); kept as an observation"
+  },
+  {
+   "class": "LEGACY AMBIGUITY",
+   "where": "ar_005470",
+   "detail": "the bytes read at fiches/valandraud/Virginie-de-Valandraud.pdf are not proven to be any version the manifest records there (4d58c223f1ea)"
+  },
+  {
+   "class": "LEGACY AMBIGUITY",
+   "where": "es_00306",
+   "detail": "'La Réserve de Léoville-Barton' is named as the second wine of 2 estates"
+  },
+  {
+   "class": "PRE-EXISTING DATA ISSUE",
+   "where": "ar_007304",
+   "detail": "the manifest gives 1025017 and 1101197 bytes for this one sha1"
+  },
+  {
+   "class": "LEGACY AMBIGUITY",
+   "where": "ob_7dd8e1e58a1a",
+   "detail": "the estate blend of data/chateaux.js: plantings or the usual assemblage, decided per estate (D1); kept as an observation"
+  },
+  {
+   "class": "LEGACY AMBIGUITY",
+   "where": "ob_b459c0d058f8",
+   "detail": "the estate blend of data/graves.js: plantings or the usual assemblage, decided per estate (D1); kept as an observation"
+  },
+  {
+   "class": "LEGACY AMBIGUITY",
+   "where": "ar_033553",
+   "detail": "the bytes read at fiches/lagrange/dates-de-mise-en-bouteille.pdf are not proven to be any version the manifest records there (513a47833e36, 7b0931f86965, 9292ccbfacd0, a428d93908b0)"
+  },
+  {
+   "class": "LEGACY AMBIGUITY",
+   "where": "ob_ff7befb21d3a",
+   "detail": "the estate blend of data/sauternes.js: plantings or the usual assemblage, decided per estate (D1); kept as an observation"
+  },
+  {
+   "class": "LEGACY AMBIGUITY",
+   "where": "ob_307f6f67d959",
+   "detail": "the estate blend of data/chateaux.js: plantings or the usual assemblage, decided per estate (D1); kept as an observation"
+  },
+  {
+   "class": "LEGACY AMBIGUITY",
+   "where": "ar_015246",
+   "detail": "the bytes read at fiches/lagrange/degres-alcool.pdf are not proven to be any version the manifest records there (0195b1d47658, 3d9d606c9884, b9aeb50cf89d, d9c425fc1a72)"
+  },
+  {
+   "class": "LEGACY AMBIGUITY",
+   "where": "ob_0484c632e384",
+   "detail": "the estate blend of data/batch2.js: plantings or the usual assemblage, decided per estate (D1); kept as an observation"
+  },
+  {
+   "class": "LEGACY AMBIGUITY",
+   "where": "ar_020397",
+   "detail": "the bytes read at fiches/prieure-lichine/Commentaires-Ch.-Prieure-Lichine-2011.pdf are not proven to be any version the manifest records there (9be819c029e4, e896746e1a91)"
+  },
+  {
+   "class": "LEGACY AMBIGUITY",
+   "where": "ob_99ffacadafdd",
+   "detail": "the estate blend of data/sauternes.js: plantings or the usual assemblage, decided per estate (D1); kept as an observation"
+  },
+  {
+   "class": "LEGACY AMBIGUITY",
+   "where": "ob_078b69a28c14",
+   "detail": "the estate blend of data/libournais.js: plantings or the usual assemblage, decided per estate (D1); kept as an observation"
+  },
+  {
+   "class": "LEGACY AMBIGUITY",
+   "where": "ob_2790e7ec376a",
+   "detail": "the estate blend of data/sauternes.js: plantings or the usual assemblage, decided per estate (D1); kept as an observation"
+  },
+  {
+   "class": "LEGACY AMBIGUITY",
+   "where": "ob_f0d0bf5bc779",
+   "detail": "the estate blend of data/sauternes.js: plantings or the usual assemblage, decided per estate (D1); kept as an observation"
+  },
+  {
+   "class": "LEGACY AMBIGUITY",
+   "where": "ob_495ea114c050",
+   "detail": "the estate blend of data/sauternes.js: plantings or the usual assemblage, decided per estate (D1); kept as an observation"
+  },
+  {
+   "class": "LEGACY AMBIGUITY",
+   "where": "es_00316",
+   "detail": "'La Réserve de Léoville-Barton' is named as the second wine of 2 estates"
+  },
+  {
+   "class": "LEGACY AMBIGUITY",
+   "where": "ob_9039fc064899",
+   "detail": "the estate blend of data/chateaux.js: plantings or the usual assemblage, decided per estate (D1); kept as an observation"
+  },
+  {
+   "class": "LEGACY AMBIGUITY",
+   "where": "es_00324",
+   "detail": "data/graves.js names 'Le Sillage de Malartic' as the second wine; cuvees.js lists Le Comte de Malartic (second); whether it is one of them (renamed, succeeded) or another wine is not decided here"
+  },
+  {
+   "class": "LEGACY AMBIGUITY",
+   "where": "ob_ccd2d66e8a2d",
+   "detail": "the estate blend of data/chateaux.js: plantings or the usual assemblage, decided per estate (D1); kept as an observation"
+  },
+  {
+   "class": "LEGACY AMBIGUITY",
+   "where": "ob_50de3ce78121",
+   "detail": "the estate blend of data/chateaux.js: plantings or the usual assemblage, decided per estate (D1); kept as an observation"
+  },
+  {
+   "class": "LEGACY AMBIGUITY",
+   "where": "ar_030674",
+   "detail": "the bytes read at fiches/stem-chateau-laroque/FT_CL_2015_UK.pdf are not proven to be any version the manifest records there (2af606071eda, 82fbd982a1eb)"
+  },
+  {
+   "class": "LEGACY AMBIGUITY",
+   "where": "ob_86e03110ab11",
+   "detail": "the estate blend of data/graves.js: plantings or the usual assemblage, decided per estate (D1); kept as an observation"
+  },
+  {
+   "class": "LEGACY AMBIGUITY",
+   "where": "es_00345",
+   "detail": "data/chateaux.js names 'Les Tourelles de Longueville' as the second wine; cuvees.js lists Les Griffons de Pichon Baron Blanc (other), Les Griffons de Pichon Baron (second); whether it is one of them (renamed, succeeded) or another wine is not decided here"
+  },
+  {
+   "class": "LEGACY AMBIGUITY",
+   "where": "ar_023732",
+   "detail": "the bytes read at fiches/smith-haut-lafitte/Petit-Smith-Haut-Lafitte-Blanc-2021-FR.pdf are not proven to be any version the manifest records there (df5288ab7365)"
+  },
+  {
+   "class": "LEGACY AMBIGUITY",
+   "where": "ob_4b8b8ff9501c",
+   "detail": "the estate blend of data/batch3.js: plantings or the usual assemblage, decided per estate (D1); kept as an observation"
+  },
+  {
+   "class": "LEGACY AMBIGUITY",
+   "where": "es_00035",
+   "detail": "data/chateaux.js says the estate has no second wine ('—'); cuvees.js lists Lions de Batailley as its second"
+  },
+  {
+   "class": "LEGACY AMBIGUITY",
+   "where": "ob_05fcd076e0ad",
+   "detail": "the estate blend of data/sauternes.js: plantings or the usual assemblage, decided per estate (D1); kept as an observation"
+  },
+  {
+   "class": "LEGACY AMBIGUITY",
+   "where": "ob_5e10b3a2438d",
+   "detail": "the estate blend of data/libournais.js: plantings or the usual assemblage, decided per estate (D1); kept as an observation"
+  },
+  {
+   "class": "LEGACY AMBIGUITY",
+   "where": "pv_c89bf7910fad",
+   "detail": "legacy estate id 'saint-julien' resolves to no estate"
+  },
+  {
+   "class": "LEGACY AMBIGUITY",
+   "where": "ob_6ea47c352bca",
+   "detail": "the estate blend of data/saintemilion.js: plantings or the usual assemblage, decided per estate (D1); kept as an observation"
+  },
+  {
+   "class": "LEGACY AMBIGUITY",
+   "where": "ob_c3acdea1550d",
+   "detail": "the estate blend of data/batch3.js: plantings or the usual assemblage, decided per estate (D1); kept as an observation"
+  },
+  {
+   "class": "LEGACY AMBIGUITY",
+   "where": "ar_022149",
+   "detail": "the bytes read at fiches/smith-haut-lafitte/2018-SHL-Blanc-EN-notes-bouteilles.pdf are not proven to be any version the manifest records there (4cc9e0b2c0e7)"
+  },
+  {
+   "class": "LEGACY AMBIGUITY",
+   "where": "ar_021956",
+   "detail": "the bytes read at fiches/stem-chateau-laroque/FT_CL_2017_UK.pdf are not proven to be any version the manifest records there (952334295492, bf30c07a34af)"
+  },
+  {
+   "class": "LEGACY AMBIGUITY",
+   "where": "es_00261",
+   "detail": "data/chateaux.js names 'La Croix Ducru-Beaucaillou' as the second wine; cuvees.js lists La Croix de Beaucaillou (second), Le Petit Ducru de Ducru-Beaucaillou (other), Madame de Beaucaillou (other); whether it is one of them (renamed, succeeded) or another wine is not decided here"
+  },
+  {
+   "class": "LEGACY AMBIGUITY",
+   "where": "ob_f68c6b8fedcf",
+   "detail": "the estate blend of data/chateaux.js: plantings or the usual assemblage, decided per estate (D1); kept as an observation"
+  },
+  {
+   "class": "LEGACY AMBIGUITY",
+   "where": "es_00338",
+   "detail": "data/graves.js classifies the estate 'red and white'; cuvees.js lists 2 white wines (Château Olivier Blanc, Le Dauphin d'Olivier Blanc); which is the classified white is not decided here (D8)"
+  },
+  {
+   "class": "LEGACY AMBIGUITY",
+   "where": "ob_5469d5e065d4",
+   "detail": "the estate blend of data/saintemilion.js: plantings or the usual assemblage, decided per estate (D1); kept as an observation"
+  },
+  {
+   "class": "LEGACY AMBIGUITY",
+   "where": "ob_0585b401834d",
+   "detail": "the estate blend of data/chateaux.js: plantings or the usual assemblage, decided per estate (D1); kept as an observation"
+  },
+  {
+   "class": "LEGACY AMBIGUITY",
+   "where": "ob_0c8d40d3599c",
+   "detail": "the estate blend of data/chateaux.js: plantings or the usual assemblage, decided per estate (D1); kept as an observation"
+  }
+ ]
+}

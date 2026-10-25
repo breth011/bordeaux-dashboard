@@ -1,0 +1,2318 @@
+{
+ "meta": {
+  "phase": "3.4",
+  "model": "docs/phase34-model.json",
+  "status": "WORKED EXAMPLES, NOT DATA. Real cases from the Phase 3.3 harvest in the revised model. Ids are placeholders.",
+  "as_of": "2026-10-25",
+  "rule": "Every rank, name, date and relationship is quoted from its source; nothing is inferred."
+ },
+ "cases": [
+  {
+   "id": "P1",
+   "title": "Batailley: a second and a third wine, made from the youngest vines",
+   "records": [
+    {
+     "entity": "Source",
+     "id": "src_101",
+     "kind": "ESTATE_SITE",
+     "name": "batailley.com",
+     "base_urls": [
+      "https://batailley.com/"
+     ]
+    },
+    {
+     "entity": "Artifact",
+     "id": "art_101",
+     "sha256": "0aea93df82ccf78f0389e80a21e1a09249b5a7d50ecc14cf2a04bdc9beb8d175",
+     "bytes_available": true,
+     "extraction_status": "EXTRACTED"
+    },
+    {
+     "entity": "Provenance",
+     "id": "prv_101",
+     "kind": "ESTATE_PUBLICATION",
+     "actor": "Phase 3.3 harvest, read in Phase 3.4",
+     "at": "2026-10-25",
+     "quote": "Lions de Batailley, the Château’s second wine; and Pauillac de Batailley, the Château’s third wine ... Our second and third wines are made using the youngest vines in our vineyard.",
+     "artifact": "art_101",
+     "source": "src_101"
+    },
+    {
+     "entity": "Estate",
+     "id": "est_101",
+     "name_status": "KNOWN"
+    },
+    {
+     "entity": "Wine",
+     "id": "win_101",
+     "name_status": "KNOWN",
+     "type": "RED"
+    },
+    {
+     "entity": "Wine",
+     "id": "win_102",
+     "name_status": "KNOWN",
+     "type": "RED"
+    },
+    {
+     "entity": "NameRecord",
+     "id": "nam_101",
+     "subject": "win_101",
+     "name": "Lions de Batailley",
+     "kind": "CURRENT",
+     "validity": {
+      "valid_from": {
+       "kind": "UNKNOWN",
+       "axis": "VINTAGE"
+      },
+      "valid_to": {
+       "kind": "OPEN",
+       "axis": "VINTAGE"
+      },
+      "as_of": "2026-10-25"
+     },
+     "provenance": "prv_101"
+    },
+    {
+     "entity": "NameRecord",
+     "id": "nam_102",
+     "subject": "win_102",
+     "name": "Pauillac de Batailley",
+     "kind": "CURRENT",
+     "validity": {
+      "valid_from": {
+       "kind": "UNKNOWN",
+       "axis": "VINTAGE"
+      },
+      "valid_to": {
+       "kind": "OPEN",
+       "axis": "VINTAGE"
+      },
+      "as_of": "2026-10-25"
+     },
+     "provenance": "prv_101"
+    },
+    {
+     "entity": "EstateWineRelationship",
+     "id": "rel_101",
+     "estate": "est_101",
+     "wine": "win_101",
+     "kind": "PRODUCED_BY",
+     "status": "ESTABLISHED",
+     "validity": {
+      "valid_from": {
+       "kind": "UNKNOWN",
+       "axis": "VINTAGE"
+      },
+      "valid_to": {
+       "kind": "OPEN",
+       "axis": "VINTAGE"
+      },
+      "as_of": "2026-10-25"
+     },
+     "provenance": "prv_101"
+    },
+    {
+     "entity": "EstateWineRelationship",
+     "id": "rel_102",
+     "estate": "est_101",
+     "wine": "win_102",
+     "kind": "PRODUCED_BY",
+     "status": "ESTABLISHED",
+     "validity": {
+      "valid_from": {
+       "kind": "UNKNOWN",
+       "axis": "VINTAGE"
+      },
+      "valid_to": {
+       "kind": "OPEN",
+       "axis": "VINTAGE"
+      },
+      "as_of": "2026-10-25"
+     },
+     "provenance": "prv_101"
+    },
+    {
+     "entity": "RankAssertion",
+     "id": "rnk_101",
+     "relationship": "rel_101",
+     "tier": "SECOND",
+     "scope": "ESTATE_RANGE",
+     "claimant": "PRODUCER",
+     "validity": {
+      "valid_from": {
+       "kind": "UNKNOWN",
+       "axis": "VINTAGE"
+      },
+      "valid_to": {
+       "kind": "OPEN",
+       "axis": "VINTAGE"
+      },
+      "as_of": "2026-10-25"
+     },
+     "provenance": "prv_101",
+     "source_term": "the Château’s second wine"
+    },
+    {
+     "entity": "RankAssertion",
+     "id": "rnk_102",
+     "relationship": "rel_102",
+     "tier": "THIRD",
+     "scope": "ESTATE_RANGE",
+     "claimant": "PRODUCER",
+     "validity": {
+      "valid_from": {
+       "kind": "UNKNOWN",
+       "axis": "VINTAGE"
+      },
+      "valid_to": {
+       "kind": "OPEN",
+       "axis": "VINTAGE"
+      },
+      "as_of": "2026-10-25"
+     },
+     "provenance": "prv_101",
+     "source_term": "the Château’s third wine"
+    },
+    {
+     "entity": "WineDescriptor",
+     "id": "dsc_101",
+     "wine": "win_101",
+     "kind": "YOUNG_VINES",
+     "source_term": "made using the youngest vines",
+     "validity": {
+      "valid_from": {
+       "kind": "UNKNOWN",
+       "axis": "VINTAGE"
+      },
+      "valid_to": {
+       "kind": "OPEN",
+       "axis": "VINTAGE"
+      },
+      "as_of": "2026-10-25"
+     },
+     "provenance": "prv_101"
+    },
+    {
+     "entity": "WineDescriptor",
+     "id": "dsc_102",
+     "wine": "win_102",
+     "kind": "YOUNG_VINES",
+     "source_term": "made using the youngest vines",
+     "validity": {
+      "valid_from": {
+       "kind": "UNKNOWN",
+       "axis": "VINTAGE"
+      },
+      "valid_to": {
+       "kind": "OPEN",
+       "axis": "VINTAGE"
+      },
+      "as_of": "2026-10-25"
+     },
+     "provenance": "prv_101"
+    }
+   ]
+  },
+  {
+   "id": "P2",
+   "title": "Château Le Rey: two wines, explicitly not first and second",
+   "note": "Le Rey is outside the Phase 3.0 universe; found on a group site and recorded, not crawled for.",
+   "records": [
+    {
+     "entity": "Source",
+     "id": "src_102",
+     "kind": "GROUP_SITE",
+     "name": "vignoblesk.com",
+     "base_urls": [
+      "https://www.vignoblesk.com/"
+     ]
+    },
+    {
+     "entity": "Artifact",
+     "id": "art_102",
+     "sha256": "0bcdfee93e5d4e0e627ff7452e11e640e61afe80db308825d0e91b2bd96ca6c4",
+     "bytes_available": true,
+     "extraction_status": "EXTRACTED"
+    },
+    {
+     "entity": "Provenance",
+     "id": "prv_102",
+     "kind": "ESTATE_PUBLICATION",
+     "actor": "Phase 3.3 harvest, read in Phase 3.4",
+     "at": "2026-10-25",
+     "quote": "Today two cuvées are produced at Château Le Rey, Les Argileuses and Les Rocheuses. These two wines do not represent as usual in Bordeaux first and second label, but are made like in Burgundy with a terroir philosophy.",
+     "artifact": "art_102",
+     "source": "src_102"
+    },
+    {
+     "entity": "Estate",
+     "id": "est_102",
+     "name_status": "KNOWN"
+    },
+    {
+     "entity": "Wine",
+     "id": "win_103",
+     "name_status": "KNOWN",
+     "type": "RED"
+    },
+    {
+     "entity": "Wine",
+     "id": "win_104",
+     "name_status": "KNOWN",
+     "type": "RED"
+    },
+    {
+     "entity": "NameRecord",
+     "id": "nam_103",
+     "subject": "win_103",
+     "name": "Les Argileuses",
+     "kind": "CURRENT",
+     "validity": {
+      "valid_from": {
+       "kind": "UNKNOWN",
+       "axis": "VINTAGE"
+      },
+      "valid_to": {
+       "kind": "OPEN",
+       "axis": "VINTAGE"
+      },
+      "as_of": "2026-10-25"
+     },
+     "provenance": "prv_102"
+    },
+    {
+     "entity": "NameRecord",
+     "id": "nam_104",
+     "subject": "win_104",
+     "name": "Les Rocheuses",
+     "kind": "CURRENT",
+     "validity": {
+      "valid_from": {
+       "kind": "UNKNOWN",
+       "axis": "VINTAGE"
+      },
+      "valid_to": {
+       "kind": "OPEN",
+       "axis": "VINTAGE"
+      },
+      "as_of": "2026-10-25"
+     },
+     "provenance": "prv_102"
+    },
+    {
+     "entity": "EstateWineRelationship",
+     "id": "rel_103",
+     "estate": "est_102",
+     "wine": "win_103",
+     "kind": "PRODUCED_BY",
+     "status": "ESTABLISHED",
+     "validity": {
+      "valid_from": {
+       "kind": "UNKNOWN",
+       "axis": "VINTAGE"
+      },
+      "valid_to": {
+       "kind": "OPEN",
+       "axis": "VINTAGE"
+      },
+      "as_of": "2026-10-25"
+     },
+     "provenance": "prv_102"
+    },
+    {
+     "entity": "EstateWineRelationship",
+     "id": "rel_104",
+     "estate": "est_102",
+     "wine": "win_104",
+     "kind": "PRODUCED_BY",
+     "status": "ESTABLISHED",
+     "validity": {
+      "valid_from": {
+       "kind": "UNKNOWN",
+       "axis": "VINTAGE"
+      },
+      "valid_to": {
+       "kind": "OPEN",
+       "axis": "VINTAGE"
+      },
+      "as_of": "2026-10-25"
+     },
+     "provenance": "prv_102"
+    },
+    {
+     "entity": "RankAssertion",
+     "id": "rnk_103",
+     "relationship": "rel_103",
+     "tier": "UNRANKED",
+     "scope": "ESTATE_RANGE",
+     "claimant": "PRODUCER",
+     "validity": {
+      "valid_from": {
+       "kind": "UNKNOWN",
+       "axis": "VINTAGE"
+      },
+      "valid_to": {
+       "kind": "OPEN",
+       "axis": "VINTAGE"
+      },
+      "as_of": "2026-10-25"
+     },
+     "provenance": "prv_102",
+     "source_term": "do not represent as usual in Bordeaux first and second label"
+    },
+    {
+     "entity": "RankAssertion",
+     "id": "rnk_104",
+     "relationship": "rel_104",
+     "tier": "UNRANKED",
+     "scope": "ESTATE_RANGE",
+     "claimant": "PRODUCER",
+     "validity": {
+      "valid_from": {
+       "kind": "UNKNOWN",
+       "axis": "VINTAGE"
+      },
+      "valid_to": {
+       "kind": "OPEN",
+       "axis": "VINTAGE"
+      },
+      "as_of": "2026-10-25"
+     },
+     "provenance": "prv_102",
+     "source_term": "do not represent as usual in Bordeaux first and second label"
+    }
+   ]
+  },
+  {
+   "id": "P3",
+   "title": "Caillou: first, second and third wines across types; one name, two wines",
+   "records": [
+    {
+     "entity": "Source",
+     "id": "src_103",
+     "kind": "ESTATE_SITE",
+     "name": "chateaucaillou.com",
+     "base_urls": [
+      "https://www.chateaucaillou.com/"
+     ]
+    },
+    {
+     "entity": "Artifact",
+     "id": "art_103",
+     "sha256": "0b19165d732b3c76a9da9182ee90fe976869ba322fa543549629c28d3c77d110",
+     "bytes_available": true,
+     "extraction_status": "EXTRACTED"
+    },
+    {
+     "entity": "Artifact",
+     "id": "art_104",
+     "sha256": "132a552502d234dba31f06f065b91aeb919b3e05e48bf17fa33dc232124702b6",
+     "bytes_available": true,
+     "extraction_status": "EXTRACTED"
+    },
+    {
+     "entity": "Provenance",
+     "id": "prv_103",
+     "kind": "ESTATE_PUBLICATION",
+     "actor": "Phase 3.3 harvest, read in Phase 3.4",
+     "at": "2026-10-25",
+     "quote": "Les Tourelles de Caillou ... Notre troisième vin ... APPELLATION Sauternes COULEUR Blanc; Myosotis ... Issu à 100 % de Sauvignon, notre grand vin blanc sec",
+     "artifact": "art_103",
+     "source": "src_103"
+    },
+    {
+     "entity": "Provenance",
+     "id": "prv_104",
+     "kind": "ESTATE_PUBLICATION",
+     "actor": "Phase 3.3 harvest, read in Phase 3.4",
+     "at": "2026-10-25",
+     "quote": "LES MURETS DE CAILLOU 2023 Second Vin blanc sec du Château Caillou ... AOC Bordeaux Blanc",
+     "artifact": "art_104",
+     "source": "src_103"
+    },
+    {
+     "entity": "Provenance",
+     "id": "prv_105",
+     "kind": "ESTATE_PUBLICATION",
+     "actor": "Phase 3.0 source estate-caillou",
+     "at": "2026-10-25",
+     "quote": "Notre Grand Vin, classé en 1855 en Sauternes & Barsac",
+     "source": "src_103"
+    },
+    {
+     "entity": "Estate",
+     "id": "est_103",
+     "name_status": "KNOWN"
+    },
+    {
+     "entity": "Wine",
+     "id": "win_105",
+     "name_status": "KNOWN",
+     "type": "WHITE_SWEET"
+    },
+    {
+     "entity": "Wine",
+     "id": "win_106",
+     "name_status": "KNOWN",
+     "type": "WHITE_DRY"
+    },
+    {
+     "entity": "Wine",
+     "id": "win_107",
+     "name_status": "KNOWN",
+     "type": "WHITE_DRY"
+    },
+    {
+     "entity": "Wine",
+     "id": "win_108",
+     "name_status": "KNOWN",
+     "type": "RED"
+    },
+    {
+     "entity": "Wine",
+     "id": "win_109",
+     "name_status": "KNOWN",
+     "type": "WHITE_SWEET"
+    },
+    {
+     "entity": "NameRecord",
+     "id": "nam_105",
+     "subject": "win_107",
+     "name": "Les Murets de Caillou",
+     "kind": "CURRENT",
+     "validity": {
+      "valid_from": {
+       "kind": "UNKNOWN",
+       "axis": "VINTAGE"
+      },
+      "valid_to": {
+       "kind": "OPEN",
+       "axis": "VINTAGE"
+      },
+      "as_of": "2026-10-25"
+     },
+     "provenance": "prv_104"
+    },
+    {
+     "entity": "NameRecord",
+     "id": "nam_106",
+     "subject": "win_108",
+     "name": "Les Murets de Caillou",
+     "kind": "CURRENT",
+     "validity": {
+      "valid_from": {
+       "kind": "UNKNOWN",
+       "axis": "VINTAGE"
+      },
+      "valid_to": {
+       "kind": "OPEN",
+       "axis": "VINTAGE"
+      },
+      "as_of": "2026-10-25"
+     },
+     "provenance": "prv_103"
+    },
+    {
+     "entity": "NameRecord",
+     "id": "nam_107",
+     "subject": "win_106",
+     "name": "Myosotis",
+     "kind": "CURRENT",
+     "validity": {
+      "valid_from": {
+       "kind": "UNKNOWN",
+       "axis": "VINTAGE"
+      },
+      "valid_to": {
+       "kind": "OPEN",
+       "axis": "VINTAGE"
+      },
+      "as_of": "2026-10-25"
+     },
+     "provenance": "prv_103"
+    },
+    {
+     "entity": "NameRecord",
+     "id": "nam_108",
+     "subject": "win_109",
+     "name": "Les Tourelles de Caillou",
+     "kind": "CURRENT",
+     "validity": {
+      "valid_from": {
+       "kind": "UNKNOWN",
+       "axis": "VINTAGE"
+      },
+      "valid_to": {
+       "kind": "OPEN",
+       "axis": "VINTAGE"
+      },
+      "as_of": "2026-10-25"
+     },
+     "provenance": "prv_103"
+    },
+    {
+     "entity": "EstateWineRelationship",
+     "id": "rel_105",
+     "estate": "est_103",
+     "wine": "win_105",
+     "kind": "PRODUCED_BY",
+     "status": "ESTABLISHED",
+     "validity": {
+      "valid_from": {
+       "kind": "UNKNOWN",
+       "axis": "VINTAGE"
+      },
+      "valid_to": {
+       "kind": "OPEN",
+       "axis": "VINTAGE"
+      },
+      "as_of": "2026-10-25"
+     },
+     "provenance": "prv_105"
+    },
+    {
+     "entity": "EstateWineRelationship",
+     "id": "rel_106",
+     "estate": "est_103",
+     "wine": "win_106",
+     "kind": "PRODUCED_BY",
+     "status": "ESTABLISHED",
+     "validity": {
+      "valid_from": {
+       "kind": "UNKNOWN",
+       "axis": "VINTAGE"
+      },
+      "valid_to": {
+       "kind": "OPEN",
+       "axis": "VINTAGE"
+      },
+      "as_of": "2026-10-25"
+     },
+     "provenance": "prv_103"
+    },
+    {
+     "entity": "EstateWineRelationship",
+     "id": "rel_107",
+     "estate": "est_103",
+     "wine": "win_107",
+     "kind": "PRODUCED_BY",
+     "status": "ESTABLISHED",
+     "validity": {
+      "valid_from": {
+       "kind": "UNKNOWN",
+       "axis": "VINTAGE"
+      },
+      "valid_to": {
+       "kind": "OPEN",
+       "axis": "VINTAGE"
+      },
+      "as_of": "2026-10-25"
+     },
+     "provenance": "prv_104"
+    },
+    {
+     "entity": "EstateWineRelationship",
+     "id": "rel_108",
+     "estate": "est_103",
+     "wine": "win_108",
+     "kind": "PRODUCED_BY",
+     "status": "ESTABLISHED",
+     "validity": {
+      "valid_from": {
+       "kind": "UNKNOWN",
+       "axis": "VINTAGE"
+      },
+      "valid_to": {
+       "kind": "OPEN",
+       "axis": "VINTAGE"
+      },
+      "as_of": "2026-10-25"
+     },
+     "provenance": "prv_103"
+    },
+    {
+     "entity": "EstateWineRelationship",
+     "id": "rel_109",
+     "estate": "est_103",
+     "wine": "win_109",
+     "kind": "PRODUCED_BY",
+     "status": "ESTABLISHED",
+     "validity": {
+      "valid_from": {
+       "kind": "UNKNOWN",
+       "axis": "VINTAGE"
+      },
+      "valid_to": {
+       "kind": "OPEN",
+       "axis": "VINTAGE"
+      },
+      "as_of": "2026-10-25"
+     },
+     "provenance": "prv_103"
+    },
+    {
+     "entity": "RankAssertion",
+     "id": "rnk_105",
+     "relationship": "rel_105",
+     "tier": "FIRST",
+     "scope": "ESTATE_RANGE",
+     "claimant": "PRODUCER",
+     "validity": {
+      "valid_from": {
+       "kind": "UNKNOWN",
+       "axis": "VINTAGE"
+      },
+      "valid_to": {
+       "kind": "OPEN",
+       "axis": "VINTAGE"
+      },
+      "as_of": "2026-10-25"
+     },
+     "provenance": "prv_105",
+     "source_term": "Grand Vin"
+    },
+    {
+     "entity": "RankAssertion",
+     "id": "rnk_106",
+     "relationship": "rel_106",
+     "tier": "FIRST",
+     "scope": "TYPE_RANGE",
+     "claimant": "PRODUCER",
+     "validity": {
+      "valid_from": {
+       "kind": "UNKNOWN",
+       "axis": "VINTAGE"
+      },
+      "valid_to": {
+       "kind": "OPEN",
+       "axis": "VINTAGE"
+      },
+      "as_of": "2026-10-25"
+     },
+     "provenance": "prv_103",
+     "source_term": "notre grand vin blanc sec",
+     "scope_type": "WHITE_DRY"
+    },
+    {
+     "entity": "RankAssertion",
+     "id": "rnk_107",
+     "relationship": "rel_107",
+     "tier": "SECOND",
+     "scope": "TYPE_RANGE",
+     "claimant": "PRODUCER",
+     "validity": {
+      "valid_from": {
+       "kind": "NO_LATER_THAN",
+       "axis": "VINTAGE",
+       "value": 2023,
+       "precision": "VINTAGE",
+       "basis": "prv_104"
+      },
+      "valid_to": {
+       "kind": "NO_EARLIER_THAN",
+       "axis": "VINTAGE",
+       "value": 2023,
+       "precision": "VINTAGE",
+       "basis": "prv_104"
+      },
+      "as_of": "2026-10-25"
+     },
+     "provenance": "prv_104",
+     "source_term": "Second Vin blanc sec",
+     "scope_type": "WHITE_DRY"
+    },
+    {
+     "entity": "RankAssertion",
+     "id": "rnk_108",
+     "relationship": "rel_109",
+     "tier": "THIRD",
+     "scope": "ESTATE_RANGE",
+     "claimant": "PRODUCER",
+     "validity": {
+      "valid_from": {
+       "kind": "UNKNOWN",
+       "axis": "VINTAGE"
+      },
+      "valid_to": {
+       "kind": "OPEN",
+       "axis": "VINTAGE"
+      },
+      "as_of": "2026-10-25"
+     },
+     "provenance": "prv_103",
+     "source_term": "Notre troisième vin"
+    }
+   ]
+  },
+  {
+   "id": "P4",
+   "title": "Les Terrasses de Saint Christophe: estate vines and group team; second label 2016-2019",
+   "records": [
+    {
+     "entity": "Source",
+     "id": "src_104",
+     "kind": "GROUP_SITE",
+     "name": "vignoblesk.com",
+     "base_urls": [
+      "https://www.vignoblesk.com/"
+     ]
+    },
+    {
+     "entity": "Artifact",
+     "id": "art_105",
+     "sha256": "aa650cfc049a622a9b988d69d3f8fc22fadce755c4e9b817e5437b72cab3c84c",
+     "bytes_available": true,
+     "extraction_status": "EXTRACTED"
+    },
+    {
+     "entity": "Artifact",
+     "id": "art_106",
+     "sha256": "2f84498d3c8de5bb9931da13f0c4a7d2404ce2e1a9519980b6c3bac1d0b8b52d",
+     "bytes_available": true,
+     "extraction_status": "EXTRACTED"
+    },
+    {
+     "entity": "Provenance",
+     "id": "prv_106",
+     "kind": "ESTATE_PUBLICATION",
+     "actor": "Phase 3.3 harvest, read in Phase 3.4",
+     "at": "2026-10-25",
+     "quote": "Les Terrasses de Saint Christophe is the second label of Château Tour Saint Christophe. It is made from some of the younger vines planted on the beautiful terrasses of the estate",
+     "artifact": "art_105",
+     "source": "src_104"
+    },
+    {
+     "entity": "Provenance",
+     "id": "prv_107",
+     "kind": "ESTATE_PUBLICATION",
+     "actor": "Phase 3.3 harvest, read in Phase 3.4",
+     "at": "2026-10-25",
+     "quote": "LES TERRASSES DE SAINT CHRISTOPHE 2016 Créée et orchestrée par l’équipe des Vignobles K, la cuvée Les Terrasses de Saint Christophe reflète le caractère des vins de l’appellation.",
+     "artifact": "art_106",
+     "source": "src_104"
+    },
+    {
+     "entity": "Estate",
+     "id": "est_104",
+     "name_status": "KNOWN"
+    },
+    {
+     "entity": "Wine",
+     "id": "win_110",
+     "name_status": "KNOWN",
+     "type": "RED"
+    },
+    {
+     "entity": "NameRecord",
+     "id": "nam_109",
+     "subject": "win_110",
+     "name": "Les Terrasses de Saint Christophe",
+     "kind": "CURRENT",
+     "validity": {
+      "valid_from": {
+       "kind": "UNKNOWN",
+       "axis": "VINTAGE"
+      },
+      "valid_to": {
+       "kind": "OPEN",
+       "axis": "VINTAGE"
+      },
+      "as_of": "2026-10-25"
+     },
+     "provenance": "prv_106"
+    },
+    {
+     "entity": "EstateWineRelationship",
+     "id": "rel_110",
+     "estate": "est_104",
+     "wine": "win_110",
+     "kind": "FROM_ESTATE_VINEYARD",
+     "status": "ESTABLISHED",
+     "validity": {
+      "valid_from": {
+       "kind": "UNKNOWN",
+       "axis": "VINTAGE"
+      },
+      "valid_to": {
+       "kind": "OPEN",
+       "axis": "VINTAGE"
+      },
+      "as_of": "2026-10-25"
+     },
+     "provenance": "prv_106"
+    },
+    {
+     "entity": "EstateWineRelationship",
+     "id": "rel_111",
+     "estate": "est_104",
+     "wine": "win_110",
+     "kind": "MADE_BY_GROUP_TEAM",
+     "status": "ESTABLISHED",
+     "validity": {
+      "valid_from": {
+       "kind": "UNKNOWN",
+       "axis": "VINTAGE"
+      },
+      "valid_to": {
+       "kind": "OPEN",
+       "axis": "VINTAGE"
+      },
+      "as_of": "2026-10-25"
+     },
+     "provenance": "prv_107"
+    },
+    {
+     "entity": "RankAssertion",
+     "id": "rnk_109",
+     "relationship": "rel_110",
+     "tier": "SECOND",
+     "scope": "ESTATE_RANGE",
+     "claimant": "PRODUCER",
+     "validity": {
+      "valid_from": {
+       "kind": "NO_LATER_THAN",
+       "axis": "VINTAGE",
+       "value": 2016,
+       "precision": "VINTAGE",
+       "basis": "prv_106"
+      },
+      "valid_to": {
+       "kind": "NO_EARLIER_THAN",
+       "axis": "VINTAGE",
+       "value": 2019,
+       "precision": "VINTAGE",
+       "basis": "prv_106"
+      },
+      "as_of": "2026-10-25"
+     },
+     "provenance": "prv_106",
+     "source_term": "the second label of Château Tour Saint Christophe"
+    }
+   ]
+  },
+  {
+   "id": "P5",
+   "title": "Mangot: second for the classification authorities, superior cuvée for the press",
+   "records": [
+    {
+     "entity": "Source",
+     "id": "src_105",
+     "kind": "ESTATE_SITE",
+     "name": "chateaumangot.fr",
+     "base_urls": [
+      "https://www.chateaumangot.fr/"
+     ]
+    },
+    {
+     "entity": "Artifact",
+     "id": "art_107",
+     "sha256": "b7040ee330eba346c578160a8ae490a77d73e66537378e195bf9b51ce4cd615b",
+     "bytes_available": true,
+     "extraction_status": "EXTRACTED"
+    },
+    {
+     "entity": "Provenance",
+     "id": "prv_108",
+     "kind": "ESTATE_PUBLICATION",
+     "actor": "Phase 3.3 harvest, read in Phase 3.4",
+     "at": "2026-10-25",
+     "quote": "Karl jokingly refers to this cuvée as his second wine (as far as the classification authorities are concerned, it is). although in truth it is the superior cuvée.",
+     "artifact": "art_107",
+     "source": "src_105"
+    },
+    {
+     "entity": "Estate",
+     "id": "est_105",
+     "name_status": "KNOWN"
+    },
+    {
+     "entity": "Wine",
+     "id": "win_111",
+     "name_status": "KNOWN",
+     "type": "RED"
+    },
+    {
+     "entity": "NameRecord",
+     "id": "nam_110",
+     "subject": "win_111",
+     "name": "Distique",
+     "kind": "CURRENT",
+     "validity": {
+      "valid_from": {
+       "kind": "UNKNOWN",
+       "axis": "VINTAGE"
+      },
+      "valid_to": {
+       "kind": "OPEN",
+       "axis": "VINTAGE"
+      },
+      "as_of": "2026-10-25"
+     },
+     "provenance": "prv_108"
+    },
+    {
+     "entity": "EstateWineRelationship",
+     "id": "rel_112",
+     "estate": "est_105",
+     "wine": "win_111",
+     "kind": "PRODUCED_BY",
+     "status": "ESTABLISHED",
+     "validity": {
+      "valid_from": {
+       "kind": "UNKNOWN",
+       "axis": "VINTAGE"
+      },
+      "valid_to": {
+       "kind": "OPEN",
+       "axis": "VINTAGE"
+      },
+      "as_of": "2026-10-25"
+     },
+     "provenance": "prv_108"
+    },
+    {
+     "entity": "RankAssertion",
+     "id": "rnk_110",
+     "relationship": "rel_112",
+     "tier": "SECOND",
+     "scope": "ESTATE_RANGE",
+     "claimant": "CLASSIFICATION_BODY",
+     "validity": {
+      "valid_from": {
+       "kind": "UNKNOWN",
+       "axis": "VINTAGE"
+      },
+      "valid_to": {
+       "kind": "OPEN",
+       "axis": "VINTAGE"
+      },
+      "as_of": "2026-10-25"
+     },
+     "provenance": "prv_108",
+     "source_term": "as far as the classification authorities are concerned"
+    },
+    {
+     "entity": "RankAssertion",
+     "id": "rnk_111",
+     "relationship": "rel_112",
+     "tier": "ABOVE_FIRST",
+     "scope": "ESTATE_RANGE",
+     "claimant": "PRESS",
+     "validity": {
+      "valid_from": {
+       "kind": "UNKNOWN",
+       "axis": "VINTAGE"
+      },
+      "valid_to": {
+       "kind": "OPEN",
+       "axis": "VINTAGE"
+      },
+      "as_of": "2026-10-25"
+     },
+     "provenance": "prv_108",
+     "source_term": "in truth it is the superior cuvée"
+    }
+   ]
+  },
+  {
+   "id": "P6",
+   "title": "Corbin 2022: no second wine that vintage",
+   "records": [
+    {
+     "entity": "Source",
+     "id": "src_106",
+     "kind": "ESTATE_SITE",
+     "name": "chateau-corbin.com",
+     "base_urls": [
+      "https://www.chateau-corbin.com/"
+     ]
+    },
+    {
+     "entity": "Artifact",
+     "id": "art_108",
+     "sha256": "3ef1af9594405d5bd9fadfdbdc1f71bf62a643b8d31d948f6068760a1ba55eda",
+     "bytes_available": true,
+     "extraction_status": "EXTRACTED"
+    },
+    {
+     "entity": "Provenance",
+     "id": "prv_109",
+     "kind": "ESTATE_PUBLICATION",
+     "actor": "Phase 3.3 harvest, read in Phase 3.4",
+     "at": "2026-10-25",
+     "quote": "such was the quality of all the lots that no second wine was produced this year",
+     "artifact": "art_108",
+     "source": "src_106"
+    },
+    {
+     "entity": "Estate",
+     "id": "est_106",
+     "name_status": "KNOWN"
+    },
+    {
+     "entity": "RankAbsence",
+     "id": "rab_101",
+     "estate": "est_106",
+     "tier": "SECOND",
+     "scope": "ESTATE_RANGE",
+     "claimant": "PRESS",
+     "validity": {
+      "valid_from": {
+       "kind": "EXACT",
+       "axis": "VINTAGE",
+       "value": 2022,
+       "precision": "VINTAGE",
+       "basis": "prv_109"
+      },
+      "valid_to": {
+       "kind": "EXACT",
+       "axis": "VINTAGE",
+       "value": 2022,
+       "precision": "VINTAGE",
+       "basis": "prv_109"
+      },
+      "as_of": "2026-10-25"
+     },
+     "provenance": "prv_109"
+    }
+   ]
+  },
+  {
+   "id": "P7",
+   "title": "Lynch-Bages second wine: Haut-Bages Averous, renamed Echo from the 2008 vintage (D2)",
+   "records": [
+    {
+     "entity": "Source",
+     "id": "src_107",
+     "kind": "ESTATE_SITE",
+     "name": "lynchbages.com",
+     "base_urls": [
+      "https://www.lynchbages.com/"
+     ]
+    },
+    {
+     "entity": "Artifact",
+     "id": "art_109",
+     "sha256": "6d68b9242523271f7e54448a6413febecd7f7d1957884c3d4fe8eb0adae6109f",
+     "bytes_available": true,
+     "extraction_status": "EXTRACTED"
+    },
+    {
+     "entity": "Provenance",
+     "id": "prv_110",
+     "kind": "ESTATE_PUBLICATION",
+     "actor": "Phase 3.3 harvest, read in Phase 3.4",
+     "at": "2026-10-25",
+     "quote": "For over 30 years, it was Lynch-Bages’ second wine. In 2008, a new identity was given to the second wine, under the name “Echo de Lynch-Bages”.",
+     "artifact": "art_109",
+     "source": "src_107"
+    },
+    {
+     "entity": "Estate",
+     "id": "est_107",
+     "name_status": "KNOWN"
+    },
+    {
+     "entity": "Wine",
+     "id": "win_112",
+     "name_status": "KNOWN",
+     "type": "RED"
+    },
+    {
+     "entity": "NameRecord",
+     "id": "nam_111",
+     "subject": "win_112",
+     "name": "Château Haut-Bages Averous",
+     "kind": "FORMER",
+     "validity": {
+      "valid_from": {
+       "kind": "UNKNOWN",
+       "axis": "VINTAGE"
+      },
+      "valid_to": {
+       "kind": "NO_LATER_THAN",
+       "axis": "VINTAGE",
+       "value": 2007,
+       "precision": "VINTAGE",
+       "basis": "prv_110"
+      },
+      "as_of": "2026-10-25"
+     },
+     "provenance": "prv_110"
+    },
+    {
+     "entity": "NameRecord",
+     "id": "nam_112",
+     "subject": "win_112",
+     "name": "Echo de Lynch-Bages",
+     "kind": "CURRENT",
+     "validity": {
+      "valid_from": {
+       "kind": "EXACT",
+       "axis": "VINTAGE",
+       "value": 2008,
+       "precision": "VINTAGE",
+       "basis": "prv_110"
+      },
+      "valid_to": {
+       "kind": "OPEN",
+       "axis": "VINTAGE"
+      },
+      "as_of": "2026-10-25"
+     },
+     "provenance": "prv_110"
+    },
+    {
+     "entity": "EstateWineRelationship",
+     "id": "rel_113",
+     "estate": "est_107",
+     "wine": "win_112",
+     "kind": "PRODUCED_BY",
+     "status": "ESTABLISHED",
+     "validity": {
+      "valid_from": {
+       "kind": "UNKNOWN",
+       "axis": "VINTAGE"
+      },
+      "valid_to": {
+       "kind": "OPEN",
+       "axis": "VINTAGE"
+      },
+      "as_of": "2026-10-25"
+     },
+     "provenance": "prv_110"
+    },
+    {
+     "entity": "RankAssertion",
+     "id": "rnk_112",
+     "relationship": "rel_113",
+     "tier": "SECOND",
+     "scope": "ESTATE_RANGE",
+     "claimant": "PRODUCER",
+     "validity": {
+      "valid_from": {
+       "kind": "UNKNOWN",
+       "axis": "VINTAGE"
+      },
+      "valid_to": {
+       "kind": "OPEN",
+       "axis": "VINTAGE"
+      },
+      "as_of": "2026-10-25"
+     },
+     "provenance": "prv_110",
+     "source_term": "second wine"
+    }
+   ]
+  },
+  {
+   "id": "P8",
+   "title": "Desmirail: one second wine under two names",
+   "records": [
+    {
+     "entity": "Source",
+     "id": "src_108",
+     "kind": "ESTATE_SITE",
+     "name": "desmirail.com",
+     "base_urls": [
+      "https://www.desmirail.com/"
+     ]
+    },
+    {
+     "entity": "Artifact",
+     "id": "art_110",
+     "sha256": "00d3ce90be0054c0890bc4f9fd8e7a44952ad8d94288b55d51d0a19a0e4aae15",
+     "bytes_available": true,
+     "extraction_status": "EXTRACTED"
+    },
+    {
+     "entity": "Provenance",
+     "id": "prv_111",
+     "kind": "ESTATE_PUBLICATION",
+     "actor": "Phase 3.3 harvest, read in Phase 3.4",
+     "at": "2026-10-25",
+     "quote": "Issu en partie de jeunes vignes, Initial de Desmirail, aussi distribué sous le nom de Origine de Desmirail, est le Second Vin du Château.",
+     "artifact": "art_110",
+     "source": "src_108"
+    },
+    {
+     "entity": "Estate",
+     "id": "est_108",
+     "name_status": "KNOWN"
+    },
+    {
+     "entity": "Wine",
+     "id": "win_113",
+     "name_status": "KNOWN",
+     "type": "RED"
+    },
+    {
+     "entity": "NameRecord",
+     "id": "nam_113",
+     "subject": "win_113",
+     "name": "Initial de Desmirail",
+     "kind": "CURRENT",
+     "validity": {
+      "valid_from": {
+       "kind": "UNKNOWN",
+       "axis": "VINTAGE"
+      },
+      "valid_to": {
+       "kind": "OPEN",
+       "axis": "VINTAGE"
+      },
+      "as_of": "2026-10-25"
+     },
+     "provenance": "prv_111"
+    },
+    {
+     "entity": "NameRecord",
+     "id": "nam_114",
+     "subject": "win_113",
+     "name": "Origine de Desmirail",
+     "kind": "MARKET_ALIAS",
+     "validity": {
+      "valid_from": {
+       "kind": "UNKNOWN",
+       "axis": "VINTAGE"
+      },
+      "valid_to": {
+       "kind": "OPEN",
+       "axis": "VINTAGE"
+      },
+      "as_of": "2026-10-25"
+     },
+     "provenance": "prv_111",
+     "context": "aussi distribué sous le nom de"
+    },
+    {
+     "entity": "EstateWineRelationship",
+     "id": "rel_114",
+     "estate": "est_108",
+     "wine": "win_113",
+     "kind": "PRODUCED_BY",
+     "status": "ESTABLISHED",
+     "validity": {
+      "valid_from": {
+       "kind": "UNKNOWN",
+       "axis": "VINTAGE"
+      },
+      "valid_to": {
+       "kind": "OPEN",
+       "axis": "VINTAGE"
+      },
+      "as_of": "2026-10-25"
+     },
+     "provenance": "prv_111"
+    },
+    {
+     "entity": "RankAssertion",
+     "id": "rnk_113",
+     "relationship": "rel_114",
+     "tier": "SECOND",
+     "scope": "ESTATE_RANGE",
+     "claimant": "PRODUCER",
+     "validity": {
+      "valid_from": {
+       "kind": "UNKNOWN",
+       "axis": "VINTAGE"
+      },
+      "valid_to": {
+       "kind": "OPEN",
+       "axis": "VINTAGE"
+      },
+      "as_of": "2026-10-25"
+     },
+     "provenance": "prv_111",
+     "source_term": "le Second Vin du Château"
+    },
+    {
+     "entity": "WineDescriptor",
+     "id": "dsc_103",
+     "wine": "win_113",
+     "kind": "YOUNG_VINES",
+     "source_term": "Issu en partie de jeunes vignes",
+     "validity": {
+      "valid_from": {
+       "kind": "UNKNOWN",
+       "axis": "VINTAGE"
+      },
+      "valid_to": {
+       "kind": "OPEN",
+       "axis": "VINTAGE"
+      },
+      "as_of": "2026-10-25"
+     },
+     "provenance": "prv_111"
+    }
+   ]
+  },
+  {
+   "id": "P9",
+   "title": "Bouscaut: two classified wines, named by the estate (D8)",
+   "records": [
+    {
+     "entity": "Source",
+     "id": "src_109",
+     "kind": "ESTATE_SITE",
+     "name": "chateau-bouscaut.com",
+     "base_urls": [
+      "https://shop.chateau-bouscaut.com/"
+     ]
+    },
+    {
+     "entity": "Artifact",
+     "id": "art_111",
+     "sha256": "053a471ffb643e0a00925bc116d030057391b655b1870337bf09f10895ac18e3",
+     "bytes_available": true,
+     "extraction_status": "EXTRACTED"
+    },
+    {
+     "entity": "Provenance",
+     "id": "prv_112",
+     "kind": "ESTATE_PUBLICATION",
+     "actor": "Phase 3.3 harvest, read in Phase 3.4",
+     "at": "2026-10-25",
+     "quote": "Château Bouscaut Blanc, Cru Classé de Graves, est un assemblage de Sauvignon blanc et de Sémillon.",
+     "artifact": "art_111",
+     "source": "src_109"
+    },
+    {
+     "entity": "Provenance",
+     "id": "prv_113",
+     "kind": "AUTHORITATIVE_SOURCE",
+     "actor": "Phase 3.0 sources odg-pl-ccg and wp-graves",
+     "at": "2026-10-25",
+     "quote": "Château Bouscaut, Cru Classé de Graves, Cadaujac; colours Rouge et Blanc",
+     "secondary": true
+    },
+    {
+     "entity": "Estate",
+     "id": "est_109",
+     "name_status": "KNOWN"
+    },
+    {
+     "entity": "Wine",
+     "id": "win_114",
+     "name_status": "KNOWN",
+     "type": "RED"
+    },
+    {
+     "entity": "Wine",
+     "id": "win_115",
+     "name_status": "KNOWN",
+     "type": "WHITE_DRY"
+    },
+    {
+     "entity": "NameRecord",
+     "id": "nam_115",
+     "subject": "win_115",
+     "name": "Château Bouscaut Blanc",
+     "kind": "CURRENT",
+     "validity": {
+      "valid_from": {
+       "kind": "UNKNOWN",
+       "axis": "VINTAGE"
+      },
+      "valid_to": {
+       "kind": "OPEN",
+       "axis": "VINTAGE"
+      },
+      "as_of": "2026-10-25"
+     },
+     "provenance": "prv_112"
+    },
+    {
+     "entity": "ClassificationScheme",
+     "id": "cls_101",
+     "name": "Crus Classés de Graves",
+     "body": "pty_101"
+    },
+    {
+     "entity": "Party",
+     "id": "pty_101",
+     "kind": "INSTITUTION",
+     "name": "INAO"
+    },
+    {
+     "entity": "ClassificationEdition",
+     "id": "ced_101",
+     "scheme": "cls_101",
+     "label": "1959",
+     "status": "IN_FORCE",
+     "provenance": "prv_113",
+     "validity": {
+      "valid_from": {
+       "kind": "EXACT",
+       "axis": "CALENDAR",
+       "value": "1959-02-16",
+       "precision": "DAY",
+       "basis": "prv_113"
+      },
+      "valid_to": {
+       "kind": "OPEN",
+       "axis": "CALENDAR"
+      },
+      "as_of": "2026-10-25"
+     }
+    },
+    {
+     "entity": "ClassificationMembership",
+     "id": "cme_101",
+     "edition": "ced_101",
+     "wine": "win_114",
+     "rank": null,
+     "rank_status": "KNOWN",
+     "validity": {
+      "valid_from": {
+       "kind": "UNKNOWN",
+       "axis": "CALENDAR"
+      },
+      "valid_to": {
+       "kind": "OPEN",
+       "axis": "CALENDAR"
+      },
+      "as_of": "2026-10-25"
+     },
+     "provenance": "prv_113"
+    },
+    {
+     "entity": "ClassificationMembership",
+     "id": "cme_102",
+     "edition": "ced_101",
+     "wine": "win_115",
+     "rank": null,
+     "rank_status": "KNOWN",
+     "validity": {
+      "valid_from": {
+       "kind": "UNKNOWN",
+       "axis": "CALENDAR"
+      },
+      "valid_to": {
+       "kind": "OPEN",
+       "axis": "CALENDAR"
+      },
+      "as_of": "2026-10-25"
+     },
+     "provenance": "prv_113"
+    }
+   ]
+  },
+  {
+   "id": "P10",
+   "title": "Climens: Barsac for the sweet wine, Bordeaux for the dry white",
+   "records": [
+    {
+     "entity": "Source",
+     "id": "src_110",
+     "kind": "ESTATE_SITE",
+     "name": "chateau-climens.com",
+     "base_urls": [
+      "https://chateau-climens.com/"
+     ]
+    },
+    {
+     "entity": "Artifact",
+     "id": "art_112",
+     "sha256": "080ed506e6f236671c4d7ad3773b46998f7de47c21f994cedeb1f3f64cf238df",
+     "bytes_available": true,
+     "extraction_status": "EXTRACTED"
+    },
+    {
+     "entity": "Provenance",
+     "id": "prv_114",
+     "kind": "ESTATE_PUBLICATION",
+     "actor": "Phase 3.3 harvest, read in Phase 3.4",
+     "at": "2026-10-25",
+     "quote": "Cépage : 100% sémillon Appellation : Bordeaux Blanc Sec",
+     "artifact": "art_112",
+     "source": "src_110"
+    },
+    {
+     "entity": "Provenance",
+     "id": "prv_115",
+     "kind": "AUTHORITATIVE_SOURCE",
+     "actor": "Phase 3.0 source gcc-1855-listing",
+     "at": "2026-10-25",
+     "quote": "Château CLIMENS, Barsac"
+    },
+    {
+     "entity": "Estate",
+     "id": "est_110",
+     "name_status": "KNOWN"
+    },
+    {
+     "entity": "Wine",
+     "id": "win_116",
+     "name_status": "KNOWN",
+     "type": "WHITE_SWEET"
+    },
+    {
+     "entity": "Wine",
+     "id": "win_117",
+     "name_status": "KNOWN",
+     "type": "WHITE_DRY"
+    },
+    {
+     "entity": "Appellation",
+     "id": "apl_101",
+     "name": "Barsac",
+     "validity": {
+      "valid_from": {
+       "kind": "NOT_APPLICABLE",
+       "axis": "CALENDAR"
+      },
+      "valid_to": {
+       "kind": "NOT_APPLICABLE",
+       "axis": "CALENDAR"
+      },
+      "as_of": "2026-10-25"
+     },
+     "provenance": "prv_115"
+    },
+    {
+     "entity": "Appellation",
+     "id": "apl_102",
+     "name": "Bordeaux",
+     "validity": {
+      "valid_from": {
+       "kind": "NOT_APPLICABLE",
+       "axis": "CALENDAR"
+      },
+      "valid_to": {
+       "kind": "NOT_APPLICABLE",
+       "axis": "CALENDAR"
+      },
+      "as_of": "2026-10-25"
+     },
+     "provenance": "prv_114"
+    },
+    {
+     "entity": "AppellationMembership",
+     "id": "apm_101",
+     "wine": "win_116",
+     "appellation": "apl_101",
+     "validity": {
+      "valid_from": {
+       "kind": "UNKNOWN",
+       "axis": "VINTAGE"
+      },
+      "valid_to": {
+       "kind": "OPEN",
+       "axis": "VINTAGE"
+      },
+      "as_of": "2026-10-25"
+     },
+     "provenance": "prv_115"
+    },
+    {
+     "entity": "AppellationMembership",
+     "id": "apm_102",
+     "wine": "win_117",
+     "appellation": "apl_102",
+     "provenance": "prv_114",
+     "validity": {
+      "valid_from": {
+       "kind": "NO_LATER_THAN",
+       "axis": "VINTAGE",
+       "value": 2020,
+       "precision": "VINTAGE",
+       "basis": "prv_114"
+      },
+      "valid_to": {
+       "kind": "NO_EARLIER_THAN",
+       "axis": "VINTAGE",
+       "value": 2020,
+       "precision": "VINTAGE",
+       "basis": "prv_114"
+      },
+      "as_of": "2026-10-25"
+     }
+    }
+   ]
+  },
+  {
+   "id": "P11",
+   "title": "Haut-Bailly: La Parde renamed Haut-Bailly II with the 2018 vintage",
+   "records": [
+    {
+     "entity": "Source",
+     "id": "src_111",
+     "kind": "ESTATE_SITE",
+     "name": "haut-bailly.com",
+     "base_urls": [
+      "https://www.haut-bailly.com/"
+     ]
+    },
+    {
+     "entity": "Artifact",
+     "id": "art_113",
+     "sha256": "0227ded46ecfdb98126388be6499702176b843c0e643c249f8a4428cfb7cb748",
+     "bytes_available": true,
+     "extraction_status": "EXTRACTED"
+    },
+    {
+     "entity": "Provenance",
+     "id": "prv_116",
+     "kind": "ESTATE_PUBLICATION",
+     "actor": "Phase 3.3 harvest, read in Phase 3.4",
+     "at": "2026-10-25",
+     "quote": "2018 La Parde de Haut-Bailly, né en 1967, se voit renommer après 50 années d’existence. Modèle de second vin, le nom s’est imposé spontanément : Haut-Bailly.II.",
+     "artifact": "art_113",
+     "source": "src_111"
+    },
+    {
+     "entity": "Estate",
+     "id": "est_111",
+     "name_status": "KNOWN"
+    },
+    {
+     "entity": "Wine",
+     "id": "win_118",
+     "name_status": "KNOWN",
+     "type": "RED"
+    },
+    {
+     "entity": "NameRecord",
+     "id": "nam_116",
+     "subject": "win_118",
+     "name": "La Parde de Haut-Bailly",
+     "kind": "FORMER",
+     "validity": {
+      "valid_from": {
+       "kind": "EXACT",
+       "axis": "CALENDAR",
+       "value": "1967",
+       "precision": "YEAR",
+       "basis": "prv_116"
+      },
+      "valid_to": {
+       "kind": "NO_LATER_THAN",
+       "axis": "VINTAGE",
+       "value": 2017,
+       "precision": "VINTAGE",
+       "basis": "prv_116"
+      },
+      "as_of": "2026-10-25"
+     },
+     "provenance": "prv_116"
+    },
+    {
+     "entity": "NameRecord",
+     "id": "nam_117",
+     "subject": "win_118",
+     "name": "Haut-Bailly II",
+     "kind": "CURRENT",
+     "validity": {
+      "valid_from": {
+       "kind": "EXACT",
+       "axis": "VINTAGE",
+       "value": 2018,
+       "precision": "VINTAGE",
+       "basis": "prv_116"
+      },
+      "valid_to": {
+       "kind": "OPEN",
+       "axis": "VINTAGE"
+      },
+      "as_of": "2026-10-25"
+     },
+     "provenance": "prv_116"
+    },
+    {
+     "entity": "EstateWineRelationship",
+     "id": "rel_115",
+     "estate": "est_111",
+     "wine": "win_118",
+     "kind": "PRODUCED_BY",
+     "status": "ESTABLISHED",
+     "validity": {
+      "valid_from": {
+       "kind": "UNKNOWN",
+       "axis": "VINTAGE"
+      },
+      "valid_to": {
+       "kind": "OPEN",
+       "axis": "VINTAGE"
+      },
+      "as_of": "2026-10-25"
+     },
+     "provenance": "prv_116"
+    },
+    {
+     "entity": "RankAssertion",
+     "id": "rnk_114",
+     "relationship": "rel_115",
+     "tier": "SECOND",
+     "scope": "ESTATE_RANGE",
+     "claimant": "PRODUCER",
+     "validity": {
+      "valid_from": {
+       "kind": "UNKNOWN",
+       "axis": "VINTAGE"
+      },
+      "valid_to": {
+       "kind": "OPEN",
+       "axis": "VINTAGE"
+      },
+      "as_of": "2026-10-25"
+     },
+     "provenance": "prv_116",
+     "source_term": "Modèle de second vin"
+    }
+   ]
+  },
+  {
+   "id": "P12",
+   "title": "Vignobles K: one site, several estates; one page naming two",
+   "records": [
+    {
+     "entity": "Source",
+     "id": "src_112",
+     "kind": "GROUP_SITE",
+     "name": "vignoblesk.com",
+     "base_urls": [
+      "https://www.vignoblesk.com/"
+     ]
+    },
+    {
+     "entity": "Artifact",
+     "id": "art_114",
+     "sha256": "07615fe1bfe53d318b4e25a7028bc7962667a2781db0506b086bf915abdf13a6",
+     "bytes_available": true,
+     "extraction_status": "EXTRACTED"
+    },
+    {
+     "entity": "Provenance",
+     "id": "prv_117",
+     "kind": "DOCUMENT",
+     "actor": "Phase 3.3 harvest, read in Phase 3.4",
+     "at": "2026-10-25",
+     "quote": "page headings name Château Bellefont-Belcier and Château Tour Saint Christophe",
+     "artifact": "art_114",
+     "source": "src_112"
+    },
+    {
+     "entity": "Provenance",
+     "id": "prv_118",
+     "kind": "LEGACY_UNSOURCED",
+     "actor": "data/discovery/targets.json",
+     "at": "2026-10-25",
+     "quote": "websites.js gives vignoblesk.com for both estates (Phase 3.3 targets)"
+    },
+    {
+     "entity": "Estate",
+     "id": "est_112",
+     "name_status": "KNOWN"
+    },
+    {
+     "entity": "Estate",
+     "id": "est_113",
+     "name_status": "KNOWN"
+    },
+    {
+     "entity": "SourceEstateRelationship",
+     "id": "ser_101",
+     "source": "src_112",
+     "estate": "est_112",
+     "kind": "GROUP_SITE",
+     "validity": {
+      "valid_from": {
+       "kind": "UNKNOWN",
+       "axis": "CALENDAR"
+      },
+      "valid_to": {
+       "kind": "OPEN",
+       "axis": "CALENDAR"
+      },
+      "as_of": "2026-10-25"
+     },
+     "provenance": "prv_118"
+    },
+    {
+     "entity": "SourceEstateRelationship",
+     "id": "ser_102",
+     "source": "src_112",
+     "estate": "est_113",
+     "kind": "GROUP_SITE",
+     "validity": {
+      "valid_from": {
+       "kind": "UNKNOWN",
+       "axis": "CALENDAR"
+      },
+      "valid_to": {
+       "kind": "OPEN",
+       "axis": "CALENDAR"
+      },
+      "as_of": "2026-10-25"
+     },
+     "provenance": "prv_118"
+    },
+    {
+     "entity": "Attribution",
+     "id": "att_101",
+     "artifact": "art_114",
+     "estate": "est_112",
+     "method": "DOCUMENT_TEXT",
+     "status": "PROPOSED",
+     "provenance": "prv_117"
+    },
+    {
+     "entity": "Attribution",
+     "id": "att_102",
+     "artifact": "art_114",
+     "estate": "est_113",
+     "method": "DOCUMENT_TEXT",
+     "status": "PROPOSED",
+     "provenance": "prv_117"
+    }
+   ]
+  },
+  {
+   "id": "P13",
+   "title": "Murmure 2018: two French revisions and an English version disagree on alcohol",
+   "records": [
+    {
+     "entity": "Source",
+     "id": "src_113",
+     "kind": "ESTATE_SITE",
+     "name": "larcis-ducasse.com",
+     "base_urls": [
+      "https://www.larcis-ducasse.com/"
+     ]
+    },
+    {
+     "entity": "Artifact",
+     "id": "art_115",
+     "sha256": "d44b526ec16c0d5976159a9a1f27de737da71b2daba9fbee460a514dda8f8b72",
+     "bytes_available": true,
+     "extraction_status": "EXTRACTED"
+    },
+    {
+     "entity": "Artifact",
+     "id": "art_116",
+     "sha256": "1090d9ae75497be681822e57ae0d9855300ed8ca91d37f68fa0ef83bc0ddc16f",
+     "bytes_available": true,
+     "extraction_status": "EXTRACTED"
+    },
+    {
+     "entity": "Artifact",
+     "id": "art_117",
+     "sha256": "f2d2d2aa9a3dec9e627206d628f82c0ace218199037f3a4788d43a65a50d67cb",
+     "bytes_available": true,
+     "extraction_status": "EXTRACTED"
+    },
+    {
+     "entity": "Provenance",
+     "id": "prv_119",
+     "kind": "DOCUMENT",
+     "actor": "Phase 3.3 harvest, read in Phase 3.4",
+     "at": "2026-10-25",
+     "quote": "Degré alcoolique 14,5% (upload path 2020/12)",
+     "artifact": "art_115",
+     "source": "src_113"
+    },
+    {
+     "entity": "Provenance",
+     "id": "prv_120",
+     "kind": "DOCUMENT",
+     "actor": "Phase 3.3 harvest, read in Phase 3.4",
+     "at": "2026-10-25",
+     "quote": "Degré alcoolique 14% (upload path 2022/11)",
+     "artifact": "art_116",
+     "source": "src_113"
+    },
+    {
+     "entity": "Provenance",
+     "id": "prv_121",
+     "kind": "DOCUMENT",
+     "actor": "Phase 3.3 harvest, read in Phase 3.4",
+     "at": "2026-10-25",
+     "quote": "Alcohol by volume 14% (upload path 2022/11)",
+     "artifact": "art_117",
+     "source": "src_113"
+    },
+    {
+     "entity": "ArtifactDate",
+     "id": "adt_101",
+     "artifact": "art_115",
+     "kind": "UPLOAD_PATH",
+     "value": {
+      "kind": "EXACT",
+      "axis": "CALENDAR",
+      "value": "2020-12",
+      "precision": "MONTH",
+      "basis": "prv_119"
+     },
+     "provenance": "prv_119"
+    },
+    {
+     "entity": "ArtifactDate",
+     "id": "adt_102",
+     "artifact": "art_116",
+     "kind": "UPLOAD_PATH",
+     "value": {
+      "kind": "EXACT",
+      "axis": "CALENDAR",
+      "value": "2022-11",
+      "precision": "MONTH",
+      "basis": "prv_120"
+     },
+     "provenance": "prv_120"
+    },
+    {
+     "entity": "ArtifactRelation",
+     "id": "arl_101",
+     "from": "art_116",
+     "to": "art_115",
+     "kind": "REVISION_OF",
+     "status": "CANDIDATE",
+     "provenance": "prv_120"
+    },
+    {
+     "entity": "ArtifactRelation",
+     "id": "arl_102",
+     "from": "art_117",
+     "to": "art_116",
+     "kind": "LANGUAGE_VERSION_OF",
+     "status": "CANDIDATE",
+     "provenance": "prv_121"
+    },
+    {
+     "entity": "Wine",
+     "id": "win_119",
+     "name_status": "KNOWN",
+     "type": "RED"
+    },
+    {
+     "entity": "NameRecord",
+     "id": "nam_118",
+     "subject": "win_119",
+     "name": "Murmure-de-LD",
+     "kind": "SOURCE_RENDERING",
+     "validity": {
+      "valid_from": {
+       "kind": "NOT_APPLICABLE",
+       "axis": "CALENDAR"
+      },
+      "valid_to": {
+       "kind": "NOT_APPLICABLE",
+       "axis": "CALENDAR"
+      },
+      "as_of": "2026-10-25"
+     },
+     "provenance": "prv_120"
+    },
+    {
+     "entity": "Vintage",
+     "wine": "win_119",
+     "label": "2018"
+    },
+    {
+     "entity": "Observation",
+     "id": "obs_101",
+     "subject": {
+      "wine": "win_119",
+      "label": "2018"
+     },
+     "field": "alcohol",
+     "raw_label": "Degré alcoolique",
+     "raw_value": "14,5%",
+     "value": 14.5,
+     "unit": "% vol",
+     "lang": "fr",
+     "artifact": "art_115",
+     "locus": "p1:l28",
+     "extraction": {
+      "method": "discover-extract/1.0",
+      "reader": null,
+      "code_commit": null,
+      "dirty": null
+     },
+     "confidence": "READ",
+     "observed_at": "2026-10-25",
+     "subject_status": "PROPOSED",
+     "provenance": "prv_119"
+    },
+    {
+     "entity": "Observation",
+     "id": "obs_102",
+     "subject": {
+      "wine": "win_119",
+      "label": "2018"
+     },
+     "field": "alcohol",
+     "raw_label": "Degré alcoolique",
+     "raw_value": "14%",
+     "value": 14,
+     "unit": "% vol",
+     "lang": "fr",
+     "artifact": "art_116",
+     "locus": "p1:l28",
+     "extraction": {
+      "method": "discover-extract/1.0",
+      "reader": null,
+      "code_commit": null,
+      "dirty": null
+     },
+     "confidence": "READ",
+     "observed_at": "2026-10-25",
+     "subject_status": "PROPOSED",
+     "provenance": "prv_120"
+    },
+    {
+     "entity": "Observation",
+     "id": "obs_103",
+     "subject": {
+      "wine": "win_119",
+      "label": "2018"
+     },
+     "field": "alcohol",
+     "raw_label": "Alcohol by volume",
+     "raw_value": "14%",
+     "value": 14,
+     "unit": "% vol",
+     "lang": "en",
+     "artifact": "art_117",
+     "locus": "p1:l27",
+     "extraction": {
+      "method": "discover-extract/1.0",
+      "reader": null,
+      "code_commit": null,
+      "dirty": null
+     },
+     "confidence": "READ",
+     "observed_at": "2026-10-25",
+     "subject_status": "PROPOSED",
+     "provenance": "prv_121"
+    },
+    {
+     "entity": "Provenance",
+     "id": "prv_122",
+     "kind": "DERIVATION",
+     "actor": "Phase 3.4 illustration",
+     "at": "2026-10-25",
+     "quote": "D5 recommended policy (not adopted): the later revision of the same document is preferred; earlier kept"
+    },
+    {
+     "entity": "Reconciliation",
+     "id": "rec_101",
+     "subject": {
+      "wine": "win_119",
+      "label": "2018"
+     },
+     "field": "alcohol",
+     "candidates": [
+      "obs_101",
+      "obs_102",
+      "obs_103"
+     ],
+     "selected": "obs_102",
+     "rule": "SOURCE_PRIORITY",
+     "status": "RESOLVED",
+     "reason": "latest revision (2022-11) of the French sheet; the English version of that revision agrees",
+     "resolver": "D5 recommended policy (illustration)",
+     "decided_at": "2026-10-25",
+     "provenance": "prv_122"
+    },
+    {
+     "entity": "CanonicalValue",
+     "subject": {
+      "wine": "win_119",
+      "label": "2018"
+     },
+     "field": "alcohol",
+     "value": 14,
+     "status": "SOURCED",
+     "reconciliation": "rec_101",
+     "provenance": "prv_120"
+    }
+   ]
+  },
+  {
+   "id": "P14",
+   "title": "A SIRET number: an observation about the site publisher, never a canonical estate field",
+   "records": [
+    {
+     "entity": "Source",
+     "id": "src_114",
+     "kind": "ESTATE_SITE",
+     "name": "chateaureverdi.fr",
+     "base_urls": [
+      "https://chateaureverdi.fr/"
+     ]
+    },
+    {
+     "entity": "Artifact",
+     "id": "art_118",
+     "sha256": "033122420b4bbcca46cc2510b94be94014788a291d26d8d03d20e48f1576fb6a",
+     "bytes_available": true,
+     "extraction_status": "EXTRACTED"
+    },
+    {
+     "entity": "Provenance",
+     "id": "prv_123",
+     "kind": "DOCUMENT",
+     "actor": "Phase 3.3 harvest, read in Phase 3.4",
+     "at": "2026-10-25",
+     "quote": "SIRET 429 952 443 00019",
+     "artifact": "art_118",
+     "source": "src_114"
+    },
+    {
+     "entity": "Observation",
+     "id": "obs_104",
+     "subject": "src_114",
+     "field": "legal_identifier",
+     "raw_label": "SIRET",
+     "raw_value": "429 952 443 00019",
+     "lang": "fr",
+     "artifact": "art_118",
+     "extraction": {
+      "method": "discover-extract/1.0",
+      "reader": null,
+      "code_commit": null,
+      "dirty": null
+     },
+     "confidence": "READ",
+     "observed_at": "2026-10-25",
+     "subject_status": "ESTABLISHED",
+     "provenance": "prv_123"
+    }
+   ]
+  },
+  {
+   "id": "P15",
+   "title": "Château Canon: a source that refused access, still represented",
+   "records": [
+    {
+     "entity": "Source",
+     "id": "src_115",
+     "kind": "ESTATE_SITE",
+     "name": "chateaucanon.com",
+     "base_urls": [
+      "https://chateaucanon.com/"
+     ]
+    },
+    {
+     "entity": "Provenance",
+     "id": "prv_124",
+     "kind": "DOCUMENT",
+     "actor": "tools/discover.py (Phase 3.3)",
+     "at": "2026-10-25",
+     "quote": "robots.txt answered HTTP 403 with a bot challenge; treated as disallow-all; nothing crawled",
+     "source": "src_115"
+    },
+    {
+     "entity": "Provenance",
+     "id": "prv_125",
+     "kind": "LEGACY_UNSOURCED",
+     "actor": "data/discovery/targets.json",
+     "at": "2026-10-25",
+     "quote": "websites.js gives chateaucanon.com for Château Canon"
+    },
+    {
+     "entity": "Estate",
+     "id": "est_114",
+     "name_status": "KNOWN"
+    },
+    {
+     "entity": "SourceEstateRelationship",
+     "id": "ser_103",
+     "source": "src_115",
+     "estate": "est_114",
+     "kind": "OFFICIAL_SITE",
+     "validity": {
+      "valid_from": {
+       "kind": "UNKNOWN",
+       "axis": "CALENDAR"
+      },
+      "valid_to": {
+       "kind": "OPEN",
+       "axis": "CALENDAR"
+      },
+      "as_of": "2026-10-25"
+     },
+     "provenance": "prv_125"
+    },
+    {
+     "entity": "Placement",
+     "id": "plc_101",
+     "locator": {
+      "kind": "URL",
+      "value": "https://chateaucanon.com/robots.txt"
+     },
+     "artifact": null,
+     "status": "ACCESS_REFUSED",
+     "source": "src_115",
+     "observed": {
+      "valid_from": {
+       "kind": "EXACT",
+       "axis": "CALENDAR",
+       "value": "2026-10-25",
+       "precision": "DAY",
+       "basis": "prv_124"
+      },
+      "valid_to": {
+       "kind": "UNKNOWN",
+       "axis": "CALENDAR"
+      },
+      "as_of": "2026-10-25"
+     },
+     "provenance": "prv_124"
+    },
+    {
+     "entity": "QualityFinding",
+     "id": "qf_101",
+     "target": "plc_101",
+     "kind": "SOURCE_FAILURE",
+     "status": "OPEN",
+     "detail": "access refused by robots policy; no first-party material harvested for this estate",
+     "detected_by": "tools/discover.py",
+     "provenance": "prv_124"
+    }
+   ]
+  },
+  {
+   "id": "P16",
+   "title": "An image-only PDF, held before any OCR",
+   "records": [
+    {
+     "entity": "Artifact",
+     "id": "art_119",
+     "sha256": "000821726c4ec63591bfeb4c0287050c84093aab588ce53c80bf53dcb2d8c04c",
+     "bytes_available": true,
+     "extraction_status": "NEEDS_OCR"
+    },
+    {
+     "entity": "Provenance",
+     "id": "prv_126",
+     "kind": "DOCUMENT",
+     "actor": "tools/discover_extract.py",
+     "at": "2026-10-25",
+     "quote": "one page, too little text: OCR NEEDED_NO_ENGINE",
+     "artifact": "art_119"
+    },
+    {
+     "entity": "ArtifactAssessment",
+     "id": "ass_101",
+     "artifact": "art_119",
+     "document_type": "UNKNOWN",
+     "status": "PROPOSED",
+     "provenance": "prv_126"
+    },
+    {
+     "entity": "QualityFinding",
+     "id": "qf_102",
+     "target": "art_119",
+     "kind": "EXTRACTION_FAILURE",
+     "status": "OPEN",
+     "detail": "image-only PDF awaiting OCR; bytes kept",
+     "detected_by": "tools/discover_extract.py",
+     "provenance": "prv_126"
+    }
+   ]
+  }
+ ]
+}

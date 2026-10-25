@@ -96,11 +96,18 @@ says('no Phase 2 proposal applied: Terrasses, Echo (50 as Blanc), Murets',
              and r['wine'] == 'Blanc de Lynch-Bages') == 50
      and Es['caillou']['second'] == 'Les Erables de Caillou'
      and not any('murets' in str(w).lower() for w in Es['caillou']['cuvees']))
-loaders = io.open(ROOT + 'index.html', encoding='utf-8').read() + ''.join(
-    io.open(ROOT + 'tools/' + f, encoding='utf-8').read() for f in os.listdir(ROOT + 'tools')
-    if f.endswith('.py') and f != 'test-phase32.py')
-says('the fixtures and model are loaded by no page and no tool',
-     'phase32-fixtures' not in loaders and 'phase32-model' not in loaders)
+# The design files must not feed a page or any tool that writes data. A
+# design generator that revises them into a later design document - Phase
+# 3.4's build-phase34-model.py, whose output is under docs/ - is allowed:
+# the whole-repository form of this check failed as soon as one existed.
+page = io.open(ROOT + 'index.html', encoding='utf-8').read()
+readers = [f for f in os.listdir(ROOT + 'tools') if f.endswith('.py') and f != 'test-phase32.py'
+           and not f.startswith('test-')
+           and re.search(r'phase32-(fixtures|model)', io.open(ROOT + 'tools/' + f, encoding='utf-8').read())]
+writes_data = [f for f in readers
+               if not re.search(r"^OUT = ROOT \+ 'docs/", io.open(ROOT + 'tools/' + f, encoding='utf-8').read(), re.M)]
+says('the fixtures and model feed no page and no tool that writes data',
+     'phase32-' not in page and not writes_data, ', '.join(writes_data))
 
 # =============================================================== design
 M = json.load(io.open(ROOT + MODEL, encoding='utf-8'))

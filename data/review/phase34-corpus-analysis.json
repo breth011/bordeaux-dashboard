@@ -1,0 +1,4008 @@
+{
+ "meta": {
+  "phase": "3.4",
+  "built_by": "tools/review-corpus.py",
+  "input": "b278121",
+  "artifacts_scanned": 27127,
+  "note": "Contexts are folded (lower case, no accents)."
+ },
+ "hierarchy": {
+  "first_wine": {
+   "mentions": 436,
+   "artifacts": 335,
+   "domains": 76,
+   "estates_by_crawl_context": 83,
+   "langs": {
+    "fr": 198,
+    "en": 123,
+    "?": 12,
+    "de": 2
+   },
+   "media": {
+    "pdf": 168,
+    "html": 167
+   },
+   "top_domains": [
+    "chateau-margaux.com",
+    "chateau-sansonnet.com",
+    "lynch-moussas.com",
+    "prieure-lichine.fr",
+    "latourmartillac.com",
+    "chateau-issan.com",
+    "chateauchauvin.com",
+    "chateaucamensac.com"
+   ],
+   "samples": [
+    {
+     "artifact": "0104f95f419235b9",
+     "domain": "lynchbages.com",
+     "context": "mbarque sur la navette americaine discovery comme compagnon de vol du spationaute francais patrick baudry… le premier vin dans l’espace ! a cette meme epoque, jean-michel fait la connaissance de chien chung (didi) pei alors archite"
+    },
+    {
+     "artifact": "025515c6ee47e729",
+     "domain": "chateau-fombrauge.fr",
+     "context": "is signature is also substained by a national and international media campaign which makes bernard magrez the first wine advertiser in france. the estate goes back to the 16th century, which makes it one of the oldest chateaux in "
+    },
+    {
+     "artifact": "06f7610638be0c6d",
+     "domain": "nouret.fr",
+     "context": "ateau nouret grace au travail de vinification parcellaire, les meilleurs lots sont assembles pour produire le premier vin avec un equilibre entre le merlot et le cabernet sauvignon. le rapport est generalement de 50-50. l’assemblag"
+    },
+    {
+     "artifact": "06f7610638be0c6d",
+     "domain": "nouret.fr",
+     "context": "uilibre entre le merlot et le cabernet sauvignon. le rapport est generalement de 50-50. l’assemblage fait, le 1er vin est eleve en barriques pendant 12 mois. avec un taux de renouvellement des barriques d’un tiers par an, nous "
+    },
+    {
+     "artifact": "075b3acac7b2ee25",
+     "domain": "latourmartillac.com",
+     "context": "onseil famille jean kressmann depuis 1930 grand cru classe de graves, en rouge et en blanc aoc pessac-leognan 1er vin : chateau latour-martillac ; 2nds vins : lagrave-martillac, lacroix-martillac edouard kressmann christophe ol"
+    },
+    {
+     "artifact": "080ed506e6f23667",
+     "domain": "chateau-climens.com",
+     "context": ", t : +33 (0)5 56 27 15 33 www.chateau-climens.fr – contact@chateau-climens.fr chateau climens asphodele 2020 premier vin blanc sec de l’histoire du chateau climens, asphodele s’inscrit pour le moins dans la singularite de ce 1er c"
+    }
+   ]
+  },
+  "grand_vin": {
+   "mentions": 5948,
+   "artifacts": 3332,
+   "domains": 178,
+   "estates_by_crawl_context": 201,
+   "langs": {
+    "fr": 2482,
+    "en": 688,
+    "?": 123,
+    "zh": 13,
+    "es": 10,
+    "de": 9,
+    "ja": 5,
+    "pt": 2
+   },
+   "media": {
+    "html": 2354,
+    "pdf": 968,
+    "text": 10
+   },
+   "top_domains": [
+    "chateau-margaux.com",
+    "leovillelascases.com",
+    "beychevelle.com",
+    "chateau-lascombes.com",
+    "mahler-besse.com",
+    "vignobles-lamont.com",
+    "haut-bailly.com",
+    "desmirail.com"
+   ],
+   "samples": [
+    {
+     "artifact": "00058a10bf875af8",
+     "domain": "chateau-margaux.com",
+     "context": "2019 chateau margaux 2019 fait partie des plus grands millesimes de notre histoire et s’ajoute a la liste des grands vins que nous avons eu la chance de produire dans cette decennie : 2015, 2016, 2018 et 2019 a present... les caber"
+    },
+    {
+     "artifact": "00058a10bf875af8",
+     "domain": "chateau-margaux.com",
+     "context": "faudrait idealement l'attendre encore de nombreuses annees mais qu'il est deja difficile de lui resister ! le grand vin de chateau margaux 2019 sera le premier a beneficier pleinement des nouvelles installations dans le chai de s"
+    },
+    {
+     "artifact": "0006b5dc90f0c59c",
+     "domain": "chateaubeauvillage.com",
+     "context": " - 90 jonathan chicheportiche - 92 gold medal - concours international de lyon 2022 gold medal - concours des grands vins de france macon 2022 gold medal - concours mondial des feminalise paris 2022 the strenghts of the vintage 202"
+    },
+    {
+     "artifact": "0020dd70dcb50025",
+     "domain": "prieuredebeyzac.fr",
+     "context": "et par la presse specialisee projet global autour de l’agroecologie et du zero carbone le coffret trilogie de grands vins • a • le coffret pour realiser une « verticale » autour des beaux millesimes 2011, 2017 et 2019, tous medaill"
+    },
+    {
+     "artifact": "0020dd70dcb50025",
+     "domain": "prieuredebeyzac.fr",
+     "context": "medoc chateau prieure de beyzac 2011 cuvee \"quintessence\" aujourd'hui dans sa plenitude qui fait la magie des grands vins de bordeaux. la robe devoile aujourd’hui des premieres teintes tuilees. bouquet de fruits confits mele a des "
+    },
+    {
+     "artifact": "00224123d1e3dd14",
+     "domain": "denisdubourdieu.com",
+     "context": "enoue avec une tradition ancienne de ces coteaux de la rive droite de la garonne, jadis largement devolus aux grands vins liquoreux. le vin le chateau reynon produit un vin rouge d'appellation cadillac cotes de bordeaux, un sauvign"
+    }
+   ]
+  },
+  "little_brother": {
+   "mentions": 1434,
+   "artifacts": 243,
+   "domains": 31,
+   "estates_by_crawl_context": 35,
+   "langs": {
+    "fr": 154,
+    "en": 73,
+    "?": 15,
+    "zh": 1
+   },
+   "media": {
+    "html": 133,
+    "pdf": 110
+   },
+   "top_domains": [
+    "chateau-sansonnet.com",
+    "chateau-couhins.fr",
+    "chateaulecrock.fr",
+    "chateaudepressac.com",
+    "domaines-rollandeby.com",
+    "chateau-clerc-milon.com",
+    "vignoblesk.com",
+    "chateaudescurac.com"
+   ],
+   "samples": [
+    {
+     "artifact": "00c637e4a0ef0761",
+     "domain": "chateau-sansonnet.com",
+     "context": "menu sitemap francais english home wine tourism news chateau sansonnet chateau moulin du cadet chateau soutard-cadet chateau harmonie gallery press downloads accueil chateau harmonie chateau moulin du cad"
+    },
+    {
+     "artifact": "00c637e4a0ef0761",
+     "domain": "chateau-sansonnet.com",
+     "context": "enu sitemap francais english home wine tourism news chateau sansonnet chateau moulin du cadet chateau soutard-cadet chateau harmonie gallery press downloads accueil chateau harmonie chateau moulin du cadet chateau sansonnet c"
+    },
+    {
+     "artifact": "00c637e4a0ef0761",
+     "domain": "chateau-sansonnet.com",
+     "context": "det chateau soutard-cadet chateau harmonie gallery press downloads accueil chateau harmonie chateau moulin du cadet chateau sansonnet chateau soutard-cadet contact-us downloads gallery legals news press sitemap wine tours cha"
+    },
+    {
+     "artifact": "01099f4c402d580b",
+     "domain": "chateau-sansonnet.com",
+     "context": "menu chateau harmonie francais english home wine tourism news chateau sansonnet chateau moulin du cadet chateau soutard-cadet chateau harmonie gallery press downloads chateau harmonie saint-emilion grand cru chate"
+    },
+    {
+     "artifact": "01099f4c402d580b",
+     "domain": "chateau-sansonnet.com",
+     "context": "au harmonie francais english home wine tourism news chateau sansonnet chateau moulin du cadet chateau soutard-cadet chateau harmonie gallery press downloads chateau harmonie saint-emilion grand cru chateau harmonie can be fou"
+    },
+    {
+     "artifact": "01099f4c402d580b",
+     "domain": "chateau-sansonnet.com",
+     "context": "re elegant and silky. 3,80ha 80% merlot 20% cabernet franc see more label chateau sansonnet chateau moulin du cadet chateau soutard-cadet chateau harmonie 715 route sansonnet 33330 saint-emilion - france see on the map contac"
+    }
+   ]
+  },
+  "no_hierarchy": {
+   "mentions": 37,
+   "artifacts": 37,
+   "domains": 9,
+   "estates_by_crawl_context": 11,
+   "langs": {
+    "en": 26,
+    "fr": 7,
+    "?": 4
+   },
+   "media": {
+    "pdf": 28,
+    "html": 9
+   },
+   "top_domains": [
+    "vignoblesk.com",
+    "chateau-corbin.com",
+    "desmirail.com",
+    "antoinemoueix.com",
+    "chateaulecrock.fr",
+    "trottevieille.com",
+    "domaines-rollandeby.com",
+    "leovillelascases.com"
+   ],
+   "samples": [
+    {
+     "artifact": "02125c89ce2646f7",
+     "domain": "antoinemoueix.com",
+     "context": "vely long in order to extract only the best quality tannins. for maturing, vats were preferred for bordeaux wines, and barrels for bordeaux superieur first and second wines. previous vintage next vintage qualites et caracteristiques environnementales des emballages francais contac"
+    },
+    {
+     "artifact": "0bcdfee93e5d4e0e",
+     "domain": "vignoblesk.com",
+     "context": "ental balance. today two cuvees are produced at chateau le rey, les argileuses and les rocheuses. these two wines do not represent as usual in bordeaux first and second label, but are made like in burgundy with a terroir philosophy. les argileuses are produced from a green and blue c"
+    },
+    {
+     "artifact": "3aa8242a89459016",
+     "domain": "trottevieille.com",
+     "context": "vours with such clarity and purity. it has muscle and is flexing it right now, still so youthful but well defined and presented. more variation between the first and second wines in 2019 with this stealing the show. this is a force to be reckoned with and considered 'a perfect vintage' "
+    },
+    {
+     "artifact": "3ef1af9594405d5b",
+     "domain": "chateau-corbin.com",
+     "context": "styled wine. it's a blend of 90% merlot and 10% cabernet franc, and such was the quality of all the lots that no second wine was produced this year. avril 2023 jeb dunnuck 92-94 a blend of merlot and cabernet franc, the 2022 chateau c"
+    },
+    {
+     "artifact": "4619a4bd7bb21575",
+     "domain": "desmirail.com",
+     "context": " de desmirail. a small proportion of juice from different vats is vinified separately. this operation is designed to reinforce the concentration of tannins in the first and second wines. like these two red wines, it is a blend of our two main grape varieties (cabernet-sauvignon and merlot). fi"
+    },
+    {
+     "artifact": "503c34e71e59287f",
+     "domain": "chateaulecrock.fr",
+     "context": ", savoureux.\" 25.05.2023 jebdunnuck.com jeb dunnuck : 94 \"due to the high quality of all the parcels, there's no second wine from chateau le crock in 2022. the 2022 chateau le crock is certainly no worse for it, revealing a beautiful "
+    }
+   ]
+  },
+  "old_vines": {
+   "mentions": 709,
+   "artifacts": 636,
+   "domains": 76,
+   "estates_by_crawl_context": 86,
+   "langs": {
+    "fr": 351,
+    "en": 253,
+    "?": 24,
+    "zh": 3,
+    "de": 2,
+    "es": 2,
+    "ja": 1
+   },
+   "media": {
+    "html": 329,
+    "pdf": 307
+   },
+   "top_domains": [
+    "chateaupavie.com",
+    "chateau-sansonnet.com",
+    "haut-bailly.com",
+    "leovillelascases.com",
+    "trottevieille.com",
+    "gruaud-larose.com",
+    "domainesrichard.fr",
+    "smith-haut-lafitte.com"
+   ],
+   "samples": [
+    {
+     "artifact": "00397f85af9f268c",
+     "domain": "chateaupavie.com",
+     "context": "es et d'amener lentement les raisins a la bonne maturite. fiche pdf viticulture taille a 8 bourgeons pour les vieilles vignes et a 6 pour les jeunes vignes, eclaircissage, effeuillage, vendanges manuelles avec tri. vinification cuves e"
+    },
+    {
+     "artifact": "00e2e953f3c2c1fb",
+     "domain": "chateaupavie.com",
+     "context": "cabernets, which were very pure and very elegant. download pdf growing methods pruning down to 8 buds for the old vines and to 6 buds for the young vines. thinning, leaf-stripping. grapes picked and sorted by hand. vinification t"
+    },
+    {
+     "artifact": "00efa2d0168b5a86",
+     "domain": "leovillelascases.com",
+     "context": "t une fraicheur benefique a la maturation des raisins et l’equilibre des vins dans les millesimes chauds. les vieilles vignes de cabernet sauvignon et cabernet franc, dont certaines sont centenaires, y trouvent des conditions ideales p"
+    },
+    {
+     "artifact": "014a8ec85a283a49",
+     "domain": "chateau-croix-de-labrie.fr",
+     "context": "e - blanc assemblage : 70% de sauvignon blanc, 25% de semillon et 5% de muscadelle. notes de degustation : le vieilles vignes blanc retiendra votre attention par la grande qualite de son bouquet revelant de jolis parfums de fleurs blan"
+    },
+    {
+     "artifact": "014a8ec85a283a49",
+     "domain": "chateau-croix-de-labrie.fr",
+     "context": "da). informations detaillees sur le produit : ce vin de l’entre-deux-mers est issu comme son nom l’indique de vieilles vignes de 32 ans. servir entre 12°c et 14°c il est assemble avec 70% de sauvignon blanc, 25% de semillon et 5% de mu"
+    },
+    {
+     "artifact": "014a8ec85a283a49",
+     "domain": "chateau-croix-de-labrie.fr",
+     "context": "ervir entre 12°c et 14°c il est assemble avec 70% de sauvignon blanc, 25% de semillon et 5% de muscadelle. le vieilles vignes blanc retiendra votre attention par la grande qualite de son bouquet revelant de jolis parfums de fleurs blan"
+    }
+   ]
+  },
+  "plot_selection": {
+   "mentions": 835,
+   "artifacts": 654,
+   "domains": 71,
+   "estates_by_crawl_context": 78,
+   "langs": {
+    "fr": 355,
+    "en": 290,
+    "?": 7,
+    "pt": 2
+   },
+   "media": {
+    "pdf": 474,
+    "html": 178,
+    "text": 2
+   },
+   "top_domains": [
+    "gruaud-larose.com",
+    "domainedechevalier.com",
+    "chateaudauzac.com",
+    "latourmartillac.com",
+    "chateaubistonbrillette.fr",
+    "cantenacbrown.com",
+    "chateaulamarzelle.com",
+    "chateaucoutet.com"
+   ],
+   "samples": [
+    {
+     "artifact": "0002ac8fc0c793d0",
+     "domain": "gruaud-larose.com",
+     "context": "d by 50% every year to enhance the fruit | medium toast double reception of harvest and weighing of the crop. plot selection in the tank (grape variety, terroir, age, …) 40% wood | 60% cement (thermo-regulated tanks) yeast addition | "
+    },
+    {
+     "artifact": "006c81396919374e",
+     "domain": "chateaulamouline.com",
+     "context": "ds plats elegance florale cabernet franc, merlot rose, pivoine, epices fines, amande margaux, aoc haut-medoc (selection parcellaire) 7-20 ans repas fins, plats raffines petits villages, grands tresors : focus sur des alternatives originales "
+    },
+    {
+     "artifact": "00711fdbf60c1733",
+     "domain": "durfort-vivens.fr",
+     "context": "la biodynamie et la singularite de ce cru initie par gonzague lurton. autour du millesime 2019, decouvrez une selection parcellaire unique issue d’un grand cru jusqu’a la degustation finale de l’assemblage du chateau durfort-vivens 2019, poi"
+    },
+    {
+     "artifact": "01099f4c402d580b",
+     "domain": "chateau-sansonnet.com",
+     "context": "ery significant quality potential in the wines. the vines cover a total area of 3.80 hectares (9.39 acres) in a single plot. the grape varieties grown are predominantly merlot with some cabernet franc. the new winery buildings provid"
+    },
+    {
+     "artifact": "01b5480f06c67c33",
+     "domain": "durfort-vivens.fr",
+     "context": "es liberal chateau haut-bages liberal chateau haut-bages liberal, notre grand vin de pauillac, est issu d’une selection parcellaire drastique et beneficie d’un elevage long, en barriques neuves, amphores et cuves beton. les degustateurs expe"
+    },
+    {
+     "artifact": "01b5480f06c67c33",
+     "domain": "durfort-vivens.fr",
+     "context": "seduction et la gourmandise immediate, accessible a la fois aux amateurs et connaisseurs. issue d’une seconde selection parcellaire en appellation pauillac, la chapelle beneficie d’un elevage en barriques et cuves beton. chapelle-haut-bages-"
+    }
+   ]
+  },
+  "premium": {
+   "mentions": 225,
+   "artifacts": 178,
+   "domains": 49,
+   "estates_by_crawl_context": 63,
+   "langs": {
+    "en": 91,
+    "fr": 75,
+    "zh": 10,
+    "de": 1,
+    "es": 1
+   },
+   "media": {
+    "html": 111,
+    "pdf": 67
+   },
+   "top_domains": [
+    "domainedechevalier.com",
+    "vignoblesraguenot.fr",
+    "mahler-besse.com",
+    "neipperg.com",
+    "chateau-faugeres.fr",
+    "vignobles-silvio-denz.com",
+    "barton-guestier.com",
+    "chateaulamouline.com"
+   ],
+   "samples": [
+    {
+     "artifact": "0207651ef227b83b",
+     "domain": "chateau-croix-de-labrie.fr",
+     "context": " la bombe ! ce saint-emilion [...] subjugue avec son nez intense, fruit noir, reglisse, eucalyptus. un merlot haut de gamme, pomerolesque a souhait. avec une joue de boeuf braisee. \" wine advocate neal martin : 91 points \" le chateau"
+    },
+    {
+     "artifact": "024d04add3a884a2",
+     "domain": "batailley.com",
+     "context": "xceptionally well, both at the the bordeaux 10 years on tasting in london a few weeks ago and in the decanter premium tasting in new york. it’s great value for this level of pauillac. james suckling : 93 11 mar, 2019 a rich yet"
+    },
+    {
+     "artifact": "0378bc0003f2434d",
+     "domain": "chateau-faugeres.fr",
+     "context": " le groupe marionnaud en 2000. art & luxe toujours dans le secteur du parfum mais avec un positionnement plus haut de gamme, silvio denz cree art & fragrance (aujourd’hui lalique group) en 2000. cette societe se specialise dans la pr"
+    },
+    {
+     "artifact": "03fc16a786f4554a",
+     "domain": "domaines-rollandeby.com",
+     "context": "irlines; chosen by starred chefs and the most prestigious sommeliers, chateau haut condissas, the prestigious premium wine and its crus bourgeois are renowned and appreciated throughout the world. un petit vignoble devenu grand"
+    },
+    {
+     "artifact": "055064f8aa6c084a",
+     "domain": "domainedechevalier.com",
+     "context": "the estate was purchased by the bernard family, n° 1 in france on the spirits market and a major negociant of premium bordeaux wines. it has been run ever since by olivier bernard who perpetu- ates that spirit of balance and th"
+    },
+    {
+     "artifact": "074c9b0ac9d1530a",
+     "domain": "chateaudassault.com",
+     "context": "uer les vins de la famille dassault, proprietaire du chateau dassault a saint-emilion. sur les long-courriers haut de gamme, on trouve du chateau margaux, du chateauneuf-du-pape, de l’hermitage de la vallee du rhone, parfois un vega "
+    }
+   ]
+  },
+  "prestige": {
+   "mentions": 728,
+   "artifacts": 258,
+   "domains": 15,
+   "estates_by_crawl_context": 16,
+   "langs": {
+    "fr": 225,
+    "en": 23,
+    "?": 9,
+    "zh": 1
+   },
+   "media": {
+    "html": 242,
+    "pdf": 16
+   },
+   "top_domains": [
+    "chateau-haut-gravat.fr",
+    "chateaucaillou.com",
+    "vignobles-jeandenisbibian.com",
+    "vignoblesraguenot.fr",
+    "chateaudillon.com",
+    "hautbagesliberal.com",
+    "domaines-rollandeby.com",
+    "durfort-vivens.fr"
+   ],
+   "samples": [
+    {
+     "artifact": "00c05521ce910c8f",
+     "domain": "chateau-haut-gravat.fr",
+     "context": "nos vins contact francais eur € gbp £ connexion search connexion 0 panier menu accueil nos vins & accessoires cuvee prestige cuvee prestige affichage 1-1 de 1 article(s) pertinence ventes, ordre decroissant pertinence nom, a a z nom, "
+    },
+    {
+     "artifact": "00c05521ce910c8f",
+     "domain": "chateau-haut-gravat.fr",
+     "context": "t francais eur € gbp £ connexion search connexion 0 panier menu accueil nos vins & accessoires cuvee prestige cuvee prestige affichage 1-1 de 1 article(s) pertinence ventes, ordre decroissant pertinence nom, a a z nom, z a a prix, cro"
+    },
+    {
+     "artifact": "00c05521ce910c8f",
+     "domain": "chateau-haut-gravat.fr",
+     "context": "nce nom, a a z nom, z a a prix, croissant prix, decroissant reference, a a z reference, z a a 1 12 24 36 tout cuvee prestige haut-gravat 2023 cuvee prestige 0052023cp 11,40 € chateau haut-gravat 2023 cuvee prestige, vin rouge aoc medo"
+    },
+    {
+     "artifact": "00db898ef6aac268",
+     "domain": "chateau-haut-gravat.fr",
+     "context": "020 cru artisan 0062020ca 10,99 € chateau haut-gravat 2020 cru artisan, vin rouge aoc medoc ajouter au panier cuvee prestige haut-gravat 2023 cuvee prestige 0052023cp 11,40 € chateau haut-gravat 2023 cuvee prestige, vin rouge aoc medo"
+    },
+    {
+     "artifact": "00db898ef6aac268",
+     "domain": "chateau-haut-gravat.fr",
+     "context": "€ chateau haut-gravat 2020 cru artisan, vin rouge aoc medoc ajouter au panier cuvee prestige haut-gravat 2023 cuvee prestige 0052023cp 11,40 € chateau haut-gravat 2023 cuvee prestige, vin rouge aoc medoc. ajouter au panier accueil hau"
+    },
+    {
+     "artifact": "00db898ef6aac268",
+     "domain": "chateau-haut-gravat.fr",
+     "context": "c ajouter au panier cuvee prestige haut-gravat 2023 cuvee prestige 0052023cp 11,40 € chateau haut-gravat 2023 cuvee prestige, vin rouge aoc medoc. ajouter au panier accueil haut-gravat 2022 magnum 0062022mg 30,00 € chateau haut-gravat"
+    }
+   ]
+  },
+  "second_label": {
+   "mentions": 92,
+   "artifacts": 81,
+   "domains": 19,
+   "estates_by_crawl_context": 20,
+   "langs": {
+    "en": 52,
+    "fr": 24,
+    "?": 5
+   },
+   "media": {
+    "pdf": 70,
+    "html": 11
+   },
+   "top_domains": [
+    "vignoblesk.com",
+    "durfort-vivens.fr",
+    "ferriere.com",
+    "hautbagesliberal.com",
+    "leovillelascases.com",
+    "jpjdomaines.com",
+    "chateaumonbousquet.com",
+    "chateauchauvin.com"
+   ],
+   "samples": [
+    {
+     "artifact": "03ab4f4a8a1d04f8",
+     "domain": "vignoblesk.com",
+     "context": "es argileuses et les rocheuses. ces deux vins ne representent pas comme d’habitude a bordeaux une premiere et seconde etiquette, mais sont faits comme en bour- gogne avec une philosophie du terroir. les argileuses sont issus d’un terroir"
+    },
+    {
+     "artifact": "058e8ea89fcc8091",
+     "domain": "vignoblesk.com",
+     "context": "classified in 2006 as grand cru classe. peter kwok acquired the property in 2017. les tours de belcier is the second label of chateau bellefont-belcier. surface 13,5 hectares soils limestone plateau, south-facing clay-limestone slop"
+    },
+    {
+     "artifact": "0745b2be4a7bbf06",
+     "domain": "chateau-olivier.com",
+     "context": "ce: walking itinerary & wine tasting you will enjoy a tasting of three wines, two grands crus classes and our second label grand vin. this is followed by a self-guided tour using your smartphone, to discover different places (vineya"
+    },
+    {
+     "artifact": "0bcdfee93e5d4e0e",
+     "domain": "vignoblesk.com",
+     "context": "eau le rey, les argileuses and les rocheuses. these two wines do not represent as usual in bordeaux first and second label, but are made like in burgundy with a terroir philosophy. les argileuses are produced from a green and blue c"
+    },
+    {
+     "artifact": "11bf8fdded2edfa1",
+     "domain": "vignoblesk.com",
+     "context": "les argileuses et les rocheuses. ces deux vins ne representent pas comme d’habitude a bordeaux un premiere et seconde etiquette, mais sont faits comme en bourgogne avec une philosophie du terroir. les argileuses sont issus d’un terroir d"
+    },
+    {
+     "artifact": "14280f8f7f6424ff",
+     "domain": "chateaumonbousquet.com",
+     "context": " during its vinification. monbousquet followed this practice, but the name monbousquet did not appear on this second label. gerard perse re-established the connection, giving birth to “angelique de monbousquet”, the second wine of t"
+    }
+   ]
+  },
+  "second_wine": {
+   "mentions": 4748,
+   "artifacts": 2338,
+   "domains": 124,
+   "estates_by_crawl_context": 135,
+   "langs": {
+    "fr": 1422,
+    "en": 786,
+    "?": 94,
+    "de": 20,
+    "zh": 11,
+    "ja": 5
+   },
+   "media": {
+    "html": 1468,
+    "pdf": 868,
+    "text": 2
+   },
+   "top_domains": [
+    "chateau-margaux.com",
+    "chateau-sigalas-rabaud.com",
+    "denisdubourdieu.com",
+    "domainedechevalier.com",
+    "leovillelascases.com",
+    "chateau-pouget.com",
+    "latourmartillac.com",
+    "lynch-moussas.com"
+   ],
+   "samples": [
+    {
+     "artifact": "00058a10bf875af8",
+     "domain": "chateau-margaux.com",
+     "context": "patrimoine nos equipes nos actualites nos vins grand vin pavillon rouge margaux pavillon blanc pavillon blanc second vin notre savoir-faire nos vignes nos chais nos engagements notre recherche & developpement nos experiences visit"
+    },
+    {
+     "artifact": "00224123d1e3dd14",
+     "domain": "denisdubourdieu.com",
+     "context": "oppement de la pourriture noble, une petite quantite de vin liquoreux d'appellation cadillac est produite. le second vin rouge est commercialise sous le nom de clos de reynon. le vignoble argiles profondes typiques des cotes. on t"
+    },
+    {
+     "artifact": "002d94ace7af0776",
+     "domain": "mission-haut-brion.com",
+     "context": "es fr en 中文 fr en 中文 fr en 中文 2024 2024 la chapelle de la mission haut-brion produit en petites quantites, ce second vin est une porte d’entree vers l’univers du chateau la mission haut-brion. son nom est un clin d’oeil a la chape"
+    },
+    {
+     "artifact": "00397f85af9f268c",
+     "domain": "chateaupavie.com",
+     "context": "vrier de france sommellerie 2004 aromes de pavie 2014 92 points james suckling \"fresh and lively. a beautiful second wine with finesse and elegance. \" aromes de pavie 2014 90 points antonio galloni vinous \"the 2014 is just as delic"
+    },
+    {
+     "artifact": "006c81396919374e",
+     "domain": "chateaulamouline.com",
+     "context": "sse ou violette. exemples connus : certains crus bourgeois de moulis ou listrac, mais aussi quelques margaux “second vin” misant sur la fraicheur. accords : volailles roties, ratatouille estivale, grillades, boudin noir, tome de b"
+    },
+    {
+     "artifact": "007733bdfd02ddd5",
+     "domain": "chateaumonbousquet.com",
+     "context": "angelique de monbousquet s a i n t e m i l i o n g r a n d c r u second vin du chateau monbousquet appellation : saint emilion grand cru situation : sud-ouest du village de saint emilio"
+    }
+   ]
+  },
+  "single_variety": {
+   "mentions": 2406,
+   "artifacts": 1305,
+   "domains": 81,
+   "estates_by_crawl_context": 99,
+   "langs": {
+    "fr": 888,
+    "en": 317,
+    "?": 57,
+    "de": 15,
+    "es": 14,
+    "nl": 8,
+    "zh": 6
+   },
+   "media": {
+    "html": 935,
+    "pdf": 368,
+    "text": 2
+   },
+   "top_domains": [
+    "cave-listrac-medoc.com",
+    "chateau-sigalas-rabaud.com",
+    "prieure-lichine.fr",
+    "denisdubourdieu.com",
+    "chateaufonroque.net",
+    "latourmartillac.com",
+    "chateau-climens.com",
+    "chateaucaillou.com"
+   ],
+   "samples": [
+    {
+     "artifact": "00381b4e03fcf633",
+     "domain": "domaines-rollandeby.com",
+     "context": " d’une grande qualite. densite de 6 500 pieds par hectare. rendement 100% des rangs sont enherbes composition 100% sauvignon blanc un millesime en deux mots un millesime frais et savoureux accords mets et vins : en aperitif avec une assiett"
+    },
+    {
+     "artifact": "0050d9ba0f8585b7",
+     "domain": "chateau-climens.com",
+     "context": " able to finish this stunning harvest on 5th october. harvest : from 09/13 to 10/05 – 4 tries grape variety : 100% semillon appellation : 1er cru barsac alcohol : 13,3 % vol. total acidity : 3,1 g/l h2so4 ph : 3,9 residual sugar : 15"
+    },
+    {
+     "artifact": "00a639cf821b5be6",
+     "domain": "barton-guestier.com",
+     "context": ". cupage de vinos procedentes de diferentes terrunos: herault (49%), aude (6%) y gard (45%). variedad de uva: 100% merlot. suelo: procedente de diferentes regiones de languedoc (aude, herault, gard), cada una de ellas con suelos di"
+    },
+    {
+     "artifact": "010d1354fb30c9ba",
+     "domain": "chateaulamouline.com",
+     "context": "s ou quatre ans seulement. la palette des assemblages peu de proprietes du haut medoc vinifient des cuvees en monocepage. plus souvent, les viticulteurs envisagent des la plantation les futurs assemblages – a l’image d’un peintre "
+    },
+    {
+     "artifact": "014c0abe92085436",
+     "domain": "chateau-sansonnet.com",
+     "context": "ime 2 018 p rimeurs surface : 2.85 ha. sols : argilo-calcaire sur le plateau de saint-emilion. encepagement : 100% merlot. age moyen du vignoble : 35 ans. conduite du vignoble : \u0001 les sols sont travailles. \u0001 l’ensemble des travaux "
+    },
+    {
+     "artifact": "014c0abe92085436",
+     "domain": "chateau-sansonnet.com",
+     "context": " beneﬁcie d’un terroir argilo- calcaire sur le plateau de saint-emilion et se caracterise par un encepagement 100% merlot. de notoriete ancienne, les vins de moulin du cadet ob+nrent une medaille d’or lors de l’exposi+on universell"
+    }
+   ]
+  },
+  "special_cuvee": {
+   "mentions": 228,
+   "artifacts": 173,
+   "domains": 31,
+   "estates_by_crawl_context": 39,
+   "langs": {
+    "fr": 122,
+    "en": 46,
+    "?": 3,
+    "ru": 1,
+    "es": 1
+   },
+   "media": {
+    "html": 142,
+    "pdf": 31
+   },
+   "top_domains": [
+    "vignobles-bernaleau.com",
+    "estournel.com",
+    "gironderamagebelcier.com",
+    "vignobles-jeandenisbibian.com",
+    "chateaudeferrand.com",
+    "vignoblesraguenot.fr",
+    "mahler-besse.com",
+    "leoville-poyferre.fr"
+   ],
+   "samples": [
+    {
+     "artifact": "024cd2d6b89f6f45",
+     "domain": "chateau-palmer.com",
+     "context": "d digital formats. a special limited “edition ii” pressed on 180-gram audiophile vinyl has been produced in a limited edition of 500 copies. trio marks the second collaboration between chateau palmer and the legendary german label act."
+    },
+    {
+     "artifact": "0299e77f8f356f0d",
+     "domain": "leoville-poyferre.fr",
+     "context": "xperience gastronomique memorable. disponible a la boutique du chateau et avec nos partenaires, ce coffret en edition limitee peut egalement etre expedie a temps pour les fetes. pour connaitre les conditions et obtenir plus d’informati"
+    },
+    {
+     "artifact": "02ae4df9ba5b00cc",
+     "domain": "mahler-besse.com",
+     "context": " proprietaire d’etablissement amateur ou passionne contact text link high coast berg whisky 50 % vol. suede ◊ edition limitee pour les marches internationaux, high coast berg est une pepite dans la gamme de la distillerie. ce single ma"
+    },
+    {
+     "artifact": "038cea6129503076",
+     "domain": "estournel.com",
+     "context": " article - april 08, 2026 the 2025 vintage at cos d'estournel explore cos d’estournel 2016 : 10th anniversary limited edition article ⋅ september 18, 2026 read more → cos d'estournel 2025, iconic article ⋅ april 15, 2026 in 2025, our t"
+    },
+    {
+     "artifact": "06b758842a00d003",
+     "domain": "vignobles-bernaleau.com",
+     "context": "l, balanced and long vintage. guide hachette 2020 1 star 50,00 € please enter the number of bottles mongravey cuvee speciale 2016 quantity add to basket packaged and dispatched in packs of 6 bottles. the total quantity of your order m"
+    },
+    {
+     "artifact": "06df1833071e2f8b",
+     "domain": "vignobles-jeandenisbibian.com",
+     "context": "e vue rapide petit verdot le petit verdot 2021 – aoc listrac-medoc 18,00 € decouvrez « le petit verdot », une cuvee confidentielle et singuliere, issue a 100% de ce cepage emblematique du medoc. cultive sur le terroir de listrac-medoc, ce v"
+    }
+   ]
+  },
+  "superior": {
+   "mentions": 2,
+   "artifacts": 2,
+   "domains": 2,
+   "estates_by_crawl_context": 2,
+   "langs": {
+    "fr": 1,
+    "en": 1
+   },
+   "media": {
+    "html": 1,
+    "pdf": 1
+   },
+   "top_domains": [
+    "chateaulamouline.com",
+    "chateaumangot.fr"
+   ],
+   "samples": [
+    {
+     "artifact": "a6e2f8a06593ff08",
+     "domain": "chateaulamouline.com",
+     "context": "e apres cuvee, le domaine adapte ses styles sans jamais perdre son ame : les classiques : l’adn du domaine la tete de cuvee, pur cabernet sauvignon sur graves, reste elevee 18 a 22 mois en barriques majoritairement francaises, renouv"
+    },
+    {
+     "artifact": "b7040ee330eba346",
+     "domain": "chateaumangot.fr",
+     "context": " his second wine (as far as the classification authorities are concerned, it is). although in truth it is the superior cuvee. a great colour in the glass. dense, dark and glossy, while the palate is a delight, all blackberries. black "
+    }
+   ]
+  },
+  "third_wine": {
+   "mentions": 86,
+   "artifacts": 58,
+   "domains": 13,
+   "estates_by_crawl_context": 13,
+   "langs": {
+    "fr": 35,
+    "en": 21,
+    "?": 1,
+    "ja": 1
+   },
+   "media": {
+    "html": 51,
+    "pdf": 7
+   },
+   "top_domains": [
+    "chateau-margaux.com",
+    "batailley.com",
+    "haut-bailly.com",
+    "chateaucaillou.com",
+    "chateaumonbousquet.com",
+    "desmirail.com",
+    "tour-blanche.com",
+    "chateaulamarzelle.com"
+   ],
+   "samples": [
+    {
+     "artifact": "05de4f18f4001c81",
+     "domain": "chateau-margaux.com",
+     "context": "par discipline, et volonte d’excellence, que nous avons ecarte de nos assemblages pres de 17% de la recolte : troisieme vin, dernieres presses, etc. pres de 47% des vins ont rejoint l’assemblage du pavillon rouge, dont l’equilibre im"
+    },
+    {
+     "artifact": "0aea93df82ccf78f",
+     "domain": "batailley.com",
+     "context": "ated as aoc pauillac; lions de batailley, the chateau’s second wine; and pauillac de batailley, the chateau’s third wine, are all crisp, potent and sophisticated, brimming with spectacular aromas. our second and third wines are ma"
+    },
+    {
+     "artifact": "0aea93df82ccf78f",
+     "domain": "batailley.com",
+     "context": "ateau’s third wine, are all crisp, potent and sophisticated, brimming with spectacular aromas. our second and third wines are made using the youngest vines in our vineyard. for more information on our wines our latest news 28 septe"
+    },
+    {
+     "artifact": "0b19165d732b3c76",
+     "domain": "chateaucaillou.com",
+     "context": "ille) unites a l'unite poids 0.75 kg / demi-btlle 1.5 kg /btlle details les tourelles de caillou 17,00€ notre troisieme vin se caracterise par sa fraicheur aromatique. un vin leger, moelleux sans etre trop opulent. bien frais, il est"
+    },
+    {
+     "artifact": "0d6b5716de9b3392",
+     "domain": "haut-bailly.com",
+     "context": "rs of work to raise the level of production, the wines from these vineyards join those of haut-bailly•ii. our third wine, known as “pessac-leognan” since 1987, is renamed from the 2018 vintage after 30 years of success. the initia"
+    },
+    {
+     "artifact": "14280f8f7f6424ff",
+     "domain": "chateaumonbousquet.com",
+     "context": "century, bordeaux’s chateaux, classed growths in particular, often produced second wines—and, occasionally, a third wine. since the 1980s the practice had become widespread: produced on the same terroir as the great wine, the seco"
+    }
+   ]
+  },
+  "young_vines": {
+   "mentions": 799,
+   "artifacts": 701,
+   "domains": 77,
+   "estates_by_crawl_context": 86,
+   "langs": {
+    "fr": 373,
+    "en": 288,
+    "?": 35,
+    "zh": 5
+   },
+   "media": {
+    "pdf": 410,
+    "html": 289,
+    "text": 2
+   },
+   "top_domains": [
+    "chateaupavie.com",
+    "leovillelascases.com",
+    "chateau-sansonnet.com",
+    "latourmartillac.com",
+    "trottevieille.com",
+    "smith-haut-lafitte.com",
+    "chateaubistonbrillette.fr",
+    "grand-mayne.com"
+   ],
+   "samples": [
+    {
+     "artifact": "00397f85af9f268c",
+     "domain": "chateaupavie.com",
+     "context": "sins a la bonne maturite. fiche pdf viticulture taille a 8 bourgeons pour les vieilles vignes et a 6 pour les jeunes vignes, eclaircissage, effeuillage, vendanges manuelles avec tri. vinification cuves en bois thermo regulees. fermen"
+    },
+    {
+     "artifact": "00711fdbf60c1733",
+     "domain": "durfort-vivens.fr",
+     "context": "nent ainsi chacune une des caracteristiques du grand vin. les plantes la fraicheur de durfort-vivens les plus jeunes vignes du parcellaire construisent \"les plantes\" de durfort-vivens. [...] [x] 2022 2021 2020 2019 2022 2021 2020 201"
+    },
+    {
+     "artifact": "00d3ce90be0054c0",
+     "domain": "desmirail.com",
+     "context": "e desmirailrose de desmirailla perle de desmirail initial de desmirail origine de desmirail issu en partie de jeunes vignes, initial de desmirail, aussi distribue sous le nom de origine de desmirail, est le second vin du chateau. il "
+    },
+    {
+     "artifact": "00e2e953f3c2c1fb",
+     "domain": "chateaupavie.com",
+     "context": "and very elegant. download pdf growing methods pruning down to 8 buds for the old vines and to 6 buds for the young vines. thinning, leaf-stripping. grapes picked and sorted by hand. vinification temperature-controlled wooden vats."
+    },
+    {
+     "artifact": "00fc04aab111dd32",
+     "domain": "leovillelascases.com",
+     "context": "t, le nez est intense. le vin est completement sur le fruit, d'un grand charme. il a ete elabore a partir des jeunes vignes de merlot et de cabernet sauvignon du grand enclos. 3-12 ans. 90/100 vinous / neal martin the 2015 le petit l"
+    },
+    {
+     "artifact": "0153679ced2e1956",
+     "domain": "leoville-poyferre.fr",
+     "context": "barrels, 25% one use) chateau moulin riche (product of a specific terroir) and pavillon de poyferre (plots of younger vines) are also produced on the estate. colour: very deep, dark colour. brilliant. nose: very fresh, spicy, empyreu"
+    }
+   ]
+  }
+ },
+ "type_wording": {
+  "dry_white": {
+   "mentions": 1640,
+   "artifacts": 620,
+   "domains": 43,
+   "estates_by_crawl_context": 50,
+   "langs": {
+    "fr": 392,
+    "en": 198,
+    "?": 16,
+    "zh": 14
+   },
+   "media": {
+    "html": 464,
+    "pdf": 151,
+    "text": 5
+   },
+   "top_domains": [
+    "chateau-sigalas-rabaud.com",
+    "denisdubourdieu.com",
+    "mission-haut-brion.com",
+    "chateau-bouscaut.com",
+    "chateaucoutet.com",
+    "chateaucaillou.com",
+    "chateau-climens.com",
+    "chateaudemalle.com"
+   ],
+   "samples": [
+    {
+     "artifact": "014490ebca6d0dee",
+     "domain": "cantenacbrown.com",
+     "context": " tanins du vin (quand bien meme ces derniers etaient tres faibles). nous vous conseillons, en consequence, un vin blanc sec fruite ou mineral. un pouilly-fume, un pouilly-fuisse, un muscadet ou alto sont des accords possibles et qui "
+    },
+    {
+     "artifact": "014490ebca6d0dee",
+     "domain": "cantenacbrown.com",
+     "context": "n. vin et poisson roti si vous souhaitez servir un poisson roti lors de votre prochain diner, selectionnez un vin blanc sec, souple mais qui garde une certaine rondeur. les appellations des cotes du rhone ou des cotes du roussillon v"
+    },
+    {
+     "artifact": "01c2ca720ac2fb26",
+     "domain": "chateau-sigalas-rabaud.com",
+     "context": "” 1855 le lieutenant de sigalas, the second wine of the chateau la semillante de sigalas, the single varietal dry white wine of the chateau la demoiselle de sigalas, the second dry white wine of the chateau the 5 of sigalas our v"
+    },
+    {
+     "artifact": "01c2ca720ac2fb26",
+     "domain": "chateau-sigalas-rabaud.com",
+     "context": "semillante de sigalas, the single varietal dry white wine of the chateau la demoiselle de sigalas, the second dry white wine of the chateau the 5 of sigalas our visits guest rooms marie-antoinette room lieutenant room 1855 room m"
+    },
+    {
+     "artifact": "026db90dfc4ea551",
+     "domain": "mission-haut-brion.com",
+     "context": "eviously known as chateau laville haut-brion, chateau la mission haut-brion is a wine for the initiated. this dry white wine expresses all the distinctive features of a graves wine, specific to the semillon grown on these renowne"
+    },
+    {
+     "artifact": "028350ca8e500eb2",
+     "domain": "chateaucoutet.com",
+     "context": " marque la creation de la cuvee opalie de chateau coutet, un nouveau defi releve avec la creation de ce grand vin blanc sec elabore avec le meme niveau d’exigence que chateau coutet. a partir du millesime 2024, la cuvee opalie s’habi"
+    }
+   ]
+  },
+  "red": {
+   "mentions": 13232,
+   "artifacts": 4653,
+   "domains": 175,
+   "estates_by_crawl_context": 200,
+   "langs": {
+    "fr": 3716,
+    "en": 716,
+    "?": 180,
+    "zh": 29,
+    "de": 4,
+    "ru": 3,
+    "ja": 2,
+    "es": 2,
+    "pt": 1
+   },
+   "media": {
+    "html": 3387,
+    "pdf": 1251,
+    "text": 14,
+    "office": 1
+   },
+   "top_domains": [
+    "chateau-margaux.com",
+    "denisdubourdieu.com",
+    "chateau-bouscaut.com",
+    "chateau-castera.com",
+    "vignobles-lamont.com",
+    "domainedechevalier.com",
+    "latourmartillac.com",
+    "chateaudauzac.com"
+   ],
+   "samples": [
+    {
+     "artifact": "0002089921374e7a",
+     "domain": "chateau-castera.com",
+     "context": "ional costs upon receipt of your order (excluding canada). detailed product information: chateau castera is a red wine produced in the aoc medoc, in the bordeaux vineyards and currently classified as cru bourgeois superieur du m"
+    },
+    {
+     "artifact": "0002089921374e7a",
+     "domain": "chateau-castera.com",
+     "context": "e of the exceptional medoc terroir. with its well-balanced tannin structure and complex aromas, it appeals to red wine lovers around the world. food pairing: this wine goes ideally with red meat dishes, such as grilled steak or "
+    },
+    {
+     "artifact": "00058a10bf875af8",
+     "domain": "chateau-margaux.com",
+     "context": "t produites fin juin puis du 22 au 24 juillet ou la temperature atteignit 39,9°c a margaux ! les vendanges de rouge commencerent le 18 septembre, dans des conditions ideales qui nous permirent de ramasser des raisins de merlo"
+    },
+    {
+     "artifact": "00058a10bf875af8",
+     "domain": "chateau-margaux.com",
+     "context": " domaine notre histoire notre terroir notre patrimoine nos equipes nos actualites nos vins grand vin pavillon rouge margaux pavillon blanc pavillon blanc second vin notre savoir-faire nos vignes nos chais nos engagements notr"
+    },
+    {
+     "artifact": "0020dd70dcb50025",
+     "domain": "prieuredebeyzac.fr",
+     "context": " joli millesime a la degustation ! on apprecie la qualite de l’acidite qui porte l’expression d’un joli fruit rouge et frais. le boise discret apporte structure et complexite avec des notes subtiles d'epices douces. le terroi"
+    },
+    {
+     "artifact": "002226b6e4dca9fe",
+     "domain": "chateaulacommanderie.fr",
+     "context": "obins chateau la commanderie chateau de candale chateau roc de candale reserve des jacobins le gout de la vie rouge le gout de la vie blanc le gout de la vie rose experiences fermer experiences ouvrir experiences visites des "
+    }
+   ]
+  },
+  "rose": {
+   "mentions": 7251,
+   "artifacts": 2775,
+   "domains": 140,
+   "estates_by_crawl_context": 160,
+   "langs": {
+    "fr": 1910,
+    "en": 657,
+    "?": 128,
+    "es": 27,
+    "zh": 25,
+    "ru": 24,
+    "de": 3,
+    "pt": 1
+   },
+   "media": {
+    "html": 2193,
+    "pdf": 581,
+    "office": 1
+   },
+   "top_domains": [
+    "cave-listrac-medoc.com",
+    "barton-guestier.com",
+    "domaines-rollandeby.com",
+    "chateaulamarzelle.com",
+    "denisdubourdieu.com",
+    "chateau-malescasse.com",
+    "chateau-haut-gravat.fr",
+    "desmirail.com"
+   ],
+   "samples": [
+    {
+     "artifact": "002226b6e4dca9fe",
+     "domain": "chateaulacommanderie.fr",
+     "context": "chateau roc de candale reserve des jacobins le gout de la vie rouge le gout de la vie blanc le gout de la vie rose experiences fermer experiences ouvrir experiences visites des chateaux decouvrez, savourez reserver restauran"
+    },
+    {
+     "artifact": "002226b6e4dca9fe",
+     "domain": "chateaulacommanderie.fr",
+     "context": "chateau roc de candale reserve des jacobins le gout de la vie rouge le gout de la vie blanc le gout de la vie rose visite des chateaux reserver l'incomparable la prestige l'initiee la gourmande sucree la gourmande salee l'es"
+    },
+    {
+     "artifact": "00224123d1e3dd14",
+     "domain": "denisdubourdieu.com",
+     "context": "vin le chateau reynon produit un vin rouge d'appellation cadillac cotes de bordeaux, un sauvignon blanc et un rose tous deux d'appellation bordeaux. certaines annees particulierement favorables au developpement de la pourrit"
+    },
+    {
+     "artifact": "00381b4e03fcf633",
+     "domain": "domaines-rollandeby.com",
+     "context": "uits les domaines l’histoire le savoir-faire l’art de vivre les vins nos vins du medoc nos bordeaux blancs et rose l’actu vu dans la presse recompenses le fil d’actualites le grand jury europeen l’hotel visite les chambres a"
+    },
+    {
+     "artifact": "00381b4e03fcf633",
+     "domain": "domaines-rollandeby.com",
+     "context": " tour seran chateau rollan de by chateau greysac chateau la clare collection or jean guyon nos vins blancs et rose chateau fleur perey chateau tour perey primeurs 2023 wine club espace pro accueil | vin blanc | chateau rolla"
+    },
+    {
+     "artifact": "00381b4e03fcf633",
+     "domain": "domaines-rollandeby.com",
+     "context": "ion. les domaines l'histoire le savoir-faire l'art de vivre les vins nos vins du medoc nos bordeaux blancs et rose l’hotel visite les chambres acces l’actu le fil d’actualite le grand jury europeen ils parlent de nous recomp"
+    }
+   ]
+  },
+  "sparkling": {
+   "mentions": 1527,
+   "artifacts": 410,
+   "domains": 36,
+   "estates_by_crawl_context": 46,
+   "langs": {
+    "fr": 201,
+    "en": 146,
+    "es": 26,
+    "ru": 24,
+    "zh": 8,
+    "?": 4,
+    "de": 1
+   },
+   "media": {
+    "html": 360,
+    "pdf": 50
+   },
+   "top_domains": [
+    "barton-guestier.com",
+    "chateaucaillou.com",
+    "vignoblesraguenot.fr",
+    "unimedoc.com",
+    "chateaudillon.com",
+    "chateaudemalle.com",
+    "chateau-ladominique.com",
+    "chateau-arsac.com"
+   ],
+   "samples": [
+    {
+     "artifact": "014b2d4bb7bd521f",
+     "domain": "chateaucaillou.com",
+     "context": "oir le panier 17,00€ les erables de caillou voir le panier 12,00€ – 22,00€plage de prix : 12,00€ a 22,00€ les bulles de caillou voir le panier 14,00€ myosotis voir le panier 18,00€ la cuvee du centenaire voir le panier 100,00€"
+    },
+    {
+     "artifact": "029cae024154958e",
+     "domain": "cantenacbrown.com",
+     "context": "ee in the jutland region. the queen of england has planted over 15,000 vines on the windsor estate to produce sparkling wine. in japan, where hybrid grape varieties used to be planted to withstand low temperatures, white grape va"
+    },
+    {
+     "artifact": "02a7b9f290955985",
+     "domain": "chateau-sigalas-rabaud.com",
+     "context": "es demoiselles privatisez la chartreuse presse nous contacter fine bulle promo ! fine bulle 17,10 € – 85,00 € cremant de bordeaux des bulles fines comme des eclats de rire, pour illuminer vos fetes. ℹ️ selectionnez un format : "
+    },
+    {
+     "artifact": "02a7b9f290955985",
+     "domain": "chateau-sigalas-rabaud.com",
+     "context": "z la chartreuse presse nous contacter fine bulle promo ! fine bulle 17,10 € – 85,00 € cremant de bordeaux des bulles fines comme des eclats de rire, pour illuminer vos fetes. ℹ️ selectionnez un format : bouteille (= 1 bouteill"
+    },
+    {
+     "artifact": "02a7b9f290955985",
+     "domain": "chateau-sigalas-rabaud.com",
+     "context": "on degustation cette fine bulle se presente avec une robe pale aux reflets dores, animee par un fin cordon de bulles persistantes — signe d’une excellente fermentation en bouteille. au nez, elle seduit par sa fraicheur aromati"
+    },
+    {
+     "artifact": "0358cd9a419b8744",
+     "domain": "barton-guestier.com",
+     "context": "serve chateaux selected by b&g historical wines varietal wines b&g reserve varietals b&g bistro organic wines sparkling wines b&g cremant de bordeaux b&g cremant de bourgogne b&g sparkling chardonnay b&g sparkling rose b&g sparkl"
+    }
+   ]
+  },
+  "sweet_white": {
+   "mentions": 6447,
+   "artifacts": 2201,
+   "domains": 115,
+   "estates_by_crawl_context": 127,
+   "langs": {
+    "fr": 1455,
+    "en": 613,
+    "?": 109,
+    "de": 14,
+    "es": 6,
+    "ru": 2,
+    "zh": 1,
+    "pt": 1
+   },
+   "media": {
+    "html": 1526,
+    "pdf": 675
+   },
+   "top_domains": [
+    "denisdubourdieu.com",
+    "chateau-sigalas-rabaud.com",
+    "chateaucaillou.com",
+    "chateau-climens.com",
+    "chateaucoutet.com",
+    "tour-blanche.com",
+    "chateau-lamothe-guignard.fr",
+    "chateaudemyrat.fr"
+   ],
+   "samples": [
+    {
+     "artifact": "00224123d1e3dd14",
+     "domain": "denisdubourdieu.com",
+     "context": "veme siecle, le domaine est encore une maison noble, appartenant a jean de la roque, egalement proprietaire a barsac. au xviiieme siecle, le vignoble est aux mains de la famille carle de trajet qui emigre a la revolution ; il "
+    },
+    {
+     "artifact": "00224123d1e3dd14",
+     "domain": "denisdubourdieu.com",
+     "context": "ne tradition ancienne de ces coteaux de la rive droite de la garonne, jadis largement devolus aux grands vins liquoreux. le vin le chateau reynon produit un vin rouge d'appellation cadillac cotes de bordeaux, un sauvignon blanc e"
+    },
+    {
+     "artifact": "00224123d1e3dd14",
+     "domain": "denisdubourdieu.com",
+     "context": "taines annees particulierement favorables au developpement de la pourriture noble, une petite quantite de vin liquoreux d'appellation cadillac est produite. le second vin rouge est commercialise sous le nom de clos de reynon. le "
+    },
+    {
+     "artifact": "0023733cd44c41a0",
+     "domain": "leoville-poyferre.fr",
+     "context": "res long sur des tannins fins. […]couleur sombre, intense et belle. nez fin, intense, mur et frais, complexe. moelleux a l’attaque, suave au developpement, riche et complexe en milieu de bouche, le vin fond au palais et s’etire "
+    },
+    {
+     "artifact": "0050a650c3628f1b",
+     "domain": "denisdubourdieu.com",
+     "context": "llon, couvre actuellement une quinzaine d'hectares. son renom ancien provient de la production d'un vin blanc liquoreux de cerons d'une grande finesse. en 2002, bernard leppert, proprietaire du domaine, le donne en fermage a deni"
+    },
+    {
+     "artifact": "0050a650c3628f1b",
+     "domain": "denisdubourdieu.com",
+     "context": " grand bordeaux classique. cependant, le chateau haura elabore toujours quelques barriques d'un delicieux vin liquoreux de pourriture noble. la famille dubourdieu a fait depuis l'acquisition de parcelles voisines du haura lui per"
+    }
+   ]
+  }
+ },
+ "relationship_wording": {
+  "brand_negoce": {
+   "mentions": 3559,
+   "artifacts": 2439,
+   "domains": 181,
+   "estates_by_crawl_context": 204,
+   "langs": {
+    "fr": 1925,
+    "en": 365,
+    "?": 99,
+    "zh": 46,
+    "pt": 3,
+    "ja": 1
+   },
+   "media": {
+    "html": 1555,
+    "pdf": 881,
+    "text": 3
+   },
+   "top_domains": [
+    "mahler-besse.com",
+    "leovillelascases.com",
+    "domainedechevalier.com",
+    "chateaupavie.com",
+    "denisdubourdieu.com",
+    "chateaudauzac.com",
+    "mission-haut-brion.com",
+    "haut-brion.com"
+   ],
+   "samples": [
+    {
+     "artifact": "00058a10bf875af8",
+     "domain": "chateau-margaux.com",
+     "context": "9 mars et le 4 avril. le printemps fut clement, avec des temperatures tres proches des normales de saison, et marque par des precipitations abondantes fin avril puis entre le 5 et le 18 juin. la floraison eut lieu entre le 1er"
+    },
+    {
+     "artifact": "00224123d1e3dd14",
+     "domain": "denisdubourdieu.com",
+     "context": "oclassique. la propriete, qui a pris le nom de chateau peyrat, est achetee, peu avant 1900, par emile pollet, negociant en vins a paris. jacques david en fait l'acquisition en 1958. il appartient a une vielle famille de viticulte"
+    },
+    {
+     "artifact": "002d94ace7af0776",
+     "domain": "mission-haut-brion.com",
+     "context": "eau vin. le climat l’annee 2024 a ete indeniablement plus fraiche que les precedentes, mais son hiver humide, marque par la douceur, fut a l’origine d’un debourrement precoce de presque deux semaines, a partir de la mi-mars. d"
+    },
+    {
+     "artifact": "00397f85af9f268c",
+     "domain": "chateaupavie.com",
+     "context": "du decor, le bistrot du clocher et le glacier du clocher completent l’univers perse latitudes aujourd’hui, la marque perse latitudes relie entre elles ces differentes activites comme autant de reperes geographiques et symboliq"
+    },
+    {
+     "artifact": "003d686791ad5116",
+     "domain": "mahler-besse.com",
+     "context": "our universe our history mahler-besse est une maison de negoce historique de la place de bordeaux. notre histoire remonte a 1892 et continue de s'ecrire chaque jour. the te"
+    },
+    {
+     "artifact": "005cacaa59288543",
+     "domain": "leoville-poyferre.fr",
+     "context": "haleur estivale a permis au millesime de tenir ses promesses. solaire 2019 ? plutot estival, ce millesime est marque par une forte influence du climat. charmeur, avec une belle maturite equilibree, ce millesime s’inscrirait-il"
+    }
+   ]
+  },
+  "from_estate_vines": {
+   "mentions": 280,
+   "artifacts": 219,
+   "domains": 51,
+   "estates_by_crawl_context": 58,
+   "langs": {
+    "fr": 180,
+    "en": 33,
+    "?": 6
+   },
+   "media": {
+    "html": 111,
+    "pdf": 107,
+    "text": 1
+   },
+   "top_domains": [
+    "malescot.com",
+    "smith-haut-lafitte.com",
+    "latourmartillac.com",
+    "chateaudauzac.com",
+    "chateau-lascombes.com",
+    "vignoblesk.com",
+    "chateau-kirwan.com",
+    "chateaulamouline.com"
+   ],
+   "samples": [
+    {
+     "artifact": "02aa4c1215b7ea92",
+     "domain": "lafleurmorange.club",
+     "context": "ot et de 30 % de cabernet franc eleve dans des futs neufs de 500 litres. le chateau la fleur morange 2015 96+ issu de vignes centenaires et compose a 70 % de merlot et a 30 % de cabernet franc, le chateau la fleur morange 2015 est un "
+    },
+    {
+     "artifact": "03a2b32b71023198",
+     "domain": "chateaudauzac.com",
+     "context": "s’exprime a son meilleur entre 3 et 15 ans, pour vieillir jusqu’a 20-30 ans. production certifiee 100 % vegan issue de vignes situees sur une veine geologique speciﬁques ou les graves y sont ﬁnes et sableuses, la selection parcellaire "
+    },
+    {
+     "artifact": "04026e0d61917e3a",
+     "domain": "leovillelascases.com",
+     "context": "ise et la tension typique du terroir de leoville las cases. un magnifique second vin d'une grande persistance issu de parcelles dediees de jeunes cabernets et de vieux merlots. informations techniques assemblage : 50% cabernet sauvignon,"
+    },
+    {
+     "artifact": "066ba52db95c670e",
+     "domain": "lafonduberger.com",
+     "context": "assemblage l’assemblage de ce vin est compose a : 60% de cabernet sauvignon 40 % de merlot terroir ce vin est issu de vignes dont les plus anciennes ont plus de 60 ans. mode de vinification l’elevage se fait en fut de 400l de chene fr"
+    },
+    {
+     "artifact": "069c38e3d1cc266d",
+     "domain": "malescot.com",
+     "context": " malescot st exupery, le domaine du balardin est une expression authentique et raffinee du terroir bordelais. issu de parcelles soigneusement selectionnees en bordeaux superieur, ce vin rouge incarne l’elegance, l’equilibre et la complex"
+    },
+    {
+     "artifact": "070827a644585c51",
+     "domain": "chateau-kirwan.com",
+     "context": "vec chateau kirwan, tient dans son assemblage. on lui reserve une part plus importante de merlots, en general issus de parcelles a la texture un peu plus legere, composees de graves sableuses ou l’argile est peu presente. elles conferent "
+    }
+   ]
+  },
+  "historical": {
+   "mentions": 720,
+   "artifacts": 642,
+   "domains": 107,
+   "estates_by_crawl_context": 123,
+   "langs": {
+    "fr": 460,
+    "en": 153,
+    "zh": 15,
+    "?": 14
+   },
+   "media": {
+    "html": 425,
+    "pdf": 216,
+    "text": 1
+   },
+   "top_domains": [
+    "denisdubourdieu.com",
+    "chateaudecome.com",
+    "mission-haut-brion.com",
+    "chateaulamouline.com",
+    "haut-brion.com",
+    "chateau-montrose.com",
+    "vignoblesk.com",
+    "chateau-palmer.com"
+   ],
+   "samples": [
+    {
+     "artifact": "00224123d1e3dd14",
+     "domain": "denisdubourdieu.com",
+     "context": "ominante sauvignon, reynon renoue avec une tradition ancienne de ces coteaux de la rive droite de la garonne, jadis largement devolus aux grands vins liquoreux. le vin le chateau reynon produit un vin rouge d'appellation cadi"
+    },
+    {
+     "artifact": "00623075b781b4b9",
+     "domain": "la-tour-de-by.com",
+     "context": "et le royaume franc. les ruelles pavees historiques rejoignent l’edifice, faconne dans cette ville marchande, auparavant englobe de nombreux remparts et de multiples fosses. connaissant un agrandissement constant jusqu’au 16eme si"
+    },
+    {
+     "artifact": "006c81396919374e",
+     "domain": "chateaulamouline.com",
+     "context": "a dominance merlot, a deguster jeunes et servis legerement rafraichis. des cuvees de pur petit verdot, cepage autrefois “oublie”, aujourd’hui cheri pour sa vivacite et sa touche florale unique. des vins dits “nature” – levures in"
+    },
+    {
+     "artifact": "01257f864909c28f",
+     "domain": "chateaulamouline.com",
+     "context": "il). le secret des « leyres » les vieilles cartes designent sous le nom de “leyres” les petits ruisseaux qui, jadis, striaient les terres de saint-estephe. au fil du temps, ces leyres ont sculpte une topographie toute en ondu"
+    },
+    {
+     "artifact": "015da447f470aa49",
+     "domain": "chateau-corbin.com",
+     "context": "de, de couleur pourpre intense. elle m’a fait penser a une robe en velours comme les chatelaines en portaient autrefois. son nez tres gourmand evoque d’abord un panier de fruits rouges et de fruits noirs tres murs dans lequel on "
+    },
+    {
+     "artifact": "018ac2a7e9dca7b8",
+     "domain": "chateau-palmer.com",
+     "context": "s from the heart. chateau palmer welcomed its market gardener in 2020 and set about transforming an old space previously used for workers’ allotments into a nourishing kitchen garden. mexican tomatillo, trumpet courgette and sweet"
+    }
+   ]
+  },
+  "other_property": {
+   "mentions": 625,
+   "artifacts": 456,
+   "domains": 40,
+   "estates_by_crawl_context": 57,
+   "langs": {
+    "fr": 263,
+    "en": 171,
+    "?": 17,
+    "zh": 1,
+    "de": 1,
+    "pt": 1,
+    "es": 1,
+    "ja": 1
+   },
+   "media": {
+    "html": 421,
+    "pdf": 35
+   },
+   "top_domains": [
+    "antoinemoueix.com",
+    "vignoblesk.com",
+    "chateaudassault.com",
+    "neipperg.com",
+    "haut-brion.com",
+    "chateau-chantemerle.com",
+    "domaine-chantemerle.com",
+    "trottevieille.com"
+   ],
+   "samples": [
+    {
+     "artifact": "00473800ae6e9db5",
+     "domain": "batailley.com",
+     "context": "eaux university’s faculty of œnology and a teacher at the civb, has consulted at chateau lynch-moussas and at other estates in the group for around fifteen years. axel marchal, a doctor in œnology since 2010 and a senior lecturer at"
+    },
+    {
+     "artifact": "00bd27d5ca3f2674",
+     "domain": "jpjdomaines.com",
+     "context": "! 20/08/2020 le vignoble de notre chateau croix mouton vient d’obtenir la certification hve3 et rejoint ainsi nos autres proprietes deja toutes en possession de cette certification ! la qualite de nos vins passe aussi par la protection de no"
+    },
+    {
+     "artifact": "01e37fc85a67c4a6",
+     "domain": "antoinemoueix.com",
+     "context": "n dans votre pays, vous devez etre age de 18 ans au moins. oui non home who are we ? our history our know-how our estates chateau patache d’aux chateau capet-guillier chateau liversan chateau mirefleurs chateau grand renom our othe"
+    },
+    {
+     "artifact": "0345237354a9dbbc",
+     "domain": "trottevieille.com",
+     "context": "annins, medium body, moderate length. solid if not wowing. robert m. parker, jr. robert parker 90-93 like the other estates of proprietor philippe casteja, there has been a dramatic increase in quality at this property over the last"
+    },
+    {
+     "artifact": "0345237354a9dbbc",
+     "domain": "trottevieille.com",
+     "context": "w years, casteja has been making strong efforts to improve the quality of not only trottevielle, but also his other estates, particularly batailley in pauillac and domaine l’eglise in pomerol. the elegant, concentrated 2000 trotte v"
+    },
+    {
+     "artifact": "038f1d9bf83a4f74",
+     "domain": "vignoblesk.com",
+     "context": "our properties chateau bellefont-belcier chateau tour saint christophe enclos tourmaline chateau haut-brisson chateau la pat"
+    }
+   ]
+  },
+  "owned_group": {
+   "mentions": 2189,
+   "artifacts": 1784,
+   "domains": 195,
+   "estates_by_crawl_context": 217,
+   "langs": {
+    "fr": 1029,
+    "en": 696,
+    "?": 53,
+    "zh": 4,
+    "ja": 2
+   },
+   "media": {
+    "html": 1144,
+    "pdf": 632,
+    "text": 8
+   },
+   "top_domains": [
+    "domainedechevalier.com",
+    "denisdubourdieu.com",
+    "lynch-moussas.com",
+    "chateau-arsac.com",
+    "chateau-darmailhac.com",
+    "chateaufrancmayne.com",
+    "boyd-cantenac.com",
+    "chateaudeferrand.com"
+   ],
+   "samples": [
+    {
+     "artifact": "0004a53161729cf8",
+     "domain": "pontoise-cabarrus.com",
+     "context": "f history have also known our cellars, like theresia cabarrus due to its geography, pontoise cabarrus chateau belongs to the left bank of the bordeaux vineyard, and its plots benefit from the prestigious soils. great names in hist"
+    },
+    {
+     "artifact": "0004a53161729cf8",
+     "domain": "pontoise-cabarrus.com",
+     "context": "ut also for the work done to advance the profession. that is why we are involved in the union and have been a member of the «vignerons independants» for more than 15 years. we endeavor to do our work consistent with our chief princip"
+    },
+    {
+     "artifact": "00058a10bf875af8",
+     "domain": "chateau-margaux.com",
+     "context": "notre domaine nos vins notre savoir-faire nos experiences mon vin 2019 2019 2019 chateau margaux 2019 fait partie des plus grands millesimes de notre histoire et s’ajoute a la liste des grands vins que nous avons eu la chance d"
+    },
+    {
+     "artifact": "00058a10bf875af8",
+     "domain": "chateau-margaux.com",
+     "context": "ar la faible dilution apportee par ces pluies. les vendanges s’acheverent le 10 octobre. chateau margaux 2019 fait partie des plus grands millesimes de notre histoire et s’ajoute a la liste des grands vins que nous avons eu la chance d"
+    },
+    {
+     "artifact": "00224123d1e3dd14",
+     "domain": "denisdubourdieu.com",
+     "context": " peu avant 1900, par emile pollet, negociant en vins a paris. jacques david en fait l'acquisition en 1958. il appartient a une vielle famille de viticulteur d'omet, un village voisin. il herite, egalement de son pere jean david, d'u"
+    },
+    {
+     "artifact": "008a94486370ab1c",
+     "domain": "vignobles-bernaleau.com",
+     "context": "e - londres 2022 bronze wine enthusiast - roger voss - jan 2022 92 / 100 \"du meme propritetaire que mongravey propriete de margaux, cette propriete avec sa dominance de cabernet sauvignon a produit un vin a la structure riche. avec "
+    }
+   ]
+  },
+  "produced_at": {
+   "mentions": 2081,
+   "artifacts": 1071,
+   "domains": 144,
+   "estates_by_crawl_context": 163,
+   "langs": {
+    "fr": 859,
+    "en": 177,
+    "?": 33,
+    "zh": 2
+   },
+   "media": {
+    "html": 849,
+    "pdf": 215,
+    "text": 7
+   },
+   "top_domains": [
+    "chateaucaillou.com",
+    "chateau-haut-gravat.fr",
+    "malescot.com",
+    "chateaudillon.com",
+    "chateau-castera.com",
+    "leovillelascases.com",
+    "vignoblesk.com",
+    "smith-haut-lafitte.com"
+   ],
+   "samples": [
+    {
+     "artifact": "001dcbadf649f7f0",
+     "domain": "chateaucroixdutrale.com",
+     "context": "(6l) 102,00 € ajouter au panier chateau croix du trale 2025 primeurs – bouteilles 9,00 € choix des options ce produit a plusieurs variations. les options peuvent etre choisies sur la page du produit chateau croix du trale 2025 pr"
+    },
+    {
+     "artifact": "001dcbadf649f7f0",
+     "domain": "chateaucroixdutrale.com",
+     "context": " page du produit chateau croix du trale 2025 primeurs – grands formats 18,20 € – 88,00 € choix des options ce produit a plusieurs variations. les options peuvent etre choisies sur la page du produit contactez-nous 4 route du tral"
+    },
+    {
+     "artifact": "00711fdbf60c1733",
+     "domain": "durfort-vivens.fr",
+     "context": " ou le bois et les parfums du chai composent un decorum fantastique, nos convives profitent d’ un repas prive elabore par notre chef. ce cadre singulier magnifie chaque plat et revele autrement nos vins, pour une experience qui mel"
+    },
+    {
+     "artifact": "007528af82e98360",
+     "domain": "malescot.com",
+     "context": "ible du style et du raffinement propres a chateau malescot st exupery. issu des memes terroirs d’exception et elabore avec la meme exigence que son illustre aine, ce vin exprime une interpretation seduisante et immediate de l’ele"
+    },
+    {
+     "artifact": "00c05521ce910c8f",
+     "domain": "chateau-haut-gravat.fr",
+     "context": "s partager avec vos amis. e-mail mot de passe mot de passe oublie ? connexion pas de compte ? creez-en un ici produit ajouter a ma liste nous utilisons des cookies pour nous permettre de mieux comprendre comment le site est utili"
+    },
+    {
+     "artifact": "00fc04aab111dd32",
+     "domain": "leovillelascases.com",
+     "context": "urtschy de robe grenat, le nez est intense. le vin est completement sur le fruit, d'un grand charme. il a ete elabore a partir des jeunes vignes de merlot et de cabernet sauvignon du grand enclos. 3-12 ans. 90/100 vinous / neal m"
+    }
+   ]
+  }
+ },
+ "temporal_wording": {
+  "acquired": {
+   "mentions": 1451,
+   "artifacts": 1125,
+   "domains": 173,
+   "estates_by_crawl_context": 193,
+   "langs": {
+    "fr": 680,
+    "en": 396,
+    "?": 39,
+    "zh": 7,
+    "pt": 2,
+    "ja": 1
+   },
+   "media": {
+    "pdf": 591,
+    "html": 527,
+    "text": 7
+   },
+   "top_domains": [
+    "vignoblesk.com",
+    "domainedechevalier.com",
+    "lynch-moussas.com",
+    "denisdubourdieu.com",
+    "trottevieille.com",
+    "chateaudeferrand.com",
+    "chateaupaloumey.com",
+    "chateau-montlisse.com"
+   ],
+   "samples": [
+    {
+     "artifact": "00397f85af9f268c",
+     "domain": "chateaupavie.com",
+     "context": " ensoleille en alternance avec des nuits fraiches, juste ce qu'il faut d'averses pour permettre a la vigne de reprendre des forces et d'amener lentement les raisins a la bonne maturite. fiche pdf viticulture taille a 8 bourgeon"
+    },
+    {
+     "artifact": "00711fdbf60c1733",
+     "domain": "durfort-vivens.fr",
+     "context": "s 1745 comme 2e cru, la propriete sera naturellement classee a ce rang en 1855. le chateau durfort-vivens est acquis par le chateau margaux dont leonce recapet est alors le principal actionnaire. quelques annees plus tard, un peti"
+    },
+    {
+     "artifact": "00711fdbf60c1733",
+     "domain": "durfort-vivens.fr",
+     "context": "es plus tard, un petit fils de leonce, lucien lurton, grand viticulteur et defenseur du terroir bordelais, va racheter la propriete. nous sommes alors en 1961. de l’heritage familial au projet ambitieux en 1992, son fils gonzag"
+    },
+    {
+     "artifact": "00e9df5eb0ed6ea5",
+     "domain": "chateau-latour.com",
+     "context": "n the other hand, of a seven hectare island of vines in the commune of artigues on gravel terraces, which was acquired in 2005. plus a handful of plots (about 5 hectares) acquired in 2012. these various blocks of plots present very"
+    },
+    {
+     "artifact": "00e9df5eb0ed6ea5",
+     "domain": "chateau-latour.com",
+     "context": "ommune of artigues on gravel terraces, which was acquired in 2005. plus a handful of plots (about 5 hectares) acquired in 2012. these various blocks of plots present very different terroirs, thereby offering forts de latour more va"
+    },
+    {
+     "artifact": "0104f95f419235b9",
+     "domain": "lynchbages.com",
+     "context": "roche du terrain et se voit proposer par le proprietaire du chateau lynch-bages, le general felix de vial, de reprendre le domaine en fermage. il s’est revele bon vinificateur et l’affirmation du style propre a lynch-bages corr"
+    }
+   ]
+  },
+  "appellation_change": {
+   "mentions": 25,
+   "artifacts": 25,
+   "domains": 10,
+   "estates_by_crawl_context": 11,
+   "langs": {
+    "fr": 17,
+    "en": 8
+   },
+   "media": {
+    "html": 23,
+    "pdf": 2
+   },
+   "top_domains": [
+    "chateaulamouline.com",
+    "chateau-chantemerle.com",
+    "domaine-chantemerle.com",
+    "chateau-olivier.com",
+    "pontoise-cabarrus.com",
+    "chateaudecome.com",
+    "chateaudauzac.com",
+    "vignoblesk.com"
+   ],
+   "samples": [
+    {
+     "artifact": "13b397a6627feb88",
+     "domain": "chateau-olivier.com",
+     "context": "a avoir fait cartographier son terroir. pour completer la carte lithologique etablie lors de la creation de l’appellation pessac-leognan, la nouvelle equipe a etabli en 2003, avec l’aide de denis dubourdieu et xavier chone, un inventaire geologique qui a perm"
+    },
+    {
+     "artifact": "1911855c65464a0e",
+     "domain": "chateaulamouline.com",
+     "context": "re le prestige de ses... voyage au cœur des villages et appellations qui faconnent le haut medoc 30/10/2025 l’appellation haut medoc (aoc, creee en 1936) s’etire du nord de bordeaux jusqu’aux portes de saint-estephe, couvrant quelque 4 600 hectares (sour"
+    },
+    {
+     "artifact": "200568cc02dc9e18",
+     "domain": "pontoise-cabarrus.com",
+     "context": "ourgeois. le chateau pontoise cabarrus y apparait des la premiere edition en avril 1932. en savoir plus sur l’appellation une nouvelle generation et des idees neuves emile tereygeol sur le domaine dans les annees 1970 emile tereygeol rachete le"
+    },
+    {
+     "artifact": "22bfb88d5c3977cc",
+     "domain": "chateau-chantemerle.com",
+     "context": "cruchon et fils vineyards is intertwined with that of the medoc. we shared the first moments of the aoc medoc appellation and have always been in the quest for renewal through excellence by producing vintages sought after by all enthusiasts of french fine wines. our philosop"
+    },
+    {
+     "artifact": "2b564a26fb501e73",
+     "domain": "chateaudauzac.com",
+     "context": "u contact details & directions press innovation an innovative carbon neutral wine in the heart of the margaux appellation 26 may 2023 we are proud to unveil our new carbon neutral wine, a project that marks a turning point in our commitment to biodiversity and the environme"
+    },
+    {
+     "artifact": "336f58300a9f8d04",
+     "domain": "chateaulamouline.com",
+     "context": "et appellations qui faconnent le haut medoc 30 octobre 2025 le haut medoc : une appellation, mille facettes l’appellation haut medoc (aoc, creee en 1936) s’etire du nord de bordeaux jusqu’aux portes de saint-estephe, couvrant quelque 4 600 hectares (sour"
+    }
+   ]
+  },
+  "classification_change": {
+   "mentions": 161,
+   "artifacts": 138,
+   "domains": 62,
+   "estates_by_crawl_context": 67,
+   "langs": {
+    "fr": 69,
+    "en": 67,
+    "?": 2
+   },
+   "media": {
+    "html": 96,
+    "pdf": 41,
+    "text": 1
+   },
+   "top_domains": [
+    "jeanfaure.com",
+    "chateaumangot.fr",
+    "grand-corbin-despagne.com",
+    "vignoblesk.com",
+    "chateaudassault.com",
+    "chateaudepressac.com",
+    "chateaupavie.com",
+    "chateauchauvin.com"
+   ],
+   "samples": [
+    {
+     "artifact": "01792dae80718cd2",
+     "domain": "grand-corbin-despagne.com",
+     "context": "es grands bordeaux. grandes reussites du millesime - notes 15.5-16.5/20 – le chateau avait ete tres justement promu grand cru classe en 2006 (classement annule depuis). qu’importe! francois despagne continue a faire progresse"
+    },
+    {
+     "artifact": "01792dae80718cd2",
+     "domain": "grand-corbin-despagne.com",
+     "context": " despagne, une des victimes les plus emblematiques de l’abandon du classement 2006. le cru familial avait ete declasse en 1996, et francois en avait pris ensuite la direction pour le remonter au plus haut niveau, faisant l’admir"
+    },
+    {
+     "artifact": "04495537dbfeba1a",
+     "domain": "latourmartillac.com",
+     "context": "lure and millerandage, particularly in the merlot vineyards. from late july onwards, warmer and drier weather promoted veraison and the gradual ripening of the grapes. harvest took place under unsettled weather conditions, requi"
+    },
+    {
+     "artifact": "047a75a760f388f9",
+     "domain": "vignoblesk.com",
+     "context": "lalande de pomerol, and bodega monteviejo in argentina. under his guidance, both le gay and la violette where elevated to the top 10 of pomerol. jean-chistophe then joins vignobles adams (chateau fonplegade and chateau l’enclos) as"
+    },
+    {
+     "artifact": "06d4f7943a7b8db0",
+     "domain": "chateau-pedesclaux.com",
+     "context": "ts ready for fermentation in one of the 4 elevated vats which, when full, weighs almost 14 tonnes. the vat is elevated to a height of 7 metres so that it reaches the upper level. 4/ reverse rack and return the musts are then gradua"
+    },
+    {
+     "artifact": "08a50464786761c3",
+     "domain": "chateau-margaux.com",
+     "context": " tant les rendements furent limites et la selection drastique. en effet, plus de 20% de la production ont ete declasses dans une quatrieme selection vendue en vrac. (octobre 2025) 83% cabernet sauvignon, 15% merlot, 2% petit ver"
+    }
+   ]
+  },
+  "discontinued": {
+   "mentions": 130,
+   "artifacts": 118,
+   "domains": 53,
+   "estates_by_crawl_context": 58,
+   "langs": {
+    "fr": 89,
+    "en": 27,
+    "?": 2
+   },
+   "media": {
+    "html": 91,
+    "pdf": 26,
+    "text": 1
+   },
+   "top_domains": [
+    "chateau-sansonnet.com",
+    "chateau-lascombes.com",
+    "lauga.com",
+    "chateaulamouline.com",
+    "chateau-palmer.com",
+    "cantenacbrown.com",
+    "chateau-margaux.com",
+    "durfort-vivens.fr"
+   ],
+   "samples": [
+    {
+     "artifact": "01b5480f06c67c33",
+     "domain": "durfort-vivens.fr",
+     "context": "nees par vivien durand, chef etoile michelin 30 € / pers. reservez la memoire du chateau l'effet millesime... abandonnez vous dans la palette aromatique de nos vins a travers un atelier de degustation ! vous degusterez quatre gra"
+    },
+    {
+     "artifact": "026f89e6ff1604ae",
+     "domain": "chateau-ducru-beaucaillou.com",
+     "context": ", chaque procedure dans le vignoble se veut respectueuse de l’ecosysteme tout entier : les herbicides ont ete abandonnes au profit des desherbages mecaniques et d’enherbements reflechis ; les engrais chimiques remplaces par du fu"
+    },
+    {
+     "artifact": "0299e77f8f356f0d",
+     "domain": "leoville-poyferre.fr",
+     "context": "annee se profilent, annoncant cette parenthese enchantee dans laquelle nous ressentons tous le besoin de nous abandonner. l’occasion revee de creer des moments precieux et de les partager avec ceux qui comptent vraiment. pour les"
+    },
+    {
+     "artifact": "0301513dc9a84d01",
+     "domain": "pontoise-cabarrus.com",
+     "context": "nt de partage et de convivialite les salons sont pour nous l’occasion de se retrouver et de vous presenter le dernier millesime mis en bouteille ainsi que quelques raretes stockees dans nos caves. par ces manifestations nous soutenons le"
+    },
+    {
+     "artifact": "03f95797b6ca8d49",
+     "domain": "chateau-fombrauge.fr",
+     "context": "rouge chateau fombrauge saint-emilion grand cru classe « de couleur grenat-pourpre profond, le fombrauge 2018 abandonne des parfums expressifs de gateau de la foret-noire, de compote de mures et de griottes avec des touches de co"
+    },
+    {
+     "artifact": "09d308c481932ff3",
+     "domain": "chateau-lascombes.com",
+     "context": "club my account special offers primeurs 2o25 press contact us instagram linkedin credits – legal mentions the last vintage tempered exuberance vintage 2022 the year 2022 is no exception to the recent rule of vintages that have many "
+    }
+   ]
+  },
+  "formerly": {
+   "mentions": 955,
+   "artifacts": 859,
+   "domains": 110,
+   "estates_by_crawl_context": 127,
+   "langs": {
+    "fr": 543,
+    "en": 214,
+    "zh": 49,
+    "de": 29,
+    "?": 20,
+    "ja": 2,
+    "pt": 2
+   },
+   "media": {
+    "html": 628,
+    "pdf": 230,
+    "text": 1
+   },
+   "top_domains": [
+    "neipperg.com",
+    "denisdubourdieu.com",
+    "chateaudecome.com",
+    "vignoblesk.com",
+    "mission-haut-brion.com",
+    "haut-brion.com",
+    "chateaulamouline.com",
+    "chateau-montrose.com"
+   ],
+   "samples": [
+    {
+     "artifact": "00224123d1e3dd14",
+     "domain": "denisdubourdieu.com",
+     "context": "ominante sauvignon, reynon renoue avec une tradition ancienne de ces coteaux de la rive droite de la garonne, jadis largement devolus aux grands vins liquoreux. le vin le chateau reynon produit un vin rouge d'appellation cadi"
+    },
+    {
+     "artifact": "00623075b781b4b9",
+     "domain": "la-tour-de-by.com",
+     "context": "et le royaume franc. les ruelles pavees historiques rejoignent l’edifice, faconne dans cette ville marchande, auparavant englobe de nombreux remparts et de multiples fosses. connaissant un agrandissement constant jusqu’au 16eme si"
+    },
+    {
+     "artifact": "006c81396919374e",
+     "domain": "chateaulamouline.com",
+     "context": "a dominance merlot, a deguster jeunes et servis legerement rafraichis. des cuvees de pur petit verdot, cepage autrefois “oublie”, aujourd’hui cheri pour sa vivacite et sa touche florale unique. des vins dits “nature” – levures in"
+    },
+    {
+     "artifact": "00fafda0f92ed43c",
+     "domain": "chateaudeferrand.com",
+     "context": "le different 2025 end-of-year offers our prices are quoted without taxe. ex-cellars. offers valid from now until 31st december 2025. chateau de ferrand - 339 allee de saint-poly, saint-h"
+    },
+    {
+     "artifact": "00fafda0f92ed43c",
+     "domain": "chateaudeferrand.com",
+     "context": "bettane+desseauve 15.5/20 2016 chateau de ferrand 2025 end-of-year offers our prices are quoted without taxe. ex-cellars. offers valid from now until 31st december 2025. chateau de ferrand - 339 allee de saint-poly, saint-h"
+    },
+    {
+     "artifact": "00fafda0f92ed43c",
+     "domain": "chateaudeferrand.com",
+     "context": "xport analyses and any other documents requested for which we are charged. our prices are quoted without tax, ex-cellars. terms of payment: 60 days. price-list submitted to our general conditions of sale. « export » price -"
+    }
+   ]
+  },
+  "from_vintage": {
+   "mentions": 350,
+   "artifacts": 305,
+   "domains": 78,
+   "estates_by_crawl_context": 89,
+   "langs": {
+    "fr": 151,
+    "en": 123,
+    "?": 26,
+    "zh": 5
+   },
+   "media": {
+    "html": 165,
+    "pdf": 140
+   },
+   "top_domains": [
+    "chateaudeferrand.com",
+    "haut-brion.com",
+    "chateaudepressac.com",
+    "chateau-figeac.com",
+    "chateau-belair-monange.com",
+    "leovillelascases.com",
+    "chateauchauvin.com",
+    "calon-segur.com"
+   ],
+   "samples": [
+    {
+     "artifact": "00fafda0f92ed43c",
+     "domain": "chateaudeferrand.com",
+     "context": " with the new label created using a bic ballpoint pen — a preview of the design that will adorn the grand vin from the 2024 vintage onwards. ® a limited-edition bic 4 colours pen in its sleeve accompanies the set, paying tribute to the herit"
+    },
+    {
+     "artifact": "01b0141436d70eb0",
+     "domain": "pontoise-cabarrus.com",
+     "context": "reinstaure les trois niveaux « cru bourgeois », « cru bourgeois superieur » et « cru bourgeois exceptionnel » a partir du millesime 2018. je veux en savoir plus sur le cru bourgeois ancienne etiquette 1928, famille bouillaud proprietaire de 1881 "
+    },
+    {
+     "artifact": "024d04add3a884a2",
+     "domain": "batailley.com",
+     "context": "n, 22% merlot and equal parts cabert franc and petit verdot, this could be one of the best values in pauillac from the 2009 vintage. filled with fresh, blackberry, earth, cedar, tobacco and earth, soft tannins, round textures and a rich, del"
+    },
+    {
+     "artifact": "028350ca8e500eb2",
+     "domain": "chateaucoutet.com",
+     "context": " releve avec la creation de ce grand vin blanc sec elabore avec le meme niveau d’exigence que chateau coutet. a partir du millesime 2024, la cuvee opalie s’habille de la meme etiquette que son aine liquoreux dans une version argentee, celebrant a"
+    },
+    {
+     "artifact": "02e410dc4988472c",
+     "domain": "malartic-lagraviere.com",
+     "context": "tle – jeb dunnuck – april 2024 92 black raspberries, redcurrants, tobacco, and floral/violet notes all emerge from the 2021 chateau malartic-lagraviere, a medium- bodied, supple, incredibly elegant 2021 with fine tannins. this layere"
+    },
+    {
+     "artifact": "03c4e2ad36abe280",
+     "domain": "chateau-couhins-lurton.com",
+     "context": " — appareance: deep garnet-red, almost black. the intensity puts this squarely in the category of great wines from the 2011 vintage. nose: the bouquet is both subtle and elegant. although understated for the moment, it is underpinned by blac"
+    }
+   ]
+  },
+  "introduced": {
+   "mentions": 827,
+   "artifacts": 701,
+   "domains": 128,
+   "estates_by_crawl_context": 148,
+   "langs": {
+    "fr": 452,
+    "en": 196,
+    "?": 45,
+    "zh": 8
+   },
+   "media": {
+    "html": 442,
+    "pdf": 257,
+    "text": 2
+   },
+   "top_domains": [
+    "leovillelascases.com",
+    "chateaulamarzelle.com",
+    "vignoblesk.com",
+    "chateaudeferrand.com",
+    "chateau-belair-monange.com",
+    "chateaulamouline.com",
+    "leoville-poyferre.fr",
+    "latourmartillac.com"
+   ],
+   "samples": [
+    {
+     "artifact": "0047bb843f992f0b",
+     "domain": "chateauchauvin.com",
+     "context": "ome real depth. the finish bounds along. lots of savory fruit. drink or hold. wine enthusiast: 93 this is the first vintage of this new purchase by sylvie cazes, a leading figure in the bordeaux wine scene. a classed growth, it's ric"
+    },
+    {
+     "artifact": "016450ac8c34a7e4",
+     "domain": "chateaulaujac.com",
+     "context": " severes gelees de 1956, il ne reste que 8 hectares de vigne lorsque bernard cruse prend la direction du domaine en 1957. il entreprend alors la reconstitution du vignoble, la modernisation des outils techniques et la renovation d"
+    },
+    {
+     "artifact": "021ee3beafbaf756",
+     "domain": "vignoblesgm.com",
+     "context": "valeyrac medoc ​ \" dans la recherche de l’expression la plus aromatique des cepages du terroir medocain, j'ai cree en 2016 le chateau haut-valeyrac. les cepages locaux sont cultives sur les croupes argilo-graveleuses du domaine qui "
+    },
+    {
+     "artifact": "0227ded46ecfdb98",
+     "domain": "haut-bailly.com",
+     "context": "2018 la parde de haut-bailly, ne en 1967, se voit renommer apres 50 annees d’existence. modele de second vin, le nom s’est impose spontanement : haut-"
+    },
+    {
+     "artifact": "023ef859bc507769",
+     "domain": "vignoblesk.com",
+     "context": "nd a long and flavorful finish. lots of density here. drink from 2027. james suckling - january 2025 93+ this first vintage under the denomination of grand cru classe, the 2022 tour saint christophe is excellent, offering up aromas o"
+    },
+    {
+     "artifact": "024d04add3a884a2",
+     "domain": "batailley.com",
+     "context": "15 that can be enjoyed earlier than many other pauillacs in this vintage, and it is often good value too. the first vintage with a second wine, les lions de batailley, which perhaps explains why this feels just a little more supercha"
+    }
+   ]
+  },
+  "merged": {
+   "mentions": 210,
+   "artifacts": 196,
+   "domains": 65,
+   "estates_by_crawl_context": 79,
+   "langs": {
+    "fr": 177,
+    "en": 18,
+    "?": 1
+   },
+   "media": {
+    "pdf": 106,
+    "html": 90
+   },
+   "top_domains": [
+    "denisdubourdieu.com",
+    "chateau-belair-monange.com",
+    "durfort-vivens.fr",
+    "ferriere.com",
+    "hautbagesliberal.com",
+    "lynchbages.com",
+    "domaines-rollandeby.com",
+    "cave-listrac-medoc.com"
+   ],
+   "samples": [
+    {
+     "artifact": "00224123d1e3dd14",
+     "domain": "denisdubourdieu.com",
+     "context": " vignoble dans la commune de laroque non loin de sa nouvelle acquisition. les deux vignobles sont depuis lors reunis. en 1976, sa fille florence david, et son gendre denis dubourdieu, ingenieur agronome et &oelig;nologue, lui "
+    },
+    {
+     "artifact": "0104f95f419235b9",
+     "domain": "lynchbages.com",
+     "context": "e afin de celebrer ces nouveaux chais. clients, journalistes et amis venus des quatre coins du monde, etaient reunis pour l’occasion autour d’un diner organise au cœur de la propriete. visiter decouvrez un art de vivre le vin "
+    },
+    {
+     "artifact": "0166a1b8af1ca20e",
+     "domain": "unimedoc.com",
+     "context": "ng both become established individually through a land-purchase operation set up by vignerons d’uni medoc, we merged our 2 properties in 2007. why are you a member of the uni-medoc cooperative ? the question did not even arise"
+    },
+    {
+     "artifact": "01b5480f06c67c33",
+     "domain": "durfort-vivens.fr",
+     "context": "du petit salon prive, imaginez un instant convivial, un voyage intime, une parenthese gourmande ou chaque vin fusionne avec son met par vivien durand, chef du restaurant etoile “le prince noir”. l'occasion de decouvrir l'art de "
+    },
+    {
+     "artifact": "0299e77f8f356f0d",
+     "domain": "leoville-poyferre.fr",
+     "context": " experience qui ne passera pas inapercue : le duo chateau moulin riche 2018 et chateau leoville poyferre 2014 reuni dans un coffret exclusif. deux vins de la famille cuvelier qui sauront captiver les connaisseurs les plus exi"
+    },
+    {
+     "artifact": "03fc16a786f4554a",
+     "domain": "domaines-rollandeby.com",
+     "context": "hateau de by et chateau du monthil, portant la surface totale a 185 hectares. aujourd’hui, tous ces vignobles reunis sous la banniere “domaines rollan de by - jean guyon” lui assurent une reputation prestigieuse. consideres co"
+    }
+   ]
+  },
+  "now": {
+   "mentions": 7833,
+   "artifacts": 4843,
+   "domains": 218,
+   "estates_by_crawl_context": 245,
+   "langs": {
+    "fr": 2679,
+    "en": 1920,
+    "?": 174,
+    "zh": 43,
+    "ja": 15,
+    "de": 9,
+    "es": 2,
+    "ru": 1
+   },
+   "media": {
+    "html": 3842,
+    "pdf": 990,
+    "text": 11
+   },
+   "top_domains": [
+    "grand-corbin-despagne.com",
+    "chateaudeferrand.com",
+    "chateaubistonbrillette.fr",
+    "chateau-margaux.com",
+    "mahler-besse.com",
+    "chateau-palmer.com",
+    "leovillelascases.com",
+    "chateau-castera.com"
+   ],
+   "samples": [
+    {
+     "artifact": "0002089921374e7a",
+     "domain": "chateau-castera.com",
+     "context": "d product information: chateau castera is a red wine produced in the aoc medoc, in the bordeaux vineyards and currently classified as cru bourgeois superieur du medoc. chateau castera is mainly made from traditional bordeaux grap"
+    },
+    {
+     "artifact": "00058a10bf875af8",
+     "domain": "chateau-margaux.com",
+     "context": "ntzelopoulos, rejoint l’equipe de chateau margaux. avec sa sœur alexandra petit-mentzelopoulos, ils incarnent desormais l’avenir du domaine... (fevrier 2025) decouvrir d'autres millesimes climat a l’echelle mondiale, l’annee 2019"
+    },
+    {
+     "artifact": "00110de11039d265",
+     "domain": "grand-corbin-despagne.com",
+     "context": " grand corbin-despagne 2018 au chateau clos des jacobins a saint-emilion → archives calendrier des evenements aujourd’hui lun mar mer jeu ven sam dim l m m j v s d 26 27 28 29 30 31 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 2"
+    },
+    {
+     "artifact": "0020dd70dcb50025",
+     "domain": "prieuredebeyzac.fr",
+     "context": "se prix h.t bouteille prix h.t par carton de 6 haut-medoc chateau prieure de beyzac 2011 cuvee \"quintessence\" aujourd'hui dans sa plenitude qui fait la magie des grands vins de bordeaux. la robe devoile aujourd’hui des premieres te"
+    },
+    {
+     "artifact": "0020dd70dcb50025",
+     "domain": "prieuredebeyzac.fr",
+     "context": "e \"quintessence\" aujourd'hui dans sa plenitude qui fait la magie des grands vins de bordeaux. la robe devoile aujourd’hui des premieres teintes tuilees. bouquet de fruits confits mele a des notes de sous-bois au nez. en bouche, on "
+    },
+    {
+     "artifact": "00224123d1e3dd14",
+     "domain": "denisdubourdieu.com",
+     "context": "m remarkably deep purple. lightly inky on the nose with lots of ripe, perfumed fruit and hint of oak apparent now. ambitious and still pretty youthful. a floral note persists right through to the end. www.jancisrobinson.com"
+    }
+   ]
+  },
+  "renamed": {
+   "mentions": 1718,
+   "artifacts": 1312,
+   "domains": 165,
+   "estates_by_crawl_context": 184,
+   "langs": {
+    "fr": 912,
+    "en": 365,
+    "?": 27,
+    "de": 6,
+    "zh": 2
+   },
+   "media": {
+    "html": 995,
+    "pdf": 313,
+    "text": 4
+   },
+   "top_domains": [
+    "mahler-besse.com",
+    "chateaudeferrand.com",
+    "denisdubourdieu.com",
+    "boyd-cantenac.com",
+    "chateaulamouline.com",
+    "chateau-palmer.com",
+    "chateau-arsac.com",
+    "chateaudauzac.com"
+   ],
+   "samples": [
+    {
+     "artifact": "0050a650c3628f1b",
+     "domain": "denisdubourdieu.com",
+     "context": "ra cerons exprime la douceur et la suavite caracteristiques des grands terroirs de vins liquoreux qui font la renommee de l'appellation cerons. le vignoble terroir : typique sol de graves surface en production : 13 hectares enc"
+    },
+    {
+     "artifact": "006b3527f711d239",
+     "domain": "denisdubourdieu.com",
+     "context": "ra cerons exprime la douceur et la suavite caracteristiques des grands terroirs de vins liquoreux qui font la renommee de l'appellation cerons. the vineyard terroir : typical of graves soil area : 13 hectares variety : 44 % mer"
+    },
+    {
+     "artifact": "00711fdbf60c1733",
+     "domain": "durfort-vivens.fr",
+     "context": "il et il s'y lance des 2009. en 2016, il obtient les certifications bio et biodynamie. chateau durfort-vivens devient le premier grand cru classe de margaux doublement certifie. les resultats sont probants : non seulement les s"
+    },
+    {
+     "artifact": "0085c3294ab40d36",
+     "domain": "chateaudescurac.com",
+     "context": "le was the name of a squire, heir to the estate of escurac. in 1740 after buying out his co-heirs’ shares, he became the owner of all of the fiefdom and lord of the escurac parish. in 1934 the landureau family fell in love wit"
+    },
+    {
+     "artifact": "00ee619673edf28d",
+     "domain": "pavie-macquin.com",
+     "context": "old-vine cabernet sauvignon. accueil the flavor of the land a search for balance and excellence a pioneer who became famous in saint-emilion the wines news pro area contact fr - en 2020 © pavie macquin | legal notices | nicola"
+    },
+    {
+     "artifact": "0104f95f419235b9",
+     "domain": "lynchbages.com",
+     "context": "s vins gagnent en regularite. le gout des rencontres pousse jean-michel a la conquete de nouveaux marches. il devient un veritable ambassadeur des vins du medoc a travers le monde et un pionnier dans le domaine de l’œnotourisme"
+    }
+   ]
+  },
+  "since_year": {
+   "mentions": 3644,
+   "artifacts": 2631,
+   "domains": 196,
+   "estates_by_crawl_context": 218,
+   "langs": {
+    "fr": 1662,
+    "en": 894,
+    "?": 61,
+    "zh": 9,
+    "pt": 4,
+    "ja": 1
+   },
+   "media": {
+    "html": 1665,
+    "pdf": 958,
+    "text": 7,
+    "office": 1
+   },
+   "top_domains": [
+    "grand-corbin-despagne.com",
+    "denisdubourdieu.com",
+    "latourmartillac.com",
+    "domainedechevalier.com",
+    "chateaupavie.com",
+    "chateau-rochebelle.com",
+    "mahler-besse.com",
+    "chateau-marquis-de-terme.com"
+   ],
+   "samples": [
+    {
+     "artifact": "0006b5dc90f0c59c",
+     "domain": "chateaubeauvillage.com",
+     "context": "s pruning of the vine: double guyot leaf thinning: mechanical system of vine cultivation: herbing in the rows since 1995 environmental certification: hve level 3 vinification & ageing harvest: mechanical with parcel collection sor"
+    },
+    {
+     "artifact": "00110de11039d265",
+     "domain": "grand-corbin-despagne.com",
+     "context": " 15 16 17 18 19 20 21 22 23 24 25 26 27 28 29 30 1 2 3 4 5 6 decouvrez nos vins famille despagne proprietaire depuis 1812 - agriculture biologique mentions legales ×"
+    },
+    {
+     "artifact": "0020dd70dcb50025",
+     "domain": "prieuredebeyzac.fr",
+     "context": "selection cadeaux d’affaires fetes de fin d’annee 2022 le chateau prieure de beyzac cru bourgeois depuis 2013, confirme en 2018 propriete familiale de nadine et eric charlassier 13ha76 sur croupe argilo-calcaire certifi"
+    },
+    {
+     "artifact": "00224123d1e3dd14",
+     "domain": "denisdubourdieu.com",
+     "context": " de bordeaux. tel : 05 56 62 96 51 - fax. : 05 56 62 14 89 - doisy-daene@wanadoo.fr - www.denisdubourdieu.com depuis 1996, en produisant, lors des annees favorables a la pourriture noble, un etonnant cadillac a dominante sauvignon,"
+    },
+    {
+     "artifact": "00329412ea90479e",
+     "domain": "chateau-rochebelle.com",
+     "context": "chateau rochebelle saint-emilion grand cru classe navigation principale depuis 1847 une histoire familiale l’emotion dans l’evasion une symbiose un terroir beni des dieux tout un savoir faire l"
+    },
+    {
+     "artifact": "00473800ae6e9db5",
+     "domain": "batailley.com",
+     "context": " the chateau lynch-moussas: it is made up of around twenty staff. didier chadourne has been technical manager since 2013 and manages the whole of the 180 hectares of the family’s vineyards in the medoc, as well as forests. in 2022"
+    }
+   ]
+  },
+  "until": {
+   "mentions": 399,
+   "artifacts": 301,
+   "domains": 78,
+   "estates_by_crawl_context": 86,
+   "langs": {
+    "fr": 164,
+    "en": 122,
+    "?": 8,
+    "ja": 3,
+    "zh": 2,
+    "de": 1,
+    "es": 1
+   },
+   "media": {
+    "html": 207,
+    "pdf": 94
+   },
+   "top_domains": [
+    "denisdubourdieu.com",
+    "chateaubeauvillage.com",
+    "tour-blanche.com",
+    "chateaubistonbrillette.fr",
+    "trottevieille.com",
+    "cave-listrac-medoc.com",
+    "haut-bailly.com",
+    "chateau-couhins-lurton.com"
+   ],
+   "samples": [
+    {
+     "artifact": "0104f95f419235b9",
+     "domain": "lynchbages.com",
+     "context": " au niveau superieur, au moyen d’un treuil, puis deversee dans chacune des cuves. le chai gravitaire utilisee jusqu’en 1976, l’installation du xixe siecle, miraculeusement intacte et soigneusement preservee a lynch-bages, represente "
+    },
+    {
+     "artifact": "0104f95f419235b9",
+     "domain": "lynchbages.com",
+     "context": "nch-bages, represente aujourd’hui un tableau complet des techniques de vinification de cette epoque. utilisee jusqu’en 1976, l’installation du xixe siecle, miraculeusement intacte et soigneusement preservee a lynch-bages, represente "
+    },
+    {
+     "artifact": "0134bbfa8e3b346b",
+     "domain": "chateaubistonbrillette.fr",
+     "context": " tanins veloutes, avec une finale des soupcons de fumee et de sous-bois sur la finale. a boire des maintenant jusqu'en 2017. erobertparker.com par neal martin le biston-brillette 2011 a un bouquet net et frais avec des senteurs de ha"
+    },
+    {
+     "artifact": "01b0141436d70eb0",
+     "domain": "pontoise-cabarrus.com",
+     "context": "ssement des crus bourgeois en 2003 puis celui de 2010 qui recompensera annuellement le travail d’une vendange jusqu’au millesime 2017. il remportera meme la coupe des crus bourgeois avec son millesime 2010 et 2013. etiquette de la propriete en"
+    },
+    {
+     "artifact": "0227ded46ecfdb98",
+     "domain": "haut-bailly.com",
+     "context": " chateau » ; et elle retrouve le point - touche de modernite - qui existait sur les etiquettes de haut-bailly jusqu’en 1985. la pointe de rouge, assortie a la capsule est synonyme d’energie et d’elegance discrete. les lots choisis po"
+    },
+    {
+     "artifact": "028350ca8e500eb2",
+     "domain": "chateaucoutet.com",
+     "context": "galement a l’epoque les chateaux d’yquem, de fargues, filhot et de malle. chateau coutet demeure sa propriete jusqu’en 1924. 1855 le classement faisant suite aux classifications informelles, le classement de 1855, commande par napole"
+    }
+   ]
+  }
+ },
+ "classification": {
+  "graves_colour": {
+   "mentions": 395,
+   "artifacts": 189,
+   "domains": 8,
+   "estates_by_crawl_context": 8,
+   "langs": {
+    "fr": 170,
+    "en": 19
+   },
+   "media": {
+    "html": 150,
+    "pdf": 31,
+    "text": 8
+   },
+   "top_domains": [
+    "chateau-bouscaut.com",
+    "chateau-olivier.com",
+    "domainedechevalier.com",
+    "carbonnieux.com",
+    "malartic-lagraviere.com",
+    "latourmartillac.com",
+    "chateau-couhins-lurton.com",
+    "chateaumicalet.fr"
+   ],
+   "samples": [
+    {
+     "artifact": "002d0364daa1e96d",
+     "domain": "carbonnieux.com",
+     "context": " : boutique en ligne du chateau carbonnieux titre a afficher : chateau carbonnieux classification aoc : grand cru classe de graves appellation origine : pessac-leognan robe du vin : rouge conditionnement : caisse bois de nombre de bouteilles par boite : 3 format de la bouteille : magnum, magnum #"
+    },
+    {
+     "artifact": "03ac96c6018acd00",
+     "domain": "chateau-olivier.com",
+     "context": " produits ouvrir le media 1 dans une fenetre modale 1 / de 1 chateau olivier chateau olivier rouge 2018 grand cru classe de graves chateau olivier rouge 2018 grand cru classe de graves prix habituel €36,00 eur prix habituel prix promotionnel €36,00 eur prix unit"
+    },
+    {
+     "artifact": "03ac96c6018acd00",
+     "domain": "chateau-olivier.com",
+     "context": "e epuisee ou indisponible quantite (0 dans le panier) reduire la quantite de chateau olivier rouge 2018 grand cru classe de graves augmenter la quantite de chateau olivier rouge 2018 grand cru classe de graves ajouter au panier assemblage 50% cabernet sauvignon 46% merlot 4% petit verdo"
+    },
+    {
+     "artifact": "04e91065cd65bcc2",
+     "domain": "chateau-bouscaut.com",
+     "context": "e commande. assurance incluse. decouvrez nos autres bouteilles nos vins nos vins chateau bouscaut rouge grand cru classe de graves 39,00 € en savoir plus chateau bouscaut blanc grand cru classe de graves 40,00 € en savoir plus les chenes de bouscaut rouge pessac-leognan 20,00 € en savo"
+    },
+    {
+     "artifact": "04e91065cd65bcc2",
+     "domain": "chateau-bouscaut.com",
+     "context": "os vins chateau bouscaut rouge grand cru classe de graves 39,00 € en savoir plus chateau bouscaut blanc grand cru classe de graves 40,00 € en savoir plus les chenes de bouscaut rouge pessac-leognan 20,00 € en savoir plus les chenes de bouscaut blanc pessac-leognan 21,00 € en savoir plus faq "
+    },
+    {
+     "artifact": "053a471ffb643e0a",
+     "domain": "chateau-bouscaut.com",
+     "context": "te mon compte connexion s'inscrire mon panier 0 accueil chateau bouscaut blanc  chateau bouscaut blanc grand cru classe de graves assemblage : 68% sauvignon blanc - 32% semillon notes de degustation : blanc sec vinifie et eleve en barriques de chene francais. fruits blanc"
+    }
+   ]
+  }
+ },
+ "cooccurrence": {
+  "second_with_young_vines": 171,
+  "plot_with_second": 101,
+  "plot_with_grand": 75,
+  "prestige_with_grand": 0
+ },
+ "appellation_per_site": {
+  "sites_stating_an_appellation": 120,
+  "sites_with_two_or_more_recurring_values": 57,
+  "examples": {
+   "antoinemoueix.com": {
+    "haut medoc": 12,
+    "medoc": 10,
+    "bordeaux superieur": 6,
+    "saint emilion grand cru": 6
+   },
+   "barton-guestier.com": {
+    "chateau magnol": 82,
+    "appellation haut medoc controlee": 4,
+    "vin de france": 2,
+    "prince noir": 1
+   },
+   "boyd-cantenac.com": {
+    "a partir de": 112,
+    "un terroir d excellence": 2,
+    "from": 1
+   },
+   "cave-listrac-medoc.com": {
+    "grand listrac des 9 90 la bouteille choix des options": 244,
+    "route de soulac 9 00 la bouteille 100 merlot lire la suite": 244,
+    "chateau guitignan des 17 la bouteille cru bourgeois choix de": 244,
+    "mon compte": 2
+   },
+   "chateau-barateau.com": {
+    "haut medoc4": 6,
+    "listrac medoc": 4,
+    "aoc haut medoc": 4,
+    "aoc listrac medoc": 3
+   },
+   "chateau-boutisse.fr": {
+    "2009": 3,
+    "2003": 3
+   },
+   "chateau-chantemerle.com": {
+    "medoc": 22,
+    "chateau tour lestage": 7,
+    "la perle": 7,
+    "le vin d chai nous rouge": 4
+   },
+   "chateau-climens.com": {
+    "1er cru barsac": 24,
+    "bordeaux blanc sec": 18,
+    "barsac sauternes": 3,
+    "bordeaux": 1
+   },
+   "chateau-destieux.com": {
+    "saint emilion grand cru classe": 15,
+    "saint emilion": 9
+   },
+   "chateau-faugeres.fr": {
+    "saint emilion grand cru": 3,
+    "sauternes": 3,
+    "saint emilion grand cru classe": 2,
+    "saint emilion": 1
+   },
+   "chateau-fombrauge.fr": {
+    "pessac leognan": 8,
+    "saint emilion grand cru": 2,
+    "bordeaux blanc": 2,
+    "medoc": 2
+   },
+   "chateau-grand-brun.com": {
+    "aoc haut medoc cru artisan": 20,
+    "bordeaux superieur bib 5 l": 6,
+    "bordeaux superieur bib 3 l": 6,
+    "aoc bordeaux superieur": 6
+   }
+  }
+ },
+ "document_dating": {
+  "pdfs": 7197,
+  "pdfs_with_metadata_date": 6683,
+  "pdfs_with_upload_path_date": 5074,
+  "fetches_with_last_modified": 11471,
+  "artifacts_with_url_or_title_year": 15508,
+  "artifacts": 29517
+ },
+ "taxonomy": {
+  "IDENTITY_CONTACT": {
+   "observations": 9031,
+   "artifacts": 4852,
+   "domains": 180,
+   "distinct_labels": 91,
+   "top_labels": [
+    "tel",
+    "email",
+    "phone",
+    "mail",
+    "telephone",
+    "fax",
+    "e mail",
+    "电话"
+   ],
+   "share_numeric": 0.002,
+   "share_in_pdfs": 0.363,
+   "share_in_vintage_documents": 0.62,
+   "median_value_length": 23,
+   "langs": {
+    "fr": 5720,
+    "en": 2537,
+    "zh": 223,
+    "?": 209,
+    "de": 183
+   }
+  },
+  "LEGAL_ENTITY": {
+   "observations": 835,
+   "artifacts": 526,
+   "domains": 127,
+   "distinct_labels": 52,
+   "top_labels": [
+    "design",
+    "siret",
+    "head office",
+    "siege social",
+    "hebergeur",
+    "directeur de la publication",
+    "responsable publication",
+    "capital social"
+   ],
+   "share_numeric": 0.0,
+   "share_in_pdfs": 0.092,
+   "share_in_vintage_documents": 0.224,
+   "median_value_length": 18,
+   "langs": {
+    "fr": 506,
+    "en": 286,
+    "de": 31,
+    "ja": 4,
+    "zh": 3
+   }
+  },
+  "PRIVACY_LEGAL_TEXT": {
+   "observations": 453,
+   "artifacts": 151,
+   "domains": 73,
+   "distinct_labels": 40,
+   "top_labels": [
+    "utilisateur",
+    "informations personnelles",
+    "google analytics",
+    "droit d acces",
+    "droit d opposition",
+    "sous internet explorer",
+    "sous firefox",
+    "sous safari"
+   ],
+   "share_numeric": 0.015,
+   "share_in_pdfs": 0.009,
+   "share_in_vintage_documents": 0.035,
+   "median_value_length": 64,
+   "langs": {
+    "fr": 355,
+    "en": 95,
+    "ja": 2,
+    "de": 1
+   }
+  },
+  "OWNERSHIP_PEOPLE": {
+   "observations": 2315,
+   "artifacts": 1265,
+   "domains": 83,
+   "distinct_labels": 48,
+   "top_labels": [
+    "proprietaire",
+    "owner",
+    "maitre de chai",
+    "directeur technique",
+    "chef de culture",
+    "oenologue conseil",
+    "cellar master",
+    "famille"
+   ],
+   "share_numeric": 0.0,
+   "share_in_pdfs": 0.687,
+   "share_in_vintage_documents": 0.847,
+   "median_value_length": 17,
+   "langs": {
+    "fr": 1421,
+    "en": 853,
+    "?": 33,
+    "pt": 5,
+    "es": 2
+   }
+  },
+  "CLASSIFICATION": {
+   "observations": 1851,
+   "artifacts": 1053,
+   "domains": 84,
+   "distinct_labels": 52,
+   "top_labels": [
+    "cru artisan",
+    "classification",
+    "cru bourgeois",
+    "grand cru classe",
+    "cru bourgeois exceptionnel",
+    "cru bourgeois superieur",
+    "cru artisan du medoc",
+    "classement de saint emilion"
+   ],
+   "share_numeric": 0.022,
+   "share_in_pdfs": 0.189,
+   "share_in_vintage_documents": 0.399,
+   "median_value_length": 25,
+   "langs": {
+    "fr": 1421,
+    "en": 403,
+    "?": 23,
+    "zh": 2,
+    "es": 1
+   }
+  },
+  "APPELLATION": {
+   "observations": 4302,
+   "artifacts": 2571,
+   "domains": 120,
+   "distinct_labels": 118,
+   "top_labels": [
+    "appellation",
+    "aoc margaux",
+    "aoc haut medoc",
+    "aoc saint julien",
+    "aoc listrac medoc",
+    "aoc moulis en medoc",
+    "aoc",
+    "aoc medoc"
+   ],
+   "share_numeric": 0.066,
+   "share_in_pdfs": 0.318,
+   "share_in_vintage_documents": 0.523,
+   "median_value_length": 18,
+   "langs": {
+    "fr": 3257,
+    "en": 904,
+    "?": 106,
+    "de": 17,
+    "zh": 13
+   }
+  },
+  "VINEYARD_AREA": {
+   "observations": 5034,
+   "artifacts": 3524,
+   "domains": 155,
+   "distinct_labels": 156,
+   "top_labels": [
+    "surface",
+    "superficie",
+    "vineyard",
+    "vignoble",
+    "vineyard management",
+    "surface area",
+    "area under vines",
+    "area"
+   ],
+   "share_numeric": 0.77,
+   "share_in_pdfs": 0.524,
+   "share_in_vintage_documents": 0.768,
+   "median_value_length": 14,
+   "langs": {
+    "fr": 2678,
+    "en": 2154,
+    "?": 152,
+    "zh": 34,
+    "es": 16
+   }
+  },
+  "SOIL_TERROIR": {
+   "observations": 5620,
+   "artifacts": 4456,
+   "domains": 150,
+   "distinct_labels": 95,
+   "top_labels": [
+    "terroir",
+    "soil",
+    "sols",
+    "sol",
+    "terroir vigne",
+    "soil type",
+    "terroir vineyard",
+    "terroir savoir faire"
+   ],
+   "share_numeric": 0.088,
+   "share_in_pdfs": 0.457,
+   "share_in_vintage_documents": 0.722,
+   "median_value_length": 22,
+   "langs": {
+    "fr": 3240,
+    "en": 2186,
+    "?": 166,
+    "de": 23,
+    "es": 2
+   }
+  },
+  "PLANTING": {
+   "observations": 11136,
+   "artifacts": 4581,
+   "domains": 159,
+   "distinct_labels": 164,
+   "top_labels": [
+    "merlot",
+    "cabernet sauvignon",
+    "encepagement",
+    "cabernet franc",
+    "age moyen des vignes",
+    "grape varieties",
+    "densite de plantation",
+    "petit verdot"
+   ],
+   "share_numeric": 0.716,
+   "share_in_pdfs": 0.534,
+   "share_in_vintage_documents": 0.762,
+   "median_value_length": 12,
+   "langs": {
+    "fr": 6715,
+    "en": 4049,
+    "?": 199,
+    "zh": 165,
+    "es": 3
+   }
+  },
+  "VITICULTURE": {
+   "observations": 1334,
+   "artifacts": 1000,
+   "domains": 45,
+   "distinct_labels": 27,
+   "top_labels": [
+    "taille",
+    "pruning",
+    "effeuillage",
+    "conduite du vignoble",
+    "viticulture",
+    "pruning type",
+    "taille du vignoble",
+    "pruning system"
+   ],
+   "share_numeric": 0.05,
+   "share_in_pdfs": 0.415,
+   "share_in_vintage_documents": 0.846,
+   "median_value_length": 29,
+   "langs": {
+    "fr": 863,
+    "en": 424,
+    "?": 24,
+    "zh": 23
+   }
+  },
+  "HARVEST_VINTAGE": {
+   "observations": 12343,
+   "artifacts": 6925,
+   "domains": 188,
+   "distinct_labels": 382,
+   "top_labels": [
+    "millesime",
+    "harvest",
+    "rendement",
+    "vintage",
+    "vendanges",
+    "harvest dates",
+    "yield",
+    "climat"
+   ],
+   "share_numeric": 0.191,
+   "share_in_pdfs": 0.444,
+   "share_in_vintage_documents": 0.638,
+   "median_value_length": 17,
+   "langs": {
+    "fr": 6827,
+    "en": 4983,
+    "?": 450,
+    "zh": 50,
+    "nl": 17
+   }
+  },
+  "WINEMAKING": {
+   "observations": 6558,
+   "artifacts": 3922,
+   "domains": 157,
+   "distinct_labels": 225,
+   "top_labels": [
+    "vinification",
+    "winemaking",
+    "fermentation",
+    "temperature de service",
+    "vinification elevage",
+    "temperature de degustation",
+    "fermentation temperature",
+    "vinification et elevage"
+   ],
+   "share_numeric": 0.301,
+   "share_in_pdfs": 0.496,
+   "share_in_vintage_documents": 0.657,
+   "median_value_length": 33,
+   "langs": {
+    "fr": 3849,
+    "en": 2449,
+    "?": 232,
+    "nl": 16,
+    "de": 5
+   }
+  },
+  "ELEVAGE": {
+   "observations": 6704,
+   "artifacts": 4439,
+   "domains": 172,
+   "distinct_labels": 114,
+   "top_labels": [
+    "elevage",
+    "ageing",
+    "aging",
+    "aging potential",
+    "barriques neuves",
+    "duree",
+    "ageing potential",
+    "duration"
+   ],
+   "share_numeric": 0.757,
+   "share_in_pdfs": 0.444,
+   "share_in_vintage_documents": 0.643,
+   "median_value_length": 33,
+   "langs": {
+    "fr": 3776,
+    "en": 2674,
+    "?": 230,
+    "nl": 17,
+    "zh": 3
+   }
+  },
+  "BLEND": {
+   "observations": 14863,
+   "artifacts": 5387,
+   "domains": 135,
+   "distinct_labels": 171,
+   "top_labels": [
+    "assemblage",
+    "blend",
+    "assemblage final",
+    "assemblage merlot noir",
+    "assemblage semillon",
+    "blend semillon",
+    "blend sauvignon blanc",
+    "assemblage sauvignon blanc"
+   ],
+   "share_numeric": 0.943,
+   "share_in_pdfs": 0.199,
+   "share_in_vintage_documents": 0.314,
+   "median_value_length": 47,
+   "langs": {
+    "fr": 10493,
+    "en": 3915,
+    "?": 285,
+    "ja": 72,
+    "zh": 57
+   }
+  },
+  "BOTTLING_PRODUCTION": {
+   "observations": 5509,
+   "artifacts": 3675,
+   "domains": 141,
+   "distinct_labels": 128,
+   "top_labels": [
+    "production",
+    "format de bouteille",
+    "mise en bouteille",
+    "bottling",
+    "bouteilles",
+    "contenance",
+    "poids",
+    "production moyenne"
+   ],
+   "share_numeric": 0.314,
+   "share_in_pdfs": 0.349,
+   "share_in_vintage_documents": 0.597,
+   "median_value_length": 17,
+   "langs": {
+    "fr": 3780,
+    "en": 1396,
+    "?": 246,
+    "zh": 42,
+    "es": 27
+   }
+  },
+  "ANALYTICAL": {
+   "observations": 4955,
+   "artifacts": 3253,
+   "domains": 128,
+   "distinct_labels": 170,
+   "top_labels": [
+    "degre",
+    "alcool",
+    "alcohol",
+    "degre d alcool",
+    "ph",
+    "degre alcoolique",
+    "alcohol content",
+    "酒精度"
+   ],
+   "share_numeric": 0.558,
+   "share_in_pdfs": 0.528,
+   "share_in_vintage_documents": 0.739,
+   "median_value_length": 6,
+   "langs": {
+    "fr": 2915,
+    "en": 1436,
+    "?": 298,
+    "zh": 284,
+    "nl": 18
+   }
+  },
+  "TASTING": {
+   "observations": 10079,
+   "artifacts": 1773,
+   "domains": 83,
+   "distinct_labels": 89,
+   "top_labels": [
+    "notes de degustation",
+    "degustation",
+    "tasting notes",
+    "tasting",
+    "bouche",
+    "nez",
+    "couleur",
+    "nose"
+   ],
+   "share_numeric": 0.006,
+   "share_in_pdfs": 0.075,
+   "share_in_vintage_documents": 0.104,
+   "median_value_length": 57,
+   "langs": {
+    "fr": 7492,
+    "en": 2522,
+    "zh": 22,
+    "?": 20,
+    "es": 19
+   }
+  },
+  "SERVICE_AGEING": {
+   "observations": 4992,
+   "artifacts": 2784,
+   "domains": 127,
+   "distinct_labels": 201,
+   "top_labels": [
+    "service tasting",
+    "garde",
+    "service et degustation",
+    "accords mets et vins",
+    "service",
+    "accords mets vins",
+    "food pairing",
+    "food and wine pairing"
+   ],
+   "share_numeric": 0.207,
+   "share_in_pdfs": 0.153,
+   "share_in_vintage_documents": 0.623,
+   "median_value_length": 37,
+   "langs": {
+    "fr": 3052,
+    "en": 1815,
+    "zh": 47,
+    "?": 40,
+    "ru": 24
+   }
+  },
+  "PRESS_SCORES": {
+   "observations": 4370,
+   "artifacts": 1025,
+   "domains": 86,
+   "distinct_labels": 342,
+   "top_labels": [
+    "note",
+    "score",
+    "james suckling",
+    "jean marc quarin",
+    "la revue du vin de france",
+    "bettane desseauve",
+    "terre de vins bordeaux primeurs",
+    "yves beck"
+   ],
+   "share_numeric": 0.004,
+   "share_in_pdfs": 0.603,
+   "share_in_vintage_documents": 0.804,
+   "median_value_length": 8,
+   "langs": {
+    "fr": 2275,
+    "en": 1605,
+    "?": 325,
+    "zh": 129,
+    "ja": 15
+   }
+  },
+  "COMMERCIAL": {
+   "observations": 2640,
+   "artifacts": 1372,
+   "domains": 77,
+   "distinct_labels": 72,
+   "top_labels": [
+    "livraison securisee",
+    "secure delivery",
+    "prix unitaire",
+    "prix",
+    "tarif",
+    "availability",
+    "price",
+    "livraison"
+   ],
+   "share_numeric": 0.02,
+   "share_in_pdfs": 0.072,
+   "share_in_vintage_documents": 0.23,
+   "median_value_length": 56,
+   "langs": {
+    "fr": 2250,
+    "en": 348,
+    "?": 41,
+    "zh": 1
+   }
+  },
+  "TOURISM": {
+   "observations": 273,
+   "artifacts": 193,
+   "domains": 53,
+   "distinct_labels": 75,
+   "top_labels": [
+    "reservation",
+    "opening hours",
+    "visite",
+    "ouvert d avril a octobre",
+    "ouvert de novembre a mars",
+    "ouverture",
+    "languages",
+    "opening"
+   ],
+   "share_numeric": 0.092,
+   "share_in_pdfs": 0.092,
+   "share_in_vintage_documents": 0.282,
+   "median_value_length": 30,
+   "langs": {
+    "fr": 202,
+    "en": 67,
+    "?": 4
+   }
+  },
+  "SUSTAINABILITY": {
+   "observations": 182,
+   "artifacts": 97,
+   "domains": 23,
+   "distinct_labels": 35,
+   "top_labels": [
+    "label et certification",
+    "label and certification",
+    "certification",
+    "certifications environnementales",
+    "certification environnementale",
+    "certifications",
+    "label",
+    "labels"
+   ],
+   "share_numeric": 0.016,
+   "share_in_pdfs": 0.687,
+   "share_in_vintage_documents": 0.659,
+   "median_value_length": 32,
+   "langs": {
+    "fr": 97,
+    "en": 85
+   }
+  },
+  "HISTORY": {
+   "observations": 34,
+   "artifacts": 34,
+   "domains": 15,
+   "distinct_labels": 12,
+   "top_labels": [
+    "origine",
+    "histoire",
+    "historique",
+    "histoire du chateau lamothe bergeron",
+    "historique une convergence de quatre univers",
+    "histoire du viticulteur",
+    "histoire patrimoine",
+    "origine ancienne"
+   ],
+   "share_numeric": 0.029,
+   "share_in_pdfs": 0.324,
+   "share_in_vintage_documents": 0.618,
+   "median_value_length": 21,
+   "langs": {
+    "fr": 32,
+    "en": 2
+   }
+  },
+  "UNCLASSIFIED": {
+   "observations": 48169,
+   "artifacts": 13010,
+   "domains": 231,
+   "distinct_labels": 10052,
+   "top_labels": [
+    "caisses bois",
+    "date",
+    "pays",
+    "nord",
+    "west",
+    "lat",
+    "long",
+    "magnum 1 5l"
+   ],
+   "share_numeric": 0.092,
+   "share_in_pdfs": 0.349,
+   "share_in_vintage_documents": 0.542,
+   "median_value_length": 21,
+   "langs": {
+    "fr": 27491,
+    "en": 12558,
+    "zh": 4085,
+    "?": 1494,
+    "es": 917
+   }
+  }
+ },
+ "fiche_families": {
+  "sheet_like_pdfs": 4462,
+  "families": 849,
+  "families_with_3_or_more": 278,
+  "largest_family_sizes": [
+   211,
+   107,
+   104,
+   66,
+   63,
+   62,
+   56,
+   53,
+   52,
+   52,
+   49,
+   47,
+   47,
+   45,
+   43
+  ],
+  "domains_with_a_family_of_3_or_more": 92,
+  "domains_with_several_families": 69,
+  "families_spanning_languages": 27,
+  "label_sets_shared_by_several_domains": 0
+ },
+ "language_versions": {
+  "pdf_groups_differing_only_by_language_token": 897,
+  "pdfs_in_them": 1873,
+  "groups_with_analytical_disagreement": 11,
+  "examples": [
+   {
+    "domain": "carbonnieux.com",
+    "document": "Fiche-technique-primeurs-2025-#-1",
+    "field": "yield",
+    "values": [
+     25.0,
+     28.0
+    ]
+   },
+   {
+    "domain": "larcis-ducasse.com",
+    "document": "Murmure-#-LD-2018-#",
+    "field": "alc",
+    "values": [
+     14.0,
+     14.5
+    ]
+   },
+   {
+    "domain": "prieure-lichine.fr",
+    "document": "Fiche-technique-CPL-2010-#",
+    "field": "yield",
+    "values": [
+     32.0,
+     37.0
+    ]
+   },
+   {
+    "domain": "prieure-lichine.fr",
+    "document": "Fiche-technique-CPL-2011-#",
+    "field": "yield",
+    "values": [
+     32.0,
+     35.0
+    ]
+   },
+   {
+    "domain": "prieure-lichine.fr",
+    "document": "Fiche-technique-CPL-2020-#",
+    "field": "yield",
+    "values": [
+     32.0,
+     34.0
+    ]
+   },
+   {
+    "domain": "prieure-lichine.fr",
+    "document": "Fiche-technique-CPL-2022-#",
+    "field": "yield",
+    "values": [
+     32.0,
+     34.0
+    ]
+   },
+   {
+    "domain": "prieure-lichine.fr",
+    "document": "Fiche-technique-CPL-2023-#",
+    "field": "yield",
+    "values": [
+     40.0,
+     43.0
+    ]
+   },
+   {
+    "domain": "prieure-lichine.fr",
+    "document": "Fiche-technique-Confidences-2021-#",
+    "field": "yield",
+    "values": [
+     36.0,
+     40.0
+    ]
+   },
+   {
+    "domain": "smith-haut-lafitte.com",
+    "document": "2019-SHL-Rouge-#",
+    "field": "yield",
+    "values": [
+     21.0,
+     36.0
+    ]
+   },
+   {
+    "domain": "smith-haut-lafitte.com",
+    "document": "2021-HDS-BLANC-#",
+    "field": "yield",
+    "values": [
+     23.0,
+     29.0
+    ]
+   },
+   {
+    "domain": "vignobles-bernaleau.com",
+    "document": "FT-Ch-Mongravey-2022-#",
+    "field": "yield",
+    "values": [
+     35.0,
+     36.0
+    ]
+   }
+  ]
+ },
+ "legal_entity": {
+  "labels": {
+   "capital social": {
+    "observations": 28,
+    "domains": 16
+   },
+   "company": {
+    "observations": 24,
+    "domains": 17
+   },
+   "directeur de la publication": {
+    "observations": 40,
+    "domains": 32
+   },
+   "forme juridique": {
+    "observations": 18,
+    "domains": 14
+   },
+   "head office": {
+    "observations": 72,
+    "domains": 12
+   },
+   "hebergeur": {
+    "observations": 52,
+    "domains": 28
+   },
+   "n siret": {
+    "observations": 17,
+    "domains": 12
+   },
+   "n tva": {
+    "observations": 27,
+    "domains": 16
+   },
+   "raison sociale": {
+    "observations": 5,
+    "domains": 4
+   },
+   "rcs": {
+    "observations": 16,
+    "domains": 9
+   },
+   "registered office": {
+    "observations": 21,
+    "domains": 12
+   },
+   "responsable publication": {
+    "observations": 39,
+    "domains": 22
+   },
+   "share capital": {
+    "observations": 17,
+    "domains": 13
+   },
+   "siege social": {
+    "observations": 62,
+    "domains": 42
+   },
+   "siret": {
+    "observations": 116,
+    "domains": 42
+   },
+   "tva intracommunautaire": {
+    "observations": 12,
+    "domains": 8
+   }
+  },
+  "company_forms_in_values": {
+   "sas": 24,
+   "societe": 17,
+   "sarl": 8,
+   "earl": 5,
+   "scea": 5,
+   "sc": 2,
+   "sasu": 1
+  },
+  "domains_with_any_legal_label": 115
+ },
+ "shared_sources": {
+  "multi_estate_artifacts": 519,
+  "by_media": {
+   "html": 495,
+   "pdf": 24
+  },
+  "domains_serving_several_targets": 25,
+  "artifacts_found_on_several_domains": 688
+ },
+ "named_cases": {
+  "bouscaut blanc": {
+   "artifacts": 133,
+   "mentions": 446,
+   "domains": {
+    "chateau-bouscaut.com": 133
+   },
+   "document_years": [
+    2020,
+    2021
+   ],
+   "samples": [
+    {
+     "artifact": "04e91065cd65bcc2",
+     "url": "https://shop.chateau-bouscaut.com/fr/accueil/90-chateau-bouscaut-rouge.html?SubmitCountry=1&id_country=124",
+     "context": "commande. assurance incluse. decouvrez nos autres bouteilles nos vins nos vins chateau bouscaut rouge grand cru classe de graves 39,00 € en savoir plus chateau bouscaut blanc grand cru classe de graves 40,00 € en savoir plus les chenes de bouscaut rouge pessac-leognan 20,00 € en savoir plus les chenes de bouscaut blanc pessac-leognan 21,00 € en savoir plus f"
+    },
+    {
+     "artifact": "053a471ffb643e0a",
+     "url": "https://shop.chateau-bouscaut.com/fr/accueil/96-chateau-bouscaut-blanc.html?SubmitCountry=1&id_country=239",
+     "context": "tin (sint maarten, nl) serbie singapour slovaquie slovenie suede suisse taiwan tchequie mon compte mon compte connexion s'inscrire mon panier 0 accueil chateau bouscaut blanc  chateau bouscaut blanc grand cru classe de graves assemblage : 68% sauvignon blanc - 32% semillon notes de degustation : blanc sec vinifie et eleve en barriques de chene francais. fru"
+    },
+    {
+     "artifact": "08fcfdb6b9d52caf",
+     "url": "https://shop.chateau-bouscaut.com/fr/accueil/90-chateau-bouscaut-rouge.html?SubmitCountry=1&id_country=76",
+     "context": "commande. assurance incluse. decouvrez nos autres bouteilles nos vins nos vins chateau bouscaut rouge grand cru classe de graves 39,00 € en savoir plus chateau bouscaut blanc grand cru classe de graves 40,00 € en savoir plus les chenes de bouscaut rouge pessac-leognan 20,00 € en savoir plus les chenes de bouscaut blanc pessac-leognan 21,00 € en savoir plus f"
+    },
+    {
+     "artifact": "0920ecba0d2b73bf",
+     "url": "https://shop.chateau-bouscaut.com/fr/accueil/90-chateau-bouscaut-rouge.html?SubmitCountry=1&id_country=184",
+     "context": "commande. assurance incluse. decouvrez nos autres bouteilles nos vins nos vins chateau bouscaut rouge grand cru classe de graves 39,00 € en savoir plus chateau bouscaut blanc grand cru classe de graves 40,00 € en savoir plus les chenes de bouscaut rouge pessac-leognan 20,00 € en savoir plus les chenes de bouscaut blanc pessac-leognan 21,00 € en savoir plus f"
+    },
+    {
+     "artifact": "09721886c15a48e0",
+     "url": "https://shop.chateau-bouscaut.com/fr/accueil/90-chateau-bouscaut-rouge.html?SubmitCountry=1&id_country=55",
+     "context": "commande. assurance incluse. decouvrez nos autres bouteilles nos vins nos vins chateau bouscaut rouge grand cru classe de graves 39,00 € en savoir plus chateau bouscaut blanc grand cru classe de graves 40,00 € en savoir plus les chenes de bouscaut rouge pessac-leognan 20,00 € en savoir plus les chenes de bouscaut blanc pessac-leognan 21,00 € en savoir plus f"
+    },
+    {
+     "artifact": "09a49cfe1dc54ca2",
+     "url": "https://www.chateau-bouscaut.com/upload/files/1620219670.pdf",
+     "context": "chateau bouscaut blanc 2015 vendanges fiche technique grand cru classe de graves appellation : pessac-leognan proprietaire : famille lurton-cogombles age des vignes : 35 ans terroir : argile sur socle calcair"
+    }
+   ]
+  },
+  "carbonnieux blanc": {
+   "artifacts": 60,
+   "mentions": 137,
+   "domains": {
+    "carbonnieux.com": 60
+   },
+   "document_years": [
+    1956,
+    2019,
+    2020,
+    2022,
+    2023,
+    2024,
+    2025,
+    2026
+   ],
+   "samples": [
+    {
+     "artifact": "1e356ee8923c274c",
+     "url": "https://boutique.carbonnieux.com/produit/chateau-carbonnieux-rouge/?attribute_millesimes=2019",
+     "context": "le chateau l’histoire le terroir, le vignoble les secrets de chai les engagements les vins l’ensemble des vins du domaine chateau carbonnieux blanc magnum de carbonnieux blanc 1741 de carbonnieux chateau carbonnieux rouge magnum de carbonnieux rouge la croix de carbonnieux blanc la croix de carbonnieux rouge chateau tour leognan"
+    },
+    {
+     "artifact": "1f800bfdd4c64518",
+     "url": "https://boutique.carbonnieux.com/produit/chateau-carbonnieux-rouge/",
+     "context": "le chateau l’histoire le terroir, le vignoble les secrets de chai les engagements les vins l’ensemble des vins du domaine chateau carbonnieux blanc magnum de carbonnieux blanc 1741 de carbonnieux chateau carbonnieux rouge magnum de carbonnieux rouge la croix de carbonnieux blanc la croix de carbonnieux rouge chateau tour leognan"
+    },
+    {
+     "artifact": "217c660e17bc67d5",
+     "url": "https://carbonnieux.com/les-vins/lenclos-de-carbonnieux/?wine=white",
+     "context": "le chateau l’histoire le terroir, le vignoble les secrets de chai les engagements les vins l’ensemble des vins du domaine chateau carbonnieux rouge chateau carbonnieux blanc 1741 de carbonnieux la croix de carbonnieux l’enclos de carbonnieux chateau tour leognan l’œnotourisme les visites les receptions les actualites la boutique en ligne contact espace p"
+    },
+    {
+     "artifact": "2e32118e5731bb9c",
+     "url": "https://boutique.carbonnieux.com/produit/la-croix-de-carbonnieux-rouge/",
+     "context": "le chateau l’histoire le terroir, le vignoble les secrets de chai les engagements les vins l’ensemble des vins du domaine chateau carbonnieux blanc magnum de carbonnieux blanc 1741 de carbonnieux chateau carbonnieux rouge magnum de carbonnieux rouge la croix de carbonnieux blanc la croix de carbonnieux rouge chateau tour leognan"
+    },
+    {
+     "artifact": "2f76c05a12ce6c83",
+     "url": "https://boutique.carbonnieux.com/produit/chateau-carbonnieux-blanc/?attribute_millesimes=2024",
+     "context": "le chateau l’histoire le terroir, le vignoble les secrets de chai les engagements les vins l’ensemble des vins du domaine chateau carbonnieux blanc magnum de carbonnieux blanc 1741 de carbonnieux chateau carbonnieux rouge magnum de carbonnieux rouge la croix de carbonnieux blanc la croix de carbonnieux rouge chateau tour leognan"
+    },
+    {
+     "artifact": "318cc59bc116cc2a",
+     "url": "https://carbonnieux.com/politique-de-cookies-ue/",
+     "context": "le chateau l’histoire le terroir, le vignoble les secrets de chai les engagements les vins l’ensemble des vins du domaine chateau carbonnieux rouge chateau carbonnieux blanc 1741 de carbonnieux la croix de carbonnieux l’enclos de carbonnieux chateau tour leognan l’œnotourisme les visites les receptions les actualites la boutique en ligne contact espace p"
+    }
+   ]
+  },
+  "chateau bouscaut blanc": {
+   "artifacts": 133,
+   "mentions": 302,
+   "domains": {
+    "chateau-bouscaut.com": 133
+   },
+   "document_years": [
+    2020,
+    2021
+   ],
+   "samples": [
+    {
+     "artifact": "04e91065cd65bcc2",
+     "url": "https://shop.chateau-bouscaut.com/fr/accueil/90-chateau-bouscaut-rouge.html?SubmitCountry=1&id_country=124",
+     "context": "e votre commande. assurance incluse. decouvrez nos autres bouteilles nos vins nos vins chateau bouscaut rouge grand cru classe de graves 39,00 € en savoir plus chateau bouscaut blanc grand cru classe de graves 40,00 € en savoir plus les chenes de bouscaut rouge pessac-leognan 20,00 € en savoir plus les chenes de bouscaut blanc pessac-leognan 21,00 € en savoi"
+    },
+    {
+     "artifact": "053a471ffb643e0a",
+     "url": "https://shop.chateau-bouscaut.com/fr/accueil/96-chateau-bouscaut-blanc.html?SubmitCountry=1&id_country=239",
+     "context": "aint-martin (sint maarten, nl) serbie singapour slovaquie slovenie suede suisse taiwan tchequie mon compte mon compte connexion s'inscrire mon panier 0 accueil chateau bouscaut blanc  chateau bouscaut blanc grand cru classe de graves assemblage : 68% sauvignon blanc - 32% semillon notes de degustation : blanc sec vinifie et eleve en barriques de chene franc"
+    },
+    {
+     "artifact": "08fcfdb6b9d52caf",
+     "url": "https://shop.chateau-bouscaut.com/fr/accueil/90-chateau-bouscaut-rouge.html?SubmitCountry=1&id_country=76",
+     "context": "e votre commande. assurance incluse. decouvrez nos autres bouteilles nos vins nos vins chateau bouscaut rouge grand cru classe de graves 39,00 € en savoir plus chateau bouscaut blanc grand cru classe de graves 40,00 € en savoir plus les chenes de bouscaut rouge pessac-leognan 20,00 € en savoir plus les chenes de bouscaut blanc pessac-leognan 21,00 € en savoi"
+    },
+    {
+     "artifact": "0920ecba0d2b73bf",
+     "url": "https://shop.chateau-bouscaut.com/fr/accueil/90-chateau-bouscaut-rouge.html?SubmitCountry=1&id_country=184",
+     "context": "e votre commande. assurance incluse. decouvrez nos autres bouteilles nos vins nos vins chateau bouscaut rouge grand cru classe de graves 39,00 € en savoir plus chateau bouscaut blanc grand cru classe de graves 40,00 € en savoir plus les chenes de bouscaut rouge pessac-leognan 20,00 € en savoir plus les chenes de bouscaut blanc pessac-leognan 21,00 € en savoi"
+    },
+    {
+     "artifact": "09721886c15a48e0",
+     "url": "https://shop.chateau-bouscaut.com/fr/accueil/90-chateau-bouscaut-rouge.html?SubmitCountry=1&id_country=55",
+     "context": "e votre commande. assurance incluse. decouvrez nos autres bouteilles nos vins nos vins chateau bouscaut rouge grand cru classe de graves 39,00 € en savoir plus chateau bouscaut blanc grand cru classe de graves 40,00 € en savoir plus les chenes de bouscaut rouge pessac-leognan 20,00 € en savoir plus les chenes de bouscaut blanc pessac-leognan 21,00 € en savoi"
+    },
+    {
+     "artifact": "09a49cfe1dc54ca2",
+     "url": "https://www.chateau-bouscaut.com/upload/files/1620219670.pdf",
+     "context": "chateau bouscaut blanc 2015 vendanges fiche technique grand cru classe de graves appellation : pessac-leognan proprietaire : famille lurton-cogombles age des vignes : 35 ans terroir : argile sur socle"
+    }
+   ]
+  },
+  "chateau carbonnieux blanc": {
+   "artifacts": 54,
+   "mentions": 64,
+   "domains": {
+    "carbonnieux.com": 54
+   },
+   "document_years": [
+    1956,
+    2019,
+    2020,
+    2022,
+    2023,
+    2024,
+    2025,
+    2026
+   ],
+   "samples": [
+    {
+     "artifact": "1e356ee8923c274c",
+     "url": "https://boutique.carbonnieux.com/produit/chateau-carbonnieux-rouge/?attribute_millesimes=2019",
+     "context": "le chateau l’histoire le terroir, le vignoble les secrets de chai les engagements les vins l’ensemble des vins du domaine chateau carbonnieux blanc magnum de carbonnieux blanc 1741 de carbonnieux chateau carbonnieux rouge magnum de carbonnieux rouge la croix de carbonnieux blanc la croix de carbonnieux rouge chateau tour"
+    },
+    {
+     "artifact": "1f800bfdd4c64518",
+     "url": "https://boutique.carbonnieux.com/produit/chateau-carbonnieux-rouge/",
+     "context": "le chateau l’histoire le terroir, le vignoble les secrets de chai les engagements les vins l’ensemble des vins du domaine chateau carbonnieux blanc magnum de carbonnieux blanc 1741 de carbonnieux chateau carbonnieux rouge magnum de carbonnieux rouge la croix de carbonnieux blanc la croix de carbonnieux rouge chateau tour"
+    },
+    {
+     "artifact": "217c660e17bc67d5",
+     "url": "https://carbonnieux.com/les-vins/lenclos-de-carbonnieux/?wine=white",
+     "context": "le chateau l’histoire le terroir, le vignoble les secrets de chai les engagements les vins l’ensemble des vins du domaine chateau carbonnieux rouge chateau carbonnieux blanc 1741 de carbonnieux la croix de carbonnieux l’enclos de carbonnieux chateau tour leognan l’œnotourisme les visites les receptions les actualites la boutique en ligne contact "
+    },
+    {
+     "artifact": "2e32118e5731bb9c",
+     "url": "https://boutique.carbonnieux.com/produit/la-croix-de-carbonnieux-rouge/",
+     "context": "le chateau l’histoire le terroir, le vignoble les secrets de chai les engagements les vins l’ensemble des vins du domaine chateau carbonnieux blanc magnum de carbonnieux blanc 1741 de carbonnieux chateau carbonnieux rouge magnum de carbonnieux rouge la croix de carbonnieux blanc la croix de carbonnieux rouge chateau tour"
+    },
+    {
+     "artifact": "2f76c05a12ce6c83",
+     "url": "https://boutique.carbonnieux.com/produit/chateau-carbonnieux-blanc/?attribute_millesimes=2024",
+     "context": "le chateau l’histoire le terroir, le vignoble les secrets de chai les engagements les vins l’ensemble des vins du domaine chateau carbonnieux blanc magnum de carbonnieux blanc 1741 de carbonnieux chateau carbonnieux rouge magnum de carbonnieux rouge la croix de carbonnieux blanc la croix de carbonnieux rouge chateau tour"
+    },
+    {
+     "artifact": "318cc59bc116cc2a",
+     "url": "https://carbonnieux.com/politique-de-cookies-ue/",
+     "context": "le chateau l’histoire le terroir, le vignoble les secrets de chai les engagements les vins l’ensemble des vins du domaine chateau carbonnieux rouge chateau carbonnieux blanc 1741 de carbonnieux la croix de carbonnieux l’enclos de carbonnieux chateau tour leognan l’œnotourisme les visites les receptions les actualites la boutique en ligne contact "
+    }
+   ]
+  },
+  "echo de lynch": {
+   "artifacts": 47,
+   "mentions": 118,
+   "domains": {
+    "lynchbages.com": 46,
+    "chateaulamouline.com": 1
+   },
+   "document_years": [
+    2008,
+    2009,
+    2010,
+    2011,
+    2012,
+    2013,
+    2014,
+    2015,
+    2016,
+    2017,
+    2018,
+    2019,
+    2020,
+    2022,
+    2023,
+    2025
+   ],
+   "samples": [
+    {
+     "artifact": "0232d89a3e83b975",
+     "url": "https://www.lynchbages.com/wp-content/uploads/2023/01/Echo-de-Lynch-Bages-2012-CN.pdf",
+     "context": "echo de lynch-bages 产区 波亚克 等级 靓茨伯酒庄的副牌葡萄酒 年份 2012 业主 让-⽶歇尔·迦斯 （jean-michel cazes） ⾯积：90 公顷 ⼟壤：加龙河砾质⼟ 采收：⼿⼯采收，在葡萄园中进⾏挑拣 陈酿：在陈过上⼀年份葡萄酒的法国橡⽊桶中陈酿14个⽉ 调配⽐例：57 % ⾚霞珠、33 % 美乐、10 % 品丽珠 产量：占总产量的30% « tout est "
+    },
+    {
+     "artifact": "04f22ac6b461f0e5",
+     "url": "https://www.lynchbages.com/wp-content/uploads/2022/10/Echo-de-Lynch-Bages-2008-EN.pdf",
+     "context": "ntage. this year once again, we saw that large terroirs coupled with interventionist viticulture gradually produced remarkable rich grapes. dark ruby in color, echo de lynch-bages 2008 offers a sweet nose of red fruits, plums and a touch of jam with some creamy vanilla oak. a good example of pauillac with silky mouthfeel leading to a structured finish. echo "
+    },
+    {
+     "artifact": "0940df171925dafe",
+     "url": "https://www.lynchbages.com/wp-content/uploads/2022/10/Echo-de-Lynch-Bages-2015-FR.pdf",
+     "context": "poivrees. l’attaque est rafraichissante, le grain de tanin encore un peu rugueux se polira en barriques pour offrir un vin harmonieux a la sortie de l’elevage. echo de lynch-bages appellation pauillac classification 2nd vin du chateau lynch-bages millesime 2015 proprietaire jean-michel cazes"
+    },
+    {
+     "artifact": "1c1146e64e82ecaa",
+     "url": "https://www.lynchbages.com/wp-content/uploads/2023/01/Echo-de-Lynch-Bages-2011-CN.pdf",
+     "context": "echo de lynch-bages 产区 波亚克 等级 靓茨伯酒庄的副牌葡萄酒 年份 2011 业主 让-⽶歇尔·迦斯 （jean-michel cazes） ⾯积：90 公顷 ⼟壤：加龙河砾质⼟ 采收：⼿⼯采收，在葡萄园中进⾏挑拣 陈酿：在陈过上⼀年份葡萄酒的法国橡⽊桶中陈酿12个⽉ 调配⽐例：47 % ⾚霞珠、41 % 美乐、12 % 品丽珠 产量：占总产量的30% « le sacre "
+    },
+    {
+     "artifact": "1ed22edd33d5779e",
+     "url": "https://www.lynchbages.com/wp-content/uploads/2022/10/Echo-de-Lynch-Bages-2015-EN.pdf",
+     "context": "refreshing attack, with a grain of tannin that is still slightly coarse but which the barrels will polish promising a beautifully harmonious wine after ageing. echo de lynch-bages appellation pauillac classification 2nd wine of chateau lynch-bages vintage 2015 owner jean-michel cazes"
+    },
+    {
+     "artifact": "207001dd4a400fbc",
+     "url": "https://www.lynchbages.com/wp-content/uploads/2022/10/Echo-de-Lynch-Bages-2019-FR.pdf",
+     "context": "re. les fermentations malolactiques se deroulent ensuite pour un tiers en cuves et deux tiers en barriques. les premiers assemblages sont realises en decembre. echo de lynch-bages 2019 presente une robe brillante et profonde. jolie concentration avec un fruit expressif au nez, qui laisse percevoir une belle fraicheur. tout en finesse et en elegance aromatiqu"
+    }
+   ]
+  },
+  "haut-bages averous": {
+   "artifacts": 4,
+   "mentions": 4,
+   "domains": {
+    "lynchbages.com": 4
+   },
+   "document_years": [],
+   "samples": [
+    {
+     "artifact": "68cb1160991690ef",
+     "url": "https://www.lynchbages.com/deguster/",
+     "context": "parleras la premiere ». ainsi, s’il ne parle jamais le premier, echo de lynch-bages partage le caractere et l’elegance du grand vin. retour a bordeaux… chateau haut-bages averous, propriete de pauillac acquise autrefois par andre cazes, designe pendant plus de 30 ans le second vin du chateau lynch-bages. a partir du millesime 2008, il change d’identite pour "
+    },
+    {
+     "artifact": "6d68b9242523271f",
+     "url": "https://www.lynchbages.com/en/vintages/",
+     "context": "ill never be the first to speak, but you will always have the last word”. echo’s life had changed forever, but that is another story… back in bordeaux… chateau haut-bages averous is a property in pauillac, acquired some time ago by andre cazes. for over 30 years, it was lynch-bages’ second wine. in 2008, a new identity was given to the second wine, under the"
+    },
+    {
+     "artifact": "7a6be3018852b189",
+     "url": "https://www.lynchbages.com/deguster/",
+     "context": "parleras la premiere ». ainsi, s’il ne parle jamais le premier, echo de lynch-bages partage le caractere et l’elegance du grand vin. retour a bordeaux… chateau haut-bages averous, propriete de pauillac acquise autrefois par andre cazes, designe pendant plus de 30 ans le second vin du chateau lynch-bages. a partir du millesime 2008, il change d’identite pour "
+    },
+    {
+     "artifact": "8488e4a9a097adc1",
+     "url": "https://www.lynchbages.com/zh/deguster/",
+     "context": "作为丈夫颇为朝三暮四的宙斯，让厄科（echo）仙女在他与美丽的凡人幽会时要不停地与妻子赫拉讲话，进而缠住她。赫拉在识破算计后诅咒了仙女：“你只能重复别人说的最后几个字，永远不能率先发言。”因此，即便echo de lynch-bages从不率先发言，它也拥有与正牌佳酿相同的特征与优雅。 回到波尔多…… chateau haut-bages averous是之前由安德烈·迦斯（andre cazes）收购的波亚克一家古老庄园的名字。三十多年来，靓茨伯一直用这个名字来称呼自己的副牌酒。自2008年份起，它更名换颜，变为“echo de lynch bages”。 从葡萄园到酿酒车间，echo de lynch-bages受到了与正牌酒同样的关注，拥有与正牌酒相同的血统。清爽与果香是echo de lynch-bag"
+    }
+   ]
+  },
+  "lacroix-martillac": {
+   "artifacts": 107,
+   "mentions": 158,
+   "domains": {
+    "latourmartillac.com": 107
+   },
+   "document_years": [
+    1884,
+    2011,
+    2012,
+    2013,
+    2014,
+    2015,
+    2016,
+    2018,
+    2019,
+    2020,
+    2021,
+    2022,
+    2023,
+    2024,
+    2025,
+    2026
+   ],
+   "samples": [
+    {
+     "artifact": "03aca167d6ff265c",
+     "url": "https://www.latourmartillac.com/millesimes/le-rose-2025/",
+     "context": "-martillac a enregistrer mes donnees personnelles. © copyright - chateau latour-martillac a proximite espace presse contact francais chateau langlet rouge 2024 lacroix-martillac blanc 2025 votre pays france belgium netherlands luxembourg germany italy switzerland united kingdom china, people’s republic of united states – afghanistan afrique du sud albania al"
+    },
+    {
+     "artifact": "04436d24c5ed4489",
+     "url": "https://www.latourmartillac.com/millesimes/chateau-langlet-rouge-2019/",
+     "context": "'autorise le chateau latour-martillac a enregistrer mes donnees personnelles. © copyright - chateau latour-martillac a proximite espace presse contact francais lacroix-martillac blanc 2020 chateau langlet blanc 2020 votre pays france belgium netherlands luxembourg germany italy switzerland united kingdom china, people’s republic of united states – afghanista"
+    },
+    {
+     "artifact": "070ae6c0405fb8f0",
+     "url": "https://www.latourmartillac.com/en/millesimes/chateau-langlet-red-2019/",
+     "context": "ter j'autorise le chateau latour-martillac a enregistrer mes donnees personnelles. © copyright - chateau latour martillac near by trade & media contact english lacroix-martillac white 2020 chateau langlet white 2020 votre pays france belgium netherlands luxembourg germany italy switzerland united kingdom china, people’s republic of united states – afghanista"
+    },
+    {
+     "artifact": "075b3acac7b2ee25",
+     "url": "https://www.latourmartillac.com/wp-content/uploads/2025/07/FT-LAGRAVE-MARTILLAC-Blanc-2024-1.pdf",
+     "context": "n kressmann depuis 1930 grand cru classe de graves, en rouge et en blanc aoc pessac-leognan 1er vin : chateau latour-martillac ; 2nds vins : lagrave-martillac, lacroix-martillac edouard kressmann christophe ollivier et axel marchal 9 ha en blanc (surface totale : 55 ha) sols argilo-calcaires exposes sur le versant est de la propriete, offrant drainage nature"
+    },
+    {
+     "artifact": "0daf310965523187",
+     "url": "https://www.latourmartillac.com/zh-hans/millesimes/lacroix-martillac-red-2012/",
+     "context": "最新消息 历史 葡萄园 环保政策 葡萄酒 参观与品尝 联系方式 menu menu lacroix-martillac red 2012 surface of production for red : 40 ha (total surface: 50 ha) nature of the soil : gunz gravel from the quaternary period, on the plateau above the village of martillac grape"
+    },
+    {
+     "artifact": "0db5818d1c868ee3",
+     "url": "https://www.latourmartillac.com/en/millesimes/lagrave-martillac-white-2013/",
+     "context": "'autorise le chateau latour-martillac a enregistrer mes donnees personnelles. © copyright - chateau latour martillac near by trade & media contact english 简体中文 lacroix-martillac white 2019 chateau latour-martillac red 2019 votre pays france belgium netherlands luxembourg germany italy switzerland united kingdom china, people’s republic of united states – afg"
+    }
+   ]
+  },
+  "lagrave-martillac": {
+   "artifacts": 164,
+   "mentions": 259,
+   "domains": {
+    "latourmartillac.com": 164
+   },
+   "document_years": [
+    1884,
+    2012,
+    2013,
+    2014,
+    2015,
+    2016,
+    2017,
+    2018,
+    2019,
+    2020,
+    2021,
+    2022,
+    2023,
+    2024,
+    2025,
+    2026
+   ],
+   "samples": [
+    {
+     "artifact": "0148936d10109c32",
+     "url": "https://www.latourmartillac.com/millesimes/lagrave-martillac-rouge-2017/",
+     "context": "actualites histoire vignoble environnement vins oenotourisme contact menu menu lagrave-martillac rouge 2017 le millesime 2017 apres un hiver sec, cette annee restera marquee par les gelees tardives des 27, 28 et 29 avril qui ont durement touche notre vignoble, notamment les cepa"
+    },
+    {
+     "artifact": "05515a6805445445",
+     "url": "https://www.latourmartillac.com/millesimes/chateau-langlet-blanc-2018/",
+     "context": "'autorise le chateau latour-martillac a enregistrer mes donnees personnelles. © copyright - chateau latour-martillac a proximite espace presse contact francais lagrave-martillac blanc 2018 chateau latour-martillac rouge 2018 votre pays france belgium netherlands luxembourg germany italy switzerland united kingdom china, people’s republic of united states – a"
+    },
+    {
+     "artifact": "075b3acac7b2ee25",
+     "url": "https://www.latourmartillac.com/wp-content/uploads/2025/07/FT-LAGRAVE-MARTILLAC-Blanc-2024-1.pdf",
+     "context": "conseil famille jean kressmann depuis 1930 grand cru classe de graves, en rouge et en blanc aoc pessac-leognan 1er vin : chateau latour-martillac ; 2nds vins : lagrave-martillac, lacroix-martillac edouard kressmann christophe ollivier et axel marchal 9 ha en blanc (surface totale : 55 ha) sols argilo-calcaires exposes sur le versant est de la propriete, offr"
+    },
+    {
+     "artifact": "078c58588e61aa85",
+     "url": "https://www.latourmartillac.com/wp-content/uploads/2021/10/LGR19-GB.pdf",
+     "context": "ice. the mouth is characterized by the freshness and the red fruits, such as blackcurrant. the tannins are refined, soft, and bring to this wine a nice length. lagrave-martillac red 2019 pessac-leognan appellation second wine of chateau latour-martillac, since 1986 alcoholic fermentation in thermo-regulated vats ageing: 12 months in french oak barrel new bar"
+    },
+    {
+     "artifact": "0c0dbfc0e558a402",
+     "url": "https://www.latourmartillac.com/en/millesimes/lagrave-martillac-red-2016-2/",
+     "context": "news history vineyard environment wines visits and tastings contact menu menu lagrave-martillac red 2016 the 2016 vintage a mild and very wet winter led to an early and even budbreak. the wet weather lasted all the way through spring accompanied by some very cool temperatures. "
+    },
+    {
+     "artifact": "0db5818d1c868ee3",
+     "url": "https://www.latourmartillac.com/en/millesimes/lagrave-martillac-white-2013/",
+     "context": "news history vineyard environment wines visits and tastings contact menu menu lagrave-martillac white 2013 the 2013 vintage winter and spring were cool, wet and humid, with double the average rainfall in january (151mm vs 86mm on average). the first buds appeared in april with "
+    }
+   ]
+  },
+  "latour-martillac blanc": {
+   "artifacts": 22,
+   "mentions": 118,
+   "domains": {
+    "latourmartillac.com": 22
+   },
+   "document_years": [
+    2014,
+    2015,
+    2016,
+    2017,
+    2018,
+    2019,
+    2021,
+    2023,
+    2024
+   ],
+   "samples": [
+    {
+     "artifact": "0148936d10109c32",
+     "url": "https://www.latourmartillac.com/millesimes/lagrave-martillac-rouge-2017/",
+     "context": "e le chateau latour-martillac a enregistrer mes donnees personnelles. © copyright - chateau latour-martillac a proximite espace presse contact francais chateau latour-martillac blanc 2017 lagrave-martillac blanc 2018 votre pays france belgium netherlands luxembourg germany italy switzerland united kingdom china, people’s republic of united states – afghanist"
+    },
+    {
+     "artifact": "207672e4312e7c92",
+     "url": "https://www.latourmartillac.com/millesimes/lagrave-martillac-rouge-2015/",
+     "context": "e le chateau latour-martillac a enregistrer mes donnees personnelles. © copyright - chateau latour-martillac a proximite espace presse contact francais chateau latour-martillac blanc 2015 lagrave-martillac blanc 2015 votre pays france belgium netherlands luxembourg germany italy switzerland united kingdom china, people’s republic of united states – afghanist"
+    },
+    {
+     "artifact": "23bd424df48b3049",
+     "url": "https://www.latourmartillac.com/millesimes/lagrave-martillac-blanc-2023/",
+     "context": " a enregistrer mes donnees personnelles. © copyright - chateau latour-martillac a proximite espace presse contact francais lacroix-martillac blanc 2023 chateau latour-martillac blanc 2023 votre pays france belgium netherlands luxembourg germany italy switzerland united kingdom china, people’s republic of united states – afghanistan afrique du sud albania alg"
+    },
+    {
+     "artifact": "2cf6d4fb833e5af2",
+     "url": "https://www.latourmartillac.com/en/2018-vintage-primeurs/",
+     "context": "at intensity with loads of minerally sparks and a long zesty finish. » . vinous, antonio galloni – 88-91 pts (2019/05) « a powerful, structured white, the 2018 latour-martillac blanc has real feeling of density to it. citrus, white flowers and mint all take shape in the glass, but it is the wine’s textural resonance that stands out most? some rough edges rem"
+    },
+    {
+     "artifact": "3451911d6c2407bd",
+     "url": "https://www.latourmartillac.com/en/ratings-of-the-2016-vintage/",
+     "context": "news history vineyard environment wines visits and tastings contact menu menu decanter / jane anson: chateau latour-martillac blanc 2016: 88 chateau latour-martillac rouge 2016: 92 james suckling: chateau latour-martillac blanc 2016: 93-94 chateau latour-martillac rouge 2016: 93-94 jancis robinson: chateau l"
+    },
+    {
+     "artifact": "472ccce457877498",
+     "url": "https://www.latourmartillac.com/millesimes/lagrave-martillac-rouge-2024/",
+     "context": "e le chateau latour-martillac a enregistrer mes donnees personnelles. © copyright - chateau latour-martillac a proximite espace presse contact francais chateau latour-martillac blanc 2024 lacroix-martillac rouge 2024 votre pays france belgium netherlands luxembourg germany italy switzerland united kingdom china, people’s republic of united states – afghanist"
+    }
+   ]
+  },
+  "les argileuses": {
+   "artifacts": 49,
+   "mentions": 190,
+   "domains": {
+    "vignoblesk.com": 46,
+    "chateaulamouline.com": 2,
+    "domaines-rollandeby.com": 1
+   },
+   "document_years": [
+    2016,
+    2017,
+    2018,
+    2019,
+    2020,
+    2021,
+    2022,
+    2023
+   ],
+   "samples": [
+    {
+     "artifact": "01257f864909c28f",
+     "url": "https://www.chateaulamouline.com/terroirs-renommee-vins-saint-estephe.html",
+     "context": "nulle part ailleurs, une forme « roborative », mais sans rien perdre en fraicheur. on note aussi une part de merlot parfois plus importante sur certaines parcelles argileuses, donnant des vins “de velours”, tout en puissance retenue. garde impressionnante : certains saint-estephe se revelent apres 10, 20, voire 30 ans en cave – calon segur, cos d’estournel, "
+    },
+    {
+     "artifact": "03ab4f4a8a1d04f8",
+     "url": "https://vignoblesk.com/includes/entites/4152/2141/FICHE%20PRODUIT%20CHATEAU%20LE%20REY%20LES%20ARGILEUSES%202019.pdf",
+     "context": "gnoble suit la philosophie de nos autres proprietes afin de respecter les equi- libres environnementaux. aujourd’hui 2 cuvees sont produites au chateau le rey, les argileuses et les rocheuses. ces deux vins ne representent pas comme d’habitude a bordeaux une premiere et seconde etiquette, mais sont faits comme en bour- gogne avec une philosophie du terroir. "
+    },
+    {
+     "artifact": "0a20a1e59ea2cc2b",
+     "url": "https://vignoblesk.com/en/wine-chateau-le-rey.aspx",
+     "context": "y of fruit and intensity. made partly in amphora. drink or hold.» - james suckling « the perfume here is more lifted, spicy and a little prettier than found in les argileuses and yet there is a more backward feel on the finish. it is fascinating to think that this is a bordeaux, but that there is also so much terroir playing an active role in this wine and t"
+    },
+    {
+     "artifact": "0bcdfee93e5d4e0e",
+     "url": "https://www.vignoblesk.com/includes/entites/6538/2141/TECHNICAL%20SHEET%20CHATEAU%20LE%20REY%20LES%20ROCHEUSES%202023.pdf",
+     "context": "uct of the vineyard follows the philosophy of our other properties in order to meet the environmental balance. today two cuvees are produced at chateau le rey, les argileuses and les rocheuses. these two wines do not represent as usual in bordeaux first and second label, but are made like in burgundy with a terroir philosophy. les argileuses are produced fro"
+    },
+    {
+     "artifact": "10bfa4b8661e42e1",
+     "url": "https://www.vignoblesk.com/includes/entites/4152/2141/PRODUCT%20SHEET%20CHATEAU%20LE%20REY%20LES%20ARGILEUSES%202019.pdf",
+     "context": "uct of the vineyard follows the philosophy of our other properties in order to meet the environmental balance. today two cuvees are produced at chateau le rey, les argileuses and les rocheuses. these two wines do not represent as usual in bordeaux first and second label, but are made like in burgundy with a terroir philosophy. les argileuses are produced fro"
+    },
+    {
+     "artifact": "11bf8fdded2edfa1",
+     "url": "https://www.vignoblesk.com/includes/entites/4276/2141/FICHE%20TECHNIQUE%20CHATEAU%20LE%20REY%20LES%20ROCHEUSES%202020.pdf",
+     "context": "vignoble suit la philosophie de nos autres proprietes afin de respecter les equilibres environnementaux. aujourd’hui 2 cuvees sont produites au chateau le rey, les argileuses et les rocheuses. ces deux vins ne representent pas comme d’habitude a bordeaux un premiere et seconde etiquette, mais sont faits comme en bourgogne avec une philosophie du terroir. les"
+    }
+   ]
+  },
+  "les rocheuses": {
+   "artifacts": 52,
+   "mentions": 183,
+   "domains": {
+    "vignoblesk.com": 51,
+    "domaines-rollandeby.com": 1
+   },
+   "document_years": [
+    2016,
+    2017,
+    2018,
+    2019,
+    2020,
+    2021,
+    2022,
+    2023
+   ],
+   "samples": [
+    {
+     "artifact": "03ab4f4a8a1d04f8",
+     "url": "https://vignoblesk.com/includes/entites/4152/2141/FICHE%20PRODUIT%20CHATEAU%20LE%20REY%20LES%20ARGILEUSES%202019.pdf",
+     "context": "losophie de nos autres proprietes afin de respecter les equi- libres environnementaux. aujourd’hui 2 cuvees sont produites au chateau le rey, les argileuses et les rocheuses. ces deux vins ne representent pas comme d’habitude a bordeaux une premiere et seconde etiquette, mais sont faits comme en bour- gogne avec une philosophie du terroir. les argileuses son"
+    },
+    {
+     "artifact": "098608fdaed5de02",
+     "url": "https://vignoblesk.com/fr/",
+     "context": "cru classe enclos tourmaline pomerol chateau haut-brisson saint-emilion grand cru chateau la patache pomerol enclos de viaud lalande-de-pomerol chateau le rey 'les rocheuses' castillon cotes de bordeaux la maison vignobles k symboles d’excellence et d’authenticite, nos 7 proprietes de la rive droite ont toujours eu a cœur de preserver et de perfectionner leu"
+    },
+    {
+     "artifact": "0a20a1e59ea2cc2b",
+     "url": "https://vignoblesk.com/en/wine-chateau-le-rey.aspx",
+     "context": "rey our wines world of vignobles k oenotourism discover food and wine experiences receptions & seminars accomodation the wine club news shop ok chateau le rey 'les rocheuses' appellation castillon cotes de bordeaux blend 80% merlot - 20% cabernet franc soil vintages winemaker note wonderful depth of fruit and balance. full body and flavors of licorice and be"
+    },
+    {
+     "artifact": "0bcdfee93e5d4e0e",
+     "url": "https://www.vignoblesk.com/includes/entites/6538/2141/TECHNICAL%20SHEET%20CHATEAU%20LE%20REY%20LES%20ROCHEUSES%202023.pdf",
+     "context": " follows the philosophy of our other properties in order to meet the environmental balance. today two cuvees are produced at chateau le rey, les argileuses and les rocheuses. these two wines do not represent as usual in bordeaux first and second label, but are made like in burgundy with a terroir philosophy. les argileuses are produced from a green and blue "
+    },
+    {
+     "artifact": "10bfa4b8661e42e1",
+     "url": "https://www.vignoblesk.com/includes/entites/4152/2141/PRODUCT%20SHEET%20CHATEAU%20LE%20REY%20LES%20ARGILEUSES%202019.pdf",
+     "context": " follows the philosophy of our other properties in order to meet the environmental balance. today two cuvees are produced at chateau le rey, les argileuses and les rocheuses. these two wines do not represent as usual in bordeaux first and second label, but are made like in burgundy with a terroir philosophy. les argileuses are produced from a green and blue "
+    },
+    {
+     "artifact": "11bf8fdded2edfa1",
+     "url": "https://www.vignoblesk.com/includes/entites/4276/2141/FICHE%20TECHNIQUE%20CHATEAU%20LE%20REY%20LES%20ROCHEUSES%202020.pdf",
+     "context": "hilosophie de nos autres proprietes afin de respecter les equilibres environnementaux. aujourd’hui 2 cuvees sont produites au chateau le rey, les argileuses et les rocheuses. ces deux vins ne representent pas comme d’habitude a bordeaux un premiere et seconde etiquette, mais sont faits comme en bourgogne avec une philosophie du terroir. les argileuses sont i"
+    }
+   ]
+  },
+  "malartic lagraviere blanc": {
+   "artifacts": 2,
+   "mentions": 4,
+   "domains": {
+    "malartic-lagraviere.com": 2
+   },
+   "document_years": [
+    2022,
+    2026
+   ],
+   "samples": [
+    {
+     "artifact": "266d1f8328b35c31",
+     "url": "https://www.malartic-lagraviere.com/wp-content/uploads/2026/10/malartic-lagraviere-blanc-2022.pdf",
+     "context": " im finish, gute lange. ein hedonistisches vergnugen. vinous.com - antonio galloni – 2022 bordeaux in bottle : living in the present – january 2025 93 the 2022 malartic lagraviere blanc is brisk and finely cut, with lovely aromatics and fine balance. varietal sauvignon blanc notes drive the 2022. pear, sage, mint white flowers and crushed rocks are all beaut"
+    },
+    {
+     "artifact": "f993ca200802299b",
+     "url": "https://www.malartic-lagraviere.com/wp-content/uploads/2026/10/malartic-lagraviere-white-2022.pdf",
+     "context": " im finish, gute lange. ein hedonistisches vergnugen. vinous.com - antonio galloni – 2022 bordeaux in bottle : living in the present – january 2025 93 the 2022 malartic lagraviere blanc is brisk and finely cut, with lovely aromatics and fine balance. varietal sauvignon blanc notes drive the 2022. pear, sage, mint white flowers and crushed rocks are all beaut"
+    }
+   ]
+  },
+  "malartic-lagraviere blanc": {
+   "artifacts": 9,
+   "mentions": 16,
+   "domains": {
+    "malartic-lagraviere.com": 9
+   },
+   "document_years": [
+    2022,
+    2023,
+    2025,
+    2026
+   ],
+   "samples": [
+    {
+     "artifact": "07aa8a9498d33b9d",
+     "url": "https://www.malartic-lagraviere.com/wp-content/uploads/2026/10/malartic-lagraviere-white-2023pdf-1.pdf",
+     "context": "g from the sky, energizing me with its crystal-like luster. vinous.com – neal martin - bordeaux 2023 in bottle: coming around again – february 2026 93 the 2023 malartic-lagraviere blanc has one of the best aromatics among the white pessac wines this year, with green apple, freshly sliced pear and subtle crushed stone aromas. the palate is well balanced with "
+    },
+    {
+     "artifact": "266d1f8328b35c31",
+     "url": "https://www.malartic-lagraviere.com/wp-content/uploads/2026/10/malartic-lagraviere-blanc-2022.pdf",
+     "context": "-lagraviere | blanc 2022 revue de presse thedrinksbusiness.com – colin hay - full tasting notes: pessac- leognan, graves & bordeaux blanc sec – june 2023 94-96 malartic-lagraviere blanc 2022 (pessac-leognan; tasted at the ugc press tasting). more limpid and glossy and crystalline at this stage than most, this looks enticing … and it is! vibrant, bright, cris"
+    },
+    {
+     "artifact": "71be5f8e170990f5",
+     "url": "https://www.malartic-lagraviere.com/wp-content/uploads/2026/10/malartic-lagraviere-white-2023.pdf",
+     "context": "g from the sky, energizing me with its crystal-like luster. vinous.com – neal martin - bordeaux 2023 in bottle: coming around again – february 2026 93 the 2023 malartic-lagraviere blanc has one of the best aromatics among the white pessac wines this year, with green apple, freshly sliced pear and subtle crushed stone aromas. the palate is well balanced with "
+    },
+    {
+     "artifact": "89a8c53fbb7d3459",
+     "url": "https://www.malartic-lagraviere.com/wp-content/uploads/2026/10/malartic-lagraviere-white-2023pdf.pdf",
+     "context": "g from the sky, energizing me with its crystal-like luster. vinous.com – neal martin - bordeaux 2023 in bottle: coming around again – february 2026 93 the 2023 malartic-lagraviere blanc has one of the best aromatics among the white pessac wines this year, with green apple, freshly sliced pear and subtle crushed stone aromas. the palate is well balanced with "
+    },
+    {
+     "artifact": "a6682cef51f7f4ac",
+     "url": "https://www.malartic-lagraviere.com/wp-content/uploads/2026/10/malartic-lagraviere-blanc-2023pdf-1.pdf",
+     "context": "g from the sky, energizing me with its crystal-like luster. vinous.com – neal martin - bordeaux 2023 in bottle: coming around again – february 2026 93 the 2023 malartic-lagraviere blanc has one of the best aromatics among the white pessac wines this year, with green apple, freshly sliced pear and subtle crushed stone aromas. the palate is well balanced with "
+    },
+    {
+     "artifact": "d0f6c1c57044d42c",
+     "url": "https://www.malartic-lagraviere.com/wp-content/uploads/2026/08/ft-mlb-2025-1.pdf",
+     "context": "assemblage sauvignon 73% semillon 27% dates de vendanges sauvignon blanc du 26 aout au 3 septembre semillon 27 aout et 2 septembre chateau malartic-lagraviere blanc 2025 chateau malartic-lagraviere 43 avenue de mont de marsan - 33850 leognan tel. +33 (0)5 56 64 75 08 malartic-lagraviere@malartic-lagraviere.com visites sur rendez-vous du "
+    }
+   ]
+  },
+  "murets de caillou": {
+   "artifacts": 75,
+   "mentions": 183,
+   "domains": {
+    "chateaucaillou.com": 75
+   },
+   "document_years": [
+    2023,
+    2024,
+    2025
+   ],
+   "samples": [
+    {
+     "artifact": "04fbe59c72025357",
+     "url": "https://www.chateaucaillou.com/product-category/vins/?product_order=desc",
+     "context": "tails les tourelles de caillou 17,00€ choix des options ce produit a plusieurs variations. les options peuvent etre choisies sur la page du produit details les murets de caillou – rouge 10,00€ choix des options ce produit a plusieurs variations. les options peuvent etre choisies sur la page du produit details les murets de caillou – blanc 13,00€ choix des op"
+    },
+    {
+     "artifact": "062224529ac0f14d",
+     "url": "https://www.chateaucaillou.com/wp-content/uploads/2024/11/TARIF-CAVISTE-FIN-2024-2.pdf",
+     "context": "prix ht prix ht 75cl 37.5cl bordeaux superieur rouge chateau caillou grand cru classe en 1855 de sauternes & barsac millesime les murets de caillou 100% merlot. frais, gourmand et fruite. 2023 4,00 € cremant de bordeaux les bulles de caillou 100% semillon. methode traditionnelle. notes de pomme verte & fines bulles. 2022 8,80 € "
+    },
+    {
+     "artifact": "08a5ec15ae604cd8",
+     "url": "https://www.chateaucaillou.com/product-tag/murets-de-caillou-vin-bordeaux-blanc-semillon-sauvignon/?product_view=list",
+     "context": "enu toggle navigation accueil notre histoire notre vignoble nos vins visites offrir une experience boutique en ligne actualites contact mon panier0 accueil les murets de caillou blanc les murets de caillou : vin appellation aoc bordeaux blanc sec assemblage semillon sauvignon blanc chateau caillou barsac pres de bordeaux trier par commande par defaut trier p"
+    },
+    {
+     "artifact": "0a1df90073267326",
+     "url": "https://www.chateaucaillou.com/la-boutique-en-ligne-du-chateau-caillou/?product_count=32",
+     "context": " variations. les options peuvent etre choisies sur la page du produit details les erables de caillou 12,00€ – 22,00€plage de prix : 12,00€ a 22,00€ details les murets de caillou – blanc 13,00€ choix des options ce produit a plusieurs variations. les options peuvent etre choisies sur la page du produit details les murets de caillou – rouge 10,00€ choix des op"
+    },
+    {
+     "artifact": "0cc51c643f1964ae",
+     "url": "https://www.chateaucaillou.com/product-tag/murets-de-caillou-vin-bordeaux-blanc-semillon-sauvignon/?product_orderby=popularity",
+     "context": "enu toggle navigation accueil notre histoire notre vignoble nos vins visites offrir une experience boutique en ligne actualites contact mon panier0 accueil les murets de caillou blanc les murets de caillou : vin appellation aoc bordeaux blanc sec assemblage semillon sauvignon blanc chateau caillou barsac pres de bordeaux trier par popularite trier par comman"
+    },
+    {
+     "artifact": "0cdd7d977c816bb3",
+     "url": "https://www.chateaucaillou.com/la-boutique-en-ligne-du-chateau-caillou/?product_orderby=name",
+     "context": " variations. les options peuvent etre choisies sur la page du produit details les erables de caillou 12,00€ – 22,00€plage de prix : 12,00€ a 22,00€ details les murets de caillou – rouge 10,00€ choix des options ce produit a plusieurs variations. les options peuvent etre choisies sur la page du produit details les tourelles de caillou 17,00€ choix des options"
+    }
+   ]
+  },
+  "myosotis": {
+   "artifacts": 90,
+   "mentions": 131,
+   "domains": {
+    "chateaucaillou.com": 90
+   },
+   "document_years": [
+    1855,
+    2024,
+    2025
+   ],
+   "samples": [
+    {
+     "artifact": "014b2d4bb7bd521f",
+     "url": "https://www.chateaucaillou.com/",
+     "context": " caillou voir le panier 17,00€ les erables de caillou voir le panier 12,00€ – 22,00€plage de prix : 12,00€ a 22,00€ les bulles de caillou voir le panier 14,00€ myosotis voir le panier 18,00€ la cuvee du centenaire voir le panier 100,00€ voir la boutique voir la boutique « un barsac distingue, fin, tout en nuances. un modele d’equilibre pour ce grand terroir "
+    },
+    {
+     "artifact": "04fbe59c72025357",
+     "url": "https://www.chateaucaillou.com/product-category/vins/?product_order=desc",
+     "context": "nde par defaut trier par nom trier par prix trier par date trier par popularite montrer 16 produits montrer 16 produits montrer 32 produits montrer 48 produits myosotis 18,00€ choix des options ce produit a plusieurs variations. les options peuvent etre choisies sur la page du produit details les tourelles de caillou 17,00€ choix des options ce produit a plu"
+    },
+    {
+     "artifact": "062224529ac0f14d",
+     "url": "https://www.chateaucaillou.com/wp-content/uploads/2024/11/TARIF-CAVISTE-FIN-2024-2.pdf",
+     "context": " verte & fines bulles. 2022 8,80 € les murets de caillou fin de stock bordeaux blanc 2022 8,20 € 80% semillon, 20% sauvignon. fraicheur et acidite. 2022 8,50 € myosotis du chateau caillou fin de stock 2022 9,50 € 100% sauvignon, elevage sur lies de 9 mois. floral et mineral. 2022 10,50 € les tourelles de caillou 100% semillon. elevage en cuve. frais, floral "
+    },
+    {
+     "artifact": "0a1df90073267326",
+     "url": "https://www.chateaucaillou.com/la-boutique-en-ligne-du-chateau-caillou/?product_count=32",
+     "context": "t details les tourelles de caillou 17,00€ choix des options ce produit a plusieurs variations. les options peuvent etre choisies sur la page du produit details myosotis 18,00€ choix des options ce produit a plusieurs variations. les options peuvent etre choisies sur la page du produit details trier par commande par defaut trier par commande par defaut trier "
+    },
+    {
+     "artifact": "0b19165d732b3c76",
+     "url": "https://www.chateaucaillou.com/product-category/cuvees-page-daccueil/?product_view=list",
+     "context": "aisse de 6 bouteilles poids 1.5 kg /btlle choix des options ce produit a plusieurs variations. les options peuvent etre choisies sur la page du produit details myosotis 18,00€ issu a 100 % de sauvignon, notre grand vin blanc sec charme par sa robe or pale et son bouquet floral. en bouche, il allie elegamment fraicheur, rondeur et mineralite, relevees par des"
+    },
+    {
+     "artifact": "0cdd7d977c816bb3",
+     "url": "https://www.chateaucaillou.com/la-boutique-en-ligne-du-chateau-caillou/?product_orderby=name",
+     "context": "ails les murets de caillou – blanc 13,00€ choix des options ce produit a plusieurs variations. les options peuvent etre choisies sur la page du produit details myosotis 18,00€ choix des options ce produit a plusieurs variations. les options peuvent etre choisies sur la page du produit details trier par nom trier par commande par defaut trier par nom trier pa"
+    }
+   ]
+  },
+  "terrasses de saint christophe": {
+   "artifacts": 22,
+   "mentions": 53,
+   "domains": {
+    "vignoblesk.com": 22
+   },
+   "document_years": [
+    2016,
+    2017,
+    2018,
+    2019,
+    2020,
+    2021,
+    2022,
+    2023
+   ],
+   "samples": [
+    {
+     "artifact": "28018c02fdc391f8",
+     "url": "https://www.vignoblesk.com/includes/entites/4325/2141/PRODUCT%20SHEET%20LES%20TERRASSES%20DE%20SAINT%20CHRISTOPHE%202019.pdf",
+     "context": "an ideal exposure to sun and perfect natural drainage conditions. today the property consists of 20 hectares on the appellation of saint emilion grand cru. les terrasses de saint christophe is the second label of chateau tour saint christophe. it is made from some of the younger vines planted on the beautiful terrasses of the estate and has the same care at "
+    },
+    {
+     "artifact": "2f84498d3c8de5bb",
+     "url": "https://www.vignoblesk.com/includes/entites/2787/2141/FICHE%20TECHNIQUE%20LES%20TERRASSES%20DE%20SAINT%20CHRISTOPHE%202016.pdf",
+     "context": "lieu-dit cassevert 33330 saint christophe des bardes, france tel : +33 5 57 24 77 15 - fax : +33 5 57 74 43 57- contact@vignoblesk.com - www.vignoblesk.com les terrasses de saint christophe 2016 creee et orchestree par l’equipe des vignobles k, la cuvee les terrasses de saint christophe reflete le caractere des vins de l’appellation. ce saint-emilion grand c"
+    },
+    {
+     "artifact": "3eb0787eeee2466a",
+     "url": "https://vignoblesk.com/en/our-properties/chateau-tour-saint-christophe-uk.aspx",
+     "context": "w oak is neatly integrated. good intensity, wonderful length and depth with a mouthwatering salinity. the great terroir is purely translated into the wine. les terrasses de saint christophe saint emilion grand cru nice nose of crushed berries. black cherry, liquorice, elegant on the palate and well balanced. round wine, good structure with elegant tannins on"
+    },
+    {
+     "artifact": "535ac4d65031d647",
+     "url": "https://www.vignoblesk.com/includes/entites/6475/2141/TECHNICAL%20SHEET%20LES%20TERRASSES%20DE%20SAINT%20CHRISTOPHE%202021.pdf",
+     "context": "lieu-dit cassevert 33330 saint christophe des bardes, france tel : +33 5 57 24 77 15 - fax : +33 5 57 74 43 57- contact@vignoblesk.com - www.vignoblesk.com les terrasses de saint christophe 2021 created and orchestrated by vignobles k team, the cuvee les terrasses de saint christophe reflects the character of the wines of the appellation. this saint emilion "
+    },
+    {
+     "artifact": "66d1f551b9182d92",
+     "url": "https://www.vignoblesk.com/includes/entites/6477/2141/FICHE%20TECHNIQUE%20LES%20TERRASSES%20DE%20SAINT%20CHRISTOPHE%202022.pdf",
+     "context": "severt 33330 saint christophe des bardes, france tel : +33 5 57 24 77 15 - fax : +33 5 57 74 43 57- contact@vignoblesk.com - www.vignoblesk.com degustation les terrasses de saint christophe 2022 creee et orchestree par l’equipe des vignobles k, la cuvee les terrasses de saint christophe reflete le caractere des vins de l’appellation. ce saint-emilion grand c"
+    },
+    {
+     "artifact": "74e372f620672cab",
+     "url": "https://www.vignoblesk.com/includes/entites/4326/2141/TECHNICAL%20SHEET%20LES%20TERRASSES%20DE%20SAINT%20CHRISTOPHE%202020.pdf",
+     "context": " route pierre jean 33330 saint christophe des bardes, france tel : +33 5 57 24 77 15 - fax : +33 5 57 74 43 57- contact@vignoblesk.com - www.vignoblesk.com les terrasses de saint christophe 2020 created and orchestrated by vignobles k team, the cuvee les terrasses de saint christophe reflects the character of the wines of the appellation. this saint emilion "
+    }
+   ]
+  }
+ }
+}

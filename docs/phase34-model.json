@@ -1,0 +1,3121 @@
+{
+ "meta": {
+  "phase": "3.4",
+  "revises": "docs/phase32-model.json",
+  "input": "b278121",
+  "evidence": "data/review/phase34-corpus-analysis.json",
+  "built_by": "tools/build-phase34-model.py",
+  "status": "CONCEPTUAL DOMAIN CONTRACT for Phase 4. Not a schema.",
+  "fixtures": "docs/phase34-fixtures.json"
+ },
+ "layers": [
+  {
+   "id": "IDENTITY",
+   "holds": [
+    "Estate",
+    "Wine",
+    "Vintage",
+    "Source",
+    "Party",
+    "Artifact",
+    "IdentityMap",
+    "NameRecord",
+    "IdentityTransition"
+   ],
+   "rule": "Ids are minted once, opaque, and never derived from or parsed for names. Everything else refers to them."
+  },
+  {
+   "id": "STATE",
+   "holds": [
+    "EstateWineRelationship",
+    "RankAssertion",
+    "RankAbsence",
+    "ClassificationScheme",
+    "ClassificationEdition",
+    "ClassificationMembership",
+    "Appellation",
+    "AppellationMembership",
+    "Ownership",
+    "EstateLocation",
+    "VintageStatement",
+    "EditorialCollectionMembership",
+    "WineDescriptor",
+    "SourceEstateRelationship"
+   ],
+   "rule": "Time-dependent facts about identities. Every record carries a Validity and a Provenance. History is added, never overwritten."
+  },
+  {
+   "id": "DOCUMENT",
+   "holds": [
+    "Artifact",
+    "Locator",
+    "Placement",
+    "ArtifactAssessment",
+    "Attribution",
+    "LegacyDocumentReference",
+    "ArtifactDate",
+    "ArtifactRelation",
+    "DocumentFamily"
+   ],
+   "rule": "Bytes are identity; paths and URLs are locations of bytes at a time. Attribution is a judgement about an artifact, never a property of it."
+  },
+  {
+   "id": "OBSERVATION",
+   "holds": [
+    "Observation",
+    "EvidenceLink"
+   ],
+   "rule": "What a document (or a person, or a legacy file) said, kept for ever, including what lost."
+  },
+  {
+   "id": "RECONCILIATION",
+   "holds": [
+    "Reconciliation"
+   ],
+   "rule": "A persistent, rule-named choice between observations. Losers are referenced, not removed."
+  },
+  {
+   "id": "CANONICAL",
+   "holds": [
+    "CanonicalValue",
+    "Translation"
+   ],
+   "rule": "A projection of the latest effective reconciliation. Never the only record of what sources said."
+  },
+  {
+   "id": "CROSS_CUTTING",
+   "holds": [
+    "Provenance",
+    "QualityFinding",
+    "Validity",
+    "TemporalBound"
+   ],
+   "rule": "Attach to records of any layer without collapsing them."
+  }
+ ],
+ "enums": {
+  "RelationshipStatus": {
+   "values": [
+    "ESTABLISHED",
+    "PROBABLE",
+    "CLAIMED",
+    "DISPUTED",
+    "ENDED_UNKNOWN_WHEN"
+   ],
+   "note": "How firmly the estate-wine link is held, independent of its role."
+  },
+  "BoundKind": {
+   "values": [
+    "EXACT",
+    "APPROXIMATE",
+    "NO_LATER_THAN",
+    "NO_EARLIER_THAN",
+    "UNKNOWN",
+    "OPEN",
+    "NOT_APPLICABLE"
+   ],
+   "note": "NO_LATER_THAN and NO_EARLIER_THAN are inclusive: 'sheets listed from 2016' makes a start NO_LATER_THAN vintage 2016."
+  },
+  "BoundAxis": {
+   "values": [
+    "CALENDAR",
+    "VINTAGE"
+   ],
+   "note": "Wine facts change by vintage ('from the 2008 vintage'), institutional facts by calendar date ('juin 1973'). A bound says which."
+  },
+  "DatePrecision": {
+   "values": [
+    "DAY",
+    "MONTH",
+    "YEAR",
+    "DECADE",
+    "VINTAGE",
+    "NONE"
+   ]
+  },
+  "ProvenanceKind": {
+   "values": [
+    "DOCUMENT",
+    "EVIDENCE_DECISION",
+    "AUTHORITATIVE_SOURCE",
+    "ESTATE_PUBLICATION",
+    "CITATION_UNVERIFIED",
+    "DERIVATION",
+    "MANUAL",
+    "LEGACY_FIELD_SOURCE",
+    "LEGACY_RECORD_SOURCE",
+    "LEGACY_AMBIGUOUS_SOURCE",
+    "LEGACY_UNSOURCED",
+    "LEGACY_MANIFEST"
+   ]
+  },
+  "CanonicalStatus": {
+   "values": [
+    "SOURCED",
+    "LEGACY_FIELD_SOURCE",
+    "LEGACY_RECORD_SOURCE_ONLY",
+    "LEGACY_AMBIGUOUS_SOURCE",
+    "LEGACY_UNSOURCED",
+    "MANUAL_UNSOURCED",
+    "CITED_UNVERIFIED",
+    "DERIVED"
+   ],
+   "note": "LEGACY_UNSOURCED, not MANUAL_UNSOURCED, for today's values without provenance: field-src.js says such a field 'was entered by hand or predates the reader', so 'manual' cannot be asserted. MANUAL_UNSOURCED is for values entered by hand from Phase 4 on."
+  },
+  "ReconciliationStatus": {
+   "values": [
+    "SINGLE",
+    "AGREED",
+    "RESOLVED",
+    "CONFLICT_OPEN",
+    "DEFERRED",
+    "LEGACY_RETAINED",
+    "SUPERSEDED"
+   ]
+  },
+  "ReconciliationRule": {
+   "values": [
+    "ONLY_CANDIDATE",
+    "UNANIMOUS",
+    "SOURCE_PRIORITY",
+    "MOST_RECENT_DOCUMENT",
+    "AUTHORITATIVE_OVER_CORPUS",
+    "MANUAL_DECISION",
+    "LEGACY_FIRST_IN_SORT_ORDER",
+    "LEGACY_NEVER_OVERWRITE"
+   ],
+   "note": "The two LEGACY_ rules name what read-fiches.py did, so the history of today's winners is honest; no new reconciliation may use them."
+  },
+  "AttributionStatus": {
+   "values": [
+    "PROPOSED",
+    "ACCEPTED",
+    "REJECTED",
+    "LEGACY",
+    "UNATTRIBUTED",
+    "SUPERSEDED"
+   ]
+  },
+  "AttributionMethod": {
+   "values": [
+    "DOCUMENT_TEXT",
+    "FILENAME",
+    "FOLDER",
+    "SITE_LIBRARY",
+    "PAGE_NAME",
+    "READER_GUARD",
+    "MANUAL",
+    "LEGACY_UNKNOWN",
+    "CRAWL_CONTEXT"
+   ]
+  },
+  "DocumentType": {
+   "values": [
+    "TECHNICAL_SHEET",
+    "WEB_PAGE",
+    "BROCHURE_OR_DOSSIER",
+    "PRESS_REVIEW",
+    "GROUP_REPORT",
+    "MULTI_WINE_SHEET",
+    "LETTER_OR_FORM",
+    "OTHER",
+    "UNKNOWN",
+    "LEGAL_NOTICE",
+    "SHOP_PAGE"
+   ]
+  },
+  "PlacementStatus": {
+   "values": [
+    "PRESENT",
+    "SUPERSEDED",
+    "MISSING",
+    "NAME_MISMATCH",
+    "BYTES_UNAVAILABLE",
+    "ACCESS_REFUSED"
+   ]
+  },
+  "QualityKind": {
+   "values": [
+    "MISSING",
+    "CONFLICT",
+    "SUSPICIOUS_CHANGE",
+    "IDENTITY_UNCERTAIN",
+    "EXTRACTION_FAILURE",
+    "SOURCE_FAILURE",
+    "ORPHAN_PROVENANCE",
+    "CROSS_SUBJECT_CITATION",
+    "JUNK_VALUE",
+    "AMBIGUOUS_SEMANTICS",
+    "SCOPE_DISCREPANCY"
+   ]
+  },
+  "QualityStatus": {
+   "values": [
+    "OPEN",
+    "ACKNOWLEDGED",
+    "RESOLVED",
+    "WONT_FIX"
+   ]
+  },
+  "NameKind": {
+   "values": [
+    "CURRENT",
+    "FORMER",
+    "ALIAS",
+    "SPELLING_VARIANT",
+    "SOURCE_RENDERING",
+    "MARKET_ALIAS"
+   ]
+  },
+  "NameStatus": {
+   "values": [
+    "KNOWN",
+    "UNKNOWN"
+   ]
+  },
+  "TransitionKind": {
+   "values": [
+    "MERGED_INTO",
+    "SPLIT_FROM",
+    "RENAMED",
+    "SUCCEEDED_BY",
+    "POSSIBLY_SAME",
+    "DISTINCT_FROM"
+   ]
+  },
+  "Certainty": {
+   "values": [
+    "CONFIRMED",
+    "PROBABLE",
+    "UNRESOLVED"
+   ]
+  },
+  "IdentityMapStatus": {
+   "values": [
+    "ACTIVE",
+    "RETIRED",
+    "AMBIGUOUS"
+   ]
+  },
+  "SourceKind": {
+   "values": [
+    "ESTATE_SITE",
+    "GROUP_SITE",
+    "NEGOCIANT",
+    "CLASSIFICATION_BODY",
+    "REGULATOR",
+    "CRITIC",
+    "AGGREGATOR",
+    "ENCYCLOPEDIA",
+    "ARCHIVE",
+    "UNKNOWN"
+   ]
+  },
+  "PartyKind": {
+   "values": [
+    "PERSON",
+    "FAMILY",
+    "COMPANY",
+    "GROUP",
+    "INSTITUTION",
+    "UNKNOWN"
+   ]
+  },
+  "OwnershipRole": {
+   "values": [
+    "OWNER",
+    "OPERATOR",
+    "GROUP_MEMBER"
+   ]
+  },
+  "LocatorKind": {
+   "values": [
+    "LOCAL_PATH",
+    "URL"
+   ]
+  },
+  "VintageStatementKind": {
+   "values": [
+    "NOT_PRODUCED",
+    "PRODUCED"
+   ]
+  },
+  "WineType": {
+   "values": [
+    "RED",
+    "WHITE_DRY",
+    "WHITE_SWEET",
+    "ROSE",
+    "SPARKLING",
+    "OTHER",
+    "UNKNOWN"
+   ],
+   "note": "What kind of wine it is. Independent of rank: Myosotis (WHITE_DRY) is a first wine, Les Tourelles (WHITE_SWEET) a third, Les Murets rouge (RED) unranked as far as any source says."
+  },
+  "RankTier": {
+   "values": [
+    "FIRST",
+    "SECOND",
+    "THIRD",
+    "ABOVE_FIRST",
+    "UNRANKED",
+    "UNKNOWN"
+   ],
+   "note": "Where a claimant places a wine in a range. FIRST is the grand vin / premier vin; ABOVE_FIRST a cuvee placed above it (Mangot: \"in truth it is the superior cuvee\"); UNRANKED is an explicit statement that no rank applies (Le Rey: \"do not represent ... first and second label\"); UNKNOWN is no statement. There is no OTHER: a wine nobody ranks has no rank assertion."
+  },
+  "RankScope": {
+   "values": [
+    "ESTATE_RANGE",
+    "TYPE_RANGE"
+   ],
+   "note": "The range a rank is within: the estate's whole range, or its range of one WineType (Caillou: Myosotis FIRST and Les Murets blanc SECOND within WHITE_DRY)."
+  },
+  "Claimant": {
+   "values": [
+    "PRODUCER",
+    "CLASSIFICATION_BODY",
+    "PRESS",
+    "TRADE",
+    "DATASET"
+   ],
+   "note": "Who asserts a rank. Ranks are claims: Mangot's cuvee is SECOND for the classification authorities and ABOVE_FIRST in the producer's and press's words."
+  },
+  "RelationshipKind": {
+   "values": [
+    "PRODUCED_BY",
+    "FROM_ESTATE_VINEYARD",
+    "MADE_BY_GROUP_TEAM",
+    "SOLD_BY",
+    "SAME_OWNER_OTHER_PROPERTY",
+    "ASSOCIATED_UNSPECIFIED"
+   ],
+   "note": "What links a wine to an estate. Several may hold at once (Les Terrasses: from the estate's younger vines, created by the Vignobles K team). A wine on an estate's site is not thereby the estate's (Chateau Langlet on Latour-Martillac's site)."
+  },
+  "DescriptorKind": {
+   "values": [
+    "PLOT_SELECTION",
+    "YOUNG_VINES",
+    "OLD_VINES",
+    "LIMITED_RELEASE",
+    "NOT_COMMERCIALISED",
+    "PRESSING_ROSE",
+    "OTHER"
+   ],
+   "note": "How a wine is made or selected - never a rank. \"Selection parcellaire\" names Lacroix-Martillac and also describes vat work at dozens of estates; single-variety is derived from the blend, not stored."
+  },
+  "EditionStatus": {
+   "values": [
+    "IN_FORCE",
+    "SUPERSEDED",
+    "ANNULLED",
+    "UNKNOWN"
+   ],
+   "note": "Saint-Emilion 2006 was annulled (\"classement annule depuis\", Grand Corbin-Despagne)."
+  },
+  "ArtifactDateKind": {
+   "values": [
+    "PDF_METADATA",
+    "UPLOAD_PATH",
+    "HTTP_LAST_MODIFIED",
+    "STATED_IN_TEXT",
+    "YEAR_IN_TITLE_OR_URL",
+    "RETRIEVED"
+   ],
+   "note": "93 % of harvested PDFs carry a metadata date, 70 % an upload-path date: the anchor for \"today\" and \"now\" in a document."
+  },
+  "ArtifactRelationKind": {
+   "values": [
+    "LANGUAGE_VERSION_OF",
+    "REVISION_OF",
+    "SAME_FAMILY_AS",
+    "COPY_OF"
+   ],
+   "note": "Between artifacts, always as a candidate with its evidence; never equivalence of content (Murmure 2018: two French revisions, 14.5 % and 14 %; the English, 14 %)."
+  },
+  "RelationStatus": {
+   "values": [
+    "CANDIDATE",
+    "CONFIRMED",
+    "REJECTED"
+   ]
+  },
+  "SourceRelationKind": {
+   "values": [
+    "OFFICIAL_SITE",
+    "GROUP_SITE",
+    "SHOP",
+    "NEGOCIANT_SITE",
+    "REGISTER_ENTRY",
+    "MENTIONS"
+   ],
+   "note": "25 domains serve several target estates; 31 sites moved domain."
+  },
+  "ExtractionStatus": {
+   "values": [
+    "PENDING",
+    "EXTRACTED",
+    "NEEDS_OCR",
+    "FAILED",
+    "UNSUPPORTED",
+    "STORED_ONLY"
+   ],
+   "note": "374 image-only PDFs exist before any OCR; the model must not need their text."
+  },
+  "SubjectStatus": {
+   "values": [
+    "ESTABLISHED",
+    "PROPOSED",
+    "UNRESOLVED"
+   ],
+   "note": "Whose statement an observation is, inside a document that may cover several estates."
+  }
+ },
+ "entities": {
+  "Estate": {
+   "layer": "IDENTITY",
+   "identity": "minted opaque id",
+   "fields": {
+    "id": {
+     "type": "id",
+     "required": true
+    },
+    "name_status": {
+     "type": "enum:NameStatus",
+     "required": true
+    }
+   }
+  },
+  "Wine": {
+   "layer": "IDENTITY",
+   "identity": "minted opaque id; the grand vin is a Wine",
+   "fields": {
+    "id": {
+     "type": "id",
+     "required": true
+    },
+    "name_status": {
+     "type": "enum:NameStatus",
+     "required": true
+    },
+    "type": {
+     "type": "enum:WineType",
+     "required": true
+    },
+    "non_vintage": {
+     "type": "bool",
+     "required": false
+    }
+   },
+   "note": "Identity apart from name, type apart from rank. The grand vin is a Wine."
+  },
+  "Vintage": {
+   "layer": "IDENTITY",
+   "identity": "composite (wine, label): label is a year or 'NV'",
+   "fields": {
+    "wine": {
+     "type": "ref:Wine",
+     "required": true
+    },
+    "label": {
+     "type": "text",
+     "required": true
+    }
+   }
+  },
+  "Source": {
+   "layer": "IDENTITY",
+   "identity": "minted opaque id",
+   "fields": {
+    "id": {
+     "type": "id",
+     "required": true
+    },
+    "kind": {
+     "type": "enum:SourceKind",
+     "required": true
+    },
+    "name": {
+     "type": "text",
+     "required": true
+    },
+    "operator": {
+     "type": "ref:Party",
+     "required": false
+    },
+    "base_urls": {
+     "type": "list:text",
+     "required": false
+    }
+   }
+  },
+  "Party": {
+   "layer": "IDENTITY",
+   "identity": "minted opaque id",
+   "fields": {
+    "id": {
+     "type": "id",
+     "required": true
+    },
+    "kind": {
+     "type": "enum:PartyKind",
+     "required": true
+    },
+    "name": {
+     "type": "text",
+     "required": true
+    },
+    "identifiers": {
+     "type": "list:text",
+     "required": false
+    }
+   },
+   "note": "Legal identifiers (SIRET, RCS) may be attached when established; legal notices themselves stay observations about the site publisher."
+  },
+  "IdentityMap": {
+   "layer": "IDENTITY",
+   "identity": "(namespace, legacy_key)",
+   "fields": {
+    "namespace": {
+     "type": "text",
+     "required": true
+    },
+    "legacy_key": {
+     "type": "text",
+     "required": true
+    },
+    "stable_id": {
+     "type": "ref:*",
+     "required": false
+    },
+    "candidates": {
+     "type": "list:ref",
+     "required": false
+    },
+    "status": {
+     "type": "enum:IdentityMapStatus",
+     "required": true
+    },
+    "provenance": {
+     "type": "ref:Provenance",
+     "required": true
+    }
+   }
+  },
+  "NameRecord": {
+   "layer": "IDENTITY",
+   "identity": "minted opaque id",
+   "fields": {
+    "id": {
+     "type": "id",
+     "required": true
+    },
+    "subject": {
+     "type": "ref:Estate|Wine",
+     "required": true
+    },
+    "name": {
+     "type": "text",
+     "required": true
+    },
+    "kind": {
+     "type": "enum:NameKind",
+     "required": true
+    },
+    "validity": {
+     "type": "Validity",
+     "required": true
+    },
+    "provenance": {
+     "type": "ref:Provenance",
+     "required": true
+    },
+    "context": {
+     "type": "text",
+     "required": false
+    }
+   },
+   "note": "context: the market or channel a name is used in (Desmirail: Initial de Desmirail \"aussi distribue sous le nom de Origine de Desmirail\")."
+  },
+  "IdentityTransition": {
+   "layer": "IDENTITY",
+   "identity": "minted opaque id",
+   "fields": {
+    "id": {
+     "type": "id",
+     "required": true
+    },
+    "kind": {
+     "type": "enum:TransitionKind",
+     "required": true
+    },
+    "from": {
+     "type": "ref:Estate|Wine",
+     "required": true
+    },
+    "to": {
+     "type": "ref:Estate|Wine",
+     "required": true
+    },
+    "at": {
+     "type": "TemporalBound",
+     "required": true
+    },
+    "certainty": {
+     "type": "enum:Certainty",
+     "required": true
+    },
+    "source_term": {
+     "type": "text",
+     "required": false
+    },
+    "provenance": {
+     "type": "ref:Provenance",
+     "required": true
+    }
+   }
+  },
+  "EstateWineRelationship": {
+   "layer": "STATE",
+   "identity": "minted opaque id",
+   "fields": {
+    "id": {
+     "type": "id",
+     "required": true
+    },
+    "estate": {
+     "type": "ref:Estate",
+     "required": true
+    },
+    "wine": {
+     "type": "ref:Wine",
+     "required": true
+    },
+    "status": {
+     "type": "enum:RelationshipStatus",
+     "required": true
+    },
+    "validity": {
+     "type": "Validity",
+     "required": true
+    },
+    "provenance": {
+     "type": "ref:Provenance",
+     "required": true
+    },
+    "kind": {
+     "type": "enum:RelationshipKind",
+     "required": true
+    }
+   },
+   "note": "One record per kind of link; validity per record."
+  },
+  "ClassificationScheme": {
+   "layer": "STATE",
+   "identity": "minted opaque id",
+   "fields": {
+    "id": {
+     "type": "id",
+     "required": true
+    },
+    "name": {
+     "type": "text",
+     "required": true
+    },
+    "body": {
+     "type": "ref:Party",
+     "required": true
+    }
+   }
+  },
+  "ClassificationEdition": {
+   "layer": "STATE",
+   "identity": "minted opaque id",
+   "fields": {
+    "id": {
+     "type": "id",
+     "required": true
+    },
+    "scheme": {
+     "type": "ref:ClassificationScheme",
+     "required": true
+    },
+    "label": {
+     "type": "text",
+     "required": true
+    },
+    "validity": {
+     "type": "Validity",
+     "required": true
+    },
+    "ranks": {
+     "type": "list:text",
+     "required": false
+    },
+    "provenance": {
+     "type": "ref:Provenance",
+     "required": true
+    },
+    "status": {
+     "type": "enum:EditionStatus",
+     "required": true
+    }
+   }
+  },
+  "ClassificationMembership": {
+   "layer": "STATE",
+   "identity": "minted opaque id",
+   "fields": {
+    "id": {
+     "type": "id",
+     "required": true
+    },
+    "edition": {
+     "type": "ref:ClassificationEdition",
+     "required": true
+    },
+    "wine": {
+     "type": "ref:Wine",
+     "required": true
+    },
+    "rank": {
+     "type": "text",
+     "required": false
+    },
+    "rank_status": {
+     "type": "enum:NameStatus",
+     "required": true
+    },
+    "appellation_listed": {
+     "type": "text",
+     "required": false
+    },
+    "validity": {
+     "type": "Validity",
+     "required": true
+    },
+    "provenance": {
+     "type": "ref:Provenance",
+     "required": true
+    }
+   },
+   "note": "The subject is the classified Wine, not the Estate: Graves classifies per colour, Crus Artisans per appellation (Moutte Blanc). 'The estate is classified' is a derived view."
+  },
+  "Appellation": {
+   "layer": "STATE",
+   "identity": "minted opaque id",
+   "fields": {
+    "id": {
+     "type": "id",
+     "required": true
+    },
+    "name": {
+     "type": "text",
+     "required": true
+    },
+    "validity": {
+     "type": "Validity",
+     "required": true
+    },
+    "provenance": {
+     "type": "ref:Provenance",
+     "required": true
+    }
+   }
+  },
+  "AppellationMembership": {
+   "layer": "STATE",
+   "identity": "minted opaque id",
+   "fields": {
+    "id": {
+     "type": "id",
+     "required": true
+    },
+    "wine": {
+     "type": "ref:Wine",
+     "required": true
+    },
+    "appellation": {
+     "type": "ref:Appellation",
+     "required": true
+    },
+    "validity": {
+     "type": "Validity",
+     "required": true
+    },
+    "provenance": {
+     "type": "ref:Provenance",
+     "required": true
+    }
+   }
+  },
+  "Ownership": {
+   "layer": "STATE",
+   "identity": "minted opaque id",
+   "fields": {
+    "id": {
+     "type": "id",
+     "required": true
+    },
+    "estate": {
+     "type": "ref:Estate",
+     "required": true
+    },
+    "party": {
+     "type": "ref:Party",
+     "required": true
+    },
+    "role": {
+     "type": "enum:OwnershipRole",
+     "required": true
+    },
+    "source_term": {
+     "type": "text",
+     "required": false
+    },
+    "validity": {
+     "type": "Validity",
+     "required": true
+    },
+    "provenance": {
+     "type": "ref:Provenance",
+     "required": true
+    }
+   }
+  },
+  "EstateLocation": {
+   "layer": "STATE",
+   "identity": "minted opaque id",
+   "fields": {
+    "id": {
+     "type": "id",
+     "required": true
+    },
+    "estate": {
+     "type": "ref:Estate",
+     "required": true
+    },
+    "commune": {
+     "type": "text",
+     "required": false
+    },
+    "lat": {
+     "type": "number",
+     "required": false
+    },
+    "lng": {
+     "type": "number",
+     "required": false
+    },
+    "method": {
+     "type": "text",
+     "required": false
+    },
+    "validity": {
+     "type": "Validity",
+     "required": true
+    },
+    "provenance": {
+     "type": "ref:Provenance",
+     "required": true
+    }
+   }
+  },
+  "VintageStatement": {
+   "layer": "STATE",
+   "identity": "minted opaque id",
+   "fields": {
+    "id": {
+     "type": "id",
+     "required": true
+    },
+    "vintage": {
+     "type": "ref:Vintage",
+     "required": true
+    },
+    "kind": {
+     "type": "enum:VintageStatementKind",
+     "required": true
+    },
+    "provenance": {
+     "type": "ref:Provenance",
+     "required": true
+    }
+   }
+  },
+  "EditorialCollectionMembership": {
+   "layer": "STATE",
+   "identity": "minted opaque id",
+   "fields": {
+    "id": {
+     "type": "id",
+     "required": true
+    },
+    "estate": {
+     "type": "ref:Estate",
+     "required": true
+    },
+    "collection": {
+     "type": "text",
+     "required": true
+    },
+    "tier": {
+     "type": "text",
+     "required": false
+    },
+    "provenance": {
+     "type": "ref:Provenance",
+     "required": true
+    }
+   },
+   "note": "The dashboard's editorial groupings (Pomerol, Libournais, Côtes, Graves & Entre-Deux-Mers, Médoc beyond the lists). Never a classification."
+  },
+  "Artifact": {
+   "layer": "DOCUMENT",
+   "identity": "minted opaque id; equality by digest",
+   "fields": {
+    "id": {
+     "type": "id",
+     "required": true
+    },
+    "sha256": {
+     "type": "text",
+     "required": false
+    },
+    "sha1": {
+     "type": "text",
+     "required": false
+    },
+    "bytes": {
+     "type": "number",
+     "required": false
+    },
+    "media_type": {
+     "type": "text",
+     "required": false
+    },
+    "bytes_available": {
+     "type": "bool",
+     "required": true
+    },
+    "extraction_status": {
+     "type": "enum:ExtractionStatus",
+     "required": true
+    }
+   },
+   "note": "At least one digest is required. Two artifacts with a digest in common are one artifact. Bytes overwritten before Phase 4 survive only as a sha1 from the manifest: bytes_available false."
+  },
+  "Locator": {
+   "layer": "DOCUMENT",
+   "identity": "(kind, value)",
+   "fields": {
+    "kind": {
+     "type": "enum:LocatorKind",
+     "required": true
+    },
+    "value": {
+     "type": "text",
+     "required": true
+    }
+   }
+  },
+  "Placement": {
+   "layer": "DOCUMENT",
+   "identity": "minted opaque id",
+   "fields": {
+    "id": {
+     "type": "id",
+     "required": true
+    },
+    "locator": {
+     "type": "ref:Locator",
+     "required": true
+    },
+    "artifact": {
+     "type": "ref:Artifact",
+     "required": false
+    },
+    "status": {
+     "type": "enum:PlacementStatus",
+     "required": true
+    },
+    "source": {
+     "type": "ref:Source",
+     "required": false
+    },
+    "retrieval_method": {
+     "type": "text",
+     "required": false
+    },
+    "observed": {
+     "type": "Validity",
+     "required": true
+    },
+    "legacy_manifest_row": {
+     "type": "number",
+     "required": false
+    },
+    "provenance": {
+     "type": "ref:Provenance",
+     "required": true
+    }
+   },
+   "note": "One path, many artifacts over time: one Placement per (locator, artifact). An artifact may be null when the path is known and the bytes are not (the 123 provenance failures)."
+  },
+  "ArtifactAssessment": {
+   "layer": "DOCUMENT",
+   "identity": "minted opaque id",
+   "fields": {
+    "id": {
+     "type": "id",
+     "required": true
+    },
+    "artifact": {
+     "type": "ref:Artifact",
+     "required": true
+    },
+    "document_type": {
+     "type": "enum:DocumentType",
+     "required": true
+    },
+    "language": {
+     "type": "text",
+     "required": false
+    },
+    "status": {
+     "type": "enum:AttributionStatus",
+     "required": true
+    },
+    "provenance": {
+     "type": "ref:Provenance",
+     "required": true
+    }
+   }
+  },
+  "Attribution": {
+   "layer": "DOCUMENT",
+   "identity": "minted opaque id",
+   "fields": {
+    "id": {
+     "type": "id",
+     "required": true
+    },
+    "artifact": {
+     "type": "ref:Artifact",
+     "required": true
+    },
+    "estate": {
+     "type": "ref:Estate",
+     "required": false
+    },
+    "wine": {
+     "type": "ref:Wine",
+     "required": false
+    },
+    "vintage": {
+     "type": "ref:Vintage",
+     "required": false
+    },
+    "role": {
+     "type": "enum:RankTier",
+     "required": false
+    },
+    "method": {
+     "type": "enum:AttributionMethod",
+     "required": true
+    },
+    "status": {
+     "type": "enum:AttributionStatus",
+     "required": true
+    },
+    "supersedes": {
+     "type": "ref:Attribution",
+     "required": false
+    },
+    "provenance": {
+     "type": "ref:Provenance",
+     "required": true
+    }
+   },
+   "note": "A judgement of what an artifact concerns; role is now a RankTier claim, null when unknown."
+  },
+  "LegacyDocumentReference": {
+   "layer": "DOCUMENT",
+   "identity": "(origin file, record key, field, basename)",
+   "fields": {
+    "origin": {
+     "type": "text",
+     "required": true
+    },
+    "record_key": {
+     "type": "text",
+     "required": true
+    },
+    "field": {
+     "type": "text",
+     "required": false
+    },
+    "basename": {
+     "type": "text",
+     "required": true
+    },
+    "candidates": {
+     "type": "list:ref:Placement",
+     "required": true
+    },
+    "resolution": {
+     "type": "enum:IdentityMapStatus",
+     "required": true
+    }
+   },
+   "note": "How a bare filename cited by field-src.js, cuvee-src.js or a record's src stays resolvable: to the candidate placements, never silently to one."
+  },
+  "EvidenceLink": {
+   "layer": "OBSERVATION",
+   "identity": "the evidence row key (evidence.row_key)",
+   "fields": {
+    "row_key": {
+     "type": "text",
+     "required": true
+    },
+    "evidence_version": {
+     "type": "number",
+     "required": true
+    },
+    "artifact": {
+     "type": "ref:Artifact",
+     "required": false
+    },
+    "estate": {
+     "type": "ref:Estate",
+     "required": false
+    },
+    "wine": {
+     "type": "ref:Wine",
+     "required": false
+    }
+   },
+   "note": "Points from the immutable evidence store into the new identities. The store is not rewritten; the link is built beside it."
+  },
+  "Observation": {
+   "layer": "OBSERVATION",
+   "identity": "minted opaque id; unique on (artifact, locus, subject, field, extractor)",
+   "fields": {
+    "id": {
+     "type": "id",
+     "required": true
+    },
+    "subject": {
+     "type": "ref:Estate|Wine|Vintage|EstateWineRelationship|Source",
+     "required": true
+    },
+    "field": {
+     "type": "text",
+     "required": true
+    },
+    "raw_value": {
+     "type": "any",
+     "required": false
+    },
+    "value": {
+     "type": "any",
+     "required": false
+    },
+    "unit": {
+     "type": "text",
+     "required": false
+    },
+    "qualifier": {
+     "type": "text",
+     "required": false
+    },
+    "artifact": {
+     "type": "ref:Artifact",
+     "required": false
+    },
+    "locus": {
+     "type": "text",
+     "required": false
+    },
+    "source": {
+     "type": "ref:Source",
+     "required": false
+    },
+    "extraction": {
+     "type": "object",
+     "required": true
+    },
+    "confidence": {
+     "type": "text",
+     "required": true
+    },
+    "observed_at": {
+     "type": "date",
+     "required": true
+    },
+    "provenance": {
+     "type": "ref:Provenance",
+     "required": true
+    },
+    "raw_label": {
+     "type": "text",
+     "required": false
+    },
+    "lang": {
+     "type": "text",
+     "required": false
+    },
+    "asserted_at": {
+     "type": "TemporalBound",
+     "required": false
+    },
+    "subject_status": {
+     "type": "enum:SubjectStatus",
+     "required": true
+    }
+   },
+   "note": "raw_label and lang as printed; asserted_at anchors \"today\", \"now\", \"currently\" to the document's date (an ArtifactDate), distinct from when the fact holds (validity of the state it supports) and from when it was retrieved."
+  },
+  "Reconciliation": {
+   "layer": "RECONCILIATION",
+   "identity": "minted opaque id",
+   "fields": {
+    "id": {
+     "type": "id",
+     "required": true
+    },
+    "subject": {
+     "type": "ref:*",
+     "required": true
+    },
+    "field": {
+     "type": "text",
+     "required": true
+    },
+    "candidates": {
+     "type": "list:ref:Observation",
+     "required": true
+    },
+    "selected": {
+     "type": "ref:Observation",
+     "required": false
+    },
+    "rule": {
+     "type": "enum:ReconciliationRule",
+     "required": true
+    },
+    "status": {
+     "type": "enum:ReconciliationStatus",
+     "required": true
+    },
+    "reason": {
+     "type": "text",
+     "required": true
+    },
+    "resolver": {
+     "type": "text",
+     "required": true
+    },
+    "decided_at": {
+     "type": "date",
+     "required": true
+    },
+    "supersedes": {
+     "type": "ref:Reconciliation",
+     "required": false
+    },
+    "provenance": {
+     "type": "ref:Provenance",
+     "required": true
+    }
+   }
+  },
+  "CanonicalValue": {
+   "layer": "CANONICAL",
+   "identity": "(subject, field)",
+   "fields": {
+    "subject": {
+     "type": "ref:*",
+     "required": true
+    },
+    "field": {
+     "type": "text",
+     "required": true
+    },
+    "value": {
+     "type": "any",
+     "required": true
+    },
+    "status": {
+     "type": "enum:CanonicalStatus",
+     "required": true
+    },
+    "reconciliation": {
+     "type": "ref:Reconciliation",
+     "required": true
+    },
+    "derivation": {
+     "type": "text",
+     "required": false
+    },
+    "provenance": {
+     "type": "ref:Provenance",
+     "required": true
+    },
+    "lang": {
+     "type": "text",
+     "required": false
+    },
+    "as_of": {
+     "type": "TemporalBound",
+     "required": false
+    }
+   },
+   "note": "lang: the language of a canonical text value; as_of: the date a time-dependent value (vineyard area, owner) is known to hold."
+  },
+  "Provenance": {
+   "layer": "CROSS_CUTTING",
+   "identity": "minted opaque id",
+   "fields": {
+    "id": {
+     "type": "id",
+     "required": true
+    },
+    "kind": {
+     "type": "enum:ProvenanceKind",
+     "required": true
+    },
+    "artifact": {
+     "type": "ref:Artifact",
+     "required": false
+    },
+    "locator": {
+     "type": "ref:Locator",
+     "required": false
+    },
+    "source": {
+     "type": "ref:Source",
+     "required": false
+    },
+    "quote": {
+     "type": "text",
+     "required": false
+    },
+    "actor": {
+     "type": "text",
+     "required": true
+    },
+    "code_state": {
+     "type": "object",
+     "required": false
+    },
+    "at": {
+     "type": "date",
+     "required": false
+    },
+    "derived_from": {
+     "type": "list:ref",
+     "required": false
+    },
+    "secondary": {
+     "type": "bool",
+     "required": false
+    },
+    "legacy_reference": {
+     "type": "ref:LegacyDocumentReference",
+     "required": false
+    }
+   },
+   "note": "One shape for every layer. Kinds named LEGACY_* say exactly what is known about a pre-migration value and no more."
+  },
+  "QualityFinding": {
+   "layer": "CROSS_CUTTING",
+   "identity": "minted opaque id",
+   "fields": {
+    "id": {
+     "type": "id",
+     "required": true
+    },
+    "target": {
+     "type": "ref:*",
+     "required": true
+    },
+    "kind": {
+     "type": "enum:QualityKind",
+     "required": true
+    },
+    "status": {
+     "type": "enum:QualityStatus",
+     "required": true
+    },
+    "detail": {
+     "type": "text",
+     "required": true
+    },
+    "detected_by": {
+     "type": "text",
+     "required": true
+    },
+    "provenance": {
+     "type": "ref:Provenance",
+     "required": true
+    }
+   }
+  },
+  "RankAssertion": {
+   "layer": "STATE",
+   "identity": "minted opaque id",
+   "fields": {
+    "id": {
+     "type": "id",
+     "required": true
+    },
+    "relationship": {
+     "type": "ref:EstateWineRelationship",
+     "required": true
+    },
+    "tier": {
+     "type": "enum:RankTier",
+     "required": true
+    },
+    "scope": {
+     "type": "enum:RankScope",
+     "required": true
+    },
+    "scope_type": {
+     "type": "enum:WineType",
+     "required": false
+    },
+    "claimant": {
+     "type": "enum:Claimant",
+     "required": true
+    },
+    "source_term": {
+     "type": "text",
+     "required": false
+    },
+    "legacy_term": {
+     "type": "text",
+     "required": false
+    },
+    "validity": {
+     "type": "Validity",
+     "required": true
+    },
+    "provenance": {
+     "type": "ref:Provenance",
+     "required": true
+    }
+   },
+   "note": "A claimant's statement of where a wine stands in a range, in time.",
+   "renamed_from": "RoleAssignment"
+  },
+  "RankAbsence": {
+   "layer": "STATE",
+   "identity": "minted opaque id",
+   "fields": {
+    "id": {
+     "type": "id",
+     "required": true
+    },
+    "estate": {
+     "type": "ref:Estate",
+     "required": true
+    },
+    "tier": {
+     "type": "enum:RankTier",
+     "required": true
+    },
+    "scope": {
+     "type": "enum:RankScope",
+     "required": true
+    },
+    "scope_type": {
+     "type": "enum:WineType",
+     "required": false
+    },
+    "claimant": {
+     "type": "enum:Claimant",
+     "required": true
+    },
+    "validity": {
+     "type": "Validity",
+     "required": true
+    },
+    "provenance": {
+     "type": "ref:Provenance",
+     "required": true
+    }
+   },
+   "note": "A statement that a rank is empty - for good, or for one vintage (Corbin 2022: \"no second wine was produced this year\").",
+   "renamed_from": "RoleAbsence"
+  },
+  "WineDescriptor": {
+   "layer": "STATE",
+   "identity": "minted opaque id",
+   "fields": {
+    "id": {
+     "type": "id",
+     "required": true
+    },
+    "wine": {
+     "type": "ref:Wine",
+     "required": true
+    },
+    "kind": {
+     "type": "enum:DescriptorKind",
+     "required": true
+    },
+    "source_term": {
+     "type": "text",
+     "required": true
+    },
+    "validity": {
+     "type": "Validity",
+     "required": true
+    },
+    "provenance": {
+     "type": "ref:Provenance",
+     "required": true
+    }
+   },
+   "note": "How a wine is made or selected, kept apart from its rank."
+  },
+  "SourceEstateRelationship": {
+   "layer": "STATE",
+   "identity": "minted opaque id",
+   "fields": {
+    "id": {
+     "type": "id",
+     "required": true
+    },
+    "source": {
+     "type": "ref:Source",
+     "required": true
+    },
+    "estate": {
+     "type": "ref:Estate",
+     "required": true
+    },
+    "kind": {
+     "type": "enum:SourceRelationKind",
+     "required": true
+    },
+    "validity": {
+     "type": "Validity",
+     "required": true
+    },
+    "provenance": {
+     "type": "ref:Provenance",
+     "required": true
+    }
+   },
+   "note": "A source serving or mentioning an estate. Never identity: a group site serves several estates."
+  },
+  "ArtifactDate": {
+   "layer": "DOCUMENT",
+   "identity": "minted opaque id",
+   "fields": {
+    "id": {
+     "type": "id",
+     "required": true
+    },
+    "artifact": {
+     "type": "ref:Artifact",
+     "required": true
+    },
+    "kind": {
+     "type": "enum:ArtifactDateKind",
+     "required": true
+    },
+    "value": {
+     "type": "TemporalBound",
+     "required": true
+    },
+    "provenance": {
+     "type": "ref:Provenance",
+     "required": true
+    }
+   },
+   "note": "Candidate dates of a document, several per artifact, each with how it is known."
+  },
+  "ArtifactRelation": {
+   "layer": "DOCUMENT",
+   "identity": "minted opaque id",
+   "fields": {
+    "id": {
+     "type": "id",
+     "required": true
+    },
+    "from": {
+     "type": "ref:Artifact",
+     "required": true
+    },
+    "to": {
+     "type": "ref:Artifact",
+     "required": true
+    },
+    "kind": {
+     "type": "enum:ArtifactRelationKind",
+     "required": true
+    },
+    "status": {
+     "type": "enum:RelationStatus",
+     "required": true
+    },
+    "provenance": {
+     "type": "ref:Provenance",
+     "required": true
+    }
+   },
+   "note": "Language versions, revisions, family membership - candidates, never content equivalence."
+  },
+  "DocumentFamily": {
+   "layer": "DOCUMENT",
+   "identity": "minted opaque id",
+   "fields": {
+    "id": {
+     "type": "id",
+     "required": true
+    },
+    "source": {
+     "type": "ref:Source",
+     "required": true
+    },
+    "label_signature": {
+     "type": "list:text",
+     "required": true
+    },
+    "members": {
+     "type": "list:ref",
+     "required": true
+    },
+    "languages": {
+     "type": "list:text",
+     "required": false
+    },
+    "provenance": {
+     "type": "ref:Provenance",
+     "required": true
+    }
+   },
+   "note": "A derived grouping of one source's documents that share a layout (849 families; none shared across domains; 27 span languages). An extraction aid, not domain truth."
+  },
+  "Translation": {
+   "layer": "CANONICAL",
+   "identity": "minted opaque id",
+   "fields": {
+    "id": {
+     "type": "id",
+     "required": true
+    },
+    "source_observation": {
+     "type": "ref:Observation",
+     "required": true
+    },
+    "target_lang": {
+     "type": "text",
+     "required": true
+    },
+    "text": {
+     "type": "text",
+     "required": true
+    },
+    "method": {
+     "type": "text",
+     "required": true
+    },
+    "provenance": {
+     "type": "ref:Provenance",
+     "required": true
+    }
+   },
+   "note": "A derived text in another language. Never an observation, never evidence of equivalence."
+  }
+ },
+ "value_types": {
+  "TemporalBound": {
+   "fields": {
+    "kind": "enum:BoundKind",
+    "axis": "enum:BoundAxis",
+    "value": "ISO partial date (CALENDAR) or vintage year (VINTAGE)",
+    "precision": "enum:DatePrecision",
+    "basis": "ref:Provenance or quote"
+   },
+   "rules": [
+    "value is required for EXACT, APPROXIMATE, NO_LATER_THAN and NO_EARLIER_THAN, and absent for UNKNOWN, OPEN and NOT_APPLICABLE",
+    "precision matches the value: DAY 'YYYY-MM-DD', MONTH 'YYYY-MM', YEAR 'YYYY', DECADE 'YYYYs'; on the VINTAGE axis the value is a year and precision is VINTAGE",
+    "basis is required whenever a value is given: no date without a source",
+    "OPEN is allowed only as valid_to, and means 'still holds as of the latest source' (Validity.as_of)",
+    "UNKNOWN means a bound exists and is not known; NOT_APPLICABLE means the record has no such bound",
+    "a source's wording that does not fix a date ('pendant plus de 30 ans', 'since') is kept as the basis quote, never converted to a finer value than it supports"
+   ]
+  },
+  "Validity": {
+   "fields": {
+    "valid_from": "TemporalBound",
+    "valid_to": "TemporalBound",
+    "as_of": "date of the latest source confirming the record"
+   },
+   "derived_status": {
+    "CURRENT": "valid_to.kind == OPEN",
+    "HISTORICAL": "valid_to.kind in EXACT, APPROXIMATE, NO_LATER_THAN, NO_EARLIER_THAN, UNKNOWN",
+    "TIMELESS": "both NOT_APPLICABLE"
+   }
+  }
+ },
+ "relationships": [
+  [
+   "Estate",
+   "EstateWineRelationship",
+   "Wine",
+   "an estate has wines over time; the grand vin is one of them"
+  ],
+  [
+   "Wine",
+   "Vintage",
+   null,
+   "a wine's vintages; Estate -> Wine -> Vintage is through the relationship valid for that vintage"
+  ],
+  [
+   "ClassificationScheme",
+   "ClassificationEdition",
+   null,
+   "Saint-Emilion 2012 and 2022 are editions of one scheme"
+  ],
+  [
+   "ClassificationEdition",
+   "ClassificationMembership",
+   "Wine",
+   "a classified wine, its rank, in time"
+  ],
+  [
+   "Appellation",
+   "AppellationMembership",
+   "Wine",
+   "a wine's appellation, in time; the appellation itself has a validity (Pessac-Leognan from 1987)"
+  ],
+  [
+   "Estate",
+   "Ownership",
+   "Party",
+   "owners and groups, in time"
+  ],
+  [
+   "Estate",
+   "EstateLocation",
+   null,
+   "commune and position, in time"
+  ],
+  [
+   "Estate|Wine",
+   "NameRecord",
+   null,
+   "current, former, alias, variant and source spellings"
+  ],
+  [
+   "Estate|Wine",
+   "IdentityTransition",
+   "Estate|Wine",
+   "mergers, splits, renames, successions, possible sameness"
+  ],
+  [
+   "IdentityMap",
+   null,
+   "Estate|Wine|Source|Artifact",
+   "legacy key -> stable id; never rewritten"
+  ],
+  [
+   "Source",
+   "Placement",
+   "Artifact",
+   "a source served these bytes at this locator at this time"
+  ],
+  [
+   "Locator",
+   "Placement",
+   "Artifact",
+   "one path, several artifacts over time; one artifact, several paths"
+  ],
+  [
+   "Artifact",
+   "ArtifactAssessment",
+   null,
+   "what kind of document it is"
+  ],
+  [
+   "Artifact",
+   "Attribution",
+   "Estate|Wine|Vintage",
+   "a judgement of what it concerns; many per artifact"
+  ],
+  [
+   "Artifact",
+   "Observation",
+   "Estate|Wine|Vintage|EstateWineRelationship",
+   "what it states, about which subject"
+  ],
+  [
+   "Observation",
+   "Reconciliation",
+   "CanonicalValue",
+   "candidates -> a named choice -> the projected value"
+  ],
+  [
+   "EvidenceLink",
+   null,
+   "Artifact|Estate|Wine",
+   "the immutable evidence, read through the identity maps"
+  ],
+  [
+   "Provenance",
+   null,
+   "*",
+   "attached to every state, observation, reconciliation, canonical value and finding"
+  ],
+  [
+   "QualityFinding",
+   null,
+   "*",
+   "attached to anything, never changes it"
+  ],
+  [
+   "EstateWineRelationship",
+   "RankAssertion",
+   "RankTier x RankScope",
+   "a claimant places the wine in a range, in time"
+  ],
+  [
+   "Estate",
+   "RankAbsence",
+   "RankTier x RankScope",
+   "a rank is empty, for good or for a vintage"
+  ],
+  [
+   "Wine",
+   "WineDescriptor",
+   null,
+   "how the wine is made or selected"
+  ],
+  [
+   "Source",
+   "SourceEstateRelationship",
+   "Estate",
+   "a source serves or mentions an estate"
+  ],
+  [
+   "Artifact",
+   "ArtifactDate",
+   null,
+   "candidate dates of a document"
+  ],
+  [
+   "Artifact",
+   "ArtifactRelation",
+   "Artifact",
+   "language versions, revisions, families"
+  ],
+  [
+   "Source",
+   "DocumentFamily",
+   "Artifact",
+   "documents sharing a layout"
+  ],
+  [
+   "Observation",
+   "Translation",
+   null,
+   "a derived text in another language"
+  ]
+ ],
+ "manifest_decomposition": {
+  "from": "data/sources.json",
+  "into": {
+   "Artifact": "what bytes exist (sha1, bytes; sha256 where read)",
+   "Locator+Placement": "where those bytes were found, when, how retrieved (folder, file, url, retrieval part of how)",
+   "ArtifactAssessment": "what kind of document it is (role skip, page, group report, combined)",
+   "Attribution": "which estate, wine, vintage and role it may concern (estate, estateName, wine, slug, year, role grand/second/other, colour, attribution part of how, note)",
+   "EvidenceLink": "what the reader concluded (the existing store, unchanged)",
+   "EstateWineRelationship+RoleAssignment": "what the dataset accepts (never written from a manifest row)"
+  }
+ },
+ "mapping": [
+  {
+   "current": "estate files",
+   "field": "id",
+   "target": "IdentityMap(namespace estate) -> Estate",
+   "rule": "mint an Estate; map the legacy id ACTIVE",
+   "risk": "M2: evidence refers to these ids; never renamed"
+  },
+  {
+   "current": "estate files",
+   "field": "name",
+   "target": "NameRecord CURRENT (Estate) and NameRecord CURRENT (grand-vin Wine)",
+   "rule": "verbatim; provenance LEGACY_UNSOURCED",
+   "risk": "the grand vin's name is assumed to be the estate's only where no other is known"
+  },
+  {
+   "current": "estate files",
+   "field": "cls",
+   "target": "ClassificationEdition or EditorialCollectionMembership",
+   "rule": "1855, sauternes, graves, stem, bourgeois, artisan -> edition; pomerol, libournais, cotes, graves-doux, medoc-hors -> editorial",
+   "risk": "app.js defaults cls from cat; the default is reproduced explicitly, not inherited"
+  },
+  {
+   "current": "estate files",
+   "field": "growth",
+   "target": "ClassificationMembership.rank on the grand-vin Wine",
+   "rule": "rank term from classifications.js tiers; validity UNKNOWN -> OPEN; editorial tiers -> EditorialCollectionMembership.tier",
+   "risk": "a rank today is not a rank since 1855 (Mouton)"
+  },
+  {
+   "current": "estate files",
+   "field": "cat",
+   "target": "Wine.range of the grand vin",
+   "rule": "red -> RED, white -> DRY_WHITE, sweet -> SWEET_WINE, both -> UNKNOWN with a finding",
+   "risk": "'both' hides two classified wines"
+  },
+  {
+   "current": "estate files",
+   "field": "wine",
+   "target": "ClassificationMembership per colour (Graves)",
+   "rule": "'red and white' -> a membership for the red grand vin and one for a white Wine; the white Wine is an existing cuvee wine where one is listed, else minted with name_status UNKNOWN (D8)",
+   "risk": "R10"
+  },
+  {
+   "current": "estate files",
+   "field": "appellation",
+   "target": "AppellationMembership of the grand-vin Wine",
+   "rule": "LEGACY_UNSOURCED; validity UNKNOWN -> OPEN",
+   "risk": "one string per estate; Moutte Blanc needs two"
+  },
+  {
+   "current": "estate files",
+   "field": "commune",
+   "target": "EstateLocation.commune",
+   "rule": "LEGACY_UNSOURCED",
+   "risk": "none"
+  },
+  {
+   "current": "estate files",
+   "field": "lat",
+   "target": "EstateLocation.lat",
+   "rule": "LEGACY_UNSOURCED; coords.js takes precedence where it holds the estate (method recorded)",
+   "risk": "two position sources"
+  },
+  {
+   "current": "estate files",
+   "field": "lng",
+   "target": "EstateLocation.lng",
+   "rule": "as lat",
+   "risk": "as lat"
+  },
+  {
+   "current": "estate files",
+   "field": "ha",
+   "target": "Observation(Estate, vineyard_area_ha) + CanonicalValue",
+   "rule": "one LEGACY observation; prose giving several figures (batch3 'Sources give the estate as 31, 40 or 41 hectares') becomes a CONFLICT finding, not three invented observations",
+   "risk": "time-dependent; as_of unknown"
+  },
+  {
+   "current": "estate files",
+   "field": "owner",
+   "target": "Party + Ownership",
+   "rule": "a year the string states ('since 2016') -> valid_from YEAR with the string as basis; otherwise UNKNOWN",
+   "risk": "L10: strings mix several parties and caveats (Colbert / Lafon)"
+  },
+  {
+   "current": "estate files",
+   "field": "second",
+   "target": "Wine + EstateWineRelationship + RoleAssignment SECOND_WINE (legacy_term 'second')",
+   "rule": "a name -> the cuvee wine of that name if listed, else a minted Wine; '—' -> RoleAbsence (NO_SUCH_WINE); absent -> nothing (UNKNOWN)",
+   "risk": "R11, M5: '—' must not become UNKNOWN"
+  },
+  {
+   "current": "estate files",
+   "field": "blend",
+   "target": "Observation(Estate, blend_unqualified)",
+   "rule": "kept as an observation whose meaning (plantings or usual assemblage) is decided per estate (D1); AMBIGUOUS_SEMANTICS finding",
+   "risk": "two meanings in one field"
+  },
+  {
+   "current": "estate files",
+   "field": "perf",
+   "target": "EditorialCollectionMembership annotation (editorial model parameter)",
+   "rule": "not a domain fact; carried in the editorial layer",
+   "risk": "none"
+  },
+  {
+   "current": "estate files",
+   "field": "style",
+   "target": "editorial narrative of the Estate",
+   "rule": "prose, LEGACY_UNSOURCED",
+   "risk": "none"
+  },
+  {
+   "current": "estate files",
+   "field": "history",
+   "target": "editorial narrative of the Estate",
+   "rule": "prose, LEGACY_UNSOURCED; dated facts in it are not extracted automatically",
+   "risk": "facts buried in prose"
+  },
+  {
+   "current": "estate files",
+   "field": "terroir",
+   "target": "editorial narrative of the Estate",
+   "rule": "prose, LEGACY_UNSOURCED",
+   "risk": "as history"
+  },
+  {
+   "current": "estate files",
+   "field": "sources",
+   "target": "Provenance CITATION_UNVERIFIED on the estate's legacy records",
+   "rule": "verbatim citations",
+   "risk": "none"
+  },
+  {
+   "current": "crubourgeois.js",
+   "field": "exceptionnel|superieur|bourgeois rows [name, appellation]",
+   "target": "Estate + IdentityMap(name-derived id) + ClassificationMembership + AppellationMembership",
+   "rule": "the app.js id 'bourgeois-' + slug(name) is the legacy key; rank from the list name",
+   "risk": "R12: the legacy key is a name; it is mapped, never recomputed"
+  },
+  {
+   "current": "cruartisan.js",
+   "field": "current rows [name, appellation]",
+   "target": "as crubourgeois.js",
+   "rule": "legacy key 'artisan-' + slug(name)",
+   "risk": "two rows not in the 2022-2026 proclamation (Phase 3.0): migrated as legacy, flagged SCOPE_DISCREPANCY"
+  },
+  {
+   "current": "saintemilion.js BDX_STEM_GCC",
+   "field": "names",
+   "target": "as crubourgeois.js, rank Grand cru classé",
+   "rule": "legacy key 'stem-' + slug(name)",
+   "risk": "R12"
+  },
+  {
+   "current": "pomerol.js BDX_POMEROL_OTHER",
+   "field": "names",
+   "target": "Estate + EditorialCollectionMembership",
+   "rule": "legacy key 'pomerol-' + slug(name)",
+   "risk": "R12"
+  },
+  {
+   "current": "graves.js BDX_GRAVES_CROSSLIST",
+   "field": "ids",
+   "target": "a second ClassificationMembership of the same Wine",
+   "rule": "Haut-Brion red: 1855 and Graves",
+   "risk": "none"
+  },
+  {
+   "current": "classifications.js",
+   "field": "id, name, region, year, cat, estates, editorial, blurb, detail, tiers",
+   "target": "ClassificationScheme + ClassificationEdition (+ ranks from tiers) or the editorial layer; blurb/detail prose; estates is derived, not stored; tiers.base is an editorial model parameter",
+   "rule": "editorial true -> editorial layer",
+   "risk": "prose dates ('Amended exactly once') are not facts"
+  },
+  {
+   "current": "fiches.js",
+   "field": "key 'estate|vintage'",
+   "target": "Vintage(grand-vin Wine of that estate, year)",
+   "rule": "estate through IdentityMap, then its grand-vin Wine",
+   "risk": "M1: the key is shared by six structures; all map through the same rule"
+  },
+  {
+   "current": "fiches.js",
+   "field": "value fields: alc, blend, decant, food, harvest, months, note, oak, ph, pick, press, sug, ta, taste, temp, window, yld",
+   "target": "Observation(Vintage, field) + Reconciliation + CanonicalValue",
+   "rule": "one LEGACY observation per value; provenance from field-src.js where it names the field (resolved through LegacyDocumentReference), else LEGACY_RECORD_SOURCE when the record has src, else LEGACY_UNSOURCED",
+   "risk": "I13: record-level src is never promoted (Badette 2020)"
+  },
+  {
+   "current": "fiches.js",
+   "field": "src",
+   "target": "LegacyDocumentReference(origin record src) + Provenance LEGACY_RECORD_SOURCE",
+   "rule": "names the record's last writer; attached to the record, never to a field",
+   "risk": "I13"
+  },
+  {
+   "current": "fiches.js",
+   "field": "url",
+   "target": "Locator(URL) + Placement of the record's document",
+   "rule": "where it resolves to an artifact",
+   "risk": "none"
+  },
+  {
+   "current": "fiches.js",
+   "field": "via",
+   "target": "Provenance (channel TRADE) of the record's observations",
+   "rule": "'trade' -> the value came through a negociant copy",
+   "risk": "none"
+  },
+  {
+   "current": "fiches.js",
+   "field": "ttl, ntl, dtl, ftl, wtl",
+   "target": "CanonicalValue.derivation TRANSLATED for taste, note, decant, food, window",
+   "rule": "the translation is the canonical value; the original-language text stays an observation when re-extracted",
+   "risk": "the original text is not in today's data"
+  },
+  {
+   "current": "fiches.js",
+   "field": "sugl",
+   "target": "Observation.qualifier 'under' on sug",
+   "rule": "verbatim",
+   "risk": "none"
+  },
+  {
+   "current": "fiches.js",
+   "field": "tau",
+   "target": "Observation.unit of ta (H2SO4, tartaric)",
+   "rule": "verbatim",
+   "risk": "none"
+  },
+  {
+   "current": "fiches.js",
+   "field": "wy",
+   "target": "CanonicalValue (drinking window years) derivation PARSED from window",
+   "rule": "derived from window, not observed separately",
+   "risk": "none"
+  },
+  {
+   "current": "field-src.js",
+   "field": "record key -> field -> basename",
+   "target": "LegacyDocumentReference(origin field-src.js) -> Provenance LEGACY_FIELD_SOURCE or LEGACY_AMBIGUOUS_SOURCE",
+   "rule": "candidates = every Placement of that basename; ACTIVE if they share one artifact, AMBIGUOUS otherwise (301 values)",
+   "risk": "R3, I22"
+  },
+  {
+   "current": "cuvees.js BDX_CUVEE_WINES",
+   "field": "slug",
+   "target": "IdentityMap(namespace wine-by-slug, 'estate|slug') -> Wine",
+   "rule": "mint a Wine per (estate, slug)",
+   "risk": "none"
+  },
+  {
+   "current": "cuvees.js BDX_CUVEE_WINES",
+   "field": "name",
+   "target": "NameRecord CURRENT (Wine) + IdentityMap(wine-by-display-name, 'estate|name')",
+   "rule": "verbatim; the display-name map is what evidence target_wine resolves through",
+   "risk": "two wines of one name (Les Murets red and white) need their slugs"
+  },
+  {
+   "current": "cuvees.js BDX_CUVEE_WINES",
+   "field": "role",
+   "target": "RoleAssignment",
+   "rule": "second -> SECOND_WINE; other -> UNKNOWN with legacy_term 'other' (B1: 'other' meant both 'another cuvee' and 'not known')",
+   "risk": "I5"
+  },
+  {
+   "current": "cuvees.js BDX_CUVEE_WINES",
+   "field": "colour",
+   "target": "Wine.range and RoleAssignment.range",
+   "rule": "red -> RED, white -> DRY_WHITE, sweet -> SWEET_WINE, rose -> ROSE",
+   "risk": "none"
+  },
+  {
+   "current": "cuvees.js BDX_CUVEES",
+   "field": "key 'estate|slug|vintage'",
+   "target": "Vintage(Wine via wine-by-slug, year)",
+   "rule": "direct",
+   "risk": "none"
+  },
+  {
+   "current": "cuvees.js BDX_CUVEES",
+   "field": "value fields: alc, blend, food, months, note, oak, ph, pick, press, sug, ta, taste, temp, window, yld",
+   "target": "as fiches.js value fields",
+   "rule": "as fiches.js, with cuvee-src.js",
+   "risk": "as fiches.js"
+  },
+  {
+   "current": "cuvees.js BDX_CUVEES",
+   "field": "src, ftl, sugl, tau, wy",
+   "target": "as fiches.js",
+   "rule": "as fiches.js",
+   "risk": "as fiches.js"
+  },
+  {
+   "current": "cuvee-src.js",
+   "field": "record key -> field -> basename",
+   "target": "as field-src.js",
+   "rule": "16 provenance keys with no data record -> ORPHAN_PROVENANCE findings",
+   "risk": "R3"
+  },
+  {
+   "current": "sources.json",
+   "field": "file, folder",
+   "target": "Locator(LOCAL_PATH) + Placement",
+   "rule": "one Placement per (path, digest); a path with several sha1 keeps every version (204 paths)",
+   "risk": "I10"
+  },
+  {
+   "current": "sources.json",
+   "field": "sha1, bytes",
+   "target": "Artifact",
+   "rule": "copied; joined to a sha256 artifact where the same bytes were hashed on the evidence path",
+   "risk": "I9"
+  },
+  {
+   "current": "sources.json",
+   "field": "url",
+   "target": "Locator(URL) + Placement",
+   "rule": "the URL the bytes were fetched from",
+   "risk": "none"
+  },
+  {
+   "current": "sources.json",
+   "field": "estate, estateName",
+   "target": "Attribution.estate (status LEGACY)",
+   "rule": "estate through IdentityMap; estateName is a display copy, verified against NameRecord, not stored",
+   "risk": "R8: folder-based attributions keep method FOLDER"
+  },
+  {
+   "current": "sources.json",
+   "field": "wine, slug",
+   "target": "Attribution.wine (status LEGACY)",
+   "rule": "through the wine maps; a null wine stays null",
+   "risk": "R1: null never defaults to the grand vin"
+  },
+  {
+   "current": "sources.json",
+   "field": "year",
+   "target": "Attribution.vintage",
+   "rule": "(attributed wine, year) where a wine is attributed; otherwise the year is kept on the attribution alone",
+   "risk": "none"
+  },
+  {
+   "current": "sources.json",
+   "field": "role",
+   "target": "Attribution.role (grand, second, other, combined) or ArtifactAssessment.document_type (skip, page, group report, unknown)",
+   "rule": "grand -> GRAND_VIN, second -> SECOND_WINE, other -> UNKNOWN (legacy_term), combined -> MULTI_WINE_SHEET plus one attribution per wine named; skip -> BROCHURE_OR_DOSSIER or PRESS_REVIEW by guard reason where recorded, else OTHER; page -> WEB_PAGE; group report -> GROUP_REPORT; unknown -> UNKNOWN",
+   "risk": "L5"
+  },
+  {
+   "current": "sources.json",
+   "field": "colour",
+   "target": "Attribution (range claim)",
+   "rule": "as cuvee colour",
+   "risk": "none"
+  },
+  {
+   "current": "sources.json",
+   "field": "how",
+   "target": "Placement.retrieval_method and/or Attribution.method",
+   "rule": "by a reviewed table of the 85 texts (D6); unclassified -> LEGACY_UNKNOWN with the text kept",
+   "risk": "D6"
+  },
+  {
+   "current": "sources.json",
+   "field": "note",
+   "target": "Provenance.quote of the row's Attribution",
+   "rule": "verbatim",
+   "risk": "none"
+  },
+  {
+   "current": "sources.json",
+   "field": "top-level note, roles, how",
+   "target": "documentation of the legacy vocabularies",
+   "rule": "kept with the migration's records",
+   "risk": "none"
+  },
+  {
+   "current": "fiches-url.js",
+   "field": "'estate|vintage' -> url",
+   "target": "derived view: Placement URLs of the artifacts behind the grand-vin Vintage's canonical values",
+   "rule": "regenerated in M7, compared byte for byte",
+   "risk": "M1"
+  },
+  {
+   "current": "cuvee-url.js",
+   "field": "'estate|slug|vintage' -> url",
+   "target": "as fiches-url.js",
+   "rule": "regenerated in M7",
+   "risk": "none"
+  },
+  {
+   "current": "ratings.js",
+   "field": "'estate|vintage' -> [mean, n, spread, critics]",
+   "target": "CanonicalValue status DERIVED (derivation AGGREGATED) on the grand-vin Vintage; the critics string kept as CITATION_UNVERIFIED inputs",
+   "rule": "provenance DERIVATION from the bordoverview source",
+   "risk": "M1"
+  },
+  {
+   "current": "cellar.js",
+   "field": "'estate|vintage' -> {v, src, label, lang}",
+   "target": "Observation(Vintage, cellar_note) raw text, label as locus, lang",
+   "rule": "src through LegacyDocumentReference; junk values (a letter's signature block) -> JUNK_VALUE finding, kept",
+   "risk": "M1"
+  },
+  {
+   "current": "overrides.js BDX_SCORES",
+   "field": "'estate|vintage' -> {score, src, note, blend}",
+   "target": "Observation(Vintage) per field, provenance CITATION_UNVERIFIED naming the critic; CanonicalValue status CITED_UNVERIFIED",
+   "rule": "blend here is a cited blend, an observation like any other, reconciled against document blends",
+   "risk": "M1; a second, unsourced blend source"
+  },
+  {
+   "current": "overrides.js BDX_NOT_PRODUCED",
+   "field": "estate -> [vintages]",
+   "target": "VintageStatement NOT_PRODUCED",
+   "rule": "LEGACY_UNSOURCED",
+   "risk": "none"
+  },
+  {
+   "current": "plantings.js",
+   "field": "estate -> {blend, declared, how, label, seen, src}",
+   "target": "Observation(Estate, vineyard_planting) with the label as locus",
+   "rule": "src through LegacyDocumentReference; label decides plantings vs assemblage (D1)",
+   "risk": "D1"
+  },
+  {
+   "current": "terroir.js",
+   "field": "estate -> {v, seen, of, src, label, lang, from, to}",
+   "target": "Observation(Estate, soil) with Validity on the VINTAGE axis from/to",
+   "rule": "from/to are the vintages of the documents seen, kept as NO_LATER_THAN/NO_EARLIER_THAN bounds",
+   "risk": "none"
+  },
+  {
+   "current": "coords.js",
+   "field": "estate -> [lat, lng, method]",
+   "target": "EstateLocation",
+   "rule": "method kept",
+   "risk": "none"
+  },
+  {
+   "current": "websites.js",
+   "field": "estate -> [url, tag]",
+   "target": "Source(ESTATE_SITE) + an informative estate-source link",
+   "rule": "the tag records how the site was found; never estate identity",
+   "risk": "I15"
+  },
+  {
+   "current": "data/field-conflicts.jsonl",
+   "field": "conflicts.py records (absent today)",
+   "target": "Reconciliation candidates and QualityFinding CONFLICT",
+   "rule": "if ever created before migration, each record becomes candidates of the Reconciliation for its (subject, field)",
+   "risk": "none: the file does not exist"
+  },
+  {
+   "current": "data/evidence/",
+   "field": "decisions-v1..v5, provenance-failures-v4/v5",
+   "target": "EvidenceLink (beside, not in, the store); provenance failures -> Placement MISSING/NAME_MISMATCH + findings",
+   "rule": "never rewritten",
+   "risk": "I19"
+  },
+  {
+   "current": "data/proposals.jsonl, data/attribution-candidates.jsonl",
+   "field": "dry-run actions",
+   "target": "Attribution status PROPOSED (or nothing)",
+   "rule": "never applied by a migration",
+   "risk": "I16; the 15 Terrasses 'set estate' proposals lack the wine (C1 att_001 shows the corrected form)"
+  },
+  {
+   "current": "data/scope/",
+   "field": "the Phase 3.0 universe",
+   "target": "Provenance AUTHORITATIVE_SOURCE statements, reconciled like any other observation",
+   "rule": "I21",
+   "risk": "none"
+  }
+ ],
+ "migrations": [
+  {
+   "id": "M0",
+   "name": "Freeze",
+   "does": "Tag the last pre-migration commit; record hashes of every canonical file, the manifest and the evidence index; snapshot the semantics (key shapes, role vocabularies, sparse-id rule, '—' meaning) as tests.",
+   "modifies_existing": false,
+   "reverse": "nothing to reverse (read-only)",
+   "gate": [
+    "I19"
+   ]
+  },
+  {
+   "id": "M1",
+   "name": "Stable identities",
+   "does": "Mint ids for estates, other wines, sources, parties; build IdentityMap from every legacy key: full-record ids, name-derived compact ids, (estate, slug) wine keys, (estate, display name) wine references used by evidence target_wine.",
+   "modifies_existing": false,
+   "reverse": "drop the new identity tables",
+   "gate": [
+    "I1",
+    "I2",
+    "I3",
+    "I8"
+   ]
+  },
+  {
+   "id": "M2",
+   "name": "Estate/Wine split",
+   "does": "Mint one grand-vin Wine per estate with a legacy grand-vin record; EstateWineRelationship for it and for every BDX_CUVEE_WINES wine; map 'estate|vintage' keys to (grand-vin Wine, vintage) through IdentityMap.",
+   "modifies_existing": false,
+   "reverse": "drop relationships and minted grand-vin wines",
+   "gate": [
+    "I4",
+    "I1",
+    "I3"
+   ]
+  },
+  {
+   "id": "M3",
+   "name": "Roles and time",
+   "does": "RoleAssignment from legacy roles (second -> SECOND_WINE; other -> UNKNOWN with legacy_term 'other'); RoleAbsence from second '—'; ClassificationMembership on wines from the estate files and, separately, from the Phase 3.0 universe as AUTHORITATIVE_SOURCE statements; Ownership from owner strings (a stated year kept at YEAR precision, else UNKNOWN); every bound UNKNOWN unless a source states it.",
+   "modifies_existing": false,
+   "reverse": "drop state records",
+   "gate": [
+    "I5",
+    "I6",
+    "I7",
+    "I20"
+   ]
+  },
+  {
+   "id": "M4",
+   "name": "Artifact identity",
+   "does": "Artifacts by digest from the manifest (sha1) and the evidence (sha256), joined where both are known for the same bytes; Locators and Placements from every manifest row, one per (path, digest), ordered by first appearance; Placement MISSING/NAME_MISMATCH for the 123 provenance failures; LegacyDocumentReference for every basename in field-src.js, cuvee-src.js, cellar/terroir/plantings src.",
+   "modifies_existing": false,
+   "reverse": "drop the document tables",
+   "gate": [
+    "I9",
+    "I10",
+    "I17",
+    "I18"
+   ]
+  },
+  {
+   "id": "M5",
+   "name": "Observations",
+   "does": "Observations from legacy canonical values (one per value, provenance LEGACY_FIELD_SOURCE / LEGACY_RECORD_SOURCE / LEGACY_AMBIGUOUS_SOURCE / LEGACY_UNSOURCED, exactly as known); EvidenceLinks for v4/v5 rows (v1-v3 rows stay interpretable through IdentityMap but are not linked to bytes they never hashed); Attributions LEGACY from manifest rows; ArtifactAssessments LEGACY.",
+   "modifies_existing": false,
+   "reverse": "drop observations and links",
+   "gate": [
+    "I8",
+    "I12",
+    "I13",
+    "I14",
+    "I15",
+    "I19"
+   ]
+  },
+  {
+   "id": "M6",
+   "name": "Reconciliation",
+   "does": "One Reconciliation per (subject, field) with a legacy value: rule LEGACY_NEVER_OVERWRITE, status LEGACY_RETAINED, candidates = every observation for it; new document observations (re-extraction under a provenance-safe extractor) enter as candidates and open CONFLICT_OPEN where they disagree.",
+   "modifies_existing": false,
+   "reverse": "drop reconciliations",
+   "gate": [
+    "I11"
+   ]
+  },
+  {
+   "id": "M7",
+   "name": "Canonical projection",
+   "does": "Generate CanonicalValues from reconciliations, and from them byte-identical regenerations of today's data files; any difference is a migration defect, not a correction.",
+   "modifies_existing": false,
+   "reverse": "stop projecting; the hand-maintained files are still the app's input",
+   "gate": [
+    "I12",
+    "I13",
+    "I16"
+   ]
+  },
+  {
+   "id": "M8",
+   "name": "Consumers",
+   "does": "Point the app, readers and tools at the projections and the new layers, one consumer at a time, each behind a switch; readers write Observations and Attributions PROPOSED, never canonical files.",
+   "modifies_existing": true,
+   "reverse": "flip the consumer's switch back; the old files are still generated",
+   "gate": [
+    "I1",
+    "I3",
+    "I16"
+   ]
+  },
+  {
+   "id": "M9",
+   "name": "Retirement",
+   "does": "After a full release on the new layers, archive (tag) and stop generating obsolete structures; the identity maps and legacy references stay for ever.",
+   "modifies_existing": true,
+   "reverse": "restore from the archive tag",
+   "gate": [
+    "I2",
+    "I8",
+    "I19"
+   ]
+  }
+ ],
+ "invariants": {
+  "I1": "Every current estate remains addressable (each of the 470 canonical estate keys resolves to one stable Estate).",
+  "I2": "Every historical estate id remains resolvable (IdentityMap holds every legacy key ever used: data files, manifest estate, evidence ctx.estate and target_estate).",
+  "I3": "Every current wine remains addressable (each grand vin and each BDX_CUVEE_WINES entry resolves to one Wine).",
+  "I4": "Grand vins become Wine entities without changing what they denote: every legacy 'estate|vintage' key maps to exactly one (Wine, Vintage) of that estate's grand-vin Wine.",
+  "I5": "No wine is silently assigned a role: every RoleAssignment has a provenance, and legacy 'other' becomes UNKNOWN with legacy_term 'other', never OTHER_CUVEE.",
+  "I6": "UNKNOWN role is representable and used where a wine's membership is known and its role is not.",
+  "I7": "Historical relationships do not overwrite current ones: records are added with validity; none is updated in place.",
+  "I8": "Evidence decisions remain interpretable: every v1-v5 row's estate and target_estate resolve through IdentityMap; target_wine resolves through the (estate, display name) wine map.",
+  "I9": "Artifact hashes remain unchanged: digests are copied, never recomputed over different bytes.",
+  "I10": "Historical file versions remain distinguishable: one Placement per (path, digest); the 204 multi-version paths keep every version.",
+  "I11": "Losing observations remain recoverable: every Reconciliation lists all candidates; no observation is deleted.",
+  "I12": "Canonical values retain provenance where provenance exists: field-level where field-src names a uniquely resolvable document, ambiguous-candidates where it does not.",
+  "I13": "Unsourced values are not given fabricated provenance: a record-level src is never promoted to field provenance (Badette 2020 oak); values without field provenance are LEGACY_RECORD_SOURCE_ONLY or LEGACY_UNSOURCED.",
+  "I14": "Multi-estate documents remain multi-estate capable: Attribution is many per artifact.",
+  "I15": "Shared sources do not imply shared estate identity: Source and Estate are linked only through Placement and Attribution, never by identity.",
+  "I16": "Proposals remain separate from canonical values: proposals.jsonl and attribution-candidates.jsonl become PROPOSED Attributions or nothing; no migration step reads them into state or canonical layers.",
+  "I17": "The 908 unattributed documents remain representable: an Artifact with no ACCEPTED or LEGACY Attribution, and an explicit UNATTRIBUTED one where it was examined.",
+  "I18": "The 123 unreadable files remain representable: Placements MISSING (103) or NAME_MISMATCH (20) with no artifact, each with an EXTRACTION_FAILURE or SOURCE_FAILURE finding.",
+  "I19": "Existing v1-v5 evidence is not rewritten: data/evidence/ is byte-identical before and after every migration step.",
+  "I20": "No migration step requires a complete wine universe: absence of a RoleAssignment is UNKNOWN; nothing waits for the 385 estates' wines.",
+  "I21": "The authoritative universe stays a separate statement layer (AUTHORITATIVE_SOURCE provenance); reaching state or canonical layers only through reconciliation.",
+  "I22": "A legacy basename never resolves by first match: a LegacyDocumentReference with more than one candidate stays AMBIGUOUS until a reviewed decision."
+ },
+ "open_decisions": {
+  "D1": "What the estate-level `blend` in the estate files and plantings.js denotes, per estate: vineyard plantings or the grand vin's usual assemblage. The model holds both kinds of observation; which one each legacy value is needs domain review (memory: 'a vineyard label can carry the assemblage').",
+  "D2": "Whether Haut-Bages Averous -> Echo de Lynch-Bages is one wine renamed or a succession of two wines. The estate's 'change d'identité pour devenir' supports both; the model records SUCCEEDED_BY with certainty UNRESOLVED until decided.",
+  "D3": "The storage and format of the normalized layers (files, SQLite, other). Phase 4.",
+  "D4": "The concrete syntax of minted ids. The rules are fixed (opaque, minted once, never parsed); the spelling is Phase 4's.",
+  "D5": "Reconciliation policy for new conflicts: the priority between an estate's own sheet and its trade copy, between language versions of one sheet (Badette EN 80 / FR 50; Chevalier EN '16-20' / FR '18'), between a document and the authoritative universe. Until set, conflicts stay CONFLICT_OPEN and the legacy value is retained.",
+  "D6": "The classification of the 85 distinct manifest `how` texts into retrieval method, attribution method, or both. Mechanical but a judgement; unclassified texts migrate verbatim as LEGACY_UNKNOWN.",
+  "D7": "How the app consumes the new layers in M8: regenerated files of today's shape, or a new loader. The projection must exist either way.",
+  "D8": "Names for classified wines no source names (the classified whites of Bouscaut, Carbonnieux, Latour-Martillac and Malartic-Lagravière): migrate with name_status UNKNOWN, or research them first. Not a blocker (I20)."
+ },
+ "diff": {
+  "ADD": [
+   [
+    "WineType",
+    "type independent of rank; corpus: grand vin blanc sec 94, troisieme vin moelleux (Caillou), rose de pressee (Latour-Martillac)"
+   ],
+   [
+    "RankTier.THIRD",
+    "third_wine: 58 artifacts on 13 domains (Batailley \"Pauillac de Batailley, the Chateau's third wine\"; Caillou \"notre troisieme vin\")"
+   ],
+   [
+    "RankTier.ABOVE_FIRST",
+    "prestige: 258 artifacts on 15 domains; Mangot \"in truth it is the superior cuvee\""
+   ],
+   [
+    "RankTier.UNRANKED",
+    "no_hierarchy: Le Rey \"do not represent as usual in Bordeaux first and second label\""
+   ],
+   [
+    "Claimant",
+    "Mangot: SECOND for the classification authorities, superior cuvee for producer and press"
+   ],
+   [
+    "RankScope",
+    "Caillou: Myosotis \"notre grand vin blanc sec\", Les Murets \"Second Vin blanc sec\""
+   ],
+   [
+    "RelationshipKind",
+    "from_estate_vines 219 artifacts; Vignobles K \"creee et orchestree par l'equipe\"; Langlet on Latour-Martillac's site"
+   ],
+   [
+    "WineDescriptor",
+    "plot_selection 654 artifacts (mostly vat work), young_vines 701, old_vines 636; co-occurrence second+young vines 171"
+   ],
+   [
+    "SourceEstateRelationship",
+    "25 multi-target domains; 31 moved domains; 688 artifacts on several domains"
+   ],
+   [
+    "ArtifactDate",
+    "PDF metadata 6,683 of 7,197; upload paths 5,074; HTTP Last-Modified 11,471 fetches"
+   ],
+   [
+    "ArtifactRelation",
+    "897 PDF groups differing only by a language token; 11 analytical disagreements; Murmure 2018 revision"
+   ],
+   [
+    "DocumentFamily",
+    "849 layout families, 278 of 3+ sheets, 69 domains with several"
+   ],
+   [
+    "Translation",
+    "1,053 Chinese and 239 Japanese artifacts; translations must stay derived"
+   ],
+   [
+    "EditionStatus",
+    "Saint-Emilion 2006 annulled (Grand Corbin-Despagne press 2008)"
+   ],
+   [
+    "ExtractionStatus",
+    "374 PDFs need OCR; 2 extraction failures; 610 images stored only"
+   ],
+   [
+    "SubjectStatus",
+    "519 artifacts naming several estates"
+   ],
+   [
+    "Observation.asserted_at",
+    "now: 4,843 artifacts on 218 domains use \"today/now/currently\""
+   ],
+   [
+    "CanonicalValue.as_of",
+    "vineyard area and planting change over time; area on 155 domains"
+   ],
+   [
+    "NameRecord.context",
+    "Desmirail: one wine distributed under two names"
+   ],
+   [
+    "NameKind.MARKET_ALIAS",
+    "Desmirail"
+   ],
+   [
+    "AttributionMethod.CRAWL_CONTEXT",
+    "Phase 3.3 attribution: crawl context is the weakest evidence"
+   ],
+   [
+    "PlacementStatus.ACCESS_REFUSED",
+    "19 domains refused crawling site-wide (16 by robots.txt answering 403, 3 by rules naming AI agents)"
+   ]
+  ],
+  "SPLIT": [
+   [
+    "RoleAssignment (rank x range)",
+    "RankAssertion (tier, scope, claimant) + Wine.type + WineDescriptor"
+   ],
+   [
+    "estate-level blend (D1)",
+    "Estate planting composition (encepagement) vs Vintage blend (assemblage): 528 documents state both, 476 with different values"
+   ],
+   [
+    "classification",
+    "ClassificationMembership (authoritative) vs classification claims kept as Observations (1,851 classification observations on 84 domains)"
+   ]
+  ],
+  "MERGE": [
+   [
+    "WineRole.OTHER_CUVEE into \"no RankAssertion\"",
+    "other meant \"not ranked as far as we know\""
+   ]
+  ],
+  "RENAME": [
+   [
+    "RoleAssignment -> RankAssertion",
+    "\"role\" mixed rank, type and making; what remains is a ranked claim"
+   ],
+   [
+    "RoleAbsence -> RankAbsence",
+    "as above; now vintage-scoped as well"
+   ],
+   [
+    "WineRange -> WineType",
+    "it was always the type of wine, not a range"
+   ]
+  ],
+  "RETAIN": [
+   "Estate",
+   "Vintage",
+   "Source",
+   "IdentityMap",
+   "IdentityTransition",
+   "ClassificationScheme",
+   "ClassificationMembership (on the Wine)",
+   "Appellation",
+   "AppellationMembership (on the Wine)",
+   "Ownership",
+   "EstateLocation",
+   "VintageStatement",
+   "EditorialCollectionMembership",
+   "Locator",
+   "Placement",
+   "ArtifactAssessment",
+   "Attribution",
+   "LegacyDocumentReference",
+   "EvidenceLink",
+   "Reconciliation",
+   "Provenance",
+   "QualityFinding",
+   "Validity",
+   "TemporalBound"
+  ],
+  "REJECT": [
+   [
+    "enum:WineRole.OTHER_CUVEE",
+    "Not a rank: \"other cuvee\" was the absence of a rank statement. A wine without one has no RankAssertion; UNKNOWN is the tier when a rank is claimed but unreadable."
+   ],
+   [
+    "enum:WineRange (as part of the role)",
+    "Colour/style moved to Wine.type; the range a rank is within is RankScope + scope_type."
+   ]
+  ]
+ },
+ "taxonomy": [
+  {
+   "category": "APPELLATION",
+   "class": "A",
+   "level": "wine",
+   "temporal": "yes",
+   "reason": "structured, 120 sites; varies by wine within one estate (Climens: 1er cru Barsac / Bordeaux Blanc Sec)"
+  },
+  {
+   "category": "CLASSIFICATION",
+   "class": "A (memberships) / B (claims)",
+   "level": "wine",
+   "temporal": "yes",
+   "reason": "authoritative lists vs site claims (cru bourgeois since 2013, confirmed 2018)"
+  },
+  {
+   "category": "VINEYARD_AREA",
+   "class": "A",
+   "level": "estate",
+   "temporal": "yes",
+   "reason": "77 % numeric, 155 sites; changes over time (as_of)"
+  },
+  {
+   "category": "PLANTING (encepagement, density, vine age)",
+   "class": "A",
+   "level": "estate",
+   "temporal": "yes",
+   "reason": "72 % numeric, 159 sites; distinct from the blend (D1)"
+  },
+  {
+   "category": "BLEND",
+   "class": "A",
+   "level": "vintage",
+   "temporal": "no",
+   "reason": "94 % numeric, 135 sites"
+  },
+  {
+   "category": "ANALYTICAL (alcohol, pH, acidity, sugar)",
+   "class": "A",
+   "level": "vintage",
+   "temporal": "no",
+   "reason": "128 sites, short values; units vary (H2SO4 vs tartaric)"
+  },
+  {
+   "category": "HARVEST_VINTAGE (dates, yield)",
+   "class": "A (dates, yield) / B (conditions narrative)",
+   "level": "vintage",
+   "temporal": "no",
+   "reason": "188 sites; 382 labels"
+  },
+  {
+   "category": "ELEVAGE (duration, vessels, new oak)",
+   "class": "A (months, new-oak share) / B (description)",
+   "level": "vintage",
+   "temporal": "sometimes",
+   "reason": "76 % numeric, 172 sites"
+  },
+  {
+   "category": "BOTTLING_PRODUCTION",
+   "class": "B",
+   "level": "vintage",
+   "temporal": "no",
+   "reason": "production volumes and bottling dates recur (141 sites) but mix units and formats"
+  },
+  {
+   "category": "SOIL_TERROIR",
+   "class": "B",
+   "level": "estate",
+   "temporal": "rarely",
+   "reason": "free text, 150 sites; meaning varies (a heading, a soil statement)"
+  },
+  {
+   "category": "WINEMAKING",
+   "class": "B",
+   "level": "vintage",
+   "temporal": "sometimes",
+   "reason": "225 labels; process prose; plot selection mostly lives here"
+  },
+  {
+   "category": "VITICULTURE",
+   "class": "B",
+   "level": "estate",
+   "temporal": "yes",
+   "reason": "practices (pruning, cover crops) on 45 sites"
+  },
+  {
+   "category": "TASTING",
+   "class": "B",
+   "level": "vintage",
+   "temporal": "no",
+   "reason": "1 % numeric, median 57 characters; already canonical as text in fiches, but per source"
+  },
+  {
+   "category": "SERVICE_AGEING",
+   "class": "B (text) / E (drinking-window years parsed)",
+   "level": "vintage",
+   "temporal": "no",
+   "reason": "127 sites"
+  },
+  {
+   "category": "OWNERSHIP_PEOPLE",
+   "class": "A (owner via Ownership) / B (staff)",
+   "level": "estate",
+   "temporal": "yes",
+   "reason": "83 sites; dated mentions 11,506"
+  },
+  {
+   "category": "PRESS_SCORES",
+   "class": "C",
+   "level": "vintage",
+   "temporal": "no",
+   "reason": "scores quoted by estates (86 sites): first-party quotations of third parties"
+  },
+  {
+   "category": "SUSTAINABILITY",
+   "class": "B",
+   "level": "estate",
+   "temporal": "yes",
+   "reason": "23 sites as labels, more in prose; certifications are dated claims"
+  },
+  {
+   "category": "HISTORY",
+   "class": "F",
+   "level": "estate",
+   "temporal": "yes",
+   "reason": "abundant in prose (founding/history years 7,876) but rarely labelled (34): needs event extraction to be designed"
+  },
+  {
+   "category": "COMMERCIAL",
+   "class": "D",
+   "level": "wine/vintage",
+   "temporal": "yes",
+   "reason": "prices and shop mechanics; volatile, not domain facts"
+  },
+  {
+   "category": "TOURISM",
+   "class": "D",
+   "level": "estate",
+   "temporal": "yes",
+   "reason": "opening hours, visits (53 sites)"
+  },
+  {
+   "category": "IDENTITY_CONTACT",
+   "class": "C",
+   "level": "source",
+   "temporal": "yes",
+   "reason": "telephone, email, address (180 sites); belongs to the source/publisher"
+  },
+  {
+   "category": "LEGAL_ENTITY",
+   "class": "B (auxiliary)",
+   "level": "source",
+   "temporal": "yes",
+   "reason": "115 sites carry legal labels; they describe the site publisher, which may be a group or operator, not the estate"
+  },
+  {
+   "category": "PRIVACY_LEGAL_TEXT",
+   "class": "D",
+   "level": "source",
+   "temporal": "no",
+   "reason": "site boilerplate"
+  },
+  {
+   "category": "SINGLE_VARIETY",
+   "class": "E",
+   "level": "vintage",
+   "temporal": "no",
+   "reason": "derived from the blend (100 %)"
+  },
+  {
+   "category": "RANK / ROLE WORDING",
+   "class": "A (RankAssertion)",
+   "level": "estate-wine",
+   "temporal": "yes",
+   "reason": "see the hierarchy analysis"
+  },
+  {
+   "category": "UNCLASSIFIED",
+   "class": "F",
+   "level": "-",
+   "temporal": "-",
+   "reason": "48,169 observations under 10,052 labels: menus, product names, prices, table fragments"
+  }
+ ],
+ "taxonomy_classes": {
+  "A": "core canonical domain",
+  "B": "structured observation",
+  "C": "source-specific structured data",
+  "D": "raw evidence only",
+  "E": "derived",
+  "F": "unknown / future study"
+ },
+ "decisions": {
+  "D1": {
+   "status": "RESOLVED (model) / STILL OPEN (legacy data)",
+   "evidence": "planting composition and blend are different facts: 528 documents state both, 476 with different values",
+   "recommendation": "estate planting composition is an Estate canonical field with as_of; blend is a Vintage field; each legacy estate-level \"blend\" value is reviewed per estate before it is mapped"
+  },
+  "D2": {
+   "status": "RECOMMENDED: RENAMED (one Wine)",
+   "evidence": "lynchbages.com/en/vintages: \"In 2008, a new identity was given to the second wine, under the name Echo de Lynch-Bages\"; FR: \"il change d'identite pour devenir\"",
+   "recommendation": "the second wine is the continuing subject: one Wine, NameRecord Haut-Bages Averous (FORMER, to vintage 2007 at the latest) and Echo de Lynch-Bages (from vintage 2008); certainty PROBABLE until confirmed by the user"
+  },
+  "D3": {
+   "status": "STILL OPEN (Phase 4)",
+   "evidence": "raw store 7.7 GB (local, not git); 163,582 observations, 29,517 artifacts; text compresses ~10x",
+   "recommendation": "raw artifacts in a content-addressed file store outside git; the normalized layers in an indexed store; decision is Phase 4's"
+  },
+  "D4": {
+   "status": "STILL OPEN (Phase 4)",
+   "evidence": "the harvest has no bearing on id syntax",
+   "recommendation": "rules unchanged: minted once, opaque"
+  },
+  "D5": {
+   "status": "RECOMMENDED (initial policy)",
+   "evidence": "language versions disagree in 11 of 897 groups; revisions at different upload paths (Murmure 2018); ranks differ by claimant (Mangot)",
+   "recommendation": "no automatic winner across language versions or claimants; a later revision of the same document (by ArtifactDate) is preferred as SOURCE_PRIORITY with the earlier kept; estate publications over trade copies; everything else CONFLICT_OPEN"
+  },
+  "D6": {
+   "status": "RESOLVED for new data / STILL OPEN for legacy",
+   "evidence": "Phase 3.3 records retrieval (discovered_via, referrer) and attribution evidence (CRAWL_CONTEXT, NAMED_IN_*) separately",
+   "recommendation": "new ingestion never mixes them; the 85 legacy \"how\" texts still need the reviewed table"
+  },
+  "D7": {
+   "status": "STILL OPEN (Phase 4)",
+   "evidence": "no bearing",
+   "recommendation": "regenerated files remain the safe first step"
+  },
+  "D8": {
+   "status": "RESOLVED BY FIRST-PARTY EVIDENCE (pending application)",
+   "evidence": "estates' own pages: \"Chateau Bouscaut Blanc Grand Cru Classe de Graves\"; \"Chateau Carbonnieux Blanc\"; \"Chateau Latour-Martillac Blanc\"; \"Malartic-Lagraviere Blanc\"",
+   "recommendation": "record these as NameRecords from ESTATE_PUBLICATION in Phase 4; not applied here"
+  }
+ },
+ "proposals": {
+  "Echo de Lynch-Bages": {
+   "identity": "ESTABLISHED (47 artifacts, sheets 2008-2025, FR/EN/CN)",
+   "estate_relationship": "ESTABLISHED (PRODUCED_BY; \"2nd vin du Chateau Lynch-Bages\")",
+   "role": "ESTABLISHED: SECOND, scope ESTATE_RANGE, claimant PRODUCER (\"2nd vin\"; CN \"副牌\")",
+   "time_range": "from vintage 2008 (EXACT); predecessor Haut-Bages Averous (D2)",
+   "status": "READY FOR DOMAIN DECISION"
+  },
+  "Les Terrasses de Saint Christophe": {
+   "identity": "ESTABLISHED (22 artifacts on vignoblesk.com, sheets 2016-2023)",
+   "estate_relationship": "ESTABLISHED: FROM_ESTATE_VINEYARD (\"made from some of the younger vines planted on the terrasses of the estate\") and MADE_BY_GROUP_TEAM (\"creee et orchestree par l'equipe des Vignobles K\")",
+   "role": "SECOND for vintages 2016-2019 (\"second label of Chateau Tour Saint Christophe\", product sheets); UNKNOWN for 2020-2023",
+   "time_range": "NO_LATER_THAN vintage 2016 to at least 2023",
+   "status": "READY FOR DOMAIN DECISION for 2016-2019; STILL NEEDS EVIDENCE for the role from 2020"
+  },
+  "Les Murets de Caillou": {
+   "identity": "ESTABLISHED: two Wines of one name (blanc: Bordeaux Blanc Sec; rouge: Bordeaux Superieur, 100 % Merlot)",
+   "estate_relationship": "ESTABLISHED (PRODUCED_BY; estate shop and sheets)",
+   "role": "blanc: SECOND within TYPE_RANGE WHITE_DRY (\"Second Vin blanc sec\" / \"Second dry white wine\", 2023 sheet, FR and EN); rouge: no rank stated",
+   "time_range": "blanc: at least vintage 2023; rouge: at least vintage 2023",
+   "status": "READY FOR DOMAIN DECISION (blanc); rouge has no rank to decide"
+  }
+ },
+ "readiness": [
+  {
+   "requirement": "third wines",
+   "model": "RankTier.THIRD",
+   "fixtures": "P1 Batailley; P3 Caillou Tourelles"
+  },
+  {
+   "requirement": "prestige / superior wines",
+   "model": "RankTier.ABOVE_FIRST + Claimant",
+   "fixtures": "P5 Mangot"
+  },
+  {
+   "requirement": "explicit no hierarchy",
+   "model": "RankTier.UNRANKED",
+   "fixtures": "P2 Le Rey"
+  },
+  {
+   "requirement": "wine type independent of hierarchy",
+   "model": "Wine.type vs RankAssertion",
+   "fixtures": "P3 Caillou"
+  },
+  {
+   "requirement": "wine identity independent of display name",
+   "model": "Wine has no name field; NameRecord; MARKET_ALIAS",
+   "fixtures": "P8 Desmirail"
+  },
+  {
+   "requirement": "historical estate-wine relationships",
+   "model": "EstateWineRelationship.validity",
+   "fixtures": "P7 Echo/Averous"
+  },
+  {
+   "requirement": "temporal rank changes",
+   "model": "RankAssertion.validity",
+   "fixtures": "P7 Echo/Averous"
+  },
+  {
+   "requirement": "wine-level classification (Graves)",
+   "model": "ClassificationMembership on Wine",
+   "fixtures": "P9 Bouscaut"
+  },
+  {
+   "requirement": "temporal appellation",
+   "model": "AppellationMembership.validity",
+   "fixtures": "P10 Climens"
+  },
+  {
+   "requirement": "historical wine identity without guesswork",
+   "model": "IdentityTransition with certainty; evidence criteria",
+   "fixtures": "P7 Echo; P11 Haut-Bailly"
+  },
+  {
+   "requirement": "shared sources",
+   "model": "SourceEstateRelationship",
+   "fixtures": "P12 Vignobles K"
+  },
+  {
+   "requirement": "multi-estate documents",
+   "model": "Attribution many-per-artifact; Observation.subject_status",
+   "fixtures": "P12"
+  },
+  {
+   "requirement": "observations keep source wording",
+   "model": "Observation.raw_label, raw_value, lang",
+   "fixtures": "P13 Murmure"
+  },
+  {
+   "requirement": "multilingual observations distinct",
+   "model": "Observation.lang; ArtifactRelation LANGUAGE_VERSION_OF (candidate); Translation derived",
+   "fixtures": "P13"
+  },
+  {
+   "requirement": "canonical values without deleting observations",
+   "model": "Reconciliation lists candidates",
+   "fixtures": "P13"
+  },
+  {
+   "requirement": "discovery-only information outside canonical fields",
+   "model": "taxonomy classes B-F stay Observations",
+   "fixtures": "P14 SIRET"
+  },
+  {
+   "requirement": "unreachable / blocked sources represented",
+   "model": "Placement + QualityFinding SOURCE_FAILURE; SourceEstateRelationship",
+   "fixtures": "P15 Canon"
+  },
+  {
+   "requirement": "OCR-dependent documents before OCR",
+   "model": "Artifact.extraction_status NEEDS_OCR",
+   "fixtures": "P16"
+  },
+  {
+   "requirement": "no complete wine universe needed",
+   "model": "absence of RankAssertion is UNKNOWN",
+   "fixtures": "all cases"
+  },
+  {
+   "requirement": "Phase 2 proposals decidable without special-case schema",
+   "model": "RankAssertion + RelationshipKind + NameRecord",
+   "fixtures": "P7, P4, P3"
+  }
+ ],
+ "phase4_boundary": {
+  "phase4_may_implement": [
+   "the entities and enums of this contract",
+   "the migration stages M0-M9 of Phase 3.2, with RankAssertion in place of RoleAssignment",
+   "ingestion of the Phase 3.3 harvest into Artifact/Placement/Observation/Attribution",
+   "canonical fields of taxonomy class A only",
+   "D3, D4, D7"
+  ],
+  "phase4_must_not": [
+   "promote class B-F information to canonical fields without a later review",
+   "apply Echo, Terrasses or Murets except as recorded domain decisions in the new model",
+   "resolve UNRESOLVED identities or ranks by inference",
+   "rewrite v1-v5 evidence or the discovery data"
+  ]
+ },
+ "identity_change_evidence": {
+  "RENAMED": "the source names one wine as the continuing subject under a new name (Haut-Bailly: \"La Parde ... se voit renommer\"; Lynch-Bages EN: \"a new identity was given to the second wine\")",
+  "SUCCEEDED_BY": "the source presents the new wine as replacing a discontinued one, without continuity of the wine",
+  "SPLIT_FROM": "one wine (or estate) becomes two, with dated statements for both",
+  "MERGED_INTO": "two become one, with a dated statement (La Tour Haut-Brion 2006)",
+  "POSSIBLY_SAME": "same name, no statement either way (Bellevue, La Commanderie)",
+  "NEW_UNRELATED": "no transition record at all: absence of evidence is not a transition"
+ }
+}

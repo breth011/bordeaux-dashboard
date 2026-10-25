@@ -1,11 +1,114 @@
 {
  "_": "The normalized model (Phase 4). Built by tools/migrate.py; do not edit by hand. Layout and id rules: tools/model_schema.py; storage decision D3 there.",
- "stage": "M1",
+ "stage": "M2",
  "contract": "docs/phase34-model.json",
- "files": {},
+ "files": {
+  "cross/findings.jsonl": {
+   "entity": "QualityFinding",
+   "rows": 200,
+   "sha256": "6df4d117a4844944c3c9447fd097782a1cc3603f6fcd7b2d9d5dd1c293e34e19"
+  },
+  "cross/provenance.jsonl": {
+   "entity": "Provenance",
+   "rows": 213,
+   "sha256": "05f4d76620a5582f6365ccbf536ebd57da259891a44e3748f73955eae9b8adce"
+  },
+  "document/legacy-references.jsonl": {
+   "entity": "LegacyDocumentReference",
+   "rows": 13230,
+   "sha256": "2334040583a17c7ab83ac7ccc2ed22325cbecdaa5e2c16afd8508c0c7902ff1e"
+  },
+  "document/locators.jsonl": {
+   "entity": "Locator",
+   "rows": 18972,
+   "sha256": "bda8311413a6f22e88794884273cbebd172f54a55763d1ca9ab9a7d9e4281028"
+  },
+  "document/placements.jsonl": {
+   "entity": "Placement",
+   "rows": 19394,
+   "sha256": "2ab032a2d27b01f3b64529da2b279ae047808accf5a679e83e53c36db37fe158"
+  },
+  "identity/artifacts.jsonl": {
+   "entity": "Artifact",
+   "rows": 37067,
+   "sha256": "d4772009b844b057e0f5a2f3bff7c71637d6ff79557dfae9e2fce3ad1bb5006c"
+  },
+  "identity/estates.jsonl": {
+   "entity": "Estate",
+   "rows": 470,
+   "sha256": "b2b9d3a85c9d9f5fc51eb3d7a907a8fb81165ca24f194d16b8f29bb72c318d63"
+  },
+  "identity/identity-map.jsonl": {
+   "entity": "IdentityMap",
+   "rows": 49568,
+   "sha256": "6f1ef91b2472b46090dce10d2d248f3f08e9279e0f2d6c9206775fac9bf26362"
+  },
+  "identity/names.jsonl": {
+   "entity": "NameRecord",
+   "rows": 470,
+   "sha256": "f0e6219984b6cdb12f0ed91e33e31fdb82659f637ca8cf09865f640013e54976"
+  },
+  "identity/transitions.jsonl": {
+   "entity": "IdentityTransition",
+   "rows": 0,
+   "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  },
+  "state/editorial-memberships.jsonl": {
+   "entity": "EditorialCollectionMembership",
+   "rows": 78,
+   "sha256": "6eceed4f5f5dedb172096178b8c0b0dd53ba6ca3e040c9538ad70fe3ca7487ce"
+  },
+  "state/estate-locations.jsonl": {
+   "entity": "EstateLocation",
+   "rows": 272,
+   "sha256": "10456ce861b6d8d0245f745ac2242cf57f9763b339dd7bb513046c5aaa876b85"
+  }
+ },
  "views": {
   "Observation": "data/discovery/observations/*.jsonl (163,582 harvested observations) are presented in the Observation shape, not copied",
   "Placement": "data/discovery/locations/* are presented as Placements of the discovery artifacts, not copied"
  },
- "stats": {}
+ "stats": {
+  "M2": {
+   "legacy estate ids": 471,
+   "estates minted": 470,
+   "name-derived ids mapped": 298,
+   "unresolved legacy estate ids": [
+    "saint-julien"
+   ],
+   "digest joins (discovery-proven, evidence-path rule, refused)": [
+    4526,
+    7206,
+    22
+   ],
+   "artifacts (manifest sha1, sha256 only)": [
+    12019,
+    25048
+   ],
+   "placements by status": {
+    "BYTES_UNAVAILABLE": 279,
+    "MISSING": 103,
+    "NAME_MISMATCH": 20,
+    "PRESENT": 12588,
+    "PRESENT (read, not joined)": 76,
+    "URL": 6328
+   },
+   "legacy filename references": {
+    "cellar.js ACTIVE": 637,
+    "cellar.js AMBIGUOUS": 7,
+    "cuvee-src.js ACTIVE": 2614,
+    "cuvee-src.js AMBIGUOUS": 65,
+    "cuvees.js ACTIVE": 1150,
+    "cuvees.js AMBIGUOUS": 23,
+    "cuvees.js NO_CANDIDATE": 1,
+    "fiches.js ACTIVE": 2688,
+    "fiches.js AMBIGUOUS": 38,
+    "fiches.js NO_CANDIDATE": 38,
+    "field-src.js ACTIVE": 5736,
+    "field-src.js AMBIGUOUS": 109,
+    "plantings.js ACTIVE": 43,
+    "terroir.js ACTIVE": 81
+   }
+  }
+ }
 }

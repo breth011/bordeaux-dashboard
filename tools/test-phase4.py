@@ -200,6 +200,166 @@ def m1_raw_store_addresses_by_digest():
     assert data is not None and hashlib.sha256(data).hexdigest() == a['sha256']
 
 
+# ---------------------------------------------------------------- the model, any stage
+
+def T(rel):
+    return L.read_table(rel)
+
+
+def stage_at_least(st):
+    import migrate
+    cur = migrate.current_stage()
+    return cur and migrate.STAGES.index(cur) >= migrate.STAGES.index(st)
+
+
+@check
+def model_rebuilds_byte_for_byte_deterministic():
+    import subprocess
+    r = subprocess.run([sys.executable, L.ROOT + 'tools/migrate.py', '--check'], cwd=L.ROOT,
+                       capture_output=True)
+    assert r.returncode == 0, r.stdout.decode()[-600:] + r.stderr.decode()[-600:]
+
+
+@check
+def model_rows_conform_to_contract_no_dangling_refs():
+    import migrate
+    m = migrate.Model()
+    for rel in S.LAYOUT:
+        for row in T(rel):
+            m.tables[rel][m.key(rel, row)] = row
+    errs = migrate.validate(m)
+    assert not errs, errs[:5]
+    man = json.load(open(L.MODEL + 'manifest.json', encoding='utf-8'))
+    for rel, info in man['files'].items():
+        assert info['rows'] == len(T(rel)), rel
+
+
+# ---------------------------------------------------------------- M2
+
+@check
+def m2_every_canonical_estate_resolves_to_exactly_one_estate():
+    im = [r for r in T('identity/identity-map.jsonl') if r['namespace'] == 'estate']
+    by = collections.defaultdict(list)
+    for r in im:
+        by[r['legacy_key']].append(r)
+    view = [e['id'] for e in L.canonical_view()['estates']]
+    assert all(len(by[i]) == 1 and by[i][0]['status'] == 'ACTIVE' and by[i][0].get('stable_id')
+               for i in view)
+    ests = {r['id'] for r in T('identity/estates.jsonl')}
+    assert len(ests) == 470 and {by[i][0]['stable_id'] for i in view} == ests
+
+
+@check
+def m2_every_legacy_estate_id_resolved_or_classified_unresolved():
+    import mig_m2_identity as M2
+    used = set(M2.legacy_estate_uses())
+    im = {r['legacy_key']: r for r in T('identity/identity-map.jsonl') if r['namespace'] == 'estate'}
+    missing = used - set(im)
+    assert not missing, sorted(missing)[:5]
+    unresolved = sorted(k for k, r in im.items() if not r.get('stable_id'))
+    assert all(im[k]['status'] == 'AMBIGUOUS' and im[k].get('candidates') == [] for k in unresolved)
+    assert unresolved == ['saint-julien'], unresolved
+    f = [x for x in T('cross/findings.jsonl') if x['kind'] == 'IDENTITY_UNCERTAIN'
+         and "'saint-julien'" in x['detail']]
+    assert len(f) == 1
+
+
+@check
+def m2_name_derived_ids_mapped_not_recomputed():
+    im = {(r['namespace'], r['legacy_key']): r for r in T('identity/identity-map.jsonl')}
+    sparse = [e for e in L.canonical_view()['estates'] if e['sparse']]
+    assert len(sparse) == 298
+    entries = [r for k, r in im.items() if k[0] == 'estate-list-entry']
+    assert len(entries) == 298
+    for e in sparse:
+        assert im[('estate', e['id'])]['stable_id']
+    # Ids are opaque: none spells a legacy id or a name.
+    for r in T('identity/estates.jsonl'):
+        assert re.fullmatch(r'es_\d{5}', r['id'])
+
+
+@check
+def m2_filenames_never_resolve_by_first_match():
+    pls = {r['id']: r for r in T('document/placements.jsonl')}
+    n = collections.Counter()
+    for r in T('document/legacy-references.jsonl'):
+        arts = {pls[c].get('artifact') for c in r['candidates']}
+        base = {pls[c]['locator']['value'].rsplit('/', 1)[-1] for c in r['candidates']}
+        assert base <= {r['basename']}, r
+        if r['resolution'] == 'ACTIVE':
+            assert len(arts) == 1 and None not in arts, r
+        else:
+            assert len(arts) != 1 or None in arts, r
+        n[r['resolution']] += 1
+    assert n['AMBIGUOUS'] > 0 and n['ACTIVE'] > 0
+
+
+@check
+def m2_every_manifest_version_kept_one_placement_per_locator_artifact():
+    sheets = L.sources_rows()['sheets']
+    import mig_m2_identity as M2
+    versions = collections.defaultdict(set)
+    for r in sheets:
+        versions[M2.sources_path(r)].add(r['sha1'])
+    art = {r['legacy_key']: r['stable_id'] for r in T('identity/identity-map.jsonl')
+           if r['namespace'] == 'artifact-by-sha1'}
+    prov = {r['id']: r for r in T('cross/provenance.jsonl')}
+    held = collections.defaultdict(set)
+    seen = set()
+    for p in T('document/placements.jsonl'):
+        if p['locator']['kind'] != 'LOCAL_PATH':
+            continue
+        a = p.get('artifact') or prov[p['provenance']].get('artifact')
+        key = (p['locator']['value'], p.get('artifact'), a)
+        assert key not in seen
+        seen.add(key)
+        held[p['locator']['value']].add(a)
+    multi = [pth for pth, v in versions.items() if len(v) > 1]
+    assert len(multi) == 204
+    for pth, v in versions.items():
+        assert {art[s] for s in v} <= held[pth], pth
+
+
+@check
+def m2_provenance_failures_are_placements_without_artifact():
+    pl = T('document/placements.jsonl')
+    c = collections.Counter(p['status'] for p in pl if p['status'] in ('MISSING', 'NAME_MISMATCH'))
+    assert c == {'MISSING': 103, 'NAME_MISMATCH': 20}, c
+    assert all('artifact' not in p for p in pl if p['status'] in ('MISSING', 'NAME_MISMATCH'))
+    targets = {f['target'] for f in T('cross/findings.jsonl') if f['kind'] == 'SOURCE_FAILURE'}
+    assert {p['id'] for p in pl if p['status'] in ('MISSING', 'NAME_MISMATCH')} <= targets
+
+
+@check
+def m2_digest_joins_only_where_proven():
+    import glob
+    pairs = {}
+    for p in glob.glob(L.ROOT + 'data/discovery/locations/*.jsonl'):
+        for d in L.jsonl_lines(p):
+            if d.get('sha1') and d.get('sha256'):
+                pairs[d['sha1']] = d['sha256']
+    import mig_m2_identity as M2
+    versions = collections.defaultdict(set)
+    for r in L.sources_rows()['sheets']:
+        versions[M2.sources_path(r)].add(r['sha1'])
+    reads = collections.defaultdict(set)
+    for v in (4, 5):
+        for d in L.jsonl_lines(L.ROOT + 'data/evidence/decisions-v%d.jsonl' % v):
+            if (d.get('read') or {}).get('sha256'):
+                reads[d['read']['path'].replace('\\', '/')].add(d['read']['sha256'])
+    rule = {}
+    for pth, vs in versions.items():
+        if len(vs) == 1 and len(reads.get(pth, ())) == 1:
+            rule[next(iter(vs))] = next(iter(reads[pth]))
+    both = [a for a in T('identity/artifacts.jsonl') if 'sha1' in a and 'sha256' in a]
+    assert both
+    for a in both:
+        assert pairs.get(a['sha1']) == a['sha256'] or rule.get(a['sha1']) == a['sha256'], a
+    s256 = [a['sha256'] for a in T('identity/artifacts.jsonl') if 'sha256' in a]
+    s1 = [a['sha1'] for a in T('identity/artifacts.jsonl') if 'sha1' in a]
+    assert len(s256) == len(set(s256)) and len(s1) == len(set(s1)), 'one digest, two artifacts'
+
+
 def main():
     only = sys.argv[1:]
     fails = 0

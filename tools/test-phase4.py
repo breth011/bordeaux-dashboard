@@ -360,6 +360,80 @@ def m2_digest_joins_only_where_proven():
     assert len(s256) == len(set(s256)) and len(s1) == len(set(s1)), 'one digest, two artifacts'
 
 
+# ---------------------------------------------------------------- M3
+
+def imap(ns):
+    return {r['legacy_key']: r for r in T('identity/identity-map.jsonl') if r['namespace'] == ns}
+
+
+@check
+def m3_grand_vins_only_where_supported():
+    import mig_m3_grand as M3
+    sup = M3.support(L.canonical_view())
+    gv = imap('grand-vin')
+    est = imap('estate')
+    for lid, r in est.items():
+        if not r.get('stable_id'):
+            assert lid not in gv
+        elif lid in sup:
+            assert lid in gv and gv[lid]['stable_id'].startswith('wn_'), lid
+        else:
+            assert lid not in gv, 'a grand vin with no support: %s' % lid
+    unsupported = sorted(set(est) - set(sup) - {'saint-julien'})
+    assert len(unsupported) == 12 and all(i.startswith('pomerol-') for i in unsupported), unsupported
+
+
+@check
+def m3_every_estate_vintage_key_has_a_grand_vin_or_is_unresolved():
+    gv = imap('grand-vin')
+    est = imap('estate')
+    for name in ('BDX_FICHES', 'BDX_FIELD_SRC', 'BDX_FICHE_URL', 'BDX_RATINGS', 'BDX_CELLAR',
+                 'BDX_SCORES'):
+        for k in L.g(name):
+            lid = k.split('|')[0]
+            assert lid in gv or not est[lid].get('stable_id'), (name, k)
+
+
+@check
+def m3_classification_on_wines_editorial_on_estates():
+    mem = T('state/classification-memberships.jsonl')
+    assert all(r['wine'].startswith('wn_') for r in mem)
+    eds = {r['id']: r for r in T('state/classification-editions.jsonl')}
+    n = collections.Counter(eds[r['edition']]['label'].split(' (as ')[0] for r in mem)
+    want = {'Classification of 1855': 61, 'Sauternes & Barsac 1855': 27, 'Saint-Émilion 2022': 85,
+            'Crus Classés de Graves': 16, 'Crus Bourgeois du Médoc 2025': 170,
+            'Crus Artisans du Médoc': 34}
+    assert dict(n) == want, dict(n)
+    editorial = {c['id'] for c in L.g('BDX_CLASSIFICATIONS') if c.get('editorial')}
+    assert {r['collection'] for r in T('state/editorial-memberships.jsonl')} <= editorial
+    assert not any(r['label'].startswith(tuple(c['name'] for c in L.g('BDX_CLASSIFICATIONS')
+                                                if c.get('editorial'))) for r in eds.values())
+    bodies = {r['name'] for r in T('identity/parties.jsonl')}
+    uni = json.load(open(L.ROOT + 'data/scope/authoritative-universe.json', encoding='utf-8'))
+    assert bodies == {s['body'] for s in uni['systems']}, 'a body not named by the sources'
+
+
+@check
+def m3_wine_type_never_promoted_from_unknown():
+    files = {r['id']: r for _, r in L.estate_files()}
+    gv = imap('grand-vin')
+    wines = {r['id']: r for r in T('identity/wines.jsonl')}
+    TY = {'red': 'RED', 'white': 'WHITE_DRY', 'sweet': 'WHITE_SWEET'}
+    for lid, r in gv.items():
+        t = wines[r['stable_id']]['type']
+        assert t == (TY[files[lid]['cat']] if lid in files else 'UNKNOWN'), (lid, t)
+
+
+@check
+def m3_grand_vin_rank_is_a_dataset_claim():
+    rels = {r['id']: r for r in T('state/estate-wine.jsonl')}
+    gv = {r['stable_id'] for r in imap('grand-vin').values()}
+    ra = [r for r in T('state/rank-assertions.jsonl') if rels[r['relationship']]['wine'] in gv]
+    assert len(ra) == len(gv)
+    assert all(r['tier'] == 'FIRST' and r['scope'] == 'ESTATE_RANGE' and r['claimant'] == 'DATASET'
+               and r['legacy_term'] == 'grand' for r in ra)
+
+
 def main():
     only = sys.argv[1:]
     fails = 0

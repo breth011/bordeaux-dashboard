@@ -1,23 +1,34 @@
 {"actor":"data/sources.json","artifact":"ar_000683","id":"pv_00757125eaac","kind":"LEGACY_MANIFEST","quote":"the manifest claims these bytes at this path; v4/v5 found ARTIFACT_NOT_FOUND"}
+{"actor":"tools/migrate.py M3","id":"pv_00b232813d44","kind":"DERIVATION","quote":"supported by: BDX_CELLAR, BDX_FICHES, BDX_FIELD_SRC, full record"}
+{"actor":"tools/migrate.py M3","id":"pv_00f1dfdb9def","kind":"DERIVATION","quote":"supported by: BDX_FICHES, BDX_FIELD_SRC, classification:stem"}
 {"actor":"data/sources.json","artifact":"ar_001499","id":"pv_01c7fea49621","kind":"LEGACY_MANIFEST","quote":"the manifest claims these bytes at this path; v4/v5 found ARTIFACT_NOT_FOUND"}
+{"actor":"tools/migrate.py M3","id":"pv_02341a2580ed","kind":"DERIVATION","quote":"supported by: BDX_CELLAR, BDX_FICHES, BDX_FIELD_SRC, classification:stem"}
 {"actor":"data/sources.json","artifact":"ar_005701","id":"pv_02905904871d","kind":"LEGACY_MANIFEST","quote":"the manifest claims these bytes at this path; v4/v5 found ARTIFACT_NOT_FOUND"}
 {"actor":"data/saintemilion.js","id":"pv_0377fa70c247","kind":"LEGACY_UNSOURCED"}
 {"actor":"data/sources.json","artifact":"ar_010517","id":"pv_0568d235e0f0","kind":"LEGACY_MANIFEST","quote":"the manifest claims these bytes at this path; v4/v5 found ARTIFACT_NOT_FOUND"}
+{"actor":"tools/migrate.py M3","id":"pv_05bb34e6285a","kind":"DERIVATION","quote":"supported by: BDX_CELLAR, BDX_FICHES, BDX_FICHE_URL, BDX_FIELD_SRC, classification:stem"}
 {"actor":"tools/provenance.py","artifact":"ar_019074","id":"pv_067883534fd5","kind":"EVIDENCE_DECISION","quote":"hashed immediately before the reader read it (v4/v5)"}
 {"actor":"data/sources.json","artifact":"ar_004234","id":"pv_06d3d0c067f8","kind":"LEGACY_MANIFEST","quote":"the manifest claims these bytes at this path; v4/v5 found ARTIFACT_NOT_FOUND"}
 {"actor":"data/sources.json","artifact":"ar_001402","id":"pv_071399115c4c","kind":"LEGACY_MANIFEST","quote":"the manifest claims these bytes at this path; v4/v5 found ARTIFACT_NOT_FOUND"}
 {"actor":"data/sources.json","artifact":"ar_003867","id":"pv_07b34ac807c4","kind":"LEGACY_MANIFEST","quote":"the manifest claims these bytes at this path; v4/v5 found ARTIFACT_NOT_FOUND"}
+{"actor":"tools/migrate.py M3","id":"pv_0986d4dd6086","kind":"DERIVATION","quote":"supported by: BDX_CELLAR, BDX_FICHES, BDX_FICHE_URL, BDX_FIELD_SRC, classification:bourgeois"}
 {"actor":"data/sources.json","artifact":"ar_002184","id":"pv_0a686525fe26","kind":"LEGACY_MANIFEST","quote":"the manifest claims these bytes at this path; v4/v5 found ARTIFACT_NOT_FOUND"}
 {"actor":"data/sources.json","artifact":"ar_010677","id":"pv_0a7b1409030f","kind":"LEGACY_MANIFEST","quote":"the manifest claims these bytes at this path; v4/v5 found ARTIFACT_NOT_FOUND"}
+{"actor":"tools/migrate.py M3","id":"pv_0c547615e873","kind":"DERIVATION","quote":"supported by: full record"}
+{"actor":"tools/migrate.py M3","id":"pv_0dfda01c8e77","kind":"DERIVATION","quote":"supported by: BDX_CELLAR, BDX_FICHES, BDX_FIELD_SRC, BDX_RATINGS, classification:1855, full record"}
 {"actor":"data/sources.json","artifact":"ar_000292","id":"pv_0f470372daac","kind":"LEGACY_MANIFEST","quote":"the manifest claims these bytes at this path; v4/v5 found ARTIFACT_NOT_FOUND"}
 {"actor":"data/sources.json","artifact":"ar_006855","id":"pv_10abacfb75a8","kind":"LEGACY_MANIFEST","quote":"the manifest claims these bytes at this path; v4/v5 found ARTIFACT_NOT_FOUND"}
 {"actor":"data/sources.json","artifact":"ar_010411","id":"pv_113ac798455d","kind":"LEGACY_MANIFEST","quote":"the manifest claims these bytes at this path; v4/v5 found ARTIFACT_NOT_FOUND"}
 {"actor":"data/sources.json","artifact":"ar_005470","id":"pv_115142ea0443","kind":"LEGACY_MANIFEST","quote":"the manifest claims these bytes at this path; v4/v5 found ARTIFACT_NAME_MISMATCH"}
 {"actor":"data/batch2.js","id":"pv_116ea930fdbf","kind":"LEGACY_UNSOURCED"}
+{"actor":"tools/migrate.py M3","id":"pv_11f0bd05c21e","kind":"DERIVATION","quote":"supported by: BDX_CELLAR, BDX_FICHES, BDX_FIELD_SRC"}
 {"actor":"data/crubourgeois.js","id":"pv_11f40c267c53","kind":"LEGACY_UNSOURCED"}
+{"actor":"tools/migrate.py M3","id":"pv_122be55864cb","kind":"DERIVATION","quote":"supported by: classification:sauternes, full record"}
+{"actor":"tools/migrate.py M3","id":"pv_13263ad2f843","kind":"DERIVATION","quote":"supported by: BDX_CELLAR, BDX_FICHES, BDX_FICHE_URL, BDX_FIELD_SRC, BDX_RATINGS, BDX_SCORES, classification:sauternes, full record"}
 {"actor":"data/sources.json","artifact":"ar_002218","id":"pv_135346549897","kind":"LEGACY_MANIFEST","quote":"the manifest claims these bytes at this path; v4/v5 found ARTIFACT_NOT_FOUND"}
 {"actor":"tools/provenance.py","artifact":"ar_018410","id":"pv_19551ae6a094","kind":"EVIDENCE_DECISION","quote":"hashed immediately before the reader read it (v4/v5)"}
 {"actor":"data/sources.json","artifact":"ar_002745","id":"pv_19951a15805c","kind":"LEGACY_MANIFEST","quote":"the manifest claims these bytes at this path; v4/v5 found ARTIFACT_NOT_FOUND"}
+{"actor":"tools/migrate.py M3","id":"pv_19cb6561e859","kind":"DERIVATION","quote":"supported by: BDX_RATINGS, classification:sauternes, full record"}
 {"actor":"data/sources.json","artifact":"ar_000907","id":"pv_1a05e0afc20f","kind":"LEGACY_MANIFEST","quote":"the manifest claims these bytes at this path; v4/v5 found ARTIFACT_NOT_FOUND"}
 {"actor":"tools/provenance.py","artifact":"ar_012932","id":"pv_1b436ace1a17","kind":"EVIDENCE_DECISION","quote":"hashed immediately before the reader read it (v4/v5)"}
 {"actor":"tools/provenance.py","artifact":"ar_017218","id":"pv_1ba2a66516de","kind":"EVIDENCE_DECISION","quote":"hashed immediately before the reader read it (v4/v5)"}
@@ -36,13 +47,17 @@
 {"actor":"tools/provenance.py","artifact":"ar_026051","id":"pv_2697b02bb5ba","kind":"EVIDENCE_DECISION","quote":"hashed immediately before the reader read it (v4/v5)"}
 {"actor":"data/sources.json","artifact":"ar_008510","id":"pv_294cf752d050","kind":"LEGACY_MANIFEST","quote":"the manifest claims these bytes at this path; v4/v5 found ARTIFACT_NOT_FOUND"}
 {"actor":"tools/provenance.py","artifact":"ar_022149","id":"pv_29e80bb7d839","kind":"EVIDENCE_DECISION","quote":"hashed immediately before the reader read it (v4/v5)"}
+{"actor":"tools/migrate.py M3","id":"pv_2a4897fc8ad6","kind":"DERIVATION","quote":"supported by: BDX_FICHES, BDX_FICHE_URL, full record"}
 {"actor":"tools/provenance.py","artifact":"ar_022355","id":"pv_2bc0c049625b","kind":"EVIDENCE_DECISION","quote":"hashed immediately before the reader read it (v4/v5)"}
+{"actor":"tools/migrate.py M3","id":"pv_2ca5accdc5ad","kind":"DERIVATION","quote":"supported by: BDX_FICHES, BDX_FICHE_URL, BDX_FIELD_SRC, classification:1855, full record"}
 {"actor":"data/sources.json","artifact":"ar_005089","id":"pv_2d032f7030ea","kind":"LEGACY_MANIFEST","quote":"the manifest claims these bytes at this path; v4/v5 found ARTIFACT_NOT_FOUND"}
+{"actor":"tools/migrate.py M3","id":"pv_2d216ef5f12b","kind":"DERIVATION","quote":"supported by: BDX_FICHES, BDX_FICHE_URL, BDX_FIELD_SRC, BDX_RATINGS, classification:stem, full record"}
 {"actor":"data/sources.json","artifact":"ar_006281","id":"pv_2dbbb332950f","kind":"LEGACY_MANIFEST","quote":"the manifest claims these bytes at this path; v4/v5 found ARTIFACT_NAME_MISMATCH"}
 {"actor":"data/sources.json","artifact":"ar_000657","id":"pv_2e13bbdbbd19","kind":"LEGACY_MANIFEST","quote":"the manifest claims these bytes at this path; v4/v5 found ARTIFACT_NOT_FOUND"}
 {"actor":"data/sources.json","artifact":"ar_010519","id":"pv_2e76947b68a9","kind":"LEGACY_MANIFEST","quote":"the manifest claims these bytes at this path; v4/v5 found ARTIFACT_NOT_FOUND"}
 {"actor":"data/sources.json","artifact":"ar_004062","id":"pv_2ef40c5b783c","kind":"LEGACY_MANIFEST","quote":"the manifest claims these bytes at this path; v4/v5 found ARTIFACT_NOT_FOUND"}
 {"actor":"data/sources.json","artifact":"ar_002498","id":"pv_325f182fedf0","kind":"LEGACY_MANIFEST","quote":"the manifest claims these bytes at this path; v4/v5 found ARTIFACT_NOT_FOUND"}
+{"actor":"tools/migrate.py M3","id":"pv_3355749a1734","kind":"DERIVATION","quote":"supported by: BDX_FICHES, BDX_FIELD_SRC, classification:bourgeois"}
 {"actor":"tools/provenance.py","artifact":"ar_031990","id":"pv_36cd90d23fb9","kind":"EVIDENCE_DECISION","quote":"hashed immediately before the reader read it (v4/v5)"}
 {"actor":"data/sources.json","artifact":"ar_009951","id":"pv_37e854e1703a","kind":"LEGACY_MANIFEST","quote":"the manifest claims these bytes at this path; v4/v5 found ARTIFACT_NAME_MISMATCH"}
 {"actor":"data/sources.json","artifact":"ar_001264","id":"pv_386cb441fee7","kind":"LEGACY_MANIFEST","quote":"the manifest claims these bytes at this path; v4/v5 found ARTIFACT_NOT_FOUND"}
@@ -54,10 +69,13 @@
 {"actor":"tools/provenance.py","artifact":"ar_026115","id":"pv_3a649f36a84a","kind":"EVIDENCE_DECISION","quote":"hashed immediately before the reader read it (v4/v5)"}
 {"actor":"tools/provenance.py","artifact":"ar_021563","id":"pv_3a8dcf150efb","kind":"EVIDENCE_DECISION","quote":"hashed immediately before the reader read it (v4/v5)"}
 {"actor":"tools/migrate.py M2","id":"pv_3adbc7e73283","kind":"DERIVATION","quote":"the harvest computed sha1 and sha256 over the same fetched bytes"}
+{"actor":"tools/migrate.py M3","id":"pv_3bde00bf293d","kind":"DERIVATION","quote":"supported by: classification:stem"}
 {"actor":"data/sources.json","artifact":"ar_004814","id":"pv_3bef60554350","kind":"LEGACY_MANIFEST","quote":"the manifest claims these bytes at this path; v4/v5 found ARTIFACT_NOT_FOUND"}
 {"actor":"tools/provenance.py","artifact":"ar_028162","id":"pv_3c0527164295","kind":"EVIDENCE_DECISION","quote":"hashed immediately before the reader read it (v4/v5)"}
 {"actor":"data/sources.json","artifact":"ar_007163","id":"pv_3c06a65161d5","kind":"LEGACY_MANIFEST","quote":"the manifest claims these bytes at this path; v4/v5 found ARTIFACT_NOT_FOUND"}
+{"actor":"tools/migrate.py M3","id":"pv_3d2ebdeb4295","kind":"DERIVATION","quote":"an appellation name the legacy files use, verbatim"}
 {"actor":"tools/provenance.py","artifact":"ar_030683","id":"pv_3f2c2522e042","kind":"EVIDENCE_DECISION","quote":"hashed immediately before the reader read it (v4/v5)"}
+{"actor":"tools/migrate.py M3","id":"pv_3fbe57c6a4c6","kind":"DERIVATION","quote":"supported by: BDX_FICHES, BDX_FICHE_URL, BDX_FIELD_SRC, full record"}
 {"actor":"tools/provenance.py","artifact":"ar_022751","id":"pv_40c13fe539a5","kind":"EVIDENCE_DECISION","quote":"hashed immediately before the reader read it (v4/v5)"}
 {"actor":"data/sources.json","artifact":"ar_010361","id":"pv_41797724f758","kind":"LEGACY_MANIFEST","quote":"the manifest claims these bytes at this path; v4/v5 found ARTIFACT_NOT_FOUND"}
 {"actor":"tools/provenance.py","artifact":"ar_002286","id":"pv_4185f10e20c2","kind":"EVIDENCE_DECISION","quote":"hashed immediately before the reader read it (v4/v5)"}
@@ -70,10 +88,15 @@
 {"actor":"tools/provenance.py","artifact":"ar_016719","id":"pv_47b2fce7f956","kind":"EVIDENCE_DECISION","quote":"hashed immediately before the reader read it (v4/v5)"}
 {"actor":"data/sources.json","artifact":"ar_006240","id":"pv_490acb7ad58a","kind":"LEGACY_MANIFEST","quote":"the manifest claims these bytes at this path; v4/v5 found ARTIFACT_NOT_FOUND"}
 {"actor":"tools/provenance.py","artifact":"ar_031608","id":"pv_49c926c60260","kind":"EVIDENCE_DECISION","quote":"hashed immediately before the reader read it (v4/v5)"}
+{"actor":"tools/migrate.py M3","id":"pv_4a1906798594","kind":"DERIVATION","quote":"supported by: BDX_FICHES, BDX_FICHE_URL, BDX_FIELD_SRC, BDX_RATINGS, full record"}
 {"actor":"data/sources.json","artifact":"ar_011371","id":"pv_4ab9dd61129c","kind":"LEGACY_MANIFEST","quote":"the manifest claims these bytes at this path; v4/v5 found ARTIFACT_NOT_FOUND"}
 {"actor":"data/sources.json","artifact":"ar_008955","id":"pv_4ad30d71ceaa","kind":"LEGACY_MANIFEST","quote":"the manifest claims these bytes at this path; v4/v5 found ARTIFACT_NAME_MISMATCH"}
+{"actor":"tools/migrate.py M3","id":"pv_4aeff366fd05","kind":"DERIVATION","quote":"supported by: BDX_FICHES, BDX_FIELD_SRC, BDX_RATINGS, classification:stem, full record"}
 {"actor":"tools/provenance.py","artifact":"ar_016483","id":"pv_4b7375735228","kind":"EVIDENCE_DECISION","quote":"hashed immediately before the reader read it (v4/v5)"}
+{"actor":"tools/migrate.py M3","id":"pv_4bc61b5b086a","kind":"DERIVATION","quote":"supported by: BDX_FICHES, classification:bourgeois"}
 {"actor":"tools/provenance.py","artifact":"ar_029581","id":"pv_4c0f92276e98","kind":"EVIDENCE_DECISION","quote":"hashed immediately before the reader read it (v4/v5)"}
+{"actor":"tools/migrate.py M3","id":"pv_503950be1ab2","kind":"DERIVATION","quote":"supported by: BDX_FICHES, BDX_FICHE_URL, BDX_FIELD_SRC, BDX_RATINGS, BDX_SCORES, classification:1855, full record"}
+{"actor":"tools/migrate.py M3","id":"pv_51845f804b2a","kind":"DERIVATION","quote":"supported by: BDX_FICHES, BDX_FICHE_URL, BDX_FIELD_SRC, classification:stem"}
 {"actor":"tools/provenance.py","artifact":"ar_015745","id":"pv_518aca558d13","kind":"EVIDENCE_DECISION","quote":"hashed immediately before the reader read it (v4/v5)"}
 {"actor":"data/cruartisan.js","id":"pv_537d1e191755","kind":"LEGACY_UNSOURCED"}
 {"actor":"data/sources.json","artifact":"ar_007885","id":"pv_559df6adca81","kind":"LEGACY_MANIFEST","quote":"the manifest claims these bytes at this path; v4/v5 found ARTIFACT_NOT_FOUND"}
@@ -83,23 +106,37 @@
 {"actor":"tools/provenance.py","artifact":"ar_035396","id":"pv_5a08a68ffaea","kind":"EVIDENCE_DECISION","quote":"hashed immediately before the reader read it (v4/v5)"}
 {"actor":"data/sources.json","artifact":"ar_009017","id":"pv_5c12f2f6af9b","kind":"LEGACY_MANIFEST","quote":"the manifest claims these bytes at this path; v4/v5 found ARTIFACT_NOT_FOUND"}
 {"actor":"tools/provenance.py","artifact":"ar_025972","id":"pv_5c579d7be092","kind":"EVIDENCE_DECISION","quote":"hashed immediately before the reader read it (v4/v5)"}
+{"actor":"tools/migrate.py M3","id":"pv_5c9ff8605680","kind":"DERIVATION","quote":"supported by: BDX_RATINGS, classification:stem, full record"}
 {"actor":"tools/provenance.py","artifact":"ar_020397","id":"pv_5dc00610da6e","kind":"EVIDENCE_DECISION","quote":"hashed immediately before the reader read it (v4/v5)"}
 {"actor":"tools/provenance.py","artifact":"ar_034982","id":"pv_5ead7e6c5777","kind":"EVIDENCE_DECISION","quote":"hashed immediately before the reader read it (v4/v5)"}
+{"actor":"tools/migrate.py M3","id":"pv_5f7090345192","kind":"DERIVATION","quote":"supported by: BDX_CELLAR, BDX_FICHES, BDX_FIELD_SRC, BDX_RATINGS, classification:graves, full record"}
 {"actor":"data/sources.json","artifact":"ar_000355","id":"pv_604c291bb18d","kind":"LEGACY_MANIFEST","quote":"the manifest claims these bytes at this path; v4/v5 found ARTIFACT_NOT_FOUND"}
+{"actor":"tools/migrate.py M3","id":"pv_630d113dc68c","kind":"DERIVATION","quote":"supported by: BDX_FICHES, BDX_FICHE_URL, BDX_FIELD_SRC, classification:sauternes, full record"}
+{"actor":"data/sources.json","id":"pv_6319b09d8794","kind":"LEGACY_UNSOURCED","quote":"roles.grand: 'the grand vin, the wine the estate is judged on'; the dataset shows it under the estate's name"}
 {"actor":"data/sources.json","artifact":"ar_003206","id":"pv_632caea91b9e","kind":"LEGACY_MANIFEST","quote":"the manifest claims these bytes at this path; v4/v5 found ARTIFACT_NOT_FOUND"}
 {"actor":"tools/provenance.py","artifact":"ar_014711","id":"pv_637ba2a6977e","kind":"EVIDENCE_DECISION","quote":"hashed immediately before the reader read it (v4/v5)"}
+{"actor":"tools/migrate.py M3","id":"pv_64ef53ff6596","kind":"DERIVATION","quote":"supported by: BDX_FICHES, BDX_FIELD_SRC, classification:sauternes, full record"}
 {"actor":"data/sources.json","artifact":"ar_001763","id":"pv_697989dd1ce9","kind":"LEGACY_MANIFEST","quote":"the manifest claims these bytes at this path; v4/v5 found ARTIFACT_NOT_FOUND"}
 {"actor":"data/sources.json","artifact":"ar_010256","id":"pv_69cfbca4b94d","kind":"LEGACY_MANIFEST","quote":"the manifest claims these bytes at this path; v4/v5 found ARTIFACT_NOT_FOUND"}
 {"actor":"data/sources.json","artifact":"ar_010030","id":"pv_69e5162ab203","kind":"LEGACY_MANIFEST","quote":"the manifest claims these bytes at this path; v4/v5 found ARTIFACT_NOT_FOUND"}
+{"actor":"tools/migrate.py M3","id":"pv_69fe338003e0","kind":"DERIVATION","quote":"supported by: BDX_FICHES, BDX_FICHE_URL, BDX_FIELD_SRC, BDX_RATINGS, BDX_SCORES, classification:1855, classification:graves, full record"}
 {"actor":"tools/provenance.py","artifact":"ar_012026","id":"pv_6a4885ea0e49","kind":"EVIDENCE_DECISION","quote":"hashed immediately before the reader read it (v4/v5)"}
 {"actor":"data/sources.json","artifact":"ar_002307","id":"pv_6a504f9c9220","kind":"LEGACY_MANIFEST","quote":"the manifest claims these bytes at this path; v4/v5 found ARTIFACT_NOT_FOUND"}
 {"actor":"tools/provenance.py","artifact":"ar_016622","id":"pv_6a694086c96d","kind":"EVIDENCE_DECISION","quote":"hashed immediately before the reader read it (v4/v5)"}
+{"actor":"tools/migrate.py M3","id":"pv_6b1b6fd896af","kind":"DERIVATION","quote":"supported by: BDX_FICHES, classification:artisan"}
+{"actor":"tools/migrate.py M3","id":"pv_6b4026927a29","kind":"DERIVATION","quote":"supported by: BDX_FICHES, BDX_FICHE_URL, BDX_FIELD_SRC, classification:bourgeois"}
+{"actor":"tools/migrate.py M3","id":"pv_6c9b43c7ae81","kind":"DERIVATION","quote":"supported by: BDX_RATINGS, full record"}
 {"actor":"data/sources.json","artifact":"ar_002540","id":"pv_6d475de55a5f","kind":"LEGACY_MANIFEST","quote":"the manifest claims these bytes at this path; v4/v5 found ARTIFACT_NAME_MISMATCH"}
+{"actor":"tools/migrate.py M3","id":"pv_6d873f2635c5","kind":"DERIVATION","quote":"supported by: BDX_CELLAR, BDX_FICHES, BDX_FICHE_URL, BDX_FIELD_SRC, full record"}
+{"actor":"tools/migrate.py M3","id":"pv_6f38b5c8d202","kind":"DERIVATION","quote":"supported by: BDX_FICHES, BDX_FICHE_URL, BDX_FIELD_SRC, BDX_RATINGS, classification:1855, full record"}
+{"actor":"tools/migrate.py M3","id":"pv_70867d037db1","kind":"DERIVATION","quote":"supported by: BDX_CELLAR, BDX_FICHES, BDX_FIELD_SRC, classification:bourgeois"}
 {"actor":"data/sources.json","artifact":"ar_003108","id":"pv_719dd665e6a1","kind":"LEGACY_MANIFEST","quote":"the manifest claims these bytes at this path; v4/v5 found ARTIFACT_NOT_FOUND"}
 {"actor":"tools/provenance.py","artifact":"ar_030319","id":"pv_721e5ebba6ff","kind":"EVIDENCE_DECISION","quote":"hashed immediately before the reader read it (v4/v5)"}
 {"actor":"data/sauternes.js","id":"pv_72872a84d1b4","kind":"LEGACY_UNSOURCED"}
 {"actor":"data/coords.js","id":"pv_739c35f059dc","kind":"LEGACY_UNSOURCED"}
+{"actor":"data/scope/authoritative-universe.json","id":"pv_73f2677fedaa","kind":"AUTHORITATIVE_SOURCE","quote":"the body its systems name, verbatim"}
 {"actor":"data/sources.json","artifact":"ar_006087","id":"pv_7434cec3959f","kind":"LEGACY_MANIFEST","quote":"the manifest claims these bytes at this path; v4/v5 found ARTIFACT_NOT_FOUND"}
+{"actor":"tools/migrate.py M3","id":"pv_75ef8741a65a","kind":"DERIVATION","quote":"supported by: BDX_FICHES, BDX_FICHE_URL, BDX_FIELD_SRC, BDX_RATINGS, classification:sauternes, full record"}
 {"actor":"data/sources.json","artifact":"ar_004338","id":"pv_77640e87f6e6","kind":"LEGACY_MANIFEST","quote":"the manifest claims these bytes at this path; v4/v5 found ARTIFACT_NAME_MISMATCH"}
 {"actor":"data/sources.json","artifact":"ar_004680","id":"pv_7775ea2b76f4","kind":"LEGACY_MANIFEST","quote":"the manifest claims these bytes at this path; v4/v5 found ARTIFACT_NOT_FOUND"}
 {"actor":"data/sources.json","artifact":"ar_000454","id":"pv_77adc85c2ebb","kind":"LEGACY_MANIFEST","quote":"the manifest claims these bytes at this path; v4/v5 found ARTIFACT_NOT_FOUND"}
@@ -111,6 +148,8 @@
 {"actor":"tools/provenance.py","artifact":"ar_015018","id":"pv_7c6b923e16f6","kind":"EVIDENCE_DECISION","quote":"hashed immediately before the reader read it (v4/v5)"}
 {"actor":"data/libournais.js","id":"pv_7cce45d9d443","kind":"LEGACY_UNSOURCED"}
 {"actor":"data/sources.json","artifact":"ar_011820","id":"pv_7d299ee67156","kind":"LEGACY_MANIFEST","quote":"the manifest claims these bytes at this path; v4/v5 found ARTIFACT_NAME_MISMATCH"}
+{"actor":"tools/migrate.py M3","id":"pv_7ef2211a8f4b","kind":"DERIVATION","quote":"supported by: BDX_FICHES, BDX_FIELD_SRC"}
+{"actor":"tools/migrate.py M3","id":"pv_7f6de71509c0","kind":"DERIVATION","quote":"supported by: BDX_CELLAR, BDX_FICHES, BDX_FICHE_URL, BDX_FIELD_SRC, BDX_RATINGS, BDX_SCORES, classification:1855, full record"}
 {"actor":"tools/provenance.py","artifact":"ar_015200","id":"pv_7f8295db9990","kind":"EVIDENCE_DECISION","quote":"hashed immediately before the reader read it (v4/v5)"}
 {"actor":"data/sources.json","artifact":"ar_003049","id":"pv_8037e7dbef00","kind":"LEGACY_MANIFEST","quote":"the manifest claims these bytes at this path; v4/v5 found ARTIFACT_NOT_FOUND"}
 {"actor":"data/pomerol.js","id":"pv_8087da34378e","kind":"LEGACY_UNSOURCED","quote":"BDX_POMEROL_OTHER: the 'Other notable estates' tier (growth 3) of the editorial Pomerol collection"}
@@ -120,21 +159,35 @@
 {"actor":"data/sources.json","artifact":"ar_000381","id":"pv_81f9371ad845","kind":"LEGACY_MANIFEST","quote":"the manifest claims these bytes at this path; v4/v5 found ARTIFACT_NOT_FOUND"}
 {"actor":"tools/provenance.py","artifact":"ar_034316","id":"pv_822ff75ba8cb","kind":"EVIDENCE_DECISION","quote":"hashed immediately before the reader read it (v4/v5)"}
 {"actor":"data/sources.json","artifact":"ar_002582","id":"pv_82374203371a","kind":"LEGACY_MANIFEST","quote":"the manifest claims these bytes at this path; v4/v5 found ARTIFACT_NOT_FOUND"}
+{"actor":"tools/migrate.py M3","id":"pv_82409f41759e","kind":"DERIVATION","quote":"supported by: classification:stem, full record"}
+{"actor":"tools/migrate.py M3","id":"pv_82c355ae2c1f","kind":"DERIVATION","quote":"supported by: BDX_CELLAR, BDX_FICHES, BDX_FIELD_SRC, BDX_RATINGS, classification:sauternes, full record"}
 {"actor":"data/sources.json","artifact":"ar_001221","id":"pv_831ad1219d93","kind":"LEGACY_MANIFEST","quote":"the manifest claims these bytes at this path; v4/v5 found ARTIFACT_NOT_FOUND"}
 {"actor":"tools/provenance.py","artifact":"ar_029170","id":"pv_837b3d26103a","kind":"EVIDENCE_DECISION","quote":"hashed immediately before the reader read it (v4/v5)"}
+{"actor":"tools/migrate.py M3","id":"pv_83da51aa1581","kind":"DERIVATION","quote":"supported by: BDX_FICHES, BDX_FICHE_URL"}
 {"actor":"tools/provenance.py","artifact":"ar_013777","id":"pv_84795b9a6446","kind":"EVIDENCE_DECISION","quote":"hashed immediately before the reader read it (v4/v5)"}
+{"actor":"tools/migrate.py M3","id":"pv_85bca1e670e9","kind":"DERIVATION","quote":"supported by: BDX_FICHES, BDX_FIELD_SRC, BDX_RATINGS, full record"}
 {"actor":"data/batch4.js","id":"pv_85d1e6bef23a","kind":"LEGACY_UNSOURCED"}
 {"actor":"tools/provenance.py","artifact":"ar_019082","id":"pv_870083a24b7c","kind":"EVIDENCE_DECISION","quote":"hashed immediately before the reader read it (v4/v5)"}
 {"actor":"tools/provenance.py","artifact":"ar_022845","id":"pv_87b81cf00546","kind":"EVIDENCE_DECISION","quote":"hashed immediately before the reader read it (v4/v5)"}
 {"actor":"tools/migrate.py M2","id":"pv_87d6b3618949","kind":"DERIVATION","quote":"one Estate per canonical estate id; the legacy id is mapped, never renamed"}
 {"actor":"data/sources.json","artifact":"ar_003200","id":"pv_892105748261","kind":"LEGACY_MANIFEST","quote":"the manifest claims these bytes at this path; v4/v5 found ARTIFACT_NOT_FOUND"}
+{"actor":"tools/migrate.py M3","id":"pv_8b8060a46aaa","kind":"DERIVATION","quote":"supported by: BDX_CELLAR, BDX_FICHES, BDX_FICHE_URL, BDX_FIELD_SRC, classification:1855, full record"}
+{"actor":"tools/migrate.py M3","id":"pv_8bce600f2666","kind":"DERIVATION","quote":"supported by: classification:artisan"}
+{"actor":"tools/migrate.py M3","id":"pv_8fc5e3c2e62d","kind":"DERIVATION","quote":"supported by: BDX_FICHES, classification:stem"}
+{"actor":"tools/migrate.py M3","id":"pv_8fee9657e2f4","kind":"DERIVATION","quote":"supported by: BDX_CELLAR, BDX_FICHES, BDX_FIELD_SRC, BDX_RATINGS, full record"}
+{"actor":"tools/migrate.py M3","id":"pv_923fc89a46e6","kind":"DERIVATION","quote":"supported by: BDX_FICHES, BDX_FIELD_SRC, BDX_RATINGS, classification:1855, full record"}
+{"actor":"tools/migrate.py M3","id":"pv_92e699001e14","kind":"DERIVATION","quote":"supported by: BDX_RATINGS, classification:graves, full record"}
+{"actor":"tools/migrate.py M3","id":"pv_93b0762fa990","kind":"DERIVATION","quote":"supported by: BDX_FICHES, BDX_FIELD_SRC, full record"}
 {"actor":"data/sources.json","artifact":"ar_005548","id":"pv_9527a71303cd","kind":"LEGACY_MANIFEST","quote":"the manifest claims these bytes at this path; v4/v5 found ARTIFACT_NOT_FOUND"}
 {"actor":"data/sources.json","artifact":"ar_002426","id":"pv_954fedcaab43","kind":"LEGACY_MANIFEST","quote":"the manifest claims these bytes at this path; v4/v5 found ARTIFACT_NOT_FOUND"}
 {"actor":"data/sources.json","artifact":"ar_001961","id":"pv_971e01e9802d","kind":"LEGACY_MANIFEST","quote":"the manifest claims these bytes at this path; v4/v5 found ARTIFACT_NOT_FOUND"}
 {"actor":"tools/provenance.py","artifact":"ar_016129","id":"pv_974e682c8f4c","kind":"EVIDENCE_DECISION","quote":"hashed immediately before the reader read it (v4/v5)"}
 {"actor":"data/sources.json","artifact":"ar_009919","id":"pv_977d6c0272f0","kind":"LEGACY_MANIFEST","quote":"the manifest claims these bytes at this path; v4/v5 found ARTIFACT_NOT_FOUND"}
+{"actor":"tools/migrate.py M3","id":"pv_98d62123cc56","kind":"DERIVATION","quote":"supported by: BDX_RATINGS, classification:1855, full record"}
+{"actor":"tools/migrate.py M3","id":"pv_9a4f34d37bac","kind":"DERIVATION","quote":"supported by: BDX_FICHES, BDX_FIELD_SRC, BDX_RATINGS, classification:sauternes, full record"}
 {"actor":"data/sources.json","artifact":"ar_008609","id":"pv_9a7a62114f92","kind":"LEGACY_MANIFEST","quote":"the manifest claims these bytes at this path; v4/v5 found ARTIFACT_NAME_MISMATCH"}
 {"actor":"data/sources.json","artifact":"ar_001362","id":"pv_9cabe95071d6","kind":"LEGACY_MANIFEST","quote":"the manifest claims these bytes at this path; v4/v5 found ARTIFACT_NAME_MISMATCH"}
+{"actor":"tools/migrate.py M3","id":"pv_9e2d8409bffb","kind":"DERIVATION","quote":"supported by: BDX_CELLAR, classification:artisan"}
 {"actor":"data/sources.json","artifact":"ar_007454","id":"pv_9e53e1de3ed9","kind":"LEGACY_MANIFEST","quote":"the manifest claims these bytes at this path; v4/v5 found ARTIFACT_NOT_FOUND"}
 {"actor":"tools/provenance.py","artifact":"ar_005470","id":"pv_9e65c96199fc","kind":"EVIDENCE_DECISION","quote":"hashed immediately before the reader read it (v4/v5)"}
 {"actor":"data/sources.json","artifact":"ar_011950","id":"pv_a157e003728c","kind":"LEGACY_MANIFEST","quote":"the manifest claims these bytes at this path; v4/v5 found ARTIFACT_NAME_MISMATCH"}
@@ -152,9 +205,13 @@
 {"actor":"data/sources.json","artifact":"ar_009219","id":"pv_aedf453f04f2","kind":"LEGACY_MANIFEST","quote":"the manifest claims these bytes at this path; v4/v5 found ARTIFACT_NOT_FOUND"}
 {"actor":"tools/provenance.py","artifact":"ar_025004","id":"pv_af781585ebaf","kind":"EVIDENCE_DECISION","quote":"hashed immediately before the reader read it (v4/v5)"}
 {"actor":"data/sources.json","artifact":"ar_008109","id":"pv_af990e7f7ee3","kind":"LEGACY_MANIFEST","quote":"the manifest claims these bytes at this path; v4/v5 found ARTIFACT_NOT_FOUND"}
+{"actor":"tools/migrate.py M3","id":"pv_b00ffed89724","kind":"DERIVATION","quote":"supported by: BDX_CELLAR, BDX_FICHES, BDX_FICHE_URL, BDX_FIELD_SRC, BDX_RATINGS, classification:stem, full record"}
 {"actor":"tools/provenance.py","artifact":"ar_016722","id":"pv_b06a53f43a37","kind":"EVIDENCE_DECISION","quote":"hashed immediately before the reader read it (v4/v5)"}
 {"actor":"data/sources.json","artifact":"ar_011886","id":"pv_b15255c37639","kind":"LEGACY_MANIFEST","quote":"the manifest claims these bytes at this path; v4/v5 found ARTIFACT_NOT_FOUND"}
 {"actor":"data/sources.json","artifact":"ar_005430","id":"pv_b45cc689d930","kind":"LEGACY_MANIFEST","quote":"the manifest claims these bytes at this path; v4/v5 found ARTIFACT_NOT_FOUND"}
+{"actor":"tools/migrate.py M3","id":"pv_b53d4ee52734","kind":"DERIVATION","quote":"supported by: BDX_CELLAR, BDX_FICHES, BDX_FICHE_URL, BDX_FIELD_SRC, BDX_RATINGS, full record"}
+{"actor":"tools/migrate.py M3","id":"pv_b99194be8a81","kind":"DERIVATION","quote":"supported by: BDX_CELLAR, BDX_FICHES, BDX_FICHE_URL, BDX_FIELD_SRC, BDX_RATINGS, classification:graves, full record"}
+{"actor":"tools/migrate.py M3","id":"pv_ba0da11c3cf3","kind":"DERIVATION","quote":"supported by: BDX_FICHES, BDX_FICHE_URL, BDX_FIELD_SRC"}
 {"actor":"data/sources.json","artifact":"ar_011434","id":"pv_ba32f3738785","kind":"LEGACY_MANIFEST","quote":"the manifest claims these bytes at this path; v4/v5 found ARTIFACT_NOT_FOUND"}
 {"actor":"data/sources.json","artifact":"ar_000372","id":"pv_bb21f5d5bce2","kind":"LEGACY_MANIFEST","quote":"the manifest claims these bytes at this path; v4/v5 found ARTIFACT_NOT_FOUND"}
 {"actor":"data/sources.json","artifact":"ar_005650","id":"pv_bc0a0a616469","kind":"LEGACY_MANIFEST","quote":"the manifest claims these bytes at this path; v4/v5 found ARTIFACT_NOT_FOUND"}
@@ -164,9 +221,11 @@
 {"actor":"tools/provenance.py","artifact":"ar_014007","id":"pv_bd1cfc4c128c","kind":"EVIDENCE_DECISION","quote":"hashed immediately before the reader read it (v4/v5)"}
 {"actor":"tools/provenance.py","artifact":"ar_012860","id":"pv_bd45eea538a6","kind":"EVIDENCE_DECISION","quote":"hashed immediately before the reader read it (v4/v5)"}
 {"actor":"data/sources.json","artifact":"ar_000830","id":"pv_c022964084d9","kind":"LEGACY_MANIFEST","quote":"the manifest claims these bytes at this path; v4/v5 found ARTIFACT_NOT_FOUND"}
+{"actor":"tools/migrate.py M3","id":"pv_c04e69d8cdb4","kind":"DERIVATION","quote":"supported by: BDX_FICHES, full record"}
 {"actor":"tools/provenance.py","artifact":"ar_024392","id":"pv_c18468e51583","kind":"EVIDENCE_DECISION","quote":"hashed immediately before the reader read it (v4/v5)"}
 {"actor":"data/sources.json","artifact":"ar_011417","id":"pv_c216ac8a6326","kind":"LEGACY_MANIFEST","quote":"the manifest claims these bytes at this path; v4/v5 found ARTIFACT_NOT_FOUND"}
 {"actor":"data/sources.json","artifact":"ar_002041","id":"pv_c24b459a2ce0","kind":"LEGACY_MANIFEST","quote":"the manifest claims these bytes at this path; v4/v5 found ARTIFACT_NOT_FOUND"}
+{"actor":"tools/migrate.py M3","id":"pv_c32a5d281a07","kind":"DERIVATION","quote":"supported by: BDX_FICHES, BDX_FICHE_URL, BDX_FIELD_SRC, classification:graves, full record"}
 {"actor":"data/batch3.js","id":"pv_c39dd7c9e901","kind":"LEGACY_UNSOURCED"}
 {"actor":"data/sources.json","artifact":"ar_000056","id":"pv_c44c8b9ca77f","kind":"LEGACY_MANIFEST","quote":"the manifest claims these bytes at this path; v4/v5 found ARTIFACT_NAME_MISMATCH"}
 {"actor":"data/sources.json","artifact":"ar_011408","id":"pv_c48a2e48e1b4","kind":"LEGACY_MANIFEST","quote":"the manifest claims these bytes at this path; v4/v5 found ARTIFACT_NOT_FOUND"}
@@ -177,23 +236,36 @@
 {"actor":"data/sources.json","artifact":"ar_010283","id":"pv_c9658481c756","kind":"LEGACY_MANIFEST","quote":"the manifest claims these bytes at this path; v4/v5 found ARTIFACT_NOT_FOUND"}
 {"actor":"tools/provenance.py","artifact":"ar_025077","id":"pv_ca9f71481d9b","kind":"EVIDENCE_DECISION","quote":"hashed immediately before the reader read it (v4/v5)"}
 {"actor":"data/sources.json","artifact":"ar_007226","id":"pv_caa2bad81c99","kind":"LEGACY_MANIFEST","quote":"the manifest claims these bytes at this path; v4/v5 found ARTIFACT_NOT_FOUND"}
+{"actor":"tools/migrate.py M3","id":"pv_caab12dbcf07","kind":"DERIVATION","quote":"supported by: classification:bourgeois"}
 {"actor":"data/sources.json","artifact":"ar_009985","id":"pv_cac72e95ba70","kind":"LEGACY_MANIFEST","quote":"the manifest claims these bytes at this path; v4/v5 found ARTIFACT_NOT_FOUND"}
 {"actor":"data/sources.json","artifact":"ar_008497","id":"pv_cb3f4ce22d52","kind":"LEGACY_MANIFEST","quote":"the manifest claims these bytes at this path; v4/v5 found ARTIFACT_NOT_FOUND"}
 {"actor":"tools/provenance.py","artifact":"ar_033353","id":"pv_cc198ff471b5","kind":"EVIDENCE_DECISION","quote":"hashed immediately before the reader read it (v4/v5)"}
+{"actor":"tools/migrate.py M3","id":"pv_cc2a14104d17","kind":"DERIVATION","quote":"supported by: BDX_CELLAR, BDX_FICHES, BDX_FICHE_URL, BDX_FIELD_SRC, BDX_RATINGS, classification:1855, full record"}
 {"actor":"tools/migrate.py M2","id":"pv_cc7eca37899d","kind":"DERIVATION","quote":"a compact-list entry; its legacy id is cls + '-' + slug(name) as app.js builds it, mapped here as it stands"}
+{"actor":"tools/migrate.py M3","id":"pv_d3abe90d88fe","kind":"DERIVATION","quote":"supported by: BDX_FICHES, BDX_RATINGS, classification:1855, full record"}
 {"actor":"data/sources.json","artifact":"ar_006671","id":"pv_d5712d655774","kind":"LEGACY_MANIFEST","quote":"the manifest claims these bytes at this path; v4/v5 found ARTIFACT_NAME_MISMATCH"}
 {"actor":"tools/migrate.py M2","id":"pv_d6d6af91c6a5","kind":"DERIVATION","quote":"one Artifact per digest; a sha1 and a sha256 are one artifact only when proven to hash the same bytes"}
 {"actor":"data/sources.json","artifact":"ar_000112","id":"pv_d762d105617c","kind":"LEGACY_MANIFEST","quote":"the manifest claims these bytes at this path; v4/v5 found ARTIFACT_NOT_FOUND"}
+{"actor":"tools/migrate.py M3","id":"pv_d849ee3aef75","kind":"DERIVATION","quote":"supported by: BDX_CELLAR, BDX_FICHES, BDX_FIELD_SRC, BDX_SCORES, classification:1855, full record"}
+{"actor":"tools/migrate.py M3","id":"pv_d881f6360380","kind":"DERIVATION","quote":"supported by: BDX_CELLAR, BDX_FICHES, BDX_FIELD_SRC, BDX_RATINGS, BDX_SCORES, classification:sauternes, full record"}
+{"actor":"tools/migrate.py M3","id":"pv_da6a48bc5485","kind":"DERIVATION","quote":"supported by: BDX_CELLAR, BDX_FICHES, BDX_FICHE_URL, BDX_FIELD_SRC, BDX_RATINGS, classification:sauternes, full record"}
+{"actor":"tools/migrate.py M3","id":"pv_daa126a7cb69","kind":"DERIVATION","quote":"supported by: BDX_FICHES, BDX_FIELD_SRC, BDX_RATINGS, BDX_SCORES, classification:1855, full record"}
 {"actor":"data/sources.json","artifact":"ar_011331","id":"pv_daa41f19a2c4","kind":"LEGACY_MANIFEST","quote":"the manifest claims these bytes at this path; v4/v5 found ARTIFACT_NAME_MISMATCH"}
 {"actor":"data/chateaux.js","id":"pv_dcde0cc6132f","kind":"LEGACY_UNSOURCED"}
 {"actor":"data/sources.json","artifact":"ar_009709","id":"pv_ded4694b9dfc","kind":"LEGACY_MANIFEST","quote":"the manifest claims these bytes at this path; v4/v5 found ARTIFACT_NOT_FOUND"}
+{"actor":"tools/migrate.py M3","id":"pv_df23f4955b5c","kind":"DERIVATION","quote":"supported by: BDX_CELLAR, BDX_FICHES, BDX_FICHE_URL, BDX_FIELD_SRC"}
+{"actor":"tools/migrate.py M3","id":"pv_e2514837f8c5","kind":"DERIVATION","quote":"supported by: BDX_FICHES, BDX_FIELD_SRC, BDX_NOT_PRODUCED, BDX_RATINGS, BDX_SCORES, classification:sauternes, full record"}
+{"actor":"tools/migrate.py M3","id":"pv_e2a0c40ff77f","kind":"DERIVATION","quote":"supported by: BDX_CELLAR, classification:bourgeois"}
 {"actor":"data/graves.js","id":"pv_e45f5d20b569","kind":"LEGACY_UNSOURCED"}
 {"actor":"data/sources.json","artifact":"ar_011033","id":"pv_e4dd742ab1d0","kind":"LEGACY_MANIFEST","quote":"the manifest claims these bytes at this path; v4/v5 found ARTIFACT_NOT_FOUND"}
+{"actor":"tools/migrate.py M3","id":"pv_e5cafc79fb44","kind":"DERIVATION","quote":"supported by: BDX_CELLAR, BDX_FICHES, BDX_FIELD_SRC, BDX_RATINGS, classification:stem, full record"}
 {"actor":"data/sources.json","artifact":"ar_005108","id":"pv_e68225359196","kind":"LEGACY_MANIFEST","quote":"the manifest claims these bytes at this path; v4/v5 found ARTIFACT_NOT_FOUND"}
 {"actor":"data/sources.json","artifact":"ar_011896","id":"pv_e7fbbcd1ebdc","kind":"LEGACY_MANIFEST","quote":"the manifest claims these bytes at this path; v4/v5 found ARTIFACT_NOT_FOUND"}
 {"actor":"data/sources.json","artifact":"ar_011424","id":"pv_e9901da29aad","kind":"LEGACY_MANIFEST","quote":"the manifest claims these bytes at this path; v4/v5 found ARTIFACT_NOT_FOUND"}
+{"actor":"tools/migrate.py M3","id":"pv_e9b11f907780","kind":"DERIVATION","quote":"supported by: BDX_CELLAR, BDX_FICHES, classification:bourgeois"}
 {"actor":"data/sources.json","id":"pv_e9cc51fdfe9b","kind":"LEGACY_MANIFEST"}
 {"actor":"tools/provenance.py","artifact":"ar_035173","id":"pv_e9d88db38522","kind":"EVIDENCE_DECISION","quote":"hashed immediately before the reader read it (v4/v5)"}
+{"actor":"tools/migrate.py M3","id":"pv_ea5fd8dbc66e","kind":"DERIVATION","quote":"supported by: BDX_FICHES, BDX_FICHE_URL, BDX_FIELD_SRC, BDX_RATINGS, classification:graves, full record"}
 {"actor":"data/sources.json","artifact":"ar_004920","id":"pv_ea698c8128ea","kind":"LEGACY_MANIFEST","quote":"the manifest claims these bytes at this path; v4/v5 found ARTIFACT_NOT_FOUND"}
 {"actor":"data/sources.json","artifact":"ar_002286","id":"pv_eb13c00a970b","kind":"LEGACY_MANIFEST","quote":"the manifest claims these bytes at this path; v4/v5 found ARTIFACT_NAME_MISMATCH"}
 {"actor":"data/sources.json","artifact":"ar_000616","id":"pv_ebfde86890ce","kind":"LEGACY_MANIFEST","quote":"the manifest claims these bytes at this path; v4/v5 found ARTIFACT_NOT_FOUND"}
@@ -201,13 +273,17 @@
 {"actor":"data/sources.json","artifact":"ar_004992","id":"pv_ec8dfcc15609","kind":"LEGACY_MANIFEST","quote":"the manifest claims these bytes at this path; v4/v5 found ARTIFACT_NOT_FOUND"}
 {"actor":"data/sources.json","artifact":"ar_005556","id":"pv_edf525da11ef","kind":"LEGACY_MANIFEST","quote":"the manifest claims these bytes at this path; v4/v5 found ARTIFACT_NOT_FOUND"}
 {"actor":"tools/provenance.py","artifact":"ar_014208","id":"pv_ee5a81a826de","kind":"EVIDENCE_DECISION","quote":"hashed immediately before the reader read it (v4/v5)"}
+{"actor":"tools/migrate.py M3","id":"pv_f1e35fbd5349","kind":"DERIVATION","quote":"one grand-vin Wine per estate whose legacy data supports one (classification listing, full record, or an estate|vintage record)"}
 {"actor":"data/sources.json","artifact":"ar_008918","id":"pv_f28bdcc26c0a","kind":"LEGACY_MANIFEST","quote":"the manifest claims these bytes at this path; v4/v5 found ARTIFACT_NOT_FOUND"}
 {"actor":"data/sources.json","artifact":"ar_007109","id":"pv_f2d7756df9cf","kind":"LEGACY_MANIFEST","quote":"the manifest claims these bytes at this path; v4/v5 found ARTIFACT_NOT_FOUND"}
 {"actor":"tools/provenance.py","artifact":"ar_027099","id":"pv_f2e0c5a2cf70","kind":"EVIDENCE_DECISION","quote":"hashed immediately before the reader read it (v4/v5)"}
 {"actor":"data/sources.json","artifact":"ar_000501","id":"pv_f2f100b0d5e5","kind":"LEGACY_MANIFEST","quote":"the manifest claims these bytes at this path; v4/v5 found ARTIFACT_NOT_FOUND"}
+{"actor":"data/classifications.js","id":"pv_f493188dc748","kind":"LEGACY_UNSOURCED"}
 {"actor":"data/sources.json","artifact":"ar_003637","id":"pv_f513cc147696","kind":"LEGACY_MANIFEST","quote":"the manifest claims these bytes at this path; v4/v5 found ARTIFACT_NOT_FOUND"}
 {"actor":"tools/provenance.py","artifact":"ar_030674","id":"pv_f5dcb9853ec3","kind":"EVIDENCE_DECISION","quote":"hashed immediately before the reader read it (v4/v5)"}
 {"actor":"tools/provenance.py","artifact":"ar_013519","id":"pv_f668ed678296","kind":"EVIDENCE_DECISION","quote":"hashed immediately before the reader read it (v4/v5)"}
+{"actor":"tools/migrate.py M3","id":"pv_f69cb736d562","kind":"DERIVATION","quote":"supported by: BDX_CELLAR, BDX_FICHES, BDX_FICHE_URL, BDX_FIELD_SRC, BDX_NOT_PRODUCED, BDX_RATINGS, BDX_SCORES, classification:sauternes, full record"}
 {"actor":"data/sources.json","artifact":"ar_008242","id":"pv_fa97d5cac85c","kind":"LEGACY_MANIFEST","quote":"the manifest claims these bytes at this path; v4/v5 found ARTIFACT_NOT_FOUND"}
+{"actor":"tools/migrate.py M3","id":"pv_fc3a38d2270a","kind":"DERIVATION","quote":"supported by: BDX_NOT_PRODUCED, BDX_RATINGS, classification:sauternes, full record"}
 {"actor":"tools/provenance.py","artifact":"ar_028312","id":"pv_fd3d6e2f32af","kind":"EVIDENCE_DECISION","quote":"hashed immediately before the reader read it (v4/v5)"}
 {"actor":"data/sources.json","artifact":"ar_006404","id":"pv_fd439390ea47","kind":"LEGACY_MANIFEST","quote":"the manifest claims these bytes at this path; v4/v5 found ARTIFACT_NOT_FOUND"}

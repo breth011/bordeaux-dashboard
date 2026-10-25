@@ -1,5 +1,6 @@
 {"id":"nm_00844fda668e","kind":"CURRENT","name":"Château Certan de May","provenance":"pv_ac325d595306","subject":"es_00226","validity":{"valid_from":{"kind":"UNKNOWN"},"valid_to":{"kind":"OPEN"}}}
 {"id":"nm_009d8570612b","kind":"CURRENT","name":"Château Reverdi","provenance":"pv_11f40c267c53","subject":"es_00187","validity":{"valid_from":{"kind":"UNKNOWN"},"valid_to":{"kind":"OPEN"}}}
+{"id":"nm_00f027cd6e26","kind":"CURRENT","name":"Château Marjosse","provenance":"pv_6319b09d8794","subject":"wn_00327","validity":{"valid_from":{"kind":"UNKNOWN"},"valid_to":{"kind":"OPEN"}}}
 {"id":"nm_03633e0bb375","kind":"CURRENT","name":"Clos Fourtet","provenance":"pv_0377fa70c247","subject":"es_00233","validity":{"valid_from":{"kind":"UNKNOWN"},"valid_to":{"kind":"OPEN"}}}
 {"id":"nm_03694d496f99","kind":"CURRENT","name":"Couvent des Jacobins","provenance":"pv_0377fa70c247","subject":"es_00458","validity":{"valid_from":{"kind":"UNKNOWN"},"valid_to":{"kind":"OPEN"}}}
 {"id":"nm_037577e4dd19","kind":"CURRENT","name":"Château Petit-Village","provenance":"pv_ac325d595306","subject":"es_00362","validity":{"valid_from":{"kind":"UNKNOWN"},"valid_to":{"kind":"OPEN"}}}
@@ -8,108 +9,225 @@
 {"id":"nm_04751ebb79a6","kind":"CURRENT","name":"Château Pavie","provenance":"pv_0377fa70c247","subject":"es_00341","validity":{"valid_from":{"kind":"UNKNOWN"},"valid_to":{"kind":"OPEN"}}}
 {"id":"nm_04796bef1b8e","kind":"CURRENT","name":"Château Micalet","provenance":"pv_537d1e191755","subject":"es_00025","validity":{"valid_from":{"kind":"UNKNOWN"},"valid_to":{"kind":"OPEN"}}}
 {"id":"nm_04ae46b8c2ae","kind":"CURRENT","name":"Château Haut-Bailly","provenance":"pv_e45f5d20b569","subject":"es_00278","validity":{"valid_from":{"kind":"UNKNOWN"},"valid_to":{"kind":"OPEN"}}}
+{"id":"nm_05a73f645d6d","kind":"CURRENT","name":"Château Boyd-Cantenac","provenance":"pv_6319b09d8794","subject":"wn_00213","validity":{"valid_from":{"kind":"UNKNOWN"},"valid_to":{"kind":"OPEN"}}}
 {"id":"nm_05c205f7653c","kind":"CURRENT","name":"Château Paveil de Luze","provenance":"pv_11f40c267c53","subject":"es_00169","validity":{"valid_from":{"kind":"UNKNOWN"},"valid_to":{"kind":"OPEN"}}}
 {"id":"nm_05f056ba918b","kind":"CURRENT","name":"Château Lafleur","provenance":"pv_ac325d595306","subject":"es_00301","validity":{"valid_from":{"kind":"UNKNOWN"},"valid_to":{"kind":"OPEN"}}}
 {"id":"nm_06684b04486b","kind":"CURRENT","name":"Château Dacher de Delmonte","provenance":"pv_537d1e191755","subject":"es_00003","validity":{"valid_from":{"kind":"UNKNOWN"},"valid_to":{"kind":"OPEN"}}}
 {"id":"nm_066b67218e7d","kind":"CURRENT","name":"Château Beau-Séjour Bécot","provenance":"pv_0377fa70c247","subject":"es_00036","validity":{"valid_from":{"kind":"UNKNOWN"},"valid_to":{"kind":"OPEN"}}}
 {"id":"nm_06c47872476f","kind":"CURRENT","name":"Château Margaux","provenance":"pv_dcde0cc6132f","subject":"es_00326","validity":{"valid_from":{"kind":"UNKNOWN"},"valid_to":{"kind":"OPEN"}}}
+{"id":"nm_0707ef894341","kind":"CURRENT","name":"Château Lynch-Moussas","provenance":"pv_6319b09d8794","subject":"wn_00323","validity":{"valid_from":{"kind":"UNKNOWN"},"valid_to":{"kind":"OPEN"}}}
 {"id":"nm_073dc43f21ac","kind":"CURRENT","name":"Château Plantey","provenance":"pv_11f40c267c53","subject":"es_00176","validity":{"valid_from":{"kind":"UNKNOWN"},"valid_to":{"kind":"OPEN"}}}
 {"id":"nm_076695f547c8","kind":"CURRENT","name":"Château Pavie Macquin","provenance":"pv_0377fa70c247","subject":"es_00342","validity":{"valid_from":{"kind":"UNKNOWN"},"valid_to":{"kind":"OPEN"}}}
+{"id":"nm_07c120bc7cc3","kind":"CURRENT","name":"Château les Tresquots","provenance":"pv_6319b09d8794","subject":"wn_00143","validity":{"valid_from":{"kind":"UNKNOWN"},"valid_to":{"kind":"OPEN"}}}
 {"id":"nm_07c336626559","kind":"CURRENT","name":"Château les Tresquots","provenance":"pv_11f40c267c53","subject":"es_00143","validity":{"valid_from":{"kind":"UNKNOWN"},"valid_to":{"kind":"OPEN"}}}
+{"id":"nm_07d2cd9f7ec0","kind":"CURRENT","name":"Château Lynch-Bages","provenance":"pv_6319b09d8794","subject":"wn_00322","validity":{"valid_from":{"kind":"UNKNOWN"},"valid_to":{"kind":"OPEN"}}}
+{"id":"nm_07fa22aa909a","kind":"CURRENT","name":"Château Laroque","provenance":"pv_6319b09d8794","subject":"wn_00417","validity":{"valid_from":{"kind":"UNKNOWN"},"valid_to":{"kind":"OPEN"}}}
 {"id":"nm_08f3686c6555","kind":"CURRENT","name":"Château Begadan","provenance":"pv_11f40c267c53","subject":"es_00046","validity":{"valid_from":{"kind":"UNKNOWN"},"valid_to":{"kind":"OPEN"}}}
+{"id":"nm_09933b056b30","kind":"CURRENT","name":"Château Cissac","provenance":"pv_6319b09d8794","subject":"wn_00060","validity":{"valid_from":{"kind":"UNKNOWN"},"valid_to":{"kind":"OPEN"}}}
 {"id":"nm_09a9fdea04f5","kind":"CURRENT","name":"Clos René","provenance":"pv_ac325d595306","subject":"es_00368","validity":{"valid_from":{"kind":"UNKNOWN"},"valid_to":{"kind":"OPEN"}}}
+{"id":"nm_0a7163a59662","kind":"CURRENT","name":"Château Pey Mallet","provenance":"pv_6319b09d8794","subject":"wn_00027","validity":{"valid_from":{"kind":"UNKNOWN"},"valid_to":{"kind":"OPEN"}}}
 {"id":"nm_0a87b719cb2a","kind":"CURRENT","name":"Château d’Aiguilhe","provenance":"pv_c39dd7c9e901","subject":"es_00244","validity":{"valid_from":{"kind":"UNKNOWN"},"valid_to":{"kind":"OPEN"}}}
 {"id":"nm_0aa5ce42fc21","kind":"CURRENT","name":"Château Leboscq","provenance":"pv_11f40c267c53","subject":"es_00139","validity":{"valid_from":{"kind":"UNKNOWN"},"valid_to":{"kind":"OPEN"}}}
+{"id":"nm_0aad2eee8215","kind":"CURRENT","name":"Château d'Aurilhac","provenance":"pv_6319b09d8794","subject":"wn_00069","validity":{"valid_from":{"kind":"UNKNOWN"},"valid_to":{"kind":"OPEN"}}}
+{"id":"nm_0afabde9dc55","kind":"CURRENT","name":"Château Lousteauneuf","provenance":"pv_6319b09d8794","subject":"wn_00149","validity":{"valid_from":{"kind":"UNKNOWN"},"valid_to":{"kind":"OPEN"}}}
+{"id":"nm_0b8dfbf32ec6","kind":"CURRENT","name":"Château Latour","provenance":"pv_6319b09d8794","subject":"wn_00309","validity":{"valid_from":{"kind":"UNKNOWN"},"valid_to":{"kind":"OPEN"}}}
+{"id":"nm_0d396abdb892","kind":"CURRENT","name":"Château Soutard","provenance":"pv_6319b09d8794","subject":"wn_00434","validity":{"valid_from":{"kind":"UNKNOWN"},"valid_to":{"kind":"OPEN"}}}
+{"id":"nm_0dc70c1c4fb5","kind":"CURRENT","name":"Château Villars","provenance":"pv_6319b09d8794","subject":"wn_00456","validity":{"valid_from":{"kind":"UNKNOWN"},"valid_to":{"kind":"OPEN"}}}
 {"id":"nm_0dc8c8837eaf","kind":"CURRENT","name":"Château Figeac","provenance":"pv_0377fa70c247","subject":"es_00266","validity":{"valid_from":{"kind":"UNKNOWN"},"valid_to":{"kind":"OPEN"}}}
+{"id":"nm_0dd8dbefd61e","kind":"CURRENT","name":"Château La Dominique","provenance":"pv_6319b09d8794","subject":"wn_00410","validity":{"valid_from":{"kind":"UNKNOWN"},"valid_to":{"kind":"OPEN"}}}
+{"id":"nm_0e13ff8a480b","kind":"CURRENT","name":"Château du Moulin Rouge","provenance":"pv_6319b09d8794","subject":"wn_00087","validity":{"valid_from":{"kind":"UNKNOWN"},"valid_to":{"kind":"OPEN"}}}
+{"id":"nm_0e45ff138e60","kind":"CURRENT","name":"Château Tour Bel Air","provenance":"pv_6319b09d8794","subject":"wn_00029","validity":{"valid_from":{"kind":"UNKNOWN"},"valid_to":{"kind":"OPEN"}}}
+{"id":"nm_0e9b10fc4d16","kind":"CURRENT","name":"Château Peyrabon","provenance":"pv_6319b09d8794","subject":"wn_00171","validity":{"valid_from":{"kind":"UNKNOWN"},"valid_to":{"kind":"OPEN"}}}
 {"id":"nm_0eb42c4ada7c","kind":"CURRENT","name":"Château Larcis Ducasse","provenance":"pv_0377fa70c247","subject":"es_00307","validity":{"valid_from":{"kind":"UNKNOWN"},"valid_to":{"kind":"OPEN"}}}
 {"id":"nm_0f25253c4115","kind":"CURRENT","name":"Château Cantenac-Brown","provenance":"pv_dcde0cc6132f","subject":"es_00224","validity":{"valid_from":{"kind":"UNKNOWN"},"valid_to":{"kind":"OPEN"}}}
+{"id":"nm_0f392da9314a","kind":"CURRENT","name":"Château Bégadanet","provenance":"pv_6319b09d8794","subject":"wn_00047","validity":{"valid_from":{"kind":"UNKNOWN"},"valid_to":{"kind":"OPEN"}}}
 {"id":"nm_0f68b944a27b","kind":"CURRENT","name":"Château La Dominique","provenance":"pv_0377fa70c247","subject":"es_00422","validity":{"valid_from":{"kind":"UNKNOWN"},"valid_to":{"kind":"OPEN"}}}
+{"id":"nm_0f7775e0ee86","kind":"CURRENT","name":"Château des Tourelles","provenance":"pv_6319b09d8794","subject":"wn_00082","validity":{"valid_from":{"kind":"UNKNOWN"},"valid_to":{"kind":"OPEN"}}}
 {"id":"nm_0fbefb2780d0","kind":"CURRENT","name":"Château L’Enclos","provenance":"pv_ac325d595306","subject":"es_00353","validity":{"valid_from":{"kind":"UNKNOWN"},"valid_to":{"kind":"OPEN"}}}
 {"id":"nm_0fd86801355a","kind":"CURRENT","name":"Château Trotte Vieille","provenance":"pv_0377fa70c247","subject":"es_00464","validity":{"valid_from":{"kind":"UNKNOWN"},"valid_to":{"kind":"OPEN"}}}
 {"id":"nm_1083a807e202","kind":"CURRENT","name":"Château Falfas","provenance":"pv_c39dd7c9e901","subject":"es_00264","validity":{"valid_from":{"kind":"UNKNOWN"},"valid_to":{"kind":"OPEN"}}}
+{"id":"nm_10aaa1082bb7","kind":"CURRENT","name":"Château Les Barraillots","provenance":"pv_6319b09d8794","subject":"wn_00021","validity":{"valid_from":{"kind":"UNKNOWN"},"valid_to":{"kind":"OPEN"}}}
+{"id":"nm_10c1b9f2349e","kind":"CURRENT","name":"Château Tour Saint-Fort","provenance":"pv_6319b09d8794","subject":"wn_00203","validity":{"valid_from":{"kind":"UNKNOWN"},"valid_to":{"kind":"OPEN"}}}
+{"id":"nm_10d767c739cb","kind":"CURRENT","name":"Château Maison Blanche","provenance":"pv_6319b09d8794","subject":"wn_00151","validity":{"valid_from":{"kind":"UNKNOWN"},"valid_to":{"kind":"OPEN"}}}
 {"id":"nm_10ee32c8959f","kind":"CURRENT","name":"Château Mazeris","provenance":"pv_c39dd7c9e901","subject":"es_00330","validity":{"valid_from":{"kind":"UNKNOWN"},"valid_to":{"kind":"OPEN"}}}
+{"id":"nm_1171c044109e","kind":"CURRENT","name":"Château de Malle","provenance":"pv_6319b09d8794","subject":"wn_00252","validity":{"valid_from":{"kind":"UNKNOWN"},"valid_to":{"kind":"OPEN"}}}
+{"id":"nm_11b68c68cb86","kind":"CURRENT","name":"Château de Fieuzal","provenance":"pv_6319b09d8794","subject":"wn_00251","validity":{"valid_from":{"kind":"UNKNOWN"},"valid_to":{"kind":"OPEN"}}}
+{"id":"nm_11da596b2d16","kind":"CURRENT","name":"Château Grand Clapeau Olivier","provenance":"pv_6319b09d8794","subject":"wn_00094","validity":{"valid_from":{"kind":"UNKNOWN"},"valid_to":{"kind":"OPEN"}}}
+{"id":"nm_11eadd622c8e","kind":"CURRENT","name":"Château Margaux","provenance":"pv_6319b09d8794","subject":"wn_00326","validity":{"valid_from":{"kind":"UNKNOWN"},"valid_to":{"kind":"OPEN"}}}
 {"id":"nm_124950353a2a","kind":"CURRENT","name":"Château du Taillan","provenance":"pv_11f40c267c53","subject":"es_00089","validity":{"valid_from":{"kind":"UNKNOWN"},"valid_to":{"kind":"OPEN"}}}
+{"id":"nm_13763e4774a6","kind":"CURRENT","name":"Château Pichon-Longueville Baron","provenance":"pv_6319b09d8794","subject":"wn_00345","validity":{"valid_from":{"kind":"UNKNOWN"},"valid_to":{"kind":"OPEN"}}}
 {"id":"nm_1376bce6c32f","kind":"CURRENT","name":"Château Maison Blanche","provenance":"pv_11f40c267c53","subject":"es_00151","validity":{"valid_from":{"kind":"UNKNOWN"},"valid_to":{"kind":"OPEN"}}}
+{"id":"nm_141f8a6823c4","kind":"CURRENT","name":"Château Liversan","provenance":"pv_6319b09d8794","subject":"wn_00148","validity":{"valid_from":{"kind":"UNKNOWN"},"valid_to":{"kind":"OPEN"}}}
 {"id":"nm_143edd6d2f28","kind":"CURRENT","name":"Château Gémeillan","provenance":"pv_11f40c267c53","subject":"es_00092","validity":{"valid_from":{"kind":"UNKNOWN"},"valid_to":{"kind":"OPEN"}}}
 {"id":"nm_15170b698483","kind":"CURRENT","name":"Château La Pointe","provenance":"pv_ac325d595306","subject":"es_00356","validity":{"valid_from":{"kind":"UNKNOWN"},"valid_to":{"kind":"OPEN"}}}
+{"id":"nm_152b30c17139","kind":"CURRENT","name":"Clos Saint-Martin","provenance":"pv_6319b09d8794","subject":"wn_00445","validity":{"valid_from":{"kind":"UNKNOWN"},"valid_to":{"kind":"OPEN"}}}
+{"id":"nm_155baf323e2f","kind":"CURRENT","name":"Château la Chandellière","provenance":"pv_6319b09d8794","subject":"wn_00109","validity":{"valid_from":{"kind":"UNKNOWN"},"valid_to":{"kind":"OPEN"}}}
 {"id":"nm_158961c7d5b8","kind":"CURRENT","name":"Château Pey de Pont","provenance":"pv_11f40c267c53","subject":"es_00170","validity":{"valid_from":{"kind":"UNKNOWN"},"valid_to":{"kind":"OPEN"}}}
 {"id":"nm_162d84b4cf0c","kind":"CURRENT","name":"Château le Vieux Fort","provenance":"pv_11f40c267c53","subject":"es_00137","validity":{"valid_from":{"kind":"UNKNOWN"},"valid_to":{"kind":"OPEN"}}}
 {"id":"nm_16c3793a13b6","kind":"CURRENT","name":"Clos du Clocher","provenance":"pv_ac325d595306","subject":"es_00367","validity":{"valid_from":{"kind":"UNKNOWN"},"valid_to":{"kind":"OPEN"}}}
+{"id":"nm_16e4c704ef8e","kind":"CURRENT","name":"Château Olivier","provenance":"pv_6319b09d8794","subject":"wn_00338","validity":{"valid_from":{"kind":"UNKNOWN"},"valid_to":{"kind":"OPEN"}}}
+{"id":"nm_17c45f72fddf","kind":"CURRENT","name":"Château Dalem","provenance":"pv_6319b09d8794","subject":"wn_00245","validity":{"valid_from":{"kind":"UNKNOWN"},"valid_to":{"kind":"OPEN"}}}
 {"id":"nm_17d6f23a242c","kind":"CURRENT","name":"Château les Tuileries","provenance":"pv_11f40c267c53","subject":"es_00144","validity":{"valid_from":{"kind":"UNKNOWN"},"valid_to":{"kind":"OPEN"}}}
 {"id":"nm_1803b38b95a6","kind":"CURRENT","name":"Château Cissac","provenance":"pv_11f40c267c53","subject":"es_00060","validity":{"valid_from":{"kind":"UNKNOWN"},"valid_to":{"kind":"OPEN"}}}
+{"id":"nm_1842831dd5ba","kind":"CURRENT","name":"Château Grand Brun","provenance":"pv_6319b09d8794","subject":"wn_00010","validity":{"valid_from":{"kind":"UNKNOWN"},"valid_to":{"kind":"OPEN"}}}
+{"id":"nm_187abbcc5d77","kind":"CURRENT","name":"Château Mareil","provenance":"pv_6319b09d8794","subject":"wn_00153","validity":{"valid_from":{"kind":"UNKNOWN"},"valid_to":{"kind":"OPEN"}}}
 {"id":"nm_192823ab6116","kind":"CURRENT","name":"Château Ramage la Batisse","provenance":"pv_11f40c267c53","subject":"es_00186","validity":{"valid_from":{"kind":"UNKNOWN"},"valid_to":{"kind":"OPEN"}}}
 {"id":"nm_1953a64d2094","kind":"CURRENT","name":"Château Saint-Hilaire","provenance":"pv_11f40c267c53","subject":"es_00197","validity":{"valid_from":{"kind":"UNKNOWN"},"valid_to":{"kind":"OPEN"}}}
 {"id":"nm_196317353da3","kind":"CURRENT","name":"Château Lestage Simon","provenance":"pv_11f40c267c53","subject":"es_00145","validity":{"valid_from":{"kind":"UNKNOWN"},"valid_to":{"kind":"OPEN"}}}
 {"id":"nm_19b4764fd07a","kind":"CURRENT","name":"Château Lacour Jacquet","provenance":"pv_11f40c267c53","subject":"es_00122","validity":{"valid_from":{"kind":"UNKNOWN"},"valid_to":{"kind":"OPEN"}}}
+{"id":"nm_19bf58add170","kind":"CURRENT","name":"Château Vrai Canon Bouché","provenance":"pv_6319b09d8794","subject":"wn_00457","validity":{"valid_from":{"kind":"UNKNOWN"},"valid_to":{"kind":"OPEN"}}}
+{"id":"nm_1a245386619a","kind":"CURRENT","name":"Château Corconnac","provenance":"pv_6319b09d8794","subject":"wn_00062","validity":{"valid_from":{"kind":"UNKNOWN"},"valid_to":{"kind":"OPEN"}}}
+{"id":"nm_1ab6663a02e5","kind":"CURRENT","name":"Château Grand-Puy-Lacoste","provenance":"pv_6319b09d8794","subject":"wn_00274","validity":{"valid_from":{"kind":"UNKNOWN"},"valid_to":{"kind":"OPEN"}}}
+{"id":"nm_1acde99ac216","kind":"CURRENT","name":"Château Preuillac","provenance":"pv_6319b09d8794","subject":"wn_00182","validity":{"valid_from":{"kind":"UNKNOWN"},"valid_to":{"kind":"OPEN"}}}
 {"id":"nm_1adf1eae343a","kind":"CURRENT","name":"Château La Fleur Morange","provenance":"pv_0377fa70c247","subject":"es_00423","validity":{"valid_from":{"kind":"UNKNOWN"},"valid_to":{"kind":"OPEN"}}}
 {"id":"nm_1b63b0ab28b9","kind":"CURRENT","name":"Château Villars","provenance":"pv_7cce45d9d443","subject":"es_00468","validity":{"valid_from":{"kind":"UNKNOWN"},"valid_to":{"kind":"OPEN"}}}
+{"id":"nm_1b6f80091fda","kind":"CURRENT","name":"Château Saint Ahon","provenance":"pv_6319b09d8794","subject":"wn_00193","validity":{"valid_from":{"kind":"UNKNOWN"},"valid_to":{"kind":"OPEN"}}}
+{"id":"nm_1b9551ea5f70","kind":"CURRENT","name":"Château La Pointe","provenance":"pv_6319b09d8794","subject":"wn_00350","validity":{"valid_from":{"kind":"UNKNOWN"},"valid_to":{"kind":"OPEN"}}}
+{"id":"nm_1bd32fc77ffd","kind":"CURRENT","name":"Clos Fourtet","provenance":"pv_6319b09d8794","subject":"wn_00233","validity":{"valid_from":{"kind":"UNKNOWN"},"valid_to":{"kind":"OPEN"}}}
 {"id":"nm_1bdfec3c56f1","kind":"CURRENT","name":"Château Plagnac","provenance":"pv_11f40c267c53","subject":"es_00175","validity":{"valid_from":{"kind":"UNKNOWN"},"valid_to":{"kind":"OPEN"}}}
 {"id":"nm_1c70e2f2809b","kind":"CURRENT","name":"Château Meyre","provenance":"pv_11f40c267c53","subject":"es_00157","validity":{"valid_from":{"kind":"UNKNOWN"},"valid_to":{"kind":"OPEN"}}}
 {"id":"nm_1c8e29972162","kind":"CURRENT","name":"Château Pouget","provenance":"pv_dcde0cc6132f","subject":"es_00371","validity":{"valid_from":{"kind":"UNKNOWN"},"valid_to":{"kind":"OPEN"}}}
 {"id":"nm_1cb05c1db8e9","kind":"CURRENT","name":"Château Rouget","provenance":"pv_ac325d595306","subject":"es_00364","validity":{"valid_from":{"kind":"UNKNOWN"},"valid_to":{"kind":"OPEN"}}}
+{"id":"nm_1cf536271418","kind":"CURRENT","name":"Château Bonnet","provenance":"pv_6319b09d8794","subject":"wn_00041","validity":{"valid_from":{"kind":"UNKNOWN"},"valid_to":{"kind":"OPEN"}}}
+{"id":"nm_1d16921b1b74","kind":"CURRENT","name":"Clos Dubreuil","provenance":"pv_6319b09d8794","subject":"wn_00443","validity":{"valid_from":{"kind":"UNKNOWN"},"valid_to":{"kind":"OPEN"}}}
+{"id":"nm_1e2ddef40fb5","kind":"CURRENT","name":"Château Escot","provenance":"pv_6319b09d8794","subject":"wn_00090","validity":{"valid_from":{"kind":"UNKNOWN"},"valid_to":{"kind":"OPEN"}}}
 {"id":"nm_1e605237d5de","kind":"CURRENT","name":"Château Lalande","provenance":"pv_11f40c267c53","subject":"es_00126","validity":{"valid_from":{"kind":"UNKNOWN"},"valid_to":{"kind":"OPEN"}}}
+{"id":"nm_1e899b57f001","kind":"CURRENT","name":"Château Carcanieux","provenance":"pv_6319b09d8794","subject":"wn_00057","validity":{"valid_from":{"kind":"UNKNOWN"},"valid_to":{"kind":"OPEN"}}}
+{"id":"nm_1ea8d3419aa8","kind":"CURRENT","name":"Château Léoville-Las Cases","provenance":"pv_6319b09d8794","subject":"wn_00317","validity":{"valid_from":{"kind":"UNKNOWN"},"valid_to":{"kind":"OPEN"}}}
 {"id":"nm_1ef554de2e11","kind":"CURRENT","name":"Château Croix du Trale","provenance":"pv_11f40c267c53","subject":"es_00065","validity":{"valid_from":{"kind":"UNKNOWN"},"valid_to":{"kind":"OPEN"}}}
 {"id":"nm_1eff32530303","kind":"CURRENT","name":"Château le Temple","provenance":"pv_11f40c267c53","subject":"es_00136","validity":{"valid_from":{"kind":"UNKNOWN"},"valid_to":{"kind":"OPEN"}}}
+{"id":"nm_1f072dc3d130","kind":"CURRENT","name":"Château de Villambis","provenance":"pv_6319b09d8794","subject":"wn_00079","validity":{"valid_from":{"kind":"UNKNOWN"},"valid_to":{"kind":"OPEN"}}}
+{"id":"nm_1f170021433c","kind":"CURRENT","name":"Château Vray Croix de Gay","provenance":"pv_6319b09d8794","subject":"wn_00356","validity":{"valid_from":{"kind":"UNKNOWN"},"valid_to":{"kind":"OPEN"}}}
+{"id":"nm_1f1c89918c18","kind":"CURRENT","name":"Château Montrose","provenance":"pv_6319b09d8794","subject":"wn_00333","validity":{"valid_from":{"kind":"UNKNOWN"},"valid_to":{"kind":"OPEN"}}}
+{"id":"nm_1f6141fce8fb","kind":"CURRENT","name":"Château La Pirouette","provenance":"pv_6319b09d8794","subject":"wn_00116","validity":{"valid_from":{"kind":"UNKNOWN"},"valid_to":{"kind":"OPEN"}}}
 {"id":"nm_1f84f42ec765","kind":"CURRENT","name":"Château Guitignan","provenance":"pv_11f40c267c53","subject":"es_00098","validity":{"valid_from":{"kind":"UNKNOWN"},"valid_to":{"kind":"OPEN"}}}
 {"id":"nm_1fad7569fd83","kind":"CURRENT","name":"Château Les Jonqueyres","provenance":"pv_c39dd7c9e901","subject":"es_00320","validity":{"valid_from":{"kind":"UNKNOWN"},"valid_to":{"kind":"OPEN"}}}
+{"id":"nm_1fd5c39d67e5","kind":"CURRENT","name":"Château Grivière","provenance":"pv_6319b09d8794","subject":"wn_00097","validity":{"valid_from":{"kind":"UNKNOWN"},"valid_to":{"kind":"OPEN"}}}
 {"id":"nm_200abdd82db1","kind":"CURRENT","name":"Château L’Église-Clinet","provenance":"pv_ac325d595306","subject":"es_00315","validity":{"valid_from":{"kind":"UNKNOWN"},"valid_to":{"kind":"OPEN"}}}
 {"id":"nm_2056971a41ab","kind":"CURRENT","name":"Château Broustet","provenance":"pv_72872a84d1b4","subject":"es_00216","validity":{"valid_from":{"kind":"UNKNOWN"},"valid_to":{"kind":"OPEN"}}}
 {"id":"nm_20d5f4e6ca67","kind":"CURRENT","name":"Château l'Argenteyre","provenance":"pv_11f40c267c53","subject":"es_00106","validity":{"valid_from":{"kind":"UNKNOWN"},"valid_to":{"kind":"OPEN"}}}
 {"id":"nm_210fdfc9ad42","kind":"CURRENT","name":"Château Malescasse","provenance":"pv_11f40c267c53","subject":"es_00152","validity":{"valid_from":{"kind":"UNKNOWN"},"valid_to":{"kind":"OPEN"}}}
 {"id":"nm_215abc7fe72e","kind":"CURRENT","name":"Château la Grange de Bessan","provenance":"pv_11f40c267c53","subject":"es_00114","validity":{"valid_from":{"kind":"UNKNOWN"},"valid_to":{"kind":"OPEN"}}}
 {"id":"nm_2169b0bf25cc","kind":"CURRENT","name":"Château Les Cruzelles","provenance":"pv_7cce45d9d443","subject":"es_00319","validity":{"valid_from":{"kind":"UNKNOWN"},"valid_to":{"kind":"OPEN"}}}
+{"id":"nm_2171eea8581a","kind":"CURRENT","name":"Château du Taillan","provenance":"pv_6319b09d8794","subject":"wn_00089","validity":{"valid_from":{"kind":"UNKNOWN"},"valid_to":{"kind":"OPEN"}}}
 {"id":"nm_21e20e2346b0","kind":"CURRENT","name":"Château Bégadanet","provenance":"pv_11f40c267c53","subject":"es_00047","validity":{"valid_from":{"kind":"UNKNOWN"},"valid_to":{"kind":"OPEN"}}}
 {"id":"nm_22069573c580","kind":"CURRENT","name":"Château Sémeillan Mazeau","provenance":"pv_11f40c267c53","subject":"es_00198","validity":{"valid_from":{"kind":"UNKNOWN"},"valid_to":{"kind":"OPEN"}}}
+{"id":"nm_221ef29e0992","kind":"CURRENT","name":"Château Lamothe Bergeron","provenance":"pv_6319b09d8794","subject":"wn_00129","validity":{"valid_from":{"kind":"UNKNOWN"},"valid_to":{"kind":"OPEN"}}}
 {"id":"nm_229ee55f8dfc","kind":"CURRENT","name":"Domaine de l’Église","provenance":"pv_ac325d595306","subject":"es_00369","validity":{"valid_from":{"kind":"UNKNOWN"},"valid_to":{"kind":"OPEN"}}}
+{"id":"nm_22c0bbe6c8d1","kind":"CURRENT","name":"Château Jean Faure","provenance":"pv_6319b09d8794","subject":"wn_00405","validity":{"valid_from":{"kind":"UNKNOWN"},"valid_to":{"kind":"OPEN"}}}
+{"id":"nm_22c36cd20571","kind":"CURRENT","name":"Château Dacher de Delmonte","provenance":"pv_6319b09d8794","subject":"wn_00003","validity":{"valid_from":{"kind":"UNKNOWN"},"valid_to":{"kind":"OPEN"}}}
 {"id":"nm_2376c6fe4004","kind":"CURRENT","name":"Château Croix de Labrie","provenance":"pv_0377fa70c247","subject":"es_00401","validity":{"valid_from":{"kind":"UNKNOWN"},"valid_to":{"kind":"OPEN"}}}
 {"id":"nm_23b07df89dba","kind":"CURRENT","name":"Château Saint-Pierre","provenance":"pv_dcde0cc6132f","subject":"es_00384","validity":{"valid_from":{"kind":"UNKNOWN"},"valid_to":{"kind":"OPEN"}}}
+{"id":"nm_23e724014091","kind":"CURRENT","name":"Vieux Château Landon","provenance":"pv_6319b09d8794","subject":"wn_00211","validity":{"valid_from":{"kind":"UNKNOWN"},"valid_to":{"kind":"OPEN"}}}
+{"id":"nm_23f6c6ed52c3","kind":"CURRENT","name":"Château Pontey","provenance":"pv_6319b09d8794","subject":"wn_00180","validity":{"valid_from":{"kind":"UNKNOWN"},"valid_to":{"kind":"OPEN"}}}
 {"id":"nm_24151674a7ec","kind":"CURRENT","name":"Château La Tour Blanche","provenance":"pv_72872a84d1b4","subject":"es_00294","validity":{"valid_from":{"kind":"UNKNOWN"},"valid_to":{"kind":"OPEN"}}}
 {"id":"nm_2425a80499cc","kind":"CURRENT","name":"Château Grand-Puy-Lacoste","provenance":"pv_dcde0cc6132f","subject":"es_00274","validity":{"valid_from":{"kind":"UNKNOWN"},"valid_to":{"kind":"OPEN"}}}
 {"id":"nm_248a7525c2b6","kind":"CURRENT","name":"Château Lafite Rothschild","provenance":"pv_dcde0cc6132f","subject":"es_00300","validity":{"valid_from":{"kind":"UNKNOWN"},"valid_to":{"kind":"OPEN"}}}
+{"id":"nm_25ad9c5904ab","kind":"CURRENT","name":"Château Moulin des Moines","provenance":"pv_6319b09d8794","subject":"wn_00164","validity":{"valid_from":{"kind":"UNKNOWN"},"valid_to":{"kind":"OPEN"}}}
+{"id":"nm_25d5498150b2","kind":"CURRENT","name":"Clos Haut-Peyraguey","provenance":"pv_6319b09d8794","subject":"wn_00234","validity":{"valid_from":{"kind":"UNKNOWN"},"valid_to":{"kind":"OPEN"}}}
+{"id":"nm_25da178a2c15","kind":"CURRENT","name":"Château d’Arche","provenance":"pv_6319b09d8794","subject":"wn_00246","validity":{"valid_from":{"kind":"UNKNOWN"},"valid_to":{"kind":"OPEN"}}}
+{"id":"nm_265c2b623dc0","kind":"CURRENT","name":"Château Canon","provenance":"pv_6319b09d8794","subject":"wn_00221","validity":{"valid_from":{"kind":"UNKNOWN"},"valid_to":{"kind":"OPEN"}}}
 {"id":"nm_26980a1c08c5","kind":"CURRENT","name":"Château Olivier","provenance":"pv_e45f5d20b569","subject":"es_00338","validity":{"valid_from":{"kind":"UNKNOWN"},"valid_to":{"kind":"OPEN"}}}
 {"id":"nm_269ba1f158b2","kind":"CURRENT","name":"Château Bellevue","provenance":"pv_11f40c267c53","subject":"es_00050","validity":{"valid_from":{"kind":"UNKNOWN"},"valid_to":{"kind":"OPEN"}}}
+{"id":"nm_2744acf1c847","kind":"CURRENT","name":"Château Malescot St. Exupéry","provenance":"pv_6319b09d8794","subject":"wn_00325","validity":{"valid_from":{"kind":"UNKNOWN"},"valid_to":{"kind":"OPEN"}}}
+{"id":"nm_274f0e31bc3f","kind":"CURRENT","name":"Château Laniote","provenance":"pv_6319b09d8794","subject":"wn_00415","validity":{"valid_from":{"kind":"UNKNOWN"},"valid_to":{"kind":"OPEN"}}}
+{"id":"nm_2769d795edcd","kind":"CURRENT","name":"Château Cap de Mourlin","provenance":"pv_6319b09d8794","subject":"wn_00384","validity":{"valid_from":{"kind":"UNKNOWN"},"valid_to":{"kind":"OPEN"}}}
+{"id":"nm_27a6be8321da","kind":"CURRENT","name":"Château de Carles","provenance":"pv_6319b09d8794","subject":"wn_00250","validity":{"valid_from":{"kind":"UNKNOWN"},"valid_to":{"kind":"OPEN"}}}
 {"id":"nm_27c0c976d3f9","kind":"CURRENT","name":"Château Peyrabon","provenance":"pv_11f40c267c53","subject":"es_00171","validity":{"valid_from":{"kind":"UNKNOWN"},"valid_to":{"kind":"OPEN"}}}
 {"id":"nm_27c3725247d7","kind":"CURRENT","name":"Château Pichon Longueville Comtesse de Lalande","provenance":"pv_dcde0cc6132f","subject":"es_00346","validity":{"valid_from":{"kind":"UNKNOWN"},"valid_to":{"kind":"OPEN"}}}
+{"id":"nm_28250f011ec1","kind":"CURRENT","name":"Château La Fleur Morange","provenance":"pv_6319b09d8794","subject":"wn_00411","validity":{"valid_from":{"kind":"UNKNOWN"},"valid_to":{"kind":"OPEN"}}}
+{"id":"nm_2830b5e7adfb","kind":"CURRENT","name":"Château les Anguilleys","provenance":"pv_6319b09d8794","subject":"wn_00140","validity":{"valid_from":{"kind":"UNKNOWN"},"valid_to":{"kind":"OPEN"}}}
+{"id":"nm_28f80f4ea832","kind":"CURRENT","name":"Château Hosanna","provenance":"pv_6319b09d8794","subject":"wn_00282","validity":{"valid_from":{"kind":"UNKNOWN"},"valid_to":{"kind":"OPEN"}}}
+{"id":"nm_29353cc2dc6a","kind":"CURRENT","name":"Château Ducru-Beaucaillou","provenance":"pv_6319b09d8794","subject":"wn_00261","validity":{"valid_from":{"kind":"UNKNOWN"},"valid_to":{"kind":"OPEN"}}}
+{"id":"nm_295647025734","kind":"CURRENT","name":"Château Pontet Barrail","provenance":"pv_6319b09d8794","subject":"wn_00179","validity":{"valid_from":{"kind":"UNKNOWN"},"valid_to":{"kind":"OPEN"}}}
 {"id":"nm_2a6cc21d25b2","kind":"CURRENT","name":"Château Marjosse","provenance":"pv_c39dd7c9e901","subject":"es_00327","validity":{"valid_from":{"kind":"UNKNOWN"},"valid_to":{"kind":"OPEN"}}}
+{"id":"nm_2a79803f4e83","kind":"CURRENT","name":"Château Langoa-Barton","provenance":"pv_6319b09d8794","subject":"wn_00306","validity":{"valid_from":{"kind":"UNKNOWN"},"valid_to":{"kind":"OPEN"}}}
+{"id":"nm_2ac515c49140","kind":"CURRENT","name":"Château Batailley","provenance":"pv_6319b09d8794","subject":"wn_00035","validity":{"valid_from":{"kind":"UNKNOWN"},"valid_to":{"kind":"OPEN"}}}
+{"id":"nm_2b3216c33856","kind":"CURRENT","name":"Château Pavie Macquin","provenance":"pv_6319b09d8794","subject":"wn_00342","validity":{"valid_from":{"kind":"UNKNOWN"},"valid_to":{"kind":"OPEN"}}}
+{"id":"nm_2b84c04ad477","kind":"CURRENT","name":"Château Mongravey","provenance":"pv_6319b09d8794","subject":"wn_00158","validity":{"valid_from":{"kind":"UNKNOWN"},"valid_to":{"kind":"OPEN"}}}
 {"id":"nm_2bb3084e9be4","kind":"CURRENT","name":"Château La Pirouette","provenance":"pv_11f40c267c53","subject":"es_00116","validity":{"valid_from":{"kind":"UNKNOWN"},"valid_to":{"kind":"OPEN"}}}
 {"id":"nm_2bbac1dd47a0","kind":"CURRENT","name":"Château Grand Corbin-Despagne","provenance":"pv_0377fa70c247","subject":"es_00413","validity":{"valid_from":{"kind":"UNKNOWN"},"valid_to":{"kind":"OPEN"}}}
+{"id":"nm_2c40d35a7b53","kind":"CURRENT","name":"Château La Tour Figeac","provenance":"pv_6319b09d8794","subject":"wn_00414","validity":{"valid_from":{"kind":"UNKNOWN"},"valid_to":{"kind":"OPEN"}}}
 {"id":"nm_2c7eee241a3c","kind":"CURRENT","name":"Château Sénilhac","provenance":"pv_11f40c267c53","subject":"es_00199","validity":{"valid_from":{"kind":"UNKNOWN"},"valid_to":{"kind":"OPEN"}}}
 {"id":"nm_2cb228657eeb","kind":"CURRENT","name":"Château Respide-Médeville","provenance":"pv_116ea930fdbf","subject":"es_00379","validity":{"valid_from":{"kind":"UNKNOWN"},"valid_to":{"kind":"OPEN"}}}
+{"id":"nm_2cb9331ed158","kind":"CURRENT","name":"Château Haut-Bana","provenance":"pv_6319b09d8794","subject":"wn_00099","validity":{"valid_from":{"kind":"UNKNOWN"},"valid_to":{"kind":"OPEN"}}}
 {"id":"nm_2d0d254cb6ba","kind":"CURRENT","name":"Château La Mission Haut-Brion","provenance":"pv_e45f5d20b569","subject":"es_00292","validity":{"valid_from":{"kind":"UNKNOWN"},"valid_to":{"kind":"OPEN"}}}
+{"id":"nm_2d1979a112fc","kind":"CURRENT","name":"Château Lestruelle","provenance":"pv_6319b09d8794","subject":"wn_00146","validity":{"valid_from":{"kind":"UNKNOWN"},"valid_to":{"kind":"OPEN"}}}
 {"id":"nm_2d31e9b792ce","kind":"CURRENT","name":"Château Ricaudet","provenance":"pv_11f40c267c53","subject":"es_00189","validity":{"valid_from":{"kind":"UNKNOWN"},"valid_to":{"kind":"OPEN"}}}
 {"id":"nm_2daed832bed3","kind":"CURRENT","name":"Château Montlisse","provenance":"pv_0377fa70c247","subject":"es_00437","validity":{"valid_from":{"kind":"UNKNOWN"},"valid_to":{"kind":"OPEN"}}}
+{"id":"nm_2dd882d07d5a","kind":"CURRENT","name":"Château La Serre","provenance":"pv_6319b09d8794","subject":"wn_00413","validity":{"valid_from":{"kind":"UNKNOWN"},"valid_to":{"kind":"OPEN"}}}
+{"id":"nm_2df715bfd077","kind":"CURRENT","name":"Château Bellevue","provenance":"pv_6319b09d8794","subject":"wn_00050","validity":{"valid_from":{"kind":"UNKNOWN"},"valid_to":{"kind":"OPEN"}}}
+{"id":"nm_2e133ad3989d","kind":"CURRENT","name":"Château le Monteil d'Arsac","provenance":"pv_6319b09d8794","subject":"wn_00135","validity":{"valid_from":{"kind":"UNKNOWN"},"valid_to":{"kind":"OPEN"}}}
 {"id":"nm_2e2876bfda63","kind":"CURRENT","name":"Château Cos Labory","provenance":"pv_dcde0cc6132f","subject":"es_00239","validity":{"valid_from":{"kind":"UNKNOWN"},"valid_to":{"kind":"OPEN"}}}
 {"id":"nm_2e7ef3c572a3","kind":"CURRENT","name":"Château Dalem","provenance":"pv_7cce45d9d443","subject":"es_00245","validity":{"valid_from":{"kind":"UNKNOWN"},"valid_to":{"kind":"OPEN"}}}
+{"id":"nm_2e886fd2acff","kind":"CURRENT","name":"Château Destieux","provenance":"pv_6319b09d8794","subject":"wn_00393","validity":{"valid_from":{"kind":"UNKNOWN"},"valid_to":{"kind":"OPEN"}}}
+{"id":"nm_2e954da29bfa","kind":"CURRENT","name":"Château Côte de Baleau","provenance":"pv_6319b09d8794","subject":"wn_00388","validity":{"valid_from":{"kind":"UNKNOWN"},"valid_to":{"kind":"OPEN"}}}
 {"id":"nm_2eba0db58714","kind":"CURRENT","name":"Château Branaire-Ducru","provenance":"pv_dcde0cc6132f","subject":"es_00214","validity":{"valid_from":{"kind":"UNKNOWN"},"valid_to":{"kind":"OPEN"}}}
+{"id":"nm_2f179a79a47e","kind":"CURRENT","name":"Château Caillou","provenance":"pv_6319b09d8794","subject":"wn_00219","validity":{"valid_from":{"kind":"UNKNOWN"},"valid_to":{"kind":"OPEN"}}}
 {"id":"nm_2f6b39329c12","kind":"CURRENT","name":"Château Liversan","provenance":"pv_11f40c267c53","subject":"es_00148","validity":{"valid_from":{"kind":"UNKNOWN"},"valid_to":{"kind":"OPEN"}}}
+{"id":"nm_2fa0eea65508","kind":"CURRENT","name":"Château Giscours","provenance":"pv_6319b09d8794","subject":"wn_00271","validity":{"valid_from":{"kind":"UNKNOWN"},"valid_to":{"kind":"OPEN"}}}
+{"id":"nm_2fbcbbf2623e","kind":"CURRENT","name":"Château Larmande","provenance":"pv_6319b09d8794","subject":"wn_00416","validity":{"valid_from":{"kind":"UNKNOWN"},"valid_to":{"kind":"OPEN"}}}
+{"id":"nm_2ff8ec305a8e","kind":"CURRENT","name":"Château Lamothe","provenance":"pv_6319b09d8794","subject":"wn_00304","validity":{"valid_from":{"kind":"UNKNOWN"},"valid_to":{"kind":"OPEN"}}}
+{"id":"nm_3068441476e1","kind":"CURRENT","name":"Château Labadie","provenance":"pv_6319b09d8794","subject":"wn_00120","validity":{"valid_from":{"kind":"UNKNOWN"},"valid_to":{"kind":"OPEN"}}}
+{"id":"nm_30a029ba136c","kind":"CURRENT","name":"Château Graves de Pez","provenance":"pv_6319b09d8794","subject":"wn_00011","validity":{"valid_from":{"kind":"UNKNOWN"},"valid_to":{"kind":"OPEN"}}}
+{"id":"nm_31c057221741","kind":"CURRENT","name":"Château Fleur Cardinale","provenance":"pv_6319b09d8794","subject":"wn_00395","validity":{"valid_from":{"kind":"UNKNOWN"},"valid_to":{"kind":"OPEN"}}}
+{"id":"nm_31c2d26d5584","kind":"CURRENT","name":"Château Respide-Médeville","provenance":"pv_6319b09d8794","subject":"wn_00367","validity":{"valid_from":{"kind":"UNKNOWN"},"valid_to":{"kind":"OPEN"}}}
 {"id":"nm_31c595167a50","kind":"CURRENT","name":"Château Montlabert","provenance":"pv_0377fa70c247","subject":"es_00436","validity":{"valid_from":{"kind":"UNKNOWN"},"valid_to":{"kind":"OPEN"}}}
+{"id":"nm_31e81ec48e45","kind":"CURRENT","name":"Château Noaillac","provenance":"pv_6319b09d8794","subject":"wn_00165","validity":{"valid_from":{"kind":"UNKNOWN"},"valid_to":{"kind":"OPEN"}}}
 {"id":"nm_322274e34227","kind":"CURRENT","name":"Château Romer du Hayot","provenance":"pv_72872a84d1b4","subject":"es_00383","validity":{"valid_from":{"kind":"UNKNOWN"},"valid_to":{"kind":"OPEN"}}}
+{"id":"nm_323e64c7e994","kind":"CURRENT","name":"Château Ferrière","provenance":"pv_6319b09d8794","subject":"wn_00265","validity":{"valid_from":{"kind":"UNKNOWN"},"valid_to":{"kind":"OPEN"}}}
+{"id":"nm_3299b96c41c7","kind":"CURRENT","name":"Château Monbousquet","provenance":"pv_6319b09d8794","subject":"wn_00423","validity":{"valid_from":{"kind":"UNKNOWN"},"valid_to":{"kind":"OPEN"}}}
+{"id":"nm_32a8959941e8","kind":"CURRENT","name":"Château Doisy-Dubroca","provenance":"pv_6319b09d8794","subject":"wn_00256","validity":{"valid_from":{"kind":"UNKNOWN"},"valid_to":{"kind":"OPEN"}}}
+{"id":"nm_32c1e0fdbbd6","kind":"CURRENT","name":"Château la Grange de Bessan","provenance":"pv_6319b09d8794","subject":"wn_00114","validity":{"valid_from":{"kind":"UNKNOWN"},"valid_to":{"kind":"OPEN"}}}
+{"id":"nm_32f6634bb69d","kind":"CURRENT","name":"Château Micalet","provenance":"pv_6319b09d8794","subject":"wn_00025","validity":{"valid_from":{"kind":"UNKNOWN"},"valid_to":{"kind":"OPEN"}}}
+{"id":"nm_3344c1de5482","kind":"CURRENT","name":"Château la Mouline","provenance":"pv_6319b09d8794","subject":"wn_00115","validity":{"valid_from":{"kind":"UNKNOWN"},"valid_to":{"kind":"OPEN"}}}
+{"id":"nm_33d19932d723","kind":"CURRENT","name":"Château Vieux Robin","provenance":"pv_6319b09d8794","subject":"wn_00209","validity":{"valid_from":{"kind":"UNKNOWN"},"valid_to":{"kind":"OPEN"}}}
 {"id":"nm_342cec67889a","kind":"CURRENT","name":"Château Bellefont-Belcier","provenance":"pv_0377fa70c247","subject":"es_00391","validity":{"valid_from":{"kind":"UNKNOWN"},"valid_to":{"kind":"OPEN"}}}
+{"id":"nm_343d7d093c6f","kind":"CURRENT","name":"Château Laroze","provenance":"pv_6319b09d8794","subject":"wn_00418","validity":{"valid_from":{"kind":"UNKNOWN"},"valid_to":{"kind":"OPEN"}}}
 {"id":"nm_344629c4b3e3","kind":"CURRENT","name":"Château Siaurac","provenance":"pv_7cce45d9d443","subject":"es_00385","validity":{"valid_from":{"kind":"UNKNOWN"},"valid_to":{"kind":"OPEN"}}}
+{"id":"nm_344f7dde2528","kind":"CURRENT","name":"Château Valandraud","provenance":"pv_6319b09d8794","subject":"wn_00454","validity":{"valid_from":{"kind":"UNKNOWN"},"valid_to":{"kind":"OPEN"}}}
+{"id":"nm_34b75a8876b7","kind":"CURRENT","name":"Château Palmer","provenance":"pv_6319b09d8794","subject":"wn_00339","validity":{"valid_from":{"kind":"UNKNOWN"},"valid_to":{"kind":"OPEN"}}}
 {"id":"nm_3502cba7c2f6","kind":"CURRENT","name":"Château Martin","provenance":"pv_11f40c267c53","subject":"es_00154","validity":{"valid_from":{"kind":"UNKNOWN"},"valid_to":{"kind":"OPEN"}}}
 {"id":"nm_35ac323618de","kind":"CURRENT","name":"Château de Rayne Vigneau","provenance":"pv_72872a84d1b4","subject":"es_00378","validity":{"valid_from":{"kind":"UNKNOWN"},"valid_to":{"kind":"OPEN"}}}
 {"id":"nm_36636597dc3a","kind":"CURRENT","name":"Château Barateau","provenance":"pv_11f40c267c53","subject":"es_00042","validity":{"valid_from":{"kind":"UNKNOWN"},"valid_to":{"kind":"OPEN"}}}
+{"id":"nm_36e48239a037","kind":"CURRENT","name":"Château du Hâ","provenance":"pv_6319b09d8794","subject":"wn_00007","validity":{"valid_from":{"kind":"UNKNOWN"},"valid_to":{"kind":"OPEN"}}}
+{"id":"nm_37125546a050","kind":"CURRENT","name":"Château du Tertre","provenance":"pv_6319b09d8794","subject":"wn_00260","validity":{"valid_from":{"kind":"UNKNOWN"},"valid_to":{"kind":"OPEN"}}}
+{"id":"nm_3737aa2a82cc","kind":"CURRENT","name":"Château Lamothe-Guignard","provenance":"pv_6319b09d8794","subject":"wn_00305","validity":{"valid_from":{"kind":"UNKNOWN"},"valid_to":{"kind":"OPEN"}}}
+{"id":"nm_37c97a2ac3e2","kind":"CURRENT","name":"Château Lalande d'Auvion","provenance":"pv_6319b09d8794","subject":"wn_00127","validity":{"valid_from":{"kind":"UNKNOWN"},"valid_to":{"kind":"OPEN"}}}
+{"id":"nm_3849af07c1d3","kind":"CURRENT","name":"Château Bélair-Monange","provenance":"pv_6319b09d8794","subject":"wn_00038","validity":{"valid_from":{"kind":"UNKNOWN"},"valid_to":{"kind":"OPEN"}}}
 {"id":"nm_3891592e729f","kind":"CURRENT","name":"Château Lascombes","provenance":"pv_dcde0cc6132f","subject":"es_00308","validity":{"valid_from":{"kind":"UNKNOWN"},"valid_to":{"kind":"OPEN"}}}
+{"id":"nm_38a4628634b9","kind":"CURRENT","name":"Château Ladignac","provenance":"pv_6319b09d8794","subject":"wn_00123","validity":{"valid_from":{"kind":"UNKNOWN"},"valid_to":{"kind":"OPEN"}}}
 {"id":"nm_38a9dcbb745d","kind":"CURRENT","name":"Château Bibian","provenance":"pv_11f40c267c53","subject":"es_00052","validity":{"valid_from":{"kind":"UNKNOWN"},"valid_to":{"kind":"OPEN"}}}
+{"id":"nm_391340e5a8f7","kind":"CURRENT","name":"Château de La Dauphine","provenance":"pv_6319b09d8794","subject":"wn_00288","validity":{"valid_from":{"kind":"UNKNOWN"},"valid_to":{"kind":"OPEN"}}}
 {"id":"nm_3915d4fb8adb","kind":"CURRENT","name":"Clos Puy Arnaud","provenance":"pv_c39dd7c9e901","subject":"es_00236","validity":{"valid_from":{"kind":"UNKNOWN"},"valid_to":{"kind":"OPEN"}}}
 {"id":"nm_396fdf941072","kind":"CURRENT","name":"Château Bel Air Gloria","provenance":"pv_11f40c267c53","subject":"es_00048","validity":{"valid_from":{"kind":"UNKNOWN"},"valid_to":{"kind":"OPEN"}}}
 {"id":"nm_3970222e97e9","kind":"CURRENT","name":"Château de la Commanderie","provenance":"pv_85d1e6bef23a","subject":"es_00237","validity":{"valid_from":{"kind":"UNKNOWN"},"valid_to":{"kind":"OPEN"}}}
 {"id":"nm_397429533a05","kind":"CURRENT","name":"Château Couhins-Lurton","provenance":"pv_e45f5d20b569","subject":"es_00241","validity":{"valid_from":{"kind":"UNKNOWN"},"valid_to":{"kind":"OPEN"}}}
 {"id":"nm_39a3756ea384","kind":"CURRENT","name":"Clos Floridène","provenance":"pv_c39dd7c9e901","subject":"es_00232","validity":{"valid_from":{"kind":"UNKNOWN"},"valid_to":{"kind":"OPEN"}}}
+{"id":"nm_3a0f87d7c991","kind":"CURRENT","name":"Château Clerc Milon","provenance":"pv_6319b09d8794","subject":"wn_00229","validity":{"valid_from":{"kind":"UNKNOWN"},"valid_to":{"kind":"OPEN"}}}
 {"id":"nm_3a1241997b62","kind":"CURRENT","name":"Château Moutte Blanc","provenance":"pv_537d1e191755","subject":"es_00026","validity":{"valid_from":{"kind":"UNKNOWN"},"valid_to":{"kind":"OPEN"}}}
+{"id":"nm_3a61072c0c70","kind":"CURRENT","name":"Château du Cartillon","provenance":"pv_6319b09d8794","subject":"wn_00086","validity":{"valid_from":{"kind":"UNKNOWN"},"valid_to":{"kind":"OPEN"}}}
 {"id":"nm_3b28eb04d7ec","kind":"CURRENT","name":"Château Troussas","provenance":"pv_11f40c267c53","subject":"es_00206","validity":{"valid_from":{"kind":"UNKNOWN"},"valid_to":{"kind":"OPEN"}}}
 {"id":"nm_3bf215f58216","kind":"CURRENT","name":"Château La Tessonière","provenance":"pv_537d1e191755","subject":"es_00019","validity":{"valid_from":{"kind":"UNKNOWN"},"valid_to":{"kind":"OPEN"}}}
 {"id":"nm_3bf3840f8bf5","kind":"CURRENT","name":"Château Mazeyres","provenance":"pv_ac325d595306","subject":"es_00358","validity":{"valid_from":{"kind":"UNKNOWN"},"valid_to":{"kind":"OPEN"}}}
+{"id":"nm_3c1ab45fd47e","kind":"CURRENT","name":"Château Barde-Haut","provenance":"pv_6319b09d8794","subject":"wn_00378","validity":{"valid_from":{"kind":"UNKNOWN"},"valid_to":{"kind":"OPEN"}}}
 {"id":"nm_3c4bfa7797e7","kind":"CURRENT","name":"Château Côte de Baleau","provenance":"pv_0377fa70c247","subject":"es_00400","validity":{"valid_from":{"kind":"UNKNOWN"},"valid_to":{"kind":"OPEN"}}}
+{"id":"nm_3ccc92b747e7","kind":"CURRENT","name":"Château Figeac","provenance":"pv_6319b09d8794","subject":"wn_00266","validity":{"valid_from":{"kind":"UNKNOWN"},"valid_to":{"kind":"OPEN"}}}
 {"id":"nm_3cd20512d368","kind":"CURRENT","name":"Château Vieux Gadet","provenance":"pv_537d1e191755","subject":"es_00032","validity":{"valid_from":{"kind":"UNKNOWN"},"valid_to":{"kind":"OPEN"}}}
 {"id":"nm_3cd566c8524d","kind":"CURRENT","name":"Château Corbin Michotte","provenance":"pv_0377fa70c247","subject":"es_00399","validity":{"valid_from":{"kind":"UNKNOWN"},"valid_to":{"kind":"OPEN"}}}
+{"id":"nm_3ce805703288","kind":"CURRENT","name":"Château Dillon","provenance":"pv_6319b09d8794","subject":"wn_00084","validity":{"valid_from":{"kind":"UNKNOWN"},"valid_to":{"kind":"OPEN"}}}
 {"id":"nm_3d37c4bc21e7","kind":"CURRENT","name":"Château de Camensac","provenance":"pv_dcde0cc6132f","subject":"es_00249","validity":{"valid_from":{"kind":"UNKNOWN"},"valid_to":{"kind":"OPEN"}}}
 {"id":"nm_3dab34312ad8","kind":"CURRENT","name":"Château Barde-Haut","provenance":"pv_0377fa70c247","subject":"es_00390","validity":{"valid_from":{"kind":"UNKNOWN"},"valid_to":{"kind":"OPEN"}}}
+{"id":"nm_3e07bd442da3","kind":"CURRENT","name":"Château Branaire-Ducru","provenance":"pv_6319b09d8794","subject":"wn_00214","validity":{"valid_from":{"kind":"UNKNOWN"},"valid_to":{"kind":"OPEN"}}}
 {"id":"nm_3e605fb3fcdb","kind":"CURRENT","name":"Château Dassault","provenance":"pv_0377fa70c247","subject":"es_00402","validity":{"valid_from":{"kind":"UNKNOWN"},"valid_to":{"kind":"OPEN"}}}
 {"id":"nm_3e9753ab7fdd","kind":"CURRENT","name":"Château Brane-Cantenac","provenance":"pv_dcde0cc6132f","subject":"es_00215","validity":{"valid_from":{"kind":"UNKNOWN"},"valid_to":{"kind":"OPEN"}}}
 {"id":"nm_3e9f4ae78496","kind":"CURRENT","name":"Château Ramafort","provenance":"pv_11f40c267c53","subject":"es_00185","validity":{"valid_from":{"kind":"UNKNOWN"},"valid_to":{"kind":"OPEN"}}}
 {"id":"nm_3eb139cb41ee","kind":"CURRENT","name":"Château Doisy-Védrines","provenance":"pv_72872a84d1b4","subject":"es_00257","validity":{"valid_from":{"kind":"UNKNOWN"},"valid_to":{"kind":"OPEN"}}}
+{"id":"nm_3fd5d827143b","kind":"CURRENT","name":"Château Barateau","provenance":"pv_6319b09d8794","subject":"wn_00042","validity":{"valid_from":{"kind":"UNKNOWN"},"valid_to":{"kind":"OPEN"}}}
+{"id":"nm_400b032349a3","kind":"CURRENT","name":"Clos de Bigos","provenance":"pv_6319b09d8794","subject":"wn_00033","validity":{"valid_from":{"kind":"UNKNOWN"},"valid_to":{"kind":"OPEN"}}}
+{"id":"nm_409d8c10ac79","kind":"CURRENT","name":"Château d’Arsac","provenance":"pv_6319b09d8794","subject":"wn_00068","validity":{"valid_from":{"kind":"UNKNOWN"},"valid_to":{"kind":"OPEN"}}}
 {"id":"nm_40ca906e98b4","kind":"CURRENT","name":"Château Rochebelle","provenance":"pv_0377fa70c247","subject":"es_00442","validity":{"valid_from":{"kind":"UNKNOWN"},"valid_to":{"kind":"OPEN"}}}
+{"id":"nm_40cb38b9ec83","kind":"CURRENT","name":"Château Badette","provenance":"pv_6319b09d8794","subject":"wn_00376","validity":{"valid_from":{"kind":"UNKNOWN"},"valid_to":{"kind":"OPEN"}}}
 {"id":"nm_40fb60898ee5","kind":"CURRENT","name":"Château de La Dauphine","provenance":"pv_7cce45d9d443","subject":"es_00288","validity":{"valid_from":{"kind":"UNKNOWN"},"valid_to":{"kind":"OPEN"}}}
 {"id":"nm_428045d3978c","kind":"CURRENT","name":"Clos des Jacobins","provenance":"pv_0377fa70c247","subject":"es_00454","validity":{"valid_from":{"kind":"UNKNOWN"},"valid_to":{"kind":"OPEN"}}}
 {"id":"nm_433cdf097561","kind":"CURRENT","name":"Château Trotanoy","provenance":"pv_ac325d595306","subject":"es_00463","validity":{"valid_from":{"kind":"UNKNOWN"},"valid_to":{"kind":"OPEN"}}}
@@ -117,24 +235,55 @@
 {"id":"nm_43ab5d3e62d0","kind":"CURRENT","name":"Château Mouton Rothschild","provenance":"pv_dcde0cc6132f","subject":"es_00336","validity":{"valid_from":{"kind":"UNKNOWN"},"valid_to":{"kind":"OPEN"}}}
 {"id":"nm_43fd420f8a86","kind":"CURRENT","name":"Château le Monteil d'Arsac","provenance":"pv_11f40c267c53","subject":"es_00135","validity":{"valid_from":{"kind":"UNKNOWN"},"valid_to":{"kind":"OPEN"}}}
 {"id":"nm_44b0fe6eefcb","kind":"CURRENT","name":"Château Langoa-Barton","provenance":"pv_dcde0cc6132f","subject":"es_00306","validity":{"valid_from":{"kind":"UNKNOWN"},"valid_to":{"kind":"OPEN"}}}
+{"id":"nm_44d8188a8e64","kind":"CURRENT","name":"Château Lestage Simon","provenance":"pv_6319b09d8794","subject":"wn_00145","validity":{"valid_from":{"kind":"UNKNOWN"},"valid_to":{"kind":"OPEN"}}}
+{"id":"nm_44fb738da883","kind":"CURRENT","name":"Château Siaurac","provenance":"pv_6319b09d8794","subject":"wn_00373","validity":{"valid_from":{"kind":"UNKNOWN"},"valid_to":{"kind":"OPEN"}}}
+{"id":"nm_450f3160cfb7","kind":"CURRENT","name":"Château Moulin de Bel Air","provenance":"pv_6319b09d8794","subject":"wn_00159","validity":{"valid_from":{"kind":"UNKNOWN"},"valid_to":{"kind":"OPEN"}}}
+{"id":"nm_45b4a26aa299","kind":"CURRENT","name":"Château Berliquet","provenance":"pv_6319b09d8794","subject":"wn_00381","validity":{"valid_from":{"kind":"UNKNOWN"},"valid_to":{"kind":"OPEN"}}}
 {"id":"nm_4662a4227b86","kind":"CURRENT","name":"Château Malescot St. Exupéry","provenance":"pv_dcde0cc6132f","subject":"es_00325","validity":{"valid_from":{"kind":"UNKNOWN"},"valid_to":{"kind":"OPEN"}}}
+{"id":"nm_46f1e877cbdb","kind":"CURRENT","name":"Château Cantemerle","provenance":"pv_6319b09d8794","subject":"wn_00223","validity":{"valid_from":{"kind":"UNKNOWN"},"valid_to":{"kind":"OPEN"}}}
+{"id":"nm_470b687e9d0c","kind":"CURRENT","name":"Château Gémeillan","provenance":"pv_6319b09d8794","subject":"wn_00092","validity":{"valid_from":{"kind":"UNKNOWN"},"valid_to":{"kind":"OPEN"}}}
+{"id":"nm_4767f520719f","kind":"CURRENT","name":"Château Marquis de Terme","provenance":"pv_6319b09d8794","subject":"wn_00329","validity":{"valid_from":{"kind":"UNKNOWN"},"valid_to":{"kind":"OPEN"}}}
+{"id":"nm_476b84a365dd","kind":"CURRENT","name":"Château Barreyres","provenance":"pv_6319b09d8794","subject":"wn_00043","validity":{"valid_from":{"kind":"UNKNOWN"},"valid_to":{"kind":"OPEN"}}}
+{"id":"nm_478608df40a6","kind":"CURRENT","name":"Château la Valière","provenance":"pv_6319b09d8794","subject":"wn_00119","validity":{"valid_from":{"kind":"UNKNOWN"},"valid_to":{"kind":"OPEN"}}}
 {"id":"nm_478ff1848fa7","kind":"CURRENT","name":"Château Belgrave","provenance":"pv_dcde0cc6132f","subject":"es_00039","validity":{"valid_from":{"kind":"UNKNOWN"},"valid_to":{"kind":"OPEN"}}}
+{"id":"nm_47d1e9ac3bc1","kind":"CURRENT","name":"Pétrus","provenance":"pv_6319b09d8794","subject":"wn_00344","validity":{"valid_from":{"kind":"UNKNOWN"},"valid_to":{"kind":"OPEN"}}}
 {"id":"nm_4802fc16d044","kind":"CURRENT","name":"Château Victoria","provenance":"pv_11f40c267c53","subject":"es_00207","validity":{"valid_from":{"kind":"UNKNOWN"},"valid_to":{"kind":"OPEN"}}}
+{"id":"nm_4829209a8a1b","kind":"CURRENT","name":"Château Dassault","provenance":"pv_6319b09d8794","subject":"wn_00390","validity":{"valid_from":{"kind":"UNKNOWN"},"valid_to":{"kind":"OPEN"}}}
 {"id":"nm_485c9d90d947","kind":"CURRENT","name":"Château Lalande d'Auvion","provenance":"pv_11f40c267c53","subject":"es_00127","validity":{"valid_from":{"kind":"UNKNOWN"},"valid_to":{"kind":"OPEN"}}}
+{"id":"nm_48f760e5207b","kind":"CURRENT","name":"Château Moulinet","provenance":"pv_6319b09d8794","subject":"wn_00352","validity":{"valid_from":{"kind":"UNKNOWN"},"valid_to":{"kind":"OPEN"}}}
 {"id":"nm_4908b2166ae4","kind":"CURRENT","name":"Château Tour Saint-Fort","provenance":"pv_11f40c267c53","subject":"es_00203","validity":{"valid_from":{"kind":"UNKNOWN"},"valid_to":{"kind":"OPEN"}}}
 {"id":"nm_49166052f100","kind":"CURRENT","name":"Château Pichon-Longueville Baron","provenance":"pv_dcde0cc6132f","subject":"es_00345","validity":{"valid_from":{"kind":"UNKNOWN"},"valid_to":{"kind":"OPEN"}}}
+{"id":"nm_492bc8dabc5e","kind":"CURRENT","name":"Château Les Cruzelles","provenance":"pv_6319b09d8794","subject":"wn_00319","validity":{"valid_from":{"kind":"UNKNOWN"},"valid_to":{"kind":"OPEN"}}}
+{"id":"nm_4930d0591635","kind":"CURRENT","name":"Château La Fleur Lauga","provenance":"pv_6319b09d8794","subject":"wn_00017","validity":{"valid_from":{"kind":"UNKNOWN"},"valid_to":{"kind":"OPEN"}}}
+{"id":"nm_496839fbff4e","kind":"CURRENT","name":"Château Corbin","provenance":"pv_6319b09d8794","subject":"wn_00386","validity":{"valid_from":{"kind":"UNKNOWN"},"valid_to":{"kind":"OPEN"}}}
+{"id":"nm_4a1e3c08b90a","kind":"CURRENT","name":"Château Pontet-Canet","provenance":"pv_6319b09d8794","subject":"wn_00358","validity":{"valid_from":{"kind":"UNKNOWN"},"valid_to":{"kind":"OPEN"}}}
+{"id":"nm_4a5fa9f4c04f","kind":"CURRENT","name":"Château Gruaud-Larose","provenance":"pv_6319b09d8794","subject":"wn_00275","validity":{"valid_from":{"kind":"UNKNOWN"},"valid_to":{"kind":"OPEN"}}}
 {"id":"nm_4ab43cc6e593","kind":"CURRENT","name":"Château Canon","provenance":"pv_0377fa70c247","subject":"es_00221","validity":{"valid_from":{"kind":"UNKNOWN"},"valid_to":{"kind":"OPEN"}}}
 {"id":"nm_4b45eeb47fb0","kind":"CURRENT","name":"Pétrus","provenance":"pv_ac325d595306","subject":"es_00344","validity":{"valid_from":{"kind":"UNKNOWN"},"valid_to":{"kind":"OPEN"}}}
+{"id":"nm_4b7e8f79af91","kind":"CURRENT","name":"Château La Tour Blanche","provenance":"pv_6319b09d8794","subject":"wn_00294","validity":{"valid_from":{"kind":"UNKNOWN"},"valid_to":{"kind":"OPEN"}}}
 {"id":"nm_4b8c1c339eae","kind":"CURRENT","name":"Château Paloumey","provenance":"pv_11f40c267c53","subject":"es_00167","validity":{"valid_from":{"kind":"UNKNOWN"},"valid_to":{"kind":"OPEN"}}}
+{"id":"nm_4bdd36327243","kind":"CURRENT","name":"Château d’Aiguilhe","provenance":"pv_6319b09d8794","subject":"wn_00244","validity":{"valid_from":{"kind":"UNKNOWN"},"valid_to":{"kind":"OPEN"}}}
+{"id":"nm_4c84086f196c","kind":"CURRENT","name":"Château Guadet","provenance":"pv_6319b09d8794","subject":"wn_00403","validity":{"valid_from":{"kind":"UNKNOWN"},"valid_to":{"kind":"OPEN"}}}
 {"id":"nm_4c85cab6a921","kind":"CURRENT","name":"Château La Conseillante","provenance":"pv_ac325d595306","subject":"es_00287","validity":{"valid_from":{"kind":"UNKNOWN"},"valid_to":{"kind":"OPEN"}}}
 {"id":"nm_4d12e5347da4","kind":"CURRENT","name":"Château Moulin de l'Abbaye","provenance":"pv_11f40c267c53","subject":"es_00162","validity":{"valid_from":{"kind":"UNKNOWN"},"valid_to":{"kind":"OPEN"}}}
+{"id":"nm_4d25f1dd0331","kind":"CURRENT","name":"Château des Cabans","provenance":"pv_6319b09d8794","subject":"wn_00080","validity":{"valid_from":{"kind":"UNKNOWN"},"valid_to":{"kind":"OPEN"}}}
+{"id":"nm_4d5a612ce49e","kind":"CURRENT","name":"Château La Tour Haut-Brion","provenance":"pv_6319b09d8794","subject":"wn_00296","validity":{"valid_from":{"kind":"UNKNOWN"},"valid_to":{"kind":"OPEN"}}}
 {"id":"nm_4da9974b2c59","kind":"CURRENT","name":"Château Cap de Mourlin","provenance":"pv_0377fa70c247","subject":"es_00396","validity":{"valid_from":{"kind":"UNKNOWN"},"valid_to":{"kind":"OPEN"}}}
+{"id":"nm_4de866c11659","kind":"CURRENT","name":"Château de la Commanderie","provenance":"pv_6319b09d8794","subject":"wn_00237","validity":{"valid_from":{"kind":"UNKNOWN"},"valid_to":{"kind":"OPEN"}}}
 {"id":"nm_4e0ef419aa5e","kind":"CURRENT","name":"Château Noaillac","provenance":"pv_11f40c267c53","subject":"es_00165","validity":{"valid_from":{"kind":"UNKNOWN"},"valid_to":{"kind":"OPEN"}}}
+{"id":"nm_4e65677ad6a3","kind":"CURRENT","name":"Château Haut Beyzac","provenance":"pv_6319b09d8794","subject":"wn_00101","validity":{"valid_from":{"kind":"UNKNOWN"},"valid_to":{"kind":"OPEN"}}}
 {"id":"nm_4ec8e50e02de","kind":"CURRENT","name":"Château Guillot Clauzel","provenance":"pv_ac325d595306","subject":"es_00352","validity":{"valid_from":{"kind":"UNKNOWN"},"valid_to":{"kind":"OPEN"}}}
+{"id":"nm_4f14d4772065","kind":"CURRENT","name":"Clos Puy Arnaud","provenance":"pv_6319b09d8794","subject":"wn_00236","validity":{"valid_from":{"kind":"UNKNOWN"},"valid_to":{"kind":"OPEN"}}}
+{"id":"nm_4f15a24ef851","kind":"CURRENT","name":"Château Doisy-Védrines","provenance":"pv_6319b09d8794","subject":"wn_00257","validity":{"valid_from":{"kind":"UNKNOWN"},"valid_to":{"kind":"OPEN"}}}
+{"id":"nm_4fbc4f81f7af","kind":"CURRENT","name":"Château le Temple","provenance":"pv_6319b09d8794","subject":"wn_00136","validity":{"valid_from":{"kind":"UNKNOWN"},"valid_to":{"kind":"OPEN"}}}
 {"id":"nm_4fc8cdeccd4d","kind":"CURRENT","name":"Château de Coudot","provenance":"pv_537d1e191755","subject":"es_00004","validity":{"valid_from":{"kind":"UNKNOWN"},"valid_to":{"kind":"OPEN"}}}
+{"id":"nm_4fcee9a31539","kind":"CURRENT","name":"Château Talbot","provenance":"pv_6319b09d8794","subject":"wn_00449","validity":{"valid_from":{"kind":"UNKNOWN"},"valid_to":{"kind":"OPEN"}}}
 {"id":"nm_503ffa429d00","kind":"CURRENT","name":"Château Méric","provenance":"pv_11f40c267c53","subject":"es_00156","validity":{"valid_from":{"kind":"UNKNOWN"},"valid_to":{"kind":"OPEN"}}}
+{"id":"nm_505fa9deddcf","kind":"CURRENT","name":"Château Carbonnieux","provenance":"pv_6319b09d8794","subject":"wn_00225","validity":{"valid_from":{"kind":"UNKNOWN"},"valid_to":{"kind":"OPEN"}}}
+{"id":"nm_50e32e1d334c","kind":"CURRENT","name":"Château Puy Castera","provenance":"pv_6319b09d8794","subject":"wn_00184","validity":{"valid_from":{"kind":"UNKNOWN"},"valid_to":{"kind":"OPEN"}}}
 {"id":"nm_5152c7a0e321","kind":"CURRENT","name":"Château Le Gay","provenance":"pv_ac325d595306","subject":"es_00313","validity":{"valid_from":{"kind":"UNKNOWN"},"valid_to":{"kind":"OPEN"}}}
 {"id":"nm_515474de53e0","kind":"CURRENT","name":"Château Gruaud-Larose","provenance":"pv_dcde0cc6132f","subject":"es_00275","validity":{"valid_from":{"kind":"UNKNOWN"},"valid_to":{"kind":"OPEN"}}}
+{"id":"nm_5156ebacc49e","kind":"CURRENT","name":"Château Durfort-Vivens","provenance":"pv_6319b09d8794","subject":"wn_00263","validity":{"valid_from":{"kind":"UNKNOWN"},"valid_to":{"kind":"OPEN"}}}
 {"id":"nm_51571e81b307","kind":"CURRENT","name":"Château de Myrat","provenance":"pv_72872a84d1b4","subject":"es_00253","validity":{"valid_from":{"kind":"UNKNOWN"},"valid_to":{"kind":"OPEN"}}}
 {"id":"nm_5203c6e29bde","kind":"CURRENT","name":"Château Grand Brun","provenance":"pv_537d1e191755","subject":"es_00010","validity":{"valid_from":{"kind":"UNKNOWN"},"valid_to":{"kind":"OPEN"}}}
 {"id":"nm_52d32ea6da1d","kind":"CURRENT","name":"Château Gadet Terrefort","provenance":"pv_537d1e191755","subject":"es_00008","validity":{"valid_from":{"kind":"UNKNOWN"},"valid_to":{"kind":"OPEN"}}}
@@ -144,19 +293,41 @@
 {"id":"nm_54c26f30603f","kind":"CURRENT","name":"Château Haut Brisey","provenance":"pv_537d1e191755","subject":"es_00012","validity":{"valid_from":{"kind":"UNKNOWN"},"valid_to":{"kind":"OPEN"}}}
 {"id":"nm_54da9f10f39d","kind":"CURRENT","name":"Château Latour à Pomerol","provenance":"pv_ac325d595306","subject":"es_00310","validity":{"valid_from":{"kind":"UNKNOWN"},"valid_to":{"kind":"OPEN"}}}
 {"id":"nm_54eb22fdbced","kind":"CURRENT","name":"Château du Raux","provenance":"pv_11f40c267c53","subject":"es_00088","validity":{"valid_from":{"kind":"UNKNOWN"},"valid_to":{"kind":"OPEN"}}}
+{"id":"nm_55614c8bb253","kind":"CURRENT","name":"Château le Crock","provenance":"pv_6319b09d8794","subject":"wn_00134","validity":{"valid_from":{"kind":"UNKNOWN"},"valid_to":{"kind":"OPEN"}}}
+{"id":"nm_5604989609c9","kind":"CURRENT","name":"Château La Commanderie","provenance":"pv_6319b09d8794","subject":"wn_00406","validity":{"valid_from":{"kind":"UNKNOWN"},"valid_to":{"kind":"OPEN"}}}
+{"id":"nm_5657a9012cd6","kind":"CURRENT","name":"Château Faugères","provenance":"pv_6319b09d8794","subject":"wn_00394","validity":{"valid_from":{"kind":"UNKNOWN"},"valid_to":{"kind":"OPEN"}}}
 {"id":"nm_5662c762d221","kind":"CURRENT","name":"Château Fleur la Mothe","provenance":"pv_11f40c267c53","subject":"es_00091","validity":{"valid_from":{"kind":"UNKNOWN"},"valid_to":{"kind":"OPEN"}}}
+{"id":"nm_572199bb3491","kind":"CURRENT","name":"Château Pierre de Montignac","provenance":"pv_6319b09d8794","subject":"wn_00174","validity":{"valid_from":{"kind":"UNKNOWN"},"valid_to":{"kind":"OPEN"}}}
 {"id":"nm_581610e53da8","kind":"CURRENT","name":"Château Haut-Sarpe","provenance":"pv_0377fa70c247","subject":"es_00416","validity":{"valid_from":{"kind":"UNKNOWN"},"valid_to":{"kind":"OPEN"}}}
+{"id":"nm_5832f2bebc17","kind":"CURRENT","name":"Château Suau","provenance":"pv_6319b09d8794","subject":"wn_00447","validity":{"valid_from":{"kind":"UNKNOWN"},"valid_to":{"kind":"OPEN"}}}
+{"id":"nm_585aa70f65bc","kind":"CURRENT","name":"Château La Couspaude","provenance":"pv_6319b09d8794","subject":"wn_00408","validity":{"valid_from":{"kind":"UNKNOWN"},"valid_to":{"kind":"OPEN"}}}
 {"id":"nm_5884477f1215","kind":"CURRENT","name":"Château Romer","provenance":"pv_72872a84d1b4","subject":"es_00382","validity":{"valid_from":{"kind":"UNKNOWN"},"valid_to":{"kind":"OPEN"}}}
 {"id":"nm_58d3f43ef7ea","kind":"CURRENT","name":"Château Clinet","provenance":"pv_ac325d595306","subject":"es_00231","validity":{"valid_from":{"kind":"UNKNOWN"},"valid_to":{"kind":"OPEN"}}}
 {"id":"nm_58e0de281d8a","kind":"CURRENT","name":"Château d'Aurilhac","provenance":"pv_11f40c267c53","subject":"es_00069","validity":{"valid_from":{"kind":"UNKNOWN"},"valid_to":{"kind":"OPEN"}}}
+{"id":"nm_5933752e96a2","kind":"CURRENT","name":"Château Haut Queyran","provenance":"pv_6319b09d8794","subject":"wn_00105","validity":{"valid_from":{"kind":"UNKNOWN"},"valid_to":{"kind":"OPEN"}}}
+{"id":"nm_593781bc3ec2","kind":"CURRENT","name":"Château Croix du Trale","provenance":"pv_6319b09d8794","subject":"wn_00065","validity":{"valid_from":{"kind":"UNKNOWN"},"valid_to":{"kind":"OPEN"}}}
+{"id":"nm_598cee913a6a","kind":"CURRENT","name":"Château Villemaurine","provenance":"pv_6319b09d8794","subject":"wn_00437","validity":{"valid_from":{"kind":"UNKNOWN"},"valid_to":{"kind":"OPEN"}}}
+{"id":"nm_5a21700c7df1","kind":"CURRENT","name":"Château Tour Saint Christophe","provenance":"pv_6319b09d8794","subject":"wn_00436","validity":{"valid_from":{"kind":"UNKNOWN"},"valid_to":{"kind":"OPEN"}}}
+{"id":"nm_5a5368c1b069","kind":"CURRENT","name":"Château Belgrave","provenance":"pv_6319b09d8794","subject":"wn_00039","validity":{"valid_from":{"kind":"UNKNOWN"},"valid_to":{"kind":"OPEN"}}}
+{"id":"nm_5acbf5615a92","kind":"CURRENT","name":"Château Pape Clément","provenance":"pv_6319b09d8794","subject":"wn_00340","validity":{"valid_from":{"kind":"UNKNOWN"},"valid_to":{"kind":"OPEN"}}}
+{"id":"nm_5aed37dec3d3","kind":"CURRENT","name":"Château Malescasse","provenance":"pv_6319b09d8794","subject":"wn_00152","validity":{"valid_from":{"kind":"UNKNOWN"},"valid_to":{"kind":"OPEN"}}}
+{"id":"nm_5b473cd5c335","kind":"CURRENT","name":"Château de Cartujac","provenance":"pv_6319b09d8794","subject":"wn_00074","validity":{"valid_from":{"kind":"UNKNOWN"},"valid_to":{"kind":"OPEN"}}}
 {"id":"nm_5c0b7a1f7a1a","kind":"CURRENT","name":"Château Guiraud","provenance":"pv_72872a84d1b4","subject":"es_00276","validity":{"valid_from":{"kind":"UNKNOWN"},"valid_to":{"kind":"OPEN"}}}
 {"id":"nm_5c2dc14f527b","kind":"CURRENT","name":"Château de Malle","provenance":"pv_72872a84d1b4","subject":"es_00252","validity":{"valid_from":{"kind":"UNKNOWN"},"valid_to":{"kind":"OPEN"}}}
 {"id":"nm_5ca5090fe92e","kind":"CURRENT","name":"Château Haut-Batailley","provenance":"pv_dcde0cc6132f","subject":"es_00279","validity":{"valid_from":{"kind":"UNKNOWN"},"valid_to":{"kind":"OPEN"}}}
+{"id":"nm_5cb7f0b97898","kind":"CURRENT","name":"Château de Myrat","provenance":"pv_6319b09d8794","subject":"wn_00253","validity":{"valid_from":{"kind":"UNKNOWN"},"valid_to":{"kind":"OPEN"}}}
 {"id":"nm_5cbd179cd01c","kind":"CURRENT","name":"Château le Vieux Serestin","provenance":"pv_11f40c267c53","subject":"es_00138","validity":{"valid_from":{"kind":"UNKNOWN"},"valid_to":{"kind":"OPEN"}}}
 {"id":"nm_5ce53048ee52","kind":"CURRENT","name":"Château Haut Queyran","provenance":"pv_11f40c267c53","subject":"es_00105","validity":{"valid_from":{"kind":"UNKNOWN"},"valid_to":{"kind":"OPEN"}}}
+{"id":"nm_5dce3cc58884","kind":"CURRENT","name":"Château d’Arcins","provenance":"pv_6319b09d8794","subject":"wn_00066","validity":{"valid_from":{"kind":"UNKNOWN"},"valid_to":{"kind":"OPEN"}}}
 {"id":"nm_5dd0ef4c8070","kind":"CURRENT","name":"La Chenade","provenance":"pv_7cce45d9d443","subject":"es_00286","validity":{"valid_from":{"kind":"UNKNOWN"},"valid_to":{"kind":"OPEN"}}}
 {"id":"nm_5e069b4d0ce2","kind":"CURRENT","name":"Château Le Châtelet","provenance":"pv_0377fa70c247","subject":"es_00432","validity":{"valid_from":{"kind":"UNKNOWN"},"valid_to":{"kind":"OPEN"}}}
+{"id":"nm_5e089692b8b6","kind":"CURRENT","name":"La Mondotte","provenance":"pv_6319b09d8794","subject":"wn_00293","validity":{"valid_from":{"kind":"UNKNOWN"},"valid_to":{"kind":"OPEN"}}}
+{"id":"nm_5e5fdb63b453","kind":"CURRENT","name":"Château Pontoise Cabarrus","provenance":"pv_6319b09d8794","subject":"wn_00181","validity":{"valid_from":{"kind":"UNKNOWN"},"valid_to":{"kind":"OPEN"}}}
+{"id":"nm_5e6a05747087","kind":"CURRENT","name":"Château Coutelin Merville","provenance":"pv_6319b09d8794","subject":"wn_00064","validity":{"valid_from":{"kind":"UNKNOWN"},"valid_to":{"kind":"OPEN"}}}
 {"id":"nm_5eac00331c7d","kind":"CURRENT","name":"Château du Hâ","provenance":"pv_537d1e191755","subject":"es_00007","validity":{"valid_from":{"kind":"UNKNOWN"},"valid_to":{"kind":"OPEN"}}}
+{"id":"nm_5efbafdafdd9","kind":"CURRENT","name":"Château Rousseau de Sipian","provenance":"pv_6319b09d8794","subject":"wn_00192","validity":{"valid_from":{"kind":"UNKNOWN"},"valid_to":{"kind":"OPEN"}}}
+{"id":"nm_5f32686a466d","kind":"CURRENT","name":"Château Bejac Romelys","provenance":"pv_6319b09d8794","subject":"wn_00001","validity":{"valid_from":{"kind":"UNKNOWN"},"valid_to":{"kind":"OPEN"}}}
+{"id":"nm_5f43fbbda83d","kind":"CURRENT","name":"Château Cos d’Estournel","provenance":"pv_6319b09d8794","subject":"wn_00238","validity":{"valid_from":{"kind":"UNKNOWN"},"valid_to":{"kind":"OPEN"}}}
 {"id":"nm_5fea8d9c0966","kind":"CURRENT","name":"Château Lynch-Bages","provenance":"pv_dcde0cc6132f","subject":"es_00322","validity":{"valid_from":{"kind":"UNKNOWN"},"valid_to":{"kind":"OPEN"}}}
 {"id":"nm_60288a195d36","kind":"CURRENT","name":"Château Dillon","provenance":"pv_11f40c267c53","subject":"es_00084","validity":{"valid_from":{"kind":"UNKNOWN"},"valid_to":{"kind":"OPEN"}}}
 {"id":"nm_60443f5a7f56","kind":"CURRENT","name":"Château la Commanderie","provenance":"pv_11f40c267c53","subject":"es_00110","validity":{"valid_from":{"kind":"UNKNOWN"},"valid_to":{"kind":"OPEN"}}}
@@ -165,91 +336,181 @@
 {"id":"nm_61a609d76661","kind":"CURRENT","name":"Château Castera","provenance":"pv_11f40c267c53","subject":"es_00058","validity":{"valid_from":{"kind":"UNKNOWN"},"valid_to":{"kind":"OPEN"}}}
 {"id":"nm_622d61ae71fa","kind":"CURRENT","name":"Château Couhins","provenance":"pv_e45f5d20b569","subject":"es_00240","validity":{"valid_from":{"kind":"UNKNOWN"},"valid_to":{"kind":"OPEN"}}}
 {"id":"nm_62b7a6ff86f4","kind":"CURRENT","name":"Château Prieuré de Beyzac","provenance":"pv_11f40c267c53","subject":"es_00183","validity":{"valid_from":{"kind":"UNKNOWN"},"valid_to":{"kind":"OPEN"}}}
+{"id":"nm_62cc0d8c6b0a","kind":"CURRENT","name":"Château Trotanoy","provenance":"pv_6319b09d8794","subject":"wn_00451","validity":{"valid_from":{"kind":"UNKNOWN"},"valid_to":{"kind":"OPEN"}}}
 {"id":"nm_63338a963d63","kind":"CURRENT","name":"Château Roquegrave","provenance":"pv_11f40c267c53","subject":"es_00191","validity":{"valid_from":{"kind":"UNKNOWN"},"valid_to":{"kind":"OPEN"}}}
 {"id":"nm_63531622fcc3","kind":"CURRENT","name":"Château La Vieille Cure","provenance":"pv_7cce45d9d443","subject":"es_00297","validity":{"valid_from":{"kind":"UNKNOWN"},"valid_to":{"kind":"OPEN"}}}
+{"id":"nm_636b3f102bc0","kind":"CURRENT","name":"Château le Vieux Fort","provenance":"pv_6319b09d8794","subject":"wn_00137","validity":{"valid_from":{"kind":"UNKNOWN"},"valid_to":{"kind":"OPEN"}}}
 {"id":"nm_639636e2d1d4","kind":"CURRENT","name":"Château Lamongeau","provenance":"pv_537d1e191755","subject":"es_00020","validity":{"valid_from":{"kind":"UNKNOWN"},"valid_to":{"kind":"OPEN"}}}
 {"id":"nm_63e3d9b8fa32","kind":"CURRENT","name":"Château de Ferrand","provenance":"pv_0377fa70c247","subject":"es_00403","validity":{"valid_from":{"kind":"UNKNOWN"},"valid_to":{"kind":"OPEN"}}}
+{"id":"nm_63f9ed9e3f1c","kind":"CURRENT","name":"Château de Rayne Vigneau","provenance":"pv_6319b09d8794","subject":"wn_00366","validity":{"valid_from":{"kind":"UNKNOWN"},"valid_to":{"kind":"OPEN"}}}
+{"id":"nm_64875779e373","kind":"CURRENT","name":"Château de Fontenille","provenance":"pv_6319b09d8794","subject":"wn_00269","validity":{"valid_from":{"kind":"UNKNOWN"},"valid_to":{"kind":"OPEN"}}}
+{"id":"nm_64ca089c2a3f","kind":"CURRENT","name":"Château Ricaudet","provenance":"pv_6319b09d8794","subject":"wn_00189","validity":{"valid_from":{"kind":"UNKNOWN"},"valid_to":{"kind":"OPEN"}}}
+{"id":"nm_6504aedce362","kind":"CURRENT","name":"Château Mangot","provenance":"pv_6319b09d8794","subject":"wn_00422","validity":{"valid_from":{"kind":"UNKNOWN"},"valid_to":{"kind":"OPEN"}}}
+{"id":"nm_654d10f4f81b","kind":"CURRENT","name":"Château Devise d'Ardilley","provenance":"pv_6319b09d8794","subject":"wn_00083","validity":{"valid_from":{"kind":"UNKNOWN"},"valid_to":{"kind":"OPEN"}}}
+{"id":"nm_655a09d3d47f","kind":"CURRENT","name":"Château Trotte Vieille","provenance":"pv_6319b09d8794","subject":"wn_00452","validity":{"valid_from":{"kind":"UNKNOWN"},"valid_to":{"kind":"OPEN"}}}
+{"id":"nm_657259d86d9c","kind":"CURRENT","name":"Château Dasvin Bel Air","provenance":"pv_6319b09d8794","subject":"wn_00071","validity":{"valid_from":{"kind":"UNKNOWN"},"valid_to":{"kind":"OPEN"}}}
 {"id":"nm_661601ee6f1a","kind":"CURRENT","name":"Château La Baie de Lalo","provenance":"pv_537d1e191755","subject":"es_00016","validity":{"valid_from":{"kind":"UNKNOWN"},"valid_to":{"kind":"OPEN"}}}
 {"id":"nm_662387c51ad8","kind":"CURRENT","name":"Château Cos d’Estournel","provenance":"pv_dcde0cc6132f","subject":"es_00238","validity":{"valid_from":{"kind":"UNKNOWN"},"valid_to":{"kind":"OPEN"}}}
+{"id":"nm_6632e1d088c2","kind":"CURRENT","name":"Château Kirwan","provenance":"pv_6319b09d8794","subject":"wn_00285","validity":{"valid_from":{"kind":"UNKNOWN"},"valid_to":{"kind":"OPEN"}}}
 {"id":"nm_66e05c295af7","kind":"CURRENT","name":"Château Balestard La Tonnelle","provenance":"pv_0377fa70c247","subject":"es_00389","validity":{"valid_from":{"kind":"UNKNOWN"},"valid_to":{"kind":"OPEN"}}}
 {"id":"nm_6740996dea46","kind":"CURRENT","name":"Château Graves de Pez","provenance":"pv_537d1e191755","subject":"es_00011","validity":{"valid_from":{"kind":"UNKNOWN"},"valid_to":{"kind":"OPEN"}}}
+{"id":"nm_6829d6512dcc","kind":"CURRENT","name":"Château Troplong Mondot","provenance":"pv_6319b09d8794","subject":"wn_00450","validity":{"valid_from":{"kind":"UNKNOWN"},"valid_to":{"kind":"OPEN"}}}
+{"id":"nm_683cf8c16fab","kind":"CURRENT","name":"Domaine de Chevalier","provenance":"pv_6319b09d8794","subject":"wn_00258","validity":{"valid_from":{"kind":"UNKNOWN"},"valid_to":{"kind":"OPEN"}}}
 {"id":"nm_685632a5b504","kind":"CURRENT","name":"Château Tour Saint Christophe","provenance":"pv_0377fa70c247","subject":"es_00448","validity":{"valid_from":{"kind":"UNKNOWN"},"valid_to":{"kind":"OPEN"}}}
+{"id":"nm_6889d693fe03","kind":"CURRENT","name":"Château Ramage la Batisse","provenance":"pv_6319b09d8794","subject":"wn_00186","validity":{"valid_from":{"kind":"UNKNOWN"},"valid_to":{"kind":"OPEN"}}}
+{"id":"nm_68de6891f90f","kind":"CURRENT","name":"Château Nouret","provenance":"pv_6319b09d8794","subject":"wn_00166","validity":{"valid_from":{"kind":"UNKNOWN"},"valid_to":{"kind":"OPEN"}}}
+{"id":"nm_68df7abcf0fa","kind":"CURRENT","name":"Château Bibian","provenance":"pv_6319b09d8794","subject":"wn_00052","validity":{"valid_from":{"kind":"UNKNOWN"},"valid_to":{"kind":"OPEN"}}}
+{"id":"nm_68e717302fe9","kind":"CURRENT","name":"Château Taillefer","provenance":"pv_6319b09d8794","subject":"wn_00355","validity":{"valid_from":{"kind":"UNKNOWN"},"valid_to":{"kind":"OPEN"}}}
+{"id":"nm_692f7a09f873","kind":"CURRENT","name":"Château Victoria","provenance":"pv_6319b09d8794","subject":"wn_00207","validity":{"valid_from":{"kind":"UNKNOWN"},"valid_to":{"kind":"OPEN"}}}
+{"id":"nm_6938ad08575e","kind":"CURRENT","name":"Château Tour Prignac","provenance":"pv_6319b09d8794","subject":"wn_00202","validity":{"valid_from":{"kind":"UNKNOWN"},"valid_to":{"kind":"OPEN"}}}
+{"id":"nm_6947d14cc39b","kind":"CURRENT","name":"Château La Vieille Cure","provenance":"pv_6319b09d8794","subject":"wn_00297","validity":{"valid_from":{"kind":"UNKNOWN"},"valid_to":{"kind":"OPEN"}}}
 {"id":"nm_696acff2b292","kind":"CURRENT","name":"Château Prieuré-Lichine","provenance":"pv_dcde0cc6132f","subject":"es_00372","validity":{"valid_from":{"kind":"UNKNOWN"},"valid_to":{"kind":"OPEN"}}}
+{"id":"nm_69bc10544c1b","kind":"CURRENT","name":"Clos Floridène","provenance":"pv_6319b09d8794","subject":"wn_00232","validity":{"valid_from":{"kind":"UNKNOWN"},"valid_to":{"kind":"OPEN"}}}
+{"id":"nm_69e2972dc816","kind":"CURRENT","name":"Château Gadet Terrefort","provenance":"pv_6319b09d8794","subject":"wn_00008","validity":{"valid_from":{"kind":"UNKNOWN"},"valid_to":{"kind":"OPEN"}}}
 {"id":"nm_6a1b1e5a2e01","kind":"CURRENT","name":"Château Lamothe-Guignard","provenance":"pv_72872a84d1b4","subject":"es_00305","validity":{"valid_from":{"kind":"UNKNOWN"},"valid_to":{"kind":"OPEN"}}}
 {"id":"nm_6a2b144c66d0","kind":"CURRENT","name":"Château des Tourelles","provenance":"pv_11f40c267c53","subject":"es_00082","validity":{"valid_from":{"kind":"UNKNOWN"},"valid_to":{"kind":"OPEN"}}}
+{"id":"nm_6a6ab3763dda","kind":"CURRENT","name":"Château d’Armailhac","provenance":"pv_6319b09d8794","subject":"wn_00247","validity":{"valid_from":{"kind":"UNKNOWN"},"valid_to":{"kind":"OPEN"}}}
+{"id":"nm_6a94b50b9a77","kind":"CURRENT","name":"Château Nairac","provenance":"pv_6319b09d8794","subject":"wn_00337","validity":{"valid_from":{"kind":"UNKNOWN"},"valid_to":{"kind":"OPEN"}}}
 {"id":"nm_6b1aa05d14df","kind":"CURRENT","name":"Château Vrai Canon Bouché","provenance":"pv_116ea930fdbf","subject":"es_00469","validity":{"valid_from":{"kind":"UNKNOWN"},"valid_to":{"kind":"OPEN"}}}
+{"id":"nm_6b3ba6102f2a","kind":"CURRENT","name":"Château La Fleur-Pétrus","provenance":"pv_6319b09d8794","subject":"wn_00290","validity":{"valid_from":{"kind":"UNKNOWN"},"valid_to":{"kind":"OPEN"}}}
 {"id":"nm_6bf206b0dce9","kind":"CURRENT","name":"Château Haut-Bertinerie","provenance":"pv_c39dd7c9e901","subject":"es_00280","validity":{"valid_from":{"kind":"UNKNOWN"},"valid_to":{"kind":"OPEN"}}}
 {"id":"nm_6c041026ba76","kind":"CURRENT","name":"Château Haut Barrail","provenance":"pv_11f40c267c53","subject":"es_00100","validity":{"valid_from":{"kind":"UNKNOWN"},"valid_to":{"kind":"OPEN"}}}
+{"id":"nm_6c2878d08a77","kind":"CURRENT","name":"Château Latour à Pomerol","provenance":"pv_6319b09d8794","subject":"wn_00310","validity":{"valid_from":{"kind":"UNKNOWN"},"valid_to":{"kind":"OPEN"}}}
 {"id":"nm_6c8477e327fa","kind":"CURRENT","name":"Château Les Barraillots","provenance":"pv_537d1e191755","subject":"es_00021","validity":{"valid_from":{"kind":"UNKNOWN"},"valid_to":{"kind":"OPEN"}}}
+{"id":"nm_6ceeeb111762","kind":"CURRENT","name":"Château Cadet-Bon","provenance":"pv_6319b09d8794","subject":"wn_00383","validity":{"valid_from":{"kind":"UNKNOWN"},"valid_to":{"kind":"OPEN"}}}
 {"id":"nm_6d506d3ac0b1","kind":"CURRENT","name":"Château Capdet","provenance":"pv_11f40c267c53","subject":"es_00056","validity":{"valid_from":{"kind":"UNKNOWN"},"valid_to":{"kind":"OPEN"}}}
+{"id":"nm_6d6a1026808c","kind":"CURRENT","name":"Château Poitevin","provenance":"pv_6319b09d8794","subject":"wn_00177","validity":{"valid_from":{"kind":"UNKNOWN"},"valid_to":{"kind":"OPEN"}}}
+{"id":"nm_6dbc26b3466e","kind":"CURRENT","name":"Château Grand Corbin","provenance":"pv_6319b09d8794","subject":"wn_00400","validity":{"valid_from":{"kind":"UNKNOWN"},"valid_to":{"kind":"OPEN"}}}
 {"id":"nm_6dd540a22fcc","kind":"CURRENT","name":"Château La Couspaude","provenance":"pv_0377fa70c247","subject":"es_00420","validity":{"valid_from":{"kind":"UNKNOWN"},"valid_to":{"kind":"OPEN"}}}
 {"id":"nm_6de2388dc60f","kind":"CURRENT","name":"Château de Lauga","provenance":"pv_537d1e191755","subject":"es_00005","validity":{"valid_from":{"kind":"UNKNOWN"},"valid_to":{"kind":"OPEN"}}}
 {"id":"nm_6e123cc583b7","kind":"CURRENT","name":"Château Doisy-Daëne","provenance":"pv_72872a84d1b4","subject":"es_00255","validity":{"valid_from":{"kind":"UNKNOWN"},"valid_to":{"kind":"OPEN"}}}
+{"id":"nm_6e144b196b5d","kind":"CURRENT","name":"Château les Mourlanes","provenance":"pv_6319b09d8794","subject":"wn_00142","validity":{"valid_from":{"kind":"UNKNOWN"},"valid_to":{"kind":"OPEN"}}}
+{"id":"nm_6e6e79f59a3d","kind":"CURRENT","name":"Château La Hourcade","provenance":"pv_6319b09d8794","subject":"wn_00018","validity":{"valid_from":{"kind":"UNKNOWN"},"valid_to":{"kind":"OPEN"}}}
 {"id":"nm_6f093914b86e","kind":"CURRENT","name":"Château de Fontenille","provenance":"pv_c39dd7c9e901","subject":"es_00269","validity":{"valid_from":{"kind":"UNKNOWN"},"valid_to":{"kind":"OPEN"}}}
 {"id":"nm_6fce8f5296f3","kind":"CURRENT","name":"Château Pontet Barrail","provenance":"pv_11f40c267c53","subject":"es_00179","validity":{"valid_from":{"kind":"UNKNOWN"},"valid_to":{"kind":"OPEN"}}}
+{"id":"nm_6fe086dbe4f9","kind":"CURRENT","name":"Vieux Château Certan","provenance":"pv_6319b09d8794","subject":"wn_00455","validity":{"valid_from":{"kind":"UNKNOWN"},"valid_to":{"kind":"OPEN"}}}
+{"id":"nm_7003464385ea","kind":"CURRENT","name":"Château Haut Brisey","provenance":"pv_6319b09d8794","subject":"wn_00012","validity":{"valid_from":{"kind":"UNKNOWN"},"valid_to":{"kind":"OPEN"}}}
+{"id":"nm_70317ced2f3d","kind":"CURRENT","name":"Château La Tessonière","provenance":"pv_6319b09d8794","subject":"wn_00019","validity":{"valid_from":{"kind":"UNKNOWN"},"valid_to":{"kind":"OPEN"}}}
 {"id":"nm_7094989ecf71","kind":"CURRENT","name":"Château le Bourdieu","provenance":"pv_11f40c267c53","subject":"es_00132","validity":{"valid_from":{"kind":"UNKNOWN"},"valid_to":{"kind":"OPEN"}}}
+{"id":"nm_7098943e0a8c","kind":"CURRENT","name":"Château Clément Saint Jean","provenance":"pv_6319b09d8794","subject":"wn_00061","validity":{"valid_from":{"kind":"UNKNOWN"},"valid_to":{"kind":"OPEN"}}}
 {"id":"nm_70d36dac0630","kind":"CURRENT","name":"Château Cailleteau Bergeron","provenance":"pv_c39dd7c9e901","subject":"es_00218","validity":{"valid_from":{"kind":"UNKNOWN"},"valid_to":{"kind":"OPEN"}}}
 {"id":"nm_70dab7b33a06","kind":"CURRENT","name":"Château Laroze","provenance":"pv_0377fa70c247","subject":"es_00430","validity":{"valid_from":{"kind":"UNKNOWN"},"valid_to":{"kind":"OPEN"}}}
 {"id":"nm_71152c9ca024","kind":"CURRENT","name":"Château Haut-Maurac","provenance":"pv_11f40c267c53","subject":"es_00104","validity":{"valid_from":{"kind":"UNKNOWN"},"valid_to":{"kind":"OPEN"}}}
 {"id":"nm_711ceb9285f5","kind":"CURRENT","name":"Château le Bourdieu Vertheuil","provenance":"pv_11f40c267c53","subject":"es_00133","validity":{"valid_from":{"kind":"UNKNOWN"},"valid_to":{"kind":"OPEN"}}}
+{"id":"nm_7249dc28cf74","kind":"CURRENT","name":"Château Les Graves de Loirac","provenance":"pv_6319b09d8794","subject":"wn_00022","validity":{"valid_from":{"kind":"UNKNOWN"},"valid_to":{"kind":"OPEN"}}}
 {"id":"nm_727b916a58d0","kind":"CURRENT","name":"Château de Malleret","provenance":"pv_11f40c267c53","subject":"es_00077","validity":{"valid_from":{"kind":"UNKNOWN"},"valid_to":{"kind":"OPEN"}}}
 {"id":"nm_72a973395d39","kind":"CURRENT","name":"Château Grand Clapeau Olivier","provenance":"pv_11f40c267c53","subject":"es_00094","validity":{"valid_from":{"kind":"UNKNOWN"},"valid_to":{"kind":"OPEN"}}}
+{"id":"nm_72bafb9157d9","kind":"CURRENT","name":"Château Haut-Batailley","provenance":"pv_6319b09d8794","subject":"wn_00279","validity":{"valid_from":{"kind":"UNKNOWN"},"valid_to":{"kind":"OPEN"}}}
+{"id":"nm_72f5cadd6002","kind":"CURRENT","name":"Château Haut-Bertinerie","provenance":"pv_6319b09d8794","subject":"wn_00280","validity":{"valid_from":{"kind":"UNKNOWN"},"valid_to":{"kind":"OPEN"}}}
+{"id":"nm_735f3924a311","kind":"CURRENT","name":"Château Guiraud","provenance":"pv_6319b09d8794","subject":"wn_00276","validity":{"valid_from":{"kind":"UNKNOWN"},"valid_to":{"kind":"OPEN"}}}
+{"id":"nm_740172fb0e62","kind":"CURRENT","name":"Château Franc Mayne","provenance":"pv_6319b09d8794","subject":"wn_00399","validity":{"valid_from":{"kind":"UNKNOWN"},"valid_to":{"kind":"OPEN"}}}
 {"id":"nm_746a8e786bd4","kind":"CURRENT","name":"Château La Lagune","provenance":"pv_dcde0cc6132f","subject":"es_00291","validity":{"valid_from":{"kind":"UNKNOWN"},"valid_to":{"kind":"OPEN"}}}
 {"id":"nm_74c7d7a054d2","kind":"CURRENT","name":"Château Labadie","provenance":"pv_11f40c267c53","subject":"es_00120","validity":{"valid_from":{"kind":"UNKNOWN"},"valid_to":{"kind":"OPEN"}}}
 {"id":"nm_74d4419fbd5a","kind":"CURRENT","name":"Château Nouret","provenance":"pv_11f40c267c53","subject":"es_00166","validity":{"valid_from":{"kind":"UNKNOWN"},"valid_to":{"kind":"OPEN"}}}
 {"id":"nm_74ff693fe89a","kind":"CURRENT","name":"Château Moulinet","provenance":"pv_ac325d595306","subject":"es_00360","validity":{"valid_from":{"kind":"UNKNOWN"},"valid_to":{"kind":"OPEN"}}}
+{"id":"nm_75014343daf1","kind":"CURRENT","name":"Château La Croizille","provenance":"pv_6319b09d8794","subject":"wn_00409","validity":{"valid_from":{"kind":"UNKNOWN"},"valid_to":{"kind":"OPEN"}}}
 {"id":"nm_750d0e93c7d1","kind":"CURRENT","name":"Château Joanin Bécot","provenance":"pv_116ea930fdbf","subject":"es_00284","validity":{"valid_from":{"kind":"UNKNOWN"},"valid_to":{"kind":"OPEN"}}}
+{"id":"nm_755b58de156a","kind":"CURRENT","name":"Château Mazeyres","provenance":"pv_6319b09d8794","subject":"wn_00351","validity":{"valid_from":{"kind":"UNKNOWN"},"valid_to":{"kind":"OPEN"}}}
+{"id":"nm_7585ebc3ee6b","kind":"CURRENT","name":"Château Peby Faugères","provenance":"pv_6319b09d8794","subject":"wn_00427","validity":{"valid_from":{"kind":"UNKNOWN"},"valid_to":{"kind":"OPEN"}}}
 {"id":"nm_75e099e06c77","kind":"CURRENT","name":"Château Haut Couloumey","provenance":"pv_537d1e191755","subject":"es_00013","validity":{"valid_from":{"kind":"UNKNOWN"},"valid_to":{"kind":"OPEN"}}}
+{"id":"nm_75e17994db5f","kind":"CURRENT","name":"Château Haut Gravat","provenance":"pv_6319b09d8794","subject":"wn_00014","validity":{"valid_from":{"kind":"UNKNOWN"},"valid_to":{"kind":"OPEN"}}}
+{"id":"nm_761cc37f2551","kind":"CURRENT","name":"Château Rollin","provenance":"pv_6319b09d8794","subject":"wn_00190","validity":{"valid_from":{"kind":"UNKNOWN"},"valid_to":{"kind":"OPEN"}}}
+{"id":"nm_76da7d8b2b79","kind":"CURRENT","name":"Château d'Argan","provenance":"pv_6319b09d8794","subject":"wn_00067","validity":{"valid_from":{"kind":"UNKNOWN"},"valid_to":{"kind":"OPEN"}}}
 {"id":"nm_774881e4ee30","kind":"CURRENT","name":"Château Mareil","provenance":"pv_11f40c267c53","subject":"es_00153","validity":{"valid_from":{"kind":"UNKNOWN"},"valid_to":{"kind":"OPEN"}}}
 {"id":"nm_7770911900b0","kind":"CURRENT","name":"Château l’Evasion","provenance":"pv_537d1e191755","subject":"es_00015","validity":{"valid_from":{"kind":"UNKNOWN"},"valid_to":{"kind":"OPEN"}}}
+{"id":"nm_7784d26b22a0","kind":"CURRENT","name":"Château Paloumey","provenance":"pv_6319b09d8794","subject":"wn_00167","validity":{"valid_from":{"kind":"UNKNOWN"},"valid_to":{"kind":"OPEN"}}}
+{"id":"nm_77ab7d114bd7","kind":"CURRENT","name":"Château L’Évangile","provenance":"pv_6319b09d8794","subject":"wn_00321","validity":{"valid_from":{"kind":"UNKNOWN"},"valid_to":{"kind":"OPEN"}}}
 {"id":"nm_77aeecc19a26","kind":"CURRENT","name":"Château Boutisse","provenance":"pv_0377fa70c247","subject":"es_00394","validity":{"valid_from":{"kind":"UNKNOWN"},"valid_to":{"kind":"OPEN"}}}
+{"id":"nm_77e938130473","kind":"CURRENT","name":"Château Moulin Haut-Laroque","provenance":"pv_6319b09d8794","subject":"wn_00334","validity":{"valid_from":{"kind":"UNKNOWN"},"valid_to":{"kind":"OPEN"}}}
 {"id":"nm_77eaa92b9944","kind":"CURRENT","name":"Château d'Argan","provenance":"pv_11f40c267c53","subject":"es_00067","validity":{"valid_from":{"kind":"UNKNOWN"},"valid_to":{"kind":"OPEN"}}}
+{"id":"nm_789ef07779bd","kind":"CURRENT","name":"Couvent des Jacobins","provenance":"pv_6319b09d8794","subject":"wn_00446","validity":{"valid_from":{"kind":"UNKNOWN"},"valid_to":{"kind":"OPEN"}}}
 {"id":"nm_78c494ce808e","kind":"CURRENT","name":"Château Montviel","provenance":"pv_ac325d595306","subject":"es_00359","validity":{"valid_from":{"kind":"UNKNOWN"},"valid_to":{"kind":"OPEN"}}}
 {"id":"nm_78c7caa3316f","kind":"CURRENT","name":"Château Haut Beyzac","provenance":"pv_11f40c267c53","subject":"es_00101","validity":{"valid_from":{"kind":"UNKNOWN"},"valid_to":{"kind":"OPEN"}}}
+{"id":"nm_78f4880c6231","kind":"CURRENT","name":"Château Haut-Bages Libéral","provenance":"pv_6319b09d8794","subject":"wn_00277","validity":{"valid_from":{"kind":"UNKNOWN"},"valid_to":{"kind":"OPEN"}}}
 {"id":"nm_793e347dbea9","kind":"CURRENT","name":"Château les Anguilleys","provenance":"pv_11f40c267c53","subject":"es_00140","validity":{"valid_from":{"kind":"UNKNOWN"},"valid_to":{"kind":"OPEN"}}}
+{"id":"nm_79adb76a24f9","kind":"CURRENT","name":"Château Bellefont-Belcier","provenance":"pv_6319b09d8794","subject":"wn_00379","validity":{"valid_from":{"kind":"UNKNOWN"},"valid_to":{"kind":"OPEN"}}}
 {"id":"nm_79c0888d8886","kind":"CURRENT","name":"Château Cadet-Bon","provenance":"pv_0377fa70c247","subject":"es_00395","validity":{"valid_from":{"kind":"UNKNOWN"},"valid_to":{"kind":"OPEN"}}}
+{"id":"nm_7a1080ac9a75","kind":"CURRENT","name":"Château Filhot","provenance":"pv_6319b09d8794","subject":"wn_00267","validity":{"valid_from":{"kind":"UNKNOWN"},"valid_to":{"kind":"OPEN"}}}
 {"id":"nm_7b0157ddc2d8","kind":"CURRENT","name":"Château Moulin de Taffard","provenance":"pv_11f40c267c53","subject":"es_00163","validity":{"valid_from":{"kind":"UNKNOWN"},"valid_to":{"kind":"OPEN"}}}
+{"id":"nm_7b694d3f6426","kind":"CURRENT","name":"Château La Confession","provenance":"pv_6319b09d8794","subject":"wn_00407","validity":{"valid_from":{"kind":"UNKNOWN"},"valid_to":{"kind":"OPEN"}}}
 {"id":"nm_7ba4791ad042","kind":"CURRENT","name":"Château La Confession","provenance":"pv_0377fa70c247","subject":"es_00419","validity":{"valid_from":{"kind":"UNKNOWN"},"valid_to":{"kind":"OPEN"}}}
 {"id":"nm_7c2d92cf2ca1","kind":"CURRENT","name":"Château Le Bon Pasteur","provenance":"pv_ac325d595306","subject":"es_00357","validity":{"valid_from":{"kind":"UNKNOWN"},"valid_to":{"kind":"OPEN"}}}
+{"id":"nm_7c3f9ec00ff4","kind":"CURRENT","name":"Château Lassègue","provenance":"pv_6319b09d8794","subject":"wn_00419","validity":{"valid_from":{"kind":"UNKNOWN"},"valid_to":{"kind":"OPEN"}}}
 {"id":"nm_7c5c0443c68f","kind":"CURRENT","name":"Château la France Delhomme","provenance":"pv_11f40c267c53","subject":"es_00113","validity":{"valid_from":{"kind":"UNKNOWN"},"valid_to":{"kind":"OPEN"}}}
+{"id":"nm_7c717e651441","kind":"CURRENT","name":"Château Vieux Gabarey","provenance":"pv_6319b09d8794","subject":"wn_00031","validity":{"valid_from":{"kind":"UNKNOWN"},"valid_to":{"kind":"OPEN"}}}
 {"id":"nm_7c73fb9217e5","kind":"CURRENT","name":"Château Rabaud-Promis","provenance":"pv_72872a84d1b4","subject":"es_00374","validity":{"valid_from":{"kind":"UNKNOWN"},"valid_to":{"kind":"OPEN"}}}
+{"id":"nm_7c9cd07b7020","kind":"CURRENT","name":"Château Pavie","provenance":"pv_6319b09d8794","subject":"wn_00341","validity":{"valid_from":{"kind":"UNKNOWN"},"valid_to":{"kind":"OPEN"}}}
 {"id":"nm_7d4f27192f0f","kind":"CURRENT","name":"Château la Fortune","provenance":"pv_11f40c267c53","subject":"es_00112","validity":{"valid_from":{"kind":"UNKNOWN"},"valid_to":{"kind":"OPEN"}}}
+{"id":"nm_7d8440848eaa","kind":"CURRENT","name":"Château Martin","provenance":"pv_6319b09d8794","subject":"wn_00154","validity":{"valid_from":{"kind":"UNKNOWN"},"valid_to":{"kind":"OPEN"}}}
+{"id":"nm_7d8d2b85e162","kind":"CURRENT","name":"Château le Vieux Serestin","provenance":"pv_6319b09d8794","subject":"wn_00138","validity":{"valid_from":{"kind":"UNKNOWN"},"valid_to":{"kind":"OPEN"}}}
 {"id":"nm_7de472163d2c","kind":"CURRENT","name":"Château Berliquet","provenance":"pv_0377fa70c247","subject":"es_00393","validity":{"valid_from":{"kind":"UNKNOWN"},"valid_to":{"kind":"OPEN"}}}
+{"id":"nm_7dfc88c470da","kind":"CURRENT","name":"Château Lascombes","provenance":"pv_6319b09d8794","subject":"wn_00308","validity":{"valid_from":{"kind":"UNKNOWN"},"valid_to":{"kind":"OPEN"}}}
 {"id":"nm_7e1558ed3399","kind":"CURRENT","name":"Château Preuillac","provenance":"pv_11f40c267c53","subject":"es_00182","validity":{"valid_from":{"kind":"UNKNOWN"},"valid_to":{"kind":"OPEN"}}}
 {"id":"nm_7e2584230b9e","kind":"CURRENT","name":"Vieux Château Certan","provenance":"pv_ac325d595306","subject":"es_00467","validity":{"valid_from":{"kind":"UNKNOWN"},"valid_to":{"kind":"OPEN"}}}
+{"id":"nm_7ebc3152c3ea","kind":"CURRENT","name":"Château Donissan","provenance":"pv_6319b09d8794","subject":"wn_00085","validity":{"valid_from":{"kind":"UNKNOWN"},"valid_to":{"kind":"OPEN"}}}
+{"id":"nm_7ef71bab5b86","kind":"CURRENT","name":"Château de Lauga","provenance":"pv_6319b09d8794","subject":"wn_00005","validity":{"valid_from":{"kind":"UNKNOWN"},"valid_to":{"kind":"OPEN"}}}
+{"id":"nm_7f288aaf5013","kind":"CURRENT","name":"Château Montlisse","provenance":"pv_6319b09d8794","subject":"wn_00425","validity":{"valid_from":{"kind":"UNKNOWN"},"valid_to":{"kind":"OPEN"}}}
 {"id":"nm_7fadab6ebc8c","kind":"CURRENT","name":"Château Rieussec","provenance":"pv_72872a84d1b4","subject":"es_00380","validity":{"valid_from":{"kind":"UNKNOWN"},"valid_to":{"kind":"OPEN"}}}
 {"id":"nm_80827b346476","kind":"CURRENT","name":"Château Lynch-Moussas","provenance":"pv_dcde0cc6132f","subject":"es_00323","validity":{"valid_from":{"kind":"UNKNOWN"},"valid_to":{"kind":"OPEN"}}}
 {"id":"nm_8093b791e86a","kind":"CURRENT","name":"Château Escot","provenance":"pv_11f40c267c53","subject":"es_00090","validity":{"valid_from":{"kind":"UNKNOWN"},"valid_to":{"kind":"OPEN"}}}
 {"id":"nm_8144acc15fec","kind":"CURRENT","name":"Château Mangot","provenance":"pv_0377fa70c247","subject":"es_00434","validity":{"valid_from":{"kind":"UNKNOWN"},"valid_to":{"kind":"OPEN"}}}
+{"id":"nm_814a0e24010b","kind":"CURRENT","name":"Château Mazails","provenance":"pv_6319b09d8794","subject":"wn_00155","validity":{"valid_from":{"kind":"UNKNOWN"},"valid_to":{"kind":"OPEN"}}}
 {"id":"nm_818e9d576bb9","kind":"CURRENT","name":"Château Moulin de Bel Air","provenance":"pv_11f40c267c53","subject":"es_00159","validity":{"valid_from":{"kind":"UNKNOWN"},"valid_to":{"kind":"OPEN"}}}
+{"id":"nm_8211f82716cc","kind":"CURRENT","name":"Château La Croix de Gay","provenance":"pv_6319b09d8794","subject":"wn_00349","validity":{"valid_from":{"kind":"UNKNOWN"},"valid_to":{"kind":"OPEN"}}}
 {"id":"nm_82cc5a7f6b06","kind":"CURRENT","name":"Château Laville Haut-Brion","provenance":"pv_e45f5d20b569","subject":"es_00312","validity":{"valid_from":{"kind":"UNKNOWN"},"valid_to":{"kind":"OPEN"}}}
 {"id":"nm_82d9d453e784","kind":"CURRENT","name":"Château Roc de Cambes","provenance":"pv_116ea930fdbf","subject":"es_00381","validity":{"valid_from":{"kind":"UNKNOWN"},"valid_to":{"kind":"OPEN"}}}
 {"id":"nm_82e240c3ff1d","kind":"CURRENT","name":"Château Grand-Puy-Ducasse","provenance":"pv_dcde0cc6132f","subject":"es_00273","validity":{"valid_from":{"kind":"UNKNOWN"},"valid_to":{"kind":"OPEN"}}}
+{"id":"nm_8366015aadf8","kind":"CURRENT","name":"Château Larcis Ducasse","provenance":"pv_6319b09d8794","subject":"wn_00307","validity":{"valid_from":{"kind":"UNKNOWN"},"valid_to":{"kind":"OPEN"}}}
+{"id":"nm_837ef57992ef","kind":"CURRENT","name":"Château La Baie de Lalo","provenance":"pv_6319b09d8794","subject":"wn_00016","validity":{"valid_from":{"kind":"UNKNOWN"},"valid_to":{"kind":"OPEN"}}}
+{"id":"nm_8389139f6a3a","kind":"CURRENT","name":"Château Gazin","provenance":"pv_6319b09d8794","subject":"wn_00348","validity":{"valid_from":{"kind":"UNKNOWN"},"valid_to":{"kind":"OPEN"}}}
 {"id":"nm_838c3c7d4293","kind":"CURRENT","name":"Château Sigalas-Rabaud","provenance":"pv_72872a84d1b4","subject":"es_00386","validity":{"valid_from":{"kind":"UNKNOWN"},"valid_to":{"kind":"OPEN"}}}
+{"id":"nm_83c97b2377d1","kind":"CURRENT","name":"Château d’Yquem","provenance":"pv_6319b09d8794","subject":"wn_00458","validity":{"valid_from":{"kind":"UNKNOWN"},"valid_to":{"kind":"OPEN"}}}
 {"id":"nm_83d4c5e564d2","kind":"CURRENT","name":"Château Nenin","provenance":"pv_ac325d595306","subject":"es_00361","validity":{"valid_from":{"kind":"UNKNOWN"},"valid_to":{"kind":"OPEN"}}}
 {"id":"nm_8427e70e4f4a","kind":"CURRENT","name":"Château Fonroque","provenance":"pv_0377fa70c247","subject":"es_00410","validity":{"valid_from":{"kind":"UNKNOWN"},"valid_to":{"kind":"OPEN"}}}
 {"id":"nm_84df836bbb68","kind":"CURRENT","name":"Château German Marbuzet","provenance":"pv_11f40c267c53","subject":"es_00093","validity":{"valid_from":{"kind":"UNKNOWN"},"valid_to":{"kind":"OPEN"}}}
+{"id":"nm_84ee3f1c65d3","kind":"CURRENT","name":"Château du Gaby","provenance":"pv_6319b09d8794","subject":"wn_00259","validity":{"valid_from":{"kind":"UNKNOWN"},"valid_to":{"kind":"OPEN"}}}
 {"id":"nm_856bc69a1d31","kind":"CURRENT","name":"Château Vray Croix de Gay","provenance":"pv_ac325d595306","subject":"es_00366","validity":{"valid_from":{"kind":"UNKNOWN"},"valid_to":{"kind":"OPEN"}}}
 {"id":"nm_85875773fa35","kind":"CURRENT","name":"Château Haut-Madrac","provenance":"pv_11f40c267c53","subject":"es_00103","validity":{"valid_from":{"kind":"UNKNOWN"},"valid_to":{"kind":"OPEN"}}}
 {"id":"nm_85a287666dbc","kind":"CURRENT","name":"Château Vieux Robin","provenance":"pv_11f40c267c53","subject":"es_00209","validity":{"valid_from":{"kind":"UNKNOWN"},"valid_to":{"kind":"OPEN"}}}
 {"id":"nm_86c0c2e409ee","kind":"CURRENT","name":"Château Lestruelle","provenance":"pv_11f40c267c53","subject":"es_00146","validity":{"valid_from":{"kind":"UNKNOWN"},"valid_to":{"kind":"OPEN"}}}
+{"id":"nm_873847e22669","kind":"CURRENT","name":"Clos L’Église","provenance":"pv_6319b09d8794","subject":"wn_00235","validity":{"valid_from":{"kind":"UNKNOWN"},"valid_to":{"kind":"OPEN"}}}
+{"id":"nm_87b34357af9e","kind":"CURRENT","name":"Château Beychevelle","provenance":"pv_6319b09d8794","subject":"wn_00040","validity":{"valid_from":{"kind":"UNKNOWN"},"valid_to":{"kind":"OPEN"}}}
+{"id":"nm_87de95334309","kind":"CURRENT","name":"Château Rauzan-Gassies","provenance":"pv_6319b09d8794","subject":"wn_00364","validity":{"valid_from":{"kind":"UNKNOWN"},"valid_to":{"kind":"OPEN"}}}
+{"id":"nm_885cedd09c63","kind":"CURRENT","name":"Château la Commanderie","provenance":"pv_6319b09d8794","subject":"wn_00110","validity":{"valid_from":{"kind":"UNKNOWN"},"valid_to":{"kind":"OPEN"}}}
+{"id":"nm_887fa897d7ef","kind":"CURRENT","name":"Château Lafon-Rochet","provenance":"pv_6319b09d8794","subject":"wn_00302","validity":{"valid_from":{"kind":"UNKNOWN"},"valid_to":{"kind":"OPEN"}}}
 {"id":"nm_88af1fa68d5b","kind":"CURRENT","name":"Château Bejac Romelys","provenance":"pv_537d1e191755","subject":"es_00001","validity":{"valid_from":{"kind":"UNKNOWN"},"valid_to":{"kind":"OPEN"}}}
 {"id":"nm_88b93c69d897","kind":"CURRENT","name":"Château Saint-Christophe","provenance":"pv_11f40c267c53","subject":"es_00196","validity":{"valid_from":{"kind":"UNKNOWN"},"valid_to":{"kind":"OPEN"}}}
 {"id":"nm_89065d4a1227","kind":"CURRENT","name":"Château L’Évangile","provenance":"pv_ac325d595306","subject":"es_00321","validity":{"valid_from":{"kind":"UNKNOWN"},"valid_to":{"kind":"OPEN"}}}
 {"id":"nm_8983cbe356d0","kind":"CURRENT","name":"Château Corconnac","provenance":"pv_11f40c267c53","subject":"es_00062","validity":{"valid_from":{"kind":"UNKNOWN"},"valid_to":{"kind":"OPEN"}}}
 {"id":"nm_8a1e08528c44","kind":"CURRENT","name":"Château du Tertre","provenance":"pv_dcde0cc6132f","subject":"es_00260","validity":{"valid_from":{"kind":"UNKNOWN"},"valid_to":{"kind":"OPEN"}}}
+{"id":"nm_8a242dac7e70","kind":"CURRENT","name":"Château Rochebelle","provenance":"pv_6319b09d8794","subject":"wn_00430","validity":{"valid_from":{"kind":"UNKNOWN"},"valid_to":{"kind":"OPEN"}}}
+{"id":"nm_8a2a61b02890","kind":"CURRENT","name":"Château Corbin Michotte","provenance":"pv_6319b09d8794","subject":"wn_00387","validity":{"valid_from":{"kind":"UNKNOWN"},"valid_to":{"kind":"OPEN"}}}
 {"id":"nm_8a70bcea4cd3","kind":"CURRENT","name":"Château Talbot","provenance":"pv_dcde0cc6132f","subject":"es_00461","validity":{"valid_from":{"kind":"UNKNOWN"},"valid_to":{"kind":"OPEN"}}}
+{"id":"nm_8ad86870f76e","kind":"CURRENT","name":"Château Magnol","provenance":"pv_6319b09d8794","subject":"wn_00150","validity":{"valid_from":{"kind":"UNKNOWN"},"valid_to":{"kind":"OPEN"}}}
 {"id":"nm_8b2aba327276","kind":"CURRENT","name":"Château Tour Bel Air","provenance":"pv_537d1e191755","subject":"es_00029","validity":{"valid_from":{"kind":"UNKNOWN"},"valid_to":{"kind":"OPEN"}}}
 {"id":"nm_8b3f3814cde6","kind":"CURRENT","name":"Château Calon-Ségur","provenance":"pv_dcde0cc6132f","subject":"es_00220","validity":{"valid_from":{"kind":"UNKNOWN"},"valid_to":{"kind":"OPEN"}}}
+{"id":"nm_8b47a2d94a6f","kind":"CURRENT","name":"Château Pomeys","provenance":"pv_6319b09d8794","subject":"wn_00178","validity":{"valid_from":{"kind":"UNKNOWN"},"valid_to":{"kind":"OPEN"}}}
+{"id":"nm_8b5b1f8d643e","kind":"CURRENT","name":"Clos Badon Thunevin","provenance":"pv_6319b09d8794","subject":"wn_00439","validity":{"valid_from":{"kind":"UNKNOWN"},"valid_to":{"kind":"OPEN"}}}
 {"id":"nm_8b6ae3d0c580","kind":"CURRENT","name":"Château la Mouline","provenance":"pv_11f40c267c53","subject":"es_00115","validity":{"valid_from":{"kind":"UNKNOWN"},"valid_to":{"kind":"OPEN"}}}
 {"id":"nm_8bd9ec51fe96","kind":"CURRENT","name":"Château Saint Ahon","provenance":"pv_11f40c267c53","subject":"es_00193","validity":{"valid_from":{"kind":"UNKNOWN"},"valid_to":{"kind":"OPEN"}}}
+{"id":"nm_8c34f65c94d5","kind":"CURRENT","name":"Château Laffitte Carcasset","provenance":"pv_6319b09d8794","subject":"wn_00124","validity":{"valid_from":{"kind":"UNKNOWN"},"valid_to":{"kind":"OPEN"}}}
 {"id":"nm_8c56ccb9edf4","kind":"CURRENT","name":"Château Beaumont","provenance":"pv_11f40c267c53","subject":"es_00044","validity":{"valid_from":{"kind":"UNKNOWN"},"valid_to":{"kind":"OPEN"}}}
 {"id":"nm_8c968f93f93b","kind":"CURRENT","name":"Château Lafaurie-Peyraguey","provenance":"pv_72872a84d1b4","subject":"es_00299","validity":{"valid_from":{"kind":"UNKNOWN"},"valid_to":{"kind":"OPEN"}}}
+{"id":"nm_8cd9aa138065","kind":"CURRENT","name":"Château les Lattes","provenance":"pv_6319b09d8794","subject":"wn_00141","validity":{"valid_from":{"kind":"UNKNOWN"},"valid_to":{"kind":"OPEN"}}}
 {"id":"nm_8d3de8ea5c1e","kind":"CURRENT","name":"Château Marquis de Terme","provenance":"pv_dcde0cc6132f","subject":"es_00329","validity":{"valid_from":{"kind":"UNKNOWN"},"valid_to":{"kind":"OPEN"}}}
+{"id":"nm_8ddefd81d17c","kind":"CURRENT","name":"Château Certan de May","provenance":"pv_6319b09d8794","subject":"wn_00226","validity":{"valid_from":{"kind":"UNKNOWN"},"valid_to":{"kind":"OPEN"}}}
 {"id":"nm_8dfc8107990f","kind":"CURRENT","name":"Château Fougas","provenance":"pv_c39dd7c9e901","subject":"es_00270","validity":{"valid_from":{"kind":"UNKNOWN"},"valid_to":{"kind":"OPEN"}}}
 {"id":"nm_8e5599805a53","kind":"CURRENT","name":"Château Bélair-Monange","provenance":"pv_0377fa70c247","subject":"es_00038","validity":{"valid_from":{"kind":"UNKNOWN"},"valid_to":{"kind":"OPEN"}}}
 {"id":"nm_8e5f1c1e2742","kind":"CURRENT","name":"Château Biston-Brillette","provenance":"pv_11f40c267c53","subject":"es_00053","validity":{"valid_from":{"kind":"UNKNOWN"},"valid_to":{"kind":"OPEN"}}}
 {"id":"nm_8ebba7e7d992","kind":"CURRENT","name":"Château de Fieuzal","provenance":"pv_e45f5d20b569","subject":"es_00251","validity":{"valid_from":{"kind":"UNKNOWN"},"valid_to":{"kind":"OPEN"}}}
+{"id":"nm_8ee73fbb0413","kind":"CURRENT","name":"Château Haut Canteloup","provenance":"pv_6319b09d8794","subject":"wn_00102","validity":{"valid_from":{"kind":"UNKNOWN"},"valid_to":{"kind":"OPEN"}}}
+{"id":"nm_8f45b21a99cd","kind":"CURRENT","name":"Château Meyre","provenance":"pv_6319b09d8794","subject":"wn_00157","validity":{"valid_from":{"kind":"UNKNOWN"},"valid_to":{"kind":"OPEN"}}}
+{"id":"nm_8fd199919529","kind":"CURRENT","name":"Château La Marzelle","provenance":"pv_6319b09d8794","subject":"wn_00412","validity":{"valid_from":{"kind":"UNKNOWN"},"valid_to":{"kind":"OPEN"}}}
+{"id":"nm_900e3351ebeb","kind":"CURRENT","name":"Château Le Gay","provenance":"pv_6319b09d8794","subject":"wn_00313","validity":{"valid_from":{"kind":"UNKNOWN"},"valid_to":{"kind":"OPEN"}}}
+{"id":"nm_90a77363d206","kind":"CURRENT","name":"Château Saint-Aubin","provenance":"pv_6319b09d8794","subject":"wn_00194","validity":{"valid_from":{"kind":"UNKNOWN"},"valid_to":{"kind":"OPEN"}}}
+{"id":"nm_90b29043ca1a","kind":"CURRENT","name":"Château Plantey","provenance":"pv_6319b09d8794","subject":"wn_00176","validity":{"valid_from":{"kind":"UNKNOWN"},"valid_to":{"kind":"OPEN"}}}
+{"id":"nm_90f8c0bb25a0","kind":"CURRENT","name":"Château Vieux Landat","provenance":"pv_6319b09d8794","subject":"wn_00208","validity":{"valid_from":{"kind":"UNKNOWN"},"valid_to":{"kind":"OPEN"}}}
+{"id":"nm_9131281aa553","kind":"CURRENT","name":"Château d'Escurac","provenance":"pv_6319b09d8794","subject":"wn_00070","validity":{"valid_from":{"kind":"UNKNOWN"},"valid_to":{"kind":"OPEN"}}}
 {"id":"nm_914ea736346a","kind":"CURRENT","name":"Château d’Armailhac","provenance":"pv_dcde0cc6132f","subject":"es_00247","validity":{"valid_from":{"kind":"UNKNOWN"},"valid_to":{"kind":"OPEN"}}}
 {"id":"nm_918c2535e54b","kind":"CURRENT","name":"Château Mazails","provenance":"pv_11f40c267c53","subject":"es_00155","validity":{"valid_from":{"kind":"UNKNOWN"},"valid_to":{"kind":"OPEN"}}}
 {"id":"nm_923f448e1870","kind":"CURRENT","name":"Château Coutelin Merville","provenance":"pv_11f40c267c53","subject":"es_00064","validity":{"valid_from":{"kind":"UNKNOWN"},"valid_to":{"kind":"OPEN"}}}
@@ -257,40 +518,74 @@
 {"id":"nm_92b94997db48","kind":"CURRENT","name":"Château Pédesclaux","provenance":"pv_dcde0cc6132f","subject":"es_00343","validity":{"valid_from":{"kind":"UNKNOWN"},"valid_to":{"kind":"OPEN"}}}
 {"id":"nm_92d1de446bc4","kind":"CURRENT","name":"Château Greysac","provenance":"pv_11f40c267c53","subject":"es_00096","validity":{"valid_from":{"kind":"UNKNOWN"},"valid_to":{"kind":"OPEN"}}}
 {"id":"nm_93283eeb197d","kind":"CURRENT","name":"Château le Crock","provenance":"pv_11f40c267c53","subject":"es_00134","validity":{"valid_from":{"kind":"UNKNOWN"},"valid_to":{"kind":"OPEN"}}}
+{"id":"nm_933f32552657","kind":"CURRENT","name":"Château Fombrauge","provenance":"pv_6319b09d8794","subject":"wn_00396","validity":{"valid_from":{"kind":"UNKNOWN"},"valid_to":{"kind":"OPEN"}}}
+{"id":"nm_935b31cfbc18","kind":"CURRENT","name":"Château Moulin de Canhaut","provenance":"pv_6319b09d8794","subject":"wn_00161","validity":{"valid_from":{"kind":"UNKNOWN"},"valid_to":{"kind":"OPEN"}}}
+{"id":"nm_93a6dcf1a4c7","kind":"CURRENT","name":"Château Desmirail","provenance":"pv_6319b09d8794","subject":"wn_00254","validity":{"valid_from":{"kind":"UNKNOWN"},"valid_to":{"kind":"OPEN"}}}
 {"id":"nm_93bbde740fe3","kind":"CURRENT","name":"Clos L’Église","provenance":"pv_ac325d595306","subject":"es_00235","validity":{"valid_from":{"kind":"UNKNOWN"},"valid_to":{"kind":"OPEN"}}}
+{"id":"nm_93c897c63703","kind":"CURRENT","name":"Château Couhins-Lurton","provenance":"pv_6319b09d8794","subject":"wn_00241","validity":{"valid_from":{"kind":"UNKNOWN"},"valid_to":{"kind":"OPEN"}}}
+{"id":"nm_943db068769e","kind":"CURRENT","name":"Château de Bensse","provenance":"pv_6319b09d8794","subject":"wn_00072","validity":{"valid_from":{"kind":"UNKNOWN"},"valid_to":{"kind":"OPEN"}}}
 {"id":"nm_94a4db3f7e4f","kind":"CURRENT","name":"Château Lamothe Bergeron","provenance":"pv_11f40c267c53","subject":"es_00129","validity":{"valid_from":{"kind":"UNKNOWN"},"valid_to":{"kind":"OPEN"}}}
 {"id":"nm_94dbe824044f","kind":"CURRENT","name":"Château Laujac","provenance":"pv_11f40c267c53","subject":"es_00131","validity":{"valid_from":{"kind":"UNKNOWN"},"valid_to":{"kind":"OPEN"}}}
 {"id":"nm_951f04360336","kind":"CURRENT","name":"Château Malartic-Lagravière","provenance":"pv_e45f5d20b569","subject":"es_00324","validity":{"valid_from":{"kind":"UNKNOWN"},"valid_to":{"kind":"OPEN"}}}
 {"id":"nm_956546e4c8d2","kind":"CURRENT","name":"Château Beychevelle","provenance":"pv_dcde0cc6132f","subject":"es_00040","validity":{"valid_from":{"kind":"UNKNOWN"},"valid_to":{"kind":"OPEN"}}}
+{"id":"nm_9598d41760a9","kind":"CURRENT","name":"Château Joanin Bécot","provenance":"pv_6319b09d8794","subject":"wn_00284","validity":{"valid_from":{"kind":"UNKNOWN"},"valid_to":{"kind":"OPEN"}}}
+{"id":"nm_95b4ae9483aa","kind":"CURRENT","name":"Château German Marbuzet","provenance":"pv_6319b09d8794","subject":"wn_00093","validity":{"valid_from":{"kind":"UNKNOWN"},"valid_to":{"kind":"OPEN"}}}
 {"id":"nm_95b72b40714c","kind":"CURRENT","name":"Grand Enclos du Château de Cérons","provenance":"pv_c39dd7c9e901","subject":"es_00272","validity":{"valid_from":{"kind":"UNKNOWN"},"valid_to":{"kind":"OPEN"}}}
+{"id":"nm_96dda4f49e89","kind":"CURRENT","name":"Château Yon-Figeac","provenance":"pv_6319b09d8794","subject":"wn_00438","validity":{"valid_from":{"kind":"UNKNOWN"},"valid_to":{"kind":"OPEN"}}}
 {"id":"nm_974186444a13","kind":"CURRENT","name":"Château Saint-Georges Côte Pavie","provenance":"pv_0377fa70c247","subject":"es_00444","validity":{"valid_from":{"kind":"UNKNOWN"},"valid_to":{"kind":"OPEN"}}}
+{"id":"nm_97ea2da2ffff","kind":"CURRENT","name":"Château Linot","provenance":"pv_6319b09d8794","subject":"wn_00023","validity":{"valid_from":{"kind":"UNKNOWN"},"valid_to":{"kind":"OPEN"}}}
 {"id":"nm_97fbc818a4ea","kind":"CURRENT","name":"Château Montlandrie","provenance":"pv_c39dd7c9e901","subject":"es_00332","validity":{"valid_from":{"kind":"UNKNOWN"},"valid_to":{"kind":"OPEN"}}}
 {"id":"nm_98f7a95dd40b","kind":"CURRENT","name":"Château Guadet","provenance":"pv_0377fa70c247","subject":"es_00415","validity":{"valid_from":{"kind":"UNKNOWN"},"valid_to":{"kind":"OPEN"}}}
+{"id":"nm_99095bca88b2","kind":"CURRENT","name":"Château Clinet","provenance":"pv_6319b09d8794","subject":"wn_00231","validity":{"valid_from":{"kind":"UNKNOWN"},"valid_to":{"kind":"OPEN"}}}
 {"id":"nm_9963558c2a73","kind":"CURRENT","name":"Château Troplong Mondot","provenance":"pv_0377fa70c247","subject":"es_00462","validity":{"valid_from":{"kind":"UNKNOWN"},"valid_to":{"kind":"OPEN"}}}
+{"id":"nm_9a325af7d4bd","kind":"CURRENT","name":"Château Sansonnet","provenance":"pv_6319b09d8794","subject":"wn_00433","validity":{"valid_from":{"kind":"UNKNOWN"},"valid_to":{"kind":"OPEN"}}}
 {"id":"nm_9a60331d14c3","kind":"CURRENT","name":"Château du Cartillon","provenance":"pv_11f40c267c53","subject":"es_00086","validity":{"valid_from":{"kind":"UNKNOWN"},"valid_to":{"kind":"OPEN"}}}
+{"id":"nm_9a69293f6c54","kind":"CURRENT","name":"Château Roquegrave","provenance":"pv_6319b09d8794","subject":"wn_00191","validity":{"valid_from":{"kind":"UNKNOWN"},"valid_to":{"kind":"OPEN"}}}
 {"id":"nm_9a96a442abdf","kind":"CURRENT","name":"Château Tour Saint Vincent","provenance":"pv_11f40c267c53","subject":"es_00204","validity":{"valid_from":{"kind":"UNKNOWN"},"valid_to":{"kind":"OPEN"}}}
 {"id":"nm_9b121b0146f0","kind":"CURRENT","name":"Château Mongravey","provenance":"pv_11f40c267c53","subject":"es_00158","validity":{"valid_from":{"kind":"UNKNOWN"},"valid_to":{"kind":"OPEN"}}}
+{"id":"nm_9b8365e15613","kind":"CURRENT","name":"Château Lafleur","provenance":"pv_6319b09d8794","subject":"wn_00301","validity":{"valid_from":{"kind":"UNKNOWN"},"valid_to":{"kind":"OPEN"}}}
+{"id":"nm_9bbe286b6b91","kind":"CURRENT","name":"Château La Lagune","provenance":"pv_6319b09d8794","subject":"wn_00291","validity":{"valid_from":{"kind":"UNKNOWN"},"valid_to":{"kind":"OPEN"}}}
 {"id":"nm_9bc7d1e40d13","kind":"CURRENT","name":"Château Laniote","provenance":"pv_0377fa70c247","subject":"es_00427","validity":{"valid_from":{"kind":"UNKNOWN"},"valid_to":{"kind":"OPEN"}}}
 {"id":"nm_9c27a106b410","kind":"CURRENT","name":"Clos Dubreuil","provenance":"pv_0377fa70c247","subject":"es_00455","validity":{"valid_from":{"kind":"UNKNOWN"},"valid_to":{"kind":"OPEN"}}}
+{"id":"nm_9c2e4a15ceaa","kind":"CURRENT","name":"Château Fonroque","provenance":"pv_6319b09d8794","subject":"wn_00398","validity":{"valid_from":{"kind":"UNKNOWN"},"valid_to":{"kind":"OPEN"}}}
+{"id":"nm_9c78cda9aa6a","kind":"CURRENT","name":"Château Marceline","provenance":"pv_6319b09d8794","subject":"wn_00024","validity":{"valid_from":{"kind":"UNKNOWN"},"valid_to":{"kind":"OPEN"}}}
 {"id":"nm_9c80d46fd8ae","kind":"CURRENT","name":"Château Carbonnieux","provenance":"pv_e45f5d20b569","subject":"es_00225","validity":{"valid_from":{"kind":"UNKNOWN"},"valid_to":{"kind":"OPEN"}}}
 {"id":"nm_9d790488d390","kind":"CURRENT","name":"Château Valandraud","provenance":"pv_0377fa70c247","subject":"es_00466","validity":{"valid_from":{"kind":"UNKNOWN"},"valid_to":{"kind":"OPEN"}}}
+{"id":"nm_9ddd3e5aa79f","kind":"CURRENT","name":"Château la Ribaud","provenance":"pv_6319b09d8794","subject":"wn_00117","validity":{"valid_from":{"kind":"UNKNOWN"},"valid_to":{"kind":"OPEN"}}}
 {"id":"nm_9e14cee12db7","kind":"CURRENT","name":"Château Fontenil","provenance":"pv_7cce45d9d443","subject":"es_00268","validity":{"valid_from":{"kind":"UNKNOWN"},"valid_to":{"kind":"OPEN"}}}
+{"id":"nm_9e6eda837c3d","kind":"CURRENT","name":"Clos la Bohème","provenance":"pv_6319b09d8794","subject":"wn_00210","validity":{"valid_from":{"kind":"UNKNOWN"},"valid_to":{"kind":"OPEN"}}}
+{"id":"nm_9e7da49e6ff7","kind":"CURRENT","name":"Château Biston-Brillette","provenance":"pv_6319b09d8794","subject":"wn_00053","validity":{"valid_from":{"kind":"UNKNOWN"},"valid_to":{"kind":"OPEN"}}}
+{"id":"nm_9eb7afaa0b8f","kind":"CURRENT","name":"Château Cantenac-Brown","provenance":"pv_6319b09d8794","subject":"wn_00224","validity":{"valid_from":{"kind":"UNKNOWN"},"valid_to":{"kind":"OPEN"}}}
+{"id":"nm_9ef10f98b7ae","kind":"CURRENT","name":"Château Beau-Séjour Bécot","provenance":"pv_6319b09d8794","subject":"wn_00036","validity":{"valid_from":{"kind":"UNKNOWN"},"valid_to":{"kind":"OPEN"}}}
 {"id":"nm_9fcc5bef2858","kind":"CURRENT","name":"Château de Chantegrive","provenance":"pv_116ea930fdbf","subject":"es_00227","validity":{"valid_from":{"kind":"UNKNOWN"},"valid_to":{"kind":"OPEN"}}}
+{"id":"nm_a0afc9bfbae0","kind":"CURRENT","name":"Château de Pressac","provenance":"pv_6319b09d8794","subject":"wn_00392","validity":{"valid_from":{"kind":"UNKNOWN"},"valid_to":{"kind":"OPEN"}}}
 {"id":"nm_a0dedd51ba9b","kind":"CURRENT","name":"Château Durfort-Vivens","provenance":"pv_dcde0cc6132f","subject":"es_00263","validity":{"valid_from":{"kind":"UNKNOWN"},"valid_to":{"kind":"OPEN"}}}
 {"id":"nm_a258d6ab6417","kind":"CURRENT","name":"Château de Panigon","provenance":"pv_11f40c267c53","subject":"es_00078","validity":{"valid_from":{"kind":"UNKNOWN"},"valid_to":{"kind":"OPEN"}}}
+{"id":"nm_a294660668c9","kind":"CURRENT","name":"Château Moulin Pey-Labrie","provenance":"pv_6319b09d8794","subject":"wn_00335","validity":{"valid_from":{"kind":"UNKNOWN"},"valid_to":{"kind":"OPEN"}}}
 {"id":"nm_a29e851ae50d","kind":"CURRENT","name":"Clos de Bigos","provenance":"pv_537d1e191755","subject":"es_00033","validity":{"valid_from":{"kind":"UNKNOWN"},"valid_to":{"kind":"OPEN"}}}
 {"id":"nm_a2bcedeeafa8","kind":"CURRENT","name":"Château d’Yquem","provenance":"pv_72872a84d1b4","subject":"es_00470","validity":{"valid_from":{"kind":"UNKNOWN"},"valid_to":{"kind":"OPEN"}}}
+{"id":"nm_a2d8cf486781","kind":"CURRENT","name":"Château Saint Bonnet","provenance":"pv_6319b09d8794","subject":"wn_00195","validity":{"valid_from":{"kind":"UNKNOWN"},"valid_to":{"kind":"OPEN"}}}
 {"id":"nm_a2db1768e719","kind":"CURRENT","name":"Château Puy Castera","provenance":"pv_11f40c267c53","subject":"es_00184","validity":{"valid_from":{"kind":"UNKNOWN"},"valid_to":{"kind":"OPEN"}}}
 {"id":"nm_a3c6af3caa3b","kind":"CURRENT","name":"Château Pey Mallet","provenance":"pv_537d1e191755","subject":"es_00027","validity":{"valid_from":{"kind":"UNKNOWN"},"valid_to":{"kind":"OPEN"}}}
 {"id":"nm_a3f17a4f2d17","kind":"CURRENT","name":"Château La Croix de Gay","provenance":"pv_ac325d595306","subject":"es_00355","validity":{"valid_from":{"kind":"UNKNOWN"},"valid_to":{"kind":"OPEN"}}}
+{"id":"nm_a4c7445ef014","kind":"CURRENT","name":"Château Bellegrave","provenance":"pv_6319b09d8794","subject":"wn_00049","validity":{"valid_from":{"kind":"UNKNOWN"},"valid_to":{"kind":"OPEN"}}}
+{"id":"nm_a4f704a82388","kind":"CURRENT","name":"Château Haut-Bailly","provenance":"pv_6319b09d8794","subject":"wn_00278","validity":{"valid_from":{"kind":"UNKNOWN"},"valid_to":{"kind":"OPEN"}}}
+{"id":"nm_a50642b5459a","kind":"CURRENT","name":"Château La Conseillante","provenance":"pv_6319b09d8794","subject":"wn_00287","validity":{"valid_from":{"kind":"UNKNOWN"},"valid_to":{"kind":"OPEN"}}}
+{"id":"nm_a5503af1bcab","kind":"CURRENT","name":"Château Grandis","provenance":"pv_6319b09d8794","subject":"wn_00095","validity":{"valid_from":{"kind":"UNKNOWN"},"valid_to":{"kind":"OPEN"}}}
 {"id":"nm_a5634e94b657","kind":"CURRENT","name":"Château Vieux Landat","provenance":"pv_11f40c267c53","subject":"es_00208","validity":{"valid_from":{"kind":"UNKNOWN"},"valid_to":{"kind":"OPEN"}}}
+{"id":"nm_a61efb1d7759","kind":"CURRENT","name":"Château Climens","provenance":"pv_6319b09d8794","subject":"wn_00230","validity":{"valid_from":{"kind":"UNKNOWN"},"valid_to":{"kind":"OPEN"}}}
+{"id":"nm_a646043ec9d3","kind":"CURRENT","name":"Château Montlabert","provenance":"pv_6319b09d8794","subject":"wn_00424","validity":{"valid_from":{"kind":"UNKNOWN"},"valid_to":{"kind":"OPEN"}}}
+{"id":"nm_a6552f4fa629","kind":"CURRENT","name":"Château Mazeris","provenance":"pv_6319b09d8794","subject":"wn_00330","validity":{"valid_from":{"kind":"UNKNOWN"},"valid_to":{"kind":"OPEN"}}}
 {"id":"nm_a698d056c298","kind":"CURRENT","name":"Château Beauvillage","provenance":"pv_11f40c267c53","subject":"es_00045","validity":{"valid_from":{"kind":"UNKNOWN"},"valid_to":{"kind":"OPEN"}}}
+{"id":"nm_a77df9b962d8","kind":"CURRENT","name":"Château d’Issan","provenance":"pv_6319b09d8794","subject":"wn_00283","validity":{"valid_from":{"kind":"UNKNOWN"},"valid_to":{"kind":"OPEN"}}}
 {"id":"nm_a837da019de1","kind":"CURRENT","name":"Château Providence","provenance":"pv_ac325d595306","subject":"es_00373","validity":{"valid_from":{"kind":"UNKNOWN"},"valid_to":{"kind":"OPEN"}}}
 {"id":"nm_a88dc3e822c2","kind":"CURRENT","name":"Château Hosanna","provenance":"pv_ac325d595306","subject":"es_00282","validity":{"valid_from":{"kind":"UNKNOWN"},"valid_to":{"kind":"OPEN"}}}
 {"id":"nm_a8add11a57a6","kind":"CURRENT","name":"Château Fombrauge","provenance":"pv_0377fa70c247","subject":"es_00408","validity":{"valid_from":{"kind":"UNKNOWN"},"valid_to":{"kind":"OPEN"}}}
 {"id":"nm_a8b2198400fc","kind":"CURRENT","name":"Château Fonplégade","provenance":"pv_0377fa70c247","subject":"es_00409","validity":{"valid_from":{"kind":"UNKNOWN"},"valid_to":{"kind":"OPEN"}}}
 {"id":"nm_a9254e6b6401","kind":"CURRENT","name":"Château Grivière","provenance":"pv_11f40c267c53","subject":"es_00097","validity":{"valid_from":{"kind":"UNKNOWN"},"valid_to":{"kind":"OPEN"}}}
+{"id":"nm_a94df926b2bf","kind":"CURRENT","name":"Château Léoville-Poyferré","provenance":"pv_6319b09d8794","subject":"wn_00318","validity":{"valid_from":{"kind":"UNKNOWN"},"valid_to":{"kind":"OPEN"}}}
 {"id":"nm_a96c8f484507","kind":"CURRENT","name":"Château Croizet-Bages","provenance":"pv_dcde0cc6132f","subject":"es_00243","validity":{"valid_from":{"kind":"UNKNOWN"},"valid_to":{"kind":"OPEN"}}}
+{"id":"nm_aa5fcd10462e","kind":"CURRENT","name":"Château Calon-Ségur","provenance":"pv_6319b09d8794","subject":"wn_00220","validity":{"valid_from":{"kind":"UNKNOWN"},"valid_to":{"kind":"OPEN"}}}
 {"id":"nm_aa836661c8e4","kind":"CURRENT","name":"Château Saint-Aubin","provenance":"pv_11f40c267c53","subject":"es_00194","validity":{"valid_from":{"kind":"UNKNOWN"},"valid_to":{"kind":"OPEN"}}}
 {"id":"nm_aae9ce657e18","kind":"CURRENT","name":"Château Chantemerle","provenance":"pv_11f40c267c53","subject":"es_00059","validity":{"valid_from":{"kind":"UNKNOWN"},"valid_to":{"kind":"OPEN"}}}
 {"id":"nm_abc8f8d28f68","kind":"CURRENT","name":"Château Chasse-Spleen","provenance":"pv_85d1e6bef23a","subject":"es_00228","validity":{"valid_from":{"kind":"UNKNOWN"},"valid_to":{"kind":"OPEN"}}}
@@ -299,59 +594,122 @@
 {"id":"nm_ac598c193aa9","kind":"CURRENT","name":"Château Sansonnet","provenance":"pv_0377fa70c247","subject":"es_00445","validity":{"valid_from":{"kind":"UNKNOWN"},"valid_to":{"kind":"OPEN"}}}
 {"id":"nm_acae72a19f5f","kind":"CURRENT","name":"Château Suduiraut","provenance":"pv_72872a84d1b4","subject":"es_00460","validity":{"valid_from":{"kind":"UNKNOWN"},"valid_to":{"kind":"OPEN"}}}
 {"id":"nm_acca0394c372","kind":"CURRENT","name":"Château Lalaudey","provenance":"pv_11f40c267c53","subject":"es_00128","validity":{"valid_from":{"kind":"UNKNOWN"},"valid_to":{"kind":"OPEN"}}}
+{"id":"nm_acca9521d0cd","kind":"CURRENT","name":"Château Beauregard","provenance":"pv_6319b09d8794","subject":"wn_00347","validity":{"valid_from":{"kind":"UNKNOWN"},"valid_to":{"kind":"OPEN"}}}
+{"id":"nm_acefa6456447","kind":"CURRENT","name":"Domaine de la Garenne","provenance":"pv_6319b09d8794","subject":"wn_00034","validity":{"valid_from":{"kind":"UNKNOWN"},"valid_to":{"kind":"OPEN"}}}
+{"id":"nm_add1a25ee798","kind":"CURRENT","name":"Château La Fleur de Boüard","provenance":"pv_6319b09d8794","subject":"wn_00289","validity":{"valid_from":{"kind":"UNKNOWN"},"valid_to":{"kind":"OPEN"}}}
 {"id":"nm_ae4f9a2a5360","kind":"CURRENT","name":"Château Donissan","provenance":"pv_11f40c267c53","subject":"es_00085","validity":{"valid_from":{"kind":"UNKNOWN"},"valid_to":{"kind":"OPEN"}}}
+{"id":"nm_aec0db66d3fb","kind":"CURRENT","name":"Château Tourteran","provenance":"pv_6319b09d8794","subject":"wn_00205","validity":{"valid_from":{"kind":"UNKNOWN"},"valid_to":{"kind":"OPEN"}}}
+{"id":"nm_aec260b3e098","kind":"CURRENT","name":"Château Lalaudey","provenance":"pv_6319b09d8794","subject":"wn_00128","validity":{"valid_from":{"kind":"UNKNOWN"},"valid_to":{"kind":"OPEN"}}}
 {"id":"nm_aeea1eff6c4c","kind":"CURRENT","name":"Château Le Prieuré","provenance":"pv_0377fa70c247","subject":"es_00433","validity":{"valid_from":{"kind":"UNKNOWN"},"valid_to":{"kind":"OPEN"}}}
 {"id":"nm_aefbba12c686","kind":"CURRENT","name":"Château Coutet","provenance":"pv_72872a84d1b4","subject":"es_00242","validity":{"valid_from":{"kind":"UNKNOWN"},"valid_to":{"kind":"OPEN"}}}
+{"id":"nm_af3b09828632","kind":"CURRENT","name":"Château Providence","provenance":"pv_6319b09d8794","subject":"wn_00361","validity":{"valid_from":{"kind":"UNKNOWN"},"valid_to":{"kind":"OPEN"}}}
+{"id":"nm_af4b7025ca0c","kind":"CURRENT","name":"Château Lagrange","provenance":"pv_6319b09d8794","subject":"wn_00303","validity":{"valid_from":{"kind":"UNKNOWN"},"valid_to":{"kind":"OPEN"}}}
+{"id":"nm_af6d83b1863d","kind":"CURRENT","name":"Château Tour des Termes","provenance":"pv_6319b09d8794","subject":"wn_00201","validity":{"valid_from":{"kind":"UNKNOWN"},"valid_to":{"kind":"OPEN"}}}
+{"id":"nm_af87745eade4","kind":"CURRENT","name":"Château Canon La Gaffelière","provenance":"pv_6319b09d8794","subject":"wn_00222","validity":{"valid_from":{"kind":"UNKNOWN"},"valid_to":{"kind":"OPEN"}}}
 {"id":"nm_afadb05bf87f","kind":"CURRENT","name":"Château Grand Mayne","provenance":"pv_0377fa70c247","subject":"es_00414","validity":{"valid_from":{"kind":"UNKNOWN"},"valid_to":{"kind":"OPEN"}}}
+{"id":"nm_b05707081de1","kind":"CURRENT","name":"Château de Chantegrive","provenance":"pv_6319b09d8794","subject":"wn_00227","validity":{"valid_from":{"kind":"UNKNOWN"},"valid_to":{"kind":"OPEN"}}}
+{"id":"nm_b06d0d32874d","kind":"CURRENT","name":"Château Castera","provenance":"pv_6319b09d8794","subject":"wn_00058","validity":{"valid_from":{"kind":"UNKNOWN"},"valid_to":{"kind":"OPEN"}}}
+{"id":"nm_b0e55fec0868","kind":"CURRENT","name":"Château Liouner","provenance":"pv_6319b09d8794","subject":"wn_00147","validity":{"valid_from":{"kind":"UNKNOWN"},"valid_to":{"kind":"OPEN"}}}
 {"id":"nm_b1e465621951","kind":"CURRENT","name":"Château la Fon du Berger","provenance":"pv_11f40c267c53","subject":"es_00111","validity":{"valid_from":{"kind":"UNKNOWN"},"valid_to":{"kind":"OPEN"}}}
+{"id":"nm_b1e794b59074","kind":"CURRENT","name":"Château Lafon","provenance":"pv_6319b09d8794","subject":"wn_00125","validity":{"valid_from":{"kind":"UNKNOWN"},"valid_to":{"kind":"OPEN"}}}
+{"id":"nm_b281082280a4","kind":"CURRENT","name":"Château l'Argenteyre","provenance":"pv_6319b09d8794","subject":"wn_00106","validity":{"valid_from":{"kind":"UNKNOWN"},"valid_to":{"kind":"OPEN"}}}
+{"id":"nm_b2d560e25557","kind":"CURRENT","name":"Château Rabaud-Promis","provenance":"pv_6319b09d8794","subject":"wn_00362","validity":{"valid_from":{"kind":"UNKNOWN"},"valid_to":{"kind":"OPEN"}}}
+{"id":"nm_b2e639568f01","kind":"CURRENT","name":"Château Bellevue","provenance":"pv_6319b09d8794","subject":"wn_00380","validity":{"valid_from":{"kind":"UNKNOWN"},"valid_to":{"kind":"OPEN"}}}
 {"id":"nm_b31dc8577171","kind":"CURRENT","name":"Château Poitevin","provenance":"pv_11f40c267c53","subject":"es_00177","validity":{"valid_from":{"kind":"UNKNOWN"},"valid_to":{"kind":"OPEN"}}}
+{"id":"nm_b392200d7bee","kind":"CURRENT","name":"Château de la Croix","provenance":"pv_6319b09d8794","subject":"wn_00076","validity":{"valid_from":{"kind":"UNKNOWN"},"valid_to":{"kind":"OPEN"}}}
 {"id":"nm_b3d5d08c5874","kind":"CURRENT","name":"Château Turcaud","provenance":"pv_c39dd7c9e901","subject":"es_00465","validity":{"valid_from":{"kind":"UNKNOWN"},"valid_to":{"kind":"OPEN"}}}
 {"id":"nm_b43b11670f0c","kind":"CURRENT","name":"Château Batailley","provenance":"pv_dcde0cc6132f","subject":"es_00035","validity":{"valid_from":{"kind":"UNKNOWN"},"valid_to":{"kind":"OPEN"}}}
 {"id":"nm_b48e124d2df9","kind":"CURRENT","name":"Château Moulin de Blanchon","provenance":"pv_11f40c267c53","subject":"es_00160","validity":{"valid_from":{"kind":"UNKNOWN"},"valid_to":{"kind":"OPEN"}}}
+{"id":"nm_b4d0f868919d","kind":"CURRENT","name":"Château Troussas","provenance":"pv_6319b09d8794","subject":"wn_00206","validity":{"valid_from":{"kind":"UNKNOWN"},"valid_to":{"kind":"OPEN"}}}
 {"id":"nm_b52dcee171dd","kind":"CURRENT","name":"Château Barreyres","provenance":"pv_11f40c267c53","subject":"es_00043","validity":{"valid_from":{"kind":"UNKNOWN"},"valid_to":{"kind":"OPEN"}}}
+{"id":"nm_b5436df17a3a","kind":"CURRENT","name":"Château Montlandrie","provenance":"pv_6319b09d8794","subject":"wn_00332","validity":{"valid_from":{"kind":"UNKNOWN"},"valid_to":{"kind":"OPEN"}}}
 {"id":"nm_b55708ea6bfd","kind":"CURRENT","name":"Château Grand Corbin","provenance":"pv_0377fa70c247","subject":"es_00412","validity":{"valid_from":{"kind":"UNKNOWN"},"valid_to":{"kind":"OPEN"}}}
+{"id":"nm_b632c00b5839","kind":"CURRENT","name":"Château Ripeau","provenance":"pv_6319b09d8794","subject":"wn_00429","validity":{"valid_from":{"kind":"UNKNOWN"},"valid_to":{"kind":"OPEN"}}}
 {"id":"nm_b63d34df4955","kind":"CURRENT","name":"Château Gombaude-Guillot","provenance":"pv_ac325d595306","subject":"es_00351","validity":{"valid_from":{"kind":"UNKNOWN"},"valid_to":{"kind":"OPEN"}}}
+{"id":"nm_b6c5083cb926","kind":"CURRENT","name":"Château Boutisse","provenance":"pv_6319b09d8794","subject":"wn_00382","validity":{"valid_from":{"kind":"UNKNOWN"},"valid_to":{"kind":"OPEN"}}}
 {"id":"nm_b6ca23c77ad1","kind":"CURRENT","name":"Château du Moulin Rouge","provenance":"pv_11f40c267c53","subject":"es_00087","validity":{"valid_from":{"kind":"UNKNOWN"},"valid_to":{"kind":"OPEN"}}}
 {"id":"nm_b70479b17fc2","kind":"CURRENT","name":"Château Léoville-Las Cases","provenance":"pv_dcde0cc6132f","subject":"es_00317","validity":{"valid_from":{"kind":"UNKNOWN"},"valid_to":{"kind":"OPEN"}}}
+{"id":"nm_b753b7209fb1","kind":"CURRENT","name":"Château la Cardonne","provenance":"pv_6319b09d8794","subject":"wn_00108","validity":{"valid_from":{"kind":"UNKNOWN"},"valid_to":{"kind":"OPEN"}}}
+{"id":"nm_b78f032f4aa1","kind":"CURRENT","name":"Château Sigalas-Rabaud","provenance":"pv_6319b09d8794","subject":"wn_00374","validity":{"valid_from":{"kind":"UNKNOWN"},"valid_to":{"kind":"OPEN"}}}
 {"id":"nm_b7c1c985fe4d","kind":"CURRENT","name":"Château Lacombe Noaillac","provenance":"pv_11f40c267c53","subject":"es_00121","validity":{"valid_from":{"kind":"UNKNOWN"},"valid_to":{"kind":"OPEN"}}}
 {"id":"nm_b7e41e690b35","kind":"CURRENT","name":"Château Peyrat-Fourthon","provenance":"pv_11f40c267c53","subject":"es_00172","validity":{"valid_from":{"kind":"UNKNOWN"},"valid_to":{"kind":"OPEN"}}}
+{"id":"nm_b8715e9bf734","kind":"CURRENT","name":"Château Ramafort","provenance":"pv_6319b09d8794","subject":"wn_00185","validity":{"valid_from":{"kind":"UNKNOWN"},"valid_to":{"kind":"OPEN"}}}
 {"id":"nm_b8f885fca5b2","kind":"CURRENT","name":"Château Fleur Cardinale","provenance":"pv_0377fa70c247","subject":"es_00407","validity":{"valid_from":{"kind":"UNKNOWN"},"valid_to":{"kind":"OPEN"}}}
+{"id":"nm_b8ffcde8c9f3","kind":"CURRENT","name":"Château Doisy-Daëne","provenance":"pv_6319b09d8794","subject":"wn_00255","validity":{"valid_from":{"kind":"UNKNOWN"},"valid_to":{"kind":"OPEN"}}}
+{"id":"nm_b911c16bfd34","kind":"CURRENT","name":"Château l’Evasion","provenance":"pv_6319b09d8794","subject":"wn_00015","validity":{"valid_from":{"kind":"UNKNOWN"},"valid_to":{"kind":"OPEN"}}}
+{"id":"nm_b912883b6ad6","kind":"CURRENT","name":"Château Le Prieuré","provenance":"pv_6319b09d8794","subject":"wn_00421","validity":{"valid_from":{"kind":"UNKNOWN"},"valid_to":{"kind":"OPEN"}}}
 {"id":"nm_b9400fc16b19","kind":"CURRENT","name":"Château Pierre de Montignac","provenance":"pv_11f40c267c53","subject":"es_00174","validity":{"valid_from":{"kind":"UNKNOWN"},"valid_to":{"kind":"OPEN"}}}
+{"id":"nm_b99728e28025","kind":"CURRENT","name":"Château de Braude","provenance":"pv_6319b09d8794","subject":"wn_00073","validity":{"valid_from":{"kind":"UNKNOWN"},"valid_to":{"kind":"OPEN"}}}
+{"id":"nm_b999e2608c0a","kind":"CURRENT","name":"Château Côtes de Blaignan","provenance":"pv_6319b09d8794","subject":"wn_00063","validity":{"valid_from":{"kind":"UNKNOWN"},"valid_to":{"kind":"OPEN"}}}
+{"id":"nm_b9b51743a6b1","kind":"CURRENT","name":"Château Balestard La Tonnelle","provenance":"pv_6319b09d8794","subject":"wn_00377","validity":{"valid_from":{"kind":"UNKNOWN"},"valid_to":{"kind":"OPEN"}}}
+{"id":"nm_b9c917847f54","kind":"CURRENT","name":"Château Paveil de Luze","provenance":"pv_6319b09d8794","subject":"wn_00169","validity":{"valid_from":{"kind":"UNKNOWN"},"valid_to":{"kind":"OPEN"}}}
 {"id":"nm_ba0dd393aee3","kind":"CURRENT","name":"Château Reysson","provenance":"pv_11f40c267c53","subject":"es_00188","validity":{"valid_from":{"kind":"UNKNOWN"},"valid_to":{"kind":"OPEN"}}}
 {"id":"nm_ba284b2a55f6","kind":"CURRENT","name":"Domaine de Chevalier","provenance":"pv_e45f5d20b569","subject":"es_00258","validity":{"valid_from":{"kind":"UNKNOWN"},"valid_to":{"kind":"OPEN"}}}
 {"id":"nm_ba3636e1688e","kind":"CURRENT","name":"Château de Braude","provenance":"pv_11f40c267c53","subject":"es_00073","validity":{"valid_from":{"kind":"UNKNOWN"},"valid_to":{"kind":"OPEN"}}}
+{"id":"nm_ba51ad4f59d8","kind":"CURRENT","name":"Château Tour du Goua","provenance":"pv_6319b09d8794","subject":"wn_00030","validity":{"valid_from":{"kind":"UNKNOWN"},"valid_to":{"kind":"OPEN"}}}
 {"id":"nm_ba78d509a82e","kind":"CURRENT","name":"Château Canon La Gaffelière","provenance":"pv_0377fa70c247","subject":"es_00222","validity":{"valid_from":{"kind":"UNKNOWN"},"valid_to":{"kind":"OPEN"}}}
 {"id":"nm_bad090de4be6","kind":"CURRENT","name":"Château Picard","provenance":"pv_11f40c267c53","subject":"es_00173","validity":{"valid_from":{"kind":"UNKNOWN"},"valid_to":{"kind":"OPEN"}}}
+{"id":"nm_baeee3749898","kind":"CURRENT","name":"Château Bessan Ségur","provenance":"pv_6319b09d8794","subject":"wn_00051","validity":{"valid_from":{"kind":"UNKNOWN"},"valid_to":{"kind":"OPEN"}}}
 {"id":"nm_bb02bd4b515c","kind":"CURRENT","name":"Château Beauregard","provenance":"pv_ac325d595306","subject":"es_00347","validity":{"valid_from":{"kind":"UNKNOWN"},"valid_to":{"kind":"OPEN"}}}
 {"id":"nm_bb093e4c9aef","kind":"CURRENT","name":"Château Boyd-Cantenac","provenance":"pv_dcde0cc6132f","subject":"es_00213","validity":{"valid_from":{"kind":"UNKNOWN"},"valid_to":{"kind":"OPEN"}}}
+{"id":"nm_bb2eeec3004c","kind":"CURRENT","name":"Château Leboscq","provenance":"pv_6319b09d8794","subject":"wn_00139","validity":{"valid_from":{"kind":"UNKNOWN"},"valid_to":{"kind":"OPEN"}}}
+{"id":"nm_bb4298ba22b1","kind":"CURRENT","name":"Château Rauzan-Ségla","provenance":"pv_6319b09d8794","subject":"wn_00365","validity":{"valid_from":{"kind":"UNKNOWN"},"valid_to":{"kind":"OPEN"}}}
 {"id":"nm_bb9a4cac5114","kind":"CURRENT","name":"Château Marquis d’Alesme","provenance":"pv_dcde0cc6132f","subject":"es_00328","validity":{"valid_from":{"kind":"UNKNOWN"},"valid_to":{"kind":"OPEN"}}}
 {"id":"nm_bc0f10ef4108","kind":"CURRENT","name":"Château de la Croix","provenance":"pv_11f40c267c53","subject":"es_00076","validity":{"valid_from":{"kind":"UNKNOWN"},"valid_to":{"kind":"OPEN"}}}
 {"id":"nm_bc575e149d14","kind":"CURRENT","name":"Château d’Arsac","provenance":"pv_11f40c267c53","subject":"es_00068","validity":{"valid_from":{"kind":"UNKNOWN"},"valid_to":{"kind":"OPEN"}}}
+{"id":"nm_bc5d6ffb8c9f","kind":"CURRENT","name":"Château des Graviers","provenance":"pv_6319b09d8794","subject":"wn_00006","validity":{"valid_from":{"kind":"UNKNOWN"},"valid_to":{"kind":"OPEN"}}}
 {"id":"nm_bc9dbfae084a","kind":"CURRENT","name":"Château d'Escurac","provenance":"pv_11f40c267c53","subject":"es_00070","validity":{"valid_from":{"kind":"UNKNOWN"},"valid_to":{"kind":"OPEN"}}}
+{"id":"nm_bca4bd57eb65","kind":"CURRENT","name":"Château Laujac","provenance":"pv_6319b09d8794","subject":"wn_00131","validity":{"valid_from":{"kind":"UNKNOWN"},"valid_to":{"kind":"OPEN"}}}
 {"id":"nm_bcab89e64e0e","kind":"CURRENT","name":"Château d’Arcins","provenance":"pv_11f40c267c53","subject":"es_00066","validity":{"valid_from":{"kind":"UNKNOWN"},"valid_to":{"kind":"OPEN"}}}
+{"id":"nm_bd2943797160","kind":"CURRENT","name":"Château Turcaud","provenance":"pv_6319b09d8794","subject":"wn_00453","validity":{"valid_from":{"kind":"UNKNOWN"},"valid_to":{"kind":"OPEN"}}}
+{"id":"nm_bd53a9dc6cd4","kind":"CURRENT","name":"Château la Branne","provenance":"pv_6319b09d8794","subject":"wn_00107","validity":{"valid_from":{"kind":"UNKNOWN"},"valid_to":{"kind":"OPEN"}}}
 {"id":"nm_bd8b5fdc2338","kind":"CURRENT","name":"Vieux Château Landon","provenance":"pv_11f40c267c53","subject":"es_00211","validity":{"valid_from":{"kind":"UNKNOWN"},"valid_to":{"kind":"OPEN"}}}
 {"id":"nm_bd9aa1af7966","kind":"CURRENT","name":"Château les Lattes","provenance":"pv_11f40c267c53","subject":"es_00141","validity":{"valid_from":{"kind":"UNKNOWN"},"valid_to":{"kind":"OPEN"}}}
+{"id":"nm_be3a6f545dda","kind":"CURRENT","name":"Château de Malleret","provenance":"pv_6319b09d8794","subject":"wn_00077","validity":{"valid_from":{"kind":"UNKNOWN"},"valid_to":{"kind":"OPEN"}}}
+{"id":"nm_be3c3a1ce626","kind":"CURRENT","name":"Château Dauzac","provenance":"pv_6319b09d8794","subject":"wn_00248","validity":{"valid_from":{"kind":"UNKNOWN"},"valid_to":{"kind":"OPEN"}}}
+{"id":"nm_be411fae6787","kind":"CURRENT","name":"Château Fontenil","provenance":"pv_6319b09d8794","subject":"wn_00268","validity":{"valid_from":{"kind":"UNKNOWN"},"valid_to":{"kind":"OPEN"}}}
+{"id":"nm_bfdcef229053","kind":"CURRENT","name":"Château des Granges d'Or","provenance":"pv_6319b09d8794","subject":"wn_00081","validity":{"valid_from":{"kind":"UNKNOWN"},"valid_to":{"kind":"OPEN"}}}
+{"id":"nm_c0117cc99f98","kind":"CURRENT","name":"Château le Bourdieu Vertheuil","provenance":"pv_6319b09d8794","subject":"wn_00133","validity":{"valid_from":{"kind":"UNKNOWN"},"valid_to":{"kind":"OPEN"}}}
 {"id":"nm_c017b6c808a0","kind":"CURRENT","name":"Château Haut-Brion","provenance":"pv_dcde0cc6132f","subject":"es_00281","validity":{"valid_from":{"kind":"UNKNOWN"},"valid_to":{"kind":"OPEN"}}}
+{"id":"nm_c05681c1533d","kind":"CURRENT","name":"Château Croix de Labrie","provenance":"pv_6319b09d8794","subject":"wn_00389","validity":{"valid_from":{"kind":"UNKNOWN"},"valid_to":{"kind":"OPEN"}}}
 {"id":"nm_c0648788bae8","kind":"CURRENT","name":"Château Feytit-Clinet","provenance":"pv_ac325d595306","subject":"es_00349","validity":{"valid_from":{"kind":"UNKNOWN"},"valid_to":{"kind":"OPEN"}}}
 {"id":"nm_c0a4171e4b77","kind":"CURRENT","name":"Château Côtes de Blaignan","provenance":"pv_11f40c267c53","subject":"es_00063","validity":{"valid_from":{"kind":"UNKNOWN"},"valid_to":{"kind":"OPEN"}}}
+{"id":"nm_c0e20315c776","kind":"CURRENT","name":"Château la Fortune","provenance":"pv_6319b09d8794","subject":"wn_00112","validity":{"valid_from":{"kind":"UNKNOWN"},"valid_to":{"kind":"OPEN"}}}
+{"id":"nm_c1590fcf7ea8","kind":"CURRENT","name":"Château la France Delhomme","provenance":"pv_6319b09d8794","subject":"wn_00113","validity":{"valid_from":{"kind":"UNKNOWN"},"valid_to":{"kind":"OPEN"}}}
+{"id":"nm_c163f320141b","kind":"CURRENT","name":"Château Plagnac","provenance":"pv_6319b09d8794","subject":"wn_00175","validity":{"valid_from":{"kind":"UNKNOWN"},"valid_to":{"kind":"OPEN"}}}
+{"id":"nm_c16584805988","kind":"CURRENT","name":"Château Greysac","provenance":"pv_6319b09d8794","subject":"wn_00096","validity":{"valid_from":{"kind":"UNKNOWN"},"valid_to":{"kind":"OPEN"}}}
 {"id":"nm_c1c5a48dd494","kind":"CURRENT","name":"Château Corbin","provenance":"pv_0377fa70c247","subject":"es_00398","validity":{"valid_from":{"kind":"UNKNOWN"},"valid_to":{"kind":"OPEN"}}}
+{"id":"nm_c200dd7565ac","kind":"CURRENT","name":"Château L’Église-Clinet","provenance":"pv_6319b09d8794","subject":"wn_00315","validity":{"valid_from":{"kind":"UNKNOWN"},"valid_to":{"kind":"OPEN"}}}
 {"id":"nm_c24db4d3ce02","kind":"CURRENT","name":"Château du Gaby","provenance":"pv_c39dd7c9e901","subject":"es_00259","validity":{"valid_from":{"kind":"UNKNOWN"},"valid_to":{"kind":"OPEN"}}}
 {"id":"nm_c2731e8c0208","kind":"CURRENT","name":"Château Smith Haut Lafitte","provenance":"pv_e45f5d20b569","subject":"es_00387","validity":{"valid_from":{"kind":"UNKNOWN"},"valid_to":{"kind":"OPEN"}}}
 {"id":"nm_c2d40907acc1","kind":"CURRENT","name":"Château Rauzan-Gassies","provenance":"pv_dcde0cc6132f","subject":"es_00376","validity":{"valid_from":{"kind":"UNKNOWN"},"valid_to":{"kind":"OPEN"}}}
+{"id":"nm_c2dc77e28a3f","kind":"CURRENT","name":"Château Haut-Maurac","provenance":"pv_6319b09d8794","subject":"wn_00104","validity":{"valid_from":{"kind":"UNKNOWN"},"valid_to":{"kind":"OPEN"}}}
+{"id":"nm_c31d47f16467","kind":"CURRENT","name":"Clos de Sarpe","provenance":"pv_6319b09d8794","subject":"wn_00441","validity":{"valid_from":{"kind":"UNKNOWN"},"valid_to":{"kind":"OPEN"}}}
 {"id":"nm_c39958a390fb","kind":"CURRENT","name":"Château La Fleur-Pétrus","provenance":"pv_ac325d595306","subject":"es_00290","validity":{"valid_from":{"kind":"UNKNOWN"},"valid_to":{"kind":"OPEN"}}}
+{"id":"nm_c3c99ffbaa67","kind":"CURRENT","name":"Château Bouscaut","provenance":"pv_6319b09d8794","subject":"wn_00212","validity":{"valid_from":{"kind":"UNKNOWN"},"valid_to":{"kind":"OPEN"}}}
 {"id":"nm_c3d64768fc83","kind":"CURRENT","name":"Clos Saint-Martin","provenance":"pv_0377fa70c247","subject":"es_00457","validity":{"valid_from":{"kind":"UNKNOWN"},"valid_to":{"kind":"OPEN"}}}
 {"id":"nm_c3e159754cca","kind":"CURRENT","name":"Château Rauzan-Ségla","provenance":"pv_dcde0cc6132f","subject":"es_00377","validity":{"valid_from":{"kind":"UNKNOWN"},"valid_to":{"kind":"OPEN"}}}
+{"id":"nm_c447abf75a21","kind":"CURRENT","name":"Château Pédesclaux","provenance":"pv_6319b09d8794","subject":"wn_00343","validity":{"valid_from":{"kind":"UNKNOWN"},"valid_to":{"kind":"OPEN"}}}
+{"id":"nm_c4b1a8c0b33c","kind":"CURRENT","name":"Château Suduiraut","provenance":"pv_6319b09d8794","subject":"wn_00448","validity":{"valid_from":{"kind":"UNKNOWN"},"valid_to":{"kind":"OPEN"}}}
 {"id":"nm_c51de9361ee7","kind":"CURRENT","name":"Château Kirwan","provenance":"pv_dcde0cc6132f","subject":"es_00285","validity":{"valid_from":{"kind":"UNKNOWN"},"valid_to":{"kind":"OPEN"}}}
 {"id":"nm_c52f48adf18e","kind":"CURRENT","name":"Château Clerc Milon","provenance":"pv_dcde0cc6132f","subject":"es_00229","validity":{"valid_from":{"kind":"UNKNOWN"},"valid_to":{"kind":"OPEN"}}}
 {"id":"nm_c5567b381764","kind":"CURRENT","name":"Château d’Osmond","provenance":"pv_537d1e191755","subject":"es_00002","validity":{"valid_from":{"kind":"UNKNOWN"},"valid_to":{"kind":"OPEN"}}}
+{"id":"nm_c57ba65f3101","kind":"CURRENT","name":"Château de Camensac","provenance":"pv_6319b09d8794","subject":"wn_00249","validity":{"valid_from":{"kind":"UNKNOWN"},"valid_to":{"kind":"OPEN"}}}
+{"id":"nm_c5ec7d3fab21","kind":"CURRENT","name":"Château Vieux Gadet","provenance":"pv_6319b09d8794","subject":"wn_00032","validity":{"valid_from":{"kind":"UNKNOWN"},"valid_to":{"kind":"OPEN"}}}
+{"id":"nm_c62e613734b8","kind":"CURRENT","name":"Château Cangruey","provenance":"pv_6319b09d8794","subject":"wn_00055","validity":{"valid_from":{"kind":"UNKNOWN"},"valid_to":{"kind":"OPEN"}}}
+{"id":"nm_c6638fb26451","kind":"CURRENT","name":"Château Patache d’Aux","provenance":"pv_6319b09d8794","subject":"wn_00168","validity":{"valid_from":{"kind":"UNKNOWN"},"valid_to":{"kind":"OPEN"}}}
+{"id":"nm_c6f2e6fab1ab","kind":"CURRENT","name":"Château Le Châtelet","provenance":"pv_6319b09d8794","subject":"wn_00420","validity":{"valid_from":{"kind":"UNKNOWN"},"valid_to":{"kind":"OPEN"}}}
 {"id":"nm_c70920429cf3","kind":"CURRENT","name":"Château Suau","provenance":"pv_72872a84d1b4","subject":"es_00459","validity":{"valid_from":{"kind":"UNKNOWN"},"valid_to":{"kind":"OPEN"}}}
+{"id":"nm_c71b1222b23d","kind":"CURRENT","name":"Château Saint Grégoire","provenance":"pv_6319b09d8794","subject":"wn_00028","validity":{"valid_from":{"kind":"UNKNOWN"},"valid_to":{"kind":"OPEN"}}}
 {"id":"nm_c73494fc50e8","kind":"CURRENT","name":"Château Moulin du Cadet","provenance":"pv_0377fa70c247","subject":"es_00438","validity":{"valid_from":{"kind":"UNKNOWN"},"valid_to":{"kind":"OPEN"}}}
+{"id":"nm_c756bc65db07","kind":"CURRENT","name":"Domaine de l’Église","provenance":"pv_6319b09d8794","subject":"wn_00357","validity":{"valid_from":{"kind":"UNKNOWN"},"valid_to":{"kind":"OPEN"}}}
 {"id":"nm_c7ac934df146","kind":"CURRENT","name":"Château Moulin de Canhaut","provenance":"pv_11f40c267c53","subject":"es_00161","validity":{"valid_from":{"kind":"UNKNOWN"},"valid_to":{"kind":"OPEN"}}}
 {"id":"nm_c7ae7db24397","kind":"CURRENT","name":"Château Carcanieux","provenance":"pv_11f40c267c53","subject":"es_00057","validity":{"valid_from":{"kind":"UNKNOWN"},"valid_to":{"kind":"OPEN"}}}
 {"id":"nm_c7b9227e8bfd","kind":"CURRENT","name":"Château Bournac","provenance":"pv_11f40c267c53","subject":"es_00054","validity":{"valid_from":{"kind":"UNKNOWN"},"valid_to":{"kind":"OPEN"}}}
 {"id":"nm_c7def98c58fd","kind":"CURRENT","name":"Château Devise d'Ardilley","provenance":"pv_11f40c267c53","subject":"es_00083","validity":{"valid_from":{"kind":"UNKNOWN"},"valid_to":{"kind":"OPEN"}}}
 {"id":"nm_c82d54701c41","kind":"CURRENT","name":"Château de Carles","provenance":"pv_7cce45d9d443","subject":"es_00250","validity":{"valid_from":{"kind":"UNKNOWN"},"valid_to":{"kind":"OPEN"}}}
 {"id":"nm_c8b73f2bbe05","kind":"CURRENT","name":"Château Haut Canteloup","provenance":"pv_11f40c267c53","subject":"es_00102","validity":{"valid_from":{"kind":"UNKNOWN"},"valid_to":{"kind":"OPEN"}}}
+{"id":"nm_c8ed922ab99c","kind":"CURRENT","name":"Château Brane-Cantenac","provenance":"pv_6319b09d8794","subject":"wn_00215","validity":{"valid_from":{"kind":"UNKNOWN"},"valid_to":{"kind":"OPEN"}}}
 {"id":"nm_c90b5b1a2fff","kind":"CURRENT","name":"Château Saint Bonnet","provenance":"pv_11f40c267c53","subject":"es_00195","validity":{"valid_from":{"kind":"UNKNOWN"},"valid_to":{"kind":"OPEN"}}}
 {"id":"nm_c94b71998a60","kind":"CURRENT","name":"Château Pontoise Cabarrus","provenance":"pv_11f40c267c53","subject":"es_00181","validity":{"valid_from":{"kind":"UNKNOWN"},"valid_to":{"kind":"OPEN"}}}
 {"id":"nm_ca55c297e956","kind":"CURRENT","name":"Château Destieux","provenance":"pv_0377fa70c247","subject":"es_00405","validity":{"valid_from":{"kind":"UNKNOWN"},"valid_to":{"kind":"OPEN"}}}
@@ -360,22 +718,44 @@
 {"id":"nm_cb2986954e1d","kind":"CURRENT","name":"Château Garance Haut Grenat","provenance":"pv_537d1e191755","subject":"es_00009","validity":{"valid_from":{"kind":"UNKNOWN"},"valid_to":{"kind":"OPEN"}}}
 {"id":"nm_cb4cf37c60e1","kind":"CURRENT","name":"Château Rahoul","provenance":"pv_c39dd7c9e901","subject":"es_00375","validity":{"valid_from":{"kind":"UNKNOWN"},"valid_to":{"kind":"OPEN"}}}
 {"id":"nm_cb8bca48a3eb","kind":"CURRENT","name":"Château Latour","provenance":"pv_dcde0cc6132f","subject":"es_00309","validity":{"valid_from":{"kind":"UNKNOWN"},"valid_to":{"kind":"OPEN"}}}
+{"id":"nm_cb9fd91dcacf","kind":"CURRENT","name":"Château Moutte Blanc","provenance":"pv_6319b09d8794","subject":"wn_00026","validity":{"valid_from":{"kind":"UNKNOWN"},"valid_to":{"kind":"OPEN"}}}
+{"id":"nm_cbb75c217995","kind":"CURRENT","name":"Château Chauvin","provenance":"pv_6319b09d8794","subject":"wn_00385","validity":{"valid_from":{"kind":"UNKNOWN"},"valid_to":{"kind":"OPEN"}}}
 {"id":"nm_cbd17b5a7cf2","kind":"CURRENT","name":"Château les Mourlanes","provenance":"pv_11f40c267c53","subject":"es_00142","validity":{"valid_from":{"kind":"UNKNOWN"},"valid_to":{"kind":"OPEN"}}}
 {"id":"nm_cc7f72b5d740","kind":"CURRENT","name":"Château d’Issan","provenance":"pv_dcde0cc6132f","subject":"es_00283","validity":{"valid_from":{"kind":"UNKNOWN"},"valid_to":{"kind":"OPEN"}}}
 {"id":"nm_cc901bc12014","kind":"CURRENT","name":"Château Brûlesécaille","provenance":"pv_c39dd7c9e901","subject":"es_00217","validity":{"valid_from":{"kind":"UNKNOWN"},"valid_to":{"kind":"OPEN"}}}
 {"id":"nm_cdb5b068ec5c","kind":"CURRENT","name":"Château Les Graves de Loirac","provenance":"pv_537d1e191755","subject":"es_00022","validity":{"valid_from":{"kind":"UNKNOWN"},"valid_to":{"kind":"OPEN"}}}
 {"id":"nm_ce167d6ab82b","kind":"CURRENT","name":"Château Rollin","provenance":"pv_11f40c267c53","subject":"es_00190","validity":{"valid_from":{"kind":"UNKNOWN"},"valid_to":{"kind":"OPEN"}}}
 {"id":"nm_ce2b6d021b53","kind":"CURRENT","name":"Château Vieux Gabarey","provenance":"pv_537d1e191755","subject":"es_00031","validity":{"valid_from":{"kind":"UNKNOWN"},"valid_to":{"kind":"OPEN"}}}
+{"id":"nm_ce3047ad939b","kind":"CURRENT","name":"Château Lacour Jacquet","provenance":"pv_6319b09d8794","subject":"wn_00122","validity":{"valid_from":{"kind":"UNKNOWN"},"valid_to":{"kind":"OPEN"}}}
 {"id":"nm_ce61e81ff29e","kind":"CURRENT","name":"Château Cangruey","provenance":"pv_11f40c267c53","subject":"es_00055","validity":{"valid_from":{"kind":"UNKNOWN"},"valid_to":{"kind":"OPEN"}}}
+{"id":"nm_ce63afc284ea","kind":"CURRENT","name":"Château Moulin du Cadet","provenance":"pv_6319b09d8794","subject":"wn_00426","validity":{"valid_from":{"kind":"UNKNOWN"},"valid_to":{"kind":"OPEN"}}}
+{"id":"nm_ce7ea3ef9ea8","kind":"CURRENT","name":"Château Reverdi","provenance":"pv_6319b09d8794","subject":"wn_00187","validity":{"valid_from":{"kind":"UNKNOWN"},"valid_to":{"kind":"OPEN"}}}
+{"id":"nm_ce92d8fed2ca","kind":"CURRENT","name":"Le Pin","provenance":"pv_6319b09d8794","subject":"wn_00314","validity":{"valid_from":{"kind":"UNKNOWN"},"valid_to":{"kind":"OPEN"}}}
 {"id":"nm_ce9a93d466c4","kind":"CURRENT","name":"Château Lousteauneuf","provenance":"pv_11f40c267c53","subject":"es_00149","validity":{"valid_from":{"kind":"UNKNOWN"},"valid_to":{"kind":"OPEN"}}}
+{"id":"nm_ceace00c7b0d","kind":"CURRENT","name":"Château Duhart-Milon","provenance":"pv_6319b09d8794","subject":"wn_00262","validity":{"valid_from":{"kind":"UNKNOWN"},"valid_to":{"kind":"OPEN"}}}
+{"id":"nm_cec718d5ad6f","kind":"CURRENT","name":"Château La Tour Carnet","provenance":"pv_6319b09d8794","subject":"wn_00295","validity":{"valid_from":{"kind":"UNKNOWN"},"valid_to":{"kind":"OPEN"}}}
+{"id":"nm_ceeb43fb73aa","kind":"CURRENT","name":"Château Lassus","provenance":"pv_6319b09d8794","subject":"wn_00130","validity":{"valid_from":{"kind":"UNKNOWN"},"valid_to":{"kind":"OPEN"}}}
+{"id":"nm_cf44f66419b2","kind":"CURRENT","name":"Château les Tuileries","provenance":"pv_6319b09d8794","subject":"wn_00144","validity":{"valid_from":{"kind":"UNKNOWN"},"valid_to":{"kind":"OPEN"}}}
+{"id":"nm_cf8c014f3d35","kind":"CURRENT","name":"Château Falfas","provenance":"pv_6319b09d8794","subject":"wn_00264","validity":{"valid_from":{"kind":"UNKNOWN"},"valid_to":{"kind":"OPEN"}}}
 {"id":"nm_cf915d33d376","kind":"CURRENT","name":"Château Faugères","provenance":"pv_0377fa70c247","subject":"es_00406","validity":{"valid_from":{"kind":"UNKNOWN"},"valid_to":{"kind":"OPEN"}}}
+{"id":"nm_cfac373dfa8d","kind":"CURRENT","name":"Château Peyrat-Fourthon","provenance":"pv_6319b09d8794","subject":"wn_00172","validity":{"valid_from":{"kind":"UNKNOWN"},"valid_to":{"kind":"OPEN"}}}
 {"id":"nm_cff85ea31fe2","kind":"CURRENT","name":"Château Dauzac","provenance":"pv_dcde0cc6132f","subject":"es_00248","validity":{"valid_from":{"kind":"UNKNOWN"},"valid_to":{"kind":"OPEN"}}}
+{"id":"nm_d03a00a3d093","kind":"CURRENT","name":"Château Begadan","provenance":"pv_6319b09d8794","subject":"wn_00046","validity":{"valid_from":{"kind":"UNKNOWN"},"valid_to":{"kind":"OPEN"}}}
 {"id":"nm_d0404ab64c6f","kind":"CURRENT","name":"Clos de Sarpe","provenance":"pv_0377fa70c247","subject":"es_00453","validity":{"valid_from":{"kind":"UNKNOWN"},"valid_to":{"kind":"OPEN"}}}
+{"id":"nm_d0b34c73c931","kind":"CURRENT","name":"Château Pichon Longueville Comtesse de Lalande","provenance":"pv_6319b09d8794","subject":"wn_00346","validity":{"valid_from":{"kind":"UNKNOWN"},"valid_to":{"kind":"OPEN"}}}
 {"id":"nm_d0f7d6721644","kind":"CURRENT","name":"Château la Cardonne","provenance":"pv_11f40c267c53","subject":"es_00108","validity":{"valid_from":{"kind":"UNKNOWN"},"valid_to":{"kind":"OPEN"}}}
+{"id":"nm_d0fb5cf7f39b","kind":"CURRENT","name":"Château La Violette","provenance":"pv_6319b09d8794","subject":"wn_00298","validity":{"valid_from":{"kind":"UNKNOWN"},"valid_to":{"kind":"OPEN"}}}
+{"id":"nm_d1903adbc0fd","kind":"CURRENT","name":"Château Petit-Village","provenance":"pv_6319b09d8794","subject":"wn_00353","validity":{"valid_from":{"kind":"UNKNOWN"},"valid_to":{"kind":"OPEN"}}}
+{"id":"nm_d1d2fde3d60b","kind":"CURRENT","name":"Château Rieussec","provenance":"pv_6319b09d8794","subject":"wn_00368","validity":{"valid_from":{"kind":"UNKNOWN"},"valid_to":{"kind":"OPEN"}}}
 {"id":"nm_d1d888691e17","kind":"CURRENT","name":"Château Moulin des Moines","provenance":"pv_11f40c267c53","subject":"es_00164","validity":{"valid_from":{"kind":"UNKNOWN"},"valid_to":{"kind":"OPEN"}}}
+{"id":"nm_d21f21c2ca55","kind":"CURRENT","name":"Château Méric","provenance":"pv_6319b09d8794","subject":"wn_00156","validity":{"valid_from":{"kind":"UNKNOWN"},"valid_to":{"kind":"OPEN"}}}
 {"id":"nm_d22cbbcf1736","kind":"CURRENT","name":"Château Ripeau","provenance":"pv_0377fa70c247","subject":"es_00441","validity":{"valid_from":{"kind":"UNKNOWN"},"valid_to":{"kind":"OPEN"}}}
 {"id":"nm_d26bdc6f50e4","kind":"CURRENT","name":"Château Chauvin","provenance":"pv_0377fa70c247","subject":"es_00397","validity":{"valid_from":{"kind":"UNKNOWN"},"valid_to":{"kind":"OPEN"}}}
+{"id":"nm_d28ad639937c","kind":"CURRENT","name":"Château Beaumont","provenance":"pv_6319b09d8794","subject":"wn_00044","validity":{"valid_from":{"kind":"UNKNOWN"},"valid_to":{"kind":"OPEN"}}}
+{"id":"nm_d28dffde9100","kind":"CURRENT","name":"Château Saint-Christophe","provenance":"pv_6319b09d8794","subject":"wn_00196","validity":{"valid_from":{"kind":"UNKNOWN"},"valid_to":{"kind":"OPEN"}}}
 {"id":"nm_d2ccb01d8790","kind":"CURRENT","name":"Château La Marzelle","provenance":"pv_0377fa70c247","subject":"es_00424","validity":{"valid_from":{"kind":"UNKNOWN"},"valid_to":{"kind":"OPEN"}}}
+{"id":"nm_d2ce60650f3a","kind":"CURRENT","name":"Château La Mission Haut-Brion","provenance":"pv_6319b09d8794","subject":"wn_00292","validity":{"valid_from":{"kind":"UNKNOWN"},"valid_to":{"kind":"OPEN"}}}
+{"id":"nm_d3229ce7aed2","kind":"CURRENT","name":"Château Pey de Pont","provenance":"pv_6319b09d8794","subject":"wn_00170","validity":{"valid_from":{"kind":"UNKNOWN"},"valid_to":{"kind":"OPEN"}}}
 {"id":"nm_d349ff576328","kind":"CURRENT","name":"Château Léoville-Barton","provenance":"pv_dcde0cc6132f","subject":"es_00316","validity":{"valid_from":{"kind":"UNKNOWN"},"valid_to":{"kind":"OPEN"}}}
 {"id":"nm_d3598d47756f","kind":"CURRENT","name":"Château Jean Faure","provenance":"pv_0377fa70c247","subject":"es_00417","validity":{"valid_from":{"kind":"UNKNOWN"},"valid_to":{"kind":"OPEN"}}}
 {"id":"nm_d39c583d1ae6","kind":"CURRENT","name":"Château des Granges d'Or","provenance":"pv_11f40c267c53","subject":"es_00081","validity":{"valid_from":{"kind":"UNKNOWN"},"valid_to":{"kind":"OPEN"}}}
@@ -383,88 +763,166 @@
 {"id":"nm_d40e792bffd6","kind":"CURRENT","name":"Château Moulin Pey-Labrie","provenance":"pv_116ea930fdbf","subject":"es_00335","validity":{"valid_from":{"kind":"UNKNOWN"},"valid_to":{"kind":"OPEN"}}}
 {"id":"nm_d461aa6a9f4e","kind":"CURRENT","name":"Château La Hourcade","provenance":"pv_537d1e191755","subject":"es_00018","validity":{"valid_from":{"kind":"UNKNOWN"},"valid_to":{"kind":"OPEN"}}}
 {"id":"nm_d46e300a15e1","kind":"CURRENT","name":"Château Laffitte Carcasset","provenance":"pv_11f40c267c53","subject":"es_00124","validity":{"valid_from":{"kind":"UNKNOWN"},"valid_to":{"kind":"OPEN"}}}
+{"id":"nm_d514e7106fe7","kind":"CURRENT","name":"Château Haut-Madrac","provenance":"pv_6319b09d8794","subject":"wn_00103","validity":{"valid_from":{"kind":"UNKNOWN"},"valid_to":{"kind":"OPEN"}}}
+{"id":"nm_d518c62c4e7b","kind":"CURRENT","name":"Grand Enclos du Château de Cérons","provenance":"pv_6319b09d8794","subject":"wn_00272","validity":{"valid_from":{"kind":"UNKNOWN"},"valid_to":{"kind":"OPEN"}}}
 {"id":"nm_d51c5cd1a1d0","kind":"CURRENT","name":"Château la Valière","provenance":"pv_11f40c267c53","subject":"es_00119","validity":{"valid_from":{"kind":"UNKNOWN"},"valid_to":{"kind":"OPEN"}}}
 {"id":"nm_d52fbbd3af4c","kind":"CURRENT","name":"Château Pape Clément","provenance":"pv_e45f5d20b569","subject":"es_00340","validity":{"valid_from":{"kind":"UNKNOWN"},"valid_to":{"kind":"OPEN"}}}
+{"id":"nm_d56e4ab14125","kind":"CURRENT","name":"Château Coutet","provenance":"pv_6319b09d8794","subject":"wn_00242","validity":{"valid_from":{"kind":"UNKNOWN"},"valid_to":{"kind":"OPEN"}}}
 {"id":"nm_d56eb328763b","kind":"CURRENT","name":"Château de Villambis","provenance":"pv_11f40c267c53","subject":"es_00079","validity":{"valid_from":{"kind":"UNKNOWN"},"valid_to":{"kind":"OPEN"}}}
 {"id":"nm_d59d6860e2b6","kind":"CURRENT","name":"Château Pomeys","provenance":"pv_11f40c267c53","subject":"es_00178","validity":{"valid_from":{"kind":"UNKNOWN"},"valid_to":{"kind":"OPEN"}}}
+{"id":"nm_d6a1ef2634c4","kind":"CURRENT","name":"Château Tour Castillon","provenance":"pv_6319b09d8794","subject":"wn_00200","validity":{"valid_from":{"kind":"UNKNOWN"},"valid_to":{"kind":"OPEN"}}}
+{"id":"nm_d6c2e6ea12b2","kind":"CURRENT","name":"Château Marquis d’Alesme","provenance":"pv_6319b09d8794","subject":"wn_00328","validity":{"valid_from":{"kind":"UNKNOWN"},"valid_to":{"kind":"OPEN"}}}
 {"id":"nm_d6dc21191f28","kind":"CURRENT","name":"Château Lassus","provenance":"pv_11f40c267c53","subject":"es_00130","validity":{"valid_from":{"kind":"UNKNOWN"},"valid_to":{"kind":"OPEN"}}}
+{"id":"nm_d7503f9d38a0","kind":"CURRENT","name":"Château Sémeillan Mazeau","provenance":"pv_6319b09d8794","subject":"wn_00198","validity":{"valid_from":{"kind":"UNKNOWN"},"valid_to":{"kind":"OPEN"}}}
 {"id":"nm_d7d5dc22e526","kind":"CURRENT","name":"Château Badette","provenance":"pv_0377fa70c247","subject":"es_00388","validity":{"valid_from":{"kind":"UNKNOWN"},"valid_to":{"kind":"OPEN"}}}
 {"id":"nm_d7db0e704043","kind":"CURRENT","name":"Château Petit Faurie de Soutard","provenance":"pv_0377fa70c247","subject":"es_00440","validity":{"valid_from":{"kind":"UNKNOWN"},"valid_to":{"kind":"OPEN"}}}
+{"id":"nm_d83b43ef94ee","kind":"CURRENT","name":"Château Haut Couloumey","provenance":"pv_6319b09d8794","subject":"wn_00013","validity":{"valid_from":{"kind":"UNKNOWN"},"valid_to":{"kind":"OPEN"}}}
+{"id":"nm_d8878098b0cb","kind":"CURRENT","name":"Château Haut-Brion","provenance":"pv_6319b09d8794","subject":"wn_00281","validity":{"valid_from":{"kind":"UNKNOWN"},"valid_to":{"kind":"OPEN"}}}
+{"id":"nm_d8b1c2c453d4","kind":"CURRENT","name":"Château Romer du Hayot","provenance":"pv_6319b09d8794","subject":"wn_00371","validity":{"valid_from":{"kind":"UNKNOWN"},"valid_to":{"kind":"OPEN"}}}
+{"id":"nm_d8dc3507f355","kind":"CURRENT","name":"Château du Raux","provenance":"pv_6319b09d8794","subject":"wn_00088","validity":{"valid_from":{"kind":"UNKNOWN"},"valid_to":{"kind":"OPEN"}}}
+{"id":"nm_d9394e70945f","kind":"CURRENT","name":"Château Picard","provenance":"pv_6319b09d8794","subject":"wn_00173","validity":{"valid_from":{"kind":"UNKNOWN"},"valid_to":{"kind":"OPEN"}}}
 {"id":"nm_d942ebab2e18","kind":"CURRENT","name":"Château Dasvin Bel Air","provenance":"pv_11f40c267c53","subject":"es_00071","validity":{"valid_from":{"kind":"UNKNOWN"},"valid_to":{"kind":"OPEN"}}}
+{"id":"nm_d975286ced5f","kind":"CURRENT","name":"Château Grand Corbin-Despagne","provenance":"pv_6319b09d8794","subject":"wn_00401","validity":{"valid_from":{"kind":"UNKNOWN"},"valid_to":{"kind":"OPEN"}}}
+{"id":"nm_d985f1f90389","kind":"CURRENT","name":"Château Les Jonqueyres","provenance":"pv_6319b09d8794","subject":"wn_00320","validity":{"valid_from":{"kind":"UNKNOWN"},"valid_to":{"kind":"OPEN"}}}
+{"id":"nm_d9a807bc7106","kind":"CURRENT","name":"Château Haut Barrail","provenance":"pv_6319b09d8794","subject":"wn_00100","validity":{"valid_from":{"kind":"UNKNOWN"},"valid_to":{"kind":"OPEN"}}}
 {"id":"nm_d9afabca2826","kind":"CURRENT","name":"Château de Bensse","provenance":"pv_11f40c267c53","subject":"es_00072","validity":{"valid_from":{"kind":"UNKNOWN"},"valid_to":{"kind":"OPEN"}}}
 {"id":"nm_d9fbe8d1a07c","kind":"CURRENT","name":"Château Clément Saint Jean","provenance":"pv_11f40c267c53","subject":"es_00061","validity":{"valid_from":{"kind":"UNKNOWN"},"valid_to":{"kind":"OPEN"}}}
+{"id":"nm_da27baec7da0","kind":"CURRENT","name":"Château Fleur la Mothe","provenance":"pv_6319b09d8794","subject":"wn_00091","validity":{"valid_from":{"kind":"UNKNOWN"},"valid_to":{"kind":"OPEN"}}}
 {"id":"nm_da57c2014305","kind":"CURRENT","name":"Château La Fleur Lauga","provenance":"pv_537d1e191755","subject":"es_00017","validity":{"valid_from":{"kind":"UNKNOWN"},"valid_to":{"kind":"OPEN"}}}
 {"id":"nm_da7e7c9f2dfe","kind":"CURRENT","name":"Château Bellevue","provenance":"pv_0377fa70c247","subject":"es_00392","validity":{"valid_from":{"kind":"UNKNOWN"},"valid_to":{"kind":"OPEN"}}}
+{"id":"nm_db07830154eb","kind":"CURRENT","name":"Château Petit Faurie de Soutard","provenance":"pv_6319b09d8794","subject":"wn_00428","validity":{"valid_from":{"kind":"UNKNOWN"},"valid_to":{"kind":"OPEN"}}}
 {"id":"nm_db0d87faec96","kind":"CURRENT","name":"Château Latour-Martillac","provenance":"pv_e45f5d20b569","subject":"es_00311","validity":{"valid_from":{"kind":"UNKNOWN"},"valid_to":{"kind":"OPEN"}}}
 {"id":"nm_db9ad5371285","kind":"CURRENT","name":"Château des Cabans","provenance":"pv_11f40c267c53","subject":"es_00080","validity":{"valid_from":{"kind":"UNKNOWN"},"valid_to":{"kind":"OPEN"}}}
 {"id":"nm_dc1ed2e4fe41","kind":"CURRENT","name":"Château Tourteran","provenance":"pv_11f40c267c53","subject":"es_00205","validity":{"valid_from":{"kind":"UNKNOWN"},"valid_to":{"kind":"OPEN"}}}
 {"id":"nm_dc385469e5c6","kind":"CURRENT","name":"Château La Serre","provenance":"pv_0377fa70c247","subject":"es_00425","validity":{"valid_from":{"kind":"UNKNOWN"},"valid_to":{"kind":"OPEN"}}}
+{"id":"nm_dcd848467c04","kind":"CURRENT","name":"Château Garance Haut Grenat","provenance":"pv_6319b09d8794","subject":"wn_00009","validity":{"valid_from":{"kind":"UNKNOWN"},"valid_to":{"kind":"OPEN"}}}
+{"id":"nm_dd6db3fd75ff","kind":"CURRENT","name":"Château Reysson","provenance":"pv_6319b09d8794","subject":"wn_00188","validity":{"valid_from":{"kind":"UNKNOWN"},"valid_to":{"kind":"OPEN"}}}
+{"id":"nm_ddad0b105595","kind":"CURRENT","name":"Château Capdet","provenance":"pv_6319b09d8794","subject":"wn_00056","validity":{"valid_from":{"kind":"UNKNOWN"},"valid_to":{"kind":"OPEN"}}}
 {"id":"nm_ddb527b7d62c","kind":"CURRENT","name":"Château Tour du Goua","provenance":"pv_537d1e191755","subject":"es_00030","validity":{"valid_from":{"kind":"UNKNOWN"},"valid_to":{"kind":"OPEN"}}}
+{"id":"nm_de417ff6d822","kind":"CURRENT","name":"Château Romer","provenance":"pv_6319b09d8794","subject":"wn_00370","validity":{"valid_from":{"kind":"UNKNOWN"},"valid_to":{"kind":"OPEN"}}}
 {"id":"nm_de5cc9abfbe8","kind":"CURRENT","name":"Château de Cartujac","provenance":"pv_11f40c267c53","subject":"es_00074","validity":{"valid_from":{"kind":"UNKNOWN"},"valid_to":{"kind":"OPEN"}}}
+{"id":"nm_deab3dbddeee","kind":"CURRENT","name":"Château la Roque de By","provenance":"pv_6319b09d8794","subject":"wn_00118","validity":{"valid_from":{"kind":"UNKNOWN"},"valid_to":{"kind":"OPEN"}}}
 {"id":"nm_ded3d117bf38","kind":"CURRENT","name":"Château Duhart-Milon","provenance":"pv_dcde0cc6132f","subject":"es_00262","validity":{"valid_from":{"kind":"UNKNOWN"},"valid_to":{"kind":"OPEN"}}}
+{"id":"nm_def847c5de67","kind":"CURRENT","name":"Château de Coudot","provenance":"pv_6319b09d8794","subject":"wn_00004","validity":{"valid_from":{"kind":"UNKNOWN"},"valid_to":{"kind":"OPEN"}}}
+{"id":"nm_df0af5457b27","kind":"CURRENT","name":"Château Moulin de Blanchon","provenance":"pv_6319b09d8794","subject":"wn_00160","validity":{"valid_from":{"kind":"UNKNOWN"},"valid_to":{"kind":"OPEN"}}}
 {"id":"nm_df20b574f544","kind":"CURRENT","name":"Château Ferrière","provenance":"pv_dcde0cc6132f","subject":"es_00265","validity":{"valid_from":{"kind":"UNKNOWN"},"valid_to":{"kind":"OPEN"}}}
+{"id":"nm_dfac03d6f895","kind":"CURRENT","name":"Château Tour Baladoz","provenance":"pv_6319b09d8794","subject":"wn_00435","validity":{"valid_from":{"kind":"UNKNOWN"},"valid_to":{"kind":"OPEN"}}}
+{"id":"nm_dfdad6a891d5","kind":"CURRENT","name":"Château la Fon du Berger","provenance":"pv_6319b09d8794","subject":"wn_00111","validity":{"valid_from":{"kind":"UNKNOWN"},"valid_to":{"kind":"OPEN"}}}
 {"id":"nm_dfe79fd1663b","kind":"CURRENT","name":"La Mondotte","provenance":"pv_0377fa70c247","subject":"es_00293","validity":{"valid_from":{"kind":"UNKNOWN"},"valid_to":{"kind":"OPEN"}}}
+{"id":"nm_e0321a5c0a8b","kind":"CURRENT","name":"Château Sénilhac","provenance":"pv_6319b09d8794","subject":"wn_00199","validity":{"valid_from":{"kind":"UNKNOWN"},"valid_to":{"kind":"OPEN"}}}
+{"id":"nm_e1118bf16354","kind":"CURRENT","name":"Château Grand Mayne","provenance":"pv_6319b09d8794","subject":"wn_00402","validity":{"valid_from":{"kind":"UNKNOWN"},"valid_to":{"kind":"OPEN"}}}
+{"id":"nm_e12a2767a69d","kind":"CURRENT","name":"Château Lacombe Noaillac","provenance":"pv_6319b09d8794","subject":"wn_00121","validity":{"valid_from":{"kind":"UNKNOWN"},"valid_to":{"kind":"OPEN"}}}
+{"id":"nm_e1922d953837","kind":"CURRENT","name":"Château Rahoul","provenance":"pv_6319b09d8794","subject":"wn_00363","validity":{"valid_from":{"kind":"UNKNOWN"},"valid_to":{"kind":"OPEN"}}}
 {"id":"nm_e1a91f68f24f","kind":"CURRENT","name":"Château Léoville-Poyferré","provenance":"pv_dcde0cc6132f","subject":"es_00318","validity":{"valid_from":{"kind":"UNKNOWN"},"valid_to":{"kind":"OPEN"}}}
 {"id":"nm_e24f9ecc535d","kind":"CURRENT","name":"Château Rousseau de Sipian","provenance":"pv_11f40c267c53","subject":"es_00192","validity":{"valid_from":{"kind":"UNKNOWN"},"valid_to":{"kind":"OPEN"}}}
 {"id":"nm_e2c05bf48472","kind":"CURRENT","name":"Château La Tour Haut-Brion","provenance":"pv_e45f5d20b569","subject":"es_00296","validity":{"valid_from":{"kind":"UNKNOWN"},"valid_to":{"kind":"OPEN"}}}
+{"id":"nm_e2de09caccb0","kind":"CURRENT","name":"Château Mouton Rothschild","provenance":"pv_6319b09d8794","subject":"wn_00336","validity":{"valid_from":{"kind":"UNKNOWN"},"valid_to":{"kind":"OPEN"}}}
+{"id":"nm_e2f4d3daf356","kind":"CURRENT","name":"Château d’Osmond","provenance":"pv_6319b09d8794","subject":"wn_00002","validity":{"valid_from":{"kind":"UNKNOWN"},"valid_to":{"kind":"OPEN"}}}
+{"id":"nm_e3422b8df724","kind":"CURRENT","name":"Château Cailleteau Bergeron","provenance":"pv_6319b09d8794","subject":"wn_00218","validity":{"valid_from":{"kind":"UNKNOWN"},"valid_to":{"kind":"OPEN"}}}
 {"id":"nm_e37503ec9f2f","kind":"CURRENT","name":"Château Bessan Ségur","provenance":"pv_11f40c267c53","subject":"es_00051","validity":{"valid_from":{"kind":"UNKNOWN"},"valid_to":{"kind":"OPEN"}}}
 {"id":"nm_e37e6bde9db1","kind":"CURRENT","name":"Château Grandis","provenance":"pv_11f40c267c53","subject":"es_00095","validity":{"valid_from":{"kind":"UNKNOWN"},"valid_to":{"kind":"OPEN"}}}
 {"id":"nm_e3936a06131e","kind":"CURRENT","name":"Château la Ribaud","provenance":"pv_11f40c267c53","subject":"es_00117","validity":{"valid_from":{"kind":"UNKNOWN"},"valid_to":{"kind":"OPEN"}}}
 {"id":"nm_e3d22dd294af","kind":"CURRENT","name":"Château Rol Valentin","provenance":"pv_0377fa70c247","subject":"es_00443","validity":{"valid_from":{"kind":"UNKNOWN"},"valid_to":{"kind":"OPEN"}}}
+{"id":"nm_e3e42d8ac9f3","kind":"CURRENT","name":"Château Couhins","provenance":"pv_6319b09d8794","subject":"wn_00240","validity":{"valid_from":{"kind":"UNKNOWN"},"valid_to":{"kind":"OPEN"}}}
 {"id":"nm_e3fff52983c7","kind":"CURRENT","name":"Château Plince","provenance":"pv_ac325d595306","subject":"es_00363","validity":{"valid_from":{"kind":"UNKNOWN"},"valid_to":{"kind":"OPEN"}}}
+{"id":"nm_e431f6d4272e","kind":"CURRENT","name":"Château Saint-Georges Côte Pavie","provenance":"pv_6319b09d8794","subject":"wn_00432","validity":{"valid_from":{"kind":"UNKNOWN"},"valid_to":{"kind":"OPEN"}}}
 {"id":"nm_e4843c55ae79","kind":"CURRENT","name":"Château Lamothe","provenance":"pv_72872a84d1b4","subject":"es_00304","validity":{"valid_from":{"kind":"UNKNOWN"},"valid_to":{"kind":"OPEN"}}}
 {"id":"nm_e4ee09a90d5c","kind":"CURRENT","name":"Château Bonnet","provenance":"pv_116ea930fdbf","subject":"es_00041","validity":{"valid_from":{"kind":"UNKNOWN"},"valid_to":{"kind":"OPEN"}}}
 {"id":"nm_e50e0a931253","kind":"CURRENT","name":"Clos Saint-Julien","provenance":"pv_0377fa70c247","subject":"es_00456","validity":{"valid_from":{"kind":"UNKNOWN"},"valid_to":{"kind":"OPEN"}}}
+{"id":"nm_e51a194b5f51","kind":"CURRENT","name":"Château Saint-Hilaire","provenance":"pv_6319b09d8794","subject":"wn_00197","validity":{"valid_from":{"kind":"UNKNOWN"},"valid_to":{"kind":"OPEN"}}}
 {"id":"nm_e52426a44821","kind":"CURRENT","name":"Château Lafon","provenance":"pv_11f40c267c53","subject":"es_00125","validity":{"valid_from":{"kind":"UNKNOWN"},"valid_to":{"kind":"OPEN"}}}
 {"id":"nm_e5739bdb6edf","kind":"CURRENT","name":"Château Gazin","provenance":"pv_ac325d595306","subject":"es_00350","validity":{"valid_from":{"kind":"UNKNOWN"},"valid_to":{"kind":"OPEN"}}}
+{"id":"nm_e5ade210790e","kind":"CURRENT","name":"Clos de l’Oratoire","provenance":"pv_6319b09d8794","subject":"wn_00440","validity":{"valid_from":{"kind":"UNKNOWN"},"valid_to":{"kind":"OPEN"}}}
+{"id":"nm_e682f6c7b8c5","kind":"CURRENT","name":"Château Pouget","provenance":"pv_6319b09d8794","subject":"wn_00359","validity":{"valid_from":{"kind":"UNKNOWN"},"valid_to":{"kind":"OPEN"}}}
 {"id":"nm_e6a227ac343a","kind":"CURRENT","name":"Château Desmirail","provenance":"pv_dcde0cc6132f","subject":"es_00254","validity":{"valid_from":{"kind":"UNKNOWN"},"valid_to":{"kind":"OPEN"}}}
 {"id":"nm_e6cd6036a39e","kind":"CURRENT","name":"Château La Tour Carnet","provenance":"pv_dcde0cc6132f","subject":"es_00295","validity":{"valid_from":{"kind":"UNKNOWN"},"valid_to":{"kind":"OPEN"}}}
 {"id":"nm_e6d3673f47eb","kind":"CURRENT","name":"Clos de l’Oratoire","provenance":"pv_0377fa70c247","subject":"es_00452","validity":{"valid_from":{"kind":"UNKNOWN"},"valid_to":{"kind":"OPEN"}}}
+{"id":"nm_e71f2d467925","kind":"CURRENT","name":"Château Broustet","provenance":"pv_6319b09d8794","subject":"wn_00216","validity":{"valid_from":{"kind":"UNKNOWN"},"valid_to":{"kind":"OPEN"}}}
 {"id":"nm_e7343a87e1bd","kind":"CURRENT","name":"Château Montrose","provenance":"pv_dcde0cc6132f","subject":"es_00333","validity":{"valid_from":{"kind":"UNKNOWN"},"valid_to":{"kind":"OPEN"}}}
 {"id":"nm_e7829374baee","kind":"CURRENT","name":"Château Larmande","provenance":"pv_0377fa70c247","subject":"es_00428","validity":{"valid_from":{"kind":"UNKNOWN"},"valid_to":{"kind":"OPEN"}}}
+{"id":"nm_e7b23f487eec","kind":"CURRENT","name":"Château Laville Haut-Brion","provenance":"pv_6319b09d8794","subject":"wn_00312","validity":{"valid_from":{"kind":"UNKNOWN"},"valid_to":{"kind":"OPEN"}}}
 {"id":"nm_e8a35be53c72","kind":"CURRENT","name":"Château La Croizille","provenance":"pv_0377fa70c247","subject":"es_00421","validity":{"valid_from":{"kind":"UNKNOWN"},"valid_to":{"kind":"OPEN"}}}
 {"id":"nm_e8c905dbff2e","kind":"CURRENT","name":"Château la Branne","provenance":"pv_11f40c267c53","subject":"es_00107","validity":{"valid_from":{"kind":"UNKNOWN"},"valid_to":{"kind":"OPEN"}}}
 {"id":"nm_e90c4fc424e2","kind":"CURRENT","name":"Château Giscours","provenance":"pv_dcde0cc6132f","subject":"es_00271","validity":{"valid_from":{"kind":"UNKNOWN"},"valid_to":{"kind":"OPEN"}}}
 {"id":"nm_e98256e21bc8","kind":"CURRENT","name":"Le Pin","provenance":"pv_ac325d595306","subject":"es_00314","validity":{"valid_from":{"kind":"UNKNOWN"},"valid_to":{"kind":"OPEN"}}}
+{"id":"nm_e99098899698","kind":"CURRENT","name":"Château Moulin de l'Abbaye","provenance":"pv_6319b09d8794","subject":"wn_00162","validity":{"valid_from":{"kind":"UNKNOWN"},"valid_to":{"kind":"OPEN"}}}
+{"id":"nm_ea062b8cfd0c","kind":"CURRENT","name":"Château Lafaurie-Peyraguey","provenance":"pv_6319b09d8794","subject":"wn_00299","validity":{"valid_from":{"kind":"UNKNOWN"},"valid_to":{"kind":"OPEN"}}}
+{"id":"nm_ea13428899bf","kind":"CURRENT","name":"Château Smith Haut Lafitte","provenance":"pv_6319b09d8794","subject":"wn_00375","validity":{"valid_from":{"kind":"UNKNOWN"},"valid_to":{"kind":"OPEN"}}}
 {"id":"nm_eb41b1634dc4","kind":"CURRENT","name":"Château Lassègue","provenance":"pv_0377fa70c247","subject":"es_00431","validity":{"valid_from":{"kind":"UNKNOWN"},"valid_to":{"kind":"OPEN"}}}
+{"id":"nm_eb66b75355c7","kind":"CURRENT","name":"Château de Ferrand","provenance":"pv_6319b09d8794","subject":"wn_00391","validity":{"valid_from":{"kind":"UNKNOWN"},"valid_to":{"kind":"OPEN"}}}
 {"id":"nm_ebad6ac73a57","kind":"CURRENT","name":"Château Bellegrave","provenance":"pv_11f40c267c53","subject":"es_00049","validity":{"valid_from":{"kind":"UNKNOWN"},"valid_to":{"kind":"OPEN"}}}
+{"id":"nm_ebe465a7608a","kind":"CURRENT","name":"Château le Bourdieu","provenance":"pv_6319b09d8794","subject":"wn_00132","validity":{"valid_from":{"kind":"UNKNOWN"},"valid_to":{"kind":"OPEN"}}}
 {"id":"nm_ebe9ec5ce5d1","kind":"CURRENT","name":"Château Marceline","provenance":"pv_537d1e191755","subject":"es_00024","validity":{"valid_from":{"kind":"UNKNOWN"},"valid_to":{"kind":"OPEN"}}}
 {"id":"nm_ec0f80678890","kind":"CURRENT","name":"Château d’Arche","provenance":"pv_72872a84d1b4","subject":"es_00246","validity":{"valid_from":{"kind":"UNKNOWN"},"valid_to":{"kind":"OPEN"}}}
+{"id":"nm_ec134c9d7397","kind":"CURRENT","name":"Château Fougas","provenance":"pv_6319b09d8794","subject":"wn_00270","validity":{"valid_from":{"kind":"UNKNOWN"},"valid_to":{"kind":"OPEN"}}}
 {"id":"nm_ec3204932b4c","kind":"CURRENT","name":"Château Climens","provenance":"pv_72872a84d1b4","subject":"es_00230","validity":{"valid_from":{"kind":"UNKNOWN"},"valid_to":{"kind":"OPEN"}}}
+{"id":"nm_ec501ac93623","kind":"CURRENT","name":"Château Moulin de Taffard","provenance":"pv_6319b09d8794","subject":"wn_00163","validity":{"valid_from":{"kind":"UNKNOWN"},"valid_to":{"kind":"OPEN"}}}
 {"id":"nm_ec60241c33c2","kind":"CURRENT","name":"Château Patache d’Aux","provenance":"pv_11f40c267c53","subject":"es_00168","validity":{"valid_from":{"kind":"UNKNOWN"},"valid_to":{"kind":"OPEN"}}}
 {"id":"nm_eca48f990e31","kind":"CURRENT","name":"Château Lagrange","provenance":"pv_dcde0cc6132f","subject":"es_00303","validity":{"valid_from":{"kind":"UNKNOWN"},"valid_to":{"kind":"OPEN"}}}
 {"id":"nm_ecdc3c65cd09","kind":"CURRENT","name":"Château Doisy-Dubroca","provenance":"pv_72872a84d1b4","subject":"es_00256","validity":{"valid_from":{"kind":"UNKNOWN"},"valid_to":{"kind":"OPEN"}}}
 {"id":"nm_ecde81791445","kind":"CURRENT","name":"Château La Cabanne","provenance":"pv_ac325d595306","subject":"es_00354","validity":{"valid_from":{"kind":"UNKNOWN"},"valid_to":{"kind":"OPEN"}}}
 {"id":"nm_edb6f964c735","kind":"CURRENT","name":"Château de Pressac","provenance":"pv_0377fa70c247","subject":"es_00404","validity":{"valid_from":{"kind":"UNKNOWN"},"valid_to":{"kind":"OPEN"}}}
+{"id":"nm_edbc87777885","kind":"CURRENT","name":"Château Croizet-Bages","provenance":"pv_6319b09d8794","subject":"wn_00243","validity":{"valid_from":{"kind":"UNKNOWN"},"valid_to":{"kind":"OPEN"}}}
+{"id":"nm_ee65c981280f","kind":"CURRENT","name":"Château Grand-Puy-Ducasse","provenance":"pv_6319b09d8794","subject":"wn_00273","validity":{"valid_from":{"kind":"UNKNOWN"},"valid_to":{"kind":"OPEN"}}}
+{"id":"nm_eea870dec765","kind":"CURRENT","name":"Château de Panigon","provenance":"pv_6319b09d8794","subject":"wn_00078","validity":{"valid_from":{"kind":"UNKNOWN"},"valid_to":{"kind":"OPEN"}}}
+{"id":"nm_eebe6e99f211","kind":"CURRENT","name":"Château Lafite Rothschild","provenance":"pv_6319b09d8794","subject":"wn_00300","validity":{"valid_from":{"kind":"UNKNOWN"},"valid_to":{"kind":"OPEN"}}}
+{"id":"nm_f073a13b791b","kind":"CURRENT","name":"Château Rol Valentin","provenance":"pv_6319b09d8794","subject":"wn_00431","validity":{"valid_from":{"kind":"UNKNOWN"},"valid_to":{"kind":"OPEN"}}}
 {"id":"nm_f09bca392017","kind":"CURRENT","name":"Clos Badon Thunevin","provenance":"pv_0377fa70c247","subject":"es_00451","validity":{"valid_from":{"kind":"UNKNOWN"},"valid_to":{"kind":"OPEN"}}}
 {"id":"nm_f0b172234180","kind":"CURRENT","name":"Château Villemaurine","provenance":"pv_0377fa70c247","subject":"es_00449","validity":{"valid_from":{"kind":"UNKNOWN"},"valid_to":{"kind":"OPEN"}}}
+{"id":"nm_f0d11cca971f","kind":"CURRENT","name":"Château Léoville-Barton","provenance":"pv_6319b09d8794","subject":"wn_00316","validity":{"valid_from":{"kind":"UNKNOWN"},"valid_to":{"kind":"OPEN"}}}
+{"id":"nm_f1e6c853c21d","kind":"CURRENT","name":"Château Guitignan","provenance":"pv_6319b09d8794","subject":"wn_00098","validity":{"valid_from":{"kind":"UNKNOWN"},"valid_to":{"kind":"OPEN"}}}
 {"id":"nm_f1f0738d8bb9","kind":"CURRENT","name":"Château Laroque","provenance":"pv_0377fa70c247","subject":"es_00429","validity":{"valid_from":{"kind":"UNKNOWN"},"valid_to":{"kind":"OPEN"}}}
 {"id":"nm_f22c034e81e5","kind":"CURRENT","name":"Château Caillou","provenance":"pv_72872a84d1b4","subject":"es_00219","validity":{"valid_from":{"kind":"UNKNOWN"},"valid_to":{"kind":"OPEN"}}}
+{"id":"nm_f23afe76b7b6","kind":"CURRENT","name":"Château Rouget","provenance":"pv_6319b09d8794","subject":"wn_00354","validity":{"valid_from":{"kind":"UNKNOWN"},"valid_to":{"kind":"OPEN"}}}
+{"id":"nm_f25042f9f8f9","kind":"CURRENT","name":"Château Fonplégade","provenance":"pv_6319b09d8794","subject":"wn_00397","validity":{"valid_from":{"kind":"UNKNOWN"},"valid_to":{"kind":"OPEN"}}}
 {"id":"nm_f2a35b187f7c","kind":"CURRENT","name":"Château Tour Prignac","provenance":"pv_11f40c267c53","subject":"es_00202","validity":{"valid_from":{"kind":"UNKNOWN"},"valid_to":{"kind":"OPEN"}}}
 {"id":"nm_f2ecbd23e0e9","kind":"CURRENT","name":"Château La Fleur de Boüard","provenance":"pv_7cce45d9d443","subject":"es_00289","validity":{"valid_from":{"kind":"UNKNOWN"},"valid_to":{"kind":"OPEN"}}}
 {"id":"nm_f318a563cf56","kind":"CURRENT","name":"Château Peby Faugères","provenance":"pv_0377fa70c247","subject":"es_00439","validity":{"valid_from":{"kind":"UNKNOWN"},"valid_to":{"kind":"OPEN"}}}
+{"id":"nm_f343939f16cc","kind":"CURRENT","name":"Château Tour Saint Vincent","provenance":"pv_6319b09d8794","subject":"wn_00204","validity":{"valid_from":{"kind":"UNKNOWN"},"valid_to":{"kind":"OPEN"}}}
+{"id":"nm_f344548efa82","kind":"CURRENT","name":"Château Prieuré-Lichine","provenance":"pv_6319b09d8794","subject":"wn_00360","validity":{"valid_from":{"kind":"UNKNOWN"},"valid_to":{"kind":"OPEN"}}}
 {"id":"nm_f377c72110c9","kind":"CURRENT","name":"Château Palmer","provenance":"pv_dcde0cc6132f","subject":"es_00339","validity":{"valid_from":{"kind":"UNKNOWN"},"valid_to":{"kind":"OPEN"}}}
 {"id":"nm_f3a650affc52","kind":"CURRENT","name":"Château Ladignac","provenance":"pv_11f40c267c53","subject":"es_00123","validity":{"valid_from":{"kind":"UNKNOWN"},"valid_to":{"kind":"OPEN"}}}
+{"id":"nm_f3ce67b82394","kind":"CURRENT","name":"Château Haut-Sarpe","provenance":"pv_6319b09d8794","subject":"wn_00404","validity":{"valid_from":{"kind":"UNKNOWN"},"valid_to":{"kind":"OPEN"}}}
+{"id":"nm_f46a0ec9cc34","kind":"CURRENT","name":"Château de Côme","provenance":"pv_6319b09d8794","subject":"wn_00075","validity":{"valid_from":{"kind":"UNKNOWN"},"valid_to":{"kind":"OPEN"}}}
 {"id":"nm_f49ed5d2f674","kind":"CURRENT","name":"Château La Violette","provenance":"pv_ac325d595306","subject":"es_00298","validity":{"valid_from":{"kind":"UNKNOWN"},"valid_to":{"kind":"OPEN"}}}
 {"id":"nm_f4ca497d121c","kind":"CURRENT","name":"Château Saint Grégoire","provenance":"pv_537d1e191755","subject":"es_00028","validity":{"valid_from":{"kind":"UNKNOWN"},"valid_to":{"kind":"OPEN"}}}
 {"id":"nm_f5685b27dff5","kind":"CURRENT","name":"Château Nairac","provenance":"pv_72872a84d1b4","subject":"es_00337","validity":{"valid_from":{"kind":"UNKNOWN"},"valid_to":{"kind":"OPEN"}}}
+{"id":"nm_f5e359c4c32e","kind":"CURRENT","name":"Clos Saint-Julien","provenance":"pv_6319b09d8794","subject":"wn_00444","validity":{"valid_from":{"kind":"UNKNOWN"},"valid_to":{"kind":"OPEN"}}}
 {"id":"nm_f694aa4cef49","kind":"CURRENT","name":"Clos la Bohème","provenance":"pv_11f40c267c53","subject":"es_00210","validity":{"valid_from":{"kind":"UNKNOWN"},"valid_to":{"kind":"OPEN"}}}
 {"id":"nm_f6c30608fddc","kind":"CURRENT","name":"Château Tour Castillon","provenance":"pv_11f40c267c53","subject":"es_00200","validity":{"valid_from":{"kind":"UNKNOWN"},"valid_to":{"kind":"OPEN"}}}
+{"id":"nm_f6d8aedbfb2c","kind":"CURRENT","name":"Château Malartic-Lagravière","provenance":"pv_6319b09d8794","subject":"wn_00324","validity":{"valid_from":{"kind":"UNKNOWN"},"valid_to":{"kind":"OPEN"}}}
 {"id":"nm_f76399fca8b3","kind":"CURRENT","name":"Château Liouner","provenance":"pv_11f40c267c53","subject":"es_00147","validity":{"valid_from":{"kind":"UNKNOWN"},"valid_to":{"kind":"OPEN"}}}
 {"id":"nm_f78092824f61","kind":"CURRENT","name":"Château Pontey","provenance":"pv_11f40c267c53","subject":"es_00180","validity":{"valid_from":{"kind":"UNKNOWN"},"valid_to":{"kind":"OPEN"}}}
 {"id":"nm_f7cd6ac8e34f","kind":"CURRENT","name":"Château Beauséjour (Héritiers Duffau-Lagarrosse)","provenance":"pv_0377fa70c247","subject":"es_00037","validity":{"valid_from":{"kind":"UNKNOWN"},"valid_to":{"kind":"OPEN"}}}
 {"id":"nm_f7e3fbb82ad5","kind":"CURRENT","name":"Château Lafon-Rochet","provenance":"pv_dcde0cc6132f","subject":"es_00302","validity":{"valid_from":{"kind":"UNKNOWN"},"valid_to":{"kind":"OPEN"}}}
+{"id":"nm_f7f422f40f66","kind":"CURRENT","name":"Château Latour-Martillac","provenance":"pv_6319b09d8794","subject":"wn_00311","validity":{"valid_from":{"kind":"UNKNOWN"},"valid_to":{"kind":"OPEN"}}}
+{"id":"nm_f81fee8663cf","kind":"CURRENT","name":"Château Saint-Pierre","provenance":"pv_6319b09d8794","subject":"wn_00372","validity":{"valid_from":{"kind":"UNKNOWN"},"valid_to":{"kind":"OPEN"}}}
 {"id":"nm_f85928796ca2","kind":"CURRENT","name":"Château Soutard","provenance":"pv_0377fa70c247","subject":"es_00446","validity":{"valid_from":{"kind":"UNKNOWN"},"valid_to":{"kind":"OPEN"}}}
 {"id":"nm_f899ee3296ee","kind":"CURRENT","name":"Château La Commanderie","provenance":"pv_0377fa70c247","subject":"es_00418","validity":{"valid_from":{"kind":"UNKNOWN"},"valid_to":{"kind":"OPEN"}}}
 {"id":"nm_f8a01108d082","kind":"CURRENT","name":"Château la Chandellière","provenance":"pv_11f40c267c53","subject":"es_00109","validity":{"valid_from":{"kind":"UNKNOWN"},"valid_to":{"kind":"OPEN"}}}
 {"id":"nm_f8b7cee4c257","kind":"CURRENT","name":"Clos Haut-Peyraguey","provenance":"pv_72872a84d1b4","subject":"es_00234","validity":{"valid_from":{"kind":"UNKNOWN"},"valid_to":{"kind":"OPEN"}}}
+{"id":"nm_f8b80b4d1984","kind":"CURRENT","name":"Château Chasse-Spleen","provenance":"pv_6319b09d8794","subject":"wn_00228","validity":{"valid_from":{"kind":"UNKNOWN"},"valid_to":{"kind":"OPEN"}}}
+{"id":"nm_f90f7f163a84","kind":"CURRENT","name":"Château Beauséjour (Héritiers Duffau-Lagarrosse)","provenance":"pv_6319b09d8794","subject":"wn_00037","validity":{"valid_from":{"kind":"UNKNOWN"},"valid_to":{"kind":"OPEN"}}}
+{"id":"nm_f91d668745e5","kind":"CURRENT","name":"Château Chantemerle","provenance":"pv_6319b09d8794","subject":"wn_00059","validity":{"valid_from":{"kind":"UNKNOWN"},"valid_to":{"kind":"OPEN"}}}
+{"id":"nm_f9e8f4014a6b","kind":"CURRENT","name":"Château Bournac","provenance":"pv_6319b09d8794","subject":"wn_00054","validity":{"valid_from":{"kind":"UNKNOWN"},"valid_to":{"kind":"OPEN"}}}
+{"id":"nm_f9edba31b1a6","kind":"CURRENT","name":"Château Bel Air Gloria","provenance":"pv_6319b09d8794","subject":"wn_00048","validity":{"valid_from":{"kind":"UNKNOWN"},"valid_to":{"kind":"OPEN"}}}
 {"id":"nm_fa5cfbf308c6","kind":"CURRENT","name":"Château Bouscaut","provenance":"pv_e45f5d20b569","subject":"es_00212","validity":{"valid_from":{"kind":"UNKNOWN"},"valid_to":{"kind":"OPEN"}}}
 {"id":"nm_fb717c67da73","kind":"CURRENT","name":"Château Haut-Bages Libéral","provenance":"pv_dcde0cc6132f","subject":"es_00277","validity":{"valid_from":{"kind":"UNKNOWN"},"valid_to":{"kind":"OPEN"}}}
+{"id":"nm_fbcb36ae8d72","kind":"CURRENT","name":"Château Brûlesécaille","provenance":"pv_6319b09d8794","subject":"wn_00217","validity":{"valid_from":{"kind":"UNKNOWN"},"valid_to":{"kind":"OPEN"}}}
+{"id":"nm_fbcf9c91640a","kind":"CURRENT","name":"Clos des Jacobins","provenance":"pv_6319b09d8794","subject":"wn_00442","validity":{"valid_from":{"kind":"UNKNOWN"},"valid_to":{"kind":"OPEN"}}}
 {"id":"nm_fc9f6512aa24","kind":"CURRENT","name":"Château Monbousquet","provenance":"pv_0377fa70c247","subject":"es_00435","validity":{"valid_from":{"kind":"UNKNOWN"},"valid_to":{"kind":"OPEN"}}}
+{"id":"nm_fd0de86b17d8","kind":"CURRENT","name":"Château Roc de Cambes","provenance":"pv_6319b09d8794","subject":"wn_00369","validity":{"valid_from":{"kind":"UNKNOWN"},"valid_to":{"kind":"OPEN"}}}
+{"id":"nm_fd31d91519ae","kind":"CURRENT","name":"Château Beauvillage","provenance":"pv_6319b09d8794","subject":"wn_00045","validity":{"valid_from":{"kind":"UNKNOWN"},"valid_to":{"kind":"OPEN"}}}
+{"id":"nm_fdd593d9faa2","kind":"CURRENT","name":"Château Prieuré de Beyzac","provenance":"pv_6319b09d8794","subject":"wn_00183","validity":{"valid_from":{"kind":"UNKNOWN"},"valid_to":{"kind":"OPEN"}}}
 {"id":"nm_fe03ba23a917","kind":"CURRENT","name":"Château Ducru-Beaucaillou","provenance":"pv_dcde0cc6132f","subject":"es_00261","validity":{"valid_from":{"kind":"UNKNOWN"},"valid_to":{"kind":"OPEN"}}}
+{"id":"nm_fe782a6ab16c","kind":"CURRENT","name":"Château Cos Labory","provenance":"pv_6319b09d8794","subject":"wn_00239","validity":{"valid_from":{"kind":"UNKNOWN"},"valid_to":{"kind":"OPEN"}}}
+{"id":"nm_fe8947182946","kind":"CURRENT","name":"Château Lalande","provenance":"pv_6319b09d8794","subject":"wn_00126","validity":{"valid_from":{"kind":"UNKNOWN"},"valid_to":{"kind":"OPEN"}}}
 {"id":"nm_fec499870c8e","kind":"CURRENT","name":"Château Pontet-Canet","provenance":"pv_dcde0cc6132f","subject":"es_00370","validity":{"valid_from":{"kind":"UNKNOWN"},"valid_to":{"kind":"OPEN"}}}
 {"id":"nm_ff193514d9a6","kind":"CURRENT","name":"Château Taillefer","provenance":"pv_ac325d595306","subject":"es_00365","validity":{"valid_from":{"kind":"UNKNOWN"},"valid_to":{"kind":"OPEN"}}}
+{"id":"nm_ff44fdfbd12c","kind":"CURRENT","name":"Château Monconseil-Gazin","provenance":"pv_6319b09d8794","subject":"wn_00331","validity":{"valid_from":{"kind":"UNKNOWN"},"valid_to":{"kind":"OPEN"}}}
 {"id":"nm_ff87ea2d6c9b","kind":"CURRENT","name":"Château Haut Gravat","provenance":"pv_537d1e191755","subject":"es_00014","validity":{"valid_from":{"kind":"UNKNOWN"},"valid_to":{"kind":"OPEN"}}}
+{"id":"nm_ff8a25e4ab99","kind":"CURRENT","name":"La Chenade","provenance":"pv_6319b09d8794","subject":"wn_00286","validity":{"valid_from":{"kind":"UNKNOWN"},"valid_to":{"kind":"OPEN"}}}
 {"id":"nm_ffa0fdd27b25","kind":"CURRENT","name":"Château Tour Baladoz","provenance":"pv_0377fa70c247","subject":"es_00447","validity":{"valid_from":{"kind":"UNKNOWN"},"valid_to":{"kind":"OPEN"}}}
 {"id":"nm_ffbdb8c02efd","kind":"CURRENT","name":"Château Moulin Haut-Laroque","provenance":"pv_7cce45d9d443","subject":"es_00334","validity":{"valid_from":{"kind":"UNKNOWN"},"valid_to":{"kind":"OPEN"}}}
 {"id":"nm_ffe9fce69902","kind":"CURRENT","name":"Domaine de la Garenne","provenance":"pv_537d1e191755","subject":"es_00034","validity":{"valid_from":{"kind":"UNKNOWN"},"valid_to":{"kind":"OPEN"}}}
+{"id":"nm_ffed8ec8c9cb","kind":"CURRENT","name":"Château Lamongeau","provenance":"pv_6319b09d8794","subject":"wn_00020","validity":{"valid_from":{"kind":"UNKNOWN"},"valid_to":{"kind":"OPEN"}}}

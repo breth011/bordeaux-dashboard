@@ -257,6 +257,34 @@ def c3_linked_paths_hold_their_own_bytes():
         assert h == e['sha256'], 'bytes changed: ' + e['path']
 
 
+# Two raw files whose bytes match no version the manifest records (found in C3).
+# Pinned to preserve them, not to vouch for them: nothing reconciles, corrects or
+# promotes them. If a hash changes, STOP; the expected value may only change in a
+# separately documented data-integrity decision.
+ANOMALIES = {
+    'sources/fiches/domaine-de-chevalier/2020-rouge-domaine-de-chevalier-francais.pdf':
+        (394634, '0c1a54293689b223674fb4f109d9797cd613fbb081eaf49f5febf38789139896'),
+    'sources/fiches/valandraud/VIRGINIE-DE-VALANDRAUD.pdf':
+        (135273, '57f351bc7e376c2f6ae42b2169ad8a889a41c1cf557ad6a4909863893a65bdc4'),
+}
+
+
+@check
+def known_raw_file_anomalies_preserved():
+    import hashlib
+    for rel, (size, sha) in ANOMALIES.items():
+        p = L.ROOT + rel
+        assert os.path.isfile(p), 'missing: ' + rel
+        b = open(p, 'rb').read()
+        assert len(b) == size and hashlib.sha256(b).hexdigest() == sha, 'CHANGED: ' + rel
+    # still anomalies: the manifest's digest for each path is not the file's
+    sheets = {(r['folder'], r['file']): r['sha1'] for r in L.sources_rows()['sheets']}
+    for rel in ANOMALIES:
+        folder, file = rel[len('sources/fiches/'):].rsplit('/', 1)
+        b = open(L.ROOT + rel, 'rb').read()
+        assert sheets[(folder, file)] != hashlib.sha1(b).hexdigest(), 'no longer an anomaly: ' + rel
+
+
 def main():
     fails = 0
     for f in CHECKS:

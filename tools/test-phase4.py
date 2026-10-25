@@ -826,6 +826,150 @@ def m9_dual_read_old_and_new_readers_agree():
     assert not glob.glob(L.ROOT + 'data/*.generated*'), 'generated files in data/'
 
 
+# ---------------------------------------------------------------- M10
+
+@check
+def m10_quality_audit_proposes_never_fixes():
+    import importlib.util
+    spec = importlib.util.spec_from_file_location('qa', L.ROOT + 'tools/quality-audit.py')
+    qa = importlib.util.module_from_spec(spec)
+    spec.loader.exec_module(qa)
+    r = qa.build()
+    assert list(r['summary']) == qa.KINDS and len(qa.KINDS) == 14
+    saved = json.load(open(L.MODEL + 'checks/quality-audit.json', encoding='utf-8'))
+    assert saved['summary'] == r['summary'], 'the committed audit is stale'
+    assert all(p['status'] == 'PROPOSED' for ps in r['proposals'].values() for p in ps)
+    assert r['summary']['provenance-less canonical values'] == 0
+    assert r['summary']['duplicate document identities'] == 76     # the unjoined reads, not merged
+
+
+# ---------------------------------------------------------------- the contract, as the brief lists it
+
+@check
+def t11_wine_type_is_independent_from_rank():
+    rk = ranks_by_wine()
+    wines = {w['id']: w for w in T('identity/wines.jsonl')}
+    pairs = {(wines[w]['type'], r['tier']) for w, rs in rk.items() for r in rs}
+    assert ('WHITE_DRY', 'SECOND') in pairs and ('RED', 'SECOND') in pairs
+    assert ('WHITE_SWEET', 'FIRST') in pairs and ('RED', 'FIRST') in pairs
+    assert any(t == 'UNKNOWN' for t, _ in pairs)
+    assert 'role' not in S.ENTITIES['Wine']['fields'] and 'tier' not in S.ENTITIES['Wine']['fields']
+
+
+@check
+def t12_rank_claims_retain_provenance():
+    prov = {p['id']: p for p in T('cross/provenance.jsonl')}
+    for r in T('state/rank-assertions.jsonl') + T('state/rank-absences.jsonl'):
+        p = prov[r['provenance']]
+        assert p['kind'] in ('LEGACY_UNSOURCED', 'AUTHORITATIVE_SOURCE', 'DOCUMENT'), p
+        assert p['actor'].startswith('data/'), p
+
+
+def validity(frm, to=None, basis='pv_x'):
+    v = {'valid_from': S.bound('EXACT', frm, 'VINTAGE', 'VINTAGE', basis) if frm else S.bound('UNKNOWN')}
+    v['valid_to'] = S.bound('EXACT', to, 'VINTAGE', 'VINTAGE', basis) if to else S.bound('OPEN')
+    return v
+
+
+@check
+def t13_temporal_rank_is_representable():
+    ra = {'id': S.hid('RankAssertion', 'x'), 'relationship': S.hid('EstateWineRelationship', 'x'),
+          'tier': 'SECOND', 'scope': 'ESTATE_RANGE', 'claimant': 'PRODUCER', 'validity': validity('2008'),
+          'provenance': S.hid('Provenance', 'x')}
+    assert not S.check_row('RankAssertion', ra)
+    closed = dict(ra, validity=validity('2016', '2019'))
+    assert not S.check_row('RankAssertion', closed)
+    one = {'id': S.hid('RankAbsence', 'x'), 'estate': 'es_00001', 'tier': 'SECOND', 'scope': 'ESTATE_RANGE',
+           'claimant': 'PRODUCER', 'validity': validity('2022', '2022'), 'provenance': S.hid('Provenance', 'x')}
+    assert not S.check_row('RankAbsence', one), 'a one-vintage absence (Corbin 2022)'
+
+
+@check
+def t14_t15_classification_and_appellation_are_temporal():
+    for r in T('state/classification-editions.jsonl'):
+        assert r['validity']['valid_to']['kind'] == 'OPEN'
+        if r['validity']['valid_from']['kind'] == 'EXACT':
+            assert r['validity']['valid_from']['basis']
+    years = {r['label'].split(' (')[0]: r['validity']['valid_from'].get('value')
+             for r in T('state/classification-editions.jsonl')}
+    assert years['Classification of 1855'] == '1855' and years['Saint-Émilion 2022'] == '2022'
+    for t in ('state/classification-memberships.jsonl', 'state/appellation-memberships.jsonl',
+              'state/appellations.jsonl'):
+        assert all('validity' in r for r in T(t))
+    m = {'id': S.hid('AppellationMembership', 'x'), 'wine': 'wn_00001', 'appellation': S.hid('Appellation', 'x'),
+         'validity': validity('1990', '2011'), 'provenance': S.hid('Provenance', 'x')}
+    assert not S.check_row('AppellationMembership', m), 'a closed appellation membership'
+
+
+@check
+def t16_t17_documents_content_identified_and_in_several_places():
+    arts = T('identity/artifacts.jsonl')
+    assert all(a.get('sha1') or a.get('sha256') for a in arts)
+    places = collections.Counter(p['artifact'] for p in T('document/placements.jsonl') if p.get('artifact'))
+    multi = [a for a, n in places.items() if n > 1]
+    assert len(multi) > 1000, len(multi)
+    kinds = collections.defaultdict(set)
+    for p in T('document/placements.jsonl'):
+        if p.get('artifact'):
+            kinds[p['artifact']].add(p['locator']['kind'])
+    assert any(k == {'LOCAL_PATH', 'URL'} for k in kinds.values())
+
+
+@check
+def t18_observations_preserve_source_wording():
+    obs = {(o['extraction']['file'], o['extraction']['record'], o['field']): o
+           for o in T('observation/observations.jsonl')}
+    for k, rec in list(L.g('BDX_FICHES').items())[:400]:
+        for f in ('taste', 'note', 'food'):
+            if f in rec:
+                assert obs[('data/fiches.js', k, f)]['value'] == rec[f]
+    for k, rec in L.g('BDX_CELLAR').items():
+        o = obs[('data/cellar.js', k, 'cellar_note')]
+        assert o['value'] == rec['v'] and o.get('locus') == rec.get('label')
+    import model_reader as R
+    d = next(R.discovery_observations())
+    assert d['source_record']['label'] and 'value' in d['source_record'], 'harvest wording kept in place'
+
+
+@check
+def t20_legacy_and_unsourced_values_remain_marked():
+    st = collections.Counter(c['status'] for c in T('canonical/values.jsonl'))
+    assert set(st) <= {'LEGACY_FIELD_SOURCE', 'LEGACY_AMBIGUOUS_SOURCE', 'LEGACY_RECORD_SOURCE_ONLY',
+                       'LEGACY_UNSOURCED'}, st
+    assert st['LEGACY_UNSOURCED'] == 171 and 'SOURCED' not in st and 'MANUAL_UNSOURCED' not in st
+    assert {o['confidence'] for o in T('observation/observations.jsonl')} == {'LEGACY'}
+
+
+@check
+def t21_t22_shared_sources_and_multi_estate_documents():
+    links = collections.defaultdict(set)
+    for r in T('state/source-estate.jsonl'):
+        links[r['source']].add(r['estate'])
+    assert sum(1 for s in links.values() if len(s) > 1) == 30
+    per = collections.defaultdict(set)
+    for a in T('document/attributions.jsonl'):
+        if a.get('estate'):
+            per[a['artifact']].add(a['estate'])
+    assert sum(1 for s in per.values() if len(s) > 1) > 0, 'no document attributed to two estates'
+
+
+@check
+def t23_multilingual_observations_remain_distinct():
+    tr = T('canonical/translations.jsonl')
+    obs = {o['id']: o for o in T('observation/observations.jsonl')}
+    assert tr and all(t['source_observation'] in obs and t['target_lang'] == 'nl' for t in tr)
+    assert all(obs[t['source_observation']]['value'] != t['text'] for t in tr[:200])
+    langs = collections.Counter(o.get('lang') for o in obs.values() if o['field'] in ('cellar_note', 'soil'))
+    assert len([l for l in langs if l]) >= 2, langs
+
+
+@check
+def t24_ocr_pending_documents_are_representable():
+    st = collections.Counter(a['extraction_status'] for a in T('identity/artifacts.jsonl'))
+    assert st['NEEDS_OCR'] == 374, st
+    assert st['STORED_ONLY'] and st['PENDING']
+
+
 def main():
     only = sys.argv[1:]
     fails = 0

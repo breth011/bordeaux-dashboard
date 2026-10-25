@@ -1,17 +1,17 @@
 {
  "_": "The normalized model (Phase 4). Built by tools/migrate.py; do not edit by hand. Layout and id rules: tools/model_schema.py; storage decision D3 there.",
- "stage": "M4",
+ "stage": "M5",
  "contract": "docs/phase34-model.json",
  "files": {
   "cross/findings.jsonl": {
    "entity": "QualityFinding",
-   "rows": 224,
-   "sha256": "3120a816ae89d4a7304fc846ba7628b1fedd09166c520c36752b71a103d0ac45"
+   "rows": 259,
+   "sha256": "6a7e45ad0a01383e19f0908ea723c48e1230edb5adafb8eeb62fa143b009ee6c"
   },
   "cross/provenance.jsonl": {
    "entity": "Provenance",
-   "rows": 304,
-   "sha256": "b9235ceb64e6321ff6d8069139c43ec082baef6591e56e62430bffbd4d430e9a"
+   "rows": 341,
+   "sha256": "79e3e63793a0aa9a383f865680beccb24b71fa096dc6126a59c3a2acaab07aa7"
   },
   "document/legacy-references.jsonl": {
    "entity": "LegacyDocumentReference",
@@ -40,8 +40,8 @@
   },
   "identity/identity-map.jsonl": {
    "entity": "IdentityMap",
-   "rows": 50966,
-   "sha256": "679e85f551ce2253aa17f44e27dc36fe7349f4dc5631fc9b7d318204d471d455"
+   "rows": 56164,
+   "sha256": "cd1e205c1ea4d0847a2ba0fb650318b9a63787394d0a6d69863243b7dc2f7cf9"
   },
   "identity/names.jsonl": {
    "entity": "NameRecord",
@@ -57,6 +57,11 @@
    "entity": "IdentityTransition",
    "rows": 0,
    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  },
+  "identity/vintages.jsonl": {
+   "entity": "Vintage",
+   "rows": 5196,
+   "sha256": "1a6435a1914e0a881ca3f9615778a5ab71fce9a90861b846411adce4a66494d9"
   },
   "identity/wines.jsonl": {
    "entity": "Wine",
@@ -117,6 +122,11 @@
    "entity": "RankAssertion",
    "rows": 684,
    "sha256": "6d715a928bfb98c7c74838e3712ecaf61629b88fa36fe63a03d0a2cd1098503d"
+  },
+  "state/vintage-statements.jsonl": {
+   "entity": "VintageStatement",
+   "rows": 18,
+   "sha256": "f85a3c79beb748601956d3aa8916ba8ed4b4b74933448961058ad1e610d95ad1"
   },
   "state/wine-descriptors.jsonl": {
    "entity": "WineDescriptor",
@@ -225,6 +235,17 @@
     "ambiguous (an undecided second)": 17,
     "resolved": 637,
     "unresolved": 1
+   }
+  },
+  "M5": {
+   "decomposition": {
+    "NOT_PRODUCED statements": 18,
+    "grand-vin vintage keys": 10337,
+    "orphan provenance keys": 16,
+    "other-wine vintage keys": 2459,
+    "unresolved estate|slug|vintage records": 2,
+    "unresolved estate|vintage records": 17,
+    "vintages": 5196
    }
   }
  }

@@ -260,7 +260,7 @@ def m2_every_legacy_estate_id_resolved_or_classified_unresolved():
     assert all(im[k]['status'] == 'AMBIGUOUS' and im[k].get('candidates') == [] for k in unresolved)
     assert unresolved == ['saint-julien'], unresolved
     f = [x for x in T('cross/findings.jsonl') if x['kind'] == 'IDENTITY_UNCERTAIN'
-         and "'saint-julien'" in x['detail']]
+         and x['detail'] == "legacy estate id 'saint-julien' resolves to no estate"]
     assert len(f) == 1
 
 
@@ -534,6 +534,55 @@ def m4_evidence_target_wines_resolve_or_are_classified():
             assert dm[k].get('candidates', []) == sec[k].get('candidates', [])
     unresolved = sorted(k for k in used if not dm[k].get('stable_id') and k not in sec)
     assert unresolved == ['pomerol-chateau-l-enclos|Château L’Enclos'], unresolved
+
+
+# ---------------------------------------------------------------- M5
+
+def kept_verbatim():
+    out = {}
+    for p in T('cross/provenance.jsonl'):
+        cs = p.get('code_state') or {}
+        if cs.get('unresolved'):
+            out[(cs['global'], cs['key'])] = json.loads(p['quote'])
+    return out
+
+
+@check
+def m5_every_estate_vintage_key_maps_to_one_grand_vin_vintage_or_is_kept():
+    ev = imap('estate|vintage')
+    gv = imap('grand-vin')
+    vint = {(r['wine'], r['label']) for r in T('identity/vintages.jsonl')}
+    kept = kept_verbatim()
+    import mig_m5_vintages as M5
+    for f, name in M5.GRAND:
+        for k, v in L.g(name).items():
+            lid, year = k.split('|')
+            r = ev[k]
+            if r.get('stable_id'):
+                w, lab = r['stable_id'][3:].rsplit(':', 1)
+                assert w == gv[lid]['stable_id'] and lab == year and (w, lab) in vint, k
+            else:
+                assert kept[(name, k)] == v, k
+    assert sum(1 for r in ev.values() if not r.get('stable_id')) == 17
+
+
+@check
+def m5_every_slug_vintage_key_maps_to_its_wine_or_is_kept():
+    sv = imap('estate|slug|vintage')
+    slugs = imap('wine-by-slug')
+    kept = kept_verbatim()
+    for name in ('BDX_CUVEES', 'BDX_CUVEE_URL'):
+        for k, v in L.g(name).items():
+            lid, slug, year = k.split('|')
+            r = sv[k]
+            if r.get('stable_id'):
+                assert r['stable_id'] == S.vref(slugs['%s|%s' % (lid, slug)]['stable_id'], year)
+            else:
+                assert kept[(name, k)] == v
+    orphans = [f for f in T('cross/findings.jsonl') if f['kind'] == 'ORPHAN_PROVENANCE']
+    assert len(orphans) == 16
+    np = T('state/vintage-statements.jsonl')
+    assert len(np) == sum(len(x) for x in L.g('BDX_NOT_PRODUCED').values()) == 18
 
 
 def main():

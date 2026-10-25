@@ -2,6 +2,7 @@
 {"actor":"data/sources.json","artifact":"ar_000683","id":"pv_00757125eaac","kind":"LEGACY_MANIFEST","quote":"the manifest claims these bytes at this path; v4/v5 found ARTIFACT_NOT_FOUND"}
 {"actor":"tools/migrate.py M3","id":"pv_00f1dfdb9def","kind":"DERIVATION","quote":"supported by: BDX_FICHES, BDX_FIELD_SRC, classification:stem"}
 {"actor":"data/sources.json","artifact":"ar_001499","id":"pv_01c7fea49621","kind":"LEGACY_MANIFEST","quote":"the manifest claims these bytes at this path; v4/v5 found ARTIFACT_NOT_FOUND"}
+{"actor":"data/cuvee-src.js","code_state":{"global":"BDX_CUVEE_SRC","key":"montrose|la-vieille-dame-de-trottevieille|2020","legacy_file":"data/cuvee-src.js"},"id":"pv_01da81d19b92","kind":"LEGACY_UNSOURCED"}
 {"actor":"data/sources.json","artifact":"ar_005701","id":"pv_02905904871d","kind":"LEGACY_MANIFEST","quote":"the manifest claims these bytes at this path; v4/v5 found ARTIFACT_NOT_FOUND"}
 {"actor":"data/saintemilion.js","id":"pv_0377fa70c247","kind":"LEGACY_UNSOURCED"}
 {"actor":"data/sources.json","artifact":"ar_010517","id":"pv_0568d235e0f0","kind":"LEGACY_MANIFEST","quote":"the manifest claims these bytes at this path; v4/v5 found ARTIFACT_NOT_FOUND"}
@@ -9,6 +10,7 @@
 {"actor":"data/sources.json","artifact":"ar_004234","id":"pv_06d3d0c067f8","kind":"LEGACY_MANIFEST","quote":"the manifest claims these bytes at this path; v4/v5 found ARTIFACT_NOT_FOUND"}
 {"actor":"data/sources.json","artifact":"ar_001402","id":"pv_071399115c4c","kind":"LEGACY_MANIFEST","quote":"the manifest claims these bytes at this path; v4/v5 found ARTIFACT_NOT_FOUND"}
 {"actor":"data/sources.json","artifact":"ar_003867","id":"pv_07b34ac807c4","kind":"LEGACY_MANIFEST","quote":"the manifest claims these bytes at this path; v4/v5 found ARTIFACT_NOT_FOUND"}
+{"actor":"data/cuvee-src.js","code_state":{"global":"BDX_CUVEE_SRC","key":"giscours|le-haut-m-doc-de-giscours|2024","legacy_file":"data/cuvee-src.js"},"id":"pv_095226e067b3","kind":"LEGACY_UNSOURCED"}
 {"actor":"tools/migrate.py M3","id":"pv_0986d4dd6086","kind":"DERIVATION","quote":"supported by: BDX_CELLAR, BDX_FICHES, BDX_FICHE_URL, BDX_FIELD_SRC, classification:bourgeois"}
 {"actor":"data/sources.json","artifact":"ar_002184","id":"pv_0a686525fe26","kind":"LEGACY_MANIFEST","quote":"the manifest claims these bytes at this path; v4/v5 found ARTIFACT_NOT_FOUND"}
 {"actor":"data/sources.json","artifact":"ar_010677","id":"pv_0a7b1409030f","kind":"LEGACY_MANIFEST","quote":"the manifest claims these bytes at this path; v4/v5 found ARTIFACT_NOT_FOUND"}
@@ -25,6 +27,7 @@
 {"actor":"tools/migrate.py M3","id":"pv_122be55864cb","kind":"DERIVATION","quote":"supported by: classification:sauternes, full record"}
 {"actor":"tools/migrate.py M3","id":"pv_128787f5aee8","kind":"DERIVATION","quote":"supported by: BDX_CELLAR, classification:artisan, sources.json role grand"}
 {"actor":"data/sources.json","artifact":"ar_002218","id":"pv_135346549897","kind":"LEGACY_MANIFEST","quote":"the manifest claims these bytes at this path; v4/v5 found ARTIFACT_NOT_FOUND"}
+{"actor":"data/cuvee-src.js","code_state":{"global":"BDX_CUVEE_SRC","key":"giscours|le-haut-m-doc-de-giscours|2015","legacy_file":"data/cuvee-src.js"},"id":"pv_14599cc59d18","kind":"LEGACY_UNSOURCED"}
 {"actor":"tools/migrate.py M3","id":"pv_167a12a2c173","kind":"DERIVATION","quote":"supported by: BDX_FICHES, BDX_RATINGS, classification:1855, full record, sources.json role grand"}
 {"actor":"tools/migrate.py M3","id":"pv_16a5fb28ffd0","kind":"DERIVATION","quote":"supported by: BDX_FICHES, BDX_FIELD_SRC, BDX_NOT_PRODUCED, BDX_RATINGS, BDX_SCORES, classification:sauternes, full record, sources.json role grand"}
 {"actor":"tools/migrate.py M3","id":"pv_1930ddf90446","kind":"DERIVATION","quote":"supported by: BDX_FICHES, BDX_FICHE_URL, BDX_FIELD_SRC, BDX_RATINGS, classification:sauternes, full record, sources.json role grand"}
@@ -53,6 +56,7 @@
 {"actor":"data/sources.json","artifact":"ar_008510","id":"pv_294cf752d050","kind":"LEGACY_MANIFEST","quote":"the manifest claims these bytes at this path; v4/v5 found ARTIFACT_NOT_FOUND"}
 {"actor":"tools/provenance.py","artifact":"ar_022149","id":"pv_29e80bb7d839","kind":"EVIDENCE_DECISION","quote":"hashed immediately before the reader read it (v4/v5)"}
 {"actor":"tools/migrate.py M3","id":"pv_2a4897fc8ad6","kind":"DERIVATION","quote":"supported by: BDX_FICHES, BDX_FICHE_URL, full record"}
+{"actor":"data/ratings.js","code_state":{"global":"BDX_RATINGS","key":"saint-julien|2022","legacy_file":"data/ratings.js","unresolved":"the estate id 'saint-julien' resolves to no estate with a grand-vin Wine"},"id":"pv_2b255e6be90c","kind":"LEGACY_UNSOURCED","quote":"[91.5,5,2.4,\"JR:15.5|TA:89|JL:94-96|JA:93|CK:91-93\"]"}
 {"actor":"tools/provenance.py","artifact":"ar_022355","id":"pv_2bc0c049625b","kind":"EVIDENCE_DECISION","quote":"hashed immediately before the reader read it (v4/v5)"}
 {"actor":"data/sources.json","artifact":"ar_005089","id":"pv_2d032f7030ea","kind":"LEGACY_MANIFEST","quote":"the manifest claims these bytes at this path; v4/v5 found ARTIFACT_NOT_FOUND"}
 {"actor":"data/sources.json","artifact":"ar_006281","id":"pv_2dbbb332950f","kind":"LEGACY_MANIFEST","quote":"the manifest claims these bytes at this path; v4/v5 found ARTIFACT_NAME_MISMATCH"}
@@ -63,6 +67,8 @@
 {"actor":"tools/migrate.py M3","id":"pv_31f15582d61d","kind":"DERIVATION","quote":"supported by: BDX_FICHES, BDX_FIELD_SRC, full record, sources.json role grand"}
 {"actor":"data/sources.json","artifact":"ar_002498","id":"pv_325f182fedf0","kind":"LEGACY_MANIFEST","quote":"the manifest claims these bytes at this path; v4/v5 found ARTIFACT_NOT_FOUND"}
 {"actor":"tools/migrate.py M3","id":"pv_32ab322c901b","kind":"DERIVATION","quote":"supported by: BDX_CELLAR, BDX_FICHES, BDX_FIELD_SRC, BDX_RATINGS, BDX_SCORES, classification:sauternes, full record, sources.json role grand"}
+{"actor":"data/ratings.js","code_state":{"global":"BDX_RATINGS","key":"saint-julien|2017","legacy_file":"data/ratings.js","unresolved":"the estate id 'saint-julien' resolves to no estate with a grand-vin Wine"},"id":"pv_3466194f65d2","kind":"LEGACY_UNSOURCED","quote":"[90.3,5,1.2,\"RP:88-90|NM:88-90|WS:91-92|JL:91-93|De:90\"]"}
+{"actor":"data/cuvees.js","code_state":{"global":"BDX_CUVEES","key":"dauzac|ch-teau-dauzac-blanc|2025","legacy_file":"data/cuvees.js","unresolved":"the slug 'ch-teau-dauzac-blanc' is not listed for 'dauzac' in BDX_CUVEE_WINES"},"id":"pv_34d03f9478aa","kind":"LEGACY_UNSOURCED","quote":"{\"alc\":12.5,\"food\":\"White meat, fish, shellfish and Comté-style cheeses.\",\"ftl\":1,\"src\":\"FT-D-DE-DAUZAC-BLANC-2025-FR.pdf\"}"}
 {"actor":"tools/provenance.py","artifact":"ar_031990","id":"pv_36cd90d23fb9","kind":"EVIDENCE_DECISION","quote":"hashed immediately before the reader read it (v4/v5)"}
 {"actor":"data/sources.json","artifact":"ar_009951","id":"pv_37e854e1703a","kind":"LEGACY_MANIFEST","quote":"the manifest claims these bytes at this path; v4/v5 found ARTIFACT_NAME_MISMATCH"}
 {"actor":"data/sources.json","artifact":"ar_001264","id":"pv_386cb441fee7","kind":"LEGACY_MANIFEST","quote":"the manifest claims these bytes at this path; v4/v5 found ARTIFACT_NOT_FOUND"}
@@ -104,13 +110,16 @@
 {"actor":"tools/provenance.py","artifact":"ar_016483","id":"pv_4b7375735228","kind":"EVIDENCE_DECISION","quote":"hashed immediately before the reader read it (v4/v5)"}
 {"actor":"tools/migrate.py M3","id":"pv_4b7e1942cc99","kind":"DERIVATION","quote":"supported by: classification:artisan, sources.json role grand"}
 {"actor":"tools/provenance.py","artifact":"ar_029581","id":"pv_4c0f92276e98","kind":"EVIDENCE_DECISION","quote":"hashed immediately before the reader read it (v4/v5)"}
+{"actor":"data/ratings.js","code_state":{"global":"BDX_RATINGS","key":"saint-julien|2020","legacy_file":"data/ratings.js","unresolved":"the estate id 'saint-julien' resolves to no estate with a grand-vin Wine"},"id":"pv_4c156a7137f7","kind":"LEGACY_UNSOURCED","quote":"[91.5,2,2.5,\"NM:88-90|JL:93-95\"]"}
 {"actor":"tools/migrate.py M4","id":"pv_4e0899ec8f29","kind":"DERIVATION","quote":"a wine's display name within its estate, as the evidence target_wine and the manifest wine field use it"}
 {"actor":"tools/migrate.py M3","id":"pv_503950be1ab2","kind":"DERIVATION","quote":"supported by: BDX_FICHES, BDX_FICHE_URL, BDX_FIELD_SRC, BDX_RATINGS, BDX_SCORES, classification:1855, full record"}
 {"actor":"tools/migrate.py M3","id":"pv_504e1bbbb101","kind":"DERIVATION","quote":"supported by: BDX_CELLAR, BDX_FICHES, BDX_FICHE_URL, BDX_FIELD_SRC, classification:bourgeois, sources.json role grand"}
+{"actor":"data/ratings.js","code_state":{"global":"BDX_RATINGS","key":"saint-julien|2009","legacy_file":"data/ratings.js","unresolved":"the estate id 'saint-julien' resolves to no estate with a grand-vin Wine"},"id":"pv_513545baa72d","kind":"LEGACY_UNSOURCED","quote":"[94.1,4,2,\"RP:93+|BD:17|WS:92-95|RG:19\"]"}
 {"actor":"tools/provenance.py","artifact":"ar_015745","id":"pv_518aca558d13","kind":"EVIDENCE_DECISION","quote":"hashed immediately before the reader read it (v4/v5)"}
 {"actor":"tools/migrate.py M3","id":"pv_535322937938","kind":"DERIVATION","quote":"supported by: BDX_FICHES, BDX_FIELD_SRC, sources.json role grand"}
 {"actor":"data/cruartisan.js","id":"pv_537d1e191755","kind":"LEGACY_UNSOURCED"}
 {"actor":"data/sources.json","artifact":"ar_007885","id":"pv_559df6adca81","kind":"LEGACY_MANIFEST","quote":"the manifest claims these bytes at this path; v4/v5 found ARTIFACT_NOT_FOUND"}
+{"actor":"data/cuvees.js","code_state":{"global":"BDX_CUVEES","key":"la-mission-haut-brion|clart-de-haut-brion-blanc|2010","legacy_file":"data/cuvees.js","unresolved":"the slug 'clart-de-haut-brion-blanc' is not listed for 'la-mission-haut-brion' in BDX_CUVEE_WINES"},"id":"pv_55fc0b6ebb63","kind":"LEGACY_UNSOURCED","quote":"{\"alc\":14,\"blend\":{\"SB\":19,\"SEM\":81},\"src\":\"Fiche-technique_ClarteHB_2010_EN.pdf\"}"}
 {"actor":"tools/migrate.py M3","id":"pv_57114a29d828","kind":"DERIVATION","quote":"supported by: BDX_CELLAR, BDX_FICHES, BDX_FICHE_URL, BDX_FIELD_SRC, BDX_RATINGS, classification:graves, full record, sources.json role grand"}
 {"actor":"tools/provenance.py","artifact":"ar_024563","id":"pv_57794843c2d0","kind":"EVIDENCE_DECISION","quote":"hashed immediately before the reader read it (v4/v5)"}
 {"actor":"tools/provenance.py","artifact":"ar_035393","id":"pv_593b3e7b6865","kind":"EVIDENCE_DECISION","quote":"hashed immediately before the reader read it (v4/v5)"}
@@ -122,6 +131,7 @@
 {"actor":"tools/migrate.py M3","id":"pv_5cab30838b1f","kind":"DERIVATION","quote":"supported by: classification:bourgeois, sources.json role grand"}
 {"actor":"tools/provenance.py","artifact":"ar_020397","id":"pv_5dc00610da6e","kind":"EVIDENCE_DECISION","quote":"hashed immediately before the reader read it (v4/v5)"}
 {"actor":"tools/provenance.py","artifact":"ar_034982","id":"pv_5ead7e6c5777","kind":"EVIDENCE_DECISION","quote":"hashed immediately before the reader read it (v4/v5)"}
+{"actor":"data/cuvee-src.js","code_state":{"global":"BDX_CUVEE_SRC","key":"montrose|la-vieille-dame-de-trottevieille|2013","legacy_file":"data/cuvee-src.js"},"id":"pv_5fd434d00aef","kind":"LEGACY_UNSOURCED"}
 {"actor":"data/sources.json","artifact":"ar_000355","id":"pv_604c291bb18d","kind":"LEGACY_MANIFEST","quote":"the manifest claims these bytes at this path; v4/v5 found ARTIFACT_NOT_FOUND"}
 {"actor":"data/sources.json","id":"pv_6319b09d8794","kind":"LEGACY_UNSOURCED","quote":"roles.grand: 'the grand vin, the wine the estate is judged on'; the dataset shows it under the estate's name"}
 {"actor":"data/sources.json","artifact":"ar_003206","id":"pv_632caea91b9e","kind":"LEGACY_MANIFEST","quote":"the manifest claims these bytes at this path; v4/v5 found ARTIFACT_NOT_FOUND"}
@@ -129,6 +139,8 @@
 {"actor":"tools/migrate.py M3","id":"pv_64ef53ff6596","kind":"DERIVATION","quote":"supported by: BDX_FICHES, BDX_FIELD_SRC, classification:sauternes, full record"}
 {"actor":"tools/migrate.py M3","id":"pv_6523862edae9","kind":"DERIVATION","quote":"supported by: BDX_CELLAR, BDX_FICHES, BDX_FICHE_URL, BDX_FIELD_SRC, BDX_NOT_PRODUCED, BDX_RATINGS, BDX_SCORES, classification:sauternes, full record, sources.json role grand"}
 {"actor":"tools/migrate.py M3","id":"pv_6689e3f62020","kind":"DERIVATION","quote":"supported by: BDX_CELLAR, BDX_FICHES, BDX_FIELD_SRC, full record, sources.json role grand"}
+{"actor":"data/ratings.js","code_state":{"global":"BDX_RATINGS","key":"saint-julien|2013","legacy_file":"data/ratings.js","unresolved":"the estate id 'saint-julien' resolves to no estate with a grand-vin Wine"},"id":"pv_6838c2713896","kind":"LEGACY_UNSOURCED","quote":"[89.9,2,1.9,\"BD:16.75|JL:87-89\"]"}
+{"actor":"data/ratings.js","code_state":{"global":"BDX_RATINGS","key":"saint-julien|2019","legacy_file":"data/ratings.js","unresolved":"the estate id 'saint-julien' resolves to no estate with a grand-vin Wine"},"id":"pv_69067176fca8","kind":"LEGACY_UNSOURCED","quote":"[90.7,3,3.4,\"RP:93-95|NM:85-87|JL:91-93\"]"}
 {"actor":"data/sources.json","artifact":"ar_001763","id":"pv_697989dd1ce9","kind":"LEGACY_MANIFEST","quote":"the manifest claims these bytes at this path; v4/v5 found ARTIFACT_NOT_FOUND"}
 {"actor":"data/sources.json","artifact":"ar_010256","id":"pv_69cfbca4b94d","kind":"LEGACY_MANIFEST","quote":"the manifest claims these bytes at this path; v4/v5 found ARTIFACT_NOT_FOUND"}
 {"actor":"data/sources.json","artifact":"ar_010030","id":"pv_69e5162ab203","kind":"LEGACY_MANIFEST","quote":"the manifest claims these bytes at this path; v4/v5 found ARTIFACT_NOT_FOUND"}
@@ -138,6 +150,7 @@
 {"actor":"tools/migrate.py M3","id":"pv_6b4026927a29","kind":"DERIVATION","quote":"supported by: BDX_FICHES, BDX_FICHE_URL, BDX_FIELD_SRC, classification:bourgeois"}
 {"actor":"tools/migrate.py M3","id":"pv_6c9b43c7ae81","kind":"DERIVATION","quote":"supported by: BDX_RATINGS, full record"}
 {"actor":"data/sources.json","artifact":"ar_002540","id":"pv_6d475de55a5f","kind":"LEGACY_MANIFEST","quote":"the manifest claims these bytes at this path; v4/v5 found ARTIFACT_NAME_MISMATCH"}
+{"actor":"data/ratings.js","code_state":{"global":"BDX_RATINGS","key":"saint-julien|2015","legacy_file":"data/ratings.js","unresolved":"the estate id 'saint-julien' resolves to no estate with a grand-vin Wine"},"id":"pv_6d837df988b5","kind":"LEGACY_UNSOURCED","quote":"[93.2,4,1,\"NM:91-93|WS:94-95|JL:93-95|RG:17\"]"}
 {"actor":"tools/migrate.py M3","id":"pv_70f06fea4c93","kind":"DERIVATION","quote":"supported by: BDX_FICHES, BDX_FICHE_URL, BDX_FIELD_SRC, classification:bourgeois, sources.json role grand"}
 {"actor":"data/sources.json","artifact":"ar_003108","id":"pv_719dd665e6a1","kind":"LEGACY_MANIFEST","quote":"the manifest claims these bytes at this path; v4/v5 found ARTIFACT_NOT_FOUND"}
 {"actor":"tools/provenance.py","artifact":"ar_030319","id":"pv_721e5ebba6ff","kind":"EVIDENCE_DECISION","quote":"hashed immediately before the reader read it (v4/v5)"}
@@ -145,6 +158,7 @@
 {"actor":"data/coords.js","id":"pv_739c35f059dc","kind":"LEGACY_UNSOURCED"}
 {"actor":"data/scope/authoritative-universe.json","id":"pv_73f2677fedaa","kind":"AUTHORITATIVE_SOURCE","quote":"the body its systems name, verbatim"}
 {"actor":"data/sources.json","artifact":"ar_006087","id":"pv_7434cec3959f","kind":"LEGACY_MANIFEST","quote":"the manifest claims these bytes at this path; v4/v5 found ARTIFACT_NOT_FOUND"}
+{"actor":"data/cuvee-src.js","code_state":{"global":"BDX_CUVEE_SRC","key":"giscours|le-haut-m-doc-de-giscours|2025","legacy_file":"data/cuvee-src.js"},"id":"pv_757d4bec03e2","kind":"LEGACY_UNSOURCED"}
 {"actor":"tools/migrate.py M3","id":"pv_75ef8741a65a","kind":"DERIVATION","quote":"supported by: BDX_FICHES, BDX_FICHE_URL, BDX_FIELD_SRC, BDX_RATINGS, classification:sauternes, full record"}
 {"actor":"data/sources.json","artifact":"ar_004338","id":"pv_77640e87f6e6","kind":"LEGACY_MANIFEST","quote":"the manifest claims these bytes at this path; v4/v5 found ARTIFACT_NAME_MISMATCH"}
 {"actor":"data/sources.json","artifact":"ar_004680","id":"pv_7775ea2b76f4","kind":"LEGACY_MANIFEST","quote":"the manifest claims these bytes at this path; v4/v5 found ARTIFACT_NOT_FOUND"}
@@ -152,12 +166,15 @@
 {"actor":"tools/provenance.py","artifact":"ar_021280","id":"pv_7834a1fa252c","kind":"EVIDENCE_DECISION","quote":"hashed immediately before the reader read it (v4/v5)"}
 {"actor":"tools/migrate.py M2","id":"pv_78b1072e9359","kind":"DERIVATION","quote":"the manifest records one version at the path and every v4/v5 read there hashed this sha256"}
 {"actor":"tools/provenance.py","artifact":"ar_029964","id":"pv_79a7d0e871e8","kind":"EVIDENCE_DECISION","quote":"hashed immediately before the reader read it (v4/v5)"}
+{"actor":"data/ratings.js","code_state":{"global":"BDX_RATINGS","key":"saint-julien|2005","legacy_file":"data/ratings.js","unresolved":"the estate id 'saint-julien' resolves to no estate with a grand-vin Wine"},"id":"pv_79c870a2f091","kind":"LEGACY_UNSOURCED","quote":"[89.8,4,3.7,\"RP:94|JR:16.5|BD:16|De:3\"]"}
+{"actor":"data/ratings.js","code_state":{"global":"BDX_RATINGS","key":"saint-julien|2012","legacy_file":"data/ratings.js","unresolved":"the estate id 'saint-julien' resolves to no estate with a grand-vin Wine"},"id":"pv_7ac9ace7fba3","kind":"LEGACY_UNSOURCED","quote":"[88.5,3,3.7,\"RP:92-94|JL:87-90|PW:3½\"]"}
 {"actor":"tools/provenance.py","artifact":"ar_021956","id":"pv_7b70898e1239","kind":"EVIDENCE_DECISION","quote":"hashed immediately before the reader read it (v4/v5)"}
 {"actor":"data/sources.json","artifact":"ar_002518","id":"pv_7c373922120c","kind":"LEGACY_MANIFEST","quote":"the manifest claims these bytes at this path; v4/v5 found ARTIFACT_NOT_FOUND"}
 {"actor":"tools/provenance.py","artifact":"ar_015018","id":"pv_7c6b923e16f6","kind":"EVIDENCE_DECISION","quote":"hashed immediately before the reader read it (v4/v5)"}
 {"actor":"data/libournais.js","id":"pv_7cce45d9d443","kind":"LEGACY_UNSOURCED"}
 {"actor":"data/sources.json","artifact":"ar_011820","id":"pv_7d299ee67156","kind":"LEGACY_MANIFEST","quote":"the manifest claims these bytes at this path; v4/v5 found ARTIFACT_NAME_MISMATCH"}
 {"actor":"tools/migrate.py M3","id":"pv_7edbd1afbffe","kind":"DERIVATION","quote":"supported by: BDX_FICHES, BDX_FICHE_URL, BDX_FIELD_SRC, BDX_RATINGS, classification:1855, full record, sources.json role grand"}
+{"actor":"data/cuvee-src.js","code_state":{"global":"BDX_CUVEE_SRC","key":"giscours|le-haut-m-doc-de-giscours|2014","legacy_file":"data/cuvee-src.js"},"id":"pv_7f68dfb3bdd0","kind":"LEGACY_UNSOURCED"}
 {"actor":"tools/provenance.py","artifact":"ar_015200","id":"pv_7f8295db9990","kind":"EVIDENCE_DECISION","quote":"hashed immediately before the reader read it (v4/v5)"}
 {"actor":"data/sources.json","artifact":"ar_003049","id":"pv_8037e7dbef00","kind":"LEGACY_MANIFEST","quote":"the manifest claims these bytes at this path; v4/v5 found ARTIFACT_NOT_FOUND"}
 {"actor":"data/pomerol.js","id":"pv_8087da34378e","kind":"LEGACY_UNSOURCED","quote":"BDX_POMEROL_OTHER: the 'Other notable estates' tier (growth 3) of the editorial Pomerol collection"}
@@ -182,12 +199,15 @@
 {"actor":"tools/migrate.py M3","id":"pv_8bce600f2666","kind":"DERIVATION","quote":"supported by: classification:artisan"}
 {"actor":"tools/migrate.py M3","id":"pv_92e699001e14","kind":"DERIVATION","quote":"supported by: BDX_RATINGS, classification:graves, full record"}
 {"actor":"tools/migrate.py M3","id":"pv_946392fda166","kind":"DERIVATION","quote":"supported by: BDX_CELLAR, BDX_FICHES, BDX_FICHE_URL, BDX_FIELD_SRC, full record, sources.json role grand"}
+{"actor":"data/cuvee-src.js","code_state":{"global":"BDX_CUVEE_SRC","key":"giscours|le-haut-m-doc-de-giscours|2019","legacy_file":"data/cuvee-src.js"},"id":"pv_94e4bf232d35","kind":"LEGACY_UNSOURCED"}
 {"actor":"data/sources.json","artifact":"ar_005548","id":"pv_9527a71303cd","kind":"LEGACY_MANIFEST","quote":"the manifest claims these bytes at this path; v4/v5 found ARTIFACT_NOT_FOUND"}
 {"actor":"data/sources.json","artifact":"ar_002426","id":"pv_954fedcaab43","kind":"LEGACY_MANIFEST","quote":"the manifest claims these bytes at this path; v4/v5 found ARTIFACT_NOT_FOUND"}
 {"actor":"data/sources.json","artifact":"ar_001961","id":"pv_971e01e9802d","kind":"LEGACY_MANIFEST","quote":"the manifest claims these bytes at this path; v4/v5 found ARTIFACT_NOT_FOUND"}
 {"actor":"tools/provenance.py","artifact":"ar_016129","id":"pv_974e682c8f4c","kind":"EVIDENCE_DECISION","quote":"hashed immediately before the reader read it (v4/v5)"}
 {"actor":"data/sources.json","artifact":"ar_009919","id":"pv_977d6c0272f0","kind":"LEGACY_MANIFEST","quote":"the manifest claims these bytes at this path; v4/v5 found ARTIFACT_NOT_FOUND"}
+{"actor":"data/cuvee-src.js","code_state":{"global":"BDX_CUVEE_SRC","key":"montrose|la-vieille-dame-de-trottevieille|2015","legacy_file":"data/cuvee-src.js"},"id":"pv_98d15daa30a6","kind":"LEGACY_UNSOURCED"}
 {"actor":"tools/migrate.py M3","id":"pv_98d62123cc56","kind":"DERIVATION","quote":"supported by: BDX_RATINGS, classification:1855, full record"}
+{"actor":"data/cuvee-src.js","code_state":{"global":"BDX_CUVEE_SRC","key":"montrose|la-vieille-dame-de-trottevieille|2022","legacy_file":"data/cuvee-src.js"},"id":"pv_994a04488a5c","kind":"LEGACY_UNSOURCED"}
 {"actor":"tools/migrate.py M3","id":"pv_9a6fcfc2fc51","kind":"DERIVATION","quote":"supported by: BDX_FICHES, classification:stem, sources.json role grand"}
 {"actor":"data/sources.json","artifact":"ar_008609","id":"pv_9a7a62114f92","kind":"LEGACY_MANIFEST","quote":"the manifest claims these bytes at this path; v4/v5 found ARTIFACT_NAME_MISMATCH"}
 {"actor":"data/sources.json","artifact":"ar_001362","id":"pv_9cabe95071d6","kind":"LEGACY_MANIFEST","quote":"the manifest claims these bytes at this path; v4/v5 found ARTIFACT_NAME_MISMATCH"}
@@ -202,17 +222,22 @@
 {"actor":"data/sources.json","artifact":"ar_005980","id":"pv_a61c305aa42e","kind":"LEGACY_MANIFEST","quote":"the manifest claims these bytes at this path; v4/v5 found ARTIFACT_NOT_FOUND"}
 {"actor":"tools/provenance.py","artifact":"ar_024529","id":"pv_a79a2e86fc8d","kind":"EVIDENCE_DECISION","quote":"hashed immediately before the reader read it (v4/v5)"}
 {"actor":"data/sources.json","artifact":"ar_008671","id":"pv_a7c22499bc9b","kind":"LEGACY_MANIFEST","quote":"the manifest claims these bytes at this path; v4/v5 found ARTIFACT_NOT_FOUND"}
+{"actor":"data/cuvee-src.js","code_state":{"global":"BDX_CUVEE_SRC","key":"montrose|la-vieille-dame-de-trottevieille|2023","legacy_file":"data/cuvee-src.js"},"id":"pv_a7dd67e67953","kind":"LEGACY_UNSOURCED"}
 {"actor":"data/sources.json","artifact":"ar_008468","id":"pv_a806354881e0","kind":"LEGACY_MANIFEST","quote":"the manifest claims these bytes at this path; v4/v5 found ARTIFACT_NOT_FOUND"}
 {"actor":"tools/migrate.py M3","id":"pv_a87cdddca002","kind":"DERIVATION","quote":"supported by: BDX_FICHES, BDX_FICHE_URL, sources.json role grand"}
 {"actor":"tools/migrate.py M3","id":"pv_ab745c779bb1","kind":"DERIVATION","quote":"supported by: BDX_FICHES, BDX_FICHE_URL, BDX_FIELD_SRC, BDX_RATINGS, BDX_SCORES, classification:1855, full record, sources.json role grand"}
+{"actor":"data/cuvee-src.js","code_state":{"global":"BDX_CUVEE_SRC","key":"giscours|le-haut-m-doc-de-giscours|2013","legacy_file":"data/cuvee-src.js"},"id":"pv_aba0a0d0f246","kind":"LEGACY_UNSOURCED"}
 {"actor":"tools/provenance.py","artifact":"ar_032981","id":"pv_abb9958f84dc","kind":"EVIDENCE_DECISION","quote":"hashed immediately before the reader read it (v4/v5)"}
 {"actor":"data/pomerol.js","id":"pv_ac325d595306","kind":"LEGACY_UNSOURCED"}
 {"actor":"data/sources.json","artifact":"ar_010949","id":"pv_ac418148e3f7","kind":"LEGACY_MANIFEST","quote":"the manifest claims these bytes at this path; v4/v5 found ARTIFACT_NAME_MISMATCH"}
 {"actor":"data/sources.json","artifact":"ar_009219","id":"pv_aedf453f04f2","kind":"LEGACY_MANIFEST","quote":"the manifest claims these bytes at this path; v4/v5 found ARTIFACT_NOT_FOUND"}
+{"actor":"data/cuvee-src.js","code_state":{"global":"BDX_CUVEE_SRC","key":"montrose|la-vieille-dame-de-trottevieille|2021","legacy_file":"data/cuvee-src.js"},"id":"pv_aef980d10493","kind":"LEGACY_UNSOURCED"}
 {"actor":"tools/provenance.py","artifact":"ar_025004","id":"pv_af781585ebaf","kind":"EVIDENCE_DECISION","quote":"hashed immediately before the reader read it (v4/v5)"}
 {"actor":"data/sources.json","artifact":"ar_008109","id":"pv_af990e7f7ee3","kind":"LEGACY_MANIFEST","quote":"the manifest claims these bytes at this path; v4/v5 found ARTIFACT_NOT_FOUND"}
+{"actor":"data/ratings.js","code_state":{"global":"BDX_RATINGS","key":"saint-julien|2008","legacy_file":"data/ratings.js","unresolved":"the estate id 'saint-julien' resolves to no estate with a grand-vin Wine"},"id":"pv_b0492edadd44","kind":"LEGACY_UNSOURCED","quote":"[92.8,3,1.6,\"RP:91+|BD:17|RG:18\"]"}
 {"actor":"tools/provenance.py","artifact":"ar_016722","id":"pv_b06a53f43a37","kind":"EVIDENCE_DECISION","quote":"hashed immediately before the reader read it (v4/v5)"}
 {"actor":"tools/migrate.py M3","id":"pv_b104b21dcd7a","kind":"DERIVATION","quote":"supported by: BDX_CELLAR, BDX_FICHES, BDX_FICHE_URL, BDX_FIELD_SRC, BDX_RATINGS, BDX_SCORES, classification:sauternes, full record, sources.json role grand"}
+{"actor":"data/ratings.js","code_state":{"global":"BDX_RATINGS","key":"saint-julien|2011","legacy_file":"data/ratings.js","unresolved":"the estate id 'saint-julien' resolves to no estate with a grand-vin Wine"},"id":"pv_b14aa70a6760","kind":"LEGACY_UNSOURCED","quote":"[91.3,3,2.6,\"RP:88-90+|JL:89-91|RG:18\"]"}
 {"actor":"data/sources.json","artifact":"ar_011886","id":"pv_b15255c37639","kind":"LEGACY_MANIFEST","quote":"the manifest claims these bytes at this path; v4/v5 found ARTIFACT_NOT_FOUND"}
 {"actor":"data/sources.json","artifact":"ar_005430","id":"pv_b45cc689d930","kind":"LEGACY_MANIFEST","quote":"the manifest claims these bytes at this path; v4/v5 found ARTIFACT_NOT_FOUND"}
 {"actor":"tools/migrate.py M3","id":"pv_b9cbd6a6f5ee","kind":"DERIVATION","quote":"supported by: BDX_FICHES, BDX_FIELD_SRC, classification:stem, sources.json role grand"}
@@ -220,6 +245,7 @@
 {"actor":"tools/migrate.py M3","id":"pv_ba70d927888f","kind":"DERIVATION","quote":"supported by: BDX_FICHES, BDX_FICHE_URL, BDX_FIELD_SRC, BDX_RATINGS, BDX_SCORES, classification:1855, classification:graves, full record, sources.json role grand"}
 {"actor":"data/sources.json","artifact":"ar_000372","id":"pv_bb21f5d5bce2","kind":"LEGACY_MANIFEST","quote":"the manifest claims these bytes at this path; v4/v5 found ARTIFACT_NOT_FOUND"}
 {"actor":"data/sources.json","artifact":"ar_005650","id":"pv_bc0a0a616469","kind":"LEGACY_MANIFEST","quote":"the manifest claims these bytes at this path; v4/v5 found ARTIFACT_NOT_FOUND"}
+{"actor":"data/cuvee-src.js","code_state":{"global":"BDX_CUVEE_SRC","key":"montrose|la-vieille-dame-de-trottevieille|2019","legacy_file":"data/cuvee-src.js"},"id":"pv_bc4a47ceabfd","kind":"LEGACY_UNSOURCED"}
 {"actor":"tools/provenance.py","artifact":"ar_032439","id":"pv_bc4a888a4de6","kind":"EVIDENCE_DECISION","quote":"hashed immediately before the reader read it (v4/v5)"}
 {"actor":"data/sources.json","artifact":"ar_005693","id":"pv_bc9c371c1198","kind":"LEGACY_MANIFEST","quote":"the manifest claims these bytes at this path; v4/v5 found ARTIFACT_NAME_MISMATCH"}
 {"actor":"data/sources.json","artifact":"ar_010947","id":"pv_bcc32f17ac94","kind":"LEGACY_MANIFEST","quote":"the manifest claims these bytes at this path; v4/v5 found ARTIFACT_NOT_FOUND"}
@@ -227,6 +253,7 @@
 {"actor":"tools/provenance.py","artifact":"ar_014007","id":"pv_bd1cfc4c128c","kind":"EVIDENCE_DECISION","quote":"hashed immediately before the reader read it (v4/v5)"}
 {"actor":"tools/provenance.py","artifact":"ar_012860","id":"pv_bd45eea538a6","kind":"EVIDENCE_DECISION","quote":"hashed immediately before the reader read it (v4/v5)"}
 {"actor":"tools/migrate.py M3","id":"pv_bf3f86cd2837","kind":"DERIVATION","quote":"supported by: BDX_CELLAR, BDX_FICHES, BDX_FICHE_URL, BDX_FIELD_SRC, BDX_RATINGS, classification:1855, full record, sources.json role grand"}
+{"actor":"data/cuvee-src.js","code_state":{"global":"BDX_CUVEE_SRC","key":"montrose|la-vieille-dame-de-trottevieille|2017","legacy_file":"data/cuvee-src.js"},"id":"pv_bf62fcbf6617","kind":"LEGACY_UNSOURCED"}
 {"actor":"data/sources.json","artifact":"ar_000830","id":"pv_c022964084d9","kind":"LEGACY_MANIFEST","quote":"the manifest claims these bytes at this path; v4/v5 found ARTIFACT_NOT_FOUND"}
 {"actor":"tools/migrate.py M4","id":"pv_c0431e887aed","kind":"DERIVATION","quote":"one Wine per (estate, slug) of BDX_CUVEE_WINES"}
 {"actor":"tools/migrate.py M3","id":"pv_c0b7eb28ea8b","kind":"DERIVATION","quote":"supported by: BDX_FICHES, BDX_FIELD_SRC, BDX_RATINGS, full record, sources.json role grand"}
@@ -238,6 +265,7 @@
 {"actor":"tools/migrate.py M3","id":"pv_c32a5d281a07","kind":"DERIVATION","quote":"supported by: BDX_FICHES, BDX_FICHE_URL, BDX_FIELD_SRC, classification:graves, full record"}
 {"actor":"data/batch3.js","id":"pv_c39dd7c9e901","kind":"LEGACY_UNSOURCED"}
 {"actor":"data/sources.json","artifact":"ar_000056","id":"pv_c44c8b9ca77f","kind":"LEGACY_MANIFEST","quote":"the manifest claims these bytes at this path; v4/v5 found ARTIFACT_NAME_MISMATCH"}
+{"actor":"data/ratings.js","code_state":{"global":"BDX_RATINGS","key":"saint-julien|2010","legacy_file":"data/ratings.js","unresolved":"the estate id 'saint-julien' resolves to no estate with a grand-vin Wine"},"id":"pv_c46d986f416a","kind":"LEGACY_UNSOURCED","quote":"[95.8,2,1.8,\"RP:93-95|RG:19\"]"}
 {"actor":"data/sources.json","artifact":"ar_011408","id":"pv_c48a2e48e1b4","kind":"LEGACY_MANIFEST","quote":"the manifest claims these bytes at this path; v4/v5 found ARTIFACT_NOT_FOUND"}
 {"actor":"data/sources.json","artifact":"ar_002477","id":"pv_c574bbdf0ef7","kind":"LEGACY_MANIFEST","quote":"the manifest claims these bytes at this path; v4/v5 found ARTIFACT_NAME_MISMATCH"}
 {"actor":"tools/provenance.py","artifact":"ar_015246","id":"pv_c616f440ed0e","kind":"EVIDENCE_DECISION","quote":"hashed immediately before the reader read it (v4/v5)"}
@@ -252,7 +280,12 @@
 {"actor":"tools/provenance.py","artifact":"ar_033353","id":"pv_cc198ff471b5","kind":"EVIDENCE_DECISION","quote":"hashed immediately before the reader read it (v4/v5)"}
 {"actor":"tools/migrate.py M2","id":"pv_cc7eca37899d","kind":"DERIVATION","quote":"a compact-list entry; its legacy id is cls + '-' + slug(name) as app.js builds it, mapped here as it stands"}
 {"actor":"tools/migrate.py M3","id":"pv_cce27472be44","kind":"DERIVATION","quote":"supported by: BDX_CELLAR, BDX_FICHES, BDX_FICHE_URL, BDX_FIELD_SRC, BDX_RATINGS, BDX_SCORES, classification:1855, full record, sources.json role grand"}
+{"actor":"data/ratings.js","code_state":{"global":"BDX_RATINGS","key":"saint-julien|2016","legacy_file":"data/ratings.js","unresolved":"the estate id 'saint-julien' resolves to no estate with a grand-vin Wine"},"id":"pv_cf12140aa27c","kind":"LEGACY_UNSOURCED","quote":"[92.8,3,0.6,\"NM:92-94|WS:93-94|JL:91-93\"]"}
+{"actor":"data/ratings.js","code_state":{"global":"BDX_RATINGS","key":"saint-julien|2006","legacy_file":"data/ratings.js","unresolved":"the estate id 'saint-julien' resolves to no estate with a grand-vin Wine"},"id":"pv_cf6faf925f33","kind":"LEGACY_UNSOURCED","quote":"[90.5,3,1.5,\"RP:89|BD:16|RG:17\"]"}
+{"actor":"data/ratings.js","code_state":{"global":"BDX_RATINGS","key":"saint-julien|2014","legacy_file":"data/ratings.js","unresolved":"the estate id 'saint-julien' resolves to no estate with a grand-vin Wine"},"id":"pv_d2cd628bac21","kind":"LEGACY_UNSOURCED","quote":"[88,2,2,\"NM:85-87|JL:89-91\"]"}
 {"actor":"tools/migrate.py M3","id":"pv_d30d8e5cdcf5","kind":"DERIVATION","quote":"supported by: BDX_CELLAR, BDX_FICHES, BDX_FIELD_SRC, BDX_RATINGS, classification:stem, full record, sources.json role grand"}
+{"actor":"tools/migrate.py M5","id":"pv_d38d4dd3b12c","kind":"DERIVATION","quote":"'estate|vintage' -> the Vintage of the estate's grand-vin Wine; 'estate|slug|vintage' -> the Vintage of the slug's Wine"}
+{"actor":"data/overrides.js","id":"pv_d3956143f99b","kind":"LEGACY_UNSOURCED"}
 {"actor":"data/sources.json","artifact":"ar_006671","id":"pv_d5712d655774","kind":"LEGACY_MANIFEST","quote":"the manifest claims these bytes at this path; v4/v5 found ARTIFACT_NAME_MISMATCH"}
 {"actor":"tools/migrate.py M2","id":"pv_d6d6af91c6a5","kind":"DERIVATION","quote":"one Artifact per digest; a sha1 and a sha256 are one artifact only when proven to hash the same bytes"}
 {"actor":"data/sources.json","artifact":"ar_000112","id":"pv_d762d105617c","kind":"LEGACY_MANIFEST","quote":"the manifest claims these bytes at this path; v4/v5 found ARTIFACT_NOT_FOUND"}
@@ -263,6 +296,7 @@
 {"actor":"data/sources.json","artifact":"ar_009709","id":"pv_ded4694b9dfc","kind":"LEGACY_MANIFEST","quote":"the manifest claims these bytes at this path; v4/v5 found ARTIFACT_NOT_FOUND"}
 {"actor":"tools/migrate.py M3","id":"pv_e07961c0c6f3","kind":"DERIVATION","quote":"supported by: BDX_FICHES, classification:bourgeois, sources.json role grand"}
 {"actor":"tools/migrate.py M3","id":"pv_e1551190b594","kind":"DERIVATION","quote":"supported by: BDX_FICHES, BDX_FICHE_URL, BDX_FIELD_SRC, sources.json role grand"}
+{"actor":"data/cuvee-src.js","code_state":{"global":"BDX_CUVEE_SRC","key":"montrose|la-vieille-dame-de-trottevieille|2012","legacy_file":"data/cuvee-src.js"},"id":"pv_e1d130dab5fa","kind":"LEGACY_UNSOURCED"}
 {"actor":"tools/migrate.py M3","id":"pv_e2a0c40ff77f","kind":"DERIVATION","quote":"supported by: BDX_CELLAR, classification:bourgeois"}
 {"actor":"data/graves.js","id":"pv_e45f5d20b569","kind":"LEGACY_UNSOURCED"}
 {"actor":"data/sources.json","artifact":"ar_011033","id":"pv_e4dd742ab1d0","kind":"LEGACY_MANIFEST","quote":"the manifest claims these bytes at this path; v4/v5 found ARTIFACT_NOT_FOUND"}
@@ -274,12 +308,15 @@
 {"actor":"tools/provenance.py","artifact":"ar_035173","id":"pv_e9d88db38522","kind":"EVIDENCE_DECISION","quote":"hashed immediately before the reader read it (v4/v5)"}
 {"actor":"data/sources.json","artifact":"ar_004920","id":"pv_ea698c8128ea","kind":"LEGACY_MANIFEST","quote":"the manifest claims these bytes at this path; v4/v5 found ARTIFACT_NOT_FOUND"}
 {"actor":"data/sources.json","artifact":"ar_002286","id":"pv_eb13c00a970b","kind":"LEGACY_MANIFEST","quote":"the manifest claims these bytes at this path; v4/v5 found ARTIFACT_NAME_MISMATCH"}
+{"actor":"data/cuvee-src.js","code_state":{"global":"BDX_CUVEE_SRC","key":"giscours|le-haut-m-doc-de-giscours|2020","legacy_file":"data/cuvee-src.js"},"id":"pv_ebb7a4c1f726","kind":"LEGACY_UNSOURCED"}
 {"actor":"data/sources.json","artifact":"ar_000616","id":"pv_ebfde86890ce","kind":"LEGACY_MANIFEST","quote":"the manifest claims these bytes at this path; v4/v5 found ARTIFACT_NOT_FOUND"}
 {"actor":"tools/provenance.py","artifact":"ar_031214","id":"pv_ec860018882d","kind":"EVIDENCE_DECISION","quote":"hashed immediately before the reader read it (v4/v5)"}
 {"actor":"data/sources.json","artifact":"ar_004992","id":"pv_ec8dfcc15609","kind":"LEGACY_MANIFEST","quote":"the manifest claims these bytes at this path; v4/v5 found ARTIFACT_NOT_FOUND"}
+{"actor":"data/ratings.js","code_state":{"global":"BDX_RATINGS","key":"saint-julien|2018","legacy_file":"data/ratings.js","unresolved":"the estate id 'saint-julien' resolves to no estate with a grand-vin Wine"},"id":"pv_ed487edc2cb3","kind":"LEGACY_UNSOURCED","quote":"[93,2,0,\"RP:92-94|JL:92-94\"]"}
 {"actor":"tools/migrate.py M3","id":"pv_ed61047cc7a6","kind":"DERIVATION","quote":"supported by: BDX_FICHES, full record, sources.json role grand"}
 {"actor":"data/sources.json","artifact":"ar_005556","id":"pv_edf525da11ef","kind":"LEGACY_MANIFEST","quote":"the manifest claims these bytes at this path; v4/v5 found ARTIFACT_NOT_FOUND"}
 {"actor":"tools/provenance.py","artifact":"ar_014208","id":"pv_ee5a81a826de","kind":"EVIDENCE_DECISION","quote":"hashed immediately before the reader read it (v4/v5)"}
+{"actor":"data/ratings.js","code_state":{"global":"BDX_RATINGS","key":"saint-julien|2007","legacy_file":"data/ratings.js","unresolved":"the estate id 'saint-julien' resolves to no estate with a grand-vin Wine"},"id":"pv_eefe5c88a0c5","kind":"LEGACY_UNSOURCED","quote":"[91.1,3,3.6,\"RP:92|JR:14.5|RG:18\"]"}
 {"actor":"tools/migrate.py M3","id":"pv_f1375c49687c","kind":"DERIVATION","quote":"supported by: full record, sources.json role grand"}
 {"actor":"tools/migrate.py M3","id":"pv_f1e35fbd5349","kind":"DERIVATION","quote":"one grand-vin Wine per estate whose legacy data supports one (classification listing, full record, or an estate|vintage record)"}
 {"actor":"data/sources.json","artifact":"ar_008918","id":"pv_f28bdcc26c0a","kind":"LEGACY_MANIFEST","quote":"the manifest claims these bytes at this path; v4/v5 found ARTIFACT_NOT_FOUND"}

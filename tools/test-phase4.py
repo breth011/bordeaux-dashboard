@@ -1073,7 +1073,7 @@ def m12_app_reads_nothing_past_the_boundary():
     import model_reader as R
     P = R.project(classifications={c['id']: c for c in L.g('BDX_CLASSIFICATIONS')})
     # data/app/figure-sources.js (Phase 6.1) is generated beside the 23, not one of them
-    extra = {'data/app/figure-sources.js'}
+    extra = {'data/app/figure-sources.js', 'data/app/second-status.js'}     # Phase 6.1, 6.3
     contract = {p.split('/')[-1] for p, x in r['loads'].items() if x['class'] == 'CONTRACT' and p not in extra}
     assert contract <= set(P), contract - set(P)
     assert len(contract) == 23

@@ -2922,6 +2922,42 @@ function wireTypeahead() {
   el.search.addEventListener('blur', function () { setTimeout(acClose, 120); });
 }
 
+/* The second-wine fact, as the normalized model records it rather than as
+   the estate file wrote it (Phase 6.3; data/app/second-status.js). The
+   estate file's string and the wine list are two separate statements; the
+   model records whether the string names one of the estate's wines, a
+   recorded absence, a disagreement, an unestablished identity or a note.
+   Nothing is decided here: a disagreement is shown as one, and a name whose
+   identity is open is shown as recorded, not as the second wine. The search
+   still reads the string as written. */
+var SECOND = window.BDX_SECOND_STATUS || {};
+
+function secondFact(ch) {
+  if (!ch.second) return null;
+  var st = SECOND[ch.id];
+  if (!st || st.s === 'resolved') return ['Second wine', ch.second, 'resolved'];
+  function names(list) {
+    return list.map(function (n) { return '<i>' + escText(n) + '</i>'; }).join(', ');
+  }
+  if (st.s === 'none') {
+    return ['Second wine', '<span class="sw-state">No second wine recorded</span>', 'none'];
+  }
+  if (st.s === 'conflict') {
+    return ['Second wine', '<span class="sw-state">Conflicting records</span> ' +
+      '<span class="sitenote"><span>one record lists none</span>; ' +
+      '<span>the wine list names</span> ' + names(st.w) + '</span>', 'conflict'];
+  }
+  if (st.s === 'unestablished') {
+    return ['Second wine', '<span class="sw-state">Not established</span> ' +
+      '<span class="sitenote"><span>recorded as</span> ' + names([st.n]) +
+      (st.w.length ? '; <span>the wine list names</span> ' + names(st.w) : '') +
+      '</span>', 'unestablished'];
+  }
+  /* A note, not a name: kept, verbatim, under a label that does not call
+     it the second wine. */
+  return ['Recorded note', escText(st.n), 'note'];
+}
+
 function openDrawer(id) {
   var ch = null;
   for (var i = 0; i < CH.length; i++) if (CH[i].id === id) { ch = CH[i]; break; }
@@ -2945,7 +2981,8 @@ function openDrawer(id) {
             ['Appellation', ch.appellation]];
   if (ch.ha) fx.push(['Vineyard', ch.ha + ' hectares']);
   if (ch.owner) fx.push(['Proprietor', ch.owner]);
-  if (ch.second) fx.push(['Second wine', ch.second]);
+  var sw = secondFact(ch);
+  if (sw) fx.push(sw);
   if (ch.wine) fx.push(['Classified for', ch.wine]);
   var site = siteFor(ch);
   if (site) {
@@ -2961,7 +2998,8 @@ function openDrawer(id) {
   }
 
   var facts = '<dl class="factgrid">' + fx.map(function (f) {
-    return '<div class="fact"><dt>' + f[0] + '</dt><dd>' + f[1] + '</dd></div>';
+    return '<div class="fact"' + (f[2] ? ' data-sw="' + f[2] + '"' : '') + '><dt>' + f[0] +
+      '</dt><dd>' + f[1] + '</dd></div>';
   }).join('') + '</dl>';
 
   var body = facts;

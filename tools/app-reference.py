@@ -45,7 +45,8 @@ _spec.loader.exec_module(B)
 # assets/app.js acSearch: places.slice(0, 3).concat(starts, words, inside).slice(0, 9)
 AC_LIMIT = 9
 # Globals the page gained on purpose, after the control was captured.
-ADDED_GLOBALS = {'BDX_FIGURE_SRC': 'FIGURE PROVENANCE (Phase 6.1)'}
+ADDED_GLOBALS = {'BDX_FIGURE_SRC': 'FIGURE PROVENANCE (Phase 6.1)',
+                 'BDX_SECOND_STATUS': 'SECOND-WINE STATUS (Phase 6.3)'}
 QUERIES = [q for _, q in B.SEARCH] + ['margaux', 'saint-emilion', 'blanc', 'second', 'echo']
 ESTATES = ['lafite', 'margaux', 'haut-brion', 'yquem', 'lynch-bages', 'saint-pierre', 'caillou',
            'smith-haut-lafitte', 'stem-chateau-badette', 'bourgeois-chateau-beaumont',
@@ -110,11 +111,25 @@ DRAWER_JS = '''(function (id) {
   }
   /* The same, without how sources are presented: Phase 6.1 changes those
      and nothing else, so this text must not change. */
-  function values() {
+  /* dropSrc: without the figure source marks and the record link (Phase 6.1).
+     dropSw: without the second-wine row (Phase 6.3), whichever form it takes:
+     the old "Second wine" fact, or the new one marked data-sw. */
+  function values(dropSrc, dropSw) {
+    if (dropSrc === undefined) { dropSrc = true; dropSw = true; }
     var b = document.getElementById('drawerBody').cloneNode(true);
-    Array.prototype.forEach.call(b.querySelectorAll('.fig-src, .fichelink'), function (e) {
-      e.parentNode.removeChild(e);
-    });
+    if (dropSrc) {
+      Array.prototype.forEach.call(b.querySelectorAll('.fig-src, .fichelink'), function (e) {
+        e.parentNode.removeChild(e);
+      });
+    }
+    if (dropSw) {
+      Array.prototype.forEach.call(b.querySelectorAll('.factgrid .fact'), function (e) {
+        var dt = e.querySelector('dt');
+        if (e.hasAttribute('data-sw') || (dt && dt.textContent === 'Second wine')) {
+          e.parentNode.removeChild(e);
+        }
+      });
+    }
     /* A sourcing label may be a link or plain text; its words are the same. */
     Array.prototype.forEach.call(b.querySelectorAll('a.src-link'), function (e) {
       e.parentNode.replaceChild(document.createTextNode(e.textContent), e);
@@ -131,7 +146,7 @@ DRAWER_JS = '''(function (id) {
     var s = document.getElementById('wineSel');
     if (s && s.value !== w) { s.value = w; s.dispatchEvent(new Event('change')); }
     var rows = Array.prototype.slice.call(document.querySelectorAll('#drawerBody .vrow[data-year]'));
-    var st = {wine: w, text: text(), values: values(), years: rows.map(function (r) { return r.getAttribute('data-year'); }), opened: []};
+    var st = {wine: w, text: text(), values: values(), keepSw: values(true, false), keepSrc: values(false, true), years: rows.map(function (r) { return r.getAttribute('data-year'); }), opened: []};
     /* The rows that hold a sheet's figures, so their values are compared. */
     rows.filter(function (r) { return r.querySelector('.factgrid, .blendbar, .fichelink, .presslist'); })
       .slice(0, 3).forEach(function (r) {
@@ -141,7 +156,7 @@ DRAWER_JS = '''(function (id) {
          nothing, so until Phase 6.1 the expanded vintage (the fiche
          figures) was not in the capture at all. */
       var head = again && again.querySelector('.vrow-head');
-      if (head) { head.click(); st.opened.push([y, text(), values()]); }
+      if (head) { head.click(); st.opened.push([y, text(), values(), values(true, false), values(false, true)]); }
     });
     states.push(st);
   });
@@ -180,8 +195,9 @@ def capture(root=None):
                 pages[e] = {'missing': True}
                 continue
             pages[e] = [{'wine': s['wine'], 'text': sha(s['text']), 'chars': len(s['text']),
-                         'values': sha(s['values']),
-                         'years': s['years'], 'opened': [[y, sha(t), sha(v)] for y, t, v in s['opened']],
+                         'values': sha(s['values']), 'keep_sw': sha(s['keepSw']), 'keep_src': sha(s['keepSrc']),
+                         'years': s['years'],
+                         'opened': [[y, sha(t), sha(v), sha(ks), sha(kr)] for y, t, v, ks, kr in s['opened']],
                          'empty': not s['text'].strip()} for s in r['states']]
         out['pages'] = pages
         for e in c.events:
@@ -262,11 +278,23 @@ def compare(ref, now):
         a, b = ref['pages'][e], now['pages'].get(e)
         if a != b and isinstance(a, list) and isinstance(b, list) and len(a) == len(b) and all(
                 x['wine'] == y['wine'] and x['years'] == y['years'] and x['values'] == y['values']
-                and [o[0::2] for o in x['opened']] == [o[0::2] for o in y['opened']] for x, y in zip(a, b)):
-            # Phase 6.1: the same values on the page; only how figures cite their
-            # sources changed.
-            res['EXPECTED: PROVENANCE PRESENTATION'] += 1
-            provenance.append('page %s' % e)
+                and [(o[0], o[2]) for o in x['opened']] == [(o[0], o[2]) for o in y['opened']]
+                for x, y in zip(a, b)):
+            # The same values on the page; only named presentation changed. Which one is
+            # told by the texts that keep it: a difference left with the second-wine row
+            # kept is that row (Phase 6.3); with the source marks kept, those (Phase 6.1).
+            sw = any(x.get('keep_sw') != y.get('keep_sw') or [o[3:4] for o in x['opened']] != [o[3:4] for o in y['opened']]
+                     for x, y in zip(a, b))
+            src = any(x.get('keep_src') != y.get('keep_src') or [o[4:5] for o in x['opened']] != [o[4:5] for o in y['opened']]
+                      for x, y in zip(a, b))
+            label = {(True, False): 'EXPECTED: PROVENANCE PRESENTATION',
+                     (False, True): 'EXPECTED: SECOND-WINE STATUS PRESENTATION',
+                     (True, True): 'EXPECTED: PROVENANCE AND SECOND-WINE STATUS PRESENTATION'}.get((src, sw))
+            if label is None:
+                same('value', 'page %s' % e, a, b)
+            else:
+                res[label] += 1
+                provenance.append('page %s (%s)' % (e, label[10:].lower()))
         else:
             same('value', 'page %s' % e, a, b)
     same('value', 'health', ref['health'], now['health'])

@@ -213,8 +213,9 @@ def application_unchanged():
     src = load_tool('app-source.py')
     idx = open(L.ROOT + 'index.html', encoding='utf-8').read()
     sw = open(L.ROOT + 'service-worker.js', encoding='utf-8').read()
-    idx = idx.replace('<script src="data/app/figure-sources.js"></script>\n', '')
-    sw = sw.replace("  './data/app/figure-sources.js',\n", '')
+    for extra in ('figure-sources.js', 'second-status.js'):        # Phase 6.1, 6.3
+        idx = idx.replace('<script src="data/app/%s"></script>\n' % extra, '')
+        sw = sw.replace("  './data/app/%s',\n" % extra, '')
     for f in src.CONTRACT:
         idx = idx.replace('"data/app/%s"' % f, '"data/%s"' % f)
         sw = sw.replace("'./data/app/%s'" % f, "'./data/%s'" % f)
@@ -259,8 +260,12 @@ def only_phase5_baseline_artifacts_changed():
 
 WRITERS = ('tools/add-sheet.py', 'tools/harvest.py', 'tools/crawl-pages.py')
 # What the application gained after Phase 5, named by tools/app-reference.py: each
-# figure's own source (Phase 6.1). Nothing else may differ from the control.
-PHASE61 = {'EXPECTED: PROVENANCE PRESENTATION', 'EXPECTED: ADDED FIGURE PROVENANCE (Phase 6.1)'}
+# figure's own source (Phase 6.1) and the second-wine status (Phase 6.3). Nothing
+# else may differ from the control.
+PHASE61 = {'EXPECTED: PROVENANCE PRESENTATION', 'EXPECTED: ADDED FIGURE PROVENANCE (Phase 6.1)',
+           'EXPECTED: SECOND-WINE STATUS PRESENTATION',
+           'EXPECTED: PROVENANCE AND SECOND-WINE STATUS PRESENTATION',
+           'EXPECTED: ADDED SECOND-WINE STATUS (Phase 6.3)'}
 
 
 @check

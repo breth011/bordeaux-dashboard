@@ -86,6 +86,65 @@ def figure_sources(model=None):
     return out
 
 
+SECOND_STATUS = 'second-status.js'
+
+
+def second_status(model=None):
+    """Each estate's second-wine statement, in the state the model records it
+    (Phase 6.3). The estate files' `second` string is in the identity map
+    (namespace second-by-name, Phase 4 M4); the state comes from that entry,
+    the estate's RankAbsence and the findings M4 wrote. Nothing is resolved here.
+
+    {legacy estate id: {"s": state, ...}} where state is
+      "resolved"       ACTIVE: the string names one wine of the estate
+      "none"           RETIRED with a RankAbsence: the dataset records no second wine
+      "conflict"       RETIRED, and a CONFLICT finding: the estate's listed wines name a
+                       second all the same ("w": those wines)
+      "unestablished"  AMBIGUOUS: the name is recorded, which wine it is is not
+                       established ("n": the recorded name, "w": the candidate wines)
+      "note"           AMBIGUOUS, and an AMBIGUOUS_SEMANTICS finding that the string
+                       is not a plain name ("n": the text, verbatim)"""
+    M = model or R.Model()
+    im = [r for r in M.rows('identity/identity-map.jsonl')]
+    est = {r['legacy_key']: r['stable_id'] for r in im if r['namespace'] == 'estate' and r.get('stable_id')}
+    names = {}
+    for n in M.rows('identity/names.jsonl'):
+        names.setdefault(n['subject'], n['name'])
+    absent = {r['estate'] for r in M.rows('state/rank-absences.jsonl') if r['tier'] == 'SECOND'}
+    prov = {p['id']: p for p in M.rows('cross/provenance.jsonl')}
+    rels = {r['id']: r for r in M.rows('state/estate-wine.jsonl')}
+    listed_second = {}
+    for r in M.rows('state/rank-assertions.jsonl'):
+        if r['tier'] == 'SECOND' and prov[r['provenance']]['actor'] == 'data/cuvees.js':
+            rel = rels[r['relationship']]
+            listed_second.setdefault(rel['estate'], []).append(names[rel['wine']])
+    findings = {}
+    for f in M.rows('cross/findings.jsonl'):
+        findings.setdefault(f['target'], []).append(f)
+    out = {}
+    for r in im:
+        if r['namespace'] != 'second-by-name':
+            continue
+        lid, text = r['legacy_key'].split('|', 1)
+        eid = est[lid]
+        fs = findings.get(eid, [])
+        if r['status'] == 'ACTIVE':
+            out[lid] = {'s': 'resolved'}
+        elif r['status'] == 'RETIRED':
+            assert eid in absent, lid
+            if any(f['kind'] == 'CONFLICT' and 'no second wine' in f['detail'] for f in fs):
+                out[lid] = {'s': 'conflict', 'w': sorted(listed_second.get(eid, []))}
+            else:
+                out[lid] = {'s': 'none'}
+        elif any(f['kind'] == 'AMBIGUOUS_SEMANTICS' and 'second is not a plain name' in f['detail']
+                 and repr(text) in f['detail'] for f in fs):
+            out[lid] = {'s': 'note', 'n': text}
+        else:
+            out[lid] = {'s': 'unestablished', 'n': text,
+                        'w': sorted(names[c] for c in r.get('candidates', []))}
+    return out
+
+
 def render():
     """{filename: bytes} for every contract file, and the figure sources."""
     proj = R.project(classifications={c['id']: c for c in L.g('BDX_CLASSIFICATIONS')})
@@ -109,6 +168,8 @@ def render():
               'rec': {k: {f: index[json.dumps(v, sort_keys=True)] for f, v in r.items()} for k, r in fs.items()}}
     js = json.dumps(packed, ensure_ascii=False, sort_keys=True, separators=(',', ':'))
     out[FIGURE_SOURCES] = (HEADER + 'window.BDX_FIGURE_SRC = %s;\n' % js).encode('utf-8')
+    js = json.dumps(second_status(), ensure_ascii=False, sort_keys=True, separators=(',', ':'))
+    out[SECOND_STATUS] = (HEADER + 'window.BDX_SECOND_STATUS = %s;\n' % js).encode('utf-8')
     return out
 
 

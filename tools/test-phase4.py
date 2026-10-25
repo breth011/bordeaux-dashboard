@@ -133,6 +133,22 @@ def frozen_role_vocabulary_and_dash():
     assert sum(1 for _, r in L.estate_files() if r.get('second') == '—') == 34
 
 
+@check
+def phase4_commits_touch_only_their_own_paths():
+    import subprocess
+    git = lambda *a: subprocess.check_output(['git'] + list(a), cwd=L.ROOT).decode('utf-8')
+    log = [l.split(' ', 1) for l in git('log', '--format=%H %s', '91a5b8b..HEAD').splitlines()]
+    mine = [h for h, s in log if s.startswith('Phase 4')]
+    assert mine, 'no Phase 4 commit'
+    changed = set()
+    for h in mine:
+        changed |= set(git('diff-tree', '--no-commit-id', '--name-only', '-r', h).split())
+    allowed = ('tools/', 'data/model/', 'docs/PHASE-4-', '.gitattributes')
+    assert all(f.startswith(allowed) for f in changed), sorted(f for f in changed if not f.startswith(allowed))
+    assert not [f for f in changed if f.startswith(('data/evidence/', 'data/discovery/', 'assets/'))
+                or (f.startswith('data/') and not f.startswith('data/model/'))]
+
+
 # ---------------------------------------------------------------- M1
 
 import model_schema as S  # noqa: E402
@@ -1021,6 +1037,69 @@ def m12_app_reads_nothing_past_the_boundary():
     assert len(contract) == 23
     saved = json.load(open(L.MODEL + 'checks/app-boundary.json', encoding='utf-8'))
     assert saved['loads'] == r['loads']
+
+
+# ---------------------------------------------------------------- M13 and rollback
+
+@check
+def t29_derived_indexes_rebuild_and_hold_no_fact_alone():
+    import subprocess
+    r = subprocess.run([sys.executable, L.ROOT + 'tools/build-indexes.py', '--check'], cwd=L.ROOT,
+                       capture_output=True)
+    assert r.returncode == 0, r.stdout.decode()
+    for rel in S.LAYOUT:
+        for row in T(rel):
+            assert 'derived/' not in L.dumps(row), 'a table refers to a derived index'
+    ew = json.load(open(L.MODEL + 'derived/estate-wines.json', encoding='utf-8'))
+    rels = collections.defaultdict(set)
+    for x in T('state/estate-wine.jsonl'):
+        rels[x['estate']].add(x['wine'])
+    assert {k: sorted(v) for k, v in rels.items()} == ew
+
+
+def run_migrate(model_dir, *args):
+    import subprocess
+    env = dict(os.environ, BDX_MODEL_DIR=model_dir)
+    r = subprocess.run([sys.executable, L.ROOT + 'tools/migrate.py'] + list(args), cwd=L.ROOT, env=env,
+                       capture_output=True)
+    assert r.returncode == 0, r.stdout.decode()[-400:] + r.stderr.decode()[-400:]
+
+
+def model_files(d):
+    out = {}
+    for rel in list(S.LAYOUT) + ['manifest.json']:
+        p = os.path.join(d, rel)
+        if os.path.exists(p):
+            out[rel] = open(p, 'rb').read()
+    return out
+
+
+@check
+def t31_migration_rolls_back_stage_by_stage():
+    import shutil
+    import tempfile
+    before = {g: L.group_hashes(g)['digest'] for g in L.GROUPS}
+    a, b, c = (tempfile.mkdtemp(prefix='bdx-rollback-') for _ in range(3))
+    try:
+        run_migrate(a, '--until', 'M6')
+        for rel in list(S.LAYOUT) + ['manifest.json']:
+            if os.path.exists(L.MODEL + rel):
+                os.makedirs(os.path.dirname(os.path.join(b, rel)), exist_ok=True)
+                shutil.copyfile(L.MODEL + rel, os.path.join(b, rel))
+        run_migrate(b, '--revert', 'M7')
+        fa, fb = model_files(a), model_files(b)
+        assert fa == fb, sorted(k for k in set(fa) | set(fb) if fa.get(k) != fb.get(k))[:5]
+        assert 'observation/observations.jsonl' not in fb and 'identity/estates.jsonl' in fb
+        shutil.rmtree(c)
+        shutil.copytree(b, c)
+        run_migrate(c, '--revert', 'M2')
+        fc = model_files(c)
+        assert set(fc) == {'manifest.json'}, sorted(fc)
+    finally:
+        for d in (a, b, c):
+            shutil.rmtree(d, ignore_errors=True)
+    after = {g: L.group_hashes(g)['digest'] for g in L.GROUPS}
+    assert before == after, 'a protected group changed during rollback'
 
 
 def main():

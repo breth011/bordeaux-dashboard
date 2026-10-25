@@ -15,7 +15,9 @@ import subprocess
 import sys
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__))).replace('\\', '/') + '/'
-MODEL = ROOT + 'data/model/'
+# BDX_MODEL_DIR points the migration at another directory (the rollback test).
+_md = os.environ.get('BDX_MODEL_DIR')
+MODEL = _md.replace('\\', '/').rstrip('/') + '/' if _md else ROOT + 'data/model/'
 
 # The groups whose bytes Phase 4 must not change (docs/PHASE-4-MIGRATION-BASELINE.md).
 GROUPS = {

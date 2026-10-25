@@ -140,6 +140,25 @@ def run(until, registry=None):
     return m
 
 
+def snapshots(stages, registry=None):
+    """One build, rendered at each stage named in `stages` ({stage: {relpath: bytes}}).
+    The stages are additive, so the model after Mk rendered at Mk is what a
+    separate build --until Mk renders (Phase 5 C2: one build serves the
+    determinism and rollback checks)."""
+    m = Model(registry)
+    out = {}
+    last = max(STAGES.index(s) for s in stages)
+    for st in STAGES[:last + 1]:
+        if st != 'M1':
+            importlib.import_module(MODULES[st]).run(m)
+        if st in stages:
+            errs = validate(m)
+            if errs:
+                raise SystemExit('%d contract violation(s) at %s' % (len(errs), st))
+            out[st] = render(m, st)
+    return out
+
+
 def render(m, until):
     """{relpath: bytes} for every table the stages reached, plus the manifest."""
     reached = set(STAGES[:STAGES.index(until) + 1])

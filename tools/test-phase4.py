@@ -236,10 +236,26 @@ def stage_at_least(st):
 
 @check
 def model_rebuilds_byte_for_byte_deterministic():
-    import subprocess
-    r = subprocess.run([sys.executable, L.ROOT + 'tools/migrate.py', '--check'], cwd=L.ROOT,
-                       capture_output=True)
-    assert r.returncode == 0, r.stdout.decode()[-600:] + r.stderr.decode()[-600:]
+    # From scratch (no registry): the committed model, byte for byte. The
+    # registry-based rebuild is checked by t31, against the same build's M6.
+    built = scratch()['M7']
+    committed = {rel: open(L.MODEL + rel, 'rb').read() for rel in built}
+    diff = sorted(rel for rel in built if built[rel] != committed[rel])
+    assert not diff, diff[:5]
+    on_disk = {rel for rel in list(S.LAYOUT) + ['manifest.json'] if os.path.exists(L.MODEL + rel)}
+    assert on_disk == set(built), sorted(on_disk ^ set(built))
+
+
+_scratch = {}
+
+
+def scratch():
+    """One from-scratch build, rendered at M6 and at M7 (Phase 5 C2): it serves the
+    determinism check and the rollback check, which used to build separately."""
+    if not _scratch:
+        import migrate
+        _scratch.update(migrate.snapshots(('M6', 'M7')))
+    return _scratch
 
 
 @check
@@ -1079,15 +1095,19 @@ def t31_migration_rolls_back_stage_by_stage():
     import shutil
     import tempfile
     before = {g: L.group_hashes(g)['digest'] for g in L.GROUPS}
-    a, b, c = (tempfile.mkdtemp(prefix='bdx-rollback-') for _ in range(3))
+    b, c = (tempfile.mkdtemp(prefix='bdx-rollback-') for _ in range(2))
     try:
-        run_migrate(a, '--until', 'M6')
+        # Reverting M7 in a copy of the committed model rebuilds to M6 from the
+        # identity registry; it must equal a from-scratch build to M6 (Phase 5 C2:
+        # the same build the determinism check uses). That also proves the
+        # registry path reproduces the scratch path.
+        fa = scratch()['M6']
         for rel in list(S.LAYOUT) + ['manifest.json']:
             if os.path.exists(L.MODEL + rel):
                 os.makedirs(os.path.dirname(os.path.join(b, rel)), exist_ok=True)
                 shutil.copyfile(L.MODEL + rel, os.path.join(b, rel))
         run_migrate(b, '--revert', 'M7')
-        fa, fb = model_files(a), model_files(b)
+        fb = model_files(b)
         assert fa == fb, sorted(k for k in set(fa) | set(fb) if fa.get(k) != fb.get(k))[:5]
         assert 'observation/observations.jsonl' not in fb and 'identity/estates.jsonl' in fb
         shutil.rmtree(c)
@@ -1096,7 +1116,7 @@ def t31_migration_rolls_back_stage_by_stage():
         fc = model_files(c)
         assert set(fc) == {'manifest.json'}, sorted(fc)
     finally:
-        for d in (a, b, c):
+        for d in (b, c):
             shutil.rmtree(d, ignore_errors=True)
     after = {g: L.group_hashes(g)['digest'] for g in L.GROUPS}
     assert before == after, 'a protected group changed during rollback'

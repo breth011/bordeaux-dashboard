@@ -1,0 +1,426 @@
+{
+ "_": "Phase 4 M11: the three pending proposals written as the rows they would add, validated against the contract and the model. Not applied (tools/proposal-compat.py).",
+ "schema_changes_needed": 0,
+ "proposals": {
+  "Echo de Lynch-Bages": {
+   "rows": [
+    {
+     "entity": "Provenance",
+     "row": {
+      "id": "pv_7350c20a429c",
+      "kind": "DOCUMENT",
+      "actor": "tools/proposal-compat.py (proposal, not applied)",
+      "quote": "2nd vin du Chateau Lynch-Bages",
+      "artifact": "ar_005125"
+     }
+    },
+    {
+     "entity": "RankAssertion",
+     "row": {
+      "id": "ra_76ccbed53e57",
+      "relationship": "ew_b0f759447d9a",
+      "tier": "SECOND",
+      "scope": "ESTATE_RANGE",
+      "claimant": "PRODUCER",
+      "source_term": "2nd vin",
+      "validity": {
+       "valid_from": {
+        "kind": "EXACT",
+        "value": "2008",
+        "axis": "VINTAGE",
+        "precision": "VINTAGE",
+        "basis": "pv_7350c20a429c"
+       },
+       "valid_to": {
+        "kind": "OPEN"
+       }
+      },
+      "provenance": "pv_7350c20a429c"
+     }
+    },
+    {
+     "entity": "Observation",
+     "row": {
+      "id": "ob_a169d5bab7d2",
+      "subject": "ew_b0f759447d9a",
+      "field": "rank_statement",
+      "value": "2nd vin du Chateau Lynch-Bages",
+      "artifact": "ar_005125",
+      "extraction": {
+       "method": "PROPOSAL"
+      },
+      "confidence": "PROPOSED",
+      "observed_at": "2026-10-25",
+      "provenance": "pv_7350c20a429c",
+      "subject_status": "PROPOSED"
+     }
+    },
+    {
+     "entity": "Wine",
+     "row": {
+      "id": "wn_P0001",
+      "name_status": "KNOWN",
+      "type": "RED"
+     }
+    },
+    {
+     "entity": "NameRecord",
+     "row": {
+      "id": "nm_e3e823ffa21b",
+      "subject": "wn_P0001",
+      "name": "Haut-Bages Averous",
+      "kind": "CURRENT",
+      "validity": {
+       "valid_from": {
+        "kind": "UNKNOWN"
+       },
+       "valid_to": {
+        "kind": "NO_LATER_THAN",
+        "value": "2008",
+        "axis": "VINTAGE",
+        "precision": "VINTAGE",
+        "basis": "pv_7350c20a429c"
+       }
+      },
+      "provenance": "pv_7350c20a429c"
+     }
+    },
+    {
+     "entity": "IdentityTransition",
+     "row": {
+      "id": "it_4a492c828164",
+      "kind": "SUCCEEDED_BY",
+      "from": "wn_P0001",
+      "to": "wn_00547",
+      "at": {
+       "kind": "EXACT",
+       "value": "2008",
+       "axis": "VINTAGE",
+       "precision": "VINTAGE",
+       "basis": "pv_7350c20a429c"
+      },
+      "certainty": "UNRESOLVED",
+      "source_term": "change d'identité pour devenir",
+      "provenance": "pv_7350c20a429c"
+     }
+    }
+   ],
+   "contract_violations": [],
+   "representable": true,
+   "applied": false
+  },
+  "Les Murets de Caillou (blanc)": {
+   "rows": [
+    {
+     "entity": "Provenance",
+     "row": {
+      "id": "pv_e48e2b10ab98",
+      "kind": "DOCUMENT",
+      "actor": "tools/proposal-compat.py (proposal, not applied)",
+      "quote": "Second Vin blanc sec",
+      "artifact": "ar_009220"
+     }
+    },
+    {
+     "entity": "Wine",
+     "row": {
+      "id": "wn_P0002",
+      "name_status": "KNOWN",
+      "type": "WHITE_DRY"
+     }
+    },
+    {
+     "entity": "NameRecord",
+     "row": {
+      "id": "nm_783ba2a0e9c2",
+      "subject": "wn_P0002",
+      "name": "Les Murets de Caillou",
+      "kind": "CURRENT",
+      "validity": {
+       "valid_from": {
+        "kind": "NO_LATER_THAN",
+        "value": "2023",
+        "axis": "VINTAGE",
+        "precision": "VINTAGE",
+        "basis": "pv_e48e2b10ab98"
+       },
+       "valid_to": {
+        "kind": "OPEN"
+       }
+      },
+      "provenance": "pv_e48e2b10ab98"
+     }
+    },
+    {
+     "entity": "EstateWineRelationship",
+     "row": {
+      "id": "ew_d8c48cf32e7d",
+      "estate": "es_00219",
+      "wine": "wn_P0002",
+      "status": "ESTABLISHED",
+      "kind": "PRODUCED_BY",
+      "validity": {
+       "valid_from": {
+        "kind": "NO_LATER_THAN",
+        "value": "2023",
+        "axis": "VINTAGE",
+        "precision": "VINTAGE",
+        "basis": "pv_e48e2b10ab98"
+       },
+       "valid_to": {
+        "kind": "OPEN"
+       }
+      },
+      "provenance": "pv_e48e2b10ab98"
+     }
+    },
+    {
+     "entity": "Wine",
+     "row": {
+      "id": "wn_P0003",
+      "name_status": "KNOWN",
+      "type": "RED"
+     }
+    },
+    {
+     "entity": "NameRecord",
+     "row": {
+      "id": "nm_fc9addfc13f3",
+      "subject": "wn_P0003",
+      "name": "Les Murets de Caillou",
+      "kind": "CURRENT",
+      "validity": {
+       "valid_from": {
+        "kind": "NO_LATER_THAN",
+        "value": "2023",
+        "axis": "VINTAGE",
+        "precision": "VINTAGE",
+        "basis": "pv_e48e2b10ab98"
+       },
+       "valid_to": {
+        "kind": "OPEN"
+       }
+      },
+      "provenance": "pv_e48e2b10ab98"
+     }
+    },
+    {
+     "entity": "EstateWineRelationship",
+     "row": {
+      "id": "ew_ffc418faaeb4",
+      "estate": "es_00219",
+      "wine": "wn_P0003",
+      "status": "ESTABLISHED",
+      "kind": "PRODUCED_BY",
+      "validity": {
+       "valid_from": {
+        "kind": "NO_LATER_THAN",
+        "value": "2023",
+        "axis": "VINTAGE",
+        "precision": "VINTAGE",
+        "basis": "pv_e48e2b10ab98"
+       },
+       "valid_to": {
+        "kind": "OPEN"
+       }
+      },
+      "provenance": "pv_e48e2b10ab98"
+     }
+    },
+    {
+     "entity": "RankAssertion",
+     "row": {
+      "id": "ra_d1538e209aa8",
+      "relationship": "ew_d8c48cf32e7d",
+      "tier": "SECOND",
+      "scope": "TYPE_RANGE",
+      "scope_type": "WHITE_DRY",
+      "claimant": "PRODUCER",
+      "source_term": "Second Vin blanc sec",
+      "validity": {
+       "valid_from": {
+        "kind": "NO_LATER_THAN",
+        "value": "2023",
+        "axis": "VINTAGE",
+        "precision": "VINTAGE",
+        "basis": "pv_e48e2b10ab98"
+       },
+       "valid_to": {
+        "kind": "OPEN"
+       }
+      },
+      "provenance": "pv_e48e2b10ab98"
+     }
+    }
+   ],
+   "contract_violations": [],
+   "representable": true,
+   "applied": false
+  },
+  "Les Terrasses de Saint Christophe": {
+   "rows": [
+    {
+     "entity": "Provenance",
+     "row": {
+      "id": "pv_28af43edb225",
+      "kind": "DOCUMENT",
+      "actor": "tools/proposal-compat.py (proposal, not applied)",
+      "quote": "second label of Chateau Tour Saint Christophe"
+     }
+    },
+    {
+     "entity": "Provenance",
+     "row": {
+      "id": "pv_3c0dab900dff",
+      "kind": "DOCUMENT",
+      "actor": "tools/proposal-compat.py (proposal, not applied)",
+      "quote": "made from some of the younger vines planted on the terrasses of the estate"
+     }
+    },
+    {
+     "entity": "Provenance",
+     "row": {
+      "id": "pv_164b2c59c274",
+      "kind": "DOCUMENT",
+      "actor": "tools/proposal-compat.py (proposal, not applied)",
+      "quote": "creee et orchestree par l'equipe des Vignobles K"
+     }
+    },
+    {
+     "entity": "Wine",
+     "row": {
+      "id": "wn_P0004",
+      "name_status": "KNOWN",
+      "type": "RED"
+     }
+    },
+    {
+     "entity": "NameRecord",
+     "row": {
+      "id": "nm_be776a812c04",
+      "subject": "wn_P0004",
+      "name": "Les Terrasses de Saint Christophe",
+      "kind": "CURRENT",
+      "validity": {
+       "valid_from": {
+        "kind": "NO_LATER_THAN",
+        "value": "2016",
+        "axis": "VINTAGE",
+        "precision": "VINTAGE",
+        "basis": "pv_28af43edb225"
+       },
+       "valid_to": {
+        "kind": "OPEN"
+       }
+      },
+      "provenance": "pv_28af43edb225"
+     }
+    },
+    {
+     "entity": "EstateWineRelationship",
+     "row": {
+      "id": "ew_6b17a23e026a",
+      "estate": "es_00448",
+      "wine": "wn_P0004",
+      "status": "ESTABLISHED",
+      "kind": "FROM_ESTATE_VINEYARD",
+      "validity": {
+       "valid_from": {
+        "kind": "NO_LATER_THAN",
+        "value": "2016",
+        "axis": "VINTAGE",
+        "precision": "VINTAGE",
+        "basis": "pv_3c0dab900dff"
+       },
+       "valid_to": {
+        "kind": "OPEN"
+       }
+      },
+      "provenance": "pv_3c0dab900dff"
+     }
+    },
+    {
+     "entity": "EstateWineRelationship",
+     "row": {
+      "id": "ew_0d37c1717e28",
+      "estate": "es_00448",
+      "wine": "wn_P0004",
+      "status": "ESTABLISHED",
+      "kind": "MADE_BY_GROUP_TEAM",
+      "validity": {
+       "valid_from": {
+        "kind": "NO_LATER_THAN",
+        "value": "2016",
+        "axis": "VINTAGE",
+        "precision": "VINTAGE",
+        "basis": "pv_164b2c59c274"
+       },
+       "valid_to": {
+        "kind": "OPEN"
+       }
+      },
+      "provenance": "pv_164b2c59c274"
+     }
+    },
+    {
+     "entity": "RankAssertion",
+     "row": {
+      "id": "ra_c4774dd671d2",
+      "relationship": "ew_6b17a23e026a",
+      "tier": "SECOND",
+      "scope": "ESTATE_RANGE",
+      "claimant": "PRODUCER",
+      "source_term": "second label",
+      "validity": {
+       "valid_from": {
+        "kind": "EXACT",
+        "value": "2016",
+        "axis": "VINTAGE",
+        "precision": "VINTAGE",
+        "basis": "pv_28af43edb225"
+       },
+       "valid_to": {
+        "kind": "EXACT",
+        "value": "2019",
+        "axis": "VINTAGE",
+        "precision": "VINTAGE",
+        "basis": "pv_28af43edb225"
+       }
+      },
+      "provenance": "pv_28af43edb225"
+     }
+    },
+    {
+     "entity": "RankAssertion",
+     "row": {
+      "id": "ra_4bdb8c136d6f",
+      "relationship": "ew_6b17a23e026a",
+      "tier": "UNKNOWN",
+      "scope": "ESTATE_RANGE",
+      "claimant": "PRODUCER",
+      "validity": {
+       "valid_from": {
+        "kind": "EXACT",
+        "value": "2020",
+        "axis": "VINTAGE",
+        "precision": "VINTAGE",
+        "basis": "pv_28af43edb225"
+       },
+       "valid_to": {
+        "kind": "NO_EARLIER_THAN",
+        "value": "2023",
+        "axis": "VINTAGE",
+        "precision": "VINTAGE",
+        "basis": "pv_28af43edb225"
+       }
+      },
+      "provenance": "pv_28af43edb225"
+     }
+    }
+   ],
+   "contract_violations": [],
+   "representable": true,
+   "applied": false
+  }
+ }
+}

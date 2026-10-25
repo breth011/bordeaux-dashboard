@@ -970,6 +970,37 @@ def t24_ocr_pending_documents_are_representable():
     assert st['STORED_ONLY'] and st['PENDING']
 
 
+# ---------------------------------------------------------------- M11
+
+@check
+def t25_m11_phase2_proposals_fit_without_special_cases_and_are_not_applied():
+    import importlib.util
+    spec = importlib.util.spec_from_file_location('pc', L.ROOT + 'tools/proposal-compat.py')
+    pc = importlib.util.module_from_spec(spec)
+    spec.loader.exec_module(pc)
+    r = pc.build()
+    assert r['schema_changes_needed'] == 0
+    P = r['proposals']
+    assert all(v['representable'] and not v['applied'] for v in P.values())
+    rows = lambda k, e: [x['row'] for x in P[k]['rows'] if x['entity'] == e]
+    echo = rows('Echo de Lynch-Bages', 'RankAssertion')[0]
+    assert echo['tier'] == 'SECOND' and echo['validity']['valid_from']['value'] == '2008'
+    assert rows('Echo de Lynch-Bages', 'IdentityTransition')[0]['certainty'] == 'UNRESOLVED'
+    mw = rows('Les Murets de Caillou (blanc)', 'Wine')
+    assert len({w['id'] for w in mw}) == 2 and {w['type'] for w in mw} == {'WHITE_DRY', 'RED'}
+    mr = rows('Les Murets de Caillou (blanc)', 'RankAssertion')
+    assert len(mr) == 1 and mr[0]['scope'] == 'TYPE_RANGE' and mr[0]['scope_type'] == 'WHITE_DRY'
+    tr = sorted(rows('Les Terrasses de Saint Christophe', 'RankAssertion'),
+                key=lambda x: x['validity']['valid_from']['value'])
+    assert [x['tier'] for x in tr] == ['SECOND', 'UNKNOWN']
+    assert tr[0]['validity']['valid_to']['value'] == '2019'
+    # not applied: no proposal row is in the model
+    assert not [w for w in T('identity/wines.jsonl') if w['id'].startswith('wn_P')]
+    assert not [r for r in T('state/rank-assertions.jsonl') if r['claimant'] != 'DATASET']
+    saved = json.load(open(L.MODEL + 'checks/proposal-compatibility.json', encoding='utf-8'))
+    assert saved['schema_changes_needed'] == 0 and set(saved['proposals']) == set(P)
+
+
 def main():
     only = sys.argv[1:]
     fails = 0

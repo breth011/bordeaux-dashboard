@@ -244,7 +244,10 @@ def search_lookups_and_values_unchanged_against_phase62():
     r = ar.compare(ref, ar.capture())
     assert not r['unexplained'], r['unexplained'][:5]
     assert set(r['summary']) <= {'IDENTICAL', 'EXPECTED: SECOND-WINE STATUS PRESENTATION',
-                                 'EXPECTED: ADDED SECOND-WINE STATUS (Phase 6.3)'}, r['summary']
+                                 'EXPECTED: ADDED SECOND-WINE STATUS (Phase 6.3)',
+                                 # Phase 6.5, named: its source facts and provenance wording
+                                 'EXPECTED: ADDED SOURCE FACTS (Phase 6.5)',
+                                 'EXPECTED: PROVENANCE WORDING PRESENTATION'}, r['summary']
     assert not r['presentation_order'], 'order changed'
 
 
@@ -253,7 +256,7 @@ def model_and_protected_data_unchanged():
     git = lambda *a: subprocess.check_output(['git'] + list(a), cwd=L.ROOT).decode()
     assert not git('diff', '--stat', BEFORE, '--', 'data/model').strip(), 'the model changed'
     changed = [f for f in git('diff', '--name-only', BEFORE, '--', 'data/app').split()
-               if not f.endswith('second-status.js')]
+               if not f.endswith(('second-status.js', 'source-facts.js'))]     # Phase 6.3, 6.5
     assert not changed, changed
     b = json.load(open(L.MODEL + 'baseline.json', encoding='utf-8'))['groups']
     for g in ('canonical', 'evidence', 'discovery', 'scope', 'phase_records'):

@@ -320,6 +320,10 @@
       'Gavin Quinney, uit gegevens van de douane/CIVB en zes weerstations',
     'from the UGCB register': 'uit het UGCB-register',
     'from Wikidata': 'uit Wikidata',
+    'from the estate’s own site': 'van de eigen site van het domein',
+    'from the estate’s own site, recorded by hand': 'van de eigen site van het domein, met de hand vastgelegd',
+    'from the estate, recorded by hand': 'van het domein, met de hand vastgelegd',
+    'where this address was found is not recorded': 'waar dit adres is gevonden, is niet vastgelegd',
     'from OpenStreetMap': 'uit OpenStreetMap',
     'positions: OpenStreetMap contributors, ODbL · INAO · Wikidata':
       'posities: OpenStreetMap-bijdragers, ODbL · INAO · Wikidata',
@@ -432,6 +436,30 @@
     'source on file': 'bron in het archief',
     'source unclear': 'bron onduidelijk',
     'The sheet recorded for this vintage': 'De fiche die bij deze jaargang is vastgelegd',
+    /* The details behind a figure's source (Phase 6.5). */
+    'About this source': 'Over deze bron',
+    'Source details': 'Brongegevens',
+    'The document this figure was recorded from': 'Het document waaruit dit cijfer is overgenomen',
+    'Which document this figure was recorded from is unclear':
+      'Uit welk document dit cijfer is overgenomen, is onduidelijk',
+    'Named in the record': 'Genoemd in het record',
+    'documents carry this name; which of them this figure came from is not recorded':
+      'documenten dragen deze naam; uit welk ervan dit cijfer komt, is niet vastgelegd',
+    'Document': 'Document',
+    'Type': 'Soort',
+    'Address': 'Adres',
+    'PDF document': 'PDF-document',
+    'text file': 'tekstbestand',
+    'a web page; its text is kept on file': 'een webpagina; de tekst is in het archief bewaard',
+    'a sheet covering several wines': 'een fiche voor meerdere wijnen',
+    'a report covering several estates': 'een verslag over meerdere domeinen',
+    'open the document': 'open het document',
+    'Kept on file: no web address was recorded, and this app does not publish the file.':
+      'In het archief: er is geen webadres vastgelegd, en deze app publiceert het bestand niet.',
+    'Also cited for': 'Ook genoemd bij',
+    'other estate': 'ander domein',
+    'other estates': 'andere domeinen',
+    'Sheet recorded for this vintage': 'Fiche vastgelegd bij deze jaargang',
     'each figure above cites its own source, where one is known; this opens a page outside this app':
       'elk cijfer hierboven noemt zijn eigen bron, waar die bekend is; dit opent een pagina buiten deze app',
     'this estate’s own suggestion': 'de eigen suggestie van dit domein',

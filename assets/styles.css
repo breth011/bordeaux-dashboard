@@ -1042,6 +1042,7 @@ table.dt td.num { font-family: var(--mono); text-align: right; }
   text-transform: uppercase; letter-spacing: .04em; color: var(--text-muted);
   white-space: nowrap; width: 1%; position: sticky; left: 0; z-index: 2;
 }
+.cmp tbody th.cmp-wrap { white-space: normal; }
 .cmp-head {
   background: none; border: none; padding: 0; cursor: pointer;
   font: inherit; font-size: 15px; font-weight: 700; color: inherit; text-align: left;
@@ -1132,6 +1133,50 @@ table.dt td.num { font-family: var(--mono); text-align: right; }
   color: var(--text);
   border-bottom-style: solid;
 }
+
+/* A figure's source status that opens its details (Phase 6.5). It reads
+   as the same quiet grey words it was; the dotted rule says it can be
+   pressed, as it does for a source that is a link. */
+.src-btn {
+  font: inherit; color: inherit; letter-spacing: inherit; text-transform: inherit;
+  background: none; border: 0; border-bottom: 1px dotted var(--text-muted);
+  border-radius: 0; padding: 0; margin: 0; cursor: pointer;
+}
+.src-btn:hover, .src-btn[aria-expanded="true"] {
+  color: var(--text-primary); border-bottom-style: solid;
+}
+/* The small "about this source" control beside a source that is a link. */
+.src-more {
+  display: inline-flex; align-items: center; justify-content: center;
+  width: 16px; height: 16px; margin: 0 0 0 4px; padding: 0;
+  vertical-align: baseline; position: relative; top: 2px;
+  border: 1px solid var(--text-muted); border-radius: 50%;
+  background: none; color: var(--text-muted); cursor: pointer;
+  font: italic 600 10px/1 var(--serif); letter-spacing: 0; text-transform: none;
+}
+.src-more::before { content: "i"; }
+.src-more:hover, .src-more[aria-expanded="true"] {
+  color: var(--text-primary); border-color: var(--text-primary);
+}
+/* Larger to the finger than to the eye. */
+.src-more::after { content: ""; position: absolute; inset: -10px; }
+.src-btn:focus-visible, .src-more:focus-visible, .src-panel .src-link:focus-visible {
+  outline: 2px solid var(--seq-450); outline-offset: 2px;
+}
+/* The details, under the control that opened them, in the run of the text
+   rather than over it, so nothing is covered and nothing needs a hover. */
+.src-panel {
+  display: block; margin: 6px 0 4px; padding: 8px 10px;
+  border: 1px solid var(--border); border-radius: var(--radius-sm);
+  background: var(--surface-1); color: var(--text-secondary);
+  font: 400 12.5px/1.45 var(--sans); letter-spacing: normal; text-transform: none;
+  text-align: left; white-space: normal; overflow-wrap: anywhere;
+}
+.src-panel .sp-head { display: block; color: var(--text-primary); font-weight: 600; margin-bottom: 4px; }
+.src-panel .sp-row { display: block; }
+.src-panel .sp-k { color: var(--text-muted); }
+.src-panel .sp-file { font-family: var(--mono); font-size: 11.5px; color: var(--text-primary); }
+.src-panel .sp-note { color: var(--text-muted); margin-top: 2px; }
 
 /* The explicit link under a vintage's figures, which is the one a
    reader goes looking for. */

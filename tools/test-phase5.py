@@ -213,7 +213,7 @@ def application_unchanged():
     src = load_tool('app-source.py')
     idx = open(L.ROOT + 'index.html', encoding='utf-8').read()
     sw = open(L.ROOT + 'service-worker.js', encoding='utf-8').read()
-    for extra in ('figure-sources.js', 'second-status.js'):        # Phase 6.1, 6.3
+    for extra in ('figure-sources.js', 'second-status.js', 'source-facts.js'):  # Phase 6.1, 6.3, 6.5
         idx = idx.replace('<script src="data/app/%s"></script>\n' % extra, '')
         sw = sw.replace("  './data/app/%s',\n" % extra, '')
     for f in src.CONTRACT:
@@ -260,12 +260,16 @@ def only_phase5_baseline_artifacts_changed():
 
 WRITERS = ('tools/add-sheet.py', 'tools/harvest.py', 'tools/crawl-pages.py')
 # What the application gained after Phase 5, named by tools/app-reference.py: each
-# figure's own source (Phase 6.1) and the second-wine status (Phase 6.3). Nothing
-# else may differ from the control.
+# figure's own source (Phase 6.1), the second-wine status (Phase 6.3), and the source
+# facts and corrected provenance wording (Phase 6.5). Nothing else may differ from the
+# control.
 PHASE61 = {'EXPECTED: PROVENANCE PRESENTATION', 'EXPECTED: ADDED FIGURE PROVENANCE (Phase 6.1)',
            'EXPECTED: SECOND-WINE STATUS PRESENTATION',
            'EXPECTED: PROVENANCE AND SECOND-WINE STATUS PRESENTATION',
-           'EXPECTED: ADDED SECOND-WINE STATUS (Phase 6.3)'}
+           'EXPECTED: ADDED SECOND-WINE STATUS (Phase 6.3)',
+           'EXPECTED: ADDED SOURCE FACTS (Phase 6.5)',
+           'EXPECTED: PROVENANCE WORDING PRESENTATION',
+           'EXPECTED: PROVENANCE AND PROVENANCE WORDING PRESENTATION'}
 
 
 @check

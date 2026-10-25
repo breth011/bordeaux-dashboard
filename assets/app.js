@@ -26,7 +26,7 @@ var SPAN = YEARS[YEARS.length - 1] + '–' + YEARS[0];
    1. BUILD THE ESTATE LIST
    Records written out in full keep their own data. Compact lists (the 71
    Saint-Émilion Grands Crus Classés, the Pomerol field, 249 Crus Bourgeois,
-   50 Crus Artisans) are expanded here into sparse records: verified name,
+   50 Crus Artisans) are expanded here into sparse records: listed name,
    rank and appellation, with blend and position falling back to appellation
    defaults that the UI flags.
    =========================================================================== */
@@ -465,11 +465,11 @@ var SITE_SOURCE = {
   cve: 'the Saint-Émilion register',
   ca: 'the Crus Artisans register',
   cag: 'the Crus Artisans register — the owning family’s other property',
-  dom: 'the estate’s own site, confirmed by reading it',
-  domr: 'the estate’s own site, checked by hand',
+  dom: 'the estate’s own site',
+  domr: 'the estate’s own site, recorded by hand',
   domg: 'the owning house’s site',
   cbg: 'the Crus Bourgeois register — the owning group, not the estate',
-  hand: 'the estate, checked by hand',
+  hand: 'the estate, recorded by hand',
   osm: 'OpenStreetMap',
   wikidata: 'Wikidata'
 };
@@ -944,7 +944,15 @@ function chateauById(id) {
    shared fact. Four wines' source sheets that happen to render the same
    are four sheets, and one cell spanning the table would say they were
    one. */
-function cmpRow(label, wines, value, perWine) {
+/* A compared figure's own source, the drawer's mark exactly (Phase 6.5).
+   Compare reads the grand vin's sheet, so the grand vin's sources. A cell
+   with a mark never merges with its neighbour: two vintages' figures come
+   from two records even where they read alike. */
+function cmpSrc(w, field) {
+  return figSrc(w.ch, w.yr, 'grand', field);
+}
+
+function cmpRow(label, wines, value, perWine, wrap) {
   var cells = wines.map(value);
   var any = cells.some(function (c) { return c !== null && c !== ''; });
   if (!any) return '';
@@ -955,7 +963,11 @@ function cmpRow(label, wines, value, perWine) {
     : cells.map(function (c) {
         return '<td>' + (c === null || c === '' ? '<span class="cmp-nil">—</span>' : c) + '</td>';
       }).join('');
-  return '<tr><th scope="row">' + label + '</th>' + body + '</tr>';
+  /* `wrap` lets a long label wrap within the column the others set. The
+     labels do not wrap, and they are sticky: one long one widened the
+     column that sits over the cells on a phone. */
+  return '<tr><th scope="row"' + (wrap ? ' class="cmp-wrap"' : '') + '>' + label + '</th>' +
+    body + '</tr>';
 }
 
 function cmpTable(wines) {
@@ -1006,7 +1018,7 @@ function cmpTable(wines) {
       var f = fiche(w.ch, w.yr);
       var b = (f && f.blend) || w.ch.blend;
       if (!b) return null;
-      return blendBar(b) + (f && f.blend ? '' :
+      return blendBar(b) + (f && f.blend ? cmpSrc(w, 'blend') :
         '<span class="cmp-note">the estate’s usual</span>');
     }) +
     /* pickBits, which is what the drawer asks, and not f.harvest:
@@ -1017,8 +1029,8 @@ function cmpTable(wines) {
       var f = fiche(w.ch, w.yr);
       if (!f) return null;
       var bits = pickBits(f);
-      if (bits.length) return bits.join('<br>');
-      return f.harvest || null;
+      if (bits.length) return bits.join('<br>') + cmpSrc(w, 'pick');
+      return f.harvest ? f.harvest + cmpSrc(w, 'harvest') : null;
     }) +
     /* The figures, in the drawer's order and under the drawer's
        labels: the same number named two different ways in two places
@@ -1029,30 +1041,30 @@ function cmpTable(wines) {
        nothing until they have something to say. */
     cmpRow('Yield', wines, function (w) {
       var f = fiche(w.ch, w.yr);
-      return f && f.yld ? f.yld + ' hl/ha' : null;
+      return f && f.yld ? f.yld + ' hl/ha' + cmpSrc(w, 'yld') : null;
     }) +
     cmpRow('Alcohol', wines, function (w) {
       var f = fiche(w.ch, w.yr);
-      return f && f.alc ? f.alc + '% vol' : null;
+      return f && f.alc ? f.alc + '% vol' + cmpSrc(w, 'alc') : null;
     }) +
     cmpRow('In barrel', wines, function (w) {
       var f = fiche(w.ch, w.yr);
-      return f && f.months ? f.months + ' months' : null;
+      return f && f.months ? f.months + ' months' + cmpSrc(w, 'months') : null;
     }) +
     cmpRow('New oak', wines, function (w) {
       var f = fiche(w.ch, w.yr);
-      return f && f.oak ? f.oak + '%' : null;
+      return f && f.oak ? f.oak + '%' + cmpSrc(w, 'oak') : null;
     }) +
     cmpRow('pH', wines, function (w) {
       var f = fiche(w.ch, w.yr);
-      return f && f.ph ? String(f.ph) : null;
+      return f && f.ph ? String(f.ph) + cmpSrc(w, 'ph') : null;
     }) +
     /* The estate's "under" is kept: "< 2 g/l" is a weaker claim than
        a bare 2 and the estate chose to make it. */
     cmpRow('Residual sugar', wines, function (w) {
       var f = fiche(w.ch, w.yr);
       if (!f || f.sug == null) return null;
-      return (f.sugl ? 'under ' : '') + f.sug + ' g/l';
+      return (f.sugl ? 'under ' : '') + f.sug + ' g/l' + cmpSrc(w, 'sug');
     }) +
     /* With the scale the sheet named, where it named one. 3.6 g/l
        H2SO4 is about 5.5 g/l tartaric, so a figure without its scale
@@ -1064,20 +1076,20 @@ function cmpTable(wines) {
       return f.ta + ' g/l' +
         (f.tau === 'H2SO4' ? ' H\u2082SO\u2084'
          : f.tau === 'tartaric' ? ' tartaric'
-         : '<span class="cmp-note">scale not stated</span>');
+         : '<span class="cmp-note">scale not stated</span>') + cmpSrc(w, 'ta');
     }) +
     cmpRow('Serve at', wines, function (w) {
       var f = fiche(w.ch, w.yr);
-      return f && f.temp ? f.temp.join('\u2013') + ' \u00b0C' : null;
+      return f && f.temp ? f.temp.join('\u2013') + ' \u00b0C' + cmpSrc(w, 'temp') : null;
     }) +
     cmpRow('Serve it with', wines, function (w) {
       var f = fiche(w.ch, w.yr);
       return f && f.food ? '<span class="cmp-prose">' + f.food +
-        '</span>' : null;
+        '</span>' + cmpSrc(w, 'food') : null;
     }) +
     cmpRow('Decant', wines, function (w) {
       var f = fiche(w.ch, w.yr);
-      return f && f.decant ? f.decant : null;
+      return f && f.decant ? f.decant + cmpSrc(w, 'decant') : null;
     }) +
     /* The season narrative is not here. It is the one thing on the
        page that cannot be read across - a number is compared by
@@ -1087,21 +1099,24 @@ function cmpTable(wines) {
        season is in the drawer and on the vintage page. */
     cmpRow('The estate on the wine', wines, function (w) {
       var f = fiche(w.ch, w.yr);
-      return f && f.taste ? '<span class="cmp-prose">' + f.taste + '</span>' : null;
+      return f && f.taste ? '<span class="cmp-prose">' + f.taste + '</span>' +
+        cmpSrc(w, 'taste') : null;
     }) +
-    /* And the document all of it was read from. Last, the way the
-       drawer puts its sourcing last, and per wine rather than
-       collapsed: these are different sheets even where they render
-       alike. A dash where the address is not known, so the row means
-       one thing - this one can be opened. */
-    cmpRow('Sheet', wines, function (w) {
+    /* And the sheet recorded for the vintage. Last, the way the drawer
+       puts its sourcing last, and per wine rather than collapsed: these
+       are different sheets even where they render alike. A dash where the
+       address is not known, so the row means one thing - this one can be
+       opened. It is the record's sheet, not each figure's source: a figure
+       above can come from another document, and carries its own (Phase
+       6.5), so the row is named for what it is. */
+    cmpRow('Sheet recorded for this vintage', wines, function (w) {
       if (!ficheUrl(w.ch, w.yr, 'grand')) return null;
       var f = fiche(w.ch, w.yr);
       var label = 'the ' + w.yr + ' sheet' +
         (f && f.via === 'trade' ? ', via the trade' : '');
       return '<span class="fichelink">' +
         srcLine(w.ch, w.yr, label, 'grand') + '</span>';
-    }, true);
+    }, true, true);
 
   return '<div class="cmp-scroll"><table class="cmp cmp-' + wines.length + '">' +
     '<thead>' + head + '</thead><tbody>' + body + '</tbody></table></div>';
@@ -2990,9 +3005,11 @@ function openDrawer(id) {
        estate's own register entry is worth more than a map note, and an
        address that lands on the owning group rather than on the estate
        is worth saying out loud before anyone clicks it. */
-    var where = SITE_SOURCE[site[1]] || 'Wikidata';
+    /* A tag this list does not name is not credited to anyone: it used
+       to fall back to Wikidata, which supplied none of them (Phase 6.5). */
+    var where = SITE_SOURCE[site[1]];
     fx.push(['Website', '<a href="' + site[0] + '" target="_blank" rel="noopener noreferrer"' +
-      ' title="from ' + where + '">' +
+      ' title="' + (where ? 'from ' + where : 'where this address was found is not recorded') + '">' +
       site[0].replace(/^https?:\/\//, '') + '</a>' +
       (site[1] === 'cbg' ? '<span class="sitenote">the owning group’s site</span>' : '')]);
   }
@@ -3006,7 +3023,7 @@ function openDrawer(id) {
 
   if (ch.sparse) {
     body += '<div class="notice" style="margin:16px 0">' +
-      '<b>A verified name and rank, and little else.</b> This estate’s classification and ' +
+      '<b>A name and rank, and little else.</b> This estate’s classification and ' +
       'appellation come from the published list. Its own encépagement, hectarage, proprietor ' +
       'and house style are not in this dataset, so <b>no blend is shown at all</b> and the map ' +
       'position shows the appellation rather than the property. The price links are exact.</div>';
@@ -3196,20 +3213,140 @@ function figureSource(ch, yr, slug, field) {
 function figSrc(ch, yr, slug, field) {
   var d = figureSource(ch, yr, slug, field);
   if (!d) return '';
+  var key = srcKey(ch, yr, slug, field);
   if (d.u) {
     return ' <a class="src-link fig-src" data-prov="doc" href="' +
       String(d.u).replace(/&/g, '&amp;').replace(/"/g, '&quot;') +
       '" target="_blank" rel="noopener noreferrer" title="' +
-      escText(d.n).replace(/"/g, '&quot;') + '">source</a>';
+      escText(d.n).replace(/"/g, '&quot;') + '">source</a>' + srcMore(key);
   }
-  if (d.n) {
-    return ' <span class="fig-src" data-prov="file" title="' +
-      escText(d.n).replace(/"/g, '&quot;') + '">source on file</span>';
-  }
-  return ' <span class="fig-src" data-prov="amb" title="' +
-    escText(d.a + ' - ' + d.c + ' documents carry this name').replace(/"/g, '&quot;') +
-    '">source unclear</span>';
+  /* The words stay what they were; what they hid in a title, which a
+     finger or a keyboard cannot reach, is now one press away. */
+  return ' <button type="button" class="fig-src src-btn" data-prov="' +
+    (d.n ? 'file' : 'amb') + '" data-src="' + key + '" aria-expanded="false">' +
+    (d.n ? 'source on file' : 'source unclear') + '</button>';
 }
+
+/* What the model records about a figure's document beyond its name and
+   address (data/app/source-facts.js, generated, Phase 6.5): its type, where
+   the model's assessment says one, and how many other estates have a figure
+   from the very same artifact. Nothing else is known, so nothing else is
+   said. */
+var SRCFACTS = window.BDX_SOURCE_FACTS || { docs: [], rec: {} };
+
+function sourceFacts(ch, yr, slug, field) {
+  var k = (!slug || slug === 'grand') ? ch.id + '|' + yr : ch.id + '|' + slug + '|' + yr;
+  var r = SRCFACTS.rec[k];
+  return (r && r[field] != null) ? SRCFACTS.docs[r[field]] : null;
+}
+
+function srcKey(ch, yr, slug, field) {
+  return escText([ch.id, yr, slug || 'grand', field].join('|')).replace(/"/g, '&quot;');
+}
+
+/* Beside a source that is a link, the link still opens the document; the
+   details sit behind a second, small control, so a tap on "source" never
+   does anything but what it always did. */
+function srcMore(key) {
+  return '<button type="button" class="src-more" data-src="' + key +
+    '" aria-expanded="false" aria-label="About this source"></button>';
+}
+
+var SRC_TYPE = {
+  WEB_PAGE: 'a web page; its text is kept on file',
+  MULTI_WINE_SHEET: 'a sheet covering several wines',
+  GROUP_REPORT: 'a report covering several estates'
+};
+
+/* The details of one figure's source, built when asked for. Each fixed
+   phrase is its own element so assets/i18n.js can say it whole. It says
+   where the figure was recorded from and what is known of that document -
+   not that the document was read and found to state the figure. */
+function srcSummary(key) {
+  var p = key.split('|');
+  var ch = chateauById(p[0]);
+  if (!ch) return '';
+  var d = figureSource(ch, p[1], p[2], p[3]);
+  if (!d) return '';
+  var x = sourceFacts(ch, p[1], p[2], p[3]) || {};
+  var out = [];
+  function row(k, v) {
+    out.push('<span class="sp-row"><span class="sp-k">' + k + '</span> ' +
+      '<span class="sp-v">' + v + '</span></span>');
+  }
+  if (d.a) {
+    out.push('<span class="sp-head">Which document this figure was recorded from is unclear</span>');
+    row('Named in the record', '<span class="sp-file">' + escText(d.a) + '</span>');
+    out.push('<span class="sp-row"><b>' + d.c + '</b> <span>documents carry this name; ' +
+      'which of them this figure came from is not recorded</span></span>');
+    return out.join('');
+  }
+  out.push('<span class="sp-head">The document this figure was recorded from</span>');
+  row('Document', '<span class="sp-file">' + escText(d.n) + '</span>');
+  var type = SRC_TYPE[x.t] || (/\.pdf$/i.test(d.n) ? 'PDF document'
+    : /\.txt$/i.test(d.n) ? 'text file' : '');
+  if (type) row('Type', '<span>' + type + '</span>');
+  if (d.u) {
+    row('Address', '<a class="src-link" href="' +
+      String(d.u).replace(/&/g, '&amp;').replace(/"/g, '&quot;') +
+      '" target="_blank" rel="noopener noreferrer">open the document</a>');
+  } else {
+    out.push('<span class="sp-row sp-note">Kept on file: no web address was recorded, ' +
+      'and this app does not publish the file.</span>');
+  }
+  if (x.o) {
+    out.push('<span class="sp-row"><span>Also cited for</span> <b>' + x.o + '</b> <span>' +
+      (x.o === 1 ? 'other estate' : 'other estates') + '</span></span>');
+  }
+  return out.join('');
+}
+
+/* One summary open at a time, under the control that opened it, the way
+   the settings panel behaves: the control says whether it is open, a
+   second press or Escape closes it, and focus goes back to the control. */
+var srcSeq = 0;
+
+function closeSrc() {
+  Array.prototype.forEach.call(document.querySelectorAll('button[data-src][aria-expanded="true"]'),
+    function (b) {
+      var panel = document.getElementById(b.getAttribute('aria-controls'));
+      if (panel) panel.parentNode.removeChild(panel);
+      b.setAttribute('aria-expanded', 'false');
+      b.removeAttribute('aria-controls');
+    });
+}
+
+function toggleSrc(b) {
+  var open = b.getAttribute('aria-expanded') === 'true';
+  closeSrc();
+  if (open) return;
+  var id = 'srcp-' + (++srcSeq);
+  b.insertAdjacentHTML('afterend', '<span class="src-panel" id="' + id +
+    '" role="group" aria-label="Source details">' + srcSummary(b.getAttribute('data-src')) + '</span>');
+  b.setAttribute('aria-controls', id);
+  b.setAttribute('aria-expanded', 'true');
+}
+
+document.addEventListener('click', function (e) {
+  var b = e.target.closest ? e.target.closest('button[data-src]') : null;
+  if (b) { toggleSrc(b); return; }
+  if (e.target.closest && e.target.closest('.src-panel')) return;
+  closeSrc();
+});
+/* In the capture phase, so Escape closes the summary that has focus before
+   the drawer's own Escape handler closes the whole drawer. */
+document.addEventListener('keydown', function (e) {
+  if (e.key !== 'Escape') return;
+  var b = document.querySelector('button[data-src][aria-expanded="true"]');
+  if (!b) return;
+  var panel = document.getElementById(b.getAttribute('aria-controls'));
+  var a = document.activeElement;
+  if (a !== b && !(panel && panel.contains(a))) return;
+  e.stopPropagation();
+  e.preventDefault();
+  closeSrc();
+  b.focus();
+}, true);
 
 /* The sourcing line, as a link when the document can be reached.
    Sourcing is kept quiet here on purpose - a short grey line, not a
@@ -3227,7 +3364,8 @@ function srcLine(ch, yr, label, slug, field) {
       return '<a class="src-link" data-prov="doc" href="' +
         String(d.u).replace(/&/g, '&amp;').replace(/"/g, '&quot;') +
         '" target="_blank" rel="noopener noreferrer"' +
-        ' title="Open the sheet this was read from">' + label + '</a>';
+        ' title="Open the sheet this was read from">' + label + '</a>' +
+        srcMore(srcKey(ch, yr, slug, field));
     }
     return label + figSrc(ch, yr, slug, field);
   }

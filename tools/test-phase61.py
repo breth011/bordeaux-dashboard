@@ -233,7 +233,11 @@ def values_search_and_lookups_unchanged():
                # Phase 6.3's second-wine row, named the same way
                'EXPECTED: SECOND-WINE STATUS PRESENTATION',
                'EXPECTED: PROVENANCE AND SECOND-WINE STATUS PRESENTATION',
-               'EXPECTED: ADDED SECOND-WINE STATUS (Phase 6.3)'}
+               'EXPECTED: ADDED SECOND-WINE STATUS (Phase 6.3)',
+               # Phase 6.5's source facts and corrected provenance wording, named the same way
+               'EXPECTED: ADDED SOURCE FACTS (Phase 6.5)',
+               'EXPECTED: PROVENANCE WORDING PRESENTATION',
+               'EXPECTED: PROVENANCE AND PROVENANCE WORDING PRESENTATION'}
     assert set(r['summary']) <= allowed, r['summary']
     assert r['summary'].get('EXPECTED: ADDED FIGURE PROVENANCE (Phase 6.1)') == 1
 
@@ -244,7 +248,7 @@ def existing_generated_files_and_protected_data_unchanged():
     git = lambda *a: subprocess.check_output(['git'] + list(a), cwd=L.ROOT).decode()
     # the 23 generated contract files are byte-identical to Phase 6.0's
     changed = [f for f in git('diff', '--name-only', '8b13cb0', '--', 'data/app').split()
-               if not f.endswith(('figure-sources.js', 'second-status.js'))]
+               if not f.endswith(('figure-sources.js', 'second-status.js', 'source-facts.js'))]
     assert not changed, changed
     b = json.load(open(L.MODEL + 'baseline.json', encoding='utf-8'))['groups']
     for g in ('canonical', 'evidence', 'discovery', 'scope', 'phase_records'):

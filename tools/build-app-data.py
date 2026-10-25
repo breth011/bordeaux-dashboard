@@ -145,8 +145,62 @@ def second_status(model=None):
     return out
 
 
+SOURCE_FACTS = 'source-facts.js'
+# The model's document types that say more than the file's name does. UNKNOWN
+# and OTHER say nothing a reader can use, so they are not passed on.
+TELLING_TYPES = ('WEB_PAGE', 'MULTI_WINE_SHEET', 'GROUP_REPORT')
+
+
+def source_facts(model=None):
+    """What the model records about the document behind a figure source, beyond
+    its name and address (Phase 6.5): only what figure-sources.js cannot say.
+
+    {record key: {field: facts}} for the LEGACY_FIELD_SOURCE figures of
+    figure_sources(), with facts holding
+      "t": type   the model's assessment of the artifact (document/assessments),
+                  where it is one of TELLING_TYPES
+      "o": n      how many other estates have a figure whose source is the same
+                  artifact - the same model identity, not the same address or name
+    A figure with neither has no entry. Ambiguous sources have none: which
+    artifact they are is what is not known."""
+    M = model or R.Model()
+    prov = {p['id']: p for p in M.rows('cross/provenance.jsonl')}
+    kind = {a['artifact']: a['document_type'] for a in M.rows('document/assessments.jsonl')}
+    cited = []
+    for o in M.rows('observation/observations.jsonl'):
+        ex = o['extraction']
+        if ex['file'] not in ('data/fiches.js', 'data/cuvees.js'):
+            continue
+        p = prov[o['provenance']]
+        if p['kind'] == 'LEGACY_FIELD_SOURCE':
+            cited.append((ex['record'], o['field'], p['artifact']))
+    estates = {}
+    for rec, _, a in cited:
+        estates.setdefault(a, set()).add(rec.split('|', 1)[0])
+    out = {}
+    for rec, field, a in cited:
+        facts = {}
+        if kind.get(a) in TELLING_TYPES:
+            facts['t'] = kind[a]
+        others = len(estates[a] - {rec.split('|', 1)[0]})
+        if others:
+            facts['o'] = others
+        if facts:
+            out.setdefault(rec, {})[field] = facts
+    return out
+
+
+def pack(table):
+    """Each distinct value once ("docs"), each record's field an index into it ("rec")."""
+    docs = sorted({json.dumps(v, sort_keys=True) for r in table.values() for v in r.values()})
+    index = {d: i for i, d in enumerate(docs)}
+    return {'docs': [json.loads(d) for d in docs],
+            'rec': {k: {f: index[json.dumps(v, sort_keys=True)] for f, v in r.items()} for k, r in table.items()}}
+
+
 def render():
-    """{filename: bytes} for every contract file, and the figure sources."""
+    """{filename: bytes} for every contract file, the figure sources, the second-wine
+    states and the source facts."""
     proj = R.project(classifications={c['id']: c for c in L.g('BDX_CLASSIFICATIONS')})
     out = {}
     for f in CONTRACT:
@@ -170,6 +224,8 @@ def render():
     out[FIGURE_SOURCES] = (HEADER + 'window.BDX_FIGURE_SRC = %s;\n' % js).encode('utf-8')
     js = json.dumps(second_status(), ensure_ascii=False, sort_keys=True, separators=(',', ':'))
     out[SECOND_STATUS] = (HEADER + 'window.BDX_SECOND_STATUS = %s;\n' % js).encode('utf-8')
+    js = json.dumps(pack(source_facts()), ensure_ascii=False, sort_keys=True, separators=(',', ':'))
+    out[SOURCE_FACTS] = (HEADER + 'window.BDX_SOURCE_FACTS = %s;\n' % js).encode('utf-8')
     return out
 
 

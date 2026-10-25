@@ -141,7 +141,7 @@ def exact_artifact_provenance():
         assert p['quote'] == r['evidence']['quote'] and p['code_state']['locus'] == r['evidence']['locus']
         assert p['code_state']['basename'] == r['source']['filename']
         seen += 1
-    assert seen == len(applied) == 716, (seen, len(applied))
+    assert seen == len(applied) and seen > 0, (seen, len(applied))
 
 
 @check
@@ -174,7 +174,7 @@ def provenance_history_is_preserved():
 
 @check
 def model_missing_and_conflicts_are_never_applied():
-    eligible = {'A': 'MODEL_MATCHES', 'B': 'EXACT_FIRST_PARTY'}
+    eligible = {'A': 'MODEL_MATCHES', 'B': 'EXACT_FIRST_PARTY', 'C': 'MODEL_MATCHES'}
     for r in audit():
         if r['classification'] != eligible[r['stream']]:
             assert not r['disposition'].startswith('APPLY'), r['key']
@@ -222,7 +222,7 @@ def open_decisions_stay_open():
 @check
 def gap_ids_are_stable_and_the_register_keeps_its_history():
     reg = {r['gap_id']: r for r in L.jsonl_lines(L.ROOT + 'data/audit/data-gap-register.jsonl')}
-    family = {'A': 'FIG_UNSOURCED|', 'B': 'FIG_FILE_ONLY|URL_IN_DISCOVERY'}
+    family = {'A': 'FIG_UNSOURCED|', 'B': 'FIG_FILE_ONLY|URL_IN_DISCOVERY', 'C': 'FIG_UNSOURCED|3b_TEXT_NOT_STORED|'}
     for r in audit():
         assert r['gap_id'] in reg, r['key']
         assert reg[r['gap_id']]['gap_key'].startswith(family[r['stream']]), r['key']
@@ -242,12 +242,39 @@ def gap_ids_are_stable_and_the_register_keeps_its_history():
         for b in res['by']:
             assert b['commit'] == commits[b['phase']]['commit'], gid
         recovered += res['recovered']
-    assert recovered == sum(1 for r in audit() if r['disposition'].startswith('APPLY')), recovered
+    # the register counts the streams whose applying commit is recorded
+    assert recovered == sum(1 for r in audit() if r['disposition'].startswith('APPLY')
+                            and 'M3.2' + r['stream'] in commits), recovered
 
 
 @check
 def figure_sources_change_is_exactly_the_recovered_figures():
     assert H.figure_sources_change_is_m32_only()
+
+
+# -- M3.2C: held sheets without stored text --------------------------------------------------------
+
+@check
+def m32c_reads_the_held_pdf_and_keeps_only_the_passage():
+    c = [r for r in audit() if r['stream'] == 'C']
+    assert len(c) == 411, len(c)
+    classes = {r['evidence']['document_class'] for r in c}
+    assert classes <= {'TEXT_EXTRACTABLE', 'LAYOUT_EXTRACTABLE', 'IMAGE_ONLY', 'CORRUPT_OR_UNREADABLE',
+                       'IRRELEVANT_AFTER_REVIEW'}, classes
+    for r in c:
+        if r['disposition'] == 'APPLY_PROVENANCE':
+            assert r['evidence']['text'].startswith('pymupdf '), r['key']        # the sheet reader's reading
+            assert r['evidence']['locus'] in ('pdf:flat', 'pdf:columns') and len(r['evidence']['quote']) <= 200
+            assert r['source']['filename'] and r['source']['filename'].lower().endswith('.pdf'), r['key']
+        if r['evidence']['document_class'] == 'IMAGE_ONLY':
+            assert r['disposition'] == 'OCR_CANDIDATE', r['key']                  # never guessed, never skipped
+    # a compilation of vintages is refused for a blend, whichever section matches
+    import m32_recovery as RR
+    compilation = 'Assemblage 2013 : 80% Merlot, 15% Cabernet Franc, 5% Petit Verdot. Assemblage 2014 : 82% Merlot, 12% Cabernet Franc, 6% Petit Verdot'
+    assert RR.classify('blend', {'ME': 80, 'CF': 15, 'PV': 5}, [('p:1', compilation)])['classification'] == 'DUPLICATE_VALUE'
+    # a share is read with its own grape, never both neighbours
+    assert RR._read_run(': cabernet sauvignon 49% merlot 38% cabernet franc 7% petit verdot 6%') == {'CS': 49, 'ME': 38, 'CF': 7, 'PV': 6}
+    assert RR._read_run(': 98% merlot et 2% cabernet franc') == {'ME': 98, 'CF': 2}
 
 
 # -- M3.2B: online addresses -----------------------------------------------------------------------

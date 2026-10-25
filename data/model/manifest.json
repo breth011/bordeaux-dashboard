@@ -11,7 +11,7 @@
   "canonical/values.jsonl": {
    "entity": "CanonicalValue",
    "rows": 12959,
-   "sha256": "97913abfe04f1a17dbfcc3cde8ce12267414a13401edab29fedbbb63c164fc2b"
+   "sha256": "ed8a99e54d15fc96269d1a69fade857921fc715c4ccf19146def03e42b3d46d1"
   },
   "cross/findings.jsonl": {
    "entity": "QualityFinding",
@@ -20,8 +20,8 @@
   },
   "cross/provenance.jsonl": {
    "entity": "Provenance",
-   "rows": 26738,
-   "sha256": "5372ee51152a396183638e5fb3b8b55284983f03e7b6771ededee7e4dbdfcfa6"
+   "rows": 27018,
+   "sha256": "0af4011aced8edfbaa7a4b629b3d58b7f38d6526a688b59d3e3c6cc292b2efbf"
   },
   "document/artifact-dates.jsonl": {
    "entity": "ArtifactDate",
@@ -116,7 +116,7 @@
   "observation/observations.jsonl": {
    "entity": "Observation",
    "rows": 22437,
-   "sha256": "5d579ad9c2a385915ddb67386b6dfb487ce63181808187359a9640c1ce10b3a8"
+   "sha256": "b528cf39753ef77f5e9f37898c89510e41365b70afb9b7d73cb57dc5a9e5788f"
   },
   "reconciliation/reconciliations.jsonl": {
    "entity": "Reconciliation",
@@ -354,12 +354,12 @@
    "backfill": {
     "canonical BDX_CUVEES (LEGACY_AMBIGUOUS_SOURCE)": 42,
     "canonical BDX_CUVEES (LEGACY_FIELD_SOURCE)": 1690,
-    "canonical BDX_CUVEES (LEGACY_RECORD_SOURCE_ONLY)": 1796,
-    "canonical BDX_CUVEES (SOURCED)": 65,
+    "canonical BDX_CUVEES (LEGACY_RECORD_SOURCE_ONLY)": 1769,
+    "canonical BDX_CUVEES (SOURCED)": 92,
     "canonical BDX_FICHES (LEGACY_AMBIGUOUS_SOURCE)": 89,
     "canonical BDX_FICHES (LEGACY_FIELD_SOURCE)": 4137,
-    "canonical BDX_FICHES (LEGACY_RECORD_SOURCE_ONLY)": 4318,
-    "canonical BDX_FICHES (SOURCED)": 651,
+    "canonical BDX_FICHES (LEGACY_RECORD_SOURCE_ONLY)": 4065,
+    "canonical BDX_FICHES (SOURCED)": 904,
     "canonical vineyard_area_ha": 171,
     "field flags without their field": 1,
     "observations BDX_CELLAR": 644,

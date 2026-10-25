@@ -129,6 +129,62 @@ PLANTING_LABEL = re.compile(r'encepagement|grape variet|cepages?\s*(?:plantes|:)
 RUN = 200
 
 
+# Grape names (longest first, so "cabernet sauvignon" is not read as "sauvignon") and shares, in order.
+_GRAPE_ORDER = sorted(GRAPES.items(), key=lambda kv: -len(kv[1]))
+_TOKEN = re.compile(r'(?P<pct>(?<![\d.,])\d{1,3}(?:[.,]\d{1,2})?)\s*%%|(?P<grape>%s)' % '|'.join(
+    '(?:%s)' % g for _, g in _GRAPE_ORDER))
+
+
+def _code(name):
+    for c, g in _GRAPE_ORDER:
+        if re.fullmatch(g, name):
+            return c
+    return None
+
+
+def _read_run(win):
+    """The shares of one blend run, read in order: "Cabernet Sauvignon 49% Merlot 38%" pairs each
+    grape with the share after it; "49% Cabernet Sauvignon, 38% Merlot" each share with the grape
+    after it. The run's first token decides; a share is never given to both neighbours."""
+    toks = [('pct', _f(m.group('pct')), m.start(), m.end()) if m.group('pct')
+            else ('grape', _code(m.group('grape')), m.start(), m.end()) for m in _TOKEN.finditer(win)]
+    toks = [t for t in toks if t[1] is not None]
+    best = None
+    for first, second in (('grape', 'pct'), ('pct', 'grape')):
+        run, gaps, i = {}, [], 0
+        while i + 1 < len(toks):
+            if toks[i][0] == first and toks[i + 1][0] == second:
+                g, p = (toks[i][1], toks[i + 1][1]) if first == 'grape' else (toks[i + 1][1], toks[i][1])
+                run.setdefault(g, p)
+                gaps.append(toks[i + 1][2] - toks[i][3])
+                i += 2
+            else:
+                i += 1
+        # the orientation whose pairs sit closest together is the run's own ("98% Merlot ET 2% ...")
+        score = (-len(run), sum(gaps) / len(gaps) if gaps else 1e9)
+        if run and (best is None or score < best[0]):
+            best = (score, run)
+    run = best[1] if best else {}
+    # a run is a blend only when its shares make a whole: a window cut short is not another blend
+    return run if 97 <= sum(run.values()) <= 101 else {}
+
+
+def _other_blends(segments, value):
+    """Blends other than `value` stated after a blend label anywhere in the document: the shares of
+    each labelled run (within RUN characters), where they name at least two grapes and differ."""
+    want = {c: _f(v) for c, v in value.items()}
+    out = []
+    for _, text in segments:
+        t = fold(text)
+        for lab in BLEND_LABEL.finditer(t):
+            if _planting_heads(t, lab.end() + 1):
+                continue
+            run = _read_run(t[lab.end():lab.end() + RUN])
+            if len(run) >= 2 and run != want and run not in out:
+                out.append(run)
+    return out
+
+
 def _planting_heads(t, start):
     """True when the nearest heading before the shares (within 120 characters) is a planting or soil
     heading rather than a blend one ("Superficie 7 ha Assemblage 70 % Merlot" is a blend)."""
@@ -159,6 +215,11 @@ def _classify_blend(value, segments):
             if end - start > RUN:
                 continue
             if BLEND_LABEL.search(t) and not _planting_heads(t, start):
+                others = _other_blends(segments, value)
+                if others:
+                    # a compilation of vintages, or two wines: another blend stands in the same document
+                    return {'classification': 'DUPLICATE_VALUE', 'hits': len(value), 'found': [value] + others[:2],
+                            'locus': locus, 'quote': _quote(text, start, end)}
                 return {'classification': 'MODEL_MATCHES', 'hits': len(value), 'found': [value], 'locus': locus,
                         'quote': _quote(text, start, end)}
             unlabelled = unlabelled or (locus, _quote(text, start, end))

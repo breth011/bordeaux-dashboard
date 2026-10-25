@@ -206,3 +206,87 @@ went from {file} to {file, address} with an address from this stream.
 ### Gate
 
 **SAFE — M3.2B EXISTING DATA RECOVERY COMPLETE**
+
+## M3.2C: held-sheet extraction
+
+**Candidates:** the 411 figures whose record's own sheet is a held PDF with no stored text. The
+sheet reader (`tools/sheetreader.py`, pymupdf) reads such PDFs while it runs, but nothing kept the
+text.
+
+M3.2C reads each sheet the same way: flat, then by columns for two-column layouts. It then checks
+the figure with stream A's rules. Only the passage that states the figure is kept (at most 200
+characters, with the reader's version). No document is copied into the model. Nothing is OCR'd.
+
+**Document classes, 195 PDFs:**
+
+| Class | PDFs | Figures |
+|---|---:|---:|
+| TEXT_EXTRACTABLE | 195 | 408 |
+| LAYOUT_EXTRACTABLE | 0 (no figure needed the column reading) | 0 |
+| IMAGE_ONLY | **0**: every one has a text layer | 0 |
+| CORRUPT_OR_UNREADABLE | 0 | 0 |
+| IRRELEVANT_AFTER_REVIEW (text held, the figure not stated) | 3 | 3 |
+
+M3.1 had called these "text not stored". They needed no OCR at all.
+
+**Figures:**
+
+| Classification | Count | Disposition |
+|---|---:|---|
+| MODEL_MATCHES | **284** | APPLY_PROVENANCE |
+| AMBIGUOUS | 88 | review |
+| FIELD_NOT_CHECKABLE | 19 | review |
+| MODEL_CONFLICT | **13** | reconciliation, uncorrected |
+| DUPLICATE_VALUE | 4 | review |
+| NOT_FOUND | 3 | review |
+
+**The conflicts show consistent entry errors.** Each is kept for reconciliation, never corrected:
+
+- **pomerol-chateau-taillefer 2013–2018 new oak:** the model holds the *one-year* barrel share
+  each time, e.g. 35 where the sheet says "50 % de barriques neuves, 35 % de barriques d'un an".
+- **stem-chateau-fombrauge 2020 new oak:** 65 in the model; "35% new oak barrels, 65% one
+  year-old" on the sheet.
+- **stem-chateau-ripeau 2020–2024 yield:** 75 / 70 / 20 / 65 in the model, against
+  30,75 / 31,70 / 41,20 / 32,65 hl/ha on the sheets.
+- **lagrange 2024 and 2025 blend; belgrave 2005 months:** the latter labelled on another wine's
+  passage.
+
+### A stricter blend rule, and four of stream A withdrawn
+
+Reading the compilations exposed a gap in the blend rule. It returned the first passage matching
+the model's shares, without looking for another blend in the same document. A sheet covering
+several vintages could therefore cite another vintage's section whose shares happen to coincide.
+The Yon-Figeac merged PDF covers 2013 to 2022.
+
+The rule now reads every labelled blend run in the document, in order. Each share is paired with
+its own grape, by whichever orientation keeps the pairs closest, and a run counts only when its
+shares make a whole (97 to 101). If another whole blend stands in the document, the figure is
+DUPLICATE_VALUE. A first draft of this check paired each share with both neighbouring grapes and
+invented blends that were not on the page (Beychevelle, Dauzac and others); reading the samples
+caught it before anything was applied.
+
+Four of stream A's 716 were applied in `ba5aaa4` and are refused now. Each sheet holds a second
+blend:
+
+- dauzac 2010 (another version, 66/34);
+- malartic-lagraviere 2021 and 2022 (primeur and final);
+- stem-chateau-yon-figeac 2013 (the compilation).
+
+They are withdrawn openly. On the rebuild they go back to their record-level provenance, and the
+four DOCUMENT rows M3.2 wrote for them go. No legacy row is touched, and the register's M3.2A count
+reads 712.
+
+### Application
+
+| File | Change |
+|---|---|
+| `canonical/values.jsonl`, `observation/observations.jsonl` | 288 rows each: +284 gain their own sheet (C), 4 return to record-only (A withdrawn); provenance and status only, every value identical |
+| `cross/provenance.jsonl` | +284 DOCUMENT rows, −4 (M3.2's own, withdrawn) |
+| `data/app/figure-sources.js` | 284 figures gain their sheet; 4 lose the source A gave them |
+
+SOURCED canonical values now total **996** (712 from A, 284 from C). `migrate --check`,
+`build-app-data --check` and the index rebuild pass.
+
+### Gate
+
+**SAFE — M3.2C EXISTING DATA RECOVERY COMPLETE**

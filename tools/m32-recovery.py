@@ -188,8 +188,78 @@ def stream_b():
     return out
 
 
+def local_pdf(aid):
+    for pl in sorted(A.placements_of(aid), key=lambda p: p['locator']['value']):
+        q = L.ROOT + 'sources/' + pl['locator']['value']
+        if pl['locator']['kind'] == 'LOCAL_PATH' and q.lower().endswith('.pdf') and os.path.exists(q):
+            return q
+    return None
+
+
+_PDF = {}
+
+
+def pdf_text(path):
+    """(flat text, column text, reader) as tools/sheetreader.py reads the sheet; never OCR."""
+    if path not in _PDF:
+        import sheetreader as SR
+        import pymupdf
+        try:
+            _PDF[path] = (SR.flat(path), SR.by_columns(path, pages=99), 'pymupdf %s' % pymupdf.VersionBind)
+        except Exception as ex:                       # a file pymupdf cannot open
+            _PDF[path] = (None, None, 'unreadable: %s' % type(ex).__name__)
+    return _PDF[path]
+
+
+def stream_c():
+    """The 411 figures whose record's own held sheet is a PDF with no stored text. The sheet is read
+    as the sheet reader reads it - flat, then by columns - and the figure checked with stream A's
+    rules. Only the passage that states the figure is kept. Image-only sheets are recorded for OCR
+    (M3.2E), never guessed."""
+    gaps = gap_ids()
+    out = []
+    for f in A.unsourced_figures():
+        if f['group'] != '3b_TEXT_NOT_STORED':
+            continue
+        aid = f['document']
+        path = local_pdf(aid)
+        flat, cols, reader = pdf_text(path) if path else (None, None, 'not held as a local PDF')
+        if flat is None:
+            doc = 'CORRUPT_OR_UNREADABLE'
+            c = {'classification': 'NOT_FOUND', 'hits': 0}
+        elif len((flat or '').strip()) < 80 and len((cols or '').strip()) < 80:
+            doc = 'IMAGE_ONLY'
+            c = {'classification': 'NOT_FOUND', 'hits': 0}
+        else:
+            c = R.classify(f['field'], f['value'], [('pdf:flat', flat)])
+            doc = 'TEXT_EXTRACTABLE'
+            if c['classification'] in ('NOT_FOUND', 'AMBIGUOUS'):
+                c2 = R.classify(f['field'], f['value'], [('pdf:columns', cols)])
+                if c2['classification'] == 'MODEL_MATCHES':
+                    c, doc = c2, 'LAYOUT_EXTRACTABLE'
+            if c['classification'] == 'NOT_FOUND':
+                doc = 'IRRELEVANT_AFTER_REVIEW'
+        eligible = c['classification'] == 'MODEL_MATCHES'
+        est = A.estate_of_record(f['record'])
+        out.append({'stream': 'C', 'key': 'C|%s|%s|%s' % (f['file'], f['record'], f['field']),
+                    'gap_id': gaps.get('FIG_UNSOURCED|3b_TEXT_NOT_STORED|%s' % est),
+                    'target': {'record_file': f['file'], 'record': f['record'], 'field': f['field'], 'subject': f['subject']},
+                    'current_value': f['value'], 'current_provenance': f['provenance']['id'],
+                    'proposed': {'provenance': 'DOCUMENT', 'value': 'unchanged'} if eligible else None,
+                    'source': source_of(aid, f.get('basename')),
+                    'evidence': {'locus': c.get('locus'), 'quote': c.get('quote'), 'text': reader,
+                                 'document_class': doc, 'labelled_hits': c['hits'], 'found': c.get('found')},
+                    'classification': c['classification'],
+                    'disposition': 'APPLY_PROVENANCE' if eligible else ('OCR_CANDIDATE' if doc == 'IMAGE_ONLY' else 'REVIEW'),
+                    'confidence': 'HIGH' if eligible else 'LOW',
+                    'reason': REASON[c['classification']] if doc not in ('IMAGE_ONLY', 'CORRUPT_OR_UNREADABLE')
+                    else {'IMAGE_ONLY': 'the PDF holds no text layer: only OCR could read it (M3.2E)',
+                          'CORRUPT_OR_UNREADABLE': 'the held file cannot be opened'}[doc]})
+    return out
+
+
 def build():
-    rows = stream_a() + stream_b()
+    rows = stream_a() + stream_b() + stream_c()
     for r in rows:
         r['id'] = 'm32_' + L.stable_hash('M32Candidate', r['key'])
         r['extractor'] = R.VERSION

@@ -214,3 +214,106 @@ The switch works without any of these, and none was decided:
 - C4 and C5.
 
 The evidence is still evidence, and the proposals are still proposals.
+
+## Final Phase 5 Closure
+
+*Closed 2026-10-25, at `0e7a2b0` plus this documentation commit.*
+
+### Application source
+
+The application reads its data from **`data/app/`**: files generated from the normalized model by
+`tools/build-app-data.py`. The live site at GitHub Pages serves them, with service-worker cache
+`bordeaux-classified-v169`.
+
+The boundary is:
+
+normalized model → generated application data → application
+
+The legacy files in `data/` are preserved. The switch did not rewrite them, and they remain the
+protected canonical data and the rollback source (`python tools/app-source.py --legacy`).
+
+### Verification
+
+- `test-phase5` 25/25, `test-phase4` 66/66; all 22 suites pass.
+- 10,770 application outputs were compared with the control captured under the legacy source:
+  10,748 identical, 22 presentation order (accepted, on the backlog), **0 unexplained**.
+- Search result sets are equivalent; lookup results are identical.
+- The detail pages of 13 representative estates match for every wine and for opened vintage rows.
+- There were no JavaScript errors and no failed data requests.
+- Rollback was tested successfully in a copy of the site: after it, the control's outputs came back
+  exactly.
+
+### Performance
+
+These figures are a regression check, not an optimization.
+
+| Measure | Reference | Switched application |
+|---|---:|---:|
+| First visit / app ready | 655 ms (M0) | 674 / 462 / 724 ms |
+| Repeat visit | 148 ms (M0) | 134 / 135 / 143 ms |
+| Search per keystroke | 19–40 ms (M0) | 20–46 ms |
+| Test-suite peak memory | 1,463 MB (accepted after C1–C3; M0 was 1,184 MB) | 1,463.5 MB |
+
+The three startup and search runs showed no material regression relative to M0. Memory was
+effectively unchanged against the accepted C1–C3 baseline. The switch did not improve performance, and
+none is claimed.
+
+### Storage
+
+The C1–C3 results stand, and no further deduplication was done:
+
+- raw storage went from 21.55 GB to 16.30 GB physical, a reduction of 5.25 GB;
+- free disk went from about 13.8 GB to 18.8 GB;
+- 5,379 paths share storage with identical copies, in 4,639 duplicate groups;
+- every linked path was re-hashed against its pre-link hash;
+- hard-link safety is tested, and `python tools/link-duplicates.py --revert` remains available.
+
+### Data-integrity guards
+
+The two raw files whose bytes match no version the source list records are pinned by
+`test-phase5 known_raw_file_anomalies_preserved`:
+
+- Domaine de Chevalier 2020 rouge;
+- Virginie de Valandraud.
+
+Their current hashes are protected, and neither was modified or reconciled.
+
+### Unresolved, and left so
+
+Phase 5 resolved no outstanding domain or data question, and none was moved into the canonical
+dataset. These remain open:
+
+- Echo, rename or succession;
+- the D5 conflict policy;
+- the four Graves white wine names;
+- Les Terrasses after 2019;
+- the 11 differing second-wine names;
+- plantings versus assemblage;
+- owner normalization;
+- the unresolved identities;
+- the unresolved filename references;
+- C4, lazy vintage loading;
+- C5, the search-redraw optimization.
+
+### Backlog
+
+Future work now lives in `docs/BACKLOG.md`, not in a continuing Phase 5. It holds three items:
+
+1. the accepted presentation-order item;
+2. C4, lazy vintage loading;
+3. C5, the search-redraw optimization.
+
+None of them is implemented.
+
+### Gate
+
+**SAFE — PHASE 5 COMPLETE — APPLICATION RUNS FROM NORMALIZED MODEL**
+
+- The normalized model is the application's source, through generated application files.
+- Application equivalence has been verified.
+- Rollback has been tested.
+- Protected data remains unchanged.
+- Evidence and provenance remain intact.
+- The storage optimizations are tested and reversible.
+- No unresolved domain decision was silently made.
+- The remaining optimization candidates are explicitly deferred.

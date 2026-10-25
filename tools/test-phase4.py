@@ -591,7 +591,8 @@ def m5_every_slug_vintage_key_maps_to_its_wine_or_is_kept():
                 assert r['stable_id'] == S.vref(slugs['%s|%s' % (lid, slug)]['stable_id'], year)
             else:
                 assert kept[(name, k)] == v
-    orphans = [f for f in T('cross/findings.jsonl') if f['kind'] == 'ORPHAN_PROVENANCE']
+    orphans = [f for f in T('cross/findings.jsonl') if f['kind'] == 'ORPHAN_PROVENANCE'
+               and f['detail'].startswith('cuvee-src.js')]
     assert len(orphans) == 16
     np = T('state/vintage-statements.jsonl')
     assert len(np) == sum(len(x) for x in L.g('BDX_NOT_PRODUCED').values()) == 18
@@ -658,6 +659,86 @@ def m6_evidence_links_one_per_v4_v5_row_same_key_as_the_store():
             n += 1
     assert n == len(links) == len(keys)
     assert not any(r['evidence_version'] < 4 for r in links), 'v1-v3 linked to bytes never hashed'
+
+
+# ---------------------------------------------------------------- M7
+
+META = {'src', 'url', 'via', 'wy', 'ttl', 'ntl', 'dtl', 'ftl', 'wtl', 'sugl', 'tau'}
+
+
+@check
+def m7_every_legacy_value_is_one_observation():
+    obs = collections.Counter((o['extraction']['file'], o['extraction']['record'], o['field'])
+                              for o in T('observation/observations.jsonl'))
+    assert set(obs.values()) == {1}
+    kept = kept_verbatim()
+    for file, name in (('data/fiches.js', 'BDX_FICHES'), ('data/cuvees.js', 'BDX_CUVEES')):
+        for k, rec in L.g(name).items():
+            for f in rec:
+                if f in META:
+                    continue
+                assert (file, k, f) in obs or (name, k) in kept, (name, k, f)
+    assert sum(1 for k in obs if k[0] == 'data/fiches.js') == baseline()['counts']['fiche_values']
+
+
+@check
+def m7_record_source_never_promoted_badette_2020_oak():
+    v = imap('estate|vintage')['stem-chateau-badette|2020']['stable_id']
+    cv = {(c['subject'], c['field']): c for c in T('canonical/values.jsonl')}
+    c = cv[(v, 'oak')]
+    prov = {p['id']: p for p in T('cross/provenance.jsonl')}
+    assert c['value'] == L.g('BDX_FICHES')['stem-chateau-badette|2020']['oak']
+    assert c['status'] == 'LEGACY_RECORD_SOURCE_ONLY', c['status']
+    assert prov[c['provenance']]['kind'] == 'LEGACY_RECORD_SOURCE'
+    assert 'artifact' not in prov[c['provenance']]
+    # and in general: an artifact on a value's provenance only through a resolved field source
+    for c in cv.values():
+        p = prov[c['provenance']]
+        if 'artifact' in p:
+            assert p['kind'] == 'LEGACY_FIELD_SOURCE' and c['status'] == 'LEGACY_FIELD_SOURCE'
+        if p['kind'] == 'LEGACY_AMBIGUOUS_SOURCE':
+            assert 'artifact' not in p and c['status'] == 'LEGACY_AMBIGUOUS_SOURCE'
+
+
+@check
+def m7_field_source_artifact_is_the_unique_candidate():
+    pls = {p['id']: p for p in T('document/placements.jsonl')}
+    refs = {(r['origin'], r['record_key'], r.get('field'), r['basename']): r
+            for r in T('document/legacy-references.jsonl')}
+    n = 0
+    for p in T('cross/provenance.jsonl'):
+        if p['kind'] != 'LEGACY_FIELD_SOURCE':
+            continue
+        lr = p['legacy_reference']
+        r = refs[(lr['origin'], lr['record_key'], lr.get('field'), lr['basename'])]
+        assert r['resolution'] == 'ACTIVE'
+        assert {pls[c].get('artifact') for c in r['candidates']} == {p['artifact']}
+        n += 1
+    assert n > 0
+
+
+@check
+def m7_only_class_a_is_canonical():
+    allowed = {'alc', 'blend', 'harvest', 'pick', 'months', 'oak', 'ph', 'sug', 'ta', 'yld',
+               'vineyard_area_ha'}
+    fields = {c['field'] for c in T('canonical/values.jsonl')}
+    assert fields <= allowed, fields - allowed
+    for f in ('taste', 'note', 'food', 'press', 'owner', 'rating', 'cellar_note', 'soil'):
+        assert f not in fields
+
+
+@check
+def m7_reconciliations_keep_every_candidate_none_deleted():
+    obs = {o['id'] for o in T('observation/observations.jsonl')}
+    recs = T('reconciliation/reconciliations.jsonl')
+    cv = {(c['subject'], c['field']): c for c in T('canonical/values.jsonl')}
+    assert len(recs) == len(cv)
+    for r in recs:
+        assert r['selected'] in r['candidates'] and set(r['candidates']) <= obs
+        assert r['rule'] == 'LEGACY_NEVER_OVERWRITE' and r['status'] == 'LEGACY_RETAINED'
+        assert cv[(r['subject'], r['field'])]['reconciliation'] == r['id']
+    assert {o['extraction']['method'] for o in T('observation/observations.jsonl')} == {'LEGACY'}, \
+        'an observation re-extracted or copied from the harvest'
 
 
 def main():

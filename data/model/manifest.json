@@ -1,17 +1,27 @@
 {
  "_": "The normalized model (Phase 4). Built by tools/migrate.py; do not edit by hand. Layout and id rules: tools/model_schema.py; storage decision D3 there.",
- "stage": "M6",
+ "stage": "M7",
  "contract": "docs/phase34-model.json",
  "files": {
+  "canonical/translations.jsonl": {
+   "entity": "Translation",
+   "rows": 1072,
+   "sha256": "f958b0423396a8d26dd6981ee4dda74594e6948c06b5a49bf3fb2cca75b986a5"
+  },
+  "canonical/values.jsonl": {
+   "entity": "CanonicalValue",
+   "rows": 12959,
+   "sha256": "5372b4b2ab4d227afbd01850cbfc9f5a2908d5fb7bcc9fe4d0ab62b41da2100f"
+  },
   "cross/findings.jsonl": {
    "entity": "QualityFinding",
-   "rows": 259,
-   "sha256": "6a7e45ad0a01383e19f0908ea723c48e1230edb5adafb8eeb62fa143b009ee6c"
+   "rows": 439,
+   "sha256": "513bc9aec77c5d5e5cfb9a8f62322c34fe225ed686f99d5013f9980172b817ea"
   },
   "cross/provenance.jsonl": {
    "entity": "Provenance",
-   "rows": 13759,
-   "sha256": "c5afd20af91e67442ea09c67cfc9d692de95b0b0f74132a62bc47086896f1107"
+   "rows": 25892,
+   "sha256": "11ceef456e6776001e2801cc407b5b5bb47bbc5c8fe0768543effe98f5fe8e63"
   },
   "document/artifact-dates.jsonl": {
    "entity": "ArtifactDate",
@@ -102,6 +112,16 @@
    "entity": "EvidenceLink",
    "rows": 81544,
    "sha256": "ed87672e2b82003742508289aeed45711b7a01e3098e2d7a449f321d14807fcf"
+  },
+  "observation/observations.jsonl": {
+   "entity": "Observation",
+   "rows": 20733,
+   "sha256": "af1f3f5a1cd030bb643a9c111d72033a97bfd84be9f64d187182a9a67f49426d"
+  },
+  "reconciliation/reconciliations.jsonl": {
+   "entity": "Reconciliation",
+   "rows": 12959,
+   "sha256": "530b8119cf74fc8370f609469c7a1d60604203dd36e47b1fd6645e4bbc4c98ac"
   },
   "state/appellation-memberships.jsonl": {
    "entity": "AppellationMembership",
@@ -309,6 +329,36 @@
     "v5": 40772,
     "with artifact": 81544,
     "with wine": 74804
+   }
+  },
+  "M7": {
+   "backfill": {
+    "canonical BDX_CUVEES (LEGACY_AMBIGUOUS_SOURCE)": 42,
+    "canonical BDX_CUVEES (LEGACY_FIELD_SOURCE)": 1690,
+    "canonical BDX_CUVEES (LEGACY_RECORD_SOURCE_ONLY)": 1861,
+    "canonical BDX_FICHES (LEGACY_AMBIGUOUS_SOURCE)": 89,
+    "canonical BDX_FICHES (LEGACY_FIELD_SOURCE)": 4137,
+    "canonical BDX_FICHES (LEGACY_RECORD_SOURCE_ONLY)": 4969,
+    "canonical vineyard_area_ha": 171,
+    "field flags without their field": 1,
+    "observations BDX_CELLAR": 644,
+    "observations BDX_CUVEES": 4619,
+    "observations BDX_FICHES": 11838,
+    "observations BDX_PLANTINGS": 93,
+    "observations BDX_RATINGS": 2462,
+    "observations BDX_SCORES": 61,
+    "observations BDX_TERROIR": 81,
+    "observations estate blend": 172,
+    "observations estate ha": 171,
+    "observations estate history": 38,
+    "observations estate owner": 172,
+    "observations estate perf": 134,
+    "observations estate sources": 38,
+    "observations estate style": 172,
+    "observations estate terroir": 38,
+    "records holding no value": 3,
+    "translations nl": 1072,
+    "translations of an absent field": 5
    }
   }
  }

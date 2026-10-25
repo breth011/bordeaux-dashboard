@@ -23,7 +23,7 @@ import sys
 import migration_lib as L
 import model_schema as S
 
-STAGES = ['M1', 'M2', 'M3', 'M4', 'M5', 'M6', 'M7', 'M13']
+STAGES = ['M1', 'M2', 'M3', 'M4', 'M5', 'M6', 'M7']
 MODULES = {'M2': 'mig_m2_identity', 'M3': 'mig_m3_grand', 'M4': 'mig_m4_wines',
            'M5': 'mig_m5_vintages', 'M6': 'mig_m6_provenance', 'M7': 'mig_m7_observations',
            'M13': 'mig_m13_indexes'}

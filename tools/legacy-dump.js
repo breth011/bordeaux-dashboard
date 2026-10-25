@@ -13,7 +13,8 @@ var fs = require('fs');
 var path = require('path');
 var vm = require('vm');
 
-var DATA = path.join(__dirname, '..', 'data');
+/* An optional argument names another data directory (Phase 4 dual read). */
+var DATA = process.argv[2] || path.join(__dirname, '..', 'data');
 var out = {};
 fs.readdirSync(DATA).filter(function (f) { return /[.]js$/.test(f); })
   .sort().forEach(function (f) {

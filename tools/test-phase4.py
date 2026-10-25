@@ -808,6 +808,24 @@ def m8_the_comparison_catches_injected_errors():
     assert reconstruct.manifest_diffs(q)
 
 
+# ---------------------------------------------------------------- M9
+
+@check
+def m9_dual_read_old_and_new_readers_agree():
+    import importlib.util
+    spec = importlib.util.spec_from_file_location('dual', L.ROOT + 'tools/dual-read.py')
+    d = importlib.util.module_from_spec(spec)
+    spec.loader.exec_module(d)
+    r = d.build()
+    assert r['pass'], (r['page_path']['disagreements'][:3], r['query_disagreements'][:3])
+    assert r['page_path']['estates_old'] == r['page_path']['estates_new'] == 470
+    assert r['queries']['fiche'] + 3 == len(L.g('BDX_FICHES')), 'only the 3 empty records skipped'
+    saved = json.load(open(L.MODEL + 'checks/dual-read.json', encoding='utf-8'))
+    assert saved['pass'] and saved['queries'] == r['queries']
+    import glob
+    assert not glob.glob(L.ROOT + 'data/*.generated*'), 'generated files in data/'
+
+
 def main():
     only = sys.argv[1:]
     fails = 0

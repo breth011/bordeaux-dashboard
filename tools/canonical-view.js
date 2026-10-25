@@ -17,7 +17,9 @@ var fs = require('fs');
 var path = require('path');
 var vm = require('vm');
 
+/* An optional argument names another data directory (Phase 4 dual read). */
 var ROOT = path.join(__dirname, '..');
+var DATA = process.argv[2] || path.join(ROOT, 'data');
 var FILES = ['classifications.js', 'chateaux.js', 'sauternes.js',
              'saintemilion.js', 'pomerol.js', 'graves.js',
              'crubourgeois.js', 'cruartisan.js', 'libournais.js',
@@ -26,7 +28,7 @@ var FILES = ['classifications.js', 'chateaux.js', 'sauternes.js',
 var sandbox = { window: {} };
 vm.createContext(sandbox);
 FILES.forEach(function (f) {
-  vm.runInContext(fs.readFileSync(path.join(ROOT, 'data', f), 'utf8'),
+  vm.runInContext(fs.readFileSync(path.join(DATA, f), 'utf8'),
                   sandbox, { filename: f });
 });
 var W = sandbox.window;

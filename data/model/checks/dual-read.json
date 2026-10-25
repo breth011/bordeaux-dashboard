@@ -1,0 +1,19 @@
+{
+ "_": "Phase 4 M9: the old reader and the new one, side by side (tools/dual-read.py).",
+ "page_path": {
+  "estates_old": 470,
+  "estates_new": 470,
+  "order_differs": true,
+  "disagreements": []
+ },
+ "queries": {
+  "fiche": 2722,
+  "cuvee": 1172,
+  "rating": 2462,
+  "field source": 8524,
+  "estate wines": 470,
+  "sheets per estate": 251
+ },
+ "query_disagreements": [],
+ "pass": true
+}

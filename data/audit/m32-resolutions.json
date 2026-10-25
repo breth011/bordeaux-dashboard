@@ -3,11 +3,17 @@
  "M3.2A": {
   "commit": "ba5aaa4",
   "method": "PROVENANCE_REPAIR",
-  "what": "figures gain their own held sheet as source (APPLY_PROVENANCE rows of data/audit/m32-recovery-candidates.jsonl)"
+  "what": "figures gain their own held sheet as source (APPLY_PROVENANCE rows of data/audit/m32-recovery-candidates.jsonl)",
+  "note": "4 of the 716 applied here were withdrawn by the stricter blend rule in a556a01 (a second blend on the sheet); 712 stand"
  },
  "M3.2B": {
   "commit": "b4ec482",
   "method": "DETERMINISTIC_MAPPING",
   "what": "figures whose own held sheet had no address gain the first-party address that served exactly those bytes (APPLY_PLACEMENT rows)"
+ },
+ "M3.2C": {
+  "commit": "a556a01",
+  "method": "DETERMINISTIC_MAPPING",
+  "what": "figures stated in held PDF sheets whose text was never stored, read as the sheet reader reads them (APPLY_PROVENANCE rows, stream C)"
  }
 }

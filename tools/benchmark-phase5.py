@@ -364,6 +364,12 @@ class Browser:
         return (time.perf_counter() - t) * 1000
 
     def __exit__(self, *a):
+        # Chrome's child processes, taken before the close: with the browser itself they are
+        # what holds the profile directory open.
+        try:
+            kids = psutil.Process(self.p.pid).children(recursive=True)
+        except psutil.Error:
+            kids = []
         try:
             self.c.send('Browser.close', wait=False)
         except Exception:
@@ -372,7 +378,10 @@ class Browser:
             self.p.wait(10)
         except Exception:
             self.p.kill()
-        time.sleep(0.5)
+        # Wait for exactly those processes to exit, not a fixed time: once none is left,
+        # nothing holds the profile. (A fixed 0.5 s sleep stood here; Phase 6.6C measured
+        # one child, Chrome's crash handler, outliving the browser by under 1 ms.)
+        psutil.wait_procs(kids, timeout=10)
         shutil.rmtree(self.profile, ignore_errors=True)
 
 

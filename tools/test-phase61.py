@@ -180,7 +180,7 @@ def measure():
 
 FACTS_JS = '''(function (id, yr) {
   var box = document.getElementById('search');
-  box.value = ''; box.dispatchEvent(new Event('input'));
+  if (box.value !== '') { box.value = ''; box.dispatchEvent(new Event('input')); }
   document.querySelector('#paneList .pcard[data-ch="' + id + '"]').click();
   var row = document.querySelector('#drawerBody .vrow[data-year="' + yr + '"]');
   row.querySelector('.vrow-head').click();

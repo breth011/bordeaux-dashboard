@@ -103,7 +103,7 @@ SEARCH_SET_JS = '''(function (q) {
 
 DRAWER_JS = '''(function (id) {
   var box = document.getElementById('search');
-  box.value = ''; box.dispatchEvent(new Event('input'));
+  if (box.value !== '') { box.value = ''; box.dispatchEvent(new Event('input')); }
   var card = document.querySelector('#paneList .pcard[data-ch="' + id + '"]');
   if (!card) return {missing: true};
   card.click();

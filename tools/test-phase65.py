@@ -140,7 +140,7 @@ def site_at(commit):
 
 ROW_JS = '''(function (id, yr) {
   var box = document.getElementById('search');
-  box.value = ''; box.dispatchEvent(new Event('input'));
+  if (box.value !== '') { box.value = ''; box.dispatchEvent(new Event('input')); }
   document.getElementById('tabProducers').click();
   document.querySelector('#paneList .pcard[data-ch="' + id + '"]').click();
   var row = document.querySelector('#drawerBody .vrow[data-year="' + yr + '"]');
@@ -228,7 +228,7 @@ def page(root=None):
                 per_tag.setdefault(sites[lid][1], lid)
             for tag, lid in sorted(per_tag.items()):
                 out['sites'][tag] = (lid, b.c.js('''(function (id) {
-                  var box = document.getElementById('search'); box.value = ''; box.dispatchEvent(new Event('input'));
+                  var box = document.getElementById('search'); if (box.value !== '') { box.value = ''; box.dispatchEvent(new Event('input')); }
                   document.getElementById('tabProducers').click();
                   var card = document.querySelector('#paneList .pcard[data-ch="' + id + '"]');
                   if (!card) return null; card.click();
@@ -238,7 +238,7 @@ def page(root=None):
                   var c = document.getElementById('closeDrawer'); if (c) c.click();
                   return t; })(%s)''' % json.dumps(lid)))
             out['sparse'] = b.c.js('''(function () {
-              var box = document.getElementById('search'); box.value = ''; box.dispatchEvent(new Event('input'));
+              var box = document.getElementById('search'); if (box.value !== '') { box.value = ''; box.dispatchEvent(new Event('input')); }
               document.getElementById('tabProducers').click();
               document.querySelector('#paneList .pcard[data-ch="bourgeois-chateau-beaumont"]').click();
               var n = document.querySelector('#drawerBody .notice');
@@ -573,21 +573,41 @@ def touch_opens_and_closes_without_navigating():
         time.sleep(0.5)
         start = b.c.js('location.href')
 
-        def tap(sel):
-            r = b.c.js('''(function () { var e = document.querySelector(%s); e.scrollIntoView({block: 'center'});
-              var r = e.getBoundingClientRect(); return [r.left + r.width / 2, r.top + r.height / 2]; })()''' % json.dumps(sel))
+        def until(js, timeout=10):
+            # Wait for a condition in the page, not a fixed time: under load (two suites at
+            # once, Phase 6.6C) the drawer's slide-in and a tap's click took longer than the
+            # fixed sleeps that stood here, and the tap landed where the button had been.
+            end = time.time() + timeout
+            while time.time() < end:
+                v = b.c.js(js)
+                if v:
+                    return v
+                time.sleep(0.05)
+            return b.c.js(js)
+
+        def tap(sel, then):
+            # the drawer has finished sliding in and the target has stopped moving
+            point = '''(function () { var e = document.querySelector(%s); e.scrollIntoView({block: 'center'});
+              var r = e.getBoundingClientRect(); return [r.left + r.width / 2, r.top + r.height / 2]; })()''' % json.dumps(sel)
+            until("getComputedStyle(document.getElementById('drawer')).transform === 'none'")
+            r, last = b.c.js(point), None
+            while r != last:
+                time.sleep(0.05)
+                r, last = b.c.js(point), r
             for t in ('touchStart', 'touchEnd'):
                 b.c.send('Input.dispatchTouchEvent', {'type': t, 'touchPoints': [] if t == 'touchEnd' else
                                                       [{'x': r[0], 'y': r[1]}]})
-            time.sleep(0.3)
+            until(then)                     # the tap's effect; asserted below either way
+
+        opened = "document.querySelectorAll('.src-panel').length === 1"
+        closed = "document.querySelectorAll('.src-panel').length === 0"
 
         b.c.js('''(function () {
           document.getElementById('tabProducers').click();
           document.querySelector('#paneList .pcard[data-ch="batailley"]').click();
           document.querySelector('#drawerBody .vrow[data-year="2020"] .vrow-head').click(); })()''')
-        time.sleep(0.5)
         sel = '#drawerBody .vrow[data-year="2020"] button[data-prov="amb"]'
-        tap(sel)
+        tap(sel, opened)
         st = b.c.js('''(function (s) { var e = document.querySelector(s);
           var p = document.getElementById(e.getAttribute('aria-controls'));
           return {exp: e.getAttribute('aria-expanded'), text: p ? p.innerText : null,
@@ -595,15 +615,14 @@ def touch_opens_and_closes_without_navigating():
                   page: document.documentElement.scrollWidth}; })(%s)''' % json.dumps(sel))
         assert st['exp'] == 'true' and '2 documents carry this name' in st['text'], st
         assert st['fits'] and st['page'] <= 390, ('the summary overflows a phone', st)
-        tap(sel)
+        tap(sel, closed)
         assert b.c.js('document.querySelectorAll(".src-panel").length') == 0
         # a long file name wraps inside the summary (Lafite 2025's page text)
         b.c.js('''(function () {
           document.getElementById('closeDrawer').click();
           document.querySelector('#paneList .pcard[data-ch="cantemerle"]').click();
           document.querySelector('#drawerBody .vrow[data-year="2019"] .vrow-head').click(); })()''')
-        time.sleep(0.5)
-        tap('#drawerBody .vrow[data-year="2019"] .src-more')
+        tap('#drawerBody .vrow[data-year="2019"] .src-more', opened)
         st = b.c.js('''(function () { var p = document.querySelector('.src-panel');
           return {text: p.innerText, fits: p.scrollWidth <= p.clientWidth + 1, page: document.documentElement.scrollWidth}; })()''')
         assert 'FT-Cantemerle-2019-EN.pdf' in st['text'] and st['fits'] and st['page'] <= 390, st

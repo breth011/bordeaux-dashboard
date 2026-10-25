@@ -29,7 +29,8 @@ Access rules, enforced here and never bypassed:
     AI agent, so a site that refuses AI agents is refused;
   - a `Content-Signal: ... ai-input=no` line is honoured the same way;
   - at least MIN_DELAY seconds between requests to one host, or the site's
-    Crawl-delay if longer;
+    Crawl-delay if longer (a test crawling its own local server may lower the
+    floor with an explicit min_delay; production never does);
   - challenges (Cloudflare and the like), authentication and TLS failures
     are recorded as such and the URL is not retried another way.
 
@@ -377,10 +378,15 @@ class Robots:
         root = self.base + '/'
         return [t for t in AI_TOKENS if not self.rp.can_fetch(t, root)]
 
-    def delay(self):
+    def site_delay(self):
+        """The longest Crawl-delay robots.txt names for us, or 0.0: the site's own ask."""
         d = [self.rp.crawl_delay(t) for t in (UA_TOKEN, '*') + AI_TOKENS]
-        d = [float(x) for x in d if x]
-        return max([MIN_DELAY] + d)
+        return max([0.0] + [float(x) for x in d if x])
+
+    def delay(self):
+        """The production delay: the site's Crawl-delay, never under MIN_DELAY. This is
+        what the profiles and block records report."""
+        return max(MIN_DELAY, self.site_delay())
 
 
 # ------------------------------------------------------------------ links
@@ -558,7 +564,12 @@ class SiteCrawl:
             st['finished'] = now()
             self.S.save_state(self.domain, st)
             return st
-        delay = max(delay, self.min_delay)
+        # The floor between requests is min_delay, which defaults to MIN_DELAY: every
+        # production crawl (crawl_site(store, d) in main) keeps it. Only a caller that
+        # passes an explicit min_delay - test-phase33, crawling its own local server with
+        # 0.0 - goes below it; a site's Crawl-delay is honoured either way. (r.delay()
+        # already contained the floor, so until Phase 6.6C an explicit 0.0 had no effect.)
+        delay = max(r.site_delay(), self.min_delay)
         if not st.get('seeded_extra'):
             for sm in list(r.sitemaps) + [r.base + '/sitemap.xml', r.base + '/sitemap_index.xml',
                                           r.base + '/wp-sitemap.xml']:

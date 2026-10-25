@@ -88,7 +88,7 @@ def no_hard_coded_estates_in_the_application():
 
 FACT_JS = '''(function (id) {
   var box = document.getElementById('search');
-  box.value = ''; box.dispatchEvent(new Event('input'));
+  if (box.value !== '') { box.value = ''; box.dispatchEvent(new Event('input')); }
   var card = document.querySelector('#paneList .pcard[data-ch="' + id + '"]');
   if (!card) return {missing: true};
   card.click();

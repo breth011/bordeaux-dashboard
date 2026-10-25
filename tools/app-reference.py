@@ -44,6 +44,8 @@ _spec.loader.exec_module(B)
 
 # assets/app.js acSearch: places.slice(0, 3).concat(starts, words, inside).slice(0, 9)
 AC_LIMIT = 9
+# Globals the page gained on purpose, after the control was captured.
+ADDED_GLOBALS = {'BDX_FIGURE_SRC': 'FIGURE PROVENANCE (Phase 6.1)'}
 QUERIES = [q for _, q in B.SEARCH] + ['margaux', 'saint-emilion', 'blanc', 'second', 'echo']
 ESTATES = ['lafite', 'margaux', 'haut-brion', 'yquem', 'lynch-bages', 'saint-pierre', 'caillou',
            'smith-haut-lafitte', 'stem-chateau-badette', 'bourgeois-chateau-beaumont',
@@ -106,6 +108,22 @@ DRAWER_JS = '''(function (id) {
   function text() {
     return (document.getElementById('drawerHead').innerText + '\\n' + document.getElementById('drawerBody').innerText);
   }
+  /* The same, without how sources are presented: Phase 6.1 changes those
+     and nothing else, so this text must not change. */
+  function values() {
+    var b = document.getElementById('drawerBody').cloneNode(true);
+    Array.prototype.forEach.call(b.querySelectorAll('.fig-src, .fichelink'), function (e) {
+      e.parentNode.removeChild(e);
+    });
+    /* A sourcing label may be a link or plain text; its words are the same. */
+    Array.prototype.forEach.call(b.querySelectorAll('a.src-link'), function (e) {
+      e.parentNode.replaceChild(document.createTextNode(e.textContent), e);
+    });
+    document.body.appendChild(b);
+    var t = document.getElementById('drawerHead').innerText + '\\n' + b.innerText;
+    b.parentNode.removeChild(b);
+    return t;
+  }
   var states = [];
   var sel = document.getElementById('wineSel');
   var wines = sel ? Array.prototype.map.call(sel.options, function (o) { return o.value; }) : ['grand'];
@@ -113,11 +131,17 @@ DRAWER_JS = '''(function (id) {
     var s = document.getElementById('wineSel');
     if (s && s.value !== w) { s.value = w; s.dispatchEvent(new Event('change')); }
     var rows = Array.prototype.slice.call(document.querySelectorAll('#drawerBody .vrow[data-year]'));
-    var st = {wine: w, text: text(), years: rows.map(function (r) { return r.getAttribute('data-year'); }), opened: []};
-    rows.slice(0, 3).forEach(function (r) {
+    var st = {wine: w, text: text(), values: values(), years: rows.map(function (r) { return r.getAttribute('data-year'); }), opened: []};
+    /* The rows that hold a sheet's figures, so their values are compared. */
+    rows.filter(function (r) { return r.querySelector('.factgrid, .blendbar, .fichelink, .presslist'); })
+      .slice(0, 3).forEach(function (r) {
       var y = r.getAttribute('data-year');
       var again = document.querySelector('#drawerBody .vrow[data-year="' + y + '"]');
-      if (again) { again.click(); st.opened.push([y, text()]); }
+      /* A row opens from its head button; clicking the row itself opened
+         nothing, so until Phase 6.1 the expanded vintage (the fiche
+         figures) was not in the capture at all. */
+      var head = again && again.querySelector('.vrow-head');
+      if (head) { head.click(); st.opened.push([y, text(), values()]); }
     });
     states.push(st);
   });
@@ -156,7 +180,8 @@ def capture(root=None):
                 pages[e] = {'missing': True}
                 continue
             pages[e] = [{'wine': s['wine'], 'text': sha(s['text']), 'chars': len(s['text']),
-                         'years': s['years'], 'opened': [[y, sha(t)] for y, t in s['opened']],
+                         'values': sha(s['values']),
+                         'years': s['years'], 'opened': [[y, sha(t), sha(v)] for y, t, v in s['opened']],
                          'empty': not s['text'].strip()} for s in r['states']]
         out['pages'] = pages
         for e in c.events:
@@ -182,6 +207,7 @@ def compare(ref, now):
     res = collections.Counter()
     unexplained = []
     ordered = []
+    provenance = []
 
     def same(kind, where, a, b):
         if a == b:
@@ -196,6 +222,10 @@ def compare(ref, now):
 
     for g in sorted(set(ref['globals']) | set(now['globals'])):
         a, b = ref['globals'].get(g), now['globals'].get(g)
+        if a is None and b is not None and g in ADDED_GLOBALS:
+            # New data the page gained on purpose, named here, never any other.
+            res['EXPECTED: ADDED ' + ADDED_GLOBALS[g]] += 1
+            continue
         if a is None or b is None or a['kind'] != b['kind']:
             same('value', 'global %s' % g, a, b)
             continue
@@ -229,9 +259,19 @@ def compare(ref, now):
     for k in ref['lookups']:
         same('value', 'lookup %s' % k, ref['lookups'][k], now['lookups'].get(k))
     for e in ref['pages']:
-        same('value', 'page %s' % e, ref['pages'][e], now['pages'].get(e))
+        a, b = ref['pages'][e], now['pages'].get(e)
+        if a != b and isinstance(a, list) and isinstance(b, list) and len(a) == len(b) and all(
+                x['wine'] == y['wine'] and x['years'] == y['years'] and x['values'] == y['values']
+                and [o[0::2] for o in x['opened']] == [o[0::2] for o in y['opened']] for x, y in zip(a, b)):
+            # Phase 6.1: the same values on the page; only how figures cite their
+            # sources changed.
+            res['EXPECTED: PROVENANCE PRESENTATION'] += 1
+            provenance.append('page %s' % e)
+        else:
+            same('value', 'page %s' % e, a, b)
     same('value', 'health', ref['health'], now['health'])
-    return {'summary': dict(res), 'unexplained': unexplained, 'presentation_order': ordered}
+    return {'summary': dict(res), 'unexplained': unexplained, 'presentation_order': ordered,
+            'provenance_presentation': provenance}
 
 
 def main():

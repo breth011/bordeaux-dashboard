@@ -1072,7 +1072,9 @@ def m12_app_reads_nothing_past_the_boundary():
         assert ab.classify(p) == 'FORBIDDEN', p
     import model_reader as R
     P = R.project(classifications={c['id']: c for c in L.g('BDX_CLASSIFICATIONS')})
-    contract = {p.split('/')[-1] for p, x in r['loads'].items() if x['class'] == 'CONTRACT'}
+    # data/app/figure-sources.js (Phase 6.1) is generated beside the 23, not one of them
+    extra = {'data/app/figure-sources.js'}
+    contract = {p.split('/')[-1] for p, x in r['loads'].items() if x['class'] == 'CONTRACT' and p not in extra}
     assert contract <= set(P), contract - set(P)
     assert len(contract) == 23
     saved = json.load(open(L.MODEL + 'checks/app-boundary.json', encoding='utf-8'))
@@ -1087,7 +1089,8 @@ def m12_app_reads_nothing_past_the_boundary():
         expected = {('data/app/' + p[5:] if p[5:] in src.CONTRACT else p): v for p, v in expected.items()}
     else:
         assert src.state() == 'legacy', src.state()
-    assert expected == r['loads'], sorted(set(expected) ^ set(r['loads']))[:6]
+    loads = {p: v for p, v in r['loads'].items() if p not in extra}
+    assert expected == loads, sorted(set(expected) ^ set(loads))[:6]
 
 
 # ---------------------------------------------------------------- M13 and rollback

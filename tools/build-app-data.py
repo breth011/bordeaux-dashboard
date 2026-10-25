@@ -34,8 +34,60 @@ HEADER = ('/* Generated from the normalized model (data/model/) by tools/build-a
           '   Do not edit: python tools/build-app-data.py rebuilds it; --check compares. */\n')
 
 
+FIGURE_SOURCES = 'figure-sources.js'
+
+
+def figure_sources(model=None):
+    """Each vintage figure's own source, from the model (Phase 6.1).
+
+    {record key: {field: source}} for the fiche and cuvee records, where the
+    record key is the legacy 'estate|year' or 'estate|slug|year' the page
+    looks records up by, and source is one of
+      {"n": file, "u": url}   the field's own document, with an address
+      {"n": file}             the field's own document, no address recorded
+      {"a": file, "c": n}     the field names a file that n documents could be
+    A field whose provenance is only its record's, or none, has no entry: it
+    is shown without a source rather than given the record's sheet (I13).
+    Where one document is at several addresses, the record's own address is
+    used if it is one of them, otherwise the first in sorted order; all of
+    them hold the same bytes."""
+    M = model or R.Model()
+    prov = {p['id']: p for p in M.rows('cross/provenance.jsonl')}
+    urls = {}
+    for p in M.rows('document/placements.jsonl'):
+        if p['locator']['kind'] == 'URL' and p.get('artifact'):
+            urls.setdefault(p['artifact'], []).append(p['locator']['value'])
+    refs = {(r['origin'], r['record_key'], r.get('field'), r['basename']): r
+            for r in M.rows('document/legacy-references.jsonl')}
+    record_url = {}
+    obs = M.rows('observation/observations.jsonl')
+    for o in obs:
+        if o['field'] == 'document_url':
+            record_url[o['extraction']['record']] = o['value']
+    out = {}
+    for o in obs:
+        ex = o['extraction']
+        if ex['file'] not in ('data/fiches.js', 'data/cuvees.js'):
+            continue
+        p = prov[o['provenance']]
+        lr = p.get('legacy_reference')
+        if p['kind'] == 'LEGACY_FIELD_SOURCE':
+            src = {'n': lr['basename']}
+            us = sorted(urls.get(p['artifact'], []))
+            if us:
+                own = record_url.get(ex['record'])
+                src['u'] = own if own in us else us[0]
+        elif p['kind'] == 'LEGACY_AMBIGUOUS_SOURCE':
+            r = refs[(lr['origin'], lr['record_key'], lr.get('field'), lr['basename'])]
+            src = {'a': lr['basename'], 'c': len(r['candidates'])}
+        else:
+            continue
+        out.setdefault(ex['record'], {})[o['field']] = src
+    return out
+
+
 def render():
-    """{filename: bytes} for every contract file."""
+    """{filename: bytes} for every contract file, and the figure sources."""
     proj = R.project(classifications={c['id']: c for c in L.g('BDX_CLASSIFICATIONS')})
     out = {}
     for f in CONTRACT:
@@ -48,6 +100,15 @@ def render():
             else:
                 body += 'window.%s = %s;\n' % (g, js)
         out[f] = body.encode('utf-8')
+    # Each distinct source once ("docs"), each figure an index into it ("rec"):
+    # a file name repeated on every figure made the file 0.9 MB.
+    fs = figure_sources()
+    docs = sorted({json.dumps(v, sort_keys=True) for r in fs.values() for v in r.values()})
+    index = {d: i for i, d in enumerate(docs)}
+    packed = {'docs': [json.loads(d) for d in docs],
+              'rec': {k: {f: index[json.dumps(v, sort_keys=True)] for f, v in r.items()} for k, r in fs.items()}}
+    js = json.dumps(packed, ensure_ascii=False, sort_keys=True, separators=(',', ':'))
+    out[FIGURE_SOURCES] = (HEADER + 'window.BDX_FIGURE_SRC = %s;\n' % js).encode('utf-8')
     return out
 
 

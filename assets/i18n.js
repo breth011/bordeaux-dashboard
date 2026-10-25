@@ -418,6 +418,14 @@
       'Open de fiche waaruit dit is overgenomen',
     'opens the château’s or the négociant’s own page, outside this app':
       'opent de eigen pagina van het château of de négociant, buiten deze app',
+    /* Each figure's own source (Phase 6.1), and the record's sheet, named
+       for what it is. */
+    'source': 'bron',
+    'source on file': 'bron in het archief',
+    'source unclear': 'bron onduidelijk',
+    'The sheet recorded for this vintage': 'De fiche die bij deze jaargang is vastgelegd',
+    'each figure above cites its own source, where one is known; this opens a page outside this app':
+      'elk cijfer hierboven noemt zijn eigen bron, waar die bekend is; dit opent een pagina buiten deze app',
     'this estate’s own suggestion': 'de eigen suggestie van dit domein',
     'this estate’s own suggestion, translated':
       'de eigen suggestie van dit domein, vertaald',

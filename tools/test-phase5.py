@@ -201,13 +201,20 @@ def normalized_model_byte_identical():
 
 @check
 def application_unchanged():
-    # The code and the legacy data are untouched. index.html and the service worker
-    # differ from Phase 4 by exactly the source switch: the 23 contract paths moved
-    # to data/app/ and the cache name bumped once per switch (tools/app-source.py).
-    assert not git('diff', '--stat', START, '--', 'assets', ':(glob)data/*.js', 'data/sources.json').strip()
+    # The legacy data is untouched, and no Phase 5 commit touched the code. index.html
+    # and the service worker differ from Phase 4 by exactly the source switch (the 23
+    # contract paths moved to data/app/, the cache name bumped once per change) and by
+    # the one generated file later phases added, data/app/figure-sources.js (Phase 6.1).
+    assert not git('diff', '--stat', START, '--', ':(glob)data/*.js', 'data/sources.json').strip()
+    for h, subject in [l.split(' ', 1) for l in git('log', '--format=%H %s', START + '..HEAD').splitlines()]:
+        if subject.startswith('Phase 5'):
+            touched = git('diff-tree', '--no-commit-id', '--name-only', '-r', h).split()
+            assert not [f for f in touched if f.startswith('assets/')], (subject, touched)
     src = load_tool('app-source.py')
     idx = open(L.ROOT + 'index.html', encoding='utf-8').read()
     sw = open(L.ROOT + 'service-worker.js', encoding='utf-8').read()
+    idx = idx.replace('<script src="data/app/figure-sources.js"></script>\n', '')
+    sw = sw.replace("  './data/app/figure-sources.js',\n", '')
     for f in src.CONTRACT:
         idx = idx.replace('"data/app/%s"' % f, '"data/%s"' % f)
         sw = sw.replace("'./data/app/%s'" % f, "'./data/%s'" % f)
@@ -237,18 +244,23 @@ def only_phase5_baseline_artifacts_changed():
     assert len(m0) == 1, 'the M0 commit'
     changed = set(git('diff-tree', '--no-commit-id', '--name-only', '-r', m0[0]).split())
     assert all(f.startswith(OWN) for f in changed), sorted(f for f in changed if not f.startswith(OWN))
-    # Later Phase 5 work may change tools, never data, the model or the application
-    # (the hash checks above hold those; this names the paths).
-    later = set(git('diff', '--name-only', START, 'HEAD').split()) | \
-        set(l[3:] for l in git('status', '--porcelain', '--untracked-files=all').splitlines())
-    # The source switch adds data/app/ (generated) and rewrites index.html and the
-    # service worker, which application_unchanged holds to exactly that.
+    # Later Phase 5 work changed tools, never data, the model or the application code
+    # (the hash checks above hold those; this names the paths). The source switch adds
+    # data/app/ (generated) and rewrites index.html and the service worker, which
+    # application_unchanged holds to exactly that. Later phases are their own tests'.
+    later = set()
+    for h, subject in log:
+        if subject.startswith('Phase 5'):
+            later |= set(git('diff-tree', '--no-commit-id', '--name-only', '-r', h).split())
     banned = [f for f in later if (f.startswith('data/') and not f.startswith(('data/performance/', 'data/app/')))
               or f.startswith(('assets/', 'sources/'))]
     assert not banned, sorted(banned)[:5]
 
 
 WRITERS = ('tools/add-sheet.py', 'tools/harvest.py', 'tools/crawl-pages.py')
+# What the application gained after Phase 5, named by tools/app-reference.py: each
+# figure's own source (Phase 6.1). Nothing else may differ from the control.
+PHASE61 = {'EXPECTED: PROVENANCE PRESENTATION', 'EXPECTED: ADDED FIGURE PROVENANCE (Phase 6.1)'}
 
 
 @check
@@ -375,7 +387,7 @@ def switch_outputs_agree_with_the_control():
     assert all(u.startswith('data/app/') or u.split('/')[-1] not in load_tool('app-source.py').CONTRACT
                for u in now['data_requests']), now['data_requests']
     # every difference is the accepted presentation order (Phase 4 M8; backlog)
-    assert set(r['summary']) <= {'IDENTICAL', 'EXPECTED: PRESENTATION ORDER'}, r['summary']
+    assert set(r['summary']) <= {'IDENTICAL', 'EXPECTED: PRESENTATION ORDER'} | PHASE61, r['summary']
     assert r['summary']['IDENTICAL'] >= 10700
 
 
@@ -402,7 +414,9 @@ def switch_rollback_restores_the_legacy_source():
         assert src.state(root) == 'model'
         assert src.switch('legacy', root) and src.state(root) == 'legacy'
         back = ar.compare(ref, ar.capture(root))
-        assert back['summary'] == {'IDENTICAL': sum(back['summary'].values())}, back['summary']
+        # back on legacy data: no reordering at all; only Phase 6.1's presentation
+        assert set(back['summary']) <= {'IDENTICAL'} | PHASE61, back['summary']
+        assert not back['unexplained']
         assert src.switch('model', root) and src.state(root) == 'model'
         again = ar.compare(ref, ar.capture(root))
         assert not again['unexplained'], again['unexplained'][:3]

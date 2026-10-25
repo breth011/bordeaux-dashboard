@@ -1,6 +1,6 @@
 {
  "_": "Phase 5 control: the application's observable outputs under the legacy source, as hashes, counts and orders (tools/app-reference.py). A comparison fixture, not a source of truth.",
- "commit": "037a241",
+ "commit": "8b13cb0",
  "data_requests": [
   "data/appellations.js",
   "data/batch2.js",
@@ -48323,19 +48323,13 @@
     "empty": false,
     "opened": [
      [
-      "2025",
-      "757e08984e08f6ef"
-     ],
-     [
-      "2024",
-      "757e08984e08f6ef"
-     ],
-     [
-      "2023",
-      "757e08984e08f6ef"
+      "2019",
+      "05707a94aa0f2229",
+      "05707a94aa0f2229"
      ]
     ],
     "text": "757e08984e08f6ef",
+    "values": "757e08984e08f6ef",
     "wine": "grand",
     "years": [
      "2025",
@@ -48392,18 +48386,12 @@
     "opened": [
      [
       "2025",
-      "ead2d2bb38360eee"
-     ],
-     [
-      "2024",
-      "ead2d2bb38360eee"
-     ],
-     [
-      "2023",
-      "ead2d2bb38360eee"
+      "722762f28415e7f7",
+      "722762f28415e7f7"
      ]
     ],
     "text": "ead2d2bb38360eee",
+    "values": "ead2d2bb38360eee",
     "wine": "grand",
     "years": [
      "2025",
@@ -48457,19 +48445,13 @@
     "empty": false,
     "opened": [
      [
-      "2025",
-      "cc7c34cc949ecdc5"
-     ],
-     [
-      "2024",
-      "cc7c34cc949ecdc5"
-     ],
-     [
       "2023",
-      "cc7c34cc949ecdc5"
+      "69539d1f4c7c7adf",
+      "69539d1f4c7c7adf"
      ]
     ],
     "text": "cc7c34cc949ecdc5",
+    "values": "cc7c34cc949ecdc5",
     "wine": "les-tours-de-beaumont",
     "years": [
      "2025",
@@ -48525,19 +48507,23 @@
     "empty": false,
     "opened": [
      [
-      "2025",
-      "ef31a84ac57e82aa"
-     ],
-     [
       "2024",
-      "ef31a84ac57e82aa"
+      "3e90f7a2461ebcf1",
+      "6768133fc735854b"
      ],
      [
       "2023",
-      "ef31a84ac57e82aa"
+      "17084baf0bc98119",
+      "9e0f1dbadc1d75c2"
+     ],
+     [
+      "2022",
+      "95a36d6b3b533b7a",
+      "05601df549f7baff"
      ]
     ],
     "text": "ef31a84ac57e82aa",
+    "values": "ef31a84ac57e82aa",
     "wine": "grand",
     "years": [
      "2025",
@@ -48591,21 +48577,9 @@
    {
     "chars": 14083,
     "empty": false,
-    "opened": [
-     [
-      "2025",
-      "6c127e2b510f70e7"
-     ],
-     [
-      "2024",
-      "6c127e2b510f70e7"
-     ],
-     [
-      "2023",
-      "6c127e2b510f70e7"
-     ]
-    ],
+    "opened": [],
     "text": "6c127e2b510f70e7",
+    "values": "6c127e2b510f70e7",
     "wine": "grand",
     "years": [
      "2025",
@@ -48662,18 +48636,22 @@
     "opened": [
      [
       "2025",
-      "2f96f360ab4f57f4"
+      "b8b06edb0d80771c",
+      "0f9e02371d2d8656"
      ],
      [
       "2024",
-      "2f96f360ab4f57f4"
+      "fe279d15f9b4b3d7",
+      "d064d60955ef82be"
      ],
      [
       "2023",
-      "2f96f360ab4f57f4"
+      "845704433e6f0549",
+      "658997e2b0a1753d"
      ]
     ],
     "text": "2f96f360ab4f57f4",
+    "values": "2f96f360ab4f57f4",
     "wine": "grand",
     "years": [
      "2025",
@@ -48727,19 +48705,23 @@
     "empty": false,
     "opened": [
      [
-      "2025",
-      "b08393f70677f103"
-     ],
-     [
       "2024",
-      "b08393f70677f103"
+      "d5af9e26ef4b70bc",
+      "d5af9e26ef4b70bc"
      ],
      [
-      "2023",
-      "b08393f70677f103"
+      "2017",
+      "16f66c030051eafb",
+      "16f66c030051eafb"
+     ],
+     [
+      "2016",
+      "3bb27eabb8588f83",
+      "3bb27eabb8588f83"
      ]
     ],
     "text": "b08393f70677f103",
+    "values": "b08393f70677f103",
     "wine": "chateau-haut-brion-blanc",
     "years": [
      "2025",
@@ -48794,18 +48776,22 @@
     "opened": [
      [
       "2025",
-      "acdfcc89288b9806"
+      "99745548c5781886",
+      "aca56888e5b70371"
      ],
      [
       "2024",
-      "acdfcc89288b9806"
+      "dd5ea482d5f2000e",
+      "8f5b1ee484c0cd0b"
      ],
      [
       "2023",
-      "acdfcc89288b9806"
+      "d084b561ea2897a4",
+      "934cf2e99656d3cb"
      ]
     ],
     "text": "acdfcc89288b9806",
+    "values": "acdfcc89288b9806",
     "wine": "la-clarte-de-haut-brion",
     "years": [
      "2025",
@@ -48860,18 +48846,22 @@
     "opened": [
      [
       "2025",
-      "feb50da91d6d41e7"
+      "7db42ffb7cfd5e5b",
+      "05ce10604de08856"
      ],
      [
       "2024",
-      "feb50da91d6d41e7"
+      "bf3edfbb8ba2674e",
+      "76d321e52ba6a75a"
      ],
      [
       "2023",
-      "feb50da91d6d41e7"
+      "d3ed653c028e1c17",
+      "9f47085f4da78e13"
      ]
     ],
     "text": "feb50da91d6d41e7",
+    "values": "feb50da91d6d41e7",
     "wine": "le-clarence-de-haut-brion",
     "years": [
      "2025",
@@ -48928,18 +48918,22 @@
     "opened": [
      [
       "2025",
-      "b7899499da950778"
+      "2441113a3ccef7b0",
+      "ac18fdfb3f30839f"
      ],
      [
       "2024",
-      "b7899499da950778"
+      "8b145e34138d7ff1",
+      "8b70fae869dc473e"
      ],
      [
       "2023",
-      "b7899499da950778"
+      "7b27b0d78bf0b71c",
+      "d044c6be4d436916"
      ]
     ],
     "text": "b7899499da950778",
+    "values": "b7899499da950778",
     "wine": "grand",
     "years": [
      "2025",
@@ -49003,18 +48997,22 @@
     "opened": [
      [
       "2025",
-      "c7cd747508d1fc0c"
+      "f94de58279d5f4ac",
+      "f94de58279d5f4ac"
      ],
      [
       "2024",
-      "c7cd747508d1fc0c"
+      "b5c1ec66554dfa79",
+      "b5c1ec66554dfa79"
      ],
      [
       "2023",
-      "c7cd747508d1fc0c"
+      "e37cddb5e94e073a",
+      "e37cddb5e94e073a"
      ]
     ],
     "text": "c7cd747508d1fc0c",
+    "values": "c7cd747508d1fc0c",
     "wine": "grand",
     "years": [
      "2025",
@@ -49069,18 +49067,22 @@
     "opened": [
      [
       "2025",
-      "c14e4908f663797d"
+      "43bb52790117f82e",
+      "43bb52790117f82e"
      ],
      [
       "2024",
-      "c14e4908f663797d"
+      "090c057a48936093",
+      "090c057a48936093"
      ],
      [
       "2023",
-      "c14e4908f663797d"
+      "ba9109e27f8b2467",
+      "ba9109e27f8b2467"
      ]
     ],
     "text": "c14e4908f663797d",
+    "values": "c14e4908f663797d",
     "wine": "blanc-de-lynch-bages",
     "years": [
      "2025",
@@ -49135,18 +49137,22 @@
     "opened": [
      [
       "2025",
-      "7820b503d7927339"
+      "96523bd986312ec8",
+      "96523bd986312ec8"
      ],
      [
       "2024",
-      "7820b503d7927339"
+      "31d4777476b43e0d",
+      "31d4777476b43e0d"
      ],
      [
       "2023",
-      "7820b503d7927339"
+      "ef5bac93a351d0f0",
+      "ef5bac93a351d0f0"
      ]
     ],
     "text": "7820b503d7927339",
+    "values": "7820b503d7927339",
     "wine": "echo-de-lynch-bages",
     "years": [
      "2025",
@@ -49203,18 +49209,22 @@
     "opened": [
      [
       "2025",
-      "bf45c9e6074ca841"
+      "a3633af62678a829",
+      "1905ed1d88b5ceda"
      ],
      [
       "2024",
-      "bf45c9e6074ca841"
+      "4b440cc9a647b9c6",
+      "3f82a6fd976d0eb0"
      ],
      [
       "2023",
-      "bf45c9e6074ca841"
+      "b08b861f52a27bcc",
+      "2baa940078932009"
      ]
     ],
     "text": "bf45c9e6074ca841",
+    "values": "bf45c9e6074ca841",
     "wine": "grand",
     "years": [
      "2025",
@@ -49342,19 +49352,23 @@
     "empty": false,
     "opened": [
      [
-      "2025",
-      "550a36e7b1c98abe"
+      "2019",
+      "daf4021e8af1b2f3",
+      "fc21933f7ab45f14"
      ],
      [
-      "2024",
-      "550a36e7b1c98abe"
+      "2018",
+      "864e2eb1c9eef82d",
+      "311a2a078ec789d5"
      ],
      [
-      "2023",
-      "550a36e7b1c98abe"
+      "2017",
+      "44929b29c175b220",
+      "740f06080222b541"
      ]
     ],
     "text": "550a36e7b1c98abe",
+    "values": "550a36e7b1c98abe",
     "wine": "margaux-du-chateau-margaux",
     "years": [
      "2025",
@@ -49409,18 +49423,22 @@
     "opened": [
      [
       "2025",
-      "663d53817f09b39a"
+      "b71bcf195ccee154",
+      "e7a9f71d2afa6469"
      ],
      [
       "2024",
-      "663d53817f09b39a"
+      "0761d3a526bce187",
+      "8a64ea3b3854feb2"
      ],
      [
       "2023",
-      "663d53817f09b39a"
+      "9761d968374cc2a4",
+      "21a76803eca10516"
      ]
     ],
     "text": "663d53817f09b39a",
+    "values": "663d53817f09b39a",
     "wine": "pavillon-blanc-du-chateau-margaux",
     "years": [
      "2025",
@@ -49475,18 +49493,22 @@
     "opened": [
      [
       "2025",
-      "082ad27a3de9574c"
+      "1438a7a1bf3ff7fd",
+      "19e9c7a52c0e875d"
      ],
      [
       "2024",
-      "082ad27a3de9574c"
+      "0961287f45f02adc",
+      "9db3149fead5c18a"
      ],
      [
       "2023",
-      "082ad27a3de9574c"
+      "e5452b1ba3fe4293",
+      "167f274be8798a2a"
      ]
     ],
     "text": "082ad27a3de9574c",
+    "values": "082ad27a3de9574c",
     "wine": "pavillon-rouge-du-chateau-margaux",
     "years": [
      "2025",
@@ -49540,21 +49562,9 @@
    {
     "chars": 13080,
     "empty": false,
-    "opened": [
-     [
-      "2025",
-      "c8059eec5e51887c"
-     ],
-     [
-      "2024",
-      "c8059eec5e51887c"
-     ],
-     [
-      "2023",
-      "c8059eec5e51887c"
-     ]
-    ],
+    "opened": [],
     "text": "c8059eec5e51887c",
+    "values": "c8059eec5e51887c",
     "wine": "grand",
     "years": [
      "2025",
@@ -49611,18 +49621,22 @@
     "opened": [
      [
       "2025",
-      "2ff2371004e781a5"
+      "96ff07ad672995ab",
+      "96ff07ad672995ab"
      ],
      [
       "2024",
-      "2ff2371004e781a5"
+      "7cba4057e62ebb43",
+      "7cba4057e62ebb43"
      ],
      [
       "2023",
-      "2ff2371004e781a5"
+      "87248d512b007294",
+      "87248d512b007294"
      ]
     ],
     "text": "2ff2371004e781a5",
+    "values": "2ff2371004e781a5",
     "wine": "grand",
     "years": [
      "2025",
@@ -49679,18 +49693,22 @@
     "opened": [
      [
       "2025",
-      "49160cf15e3e3cf1"
+      "38254a2069799e6c",
+      "38254a2069799e6c"
      ],
      [
       "2024",
-      "49160cf15e3e3cf1"
+      "dbec1e5c00c1f607",
+      "e251469892121af4"
      ],
      [
-      "2023",
-      "49160cf15e3e3cf1"
+      "2022",
+      "eb925c73815e13d4",
+      "efd44e963b97be5b"
      ]
     ],
     "text": "49160cf15e3e3cf1",
+    "values": "49160cf15e3e3cf1",
     "wine": "grand",
     "years": [
      "2025",
@@ -49744,19 +49762,23 @@
     "empty": false,
     "opened": [
      [
-      "2025",
-      "0bc41c5f54509196"
+      "2020",
+      "fe1b92b9ca6a6c1c",
+      "fe1b92b9ca6a6c1c"
      ],
      [
-      "2024",
-      "0bc41c5f54509196"
+      "2019",
+      "da18783be89417b5",
+      "da18783be89417b5"
      ],
      [
-      "2023",
-      "0bc41c5f54509196"
+      "2018",
+      "179690fd38eedb9e",
+      "179690fd38eedb9e"
      ]
     ],
     "text": "0bc41c5f54509196",
+    "values": "0bc41c5f54509196",
     "wine": "ch-teau-smith-haut-lafitte-blanc",
     "years": [
      "2025",
@@ -49810,19 +49832,23 @@
     "empty": false,
     "opened": [
      [
-      "2025",
-      "751c521ebadff813"
+      "2021",
+      "2abf536cf5959d2a",
+      "2abf536cf5959d2a"
      ],
      [
-      "2024",
-      "751c521ebadff813"
+      "2020",
+      "b2d0a582ac031918",
+      "b2d0a582ac031918"
      ],
      [
-      "2023",
-      "751c521ebadff813"
+      "2019",
+      "f7a8f984d460b122",
+      "f7a8f984d460b122"
      ]
     ],
     "text": "751c521ebadff813",
+    "values": "751c521ebadff813",
     "wine": "hauts-de-smith",
     "years": [
      "2025",
@@ -49876,19 +49902,23 @@
     "empty": false,
     "opened": [
      [
-      "2025",
-      "06ffc860f2c5849c"
+      "2021",
+      "386c72a0968e9e33",
+      "386c72a0968e9e33"
      ],
      [
-      "2024",
-      "06ffc860f2c5849c"
+      "2020",
+      "eda9871cada222e4",
+      "eda9871cada222e4"
      ],
      [
-      "2023",
-      "06ffc860f2c5849c"
+      "2019",
+      "b309891e1c15dd73",
+      "b309891e1c15dd73"
      ]
     ],
     "text": "06ffc860f2c5849c",
+    "values": "06ffc860f2c5849c",
     "wine": "hauts-de-smith-white",
     "years": [
      "2025",
@@ -49942,19 +49972,23 @@
     "empty": false,
     "opened": [
      [
-      "2025",
-      "28c306df00848775"
+      "2020",
+      "84e4e5f913a0afc2",
+      "84e4e5f913a0afc2"
      ],
      [
-      "2024",
-      "28c306df00848775"
+      "2019",
+      "33d6a16aae258b8a",
+      "33d6a16aae258b8a"
      ],
      [
-      "2023",
-      "28c306df00848775"
+      "2018",
+      "ded24a4760d2e150",
+      "ded24a4760d2e150"
      ]
     ],
     "text": "28c306df00848775",
+    "values": "28c306df00848775",
     "wine": "le-petit-haut-lafitte",
     "years": [
      "2025",
@@ -50008,19 +50042,23 @@
     "empty": false,
     "opened": [
      [
-      "2025",
-      "1df887e3a9222a90"
+      "2020",
+      "54fade9e934dadb5",
+      "54fade9e934dadb5"
      ],
      [
-      "2024",
-      "1df887e3a9222a90"
+      "2019",
+      "05c18ddff831dec5",
+      "05c18ddff831dec5"
      ],
      [
-      "2023",
-      "1df887e3a9222a90"
+      "2018",
+      "d88c0a82e4969d90",
+      "d88c0a82e4969d90"
      ]
     ],
     "text": "1df887e3a9222a90",
+    "values": "1df887e3a9222a90",
     "wine": "le-petit-haut-lafitte-blanc",
     "years": [
      "2025",
@@ -50077,18 +50115,22 @@
     "opened": [
      [
       "2025",
-      "0029158aeb3daef9"
+      "b5b6fdea721c45a8",
+      "b5b6fdea721c45a8"
      ],
      [
       "2024",
-      "0029158aeb3daef9"
+      "a360929459ee3dbd",
+      "a360929459ee3dbd"
      ],
      [
       "2023",
-      "0029158aeb3daef9"
+      "11e396b0001673d5",
+      "11e396b0001673d5"
      ]
     ],
     "text": "0029158aeb3daef9",
+    "values": "0029158aeb3daef9",
     "wine": "grand",
     "years": [
      "2025",
@@ -50143,18 +50185,22 @@
     "opened": [
      [
       "2025",
-      "87306dee55a73bf5"
+      "20c006051393478a",
+      "20c006051393478a"
      ],
      [
       "2024",
-      "87306dee55a73bf5"
+      "c7dc3093084f2f01",
+      "c7dc3093084f2f01"
      ],
      [
       "2023",
-      "87306dee55a73bf5"
+      "b99386dd7e06ae76",
+      "b99386dd7e06ae76"
      ]
     ],
     "text": "87306dee55a73bf5",
+    "values": "87306dee55a73bf5",
     "wine": "fleur-de-badette",
     "years": [
      "2025",
@@ -50210,19 +50256,18 @@
     "empty": false,
     "opened": [
      [
-      "2025",
-      "7b2069e938e9ae99"
-     ],
-     [
-      "2024",
-      "7b2069e938e9ae99"
-     ],
-     [
       "2023",
-      "7b2069e938e9ae99"
+      "6084242a5b53bc35",
+      "6084242a5b53bc35"
+     ],
+     [
+      "2021",
+      "9cbd01a639042dd6",
+      "9cbd01a639042dd6"
      ]
     ],
     "text": "7b2069e938e9ae99",
+    "values": "7b2069e938e9ae99",
     "wine": "grand",
     "years": [
      "2025",
@@ -50276,19 +50321,13 @@
     "empty": false,
     "opened": [
      [
-      "2025",
-      "854584d6647f592e"
-     ],
-     [
-      "2024",
-      "854584d6647f592e"
-     ],
-     [
-      "2023",
-      "854584d6647f592e"
+      "2022",
+      "7eb12d2bb4a130dd",
+      "7eb12d2bb4a130dd"
      ]
     ],
     "text": "854584d6647f592e",
+    "values": "854584d6647f592e",
     "wine": "y-d-yquem",
     "years": [
      "2025",

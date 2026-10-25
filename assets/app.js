@@ -3137,12 +3137,62 @@ function ficheUrl(ch, yr, slug) {
   return (U && U[ch.id + '|' + yr]) || null;
 }
 
+/* Where one figure of a vintage was read from, as the normalized model
+   records it (data/app/figure-sources.js, generated). A record's sheet is
+   not the source of every figure on it: a figure can come from another
+   document, from one of several documents of the same name, or from a
+   document nobody recorded. Only the first two get a source here, and
+   never the record's sheet in place of a figure's own. */
+var FIGSRC = window.BDX_FIGURE_SRC || { docs: [], rec: {} };
+
+function figureSource(ch, yr, slug, field) {
+  var k = (!slug || slug === 'grand') ? ch.id + '|' + yr : ch.id + '|' + slug + '|' + yr;
+  var r = FIGSRC.rec[k];
+  return (r && r[field] != null) ? FIGSRC.docs[r[field]] : null;
+}
+
+/* The figure's source as a quiet mark beside it: a link to its own sheet,
+   the sheet's file name where no address was recorded, or a plain
+   "source unclear" where the name fits several documents. Nothing at all
+   where no source is established - that is the honest blank. */
+function figSrc(ch, yr, slug, field) {
+  var d = figureSource(ch, yr, slug, field);
+  if (!d) return '';
+  if (d.u) {
+    return ' <a class="src-link fig-src" data-prov="doc" href="' +
+      String(d.u).replace(/&/g, '&amp;').replace(/"/g, '&quot;') +
+      '" target="_blank" rel="noopener noreferrer" title="' +
+      escText(d.n).replace(/"/g, '&quot;') + '">source</a>';
+  }
+  if (d.n) {
+    return ' <span class="fig-src" data-prov="file" title="' +
+      escText(d.n).replace(/"/g, '&quot;') + '">source on file</span>';
+  }
+  return ' <span class="fig-src" data-prov="amb" title="' +
+    escText(d.a + ' - ' + d.c + ' documents carry this name').replace(/"/g, '&quot;') +
+    '">source unclear</span>';
+}
+
 /* The sourcing line, as a link when the document can be reached.
    Sourcing is kept quiet here on purpose - a short grey line, not a
    badge - and a grey line you can open is the same line doing its job
    properly. target=_blank so the dashboard is not navigated away from,
    and rel=noopener because the page being opened is somebody else's. */
-function srcLine(ch, yr, label, slug) {
+function srcLine(ch, yr, label, slug, field) {
+  /* Given the field the line is about, the link goes to that field's own
+     document and nowhere else: a record's sheet is not every passage's
+     source (Phase 6.1). Without a field it is the record's sheet, which
+     is what the Compare tab's sheet row means. */
+  if (field) {
+    var d = figureSource(ch, yr, slug, field);
+    if (d && d.u) {
+      return '<a class="src-link" data-prov="doc" href="' +
+        String(d.u).replace(/&/g, '&amp;').replace(/"/g, '&quot;') +
+        '" target="_blank" rel="noopener noreferrer"' +
+        ' title="Open the sheet this was read from">' + label + '</a>';
+    }
+    return label + figSrc(ch, yr, slug, field);
+  }
   var u = ficheUrl(ch, yr, slug);
   if (!u) return label;
   /* Written in English like the rest of the markup; assets/i18n.js says
@@ -3305,28 +3355,29 @@ function fichesBlock(ch, yr, slug) {
        often the other half of the same vineyard - the ghost bar
        would invite a comparison between two different wines. */
     if (slug && slug !== 'grand') { usual = null; what = null; }
-    s += '<p class="subhead">Blend, ' + yr + '</p>' +
+    s += '<p class="subhead">Blend, ' + yr + figSrc(ch, yr, slug, 'blend') + '</p>' +
       blendBar(f.blend, usual, what) +
       '<div class="tableview' + (state.tables ? ' on' : '') + '">' +
         blendTable(f.blend) + '</div>';
   }
 
+  /* Each fact carries the field it shows, so it can cite its own source. */
   var fx = [];
-  if (f.yld) fx.push(['Yield', f.yld + ' hl/ha']);
-  if (f.alc) fx.push(['Alcohol', f.alc + '% vol']);
+  if (f.yld) fx.push(['Yield', f.yld + ' hl/ha', 'yld']);
+  if (f.alc) fx.push(['Alcohol', f.alc + '% vol', 'alc']);
   /* How long it sat in wood, and how much of that wood was new. Two
      different facts that were briefly one field, which is how a record
      saying "18 months" came to be rendered as "18 months%". */
-  if (f.months) fx.push(['In barrel', f.months + ' months']);
-  if (f.oak) fx.push(['New oak', f.oak + '%']);
-  if (f.ph) fx.push(['pH', f.ph]);
+  if (f.months) fx.push(['In barrel', f.months + ' months', 'months']);
+  if (f.oak) fx.push(['New oak', f.oak + '%', 'oak']);
+  if (f.ph) fx.push(['pH', f.ph, 'ph']);
   /* Residual sugar, in grams per litre. Not only for the sweet wines -
      Pedesclaux's Pauillac states "< 2 g/l" - and the "less than" is
      kept, because it is a weaker claim than a bare figure and the
      estate chose to make it. */
   if (f.sug != null) {
     fx.push(['Residual sugar',
-             (f.sugl ? 'under ' : '') + f.sug + ' g/l']);
+             (f.sugl ? 'under ' : '') + f.sug + ' g/l', 'sug']);
   }
   /* Total acidity, with the scale the sheet named. Bordeaux quotes
      two and they are not the same number: 3.7 g/l H2SO4 is about
@@ -3335,12 +3386,13 @@ function fichesBlock(ch, yr, slug) {
   if (f.ta != null) {
     fx.push(['Total acidity', f.ta + ' g/l' +
              (f.tau === 'H2SO4' ? ' H₂SO₄'
-              : f.tau === 'tartaric' ? ' tartaric' : '')]);
+              : f.tau === 'tartaric' ? ' tartaric' : ''), 'ta']);
   }
-  if (f.temp) fx.push(['Serve at', f.temp.join('–') + ' °C']);
+  if (f.temp) fx.push(['Serve at', f.temp.join('–') + ' °C', 'temp']);
   if (fx.length) {
     s += '<dl class="factgrid">' + fx.map(function (p) {
-      return '<div class="fact"><dt>' + p[0] + '</dt><dd>' + p[1] + '</dd></div>';
+      return '<div class="fact"><dt>' + p[0] + '</dt><dd>' + p[1] +
+        figSrc(ch, yr, slug, p[2]) + '</dd></div>';
     }).join('') + '</dl>';
     /* Said once, under the grid, rather than inside the cell: a
        figure whose scale the sheet did not name cannot be compared
@@ -3359,7 +3411,7 @@ function fichesBlock(ch, yr, slug) {
     s += '<p class="subhead">Serve it with</p>' +
       '<p class="notetext">' + f.food + '</p>' +
       '<p class="src">this estate’s own suggestion' +
-        (f.ftl ? ', translated' : '') + '</p>';
+        (f.ftl ? ', translated' : '') + figSrc(ch, yr, slug, 'food') + '</p>';
   }
 
   /* Scores the château reprints on its own sheet. Kept apart from the
@@ -3374,29 +3426,27 @@ function fichesBlock(ch, yr, slug) {
           return '<li><span class="who">' + p[0] + '</span>' +
                  '<span class="num">' + p[1] + '</span></li>';
         }).join('') + '</ul>' +
-        '<p class="src">reprinted by this estate, on each critic’s own scale</p>';
+        '<p class="src">reprinted by this estate, on each critic’s own scale' +
+          figSrc(ch, yr, slug, 'press') + '</p>';
     }
   }
 
-  /* And the document itself, where its address was recorded. The grey
-     sourcing lines beside the prose carry the same link, but they only
-     appear where there is prose: a record can hold a blend, an alcohol
-     and a yield and say nothing, and that record has a sheet too.
-
-     It is deliberately the last thing in the block. The figures above
-     are what the reader came for; this is how they check them. */
+  /* And the sheet recorded for this vintage, where its address was. It
+     used to read as the source of every figure above, and for most it is
+     not: each figure now cites its own, so this is named for what it is -
+     the record's sheet - and is still the last thing in the block. */
   var fu = ficheUrl(ch, yr, slug);
   if (fu) {
     s += '<p class="fichelink">' +
       '<a class="src-link" href="' +
         String(fu).replace(/&/g, '&amp;').replace(/"/g, '&quot;') +
       '" target="_blank" rel="noopener noreferrer">' +
-      'Read the estate’s own sheet' +
+      'The sheet recorded for this vintage' +
       '</a>' +
       /* Said plainly, because it leaves the dashboard and goes to
          somebody else's site - and offline, it will not open at all. */
-      '<span class="hint">opens the château’s or the négociant’s own ' +
-        'page, outside this app</span></p>';
+      '<span class="hint">each figure above cites its own source, where one is ' +
+        'known; this opens a page outside this app</span></p>';
   }
 
   /* The decanting advice and the keeping remark are shown by drinkBlock,
@@ -3490,12 +3540,12 @@ function seasonBlock(ch, yr, v, o, slug) {
   if (weather) {
     out += '<p class="vintagereport">' + weather + '</p>' +
       '<p class="src">' +
-        ((f && f.note) ? srcLine(ch, yr, wSrc, slug) : wSrc) + '</p>';
+        ((f && f.note) ? srcLine(ch, yr, wSrc, slug, 'note') : wSrc) + '</p>';
   }
   if (wine) {
     out += '<p class="vintagereport">' + wine + '</p>' +
       '<p class="src">' +
-        ((f && f.taste) ? srcLine(ch, yr, tSrc, slug) : tSrc) + '</p>';
+        ((f && f.taste) ? srcLine(ch, yr, tSrc, slug, 'taste') : tSrc) + '</p>';
   }
   var tail = aromaWheel(englishTaste(ch, yr, slug) || wine || '') +
     phenologyLine(yr, ch) +

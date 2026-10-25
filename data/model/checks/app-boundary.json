@@ -1,0 +1,259 @@
+{
+ "_": "Phase 4 M12: what the page loads, classified against the D7 boundary (tools/app-boundary.py).",
+ "decision_D7": "the page reads files generated from the model projection (canonical values, observations and provenance where shown, derived indexes); switched in a separate controlled step after Phase 4",
+ "loads": {
+  "data/appellations.js": {
+   "class": "PAGE_ASSET",
+   "referenced_by": [
+    "index.html",
+    "service-worker.js"
+   ]
+  },
+  "data/batch2.js": {
+   "class": "CONTRACT",
+   "referenced_by": [
+    "index.html",
+    "service-worker.js"
+   ]
+  },
+  "data/batch3.js": {
+   "class": "CONTRACT",
+   "referenced_by": [
+    "index.html",
+    "service-worker.js"
+   ]
+  },
+  "data/batch4.js": {
+   "class": "CONTRACT",
+   "referenced_by": [
+    "index.html",
+    "service-worker.js"
+   ]
+  },
+  "data/cellar.js": {
+   "class": "CONTRACT",
+   "referenced_by": [
+    "index.html",
+    "service-worker.js"
+   ]
+  },
+  "data/chateaux.js": {
+   "class": "CONTRACT",
+   "referenced_by": [
+    "index.html",
+    "service-worker.js"
+   ]
+  },
+  "data/classifications.js": {
+   "class": "PAGE_ASSET",
+   "referenced_by": [
+    "index.html",
+    "service-worker.js"
+   ]
+  },
+  "data/climate.js": {
+   "class": "PAGE_ASSET",
+   "referenced_by": [
+    "index.html",
+    "service-worker.js"
+   ]
+  },
+  "data/coords.js": {
+   "class": "CONTRACT",
+   "referenced_by": [
+    "index.html",
+    "service-worker.js"
+   ]
+  },
+  "data/cruartisan.js": {
+   "class": "CONTRACT",
+   "referenced_by": [
+    "index.html",
+    "service-worker.js"
+   ]
+  },
+  "data/crubourgeois.js": {
+   "class": "CONTRACT",
+   "referenced_by": [
+    "index.html",
+    "service-worker.js"
+   ]
+  },
+  "data/cuvee-url.js": {
+   "class": "CONTRACT",
+   "referenced_by": [
+    "index.html",
+    "service-worker.js"
+   ]
+  },
+  "data/cuvees.js": {
+   "class": "CONTRACT",
+   "referenced_by": [
+    "index.html",
+    "service-worker.js"
+   ]
+  },
+  "data/fiches-nl.js": {
+   "class": "CONTRACT",
+   "referenced_by": [
+    "index.html",
+    "service-worker.js"
+   ]
+  },
+  "data/fiches-url.js": {
+   "class": "CONTRACT",
+   "referenced_by": [
+    "index.html",
+    "service-worker.js"
+   ]
+  },
+  "data/fiches.js": {
+   "class": "CONTRACT",
+   "referenced_by": [
+    "index.html",
+    "service-worker.js"
+   ]
+  },
+  "data/geography.js": {
+   "class": "PAGE_ASSET",
+   "referenced_by": [
+    "index.html",
+    "service-worker.js"
+   ]
+  },
+  "data/grapes-nl.js": {
+   "class": "PAGE_ASSET",
+   "referenced_by": [
+    "index.html",
+    "service-worker.js"
+   ]
+  },
+  "data/grapes.js": {
+   "class": "PAGE_ASSET",
+   "referenced_by": [
+    "index.html",
+    "service-worker.js"
+   ]
+  },
+  "data/graves.js": {
+   "class": "CONTRACT",
+   "referenced_by": [
+    "index.html",
+    "service-worker.js"
+   ]
+  },
+  "data/libournais.js": {
+   "class": "CONTRACT",
+   "referenced_by": [
+    "index.html",
+    "service-worker.js"
+   ]
+  },
+  "data/notes-nl.js": {
+   "class": "PAGE_ASSET",
+   "referenced_by": [
+    "index.html",
+    "service-worker.js"
+   ]
+  },
+  "data/notes.js": {
+   "class": "PAGE_ASSET",
+   "referenced_by": [
+    "index.html",
+    "service-worker.js"
+   ]
+  },
+  "data/overrides.js": {
+   "class": "CONTRACT",
+   "referenced_by": [
+    "index.html",
+    "service-worker.js"
+   ]
+  },
+  "data/phenology.js": {
+   "class": "PAGE_ASSET",
+   "referenced_by": [
+    "index.html",
+    "service-worker.js"
+   ]
+  },
+  "data/plantings.js": {
+   "class": "CONTRACT",
+   "referenced_by": [
+    "index.html",
+    "service-worker.js"
+   ]
+  },
+  "data/pomerol.js": {
+   "class": "CONTRACT",
+   "referenced_by": [
+    "index.html",
+    "service-worker.js"
+   ]
+  },
+  "data/ratings.js": {
+   "class": "CONTRACT",
+   "referenced_by": [
+    "index.html",
+    "service-worker.js"
+   ]
+  },
+  "data/rightbank.js": {
+   "class": "PAGE_ASSET",
+   "referenced_by": [
+    "index.html",
+    "service-worker.js"
+   ]
+  },
+  "data/saintemilion.js": {
+   "class": "CONTRACT",
+   "referenced_by": [
+    "index.html",
+    "service-worker.js"
+   ]
+  },
+  "data/sauternes.js": {
+   "class": "CONTRACT",
+   "referenced_by": [
+    "index.html",
+    "service-worker.js"
+   ]
+  },
+  "data/terroir.js": {
+   "class": "CONTRACT",
+   "referenced_by": [
+    "index.html",
+    "service-worker.js"
+   ]
+  },
+  "data/vintages-nl.js": {
+   "class": "PAGE_ASSET",
+   "referenced_by": [
+    "index.html",
+    "service-worker.js"
+   ]
+  },
+  "data/vintages.js": {
+   "class": "PAGE_ASSET",
+   "referenced_by": [
+    "index.html",
+    "service-worker.js"
+   ]
+  },
+  "data/water.js": {
+   "class": "PAGE_ASSET",
+   "referenced_by": [
+    "index.html",
+    "service-worker.js"
+   ]
+  },
+  "data/websites.js": {
+   "class": "CONTRACT",
+   "referenced_by": [
+    "index.html",
+    "service-worker.js"
+   ]
+  }
+ },
+ "forbidden": []
+}

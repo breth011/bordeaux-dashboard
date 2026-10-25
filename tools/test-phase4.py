@@ -1001,6 +1001,28 @@ def t25_m11_phase2_proposals_fit_without_special_cases_and_are_not_applied():
     assert saved['schema_changes_needed'] == 0 and set(saved['proposals']) == set(P)
 
 
+# ---------------------------------------------------------------- M12
+
+@check
+def m12_app_reads_nothing_past_the_boundary():
+    import importlib.util
+    spec = importlib.util.spec_from_file_location('ab', L.ROOT + 'tools/app-boundary.py')
+    ab = importlib.util.module_from_spec(spec)
+    spec.loader.exec_module(ab)
+    r = ab.build()
+    assert not r['forbidden'], r['forbidden']
+    for p in ('data/sources.json', 'data/discovery/artifacts.jsonl', 'data/evidence/decisions-v5.jsonl',
+              'data/model/manifest.json', 'sources/fiches/x.pdf', 'data/proposals.jsonl'):
+        assert ab.classify(p) == 'FORBIDDEN', p
+    import model_reader as R
+    P = R.project(classifications={c['id']: c for c in L.g('BDX_CLASSIFICATIONS')})
+    contract = {p.split('/')[-1] for p, x in r['loads'].items() if x['class'] == 'CONTRACT'}
+    assert contract <= set(P), contract - set(P)
+    assert len(contract) == 23
+    saved = json.load(open(L.MODEL + 'checks/app-boundary.json', encoding='utf-8'))
+    assert saved['loads'] == r['loads']
+
+
 def main():
     only = sys.argv[1:]
     fails = 0

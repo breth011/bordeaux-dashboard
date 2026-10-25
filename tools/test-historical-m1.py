@@ -268,9 +268,12 @@ def c20_every_legacy_row_valid_with_historical_fields_absent():
             bad.append((rel, row.get('id'), errs[:1]))
     # 333022 rows at M1; M2 adds one ArtifactDate and one DOCUMENT provenance per accepted date
     m2 = 2 * len(L.read_table('document/artifact-dates.jsonl'))
-    # M3.2 adds one DOCUMENT provenance per recovered figure (it changes rows, adds no other)
+    # M3.2 adds: A one DOCUMENT provenance per recovered figure; B per recovered address a placement,
+    # its locator and its provenance (it changes other rows, adds no others)
     import historical_m2_scope
-    m32 = sum(1 for p in L.read_table('cross/provenance.jsonl') if historical_m2_scope.is_m32_source(p))
+    prov = L.read_table('cross/provenance.jsonl')
+    m32 = sum(1 for p in prov if p.get('actor') == historical_m2_scope.M32_ACTOR)
+    m32 += 2 * sum(1 for p in prov if (p.get('code_state') or {}).get('stream') == 'M3.2B')
     assert n == 333022 + m2 + m32 and not bad, (n, m2, m32, bad[:3])
 
 

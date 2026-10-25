@@ -12769,6 +12769,7 @@
 {"kind":"LOCAL_PATH","value":"pages/rieussec/2025__fr-2025-un-millesime-cinq-etoiles.txt"}
 {"kind":"LOCAL_PATH","value":"pages/romer/estate__vin-chateau-romer.txt"}
 {"kind":"LOCAL_PATH","value":"pages/suduiraut/2018__en-news-3-great-wines-of-the-world-asia-2018.txt"}
+{"kind":"URL","value":"http://chateaudumoulinrouge.fr/wp-content/uploads/2019/09/technical-sheet-chateau-du-moulin-rouge-2018.pdf"}
 {"kind":"URL","value":"http://librairie.arvitis.com/media/millesimes/1718-2015/docs/fiches-techniques/fichetechnique-2015-essence-de---urthe-20"}
 {"kind":"URL","value":"http://librairie.arvitis.com/media/millesimes/2311-2023/docs/fiches-techniques/fichetechnique-2023-fiche-prod---grave-20"}
 {"kind":"URL","value":"http://librairie.arvitis.com/media/millesimes/2319-2025/docs/fiches-techniques/fichetechnique-2025-fiche-prim---igeac-20"}
@@ -12914,6 +12915,7 @@
 {"kind":"URL","value":"https://carbonnieux.com/wp-content/uploads/2026/04/Fiche-technique-Carbonnieux-rouge-2020-FRA.pdf"}
 {"kind":"URL","value":"https://carbonnieux.com/wp-content/uploads/2026/04/Fiche-technique-Carbonnieux-rouge-2021-FRA.pdf"}
 {"kind":"URL","value":"https://carbonnieux.com/wp-content/uploads/2026/04/Fiche-technique-Carbonnieux-rouge-2022-FRA.pdf"}
+{"kind":"URL","value":"https://carbonnieux.com/wp-content/uploads/2026/04/Fiche-technique-Carbonnieux-rouge-2023-ENG.pdf"}
 {"kind":"URL","value":"https://carbonnieux.com/wp-content/uploads/2026/04/Fiche-technique-Carbonnieux-rouge-2023-FRA.pdf"}
 {"kind":"URL","value":"https://carbonnieux.com/wp-content/uploads/2026/04/Fiche-technique-Tour-Leognan-rouge-ENG-1.pdf"}
 {"kind":"URL","value":"https://carbonnieux.com/wp-content/uploads/2026/04/Fiche-technique-Tour-Leognan-rouge-ENG-2.pdf"}
@@ -12938,6 +12940,7 @@
 {"kind":"URL","value":"https://carbonnieux.com/wp-content/uploads/2026/04/Liste-gencods-Tour-Leognan-rouge-2023.pdf"}
 {"kind":"URL","value":"https://carbonnieux.com/wp-content/uploads/2026/04/Liste-gencods-Tour-Leognan-rouge-2024.pdf"}
 {"kind":"URL","value":"https://carbonnieux.com/wp-content/uploads/2026/10/Analyse-export-Ch.-Carbonnieux-Rouge-2024.pdf"}
+{"kind":"URL","value":"https://carbonnieux.com/wp-content/uploads/2026/10/FICHE-TECHNIQUE-ROUGE-2024-EN.pdf"}
 {"kind":"URL","value":"https://carbonnieux.com/wp-content/uploads/2026/10/FICHE-TECHNIQUE-ROUGE-2024-FR.pdf"}
 {"kind":"URL","value":"https://cdn.prod.website-files.com/63a45b1a311ee6a3ffd1671d/64aec0577fcb7df2bd3473a1_Fiche_millesime_FR_1987.pdf"}
 {"kind":"URL","value":"https://cdn.prod.website-files.com/63a45b1a311ee6a3ffd1671d/65718edd18b696122f57ec9d_Fiche_millesime_EN_2018.pdf"}
@@ -13056,10 +13059,14 @@
 {"kind":"URL","value":"https://cdn.sanity.io/files/5qv9uwu6/production/efa0ef19be92baf2d140c07b2cac0991554f2207.pdf"}
 {"kind":"URL","value":"https://cdn.sanity.io/files/5qv9uwu6/production/f6a2eccd7a50fd16ca80ce257c13d964e1a97def.pdf"}
 {"kind":"URL","value":"https://cdn.sanity.io/files/5qv9uwu6/production/f94595dac47a3c4ffc89a23f215cfb5859b8fe20.pdf"}
+{"kind":"URL","value":"https://chateau-climens.com/wp-content/uploads/2023/03/Chateau-Climens-2005-Fiche-Technique.pdf"}
 {"kind":"URL","value":"https://chateau-climens.com/wp-content/uploads/2023/03/Chateau-Climens-2016-Fiche-Technique.pdf"}
 {"kind":"URL","value":"https://chateau-climens.com/wp-content/uploads/2023/03/Chateau-Climens-Asphodele-2019-Fiche-Technique.pdf"}
 {"kind":"URL","value":"https://chateau-climens.com/wp-content/uploads/2023/03/Chateau-Climens-Asphodele-2020-Fiche-Technique.pdf"}
 {"kind":"URL","value":"https://chateau-climens.com/wp-content/uploads/2023/03/Fiche-Technique-Climens-2006.pdf"}
+{"kind":"URL","value":"https://chateau-climens.com/wp-content/uploads/2024/02/Fact-Sheet-Climens-2006.pdf"}
+{"kind":"URL","value":"https://chateau-climens.com/wp-content/uploads/2024/02/Fact-Sheet-Climens-2007.pdf"}
+{"kind":"URL","value":"https://chateau-climens.com/wp-content/uploads/2024/02/Fact-Sheet-Fenouil-et-Camomille-2022.pdf"}
 {"kind":"URL","value":"https://chateau-climens.com/wp-content/uploads/2024/02/Fiche-Technique-Climens-2005.pdf"}
 {"kind":"URL","value":"https://chateau-climens.com/wp-content/uploads/2024/02/Fiche-Technique-Climens-2007.pdf"}
 {"kind":"URL","value":"https://chateau-climens.com/wp-content/uploads/2024/02/Fiche-Technique-Climens-2008.pdf"}
@@ -13799,6 +13806,7 @@
 {"kind":"URL","value":"https://chateaudumoulinrouge.fr/wp-content/uploads/2019/09/fiche-technique-chateau-du-moulin-rouge-2017.pdf"}
 {"kind":"URL","value":"https://chateaudumoulinrouge.fr/wp-content/uploads/2019/09/fiche-technique-chateau-du-moulin-rouge-2018.pdf"}
 {"kind":"URL","value":"https://chateaudumoulinrouge.fr/wp-content/uploads/2019/09/technical-sheet-chateau-du-moulin-rouge-2017.pdf"}
+{"kind":"URL","value":"https://chateaudumoulinrouge.fr/wp-content/uploads/2019/09/technical-sheet-chateau-du-moulin-rouge-2018.pdf"}
 {"kind":"URL","value":"https://chateaudumoulinrouge.fr/wp-content/uploads/2024/02/fiche-technique-chateau-du-moulin-rouge-2018.pdf"}
 {"kind":"URL","value":"https://chateaulacardonne.com/david-vs-goliath-degustation-a-laveugle-vn-2010-vs-chateau-lafite-rothschild-2010/"}
 {"kind":"URL","value":"https://chateaulacardonne.com/en/david-vs-goliath-blind-tasting-vn-2010-vs-chateau-lafite-rothschild-2010/"}
@@ -14026,6 +14034,7 @@
 {"kind":"URL","value":"https://lamaisoncardinale.com/wp-content/uploads/2026/07/Chateau-Croix-Cardinale-2025_Fiche-Technique-Primeurs.pdf"}
 {"kind":"URL","value":"https://lamaisoncardinale.com/wp-content/uploads/2026/07/Chateau-Croix-Cardinale-2025_Technical-Sheet-Primeurs.pdf"}
 {"kind":"URL","value":"https://lamaisoncardinale.com/wp-content/uploads/2026/07/Chateau-Fleur-Cardinale-2025_Fiche-Technique-Primeurs.pdf"}
+{"kind":"URL","value":"https://lamaisoncardinale.com/wp-content/uploads/2026/07/Chateau-Fleur-Cardinale-2025_Technical-Sheet-Primeurs.pdf"}
 {"kind":"URL","value":"https://lamaisoncardinale.com/wp-content/uploads/2026/07/Fiche-Technique-Revelation-de-Croix-Cardinale-2023.pdf"}
 {"kind":"URL","value":"https://lamaisoncardinale.com/wp-content/uploads/2026/07/Fiche-Technique_Chateau-Fleur-Cardinale-2023.pdf"}
 {"kind":"URL","value":"https://lamaisoncardinale.com/wp-content/uploads/2026/07/IFC-2024-Certificate-of-Bottling.pdf"}
@@ -15161,6 +15170,12 @@
 {"kind":"URL","value":"https://www.chateau-kirwan.com/en/millesime/2021/"}
 {"kind":"URL","value":"https://www.chateau-kirwan.com/en/millesime/2022/"}
 {"kind":"URL","value":"https://www.chateau-kirwan.com/en/millesime/2023/"}
+{"kind":"URL","value":"https://www.chateau-kirwan.com/wp-content/uploads/2024/05/2017-FACT-SHEET-ENG-ChateauKirwan.pdf"}
+{"kind":"URL","value":"https://www.chateau-kirwan.com/wp-content/uploads/2024/05/2018-FACT-SHEET-ENG-ChateauKirwan.pdf"}
+{"kind":"URL","value":"https://www.chateau-kirwan.com/wp-content/uploads/2024/05/2019-FACT-SHEET-ENG-ChateauKirwan.pdf"}
+{"kind":"URL","value":"https://www.chateau-kirwan.com/wp-content/uploads/2024/05/2020-FACT-SHEET-ENG-ChateauKirwan.pdf"}
+{"kind":"URL","value":"https://www.chateau-kirwan.com/wp-content/uploads/2024/05/2021-FACT-SHEET-ENG-ChateauKirwan.pdf"}
+{"kind":"URL","value":"https://www.chateau-kirwan.com/wp-content/uploads/2024/11/2022-FACT-SHEET-ENG-ChateauKirwan.pdf"}
 {"kind":"URL","value":"https://www.chateau-la-croix-de-gay.com/wp-content/uploads/sites/3/2024/12/Mill2017-FT-CDG-ENG.pdf"}
 {"kind":"URL","value":"https://www.chateau-la-croix-de-gay.com/wp-content/uploads/sites/3/2024/12/Mill2018-FT-CDG-ENG.pdf"}
 {"kind":"URL","value":"https://www.chateau-la-croix-de-gay.com/wp-content/uploads/sites/3/2024/12/Mill2019-FT-CDG-ENG.pdf"}
@@ -15203,6 +15218,10 @@
 {"kind":"URL","value":"https://www.chateau-laroque.com/wp-content/uploads/2019/01/FT_TDL_2015_UK.pdf"}
 {"kind":"URL","value":"https://www.chateau-laroque.com/wp-content/uploads/2019/01/FT_TDL_2016_UK.pdf"}
 {"kind":"URL","value":"https://www.chateau-laroque.com/wp-content/uploads/2024/04/Carto_Laroque_2022.pdf"}
+{"kind":"URL","value":"https://www.chateau-laroque.com/wp-content/uploads/2024/06/FT_NUMERIQUE_LAROQUE_2018.pdf"}
+{"kind":"URL","value":"https://www.chateau-laroque.com/wp-content/uploads/2024/06/FT_NUMERIQUE_LAROQUE_2019.pdf"}
+{"kind":"URL","value":"https://www.chateau-laroque.com/wp-content/uploads/2024/06/FT_NUMERIQUE_LAROQUE_2020.pdf"}
+{"kind":"URL","value":"https://www.chateau-laroque.com/wp-content/uploads/2024/06/FT_NUMERIQUE_LAROQUE_2021.pdf"}
 {"kind":"URL","value":"https://www.chateau-laroque.com/wp-content/uploads/2024/06/FT_NUMERIQUE_LAROQUE_2023.pdf"}
 {"kind":"URL","value":"https://www.chateau-laroque.com/wp-content/uploads/2024/07/Carte-des-terroirs-de-Laroque-Illustres-Le-Gout-des-Paysages.pdf"}
 {"kind":"URL","value":"https://www.chateau-laroque.com/wp-content/uploads/2024/07/Carte-des-terroirs-de-Laroque-Le-Gout-des-Paysages.pdf"}
@@ -15215,7 +15234,9 @@
 {"kind":"URL","value":"https://www.chateau-laroque.com/wp-content/uploads/2024/11/FT_NUMERIQUE_LAROQUE_2023_ANG.pdf"}
 {"kind":"URL","value":"https://www.chateau-laroque.com/wp-content/uploads/2025/12/Packshot-bouteille_Chateau-Laroque-2024_75cl.pdf"}
 {"kind":"URL","value":"https://www.chateau-laroque.com/wp-content/uploads/2026/01/FT-Chateau-Laroque-2024-avec-titre_FR.pdf"}
+{"kind":"URL","value":"https://www.chateau-laroque.com/wp-content/uploads/2026/07/FT_NUMERIQUE_CHATEAU_LAROQUE_2022_ANG.pdf"}
 {"kind":"URL","value":"https://www.chateau-laroque.com/wp-content/uploads/2026/07/FT_NUMERIQUE_CHATEAU_LAROQUE_2022_FR_MAJ.pdf"}
+{"kind":"URL","value":"https://www.chateau-laroque.com/wp-content/uploads/2026/07/FT_NUMERIQUE_CHATEAU_LAROQUE_2023_ANG_MAJ.pdf"}
 {"kind":"URL","value":"https://www.chateau-laroque.com/wp-content/uploads/2026/07/FT_NUMERIQUE_CHATEAU_LAROQUE_2023_FR_MAJ.pdf"}
 {"kind":"URL","value":"https://www.chateau-laroque.com/wp-content/uploads/2026/07/LAROQUE_FICHE_TECHNIQUE_2025_FR_210x297mm.pdf"}
 {"kind":"URL","value":"https://www.chateau-latour.com/en/a-time-for-sharing/vintages#1945"}
@@ -15369,6 +15390,7 @@
 {"kind":"URL","value":"https://www.chateau-montrose.com/wp-content/uploads/Montrose_Presentation_Longue_FR-1.pdf"}
 {"kind":"URL","value":"https://www.chateau-montrose.com/wp-content/uploads/Montrose_Presentation_Longue_FR-2.pdf"}
 {"kind":"URL","value":"https://www.chateau-montrose.com/wp-content/uploads/Montrose_Presentation_Longue_FR.pdf"}
+{"kind":"URL","value":"https://www.chateau-montrose.com/wp-content/uploads/Presentation-millesime-MO2025_EN.pdf"}
 {"kind":"URL","value":"https://www.chateau-montrose.com/wp-content/uploads/Presentation-millesime-MO2025_FR-1.pdf"}
 {"kind":"URL","value":"https://www.chateau-montrose.com/wp-content/uploads/TMO-2023-EN.pdf"}
 {"kind":"URL","value":"https://www.chateau-montrose.com/wp-content/uploads/TMO-2023-FR.pdf"}
@@ -16043,6 +16065,7 @@
 {"kind":"URL","value":"https://www.chateaudeferrand.com/wp-content/uploads/2026/03/offres-et-tarifs-cavistes-comptoir-offres-de-printemps-2026.pdf"}
 {"kind":"URL","value":"https://www.chateaudeferrand.com/wp-content/uploads/2026/05/offres-et-tarifs-cavistes-comptoir-offres-de-printemps-2026.pdf"}
 {"kind":"URL","value":"https://www.chateaudeferrand.com/wp-content/uploads/2026/05/primeur-2025-scores.pdf"}
+{"kind":"URL","value":"https://www.chateaudeferrand.com/wp-content/uploads/2026/06/chateau-de-ferrand-2024.pdf"}
 {"kind":"URL","value":"https://www.chateaudevisedardilley.fr/wp-content/uploads/sites/8/2020/12/TARIFS-PARTICULIERS-du-01.10.2020-au-31.03.2021-recto-verso.pdf"}
 {"kind":"URL","value":"https://www.chateaudevisedardilley.fr/wp-content/uploads/sites/8/2022/07/bon-de-commande2022.pdf"}
 {"kind":"URL","value":"https://www.chateaudevisedardilley.fr/wp-content/uploads/sites/8/2022/09/TARIFS-PARTICULIERS-au-01.07.2022.pdf"}
@@ -16051,10 +16074,13 @@
 {"kind":"URL","value":"https://www.chateaufrancmayne.com/wp-content/uploads/2019/12/fm_ft_2016-fr-la-bonne.pdf"}
 {"kind":"URL","value":"https://www.chateaufrancmayne.com/wp-content/uploads/2020/02/fm_ft_2014-fr.pdf"}
 {"kind":"URL","value":"https://www.chateaufrancmayne.com/wp-content/uploads/2020/02/fm_ft_2016-fr-pdf.pdf"}
+{"kind":"URL","value":"https://www.chateaufrancmayne.com/wp-content/uploads/2020/02/fm_ft_2016-gb-good-one.pdf"}
 {"kind":"URL","value":"https://www.chateaufrancmayne.com/wp-content/uploads/2020/02/fm_ft_2017-fr.pdf"}
 {"kind":"URL","value":"https://www.chateaufrancmayne.com/wp-content/uploads/2020/05/fm_ft_2000-fr.pdf"}
 {"kind":"URL","value":"https://www.chateaufrancmayne.com/wp-content/uploads/2020/05/formulaire-retractation.pdf"}
 {"kind":"URL","value":"https://www.chateaufrancmayne.com/wp-content/uploads/2020/06/fm_primeurs_2019-photo-15360.pdf"}
+{"kind":"URL","value":"https://www.chateaufrancmayne.com/wp-content/uploads/2020/11/ft_ilex-fm-2018-gb.pdf"}
+{"kind":"URL","value":"https://www.chateaufrancmayne.com/wp-content/uploads/2021/10/ft_ilex-fm-2019.pdf"}
 {"kind":"URL","value":"https://www.chateaufrancmayne.com/wp-content/uploads/2022/06/fiche-technique-millesime-2-021-chacc82teau-franc-mayne.pdf"}
 {"kind":"URL","value":"https://www.chateaufrancmayne.com/wp-content/uploads/2023/04/ft-ilex-20-fr88010.pdf"}
 {"kind":"URL","value":"https://www.chateaufrancmayne.com/wp-content/uploads/2023/06/fiche-technique-mille-202295198.pdf"}
@@ -17807,6 +17833,17 @@
 {"kind":"URL","value":"https://www.lafon-rochet.com/vins/pelerins-de-lafon-rochet/millesime-2015/"}
 {"kind":"URL","value":"https://www.lafon-rochet.com/vins/pelerins-de-lafon-rochet/millesime-2016/"}
 {"kind":"URL","value":"https://www.lafon-rochet.com/vins/pelerins-de-lafon-rochet/millesime-2021-2/"}
+{"kind":"URL","value":"https://www.lafon-rochet.com/wp-content/uploads/2023/03/1637924245_ft-lafonrochet2018-fr.pdf"}
+{"kind":"URL","value":"https://www.lafon-rochet.com/wp-content/uploads/2023/03/FT_LafonRochet2007_FR.pdf"}
+{"kind":"URL","value":"https://www.lafon-rochet.com/wp-content/uploads/2023/03/FT_LafonRochet2008_FR.pdf"}
+{"kind":"URL","value":"https://www.lafon-rochet.com/wp-content/uploads/2023/03/FT_LafonRochet2009_EN.pdf"}
+{"kind":"URL","value":"https://www.lafon-rochet.com/wp-content/uploads/2023/03/FT_LafonRochet2009_FR.pdf"}
+{"kind":"URL","value":"https://www.lafon-rochet.com/wp-content/uploads/2023/03/FT_LafonRochet2011_FR.pdf"}
+{"kind":"URL","value":"https://www.lafon-rochet.com/wp-content/uploads/2023/03/FT_LafonRochet2013_EN.pdf"}
+{"kind":"URL","value":"https://www.lafon-rochet.com/wp-content/uploads/2023/03/FT_LafonRochet2013_FR.pdf"}
+{"kind":"URL","value":"https://www.lafon-rochet.com/wp-content/uploads/2023/03/FT_LafonRochet2014_EN.pdf"}
+{"kind":"URL","value":"https://www.lafon-rochet.com/wp-content/uploads/2023/03/FT_LafonRochet2017_FR.pdf"}
+{"kind":"URL","value":"https://www.lafon-rochet.com/wp-content/uploads/2023/03/FT_LafonRochet2020_EN-1.pdf"}
 {"kind":"URL","value":"https://www.langoa-barton.com/en/wines/1/chateau-langoa-barton/1995"}
 {"kind":"URL","value":"https://www.langoa-barton.com/en/wines/1/chateau-langoa-barton/1996"}
 {"kind":"URL","value":"https://www.langoa-barton.com/en/wines/1/chateau-langoa-barton/1997"}
@@ -18204,6 +18241,7 @@
 {"kind":"URL","value":"https://www.leoville-poyferre.fr/vins/m-de-moulin-riche/millesime-2022/"}
 {"kind":"URL","value":"https://www.leoville-poyferre.fr/vins/m-de-moulin-riche/millesime-2023/"}
 {"kind":"URL","value":"https://www.leoville-poyferre.fr/vins/pavillon-de-leoville-poyferre/millesime-2024/"}
+{"kind":"URL","value":"https://www.leoville-poyferre.fr/wp-content/uploads/2021/11/leoville-poyferre2019-fichecaisse-frgb.pdf"}
 {"kind":"URL","value":"https://www.leoville-poyferre.fr/wp-content/uploads/2025/10/dossier-primeurs-lp2024-en-web.pdf"}
 {"kind":"URL","value":"https://www.leoville-poyferre.fr/wp-content/uploads/2025/10/dossier-primeurs-lp2024-fr-web.pdf"}
 {"kind":"URL","value":"https://www.leoville-poyferre.fr/wp-content/uploads/2025/10/leoville-poyferre2023-fichecaisse-frgb.pdf"}
@@ -18550,6 +18588,7 @@
 {"kind":"URL","value":"https://www.mission-haut-brion.com/wp-content/uploads/sites/4/2022/05/Fiche-technique_ChapelleMissionHB_1995_EN.pdf"}
 {"kind":"URL","value":"https://www.mission-haut-brion.com/wp-content/uploads/sites/4/2022/05/Fiche-technique_ChapelleMissionHB_1996_EN.pdf"}
 {"kind":"URL","value":"https://www.mission-haut-brion.com/wp-content/uploads/sites/4/2022/05/Fiche-technique_ChapelleMissionHB_1997_EN.pdf"}
+{"kind":"URL","value":"https://www.mission-haut-brion.com/wp-content/uploads/sites/4/2022/05/Fiche-technique_ChapelleMissionHB_1997_FR-1.pdf"}
 {"kind":"URL","value":"https://www.mission-haut-brion.com/wp-content/uploads/sites/4/2022/05/Fiche-technique_ChapelleMissionHB_1999_EN.pdf"}
 {"kind":"URL","value":"https://www.mission-haut-brion.com/wp-content/uploads/sites/4/2022/05/Fiche-technique_ChapelleMissionHB_2000_EN.pdf"}
 {"kind":"URL","value":"https://www.mission-haut-brion.com/wp-content/uploads/sites/4/2022/05/Fiche-technique_ChapelleMissionHB_2001_EN.pdf"}
@@ -18558,6 +18597,11 @@
 {"kind":"URL","value":"https://www.mission-haut-brion.com/wp-content/uploads/sites/4/2022/05/Fiche-technique_ChapelleMissionHB_2005_EN.pdf"}
 {"kind":"URL","value":"https://www.mission-haut-brion.com/wp-content/uploads/sites/4/2022/05/Fiche-technique_ChapelleMissionHB_2006_EN.pdf"}
 {"kind":"URL","value":"https://www.mission-haut-brion.com/wp-content/uploads/sites/4/2022/05/Fiche-technique_ChapelleMissionHB_2007_EN.pdf"}
+{"kind":"URL","value":"https://www.mission-haut-brion.com/wp-content/uploads/sites/4/2022/05/Fiche-technique_ChapelleMissionHB_2018_FR.pdf"}
+{"kind":"URL","value":"https://www.mission-haut-brion.com/wp-content/uploads/sites/4/2022/05/Fiche-technique_ChapelleMissionHB_2020_FR.pdf"}
+{"kind":"URL","value":"https://www.mission-haut-brion.com/wp-content/uploads/sites/4/2022/05/Fiche-technique_MissionHBB_2014_EN.pdf"}
+{"kind":"URL","value":"https://www.mission-haut-brion.com/wp-content/uploads/sites/4/2022/05/Fiche-technique_MissionHBB_2015_EN.pdf"}
+{"kind":"URL","value":"https://www.mission-haut-brion.com/wp-content/uploads/sites/4/2022/05/Fiche-technique_MissionHBB_2020_FR.pdf"}
 {"kind":"URL","value":"https://www.mission-haut-brion.com/wp-content/uploads/sites/4/2022/05/Fiche-technique_MissionHBR_1990_EN.pdf"}
 {"kind":"URL","value":"https://www.mission-haut-brion.com/wp-content/uploads/sites/4/2022/05/Fiche-technique_MissionHBR_1991_EN.pdf"}
 {"kind":"URL","value":"https://www.mission-haut-brion.com/wp-content/uploads/sites/4/2022/05/Fiche-technique_MissionHBR_1992_EN.pdf"}
@@ -18601,6 +18645,8 @@
 {"kind":"URL","value":"https://www.mission-haut-brion.com/wp-content/uploads/sites/4/2026/06/Château-La-Mission-Haut-Brion-2025_FR.pdf"}
 {"kind":"URL","value":"https://www.mission-haut-brion.com/wp-content/uploads/sites/4/2026/06/Château-La-Mission-Haut-Brion-2025_UK.pdf"}
 {"kind":"URL","value":"https://www.mission-haut-brion.com/wp-content/uploads/sites/4/2026/07/Carte-LCDC-Pessac.pdf"}
+{"kind":"URL","value":"https://www.mission-haut-brion.com/wp-content/uploads/sites/4/2026/07/Fiche-technique_ChapelleMissionHB_2022_EN.pdf"}
+{"kind":"URL","value":"https://www.mission-haut-brion.com/wp-content/uploads/sites/4/2026/07/Fiche-technique_ChapelleMissionHB_2024_EN.pdf"}
 {"kind":"URL","value":"https://www.mission-haut-brion.com/zh/the-wines/chateau-la-mission-haut-brion-rouge/chateau-la-mission-haut-brion-rouge-2024/"}
 {"kind":"URL","value":"https://www.mission-haut-brion.com/zh/the-wines/chateau-la-mission-haut-brion-rouge/chateau-la-mission-haut-brion-rouge-2025/"}
 {"kind":"URL","value":"https://www.mission-haut-brion.com/zh/the-wines/la-chapelle-de-la-mission-haut-brion/la-chapelle-de-la-mission-haut-brion2019/"}
@@ -18852,6 +18898,7 @@
 {"kind":"URL","value":"https://www.tour-blanche.com/wp-content/uploads/2026/07/CARTE-AD-2026-1.pdf"}
 {"kind":"URL","value":"https://www.tour-blanche.com/wp-content/uploads/2026/09/LEONIE-DE-LA-TOUR-BLANCHE-2025-UK.pdf"}
 {"kind":"URL","value":"https://www.tour-blanche.com/wp-content/uploads/2026/09/LEONIE-DE-LA-TOUR-BLANCHE-UK.pdf"}
+{"kind":"URL","value":"https://www.trottevieille.com/wp-content/uploads/2024/04/Fiche-technique-Ch-TrotteVieille-2023.pdf"}
 {"kind":"URL","value":"https://www.trottevieille.com/wp-content/uploads/2024/07/1-FT-Web_TrotteVieille_en_2020.pdf"}
 {"kind":"URL","value":"https://www.trottevieille.com/wp-content/uploads/2024/07/1-FT-Web_TrotteVieille_en_2022.pdf"}
 {"kind":"URL","value":"https://www.trottevieille.com/wp-content/uploads/2024/07/1-FT-Web_TrotteVieille_en_2023.pdf"}
@@ -18954,6 +19001,7 @@
 {"kind":"URL","value":"https://www.vignoblesdeterroirs.com/wp-content/uploads/2024/11/2011-Broustet-Anglais.pdf"}
 {"kind":"URL","value":"https://www.vignoblesdeterroirs.com/wp-content/uploads/2024/11/2013-Lesperance-Anglais.pdf"}
 {"kind":"URL","value":"https://www.vignoblesdeterroirs.com/wp-content/uploads/2024/11/2016-Broustet.pdf"}
+{"kind":"URL","value":"https://www.vignoblesdeterroirs.com/wp-content/uploads/2024/11/2020-Carillon-1.pdf"}
 {"kind":"URL","value":"https://www.vignoblesdeterroirs.com/wp-content/uploads/2024/11/2021-Les-Lattes-1.pdf"}
 {"kind":"URL","value":"https://www.vignoblesdeterroirs.com/wp-content/uploads/2024/11/Chateau-Broustet.pdf"}
 {"kind":"URL","value":"https://www.vignoblesdeterroirs.com/wp-content/uploads/2024/11/Chateau-Carcanieux.pdf"}

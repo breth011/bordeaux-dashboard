@@ -103,8 +103,93 @@ REASON = {
 }
 
 
+def _host(u):
+    from urllib.parse import urlparse
+    h = urlparse(u).netloc.lower()
+    return h[4:] if h.startswith('www.') else h
+
+
+def estate_domains():
+    """Model estate -> the hosts of its own site (websites.js via targets.json, and the crawl's domain)."""
+    t = json.load(open(L.ROOT + 'data/discovery/targets.json', encoding='utf-8'))
+    cov = {c['estate']: c for c in json.load(open(L.ROOT + 'data/discovery/coverage.json', encoding='utf-8'))}
+    u2e = A.universe_to_estate()
+    out = {}
+    for e in t['estates']:
+        es = u2e.get(e['universe_id'])
+        hosts = set()
+        if e.get('site'):
+            hosts.add(_host(e['site']))
+        if cov.get(e['universe_id'], {}).get('domain'):
+            hosts.add(_host('https://' + cov[e['universe_id']]['domain']))
+        if es:
+            out.setdefault(es, set()).update(hosts)
+    return out
+
+
+def discovered():
+    """sha256 -> [location rows] and basename -> {sha256} over the discovery store."""
+    by_sha, by_name = {}, {}
+    import glob
+    for p in sorted(glob.glob(L.ROOT + 'data/discovery/locations/*.jsonl')):
+        for r in L.jsonl_lines(p):
+            u = r.get('final_url') or r.get('url')
+            if not r.get('sha256') or not u:
+                continue
+            by_sha.setdefault(r['sha256'], []).append(r)
+            by_name.setdefault(os.path.basename(u.split('?')[0]).lower(), set()).add(r['sha256'])
+    return by_sha, by_name
+
+
+def stream_b():
+    """The 71 figures whose own sheet is held with no address, while the crawl fetched the very same
+    bytes (same sha256) from a URL. Eligible (APPLY_PLACEMENT) when such a URL is on the estate's own
+    site: the address belongs to the exact artifact. A third-party host goes to review; a file of the
+    same name with other bytes is another version, recorded, never attached."""
+    gaps = gap_ids()
+    domains = estate_domains()
+    by_sha, by_name = discovered()
+    out = []
+    for f in A.file_only_figures():
+        if not f['url_known']:
+            continue
+        aid = f['document']
+        a = A.by_id('identity/artifacts.jsonl')[aid]
+        locs = sorted(by_sha.get(a['sha256'], []), key=lambda r: (r.get('final_url') or r['url'], r['at']))
+        estates = sorted({x['estate'] for x in A.legacy_attr_by_artifact().get(aid, []) if x.get('estate')})
+        own = set().union(*[domains.get(e, set()) for e in estates]) if estates else set()
+        first = [r for r in locs if any(_host(r.get('final_url') or r['url']) == h or
+                                        _host(r.get('final_url') or r['url']).endswith('.' + h) for h in own)]
+        basename = f['provenance']['legacy_reference']['basename']
+        versions = sorted(by_name.get(basename.lower(), set()) - {a['sha256']})
+        if first:
+            cls, disp = 'EXACT_FIRST_PARTY', 'APPLY_PLACEMENT'
+        elif locs:
+            cls, disp = 'EXACT_THIRD_PARTY', 'REVIEW'
+        else:
+            cls, disp = 'AMBIGUOUS_SOURCE', 'REVIEW'
+        urls = sorted({r.get('final_url') or r['url'] for r in first})
+        out.append({'stream': 'B', 'key': 'B|%s|%s|%s' % (f['file'], f['record'], f['field']),
+                    'gap_id': gaps.get('FIG_FILE_ONLY|URL_IN_DISCOVERY'),
+                    'target': {'record_file': f['file'], 'record': f['record'], 'field': f['field'], 'subject': f['subject']},
+                    'current_value': f['value'], 'current_provenance': f['provenance']['id'],
+                    'proposed': {'placements': urls, 'value': 'unchanged'} if disp.startswith('APPLY') else None,
+                    'source': {'artifact': aid, 'sha256': a['sha256'], 'filename': basename, 'estates': estates,
+                               'estate_hosts': sorted(own), 'urls_same_bytes': sorted({r.get('final_url') or r['url'] for r in locs}),
+                               'urls_first_party': urls, 'other_versions': len(versions),
+                               'fetched': [{'url': r.get('final_url') or r['url'], 'at': r['at'],
+                                            'via': r.get('discovered_via')} for r in first]},
+                    'evidence': {'correspondence': 'identical bytes (sha256)' if locs else 'none'},
+                    'classification': cls, 'disposition': disp,
+                    'confidence': 'HIGH' if disp.startswith('APPLY') else 'LOW',
+                    'reason': {'EXACT_FIRST_PARTY': 'the estate\'s own site served exactly these bytes',
+                               'EXACT_THIRD_PARTY': 'the same bytes, but from a host that is not the estate\'s site',
+                               'AMBIGUOUS_SOURCE': 'no address carries exactly these bytes'}[cls]})
+    return out
+
+
 def build():
-    rows = stream_a()
+    rows = stream_a() + stream_b()
     for r in rows:
         r['id'] = 'm32_' + L.stable_hash('M32Candidate', r['key'])
         r['extractor'] = R.VERSION

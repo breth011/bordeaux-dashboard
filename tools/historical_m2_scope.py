@@ -27,7 +27,10 @@ import subprocess
 import migration_lib as L
 
 M2_FILES = ('cross/provenance.jsonl', 'document/artifact-dates.jsonl', 'manifest.json')
-M32_FILES = ('canonical/values.jsonl', 'observation/observations.jsonl')
+M32_FILES = ('canonical/values.jsonl', 'observation/observations.jsonl',      # M3.2A
+             'document/placements.jsonl', 'document/locators.jsonl',        # M3.2B
+             'derived/source-documents.json')                               # M3.2B, its index
+M32B_STAT = 'M3.2B placements (recovered addresses)'
 ALLOWED = set(M2_FILES) | set(M32_FILES)
 M2_ACTOR = 'tools/extract-document-dates.py'
 M32_ACTOR = 'tools/m32-recovery.py'
@@ -89,22 +92,44 @@ def unpack_figure_sources(text):
     return {k: {f: d['docs'][i] for f, i in r.items()} for k, r in d['rec'].items()}
 
 
+def m32b_urls():
+    """The addresses M3.2B placed (its APPLY_PLACEMENT rows' first-party URLs)."""
+    out = set()
+    for line in open(L.ROOT + M32_AUDIT, encoding='utf-8'):
+        r = json.loads(line)
+        if r['disposition'] == 'APPLY_PLACEMENT':
+            out.update(f['url'] for f in r['source']['fetched'])
+    return out
+
+
 def figure_sources_change_is_m32_only(before=M32_BEFORE):
-    """data/app/figure-sources.js differs from `before` by exactly M3.2's recovered figures: each one
-    present, each one an own source ({n} or {n, u}), and nothing else added, removed or changed."""
+    """data/app/figure-sources.js differs from `before` by exactly M3.2's work:
+    M3.2A  each recovered figure present with its own source ({n} or {n, u}), where none was;
+    M3.2B  a figure whose own file had no address gains one ({n} -> {n, u}, the same n), and that
+           address is one M3.2B placed.
+    Nothing else added, removed or changed."""
     now = unpack_figure_sources(open(L.ROOT + 'data/app/figure-sources.js', encoding='utf-8').read())
     old = unpack_figure_sources(_git('show', '%s:data/app/figure-sources.js' % before))
     applied = m32_applied()
+    placed = m32b_urls()
     for rec, field in applied:
         s = now.get(rec, {}).get(field)
         assert s and set(s) <= {'n', 'u'} and s.get('n'), 'recovered figure without its source: %s %s' % (rec, field)
         assert field not in old.get(rec, {}), 'a recovered figure already had a source: %s %s' % (rec, field)
     rest = {}
     for rec, fs in now.items():
-        kept = {f: s for f, s in fs.items() if (rec, f) not in applied}
+        kept = {}
+        for f, s in fs.items():
+            if (rec, f) in applied:
+                continue
+            o = old.get(rec, {}).get(f)
+            if o is not None and o != s and set(o) == {'n'} and set(s) == {'n', 'u'} and s['n'] == o['n'] \
+                    and s['u'] in placed:
+                s = o                                    # M3.2B: the address of exactly these bytes
+            kept[f] = s
         if kept:
             rest[rec] = kept
-    assert rest == old, 'figure-sources.js changed beyond the M3.2 recovered figures'
+    assert rest == old, 'figure-sources.js changed beyond the M3.2 recovered figures and addresses'
     return True
 
 
@@ -131,6 +156,32 @@ def model_changes_are_m2_only(before):
         assert o <= n, '%s: %d rows changed or removed' % (rel, len(o - n))
         bad = [r for r in (json.loads(x) for x in n - o) if not check(r)]
         assert not bad, '%s: an added row is not M2\'s or M3.2\'s: %s' % (rel, bad[:1])
+    # M3.2B: URL placements (and their locators) added, each with an M3.2B provenance
+    for rel in ('document/placements.jsonl', 'document/locators.jsonl'):
+        if rel not in changed:
+            continue
+        old, new = _lines(before, rel)
+        o, n = set(old.splitlines()), set(new.splitlines())
+        assert o <= n, '%s: %d rows changed or removed' % (rel, len(o - n))
+        for x in n - o:
+            r = json.loads(x)
+            if rel.endswith('placements.jsonl'):
+                p = prov.get(r['provenance']) or {}
+                assert r['locator']['kind'] == 'URL' and p.get('actor') == M32_ACTOR and \
+                    (p.get('code_state') or {}).get('stream') == 'M3.2B', ('not an M3.2B placement', r['id'])
+            else:
+                assert r['kind'] == 'URL', ('not a URL locator', r)
+    # M3.2B's derived index: a source may only gain artifacts that M3.2B placed on its host
+    if 'derived/source-documents.json' in changed:
+        old, new = (json.loads(x) for x in _lines(before, 'derived/source-documents.json'))
+        placed = set()
+        for x in open(L.MODEL + 'document/placements.jsonl', encoding='utf-8'):
+            r = json.loads(x)
+            if (prov.get(r['provenance'], {}).get('code_state') or {}).get('stream') == 'M3.2B':
+                placed.add(r['artifact'])
+        for k in set(old) | set(new):
+            o, n = set(old.get(k, [])), set(new.get(k, []))
+            assert o <= n and n - o <= placed, ('derived/source-documents.json', k, sorted(o - n), sorted(n - o - placed))
     for rel, key, fields in (('canonical/values.jsonl', lambda r: (r['subject'], r['field']), {'provenance', 'status'}),
                              ('observation/observations.jsonl', lambda r: r['id'], {'provenance'})):
         if rel not in changed:
@@ -159,8 +210,9 @@ def model_changes_are_m2_only(before):
                 for st in set(a_all) | set(b_all):
                     a, b = dict(a_all.get(st, {})), dict(b_all.get(st, {}))
                     if st == 'M6':
-                        a.pop(M2_STAT, None)
-                        b.pop(M2_STAT, None)
+                        for s in (M2_STAT, M32B_STAT):
+                            a.pop(s, None)
+                            b.pop(s, None)
                     assert a == b, 'manifest stats %s changed' % st
             else:
                 assert old.get(k) == new.get(k), 'manifest %s changed' % k

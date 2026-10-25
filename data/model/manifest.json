@@ -20,8 +20,8 @@
   },
   "cross/provenance.jsonl": {
    "entity": "Provenance",
-   "rows": 26690,
-   "sha256": "b8340cf5493f1cb35842deabdec6be266b54dbd3a5ce65a41123367fa3491e0e"
+   "rows": 26738,
+   "sha256": "5372ee51152a396183638e5fb3b8b55284983f03e7b6771ededee7e4dbdfcfa6"
   },
   "document/artifact-dates.jsonl": {
    "entity": "ArtifactDate",
@@ -55,13 +55,13 @@
   },
   "document/locators.jsonl": {
    "entity": "Locator",
-   "rows": 18972,
-   "sha256": "bda8311413a6f22e88794884273cbebd172f54a55763d1ca9ab9a7d9e4281028"
+   "rows": 19020,
+   "sha256": "e2c467fe01ba320aca60279b8885cce4c70f77cf51526caab7f9a056222c93a6"
   },
   "document/placements.jsonl": {
    "entity": "Placement",
-   "rows": 19394,
-   "sha256": "2ab032a2d27b01f3b64529da2b279ae047808accf5a679e83e53c36db37fe158"
+   "rows": 19442,
+   "sha256": "4140a659f9ff2cd89bf72f901de978ddda6a6d9ef18cce8122e963bf7059f289"
   },
   "identity/artifacts.jsonl": {
    "entity": "Artifact",
@@ -347,7 +347,8 @@
     "REJECTED_RETRIEVAL_DATE": 6462,
     "REJECTED_URL_ONLY": 6509,
     "REJECTED_VINTAGE_ONLY": 2875
-   }
+   },
+   "M3.2B placements (recovered addresses)": 48
   },
   "M7": {
    "backfill": {

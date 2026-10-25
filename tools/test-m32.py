@@ -174,8 +174,9 @@ def provenance_history_is_preserved():
 
 @check
 def model_missing_and_conflicts_are_never_applied():
+    eligible = {'A': 'MODEL_MATCHES', 'B': 'EXACT_FIRST_PARTY'}
     for r in audit():
-        if r['classification'] != 'MODEL_MATCHES':
+        if r['classification'] != eligible[r['stream']]:
             assert not r['disposition'].startswith('APPLY'), r['key']
             assert r['proposed'] is None, r['key']
     # a conflict stays with its legacy value and its record source
@@ -221,9 +222,10 @@ def open_decisions_stay_open():
 @check
 def gap_ids_are_stable_and_the_register_keeps_its_history():
     reg = {r['gap_id']: r for r in L.jsonl_lines(L.ROOT + 'data/audit/data-gap-register.jsonl')}
+    family = {'A': 'FIG_UNSOURCED|', 'B': 'FIG_FILE_ONLY|URL_IN_DISCOVERY'}
     for r in audit():
         assert r['gap_id'] in reg, r['key']
-        assert reg[r['gap_id']]['gap_key'].startswith('FIG_UNSOURCED|'), r['key']
+        assert reg[r['gap_id']]['gap_key'].startswith(family[r['stream']]), r['key']
     m31 = {json.loads(l)['gap_id']: json.loads(l) for l in git('show', '6880c16:data/audit/data-gap-register.jsonl').splitlines()}
     assert set(m31) <= set(reg), 'a gap was dropped from the register'
     # a resolved gap keeps its id, tier and original count, and names what resolved it
@@ -246,6 +248,50 @@ def gap_ids_are_stable_and_the_register_keeps_its_history():
 @check
 def figure_sources_change_is_exactly_the_recovered_figures():
     assert H.figure_sources_change_is_m32_only()
+
+
+# -- M3.2B: online addresses -----------------------------------------------------------------------
+
+@check
+def m32b_places_only_first_party_addresses_of_exactly_these_bytes():
+    import glob
+    prov = {p['id']: p for p in L.read_table('cross/provenance.jsonl')}
+    arts = {a['id']: a for a in L.read_table('identity/artifacts.jsonl')}
+    fetched = {}
+    for p in sorted(glob.glob(L.ROOT + 'data/discovery/locations/*.jsonl')):
+        for r in L.jsonl_lines(p):
+            u = r.get('final_url') or r.get('url')
+            if r.get('sha256') and u:
+                fetched.setdefault(u, set()).add(r['sha256'])
+    rows = {r['id']: r for r in audit() if r['stream'] == 'B'}
+    new = [pl for pl in L.read_table('document/placements.jsonl')
+           if (prov[pl['provenance']].get('code_state') or {}).get('stream') == 'M3.2B']
+    assert len(new) == len({(f['url'], r['source']['artifact']) for r in rows.values()
+                            if r['disposition'] == 'APPLY_PLACEMENT' for f in r['source']['fetched']}) == 48
+    for pl in new:
+        p = prov[pl['provenance']]
+        r = rows[p['code_state']['candidate']]
+        u = pl['locator']['value']
+        assert pl['locator']['kind'] == 'URL' and pl['artifact'] == r['source']['artifact'] == p['artifact']
+        assert arts[pl['artifact']]['sha256'] in fetched[u], u                 # identical bytes at that address
+        assert u in r['source']['urls_first_party']
+        host = u.split('/')[2].lower()
+        host = host[4:] if host.startswith('www.') else host
+        assert any(host == h or host.endswith('.' + h) for h in r['source']['estate_hosts']), u
+        assert pl['observed']['valid_from']['value'] == p['code_state']['fetched_at'][:10]
+
+
+@check
+def m32b_figures_gain_the_address_and_keep_their_file():
+    gen = H.unpack_figure_sources(open(L.ROOT + 'data/app/figure-sources.js', encoding='utf-8').read())
+    placed = H.m32b_urls()
+    for r in audit():
+        if r['stream'] == 'B' and r['disposition'] == 'APPLY_PLACEMENT':
+            s = gen[r['target']['record']][r['target']['field']]
+            assert s['n'] == r['source']['filename'] and s.get('u') in placed, r['key']
+        if r['stream'] == 'B':
+            assert r['source']['other_versions'] == 0 or r['disposition'] != 'APPLY_PLACEMENT' or \
+                r['source']['urls_first_party'], r['key']                          # a version is never attached
 
 
 def main():

@@ -148,3 +148,61 @@ Nothing was removed or skipped.
 ### Gate
 
 **SAFE — M3.2A EXISTING DATA RECOVERY COMPLETE**
+
+## M3.2B: online-source recovery
+
+**Candidates:** the 71 figures whose own sheet is held and named but carries no address, while the
+crawl fetched the same bytes from a URL.
+
+For each figure the audit records:
+
+- the exact artifact (sha256) and its file name;
+- every address that served exactly those bytes, by the crawl's own sha256;
+- whether that address is on the estate's own site (websites.js via `targets.json`, and the
+  crawled domain);
+- how the crawl found the address, and when;
+- how many files of the same name with *other* bytes exist online (other versions).
+
+Nothing was fetched: the crawl's record of each address is the evidence.
+
+| Classification | Figures | Disposition |
+|---|---:|---|
+| EXACT_FIRST_PARTY (the estate's own site served exactly these bytes) | **71** | APPLY_PLACEMENT |
+| EXACT_THIRD_PARTY (same bytes, another host) | 0 | review |
+| AMBIGUOUS_SOURCE (no address with these bytes) | 0 | review |
+| Different versions found under the same name | 0 | (would be recorded, never attached) |
+
+The 71 figures sit on 47 artifacts at 48 addresses: one artifact is served at two. All are on the
+estates' own sites, for example lafon-rochet.com, mission-haut-brion.com, chateau-kirwan.com and
+chateau-climens.com.
+
+### Application
+
+The migration (M6 `recovered_placements`) reads the APPLY_PLACEMENT rows. For each address it adds:
+
+- a **URL Placement** of the exact artifact, status PRESENT, observed on the crawl's fetch date
+  (a point on the calendar axis);
+- its **Locator**;
+- a **DOCUMENT provenance** naming the stream, the audit row, the address, how it was discovered
+  and when, and "identical bytes (sha256)".
+
+| File | Change |
+|---|---|
+| `document/placements.jsonl` | +48 URL placements; none changed |
+| `document/locators.jsonl` | +48 URL locators |
+| `cross/provenance.jsonl` | +48 DOCUMENT rows |
+| `derived/source-documents.json` | 14 sources gain the artifacts placed on their host; nothing removed |
+| `manifest.json` | those files; one M6 statistic |
+| `data/app/figure-sources.js` | 88 figures gain an address: the 71, and 17 other fields (picking dates, notes) that cite the same 47 files. Each keeps its file name; each new address is one M3.2B placed. |
+
+An address belongs to bytes, not to a field, so every figure citing those bytes gains it. That is
+why the count is 88 and not 71. No URL was made up: each one is an address the estate's own site
+answered with exactly the held file.
+
+The scope helper, the derived-index rebuild and the M3.2 suite hold the change to exactly this.
+The helper checks that the index only gains placed artifacts, and that each changed figure only
+went from {file} to {file, address} with an address from this stream.
+
+### Gate
+
+**SAFE — M3.2B EXISTING DATA RECOVERY COMPLETE**

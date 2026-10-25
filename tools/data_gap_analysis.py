@@ -107,9 +107,13 @@ def figures():
         file_of = {o['subject']: o['extraction']['file'] for o in obs if o['extraction']['file'] in FIGURE_FILES}
         linked = {o['subject'] for o in obs if o['field'] == 'document_url'}
         urls = collections.defaultdict(set)
+        recovered_url = collections.defaultdict(set)
         for pl in table('document/placements.jsonl'):
             if pl['locator']['kind'] == 'URL' and pl.get('artifact'):
-                urls[pl['artifact']].add(pl['locator']['value'])
+                if (pv[pl['provenance']].get('code_state') or {}).get('stream') == 'M3.2B':
+                    recovered_url[pl['artifact']].add(pl['locator']['value'])   # measured as before M3.2
+                else:
+                    urls[pl['artifact']].add(pl['locator']['value'])
         out = []
         for c in table('canonical/values.jsonl'):
             s = c['subject']
@@ -123,6 +127,8 @@ def figures():
                 p = pv[p['derived_from'][0]]
             if p['kind'] == 'LEGACY_FIELD_SOURCE':
                 state = 'LINKED' if urls[p.get('artifact')] else 'FILE_ONLY'
+                if state == 'FILE_ONLY' and recovered_url[p.get('artifact')]:
+                    recovered = {'stream': 'M3.2B', 'urls': sorted(recovered_url[p['artifact']])}
             elif p['kind'] == 'LEGACY_AMBIGUOUS_SOURCE':
                 state = 'AMBIGUOUS'
             else:

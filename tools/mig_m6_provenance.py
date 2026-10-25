@@ -286,6 +286,36 @@ def document_dates(m):
     m.stat('M6', 'document dates (historical M2 audit)', dict(sorted(n.items())))
 
 
+def recovered_placements(m):
+    """M3.2B: the address a held sheet was fetched from, where the estate's own site served exactly
+    those bytes (same sha256) to the crawl. One URL placement per address, observed on the fetch
+    date, with a DOCUMENT provenance naming the stream and the audit row. Read from the audit's
+    APPLY_PLACEMENT rows only; the discovery store is not otherwise read."""
+    if not os.path.exists(L.ROOT + RECOVERY):
+        return
+    done, n = set(), 0
+    for r in L.jsonl_lines(L.ROOT + RECOVERY):
+        if r['disposition'] != 'APPLY_PLACEMENT':
+            continue
+        aid = r['source']['artifact']
+        for f in r['source']['fetched']:
+            if (aid, f['url']) in done:
+                continue
+            done.add((aid, f['url']))
+            pid = m.prov('DOCUMENT', RECOVERY_ACTOR, artifact=aid,
+                         code_state={'stream': 'M3.2B', 'candidate': r['id'], 'url': f['url'], 'discovered_via': f['via'],
+                                     'fetched_at': f['at'], 'correspondence': 'identical bytes (sha256)'})
+            loc = {'kind': 'URL', 'value': f['url']}
+            m.add('document/locators.jsonl', loc)
+            day = S.bound('EXACT', f['at'][:10], 'CALENDAR', 'DAY', pid)
+            m.add('document/placements.jsonl', {
+                'id': S.hid('Placement', 'URL', f['url'], aid, 'm32b'), 'locator': loc, 'artifact': aid,
+                'status': 'PRESENT', 'retrieval_method': 'discovery crawl (discover/1.0)',
+                'observed': {'valid_from': day, 'valid_to': day}, 'provenance': pid})
+            n += 1
+    m.stat('M6', 'M3.2B placements (recovered addresses)', n)
+
+
 def run(m):
     documentation(m)
     sources(m)
@@ -293,3 +323,4 @@ def run(m):
     evidence_links(m)
     prepare_value_prov(m)
     document_dates(m)
+    recovered_placements(m)

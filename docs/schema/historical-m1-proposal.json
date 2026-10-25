@@ -1,0 +1,153 @@
+{
+  "meta": {
+    "title": "Historical model M1 schema proposal",
+    "status": "PROPOSAL (M0). Nothing here is applied to docs/phase34-model.json or data/model/.",
+    "design": "docs/HISTORICAL-EVENT-MODEL-DESIGN.md (61540cf)",
+    "document": "docs/PHASE-M0-HISTORICAL-SCHEMA.md",
+    "validator": "docs/schema/check_historical_m1_proposal.py",
+    "extends": "docs/phase34-model.json"
+  },
+  "enums_added": {
+    "StatementMode": {
+      "values": ["EXPLICIT", "IMPLIED"],
+      "note": "EXPLICIT: the source states the temporal fact in words. IMPLIED: it follows from the document's framing only (its date, a sheet's vintage, a title year)."
+    },
+    "CandidateDisposition": {
+      "values": ["SELECTED", "CONSISTENT", "CONTRADICTS", "REJECTED", "NOT_ASSESSED"],
+      "note": "A property of a candidate within one Reconciliation, not of the Observation: the same claim can be SELECTED in one reconciliation and CONTRADICTS in another."
+    },
+    "EvaluationStatus": {
+      "values": ["ESTABLISHED", "CONTESTED", "UNDETERMINED", "NOT_ESTABLISHED"],
+      "note": "The evaluator's answer for one property at one time (section 6). Never persisted."
+    },
+    "Holds": {
+      "values": ["HOLDS", "DOES_NOT_HOLD", "UNDETERMINED"],
+      "note": "Whether one record's validity covers a time point on the record's axis. Never persisted."
+    }
+  },
+  "enum_values_added": {
+    "TransitionKind": {
+      "add": ["RELATED_UNSPECIFIED"],
+      "note": "Named as in the design (section 6, decision O3). The brief's RELATED_NOT_ESTABLISHED names the same meaning; the design does not confirm that name, so it is not added. One value either way; the name is O3's to settle before M1 writes it."
+    }
+  },
+  "value_types_added": {
+    "TimeWindow": {
+      "fields": {"earliest": "TemporalBound", "latest": "TemporalBound"},
+      "rules": [
+        "both bounds are present; each follows the TemporalBound rules",
+        "OPEN is not allowed in a window (an event has happened or not; an open end belongs to a Validity)",
+        "dated bounds share one axis",
+        "earliest is not after latest where both are dated",
+        "a point event is earliest == latest"
+      ]
+    }
+  },
+  "entity_fields_added": {
+    "Observation": {
+      "claimed_validity": {"type": "Validity", "required": false,
+        "note": "the span the source says a state holds; the claim's own assertion, never the record's reconciled validity"},
+      "claimed_window": {"type": "TimeWindow", "required": false,
+        "note": "the window the source says an event happened in"},
+      "statement_mode": {"type": "enum:StatementMode", "required": false,
+        "note": "required when claimed_validity or claimed_window is present"}
+    },
+    "IdentityTransition": {
+      "occurred": {"type": "TimeWindow", "required": false,
+        "note": "replaces the single bound `at` for new rows; `at` stays accepted (decision O4 supports both)"}
+    },
+    "Reconciliation": {
+      "dispositions": {"type": "object", "required": false,
+        "note": "{observation id: {\"disposition\": CandidateDisposition, \"reason\": text}}; keys are a subset of candidates; a candidate without an entry is NOT_ASSESSED. A separate field because candidates is list:ref:Observation in 12,959 existing rows."}
+    }
+  },
+  "entity_fields_changed": {
+    "IdentityTransition.at": {"required": [true, false],
+      "note": "0 IdentityTransition rows exist; a row has either at or occurred, read as occurred = {earliest: at, latest: at}"}
+  },
+  "historical_reconciliation_fields": {
+    "valid_from": "the start bound of a state record or NameRecord",
+    "valid_to": "its end bound",
+    "exists": "whether the record (state, NameRecord, VintageStatement, IdentityTransition) holds at all",
+    "kind": "an IdentityTransition's kind (rename, succession, ...)",
+    "occurred": "an IdentityTransition's window"
+  },
+  "historical_reconciliation_rules_allowed_before_D5": ["ONLY_CANDIDATE", "UNANIMOUS", "MANUAL_DECISION"],
+  "invariants": [
+    {"id": "S1", "group": "temporal", "text": "A dated bound (EXACT, APPROXIMATE, NO_LATER_THAN, NO_EARLIER_THAN) has a value, an axis and a basis; UNKNOWN, OPEN and NOT_APPLICABLE have no value.", "enforced_by": "schema (existing check_bound)"},
+    {"id": "S2", "group": "temporal", "text": "Precision matches the value: DAY YYYY-MM-DD, MONTH YYYY-MM, YEAR YYYY, DECADE YYYYs on CALENDAR; on VINTAGE the value is a year and precision is VINTAGE.", "enforced_by": "schema (M1, new)"},
+    {"id": "S3", "group": "temporal", "text": "The two dated bounds of one Validity or TimeWindow share one axis; nothing converts between CALENDAR and VINTAGE.", "enforced_by": "schema (M1, new)"},
+    {"id": "S4", "group": "temporal", "text": "Where both bounds are dated on one axis, the lower is not after the upper (inclusive comparison at the coarser precision).", "enforced_by": "schema (M1, new)"},
+    {"id": "S5", "group": "temporal", "text": "OPEN only as Validity.valid_to; never in a TimeWindow; UNKNOWN and OPEN are distinct and never interchanged.", "enforced_by": "schema"},
+    {"id": "S6", "group": "temporal", "text": "Observation.asserted_at (the document's date) is never copied into a record's validity or a transition's window; a claim bound whose basis is an ArtifactDate must be IMPLIED.", "enforced_by": "validator + reconciliation review"},
+    {"id": "S7", "group": "temporal", "text": "A claim has at most one of claimed_validity (a state) and claimed_window (an event), and statement_mode whenever it has either.", "enforced_by": "schema (M1, new)"},
+    {"id": "S8", "group": "identity", "text": "RENAMED relates one subject to itself (from == to): one Wine or Estate, a new name. SUCCEEDED_BY relates two different subjects of one entity type. Neither is inferred from the other.", "enforced_by": "schema (M1, new)"},
+    {"id": "S9", "group": "identity", "text": "RELATED_UNSPECIFIED and POSSIBLY_SAME carry certainty UNRESOLVED; they establish no identity and no continuity.", "enforced_by": "schema (M1, new)"},
+    {"id": "S10", "group": "identity", "text": "A transition with certainty UNRESOLVED ends no validity, moves no NameRecord and is never evaluated as a change.", "enforced_by": "evaluator"},
+    {"id": "S11", "group": "identity", "text": "A FORMER NameRecord on a Wine requires a RENAMED transition on that Wine (or a NameRecord with a dated valid_to and its own reconciliation); no name becomes former by being replaced as current.", "enforced_by": "validator (M3 data)"},
+    {"id": "S12", "group": "evidence", "text": "Every dated bound of a historical record has a basis; for records written from M3 on, that basis is a Provenance (EVIDENCE_DECISION or DERIVATION) whose derived_from names a Reconciliation.", "enforced_by": "schema + validator"},
+    {"id": "S13", "group": "evidence", "text": "A Reconciliation of a historical field lists every claim on that subject and field as a candidate; none is dropped.", "enforced_by": "validator"},
+    {"id": "S14", "group": "evidence", "text": "dispositions keys are a subset of candidates; exactly the selected candidate is SELECTED; REJECTED has a reason; no candidate or Observation is deleted on rejection.", "enforced_by": "schema (M1, new)"},
+    {"id": "S15", "group": "evidence", "text": "A Reconciliation with status CONFLICT_OPEN or DEFERRED has no selected candidate and no SELECTED disposition.", "enforced_by": "schema (M1, new)"},
+    {"id": "S16", "group": "evidence", "text": "Until D5 is adopted, a historical reconciliation's rule is ONLY_CANDIDATE, UNANIMOUS or MANUAL_DECISION; never MOST_RECENT_DOCUMENT or SOURCE_PRIORITY.", "enforced_by": "schema (M1, new)"},
+    {"id": "S17", "group": "evidence", "text": "Absence is never a claim: no Observation, bound or transition is created from a missing sheet, listing or edition.", "enforced_by": "process (extraction) + validator (no claim without artifact or provenance quote)"},
+    {"id": "S18", "group": "evidence", "text": "A claim with claimed_validity or claimed_window cites an artifact, or a provenance with a quote.", "enforced_by": "schema (M1, new)"},
+    {"id": "S19", "group": "compatibility", "text": "Every new field is optional; every existing row of data/model/ validates unchanged against the extended contract.", "enforced_by": "validator (proven in M0)"},
+    {"id": "S20", "group": "compatibility", "text": "No existing id, provenance, reconciliation or canonical value is rewritten by M1.", "enforced_by": "validator (hash check)"},
+    {"id": "S21", "group": "compatibility", "text": "A record with valid_from UNKNOWN and valid_to OPEN (every record today) evaluates as UNDETERMINED for any time before its as_of, never HOLDS: current facts do not become historical.", "enforced_by": "evaluator"},
+    {"id": "S22", "group": "compatibility", "text": "Existing Reconciliations without dispositions read as: selected = SELECTED, other candidates NOT_ASSESSED; their status and rule are unchanged.", "enforced_by": "evaluator (read rule)"},
+    {"id": "S23", "group": "evaluation", "text": "The evaluator is pure and read-only: same model, same inputs, same output; it writes nothing.", "enforced_by": "evaluator test"},
+    {"id": "S24", "group": "evaluation", "text": "UNDETERMINED is returned as such, never coerced to HOLDS or DOES_NOT_HOLD; CONTESTED is never shown as ESTABLISHED.", "enforced_by": "evaluator"},
+    {"id": "S25", "group": "evaluation", "text": "Snapshots and change lists are derived; no persisted table holds them as facts.", "enforced_by": "layout (no new file in data/model)"},
+    {"id": "S26", "group": "evaluation", "text": "A vintage-scoped statement (VintageStatement, a RankAbsence on the VINTAGE axis) applies to its vintages only.", "enforced_by": "evaluator"}
+  ],
+  "evaluator_contract": {
+    "functions": {
+      "holds(record, t, axis)": "Holds",
+      "evaluate(subject, property, t, axis, claimant=None)": "{status: EvaluationStatus, value, records, supporting_claims, contradicting_claims, reconciliations}",
+      "state_at(subject, t, axis)": "{property: evaluate(...)} for every property of the subject",
+      "changes(subject, t1, t2, axis)": "[{property, before, after, kind: STATE_BOUNDARY|TRANSITION|VINTAGE_STATEMENT, status}]"
+    },
+    "inputs": "the model as read by tools/model_reader.py; a subject id; a property (name, rank, classification, appellation, relationship, ownership, location, not_made); a time point as {axis, value}; optionally a claimant for rank",
+    "purity": "pure, deterministic, read-only; no I/O beyond reading the model; no clock",
+    "status_rules": {
+      "ESTABLISHED": "a record holds (HOLDS) and each bound that decides it is reconciled (SINGLE, AGREED or RESOLVED) and, for identity, certainty CONFIRMED or PROBABLE with a recorded decision",
+      "CONTESTED": "a deciding reconciliation is CONFLICT_OPEN or DEFERRED, or a transition is UNRESOLVED with competing claims",
+      "UNDETERMINED": "records exist but no deciding bound determines t (UNKNOWN, APPROXIMATE across t, the other axis, or only claims IMPLIED)",
+      "NOT_ESTABLISHED": "no record and no claim for the property"
+    }
+  },
+  "fixtures": [
+    {"id": "F1", "invariant": "S19", "entity": "Observation", "note": "an existing-style observation, no historical field", "row": {}, "expect": "valid"},
+    {"id": "F2", "invariant": "S2", "kind": "bound", "row": {"kind": "EXACT", "axis": "CALENDAR", "value": "2018", "precision": "YEAR", "basis": "pv_x"}, "expect": "valid"},
+    {"id": "F3", "invariant": "S2", "kind": "bound", "row": {"kind": "EXACT", "axis": "CALENDAR", "value": "2018", "precision": "DAY", "basis": "pv_x"}, "expect": "invalid"},
+    {"id": "F4", "invariant": "S2", "kind": "bound", "row": {"kind": "EXACT", "axis": "VINTAGE", "value": "2008", "precision": "VINTAGE", "basis": "pv_x"}, "expect": "valid"},
+    {"id": "F5", "invariant": "S2", "kind": "bound", "row": {"kind": "EXACT", "axis": "VINTAGE", "value": "2008-05", "precision": "MONTH", "basis": "pv_x"}, "expect": "invalid"},
+    {"id": "F6", "invariant": "S3", "kind": "validity", "row": {"valid_from": {"kind": "EXACT", "axis": "CALENDAR", "value": "2007", "precision": "YEAR", "basis": "pv_x"}, "valid_to": {"kind": "EXACT", "axis": "VINTAGE", "value": "2010", "precision": "VINTAGE", "basis": "pv_x"}}, "expect": "invalid"},
+    {"id": "F7", "invariant": "S4", "kind": "validity", "row": {"valid_from": {"kind": "EXACT", "axis": "VINTAGE", "value": "2010", "precision": "VINTAGE", "basis": "pv_x"}, "valid_to": {"kind": "NO_LATER_THAN", "axis": "VINTAGE", "value": "2007", "precision": "VINTAGE", "basis": "pv_x"}}, "expect": "invalid"},
+    {"id": "F8", "invariant": "S5", "kind": "validity", "row": {"valid_from": {"kind": "UNKNOWN"}, "valid_to": {"kind": "OPEN"}}, "expect": "valid"},
+    {"id": "F9", "invariant": "S5", "kind": "window", "row": {"earliest": {"kind": "EXACT", "axis": "VINTAGE", "value": "2008", "precision": "VINTAGE", "basis": "pv_x"}, "latest": {"kind": "OPEN"}}, "expect": "invalid"},
+    {"id": "F10", "invariant": "S4", "kind": "window", "row": {"earliest": {"kind": "NO_EARLIER_THAN", "axis": "CALENDAR", "value": "2005", "precision": "YEAR", "basis": "pv_x"}, "latest": {"kind": "NO_LATER_THAN", "axis": "CALENDAR", "value": "2008", "precision": "YEAR", "basis": "pv_x"}}, "expect": "valid"},
+    {"id": "F11", "invariant": "S4", "kind": "window", "row": {"earliest": {"kind": "NO_EARLIER_THAN", "axis": "CALENDAR", "value": "2009", "precision": "YEAR", "basis": "pv_x"}, "latest": {"kind": "NO_LATER_THAN", "axis": "CALENDAR", "value": "2008", "precision": "YEAR", "basis": "pv_x"}}, "expect": "invalid"},
+    {"id": "F12", "invariant": "S7", "kind": "claim", "row": {"claimed_window": {"earliest": {"kind": "EXACT", "axis": "VINTAGE", "value": "2008", "precision": "VINTAGE", "basis": "pv_x"}, "latest": {"kind": "EXACT", "axis": "VINTAGE", "value": "2008", "precision": "VINTAGE", "basis": "pv_x"}}, "statement_mode": "EXPLICIT", "artifact": "ar_000001"}, "expect": "valid"},
+    {"id": "F13", "invariant": "S7", "kind": "claim", "row": {"claimed_window": {"earliest": {"kind": "EXACT", "axis": "VINTAGE", "value": "2008", "precision": "VINTAGE", "basis": "pv_x"}, "latest": {"kind": "EXACT", "axis": "VINTAGE", "value": "2008", "precision": "VINTAGE", "basis": "pv_x"}}, "artifact": "ar_000001"}, "expect": "invalid"},
+    {"id": "F14", "invariant": "S7", "kind": "claim", "row": {"claimed_validity": {"valid_from": {"kind": "UNKNOWN"}, "valid_to": {"kind": "OPEN"}}, "claimed_window": {"earliest": {"kind": "UNKNOWN"}, "latest": {"kind": "UNKNOWN"}}, "statement_mode": "IMPLIED", "artifact": "ar_000001"}, "expect": "invalid"},
+    {"id": "F15", "invariant": "S6", "kind": "claim", "row": {"claimed_validity": {"valid_from": {"kind": "NO_LATER_THAN", "axis": "CALENDAR", "value": "2008", "precision": "YEAR", "basis": "ARTIFACT_DATE"}, "valid_to": {"kind": "OPEN"}}, "statement_mode": "EXPLICIT", "artifact": "ar_000001"}, "expect": "invalid"},
+    {"id": "F16", "invariant": "S6", "kind": "claim", "row": {"claimed_validity": {"valid_from": {"kind": "NO_LATER_THAN", "axis": "CALENDAR", "value": "2008", "precision": "YEAR", "basis": "ARTIFACT_DATE"}, "valid_to": {"kind": "OPEN"}}, "statement_mode": "IMPLIED", "artifact": "ar_000001"}, "expect": "valid"},
+    {"id": "F17", "invariant": "S18", "kind": "claim", "row": {"claimed_validity": {"valid_from": {"kind": "UNKNOWN"}, "valid_to": {"kind": "OPEN"}}, "statement_mode": "EXPLICIT"}, "expect": "invalid"},
+    {"id": "F18", "invariant": "S8", "kind": "transition", "row": {"kind": "RENAMED", "from": "wn_00001", "to": "wn_00001", "certainty": "PROBABLE"}, "expect": "valid"},
+    {"id": "F19", "invariant": "S8", "kind": "transition", "row": {"kind": "RENAMED", "from": "wn_00001", "to": "wn_00002", "certainty": "PROBABLE"}, "expect": "invalid"},
+    {"id": "F20", "invariant": "S8", "kind": "transition", "row": {"kind": "SUCCEEDED_BY", "from": "wn_00001", "to": "wn_00001", "certainty": "PROBABLE"}, "expect": "invalid"},
+    {"id": "F21", "invariant": "S8", "kind": "transition", "row": {"kind": "SUCCEEDED_BY", "from": "wn_00001", "to": "es_00001", "certainty": "PROBABLE"}, "expect": "invalid"},
+    {"id": "F22", "invariant": "S9", "kind": "transition", "row": {"kind": "RELATED_UNSPECIFIED", "from": "wn_00001", "to": "wn_00002", "certainty": "UNRESOLVED"}, "expect": "valid"},
+    {"id": "F23", "invariant": "S9", "kind": "transition", "row": {"kind": "RELATED_UNSPECIFIED", "from": "wn_00001", "to": "wn_00002", "certainty": "CONFIRMED"}, "expect": "invalid"},
+    {"id": "F24", "invariant": "O4", "kind": "transition", "row": {"kind": "RENAMED", "from": "wn_00001", "to": "wn_00001", "certainty": "PROBABLE", "at": {"kind": "EXACT", "axis": "VINTAGE", "value": "2008", "precision": "VINTAGE", "basis": "pv_x"}, "occurred": {"earliest": {"kind": "UNKNOWN"}, "latest": {"kind": "UNKNOWN"}}}, "expect": "invalid"},
+    {"id": "F25", "invariant": "S14", "kind": "reconciliation", "row": {"candidates": ["ob_a", "ob_b"], "selected": "ob_a", "status": "RESOLVED", "rule": "MANUAL_DECISION", "field": "valid_from", "dispositions": {"ob_a": {"disposition": "SELECTED"}, "ob_b": {"disposition": "REJECTED", "reason": "the later revision says 2008"}}}, "expect": "valid"},
+    {"id": "F26", "invariant": "S14", "kind": "reconciliation", "row": {"candidates": ["ob_a", "ob_b"], "selected": "ob_a", "status": "RESOLVED", "rule": "MANUAL_DECISION", "field": "valid_from", "dispositions": {"ob_b": {"disposition": "REJECTED"}}}, "expect": "invalid"},
+    {"id": "F27", "invariant": "S14", "kind": "reconciliation", "row": {"candidates": ["ob_a"], "selected": "ob_a", "status": "RESOLVED", "rule": "MANUAL_DECISION", "field": "valid_from", "dispositions": {"ob_z": {"disposition": "CONSISTENT"}}}, "expect": "invalid"},
+    {"id": "F28", "invariant": "S15", "kind": "reconciliation", "row": {"candidates": ["ob_a", "ob_b"], "selected": "ob_a", "status": "CONFLICT_OPEN", "rule": "MANUAL_DECISION", "field": "occurred"}, "expect": "invalid"},
+    {"id": "F29", "invariant": "S15", "kind": "reconciliation", "row": {"candidates": ["ob_a", "ob_b"], "status": "CONFLICT_OPEN", "rule": "MANUAL_DECISION", "field": "occurred", "dispositions": {"ob_a": {"disposition": "CONTRADICTS"}, "ob_b": {"disposition": "CONTRADICTS"}}}, "expect": "valid"},
+    {"id": "F30", "invariant": "S16", "kind": "reconciliation", "row": {"candidates": ["ob_a", "ob_b"], "selected": "ob_b", "status": "RESOLVED", "rule": "MOST_RECENT_DOCUMENT", "field": "occurred"}, "expect": "invalid"},
+    {"id": "F31", "invariant": "S22", "kind": "reconciliation", "note": "an existing-style canonical reconciliation: no dispositions, a legacy rule, a non-historical field", "row": {"candidates": ["ob_a"], "selected": "ob_a", "status": "LEGACY_RETAINED", "rule": "LEGACY_NEVER_OVERWRITE", "field": "alc"}, "expect": "valid"}
+  ]
+}

@@ -1,0 +1,142 @@
+{
+ "artifacts_at_several_urls": 482,
+ "artifacts_by_media": {
+  "feed": 93,
+  "html": 20086,
+  "image": 610,
+  "json": 444,
+  "office": 8,
+  "other": 87,
+  "pdf": 7197,
+  "sitemap": 896,
+  "text": 88,
+  "xml": 8
+ },
+ "built_by": "tools/discover_report.py",
+ "changed_on_recrawl": 0,
+ "completeness": "NOT COMPLETE: each site was crawled within a budget (pages, documents, requests, time); a site whose frontier was not exhausted is listed with stopped=BUDGET. Counts are of what was retrieved, not of what exists.",
+ "distinct_labels": 12911,
+ "documents_retrieved": 9469,
+ "domains": {
+  "ai_refused_in_robots": 19,
+  "crawled": 304,
+  "moved": 31,
+  "stopped": {
+   "BUDGET": 29,
+   "FRONTIER_EMPTY": 256,
+   "ROBOTS_DISALLOW_SITE": 19
+  },
+  "targets": 304
+ },
+ "estates": {
+  "BLOCKED_BY_POLICY": 24,
+  "NO_KNOWN_SITE": 49,
+  "PARTIAL": 18,
+  "REACHED": 263,
+  "UNREACHABLE": 34
+ },
+ "extraction": {
+  "EXTRACTED": 28818,
+  "EXTRACTION_FAILED": 2,
+  "STORED_NOT_EXTRACTED": 610,
+  "UNSUPPORTED": 87
+ },
+ "failures": {
+  "AUTH_REQUIRED": 13,
+  "BLOCKED_CHALLENGE": 14,
+  "CRAWLER_CRASH": 3,
+  "HTTP_ERROR": 1644,
+  "NETWORK_FAILURE": 39,
+  "OFFSITE_REDIRECT": 271,
+  "ROBOTS_DISALLOW": 586,
+  "ROBOTS_DISALLOW_REDIRECT": 25,
+  "ROBOTS_DISALLOW_SITE": 19,
+  "TIMEOUT": 96,
+  "TLS_FAILURE": 98,
+  "TOO_LARGE": 134,
+  "TOO_MANY_REDIRECTS": 8
+ },
+ "labels_on_5_or_more_domains": 497,
+ "languages": {
+  "de": 222,
+  "en": 7567,
+  "es": 143,
+  "fr": 16239,
+  "ja": 239,
+  "nl": 42,
+  "pt": 36,
+  "ru": 43,
+  "undetected": 1796,
+  "zh": 1052
+ },
+ "multi_estate_artifacts": 519,
+ "observation_methods": {
+  "DEFINITION_LIST": 3096,
+  "LABEL_COLON": 111986,
+  "LABEL_LINE_THEN_VALUE": 43218,
+  "TABLE_TWO_CELL": 5282
+ },
+ "observations": 163582,
+ "ocr": {
+  "NEEDED_NO_ENGINE": 374,
+  "NOT_ATTEMPTED": 6823
+ },
+ "pages_retrieved": 22037,
+ "phase": "3.3",
+ "requests_logged": 35776,
+ "retrieved_ok": 32794,
+ "role_statements": 10700,
+ "role_wordings": {
+  "blanc sec": 636,
+  "cuvee prestige": 24,
+  "cuvée prestige": 683,
+  "cuvée spéciale": 56,
+  "deuxième vin": 67,
+  "dry white": 168,
+  "dry white wine": 225,
+  "first wine": 141,
+  "grand vin": 3760,
+  "grand vin blanc": 50,
+  "grand vin blanc sec": 94,
+  "grand vin rouge": 12,
+  "liquoreux": 415,
+  "little brother": 12,
+  "petit frère": 39,
+  "premier vin": 172,
+  "second label": 70,
+  "second vin": 2176,
+  "second wine": 1055,
+  "second wines": 154,
+  "seconds vins": 210,
+  "special cuvée": 7,
+  "sweet white wine": 42,
+  "sweet wine": 39,
+  "third wine": 15,
+  "third wines": 6,
+  "troisième vin": 35,
+  "vin blanc sec": 99,
+  "vin liquoreux": 177,
+  "zweitwein": 45
+ },
+ "targets": {
+  "domains": 304,
+  "estates": 388,
+  "no_known_site": 49,
+  "shared_domains": 25,
+  "with_site": 339
+ },
+ "unique_artifacts": 29517,
+ "urls_with_several_versions": 500,
+ "wine_name_candidates": 3988,
+ "wine_name_candidates_not_in_canonical": 3681,
+ "year_mentions": {
+  "CLASSIFICATION": 11919,
+  "DATE_IN_PROSE": 202209,
+  "FOUNDING_OR_HISTORY": 7876,
+  "HARVEST_OR_VINTAGE": 79268,
+  "HEADING": 25745,
+  "OWNERSHIP": 11506,
+  "TITLE": 9507,
+  "URL_OR_FILENAME": 21054
+ }
+}

@@ -1,0 +1,4401 @@
+[
+ {
+  "estate": "u-badette",
+  "name": "Château BADETTE",
+  "domain": "chateau-badette.com",
+  "status": "UNREACHABLE",
+  "stopped": "FRONTIER_EMPTY",
+  "ok": 0,
+  "text_artifacts": 0,
+  "failures": {
+   "TIMEOUT": 5
+  }
+ },
+ {
+  "estate": "u-balestard-la-tonnelle",
+  "name": "Château BALESTARD LA TONNELLE",
+  "domain": "vignoblescapdemourlin.com",
+  "status": "BLOCKED_BY_POLICY",
+  "stopped": "ROBOTS_DISALLOW_SITE",
+  "ok": 0,
+  "text_artifacts": 0,
+  "failures": {
+   "ROBOTS_DISALLOW_SITE": 1
+  }
+ },
+ {
+  "estate": "u-barateau",
+  "name": "Château Barateau",
+  "domain": "chateau-barateau.com",
+  "status": "REACHED",
+  "stopped": "FRONTIER_EMPTY",
+  "ok": 156,
+  "text_artifacts": 104,
+  "failures": {
+   "OFFSITE_REDIRECT": 4,
+   "HTTP_ERROR": 2,
+   "TLS_FAILURE": 1
+  }
+ },
+ {
+  "estate": "u-barde-haut",
+  "name": "Château BARDE-HAUT",
+  "domain": "chateaubardehaut.com",
+  "status": "PARTIAL",
+  "stopped": "FRONTIER_EMPTY",
+  "ok": 4,
+  "text_artifacts": 4,
+  "failures": {
+   "HTTP_ERROR": 4
+  }
+ },
+ {
+  "estate": "u-barreyres",
+  "name": "Château Barreyres",
+  "domain": "chateaux-castel.com",
+  "status": "BLOCKED_BY_POLICY",
+  "stopped": "ROBOTS_DISALLOW_SITE",
+  "ok": 0,
+  "text_artifacts": 0,
+  "failures": {
+   "ROBOTS_DISALLOW_SITE": 1
+  }
+ },
+ {
+  "estate": "u-batailley",
+  "name": "Château BATAILLEY",
+  "domain": "batailley.com",
+  "status": "REACHED",
+  "stopped": "FRONTIER_EMPTY",
+  "ok": 164,
+  "text_artifacts": 127,
+  "failures": {
+   "HTTP_ERROR": 4
+  }
+ },
+ {
+  "estate": "u-beau-sejour-becot",
+  "name": "Château BEAU-SEJOUR BECOT",
+  "status": "NO_KNOWN_SITE",
+  "domain": null
+ },
+ {
+  "estate": "u-beaumont",
+  "name": "Château Beaumont",
+  "domain": "chateau-beaumont.com",
+  "status": "REACHED",
+  "stopped": "FRONTIER_EMPTY",
+  "ok": 24,
+  "text_artifacts": 22,
+  "failures": {
+   "HTTP_ERROR": 4
+  }
+ },
+ {
+  "estate": "u-beausejour-heritiers-duffau-lagarrosse",
+  "name": "Château BEAUSEJOUR HERITIERS DUFFAU LAGARROSSE",
+  "domain": "beausejour-jdl.com",
+  "status": "UNREACHABLE",
+  "stopped": "FRONTIER_EMPTY",
+  "ok": 0,
+  "text_artifacts": 0,
+  "failures": {
+   "HTTP_ERROR": 5
+  }
+ },
+ {
+  "estate": "u-beauvillage",
+  "name": "Château Beauvillage",
+  "domain": "chateaubeauvillage.com",
+  "status": "REACHED",
+  "stopped": "FRONTIER_EMPTY",
+  "ok": 188,
+  "text_artifacts": 164,
+  "failures": {}
+ },
+ {
+  "estate": "u-begadan",
+  "name": "Château Begadan",
+  "domain": "mairie-begadan.jimdofree.com",
+  "status": "REACHED",
+  "stopped": "FRONTIER_EMPTY",
+  "ok": 29,
+  "text_artifacts": 28,
+  "failures": {
+   "HTTP_ERROR": 3,
+   "ROBOTS_DISALLOW": 21
+  }
+ },
+ {
+  "estate": "u-begadanet",
+  "name": "Château Bégadanet",
+  "status": "NO_KNOWN_SITE",
+  "domain": null
+ },
+ {
+  "estate": "u-bejac-romelys",
+  "name": "Château Bejac Romelys",
+  "status": "NO_KNOWN_SITE",
+  "domain": null
+ },
+ {
+  "estate": "u-bel-air-gloria",
+  "name": "Château Bel Air Gloria",
+  "domain": "domaines-henri-martin.com",
+  "status": "UNREACHABLE",
+  "stopped": "FRONTIER_EMPTY",
+  "ok": 0,
+  "text_artifacts": 0,
+  "failures": {
+   "TIMEOUT": 5
+  }
+ },
+ {
+  "estate": "u-belair-monange",
+  "name": "Château BELAIR MONANGE",
+  "domain": "chateau-belair-monange.com",
+  "status": "REACHED",
+  "stopped": "FRONTIER_EMPTY",
+  "ok": 157,
+  "text_artifacts": 154,
+  "failures": {
+   "OFFSITE_REDIRECT": 4,
+   "HTTP_ERROR": 3
+  }
+ },
+ {
+  "estate": "u-belgrave",
+  "name": "Château BELGRAVE",
+  "domain": "chateau-belgrave.com",
+  "status": "UNREACHABLE",
+  "stopped": "FRONTIER_EMPTY",
+  "ok": 0,
+  "text_artifacts": 0,
+  "failures": {
+   "TIMEOUT": 5
+  }
+ },
+ {
+  "estate": "u-bellefont-belcier",
+  "name": "Château BELLEFONT-BELCIER",
+  "domain": "vignoblesk.com",
+  "status": "REACHED",
+  "stopped": "BUDGET",
+  "ok": 320,
+  "text_artifacts": 318,
+  "failures": {
+   "HTTP_ERROR": 60
+  }
+ },
+ {
+  "estate": "u-bellegrave",
+  "name": "Château Bellegrave",
+  "domain": "chateaubellegrave-chauvin.com",
+  "status": "REACHED",
+  "stopped": "FRONTIER_EMPTY",
+  "ok": 21,
+  "text_artifacts": 15,
+  "failures": {
+   "HTTP_ERROR": 3,
+   "ROBOTS_DISALLOW": 2
+  }
+ },
+ {
+  "estate": "u-bellevue--cb-2025",
+  "name": "Château Bellevue",
+  "status": "NO_KNOWN_SITE",
+  "domain": null
+ },
+ {
+  "estate": "u-bellevue--stem-2022",
+  "name": "Château BELLEVUE",
+  "domain": "chateaubellevue.fr",
+  "status": "REACHED",
+  "stopped": "FRONTIER_EMPTY",
+  "ok": 38,
+  "text_artifacts": 29,
+  "failures": {
+   "HTTP_ERROR": 29
+  }
+ },
+ {
+  "estate": "u-berliquet",
+  "name": "Château BERLIQUET",
+  "domain": "chateau-berliquet.com",
+  "status": "BLOCKED_BY_POLICY",
+  "stopped": "ROBOTS_DISALLOW_SITE",
+  "ok": 0,
+  "text_artifacts": 0,
+  "failures": {
+   "ROBOTS_DISALLOW_SITE": 1
+  }
+ },
+ {
+  "estate": "u-bessan-segur",
+  "name": "Château Bessan Ségur",
+  "domain": "vignobles-lacombe.com",
+  "status": "REACHED",
+  "stopped": "FRONTIER_EMPTY",
+  "ok": 12,
+  "text_artifacts": 11,
+  "failures": {
+   "HTTP_ERROR": 3
+  }
+ },
+ {
+  "estate": "u-beychevelle",
+  "name": "Château BEYCHEVELLE",
+  "domain": "beychevelle.com",
+  "status": "REACHED",
+  "stopped": "FRONTIER_EMPTY",
+  "ok": 316,
+  "text_artifacts": 302,
+  "failures": {
+   "HTTP_ERROR": 1,
+   "ROBOTS_DISALLOW": 1
+  }
+ },
+ {
+  "estate": "u-bibian",
+  "name": "Château Bibian",
+  "domain": "vignobles-meyre.com",
+  "status": "UNREACHABLE",
+  "stopped": "FRONTIER_EMPTY",
+  "ok": 0,
+  "text_artifacts": 0,
+  "failures": {
+   "TLS_FAILURE": 5
+  }
+ },
+ {
+  "estate": "u-biston-brillette",
+  "name": "Château Biston-Brillette",
+  "domain": "chateaubistonbrillette.fr",
+  "status": "REACHED",
+  "stopped": "FRONTIER_EMPTY",
+  "ok": 237,
+  "text_artifacts": 218,
+  "failures": {
+   "HTTP_ERROR": 4,
+   "AUTH_REQUIRED": 1
+  }
+ },
+ {
+  "estate": "u-bournac",
+  "name": "Château Bournac",
+  "domain": "chateau-bournac.com",
+  "status": "REACHED",
+  "stopped": "FRONTIER_EMPTY",
+  "ok": 63,
+  "text_artifacts": 61,
+  "failures": {
+   "HTTP_ERROR": 3,
+   "OFFSITE_REDIRECT": 15
+  }
+ },
+ {
+  "estate": "u-bouscaut",
+  "name": "Château Bouscaut",
+  "domain": "chateau-bouscaut.com",
+  "status": "REACHED",
+  "stopped": "FRONTIER_EMPTY",
+  "ok": 162,
+  "text_artifacts": 162,
+  "failures": {
+   "HTTP_ERROR": 4
+  }
+ },
+ {
+  "estate": "u-boutisse",
+  "name": "Château BOUTISSE",
+  "domain": "chateau-boutisse.fr",
+  "status": "REACHED",
+  "stopped": "FRONTIER_EMPTY",
+  "ok": 50,
+  "text_artifacts": 43,
+  "failures": {
+   "HTTP_ERROR": 4,
+   "BLOCKED_CHALLENGE": 1
+  }
+ },
+ {
+  "estate": "u-boyd-cantenac",
+  "name": "Château BOYD-CANTENAC",
+  "domain": "boyd-cantenac.com",
+  "status": "REACHED",
+  "stopped": "FRONTIER_EMPTY",
+  "ok": 150,
+  "text_artifacts": 143,
+  "failures": {
+   "OFFSITE_REDIRECT": 4,
+   "ROBOTS_DISALLOW": 1
+  }
+ },
+ {
+  "estate": "u-branaire-ducru",
+  "name": "Château BRANAIRE-DUCRU",
+  "domain": "branaire.com",
+  "status": "REACHED",
+  "stopped": "FRONTIER_EMPTY",
+  "ok": 174,
+  "text_artifacts": 154,
+  "failures": {
+   "HTTP_ERROR": 3
+  }
+ },
+ {
+  "estate": "u-brane-cantenac",
+  "name": "Château BRANE-CANTENAC",
+  "domain": "brane-cantenac.com",
+  "status": "PARTIAL",
+  "stopped": "FRONTIER_EMPTY",
+  "ok": 1,
+  "text_artifacts": 1,
+  "failures": {
+   "HTTP_ERROR": 4
+  }
+ },
+ {
+  "estate": "u-broustet",
+  "name": "Château BROUSTET",
+  "domain": "vignoblesdeterroirs.com",
+  "status": "REACHED",
+  "stopped": "FRONTIER_EMPTY",
+  "ok": 168,
+  "text_artifacts": 162,
+  "failures": {
+   "TOO_LARGE": 2,
+   "CRAWLER_CRASH": 1
+  }
+ },
+ {
+  "estate": "u-cadet-bon",
+  "name": "Château CADET-BON",
+  "domain": "cadet-bon.com",
+  "status": "REACHED",
+  "stopped": "FRONTIER_EMPTY",
+  "ok": 5,
+  "text_artifacts": 4,
+  "failures": {
+   "HTTP_ERROR": 4,
+   "AUTH_REQUIRED": 1
+  }
+ },
+ {
+  "estate": "u-caillou",
+  "name": "Château CAILLOU",
+  "domain": "chateaucaillou.com",
+  "status": "REACHED",
+  "stopped": "FRONTIER_EMPTY",
+  "ok": 190,
+  "text_artifacts": 172,
+  "failures": {
+   "HTTP_ERROR": 1
+  }
+ },
+ {
+  "estate": "u-calon-segur",
+  "name": "Château CALON SEGUR",
+  "domain": "calon-segur.com",
+  "status": "REACHED",
+  "stopped": "BUDGET",
+  "ok": 381,
+  "text_artifacts": 369,
+  "failures": {
+   "OFFSITE_REDIRECT": 4
+  }
+ },
+ {
+  "estate": "u-cangruey",
+  "name": "Château Cangruey",
+  "status": "NO_KNOWN_SITE",
+  "domain": null
+ },
+ {
+  "estate": "u-canon",
+  "name": "Château CANON",
+  "domain": "chateaucanon.com",
+  "status": "BLOCKED_BY_POLICY",
+  "stopped": "ROBOTS_DISALLOW_SITE",
+  "ok": 0,
+  "text_artifacts": 0,
+  "failures": {
+   "ROBOTS_DISALLOW_SITE": 1
+  }
+ },
+ {
+  "estate": "u-canon-la-gaffeliere",
+  "name": "Château CANON LA GAFFELIERE",
+  "domain": "neipperg.com",
+  "status": "REACHED",
+  "stopped": "BUDGET",
+  "ok": 323,
+  "text_artifacts": 305,
+  "failures": {
+   "HTTP_ERROR": 3
+  }
+ },
+ {
+  "estate": "u-cantemerle",
+  "name": "Château CANTEMERLE",
+  "domain": "cantemerle.com",
+  "status": "REACHED",
+  "stopped": "FRONTIER_EMPTY",
+  "ok": 64,
+  "text_artifacts": 56,
+  "failures": {
+   "HTTP_ERROR": 1
+  }
+ },
+ {
+  "estate": "u-cantenac-brown",
+  "name": "Château CANTENAC BROWN",
+  "domain": "cantenacbrown.com",
+  "status": "REACHED",
+  "stopped": "BUDGET",
+  "ok": 391,
+  "text_artifacts": 380,
+  "failures": {}
+ },
+ {
+  "estate": "u-cap-de-mourlin",
+  "name": "Château CAP DE MOURLIN",
+  "domain": "vignoblescapdemourlin.com",
+  "status": "BLOCKED_BY_POLICY",
+  "stopped": "ROBOTS_DISALLOW_SITE",
+  "ok": 0,
+  "text_artifacts": 0,
+  "failures": {
+   "ROBOTS_DISALLOW_SITE": 1
+  }
+ },
+ {
+  "estate": "u-capdet",
+  "name": "Château Capdet",
+  "domain": "cave-listrac-medoc.com",
+  "status": "REACHED",
+  "stopped": "BUDGET",
+  "ok": 289,
+  "text_artifacts": 248,
+  "failures": {
+   "TLS_FAILURE": 4
+  }
+ },
+ {
+  "estate": "u-carbonnieux",
+  "name": "Château Carbonnieux",
+  "domain": "carbonnieux.com",
+  "status": "REACHED",
+  "stopped": "FRONTIER_EMPTY",
+  "ok": 193,
+  "text_artifacts": 172,
+  "failures": {
+   "HTTP_ERROR": 1
+  }
+ },
+ {
+  "estate": "u-carcanieux",
+  "name": "Château Carcanieux",
+  "domain": "carcanieux.vignoblesdeterroirs.com",
+  "status": "REACHED",
+  "stopped": "FRONTIER_EMPTY",
+  "ok": 114,
+  "text_artifacts": 105,
+  "failures": {
+   "HTTP_ERROR": 2,
+   "OFFSITE_REDIRECT": 2,
+   "ROBOTS_DISALLOW": 116,
+   "CRAWLER_CRASH": 1
+  }
+ },
+ {
+  "estate": "u-castera",
+  "name": "Château Castera",
+  "domain": "chateau-castera.com",
+  "status": "REACHED",
+  "stopped": "FRONTIER_EMPTY",
+  "ok": 192,
+  "text_artifacts": 185,
+  "failures": {}
+ },
+ {
+  "estate": "u-chantemerle",
+  "name": "Château Chantemerle",
+  "domain": "domaine-chantemerle.com",
+  "status": "REACHED",
+  "stopped": "FRONTIER_EMPTY",
+  "ok": 77,
+  "text_artifacts": 77,
+  "failures": {
+   "ROBOTS_DISALLOW": 2,
+   "OFFSITE_REDIRECT": 4,
+   "HTTP_ERROR": 13
+  }
+ },
+ {
+  "estate": "u-chauvin",
+  "name": "Château CHAUVIN",
+  "domain": "chateauchauvin.com",
+  "status": "REACHED",
+  "stopped": "FRONTIER_EMPTY",
+  "ok": 182,
+  "text_artifacts": 159,
+  "failures": {
+   "HTTP_ERROR": 36
+  }
+ },
+ {
+  "estate": "u-cissac",
+  "name": "Château Cissac",
+  "domain": "chateau-cissac.com",
+  "status": "REACHED",
+  "stopped": "FRONTIER_EMPTY",
+  "ok": 23,
+  "text_artifacts": 21,
+  "failures": {
+   "HTTP_ERROR": 3
+  }
+ },
+ {
+  "estate": "u-clement-saint-jean",
+  "name": "Château Clément Saint Jean",
+  "domain": "unimedoc.com",
+  "status": "REACHED",
+  "stopped": "FRONTIER_EMPTY",
+  "ok": 176,
+  "text_artifacts": 154,
+  "failures": {}
+ },
+ {
+  "estate": "u-clerc-milon",
+  "name": "Château CLERC MILON",
+  "domain": "chateau-clerc-milon.com",
+  "status": "REACHED",
+  "stopped": "FRONTIER_EMPTY",
+  "ok": 275,
+  "text_artifacts": 255,
+  "failures": {}
+ },
+ {
+  "estate": "u-climens",
+  "name": "Château CLIMENS",
+  "domain": "chateau-climens.com",
+  "status": "REACHED",
+  "stopped": "FRONTIER_EMPTY",
+  "ok": 178,
+  "text_artifacts": 165,
+  "failures": {}
+ },
+ {
+  "estate": "u-clos-badon-thunevin",
+  "name": "CLOS BADON THUNEVIN",
+  "domain": "clos-badon-thunevin.com",
+  "status": "REACHED",
+  "stopped": "FRONTIER_EMPTY",
+  "ok": 14,
+  "text_artifacts": 4,
+  "failures": {
+   "HTTP_ERROR": 19
+  }
+ },
+ {
+  "estate": "u-clos-de-bigos",
+  "name": "Clos de Bigos",
+  "domain": "closdebigos.fr",
+  "status": "REACHED",
+  "stopped": "FRONTIER_EMPTY",
+  "ok": 122,
+  "text_artifacts": 113,
+  "failures": {
+   "HTTP_ERROR": 3
+  }
+ },
+ {
+  "estate": "u-clos-de-l-oratoire",
+  "name": "CLOS DE L'ORATOIRE",
+  "domain": "neipperg.com",
+  "status": "REACHED",
+  "stopped": "BUDGET",
+  "ok": 323,
+  "text_artifacts": 305,
+  "failures": {
+   "HTTP_ERROR": 3
+  }
+ },
+ {
+  "estate": "u-clos-de-sarpe",
+  "name": "Château CLOS DE SARPE",
+  "domain": "clos-de-sarpe.com",
+  "status": "PARTIAL",
+  "stopped": "FRONTIER_EMPTY",
+  "ok": 1,
+  "text_artifacts": 1,
+  "failures": {
+   "HTTP_ERROR": 4
+  }
+ },
+ {
+  "estate": "u-clos-des-jacobins",
+  "name": "CLOS DES JACOBINS",
+  "domain": "mtdecoster.com",
+  "status": "REACHED",
+  "stopped": "BUDGET",
+  "ok": 146,
+  "text_artifacts": 126,
+  "failures": {
+   "HTTP_ERROR": 2
+  }
+ },
+ {
+  "estate": "u-clos-dubreuil",
+  "name": "CLOS DUBREUIL",
+  "domain": "closdubreuil.com",
+  "status": "REACHED",
+  "stopped": "FRONTIER_EMPTY",
+  "ok": 27,
+  "text_artifacts": 27,
+  "failures": {
+   "HTTP_ERROR": 6
+  }
+ },
+ {
+  "estate": "u-clos-fourtet",
+  "name": "CLOS FOURTET",
+  "domain": "closfourtet.com",
+  "status": "REACHED",
+  "stopped": "FRONTIER_EMPTY",
+  "ok": 48,
+  "text_artifacts": 48,
+  "failures": {
+   "HTTP_ERROR": 10,
+   "TOO_LARGE": 3
+  }
+ },
+ {
+  "estate": "u-clos-haut-peyraguey",
+  "name": "Clos HAUT-PEYRAGUEY",
+  "domain": "bernard-magrez.com",
+  "status": "BLOCKED_BY_POLICY",
+  "stopped": "ROBOTS_DISALLOW_SITE",
+  "ok": 0,
+  "text_artifacts": 0,
+  "failures": {
+   "ROBOTS_DISALLOW_SITE": 1
+  }
+ },
+ {
+  "estate": "u-clos-la-boheme",
+  "name": "Clos la Bohème",
+  "domain": "chateau-beau-rivage.fr",
+  "status": "REACHED",
+  "stopped": "FRONTIER_EMPTY",
+  "ok": 19,
+  "text_artifacts": 16,
+  "failures": {
+   "OFFSITE_REDIRECT": 4,
+   "HTTP_ERROR": 3,
+   "BLOCKED_CHALLENGE": 1
+  }
+ },
+ {
+  "estate": "u-clos-saint-julien",
+  "name": "CLOS SAINT-JULIEN",
+  "status": "NO_KNOWN_SITE",
+  "domain": null
+ },
+ {
+  "estate": "u-clos-saint-martin",
+  "name": "CLOS SAINT-MARTIN",
+  "domain": "clos-saintmartin.fr",
+  "status": "REACHED",
+  "stopped": "FRONTIER_EMPTY",
+  "ok": 25,
+  "text_artifacts": 12,
+  "failures": {
+   "HTTP_ERROR": 1
+  }
+ },
+ {
+  "estate": "u-corbin",
+  "name": "Château CORBIN",
+  "domain": "chateau-corbin.com",
+  "status": "REACHED",
+  "stopped": "FRONTIER_EMPTY",
+  "ok": 189,
+  "text_artifacts": 184,
+  "failures": {
+   "OFFSITE_REDIRECT": 4
+  }
+ },
+ {
+  "estate": "u-corbin-michotte",
+  "name": "Château CORBIN MICHOTTE",
+  "domain": "chateau-corbinmichotte.com",
+  "status": "REACHED",
+  "stopped": "FRONTIER_EMPTY",
+  "ok": 11,
+  "text_artifacts": 4,
+  "failures": {
+   "HTTP_ERROR": 1
+  }
+ },
+ {
+  "estate": "u-corconnac",
+  "name": "Château Corconnac",
+  "domain": "teynac-corconnac.com",
+  "status": "REACHED",
+  "stopped": "BUDGET",
+  "ok": 31,
+  "text_artifacts": 19,
+  "failures": {
+   "HTTP_ERROR": 349
+  }
+ },
+ {
+  "estate": "u-cos-d-estournel",
+  "name": "Château COS D’ESTOURNEL",
+  "domain": "estournel.com",
+  "status": "REACHED",
+  "stopped": "FRONTIER_EMPTY",
+  "ok": 119,
+  "text_artifacts": 108,
+  "failures": {
+   "ROBOTS_DISALLOW": 4,
+   "ROBOTS_DISALLOW_REDIRECT": 2,
+   "HTTP_ERROR": 2
+  }
+ },
+ {
+  "estate": "u-cos-labory",
+  "name": "Château COS LABORY",
+  "domain": "cos-labory.com",
+  "status": "UNREACHABLE",
+  "stopped": "FRONTIER_EMPTY",
+  "ok": 0,
+  "text_artifacts": 0,
+  "failures": {
+   "TIMEOUT": 5
+  }
+ },
+ {
+  "estate": "u-cote-de-baleau",
+  "name": "Château COTE DE BALEAU",
+  "domain": "cotedebaleau.com",
+  "status": "PARTIAL",
+  "stopped": "FRONTIER_EMPTY",
+  "ok": 1,
+  "text_artifacts": 1,
+  "failures": {
+   "HTTP_ERROR": 4
+  }
+ },
+ {
+  "estate": "u-cotes-de-blaignan",
+  "name": "Château Côtes de Blaignan",
+  "status": "NO_KNOWN_SITE",
+  "domain": null
+ },
+ {
+  "estate": "u-couhins",
+  "name": "Château Couhins",
+  "domain": "chateau-couhins.fr",
+  "status": "REACHED",
+  "stopped": "FRONTIER_EMPTY",
+  "ok": 120,
+  "text_artifacts": 118,
+  "failures": {
+   "HTTP_ERROR": 4
+  }
+ },
+ {
+  "estate": "u-couhins-lurton",
+  "name": "Château Couhins-Lurton",
+  "domain": "chateau-couhins-lurton.com",
+  "status": "REACHED",
+  "stopped": "BUDGET",
+  "ok": 380,
+  "text_artifacts": 370,
+  "failures": {}
+ },
+ {
+  "estate": "u-coutelin-merville",
+  "name": "Château Coutelin Merville",
+  "status": "NO_KNOWN_SITE",
+  "domain": null
+ },
+ {
+  "estate": "u-coutet",
+  "name": "Château COUTET",
+  "domain": "chateaucoutet.com",
+  "status": "REACHED",
+  "stopped": "FRONTIER_EMPTY",
+  "ok": 200,
+  "text_artifacts": 196,
+  "failures": {
+   "HTTP_ERROR": 1
+  }
+ },
+ {
+  "estate": "u-couvent-des-jacobins",
+  "name": "COUVENT DES JACOBINS",
+  "domain": "couvent.wine",
+  "status": "PARTIAL",
+  "stopped": "FRONTIER_EMPTY",
+  "ok": 1,
+  "text_artifacts": 0,
+  "failures": {
+   "OFFSITE_REDIRECT": 4,
+   "HTTP_ERROR": 128,
+   "TIMEOUT": 1
+  }
+ },
+ {
+  "estate": "u-croix-de-labrie",
+  "name": "Château CROIX DE LABRIE",
+  "domain": "chateau-croix-de-labrie.fr",
+  "status": "REACHED",
+  "stopped": "FRONTIER_EMPTY",
+  "ok": 124,
+  "text_artifacts": 120,
+  "failures": {
+   "HTTP_ERROR": 3,
+   "OFFSITE_REDIRECT": 18
+  }
+ },
+ {
+  "estate": "u-croix-du-trale",
+  "name": "Château Croix du Trale",
+  "domain": "chateaucroixdutrale.com",
+  "status": "REACHED",
+  "stopped": "FRONTIER_EMPTY",
+  "ok": 158,
+  "text_artifacts": 141,
+  "failures": {
+   "HTTP_ERROR": 1
+  }
+ },
+ {
+  "estate": "u-croizet-bages",
+  "name": "Château CROIZET-BAGES",
+  "domain": "domaines-quie.com",
+  "status": "REACHED",
+  "stopped": "FRONTIER_EMPTY",
+  "ok": 62,
+  "text_artifacts": 47,
+  "failures": {
+   "HTTP_ERROR": 1
+  }
+ },
+ {
+  "estate": "u-d-arche",
+  "name": "Château d’ARCHE",
+  "domain": "chateaudarche-sauternes.com",
+  "status": "REACHED",
+  "stopped": "FRONTIER_EMPTY",
+  "ok": 5,
+  "text_artifacts": 5,
+  "failures": {}
+ },
+ {
+  "estate": "u-d-arcins",
+  "name": "Château d’Arcins",
+  "domain": "chateaudarcins.com",
+  "status": "BLOCKED_BY_POLICY",
+  "stopped": "ROBOTS_DISALLOW_SITE",
+  "ok": 0,
+  "text_artifacts": 0,
+  "failures": {
+   "ROBOTS_DISALLOW_SITE": 1
+  }
+ },
+ {
+  "estate": "u-d-argan",
+  "name": "Château d'Argan",
+  "domain": "vignobles-lamont.com",
+  "status": "REACHED",
+  "stopped": "FRONTIER_EMPTY",
+  "ok": 158,
+  "text_artifacts": 147,
+  "failures": {
+   "TLS_FAILURE": 2,
+   "HTTP_ERROR": 1
+  }
+ },
+ {
+  "estate": "u-d-armailhac",
+  "name": "Château D’ARMAILHAC",
+  "domain": "chateau-darmailhac.com",
+  "status": "REACHED",
+  "stopped": "FRONTIER_EMPTY",
+  "ok": 201,
+  "text_artifacts": 191,
+  "failures": {}
+ },
+ {
+  "estate": "u-d-arsac",
+  "name": "Château d’Arsac",
+  "domain": "chateau-arsac.com",
+  "status": "REACHED",
+  "stopped": "FRONTIER_EMPTY",
+  "ok": 204,
+  "text_artifacts": 194,
+  "failures": {
+   "HTTP_ERROR": 1
+  }
+ },
+ {
+  "estate": "u-d-aurilhac",
+  "name": "Château d'Aurilhac",
+  "status": "NO_KNOWN_SITE",
+  "domain": null
+ },
+ {
+  "estate": "u-d-escurac",
+  "name": "Château d'Escurac",
+  "domain": "chateaudescurac.com",
+  "status": "REACHED",
+  "stopped": "FRONTIER_EMPTY",
+  "ok": 100,
+  "text_artifacts": 88,
+  "failures": {
+   "HTTP_ERROR": 5
+  }
+ },
+ {
+  "estate": "u-d-issan",
+  "name": "Château D’ISSAN",
+  "domain": "chateau-issan.com",
+  "status": "REACHED",
+  "stopped": "BUDGET",
+  "ok": 320,
+  "text_artifacts": 309,
+  "failures": {
+   "HTTP_ERROR": 29,
+   "TOO_LARGE": 2
+  }
+ },
+ {
+  "estate": "u-d-osmond",
+  "name": "Château d’Osmond",
+  "domain": "moutte-blanc.fr",
+  "status": "REACHED",
+  "stopped": "FRONTIER_EMPTY",
+  "ok": 108,
+  "text_artifacts": 71,
+  "failures": {
+   "HTTP_ERROR": 1
+  }
+ },
+ {
+  "estate": "u-d-yquem",
+  "name": "Château d’YQUEM",
+  "domain": "yquem.fr",
+  "status": "REACHED",
+  "stopped": "FRONTIER_EMPTY",
+  "ok": 17,
+  "text_artifacts": 16,
+  "failures": {
+   "ROBOTS_DISALLOW": 1,
+   "HTTP_ERROR": 3
+  }
+ },
+ {
+  "estate": "u-dacher-de-delmonte",
+  "name": "Château Dacher de Delmonte",
+  "status": "NO_KNOWN_SITE",
+  "domain": null
+ },
+ {
+  "estate": "u-dassault",
+  "name": "Château DASSAULT",
+  "domain": "chateaudassault.com",
+  "status": "REACHED",
+  "stopped": "FRONTIER_EMPTY",
+  "ok": 74,
+  "text_artifacts": 68,
+  "failures": {
+   "OFFSITE_REDIRECT": 4,
+   "ROBOTS_DISALLOW": 20
+  }
+ },
+ {
+  "estate": "u-dasvin-bel-air",
+  "name": "Château Dasvin Bel Air",
+  "status": "NO_KNOWN_SITE",
+  "domain": null
+ },
+ {
+  "estate": "u-dauzac",
+  "name": "Château DAUZAC",
+  "domain": "chateaudauzac.com",
+  "status": "REACHED",
+  "stopped": "FRONTIER_EMPTY",
+  "ok": 301,
+  "text_artifacts": 262,
+  "failures": {
+   "TOO_LARGE": 9
+  }
+ },
+ {
+  "estate": "u-de-bensse",
+  "name": "Château de Bensse",
+  "domain": "unimedoc.com",
+  "status": "REACHED",
+  "stopped": "FRONTIER_EMPTY",
+  "ok": 176,
+  "text_artifacts": 154,
+  "failures": {}
+ },
+ {
+  "estate": "u-de-braude",
+  "name": "Château de Braude",
+  "domain": "vignobles-bernaleau.com",
+  "status": "REACHED",
+  "stopped": "FRONTIER_EMPTY",
+  "ok": 276,
+  "text_artifacts": 266,
+  "failures": {
+   "HTTP_ERROR": 1
+  }
+ },
+ {
+  "estate": "u-de-camensac",
+  "name": "Château de CAMENSAC",
+  "domain": "chateaucamensac.com",
+  "status": "REACHED",
+  "stopped": "FRONTIER_EMPTY",
+  "ok": 107,
+  "text_artifacts": 99,
+  "failures": {
+   "HTTP_ERROR": 7
+  }
+ },
+ {
+  "estate": "u-de-cartujac",
+  "name": "Château de Cartujac",
+  "domain": "linktr.ee",
+  "status": "BLOCKED_BY_POLICY",
+  "stopped": "ROBOTS_DISALLOW_SITE",
+  "ok": 0,
+  "text_artifacts": 0,
+  "failures": {
+   "ROBOTS_DISALLOW_SITE": 1
+  }
+ },
+ {
+  "estate": "u-de-come",
+  "name": "Château de Côme",
+  "domain": "chateaudecome.com",
+  "status": "REACHED",
+  "stopped": "FRONTIER_EMPTY",
+  "ok": 115,
+  "text_artifacts": 108,
+  "failures": {
+   "ROBOTS_DISALLOW": 32
+  }
+ },
+ {
+  "estate": "u-de-coudot",
+  "name": "Château de Coudot",
+  "status": "NO_KNOWN_SITE",
+  "domain": null
+ },
+ {
+  "estate": "u-de-ferrand",
+  "name": "Château DE FERRAND",
+  "domain": "chateaudeferrand.com",
+  "status": "REACHED",
+  "stopped": "FRONTIER_EMPTY",
+  "ok": 299,
+  "text_artifacts": 277,
+  "failures": {
+   "HTTP_ERROR": 8
+  }
+ },
+ {
+  "estate": "u-de-fieuzal",
+  "name": "Château De Fieuzal",
+  "domain": "fieuzal.com",
+  "status": "REACHED",
+  "stopped": "FRONTIER_EMPTY",
+  "ok": 18,
+  "text_artifacts": 17,
+  "failures": {
+   "HTTP_ERROR": 3
+  }
+ },
+ {
+  "estate": "u-de-la-croix",
+  "name": "Château de la Croix",
+  "domain": "chateau-de-la-croix.com",
+  "status": "REACHED",
+  "stopped": "FRONTIER_EMPTY",
+  "ok": 313,
+  "text_artifacts": 195,
+  "failures": {}
+ },
+ {
+  "estate": "u-de-lauga",
+  "name": "Château de Lauga",
+  "domain": "lauga.com",
+  "status": "REACHED",
+  "stopped": "FRONTIER_EMPTY",
+  "ok": 90,
+  "text_artifacts": 81,
+  "failures": {
+   "HTTP_ERROR": 14,
+   "OFFSITE_REDIRECT": 15,
+   "ROBOTS_DISALLOW": 1
+  }
+ },
+ {
+  "estate": "u-de-malle",
+  "name": "Château de MALLE",
+  "domain": "chateaudemalle.com",
+  "status": "REACHED",
+  "stopped": "FRONTIER_EMPTY",
+  "ok": 135,
+  "text_artifacts": 115,
+  "failures": {
+   "TOO_LARGE": 8,
+   "HTTP_ERROR": 1
+  }
+ },
+ {
+  "estate": "u-de-malleret",
+  "name": "Château de Malleret",
+  "domain": "chateau-malleret.fr",
+  "status": "REACHED",
+  "stopped": "FRONTIER_EMPTY",
+  "ok": 121,
+  "text_artifacts": 116,
+  "failures": {
+   "HTTP_ERROR": 2
+  }
+ },
+ {
+  "estate": "u-de-myrat",
+  "name": "Château de MYRAT",
+  "domain": "chateaudemyrat.fr",
+  "status": "REACHED",
+  "stopped": "FRONTIER_EMPTY",
+  "ok": 120,
+  "text_artifacts": 119,
+  "failures": {
+   "HTTP_ERROR": 4,
+   "ROBOTS_DISALLOW": 24
+  }
+ },
+ {
+  "estate": "u-de-panigon",
+  "name": "Château de Panigon",
+  "domain": "chateaudepanigon.fr",
+  "status": "REACHED",
+  "stopped": "FRONTIER_EMPTY",
+  "ok": 24,
+  "text_artifacts": 22,
+  "failures": {
+   "HTTP_ERROR": 4,
+   "ROBOTS_DISALLOW": 34
+  }
+ },
+ {
+  "estate": "u-de-pressac",
+  "name": "Château DE PRESSAC",
+  "domain": "chateaudepressac.com",
+  "status": "REACHED",
+  "stopped": "BUDGET",
+  "ok": 315,
+  "text_artifacts": 247,
+  "failures": {
+   "HTTP_ERROR": 60,
+   "TOO_MANY_REDIRECTS": 5
+  }
+ },
+ {
+  "estate": "u-de-rayne-vigneau",
+  "name": "Château de RAYNE-VIGNEAU",
+  "domain": "raynevigneau.fr",
+  "status": "BLOCKED_BY_POLICY",
+  "stopped": "ROBOTS_DISALLOW_SITE",
+  "ok": 0,
+  "text_artifacts": 0,
+  "failures": {
+   "ROBOTS_DISALLOW_SITE": 1
+  }
+ },
+ {
+  "estate": "u-de-villambis",
+  "name": "Château de Villambis",
+  "domain": "chateaudevillambis.com",
+  "status": "UNREACHABLE",
+  "stopped": "FRONTIER_EMPTY",
+  "ok": 0,
+  "text_artifacts": 0,
+  "failures": {
+   "TLS_FAILURE": 5
+  }
+ },
+ {
+  "estate": "u-des-cabans",
+  "name": "Château des Cabans",
+  "domain": "vignobles-philippeberard.com",
+  "status": "UNREACHABLE",
+  "stopped": "FRONTIER_EMPTY",
+  "ok": 0,
+  "text_artifacts": 0,
+  "failures": {
+   "TLS_FAILURE": 5
+  }
+ },
+ {
+  "estate": "u-des-granges-d-or",
+  "name": "Château des Granges d'Or",
+  "domain": "chateaudesgrangesdor.com",
+  "status": "REACHED",
+  "stopped": "FRONTIER_EMPTY",
+  "ok": 28,
+  "text_artifacts": 27,
+  "failures": {
+   "HTTP_ERROR": 3,
+   "ROBOTS_DISALLOW": 4
+  }
+ },
+ {
+  "estate": "u-des-graviers",
+  "name": "Château des Graviers",
+  "status": "NO_KNOWN_SITE",
+  "domain": null
+ },
+ {
+  "estate": "u-des-tourelles",
+  "name": "Château des Tourelles",
+  "status": "NO_KNOWN_SITE",
+  "domain": null
+ },
+ {
+  "estate": "u-desmirail",
+  "name": "Château DESMIRAIL",
+  "domain": "desmirail.com",
+  "status": "REACHED",
+  "stopped": "FRONTIER_EMPTY",
+  "ok": 250,
+  "text_artifacts": 240,
+  "failures": {
+   "HTTP_ERROR": 3
+  }
+ },
+ {
+  "estate": "u-destieux",
+  "name": "Château DESTIEUX",
+  "domain": "chateau-destieux.com",
+  "status": "REACHED",
+  "stopped": "FRONTIER_EMPTY",
+  "ok": 66,
+  "text_artifacts": 53,
+  "failures": {
+   "HTTP_ERROR": 1
+  }
+ },
+ {
+  "estate": "u-devise-d-ardilley",
+  "name": "Château Devise d'Ardilley",
+  "domain": "chateaudevisedardilley.fr",
+  "status": "REACHED",
+  "stopped": "FRONTIER_EMPTY",
+  "ok": 34,
+  "text_artifacts": 21,
+  "failures": {
+   "HTTP_ERROR": 6
+  }
+ },
+ {
+  "estate": "u-dillon",
+  "name": "Château Dillon",
+  "domain": "chateaudillon.com",
+  "status": "REACHED",
+  "stopped": "FRONTIER_EMPTY",
+  "ok": 183,
+  "text_artifacts": 162,
+  "failures": {
+   "HTTP_ERROR": 1
+  }
+ },
+ {
+  "estate": "u-doisy-daene",
+  "name": "Château DOISY DAËNE",
+  "domain": "denisdubourdieu.com",
+  "status": "REACHED",
+  "stopped": "FRONTIER_EMPTY",
+  "ok": 291,
+  "text_artifacts": 282,
+  "failures": {
+   "HTTP_ERROR": 1
+  }
+ },
+ {
+  "estate": "u-doisy-dubroca",
+  "name": "Château DOISY-DUBROCA",
+  "domain": "denisdubourdieu.com",
+  "status": "REACHED",
+  "stopped": "FRONTIER_EMPTY",
+  "ok": 291,
+  "text_artifacts": 282,
+  "failures": {
+   "HTTP_ERROR": 1
+  }
+ },
+ {
+  "estate": "u-doisy-vedrines",
+  "name": "Château DOISY-VEDRINES",
+  "domain": "doisy-vedrines.com",
+  "status": "REACHED",
+  "stopped": "FRONTIER_EMPTY",
+  "ok": 55,
+  "text_artifacts": 46,
+  "failures": {
+   "TIMEOUT": 2
+  }
+ },
+ {
+  "estate": "u-domaine-de-chevalier",
+  "name": "Domaine De Chevalier",
+  "domain": "domainedechevalier.com",
+  "status": "REACHED",
+  "stopped": "BUDGET",
+  "ok": 144,
+  "text_artifacts": 134,
+  "failures": {}
+ },
+ {
+  "estate": "u-domaine-de-la-garenne",
+  "name": "Domaine de la Garenne",
+  "status": "NO_KNOWN_SITE",
+  "domain": null
+ },
+ {
+  "estate": "u-donissan",
+  "name": "Château Donissan",
+  "domain": "chateau-donissan.com",
+  "status": "UNREACHABLE",
+  "stopped": "FRONTIER_EMPTY",
+  "ok": 0,
+  "text_artifacts": 0,
+  "failures": {
+   "TLS_FAILURE": 5
+  }
+ },
+ {
+  "estate": "u-du-cartillon",
+  "name": "Château du Cartillon",
+  "domain": "cdf-chateaux.com",
+  "status": "PARTIAL",
+  "stopped": "FRONTIER_EMPTY",
+  "ok": 1,
+  "text_artifacts": 0,
+  "failures": {
+   "HTTP_ERROR": 4
+  }
+ },
+ {
+  "estate": "u-du-ha",
+  "name": "Château du Ha",
+  "domain": "chateau-du-ha.com",
+  "status": "REACHED",
+  "stopped": "FRONTIER_EMPTY",
+  "ok": 12,
+  "text_artifacts": 10,
+  "failures": {
+   "HTTP_ERROR": 3
+  }
+ },
+ {
+  "estate": "u-du-moulin-rouge",
+  "name": "Château du Moulin Rouge",
+  "domain": "chateaudumoulinrouge.fr",
+  "status": "REACHED",
+  "stopped": "FRONTIER_EMPTY",
+  "ok": 129,
+  "text_artifacts": 119,
+  "failures": {
+   "HTTP_ERROR": 4
+  }
+ },
+ {
+  "estate": "u-du-raux",
+  "name": "Château du Raux",
+  "status": "NO_KNOWN_SITE",
+  "domain": null
+ },
+ {
+  "estate": "u-du-taillan",
+  "name": "Château du Taillan",
+  "domain": "chateaudutaillan.com",
+  "status": "REACHED",
+  "stopped": "FRONTIER_EMPTY",
+  "ok": 157,
+  "text_artifacts": 149,
+  "failures": {
+   "HTTP_ERROR": 1
+  }
+ },
+ {
+  "estate": "u-du-tertre",
+  "name": "Château DU TERTRE",
+  "domain": "chateaudutertre.fr",
+  "status": "REACHED",
+  "stopped": "FRONTIER_EMPTY",
+  "ok": 48,
+  "text_artifacts": 41,
+  "failures": {
+   "HTTP_ERROR": 1
+  }
+ },
+ {
+  "estate": "u-ducru-beaucaillou",
+  "name": "Château DUCRU-BEAUCAILLOU",
+  "domain": "chateau-ducru-beaucaillou.com",
+  "status": "REACHED",
+  "stopped": "FRONTIER_EMPTY",
+  "ok": 107,
+  "text_artifacts": 89,
+  "failures": {
+   "HTTP_ERROR": 2
+  }
+ },
+ {
+  "estate": "u-duhart-milon",
+  "name": "Château DUHART-MILON",
+  "domain": "lafite.com",
+  "status": "REACHED",
+  "stopped": "BUDGET",
+  "ok": 48,
+  "text_artifacts": 38,
+  "failures": {
+   "TIMEOUT": 44
+  }
+ },
+ {
+  "estate": "u-durfort-vivens",
+  "name": "Château DURFORT-VIVENS",
+  "domain": "durfort-vivens.fr",
+  "status": "REACHED",
+  "stopped": "BUDGET",
+  "ok": 310,
+  "text_artifacts": 274,
+  "failures": {
+   "OFFSITE_REDIRECT": 4,
+   "HTTP_ERROR": 40,
+   "TOO_LARGE": 26
+  }
+ },
+ {
+  "estate": "u-escot",
+  "name": "Château Escot",
+  "domain": "chateau-d-escot.com",
+  "status": "UNREACHABLE",
+  "stopped": "FRONTIER_EMPTY",
+  "ok": 0,
+  "text_artifacts": 0,
+  "failures": {
+   "TLS_FAILURE": 5
+  }
+ },
+ {
+  "estate": "u-faugeres",
+  "name": "Château FAUGERES",
+  "domain": "chateau-faugeres.fr",
+  "status": "REACHED",
+  "stopped": "FRONTIER_EMPTY",
+  "ok": 152,
+  "text_artifacts": 144,
+  "failures": {
+   "OFFSITE_REDIRECT": 4,
+   "HTTP_ERROR": 2
+  }
+ },
+ {
+  "estate": "u-ferriere",
+  "name": "Château FERRIERE",
+  "domain": "ferriere.com",
+  "status": "REACHED",
+  "stopped": "BUDGET",
+  "ok": 316,
+  "text_artifacts": 290,
+  "failures": {
+   "OFFSITE_REDIRECT": 4,
+   "HTTP_ERROR": 38,
+   "TOO_LARGE": 26,
+   "CRAWLER_CRASH": 1
+  }
+ },
+ {
+  "estate": "u-figeac",
+  "name": "Château FIGEAC",
+  "domain": "chateau-figeac.com",
+  "status": "REACHED",
+  "stopped": "FRONTIER_EMPTY",
+  "ok": 183,
+  "text_artifacts": 171,
+  "failures": {}
+ },
+ {
+  "estate": "u-filhot",
+  "name": "Château FILHOT",
+  "domain": "filhot.fr",
+  "status": "REACHED",
+  "stopped": "FRONTIER_EMPTY",
+  "ok": 25,
+  "text_artifacts": 15,
+  "failures": {
+   "OFFSITE_REDIRECT": 4,
+   "ROBOTS_DISALLOW": 1,
+   "HTTP_ERROR": 1
+  }
+ },
+ {
+  "estate": "u-fleur-cardinale",
+  "name": "Château FLEUR CARDINALE",
+  "domain": "lamaisoncardinale.com",
+  "status": "REACHED",
+  "stopped": "BUDGET",
+  "ok": 380,
+  "text_artifacts": 354,
+  "failures": {}
+ },
+ {
+  "estate": "u-fleur-la-mothe",
+  "name": "Château Fleur la Mothe",
+  "domain": "chateaufleurlamothe.fr",
+  "status": "REACHED",
+  "stopped": "FRONTIER_EMPTY",
+  "ok": 137,
+  "text_artifacts": 135,
+  "failures": {
+   "HTTP_ERROR": 3
+  }
+ },
+ {
+  "estate": "u-fombrauge",
+  "name": "Château FOMBRAUGE",
+  "domain": "chateau-fombrauge.fr",
+  "status": "REACHED",
+  "stopped": "FRONTIER_EMPTY",
+  "ok": 67,
+  "text_artifacts": 62,
+  "failures": {
+   "HTTP_ERROR": 3
+  }
+ },
+ {
+  "estate": "u-fonplegade",
+  "name": "Château FONPLEGADE",
+  "domain": "fonplegade.com",
+  "status": "REACHED",
+  "stopped": "FRONTIER_EMPTY",
+  "ok": 52,
+  "text_artifacts": 51,
+  "failures": {
+   "HTTP_ERROR": 5,
+   "OFFSITE_REDIRECT": 1
+  }
+ },
+ {
+  "estate": "u-fonroque",
+  "name": "Château FONROQUE",
+  "domain": "chateaufonroque.net",
+  "status": "REACHED",
+  "stopped": "FRONTIER_EMPTY",
+  "ok": 194,
+  "text_artifacts": 180,
+  "failures": {
+   "HTTP_ERROR": 1,
+   "TOO_LARGE": 1,
+   "TIMEOUT": 1
+  }
+ },
+ {
+  "estate": "u-franc-mayne",
+  "name": "Château FRANC MAYNE",
+  "domain": "chateaufrancmayne.com",
+  "status": "REACHED",
+  "stopped": "FRONTIER_EMPTY",
+  "ok": 112,
+  "text_artifacts": 101,
+  "failures": {
+   "HTTP_ERROR": 2
+  }
+ },
+ {
+  "estate": "u-gadet-terrefort",
+  "name": "Château Gadet Terrefort",
+  "domain": "gadet-terrefort.com",
+  "status": "UNREACHABLE",
+  "stopped": "FRONTIER_EMPTY",
+  "ok": 0,
+  "text_artifacts": 0,
+  "failures": {
+   "TIMEOUT": 5
+  }
+ },
+ {
+  "estate": "u-garance-haut-grenat",
+  "name": "Château Garance Haut Grenat",
+  "domain": "chateau-garance-haut-grenat-02.webself.net",
+  "status": "PARTIAL",
+  "stopped": "FRONTIER_EMPTY",
+  "ok": 11,
+  "text_artifacts": 0,
+  "failures": {
+   "HTTP_ERROR": 3
+  }
+ },
+ {
+  "estate": "u-gemeillan",
+  "name": "Château Gémeillan",
+  "domain": "chateau-st-hilaire.com",
+  "status": "REACHED",
+  "stopped": "FRONTIER_EMPTY",
+  "ok": 32,
+  "text_artifacts": 28,
+  "failures": {
+   "HTTP_ERROR": 28,
+   "BLOCKED_CHALLENGE": 1
+  }
+ },
+ {
+  "estate": "u-german-marbuzet",
+  "name": "Château German Marbuzet",
+  "status": "NO_KNOWN_SITE",
+  "domain": null
+ },
+ {
+  "estate": "u-giscours",
+  "name": "Château GISCOURS",
+  "domain": "giscours.com",
+  "status": "UNREACHABLE",
+  "stopped": "FRONTIER_EMPTY",
+  "ok": 0,
+  "text_artifacts": 0,
+  "failures": {
+   "TLS_FAILURE": 5
+  }
+ },
+ {
+  "estate": "u-grand-brun",
+  "name": "Château Grand Brun",
+  "domain": "chateau-grand-brun.com",
+  "status": "REACHED",
+  "stopped": "FRONTIER_EMPTY",
+  "ok": 57,
+  "text_artifacts": 56,
+  "failures": {
+   "HTTP_ERROR": 3,
+   "OFFSITE_REDIRECT": 4
+  }
+ },
+ {
+  "estate": "u-grand-clapeau-olivier",
+  "name": "Château Grand Clapeau Olivier",
+  "domain": "chateau-grand-clapeau-olivier.fr",
+  "status": "REACHED",
+  "stopped": "FRONTIER_EMPTY",
+  "ok": 9,
+  "text_artifacts": 9,
+  "failures": {
+   "HTTP_ERROR": 4
+  }
+ },
+ {
+  "estate": "u-grand-corbin",
+  "name": "Château GRAND CORBIN",
+  "domain": "grand-corbin.com",
+  "status": "REACHED",
+  "stopped": "FRONTIER_EMPTY",
+  "ok": 29,
+  "text_artifacts": 29,
+  "failures": {
+   "HTTP_ERROR": 6,
+   "ROBOTS_DISALLOW": 23,
+   "NETWORK_FAILURE": 20
+  }
+ },
+ {
+  "estate": "u-grand-corbin-despagne",
+  "name": "Château GRAND CORBIN-DESPAGNE",
+  "domain": "grand-corbin-despagne.com",
+  "status": "REACHED",
+  "stopped": "BUDGET",
+  "ok": 379,
+  "text_artifacts": 366,
+  "failures": {
+   "HTTP_ERROR": 1
+  }
+ },
+ {
+  "estate": "u-grand-mayne",
+  "name": "Château GRAND MAYNE",
+  "domain": "grand-mayne.com",
+  "status": "REACHED",
+  "stopped": "FRONTIER_EMPTY",
+  "ok": 106,
+  "text_artifacts": 93,
+  "failures": {
+   "HTTP_ERROR": 25
+  }
+ },
+ {
+  "estate": "u-grand-puy-ducasse",
+  "name": "Château GRAND-PUY DUCASSE",
+  "domain": "grandpuyducasse.fr",
+  "status": "UNREACHABLE",
+  "stopped": "FRONTIER_EMPTY",
+  "ok": 0,
+  "text_artifacts": 0,
+  "failures": {
+   "TLS_FAILURE": 5
+  }
+ },
+ {
+  "estate": "u-grand-puy-lacoste",
+  "name": "Château GRAND-PUY-LACOSTE",
+  "domain": "chateau-grand-puy-lacoste.com",
+  "status": "REACHED",
+  "stopped": "FRONTIER_EMPTY",
+  "ok": 212,
+  "text_artifacts": 208,
+  "failures": {
+   "HTTP_ERROR": 3
+  }
+ },
+ {
+  "estate": "u-grandis",
+  "name": "Château Grandis",
+  "status": "NO_KNOWN_SITE",
+  "domain": null
+ },
+ {
+  "estate": "u-graves-de-pez",
+  "name": "Château Graves de Pez",
+  "domain": "gravesdepez.com",
+  "status": "REACHED",
+  "stopped": "FRONTIER_EMPTY",
+  "ok": 13,
+  "text_artifacts": 13,
+  "failures": {
+   "OFFSITE_REDIRECT": 4,
+   "HTTP_ERROR": 3
+  }
+ },
+ {
+  "estate": "u-greysac",
+  "name": "Château Greysac",
+  "domain": "domaines-rollandeby.com",
+  "status": "REACHED",
+  "stopped": "BUDGET",
+  "ok": 378,
+  "text_artifacts": 340,
+  "failures": {
+   "HTTP_ERROR": 2
+  }
+ },
+ {
+  "estate": "u-griviere",
+  "name": "Château Grivière",
+  "domain": "chateaugriviere.com",
+  "status": "REACHED",
+  "stopped": "FRONTIER_EMPTY",
+  "ok": 71,
+  "text_artifacts": 65,
+  "failures": {
+   "HTTP_ERROR": 2
+  }
+ },
+ {
+  "estate": "u-gruaud-larose",
+  "name": "Château GRUAUD LAROSE",
+  "domain": "gruaud-larose.com",
+  "status": "REACHED",
+  "stopped": "FRONTIER_EMPTY",
+  "ok": 335,
+  "text_artifacts": 324,
+  "failures": {
+   "HTTP_ERROR": 1
+  }
+ },
+ {
+  "estate": "u-guadet",
+  "name": "Château GUADET",
+  "status": "NO_KNOWN_SITE",
+  "domain": null
+ },
+ {
+  "estate": "u-guiraud",
+  "name": "Château GUIRAUD",
+  "domain": "chateauguiraud.com",
+  "status": "REACHED",
+  "stopped": "FRONTIER_EMPTY",
+  "ok": 53,
+  "text_artifacts": 52,
+  "failures": {
+   "NETWORK_FAILURE": 3,
+   "HTTP_ERROR": 7
+  }
+ },
+ {
+  "estate": "u-guitignan",
+  "name": "Château Guitignan",
+  "domain": "cave-listrac-medoc.com",
+  "status": "REACHED",
+  "stopped": "BUDGET",
+  "ok": 289,
+  "text_artifacts": 248,
+  "failures": {
+   "TLS_FAILURE": 4
+  }
+ },
+ {
+  "estate": "u-haut-bages-liberal",
+  "name": "Château HAUT-BAGES LIBERAL",
+  "domain": "hautbagesliberal.com",
+  "status": "REACHED",
+  "stopped": "BUDGET",
+  "ok": 311,
+  "text_artifacts": 287,
+  "failures": {
+   "OFFSITE_REDIRECT": 4,
+   "HTTP_ERROR": 38,
+   "TOO_LARGE": 27
+  }
+ },
+ {
+  "estate": "u-haut-bailly",
+  "name": "Château Haut-Bailly",
+  "domain": "haut-bailly.com",
+  "status": "REACHED",
+  "stopped": "FRONTIER_EMPTY",
+  "ok": 301,
+  "text_artifacts": 225,
+  "failures": {
+   "TOO_LARGE": 1,
+   "ROBOTS_DISALLOW": 1,
+   "HTTP_ERROR": 2
+  }
+ },
+ {
+  "estate": "u-haut-bana",
+  "name": "Château Haut-Bana",
+  "status": "NO_KNOWN_SITE",
+  "domain": null
+ },
+ {
+  "estate": "u-haut-barrail",
+  "name": "Château Haut Barrail",
+  "domain": "chateauhautbarrail.com",
+  "status": "BLOCKED_BY_POLICY",
+  "stopped": "ROBOTS_DISALLOW_SITE",
+  "ok": 0,
+  "text_artifacts": 0,
+  "failures": {
+   "ROBOTS_DISALLOW_SITE": 1
+  }
+ },
+ {
+  "estate": "u-haut-batailley",
+  "name": "Château HAUT-BATAILLEY",
+  "domain": "hautbatailley.com",
+  "status": "PARTIAL",
+  "stopped": "FRONTIER_EMPTY",
+  "ok": 3,
+  "text_artifacts": 0,
+  "failures": {
+   "HTTP_ERROR": 3
+  }
+ },
+ {
+  "estate": "u-haut-beyzac",
+  "name": "Château Haut Beyzac",
+  "domain": "vignoblesraguenot.fr",
+  "status": "REACHED",
+  "stopped": "FRONTIER_EMPTY",
+  "ok": 135,
+  "text_artifacts": 125,
+  "failures": {
+   "HTTP_ERROR": 7
+  }
+ },
+ {
+  "estate": "u-haut-brion",
+  "name": "Château HAUT-BRION",
+  "domain": "haut-brion.com",
+  "status": "REACHED",
+  "stopped": "BUDGET",
+  "ok": 380,
+  "text_artifacts": 370,
+  "failures": {}
+ },
+ {
+  "estate": "u-haut-brisey",
+  "name": "Château Haut Brisey",
+  "status": "NO_KNOWN_SITE",
+  "domain": null
+ },
+ {
+  "estate": "u-haut-canteloup",
+  "name": "Château Haut Canteloup",
+  "domain": "vignobles-lacombe.com",
+  "status": "REACHED",
+  "stopped": "FRONTIER_EMPTY",
+  "ok": 12,
+  "text_artifacts": 11,
+  "failures": {
+   "HTTP_ERROR": 3
+  }
+ },
+ {
+  "estate": "u-haut-couloumey",
+  "name": "Château Haut Couloumey",
+  "domain": "hautcouloumey.fr",
+  "status": "REACHED",
+  "stopped": "FRONTIER_EMPTY",
+  "ok": 19,
+  "text_artifacts": 13,
+  "failures": {
+   "ROBOTS_DISALLOW": 16,
+   "HTTP_ERROR": 1,
+   "AUTH_REQUIRED": 1
+  }
+ },
+ {
+  "estate": "u-haut-gravat",
+  "name": "Château Haut Gravat",
+  "domain": "chateau-haut-gravat.fr",
+  "status": "REACHED",
+  "stopped": "FRONTIER_EMPTY",
+  "ok": 120,
+  "text_artifacts": 120,
+  "failures": {
+   "HTTP_ERROR": 5
+  }
+ },
+ {
+  "estate": "u-haut-madrac",
+  "name": "Château Haut-Madrac",
+  "status": "NO_KNOWN_SITE",
+  "domain": null
+ },
+ {
+  "estate": "u-haut-maurac",
+  "name": "Château Haut-Maurac",
+  "status": "NO_KNOWN_SITE",
+  "domain": null
+ },
+ {
+  "estate": "u-haut-queyran",
+  "name": "Château Haut Queyran",
+  "status": "NO_KNOWN_SITE",
+  "domain": null
+ },
+ {
+  "estate": "u-haut-sarpe",
+  "name": "Château HAUT-SARPE",
+  "domain": "chateau-haut-sarpe.fr",
+  "status": "REACHED",
+  "stopped": "FRONTIER_EMPTY",
+  "ok": 35,
+  "text_artifacts": 33,
+  "failures": {
+   "OFFSITE_REDIRECT": 4,
+   "HTTP_ERROR": 4
+  }
+ },
+ {
+  "estate": "u-jean-faure",
+  "name": "Château JEAN FAURE",
+  "domain": "jeanfaure.com",
+  "status": "REACHED",
+  "stopped": "FRONTIER_EMPTY",
+  "ok": 163,
+  "text_artifacts": 140,
+  "failures": {
+   "HTTP_ERROR": 2
+  }
+ },
+ {
+  "estate": "u-kirwan",
+  "name": "Château KIRWAN",
+  "domain": "chateau-kirwan.com",
+  "status": "REACHED",
+  "stopped": "FRONTIER_EMPTY",
+  "ok": 104,
+  "text_artifacts": 101,
+  "failures": {
+   "AUTH_REQUIRED": 1,
+   "ROBOTS_DISALLOW": 2
+  }
+ },
+ {
+  "estate": "u-l-argenteyre",
+  "name": "Château l'Argenteyre",
+  "status": "NO_KNOWN_SITE",
+  "domain": null
+ },
+ {
+  "estate": "u-l-evasion",
+  "name": "Château l’Evasion",
+  "domain": "chateaulevasion.fr",
+  "status": "PARTIAL",
+  "stopped": "FRONTIER_EMPTY",
+  "ok": 4,
+  "text_artifacts": 3,
+  "failures": {
+   "HTTP_ERROR": 3
+  }
+ },
+ {
+  "estate": "u-la-baie-de-lalo",
+  "name": "Château La baie de Lalo",
+  "status": "NO_KNOWN_SITE",
+  "domain": null
+ },
+ {
+  "estate": "u-la-branne",
+  "name": "Château la Branne",
+  "domain": "chateau-labranne.com",
+  "status": "REACHED",
+  "stopped": "FRONTIER_EMPTY",
+  "ok": 63,
+  "text_artifacts": 43,
+  "failures": {
+   "HTTP_ERROR": 7
+  }
+ },
+ {
+  "estate": "u-la-cardonne",
+  "name": "Château la Cardonne",
+  "domain": "chateaulacardonne.com",
+  "status": "REACHED",
+  "stopped": "FRONTIER_EMPTY",
+  "ok": 99,
+  "text_artifacts": 93,
+  "failures": {}
+ },
+ {
+  "estate": "u-la-chandelliere",
+  "name": "Château la Chandellière",
+  "domain": "chateaulachandelliere.fr",
+  "status": "REACHED",
+  "stopped": "FRONTIER_EMPTY",
+  "ok": 60,
+  "text_artifacts": 60,
+  "failures": {
+   "ROBOTS_DISALLOW": 1,
+   "OFFSITE_REDIRECT": 19,
+   "HTTP_ERROR": 2
+  }
+ },
+ {
+  "estate": "u-la-commanderie--cb-2025",
+  "name": "Château la Commanderie",
+  "status": "NO_KNOWN_SITE",
+  "domain": null
+ },
+ {
+  "estate": "u-la-commanderie--stem-2022",
+  "name": "Château LA COMMANDERIE",
+  "domain": "chateaulacommanderie.fr",
+  "status": "REACHED",
+  "stopped": "BUDGET",
+  "ok": 141,
+  "text_artifacts": 100,
+  "failures": {
+   "OFFSITE_REDIRECT": 4
+  }
+ },
+ {
+  "estate": "u-la-confession",
+  "name": "Château LA CONFESSION",
+  "domain": "jpjdomaines.com",
+  "status": "REACHED",
+  "stopped": "FRONTIER_EMPTY",
+  "ok": 168,
+  "text_artifacts": 157,
+  "failures": {
+   "HTTP_ERROR": 1
+  }
+ },
+ {
+  "estate": "u-la-couspaude",
+  "name": "Château LA COUSPAUDE",
+  "domain": "aubert-vignobles.com",
+  "status": "PARTIAL",
+  "stopped": "FRONTIER_EMPTY",
+  "ok": 5,
+  "text_artifacts": 0,
+  "failures": {}
+ },
+ {
+  "estate": "u-la-croizille",
+  "name": "Château LA CROIZILLE",
+  "domain": "chateaulacroizille.com",
+  "status": "REACHED",
+  "stopped": "FRONTIER_EMPTY",
+  "ok": 110,
+  "text_artifacts": 99,
+  "failures": {
+   "HTTP_ERROR": 2
+  }
+ },
+ {
+  "estate": "u-la-dominique",
+  "name": "Château LA DOMINIQUE",
+  "domain": "chateau-ladominique.com",
+  "status": "REACHED",
+  "stopped": "FRONTIER_EMPTY",
+  "ok": 151,
+  "text_artifacts": 143,
+  "failures": {
+   "HTTP_ERROR": 2
+  }
+ },
+ {
+  "estate": "u-la-fleur-lauga",
+  "name": "Château la Fleur Lauga",
+  "domain": "lauga.com",
+  "status": "REACHED",
+  "stopped": "FRONTIER_EMPTY",
+  "ok": 90,
+  "text_artifacts": 81,
+  "failures": {
+   "HTTP_ERROR": 14,
+   "OFFSITE_REDIRECT": 15,
+   "ROBOTS_DISALLOW": 1
+  }
+ },
+ {
+  "estate": "u-la-fleur-morange",
+  "name": "Château LA FLEUR MORANGE",
+  "domain": "lafleurmorange.club",
+  "status": "REACHED",
+  "stopped": "FRONTIER_EMPTY",
+  "ok": 41,
+  "text_artifacts": 31,
+  "failures": {
+   "HTTP_ERROR": 3
+  }
+ },
+ {
+  "estate": "u-la-fon-du-berger",
+  "name": "Château la Fon du Berger",
+  "domain": "lafonduberger.com",
+  "status": "REACHED",
+  "stopped": "FRONTIER_EMPTY",
+  "ok": 139,
+  "text_artifacts": 69,
+  "failures": {
+   "HTTP_ERROR": 19,
+   "NETWORK_FAILURE": 2
+  }
+ },
+ {
+  "estate": "u-la-fortune",
+  "name": "Château la Fortune",
+  "status": "NO_KNOWN_SITE",
+  "domain": null
+ },
+ {
+  "estate": "u-la-france-delhomme",
+  "name": "Château la France Delhomme",
+  "status": "NO_KNOWN_SITE",
+  "domain": null
+ },
+ {
+  "estate": "u-la-grange-de-bessan",
+  "name": "Château la Grange de Bessan",
+  "domain": "vignobles-lacombe.com",
+  "status": "REACHED",
+  "stopped": "FRONTIER_EMPTY",
+  "ok": 12,
+  "text_artifacts": 11,
+  "failures": {
+   "HTTP_ERROR": 3
+  }
+ },
+ {
+  "estate": "u-la-hourcade",
+  "name": "Château La Hourcade",
+  "domain": "chateaulahourcade.fr",
+  "status": "PARTIAL",
+  "stopped": "BUDGET",
+  "ok": 375,
+  "text_artifacts": 0,
+  "failures": {
+   "HTTP_ERROR": 5
+  }
+ },
+ {
+  "estate": "u-la-lagune",
+  "name": "Château LA LAGUNE",
+  "domain": "chateau-lalagune.com",
+  "status": "REACHED",
+  "stopped": "FRONTIER_EMPTY",
+  "ok": 62,
+  "text_artifacts": 50,
+  "failures": {}
+ },
+ {
+  "estate": "u-la-marzelle",
+  "name": "Château LA MARZELLE",
+  "domain": "chateaulamarzelle.com",
+  "status": "REACHED",
+  "stopped": "FRONTIER_EMPTY",
+  "ok": 222,
+  "text_artifacts": 222,
+  "failures": {
+   "OFFSITE_REDIRECT": 4,
+   "HTTP_ERROR": 5,
+   "TOO_LARGE": 3
+  }
+ },
+ {
+  "estate": "u-la-mission-haut-brion",
+  "name": "Château La Mission Haut-Brion",
+  "domain": "mission-haut-brion.com",
+  "status": "REACHED",
+  "stopped": "BUDGET",
+  "ok": 378,
+  "text_artifacts": 368,
+  "failures": {
+   "HTTP_ERROR": 2
+  }
+ },
+ {
+  "estate": "u-la-mondotte",
+  "name": "LA MONDOTTE",
+  "domain": "neipperg.com",
+  "status": "REACHED",
+  "stopped": "BUDGET",
+  "ok": 323,
+  "text_artifacts": 305,
+  "failures": {
+   "HTTP_ERROR": 3
+  }
+ },
+ {
+  "estate": "u-la-mouline",
+  "name": "Château la Mouline",
+  "domain": "chateaulamouline.com",
+  "status": "REACHED",
+  "stopped": "FRONTIER_EMPTY",
+  "ok": 114,
+  "text_artifacts": 114,
+  "failures": {}
+ },
+ {
+  "estate": "u-la-pirouette",
+  "name": "Château La Pirouette",
+  "domain": "chateau-la-pirouette.com",
+  "status": "REACHED",
+  "stopped": "FRONTIER_EMPTY",
+  "ok": 13,
+  "text_artifacts": 5,
+  "failures": {}
+ },
+ {
+  "estate": "u-la-ribaud",
+  "name": "Château la Ribaud",
+  "domain": "vignoblesaudebert.com",
+  "status": "UNREACHABLE",
+  "stopped": "FRONTIER_EMPTY",
+  "ok": 0,
+  "text_artifacts": 0,
+  "failures": {
+   "TLS_FAILURE": 5
+  }
+ },
+ {
+  "estate": "u-la-roque-de-by",
+  "name": "Château la Roque de By",
+  "domain": "la-tour-de-by.com",
+  "status": "REACHED",
+  "stopped": "FRONTIER_EMPTY",
+  "ok": 18,
+  "text_artifacts": 15,
+  "failures": {
+   "ROBOTS_DISALLOW": 1
+  }
+ },
+ {
+  "estate": "u-la-serre",
+  "name": "Château LA SERRE",
+  "domain": "chateaulaserre.com",
+  "status": "REACHED",
+  "stopped": "FRONTIER_EMPTY",
+  "ok": 26,
+  "text_artifacts": 25,
+  "failures": {
+   "ROBOTS_DISALLOW": 1,
+   "HTTP_ERROR": 3
+  }
+ },
+ {
+  "estate": "u-la-tessonniere",
+  "name": "Château La Tessonnière",
+  "status": "NO_KNOWN_SITE",
+  "domain": null
+ },
+ {
+  "estate": "u-la-tour-blanche",
+  "name": "Château LA TOUR BLANCHE",
+  "domain": "tour-blanche.com",
+  "status": "REACHED",
+  "stopped": "FRONTIER_EMPTY",
+  "ok": 216,
+  "text_artifacts": 196,
+  "failures": {
+   "TOO_LARGE": 2,
+   "HTTP_ERROR": 7
+  }
+ },
+ {
+  "estate": "u-la-tour-carnet",
+  "name": "Château LA TOUR CARNET",
+  "domain": "bernard-magrez.com",
+  "status": "BLOCKED_BY_POLICY",
+  "stopped": "ROBOTS_DISALLOW_SITE",
+  "ok": 0,
+  "text_artifacts": 0,
+  "failures": {
+   "ROBOTS_DISALLOW_SITE": 1
+  }
+ },
+ {
+  "estate": "u-la-tour-figeac",
+  "name": "Château LA TOUR FIGEAC",
+  "domain": "latourfigeac.fr",
+  "status": "REACHED",
+  "stopped": "FRONTIER_EMPTY",
+  "ok": 98,
+  "text_artifacts": 84,
+  "failures": {
+   "HTTP_ERROR": 2
+  }
+ },
+ {
+  "estate": "u-la-valiere",
+  "name": "Château la Valière",
+  "status": "NO_KNOWN_SITE",
+  "domain": null
+ },
+ {
+  "estate": "u-labadie",
+  "name": "Château Labadie",
+  "domain": "chateau-labadie.com",
+  "status": "REACHED",
+  "stopped": "FRONTIER_EMPTY",
+  "ok": 73,
+  "text_artifacts": 55,
+  "failures": {
+   "HTTP_ERROR": 11
+  }
+ },
+ {
+  "estate": "u-lacombe-noaillac",
+  "name": "Château Lacombe Noaillac",
+  "domain": "chateau-chantemerle.com",
+  "status": "REACHED",
+  "stopped": "FRONTIER_EMPTY",
+  "ok": 100,
+  "text_artifacts": 92,
+  "failures": {
+   "HTTP_ERROR": 14
+  }
+ },
+ {
+  "estate": "u-lacour-jacquet",
+  "name": "Château Lacour Jacquet",
+  "domain": "chateau-lacour-jacquet.fr",
+  "status": "BLOCKED_BY_POLICY",
+  "stopped": "ROBOTS_DISALLOW_SITE",
+  "ok": 0,
+  "text_artifacts": 0,
+  "failures": {
+   "ROBOTS_DISALLOW_SITE": 1
+  }
+ },
+ {
+  "estate": "u-ladignac",
+  "name": "Château Ladignac",
+  "domain": "unimedoc.com",
+  "status": "REACHED",
+  "stopped": "FRONTIER_EMPTY",
+  "ok": 176,
+  "text_artifacts": 154,
+  "failures": {}
+ },
+ {
+  "estate": "u-lafaurie-peyraguey",
+  "name": "Château LAFAURIE-PEYRAGUEY",
+  "domain": "lafaurie-peyraguey.com",
+  "status": "UNREACHABLE",
+  "stopped": "FRONTIER_EMPTY",
+  "ok": 0,
+  "text_artifacts": 0,
+  "failures": {
+   "TLS_FAILURE": 5
+  }
+ },
+ {
+  "estate": "u-laffitte-carcasset",
+  "name": "Château Laffitte Carcasset",
+  "domain": "laffittecarcasset.com",
+  "status": "UNREACHABLE",
+  "stopped": "FRONTIER_EMPTY",
+  "ok": 0,
+  "text_artifacts": 0,
+  "failures": {
+   "TIMEOUT": 5
+  }
+ },
+ {
+  "estate": "u-lafite-rothschild",
+  "name": "Château LAFITE-ROTHSCHILD",
+  "domain": "lafite.com",
+  "status": "REACHED",
+  "stopped": "BUDGET",
+  "ok": 48,
+  "text_artifacts": 38,
+  "failures": {
+   "TIMEOUT": 44
+  }
+ },
+ {
+  "estate": "u-lafon",
+  "name": "Château Lafon",
+  "domain": "chateau-lafon.com",
+  "status": "REACHED",
+  "stopped": "FRONTIER_EMPTY",
+  "ok": 156,
+  "text_artifacts": 104,
+  "failures": {
+   "OFFSITE_REDIRECT": 4,
+   "HTTP_ERROR": 2
+  }
+ },
+ {
+  "estate": "u-lafon-rochet",
+  "name": "Château LAFON-ROCHET",
+  "domain": "lafon-rochet.com",
+  "status": "REACHED",
+  "stopped": "FRONTIER_EMPTY",
+  "ok": 164,
+  "text_artifacts": 124,
+  "failures": {}
+ },
+ {
+  "estate": "u-lagrange",
+  "name": "Château LAGRANGE",
+  "domain": "chateau-lagrange.com",
+  "status": "UNREACHABLE",
+  "stopped": "FRONTIER_EMPTY",
+  "ok": 0,
+  "text_artifacts": 0,
+  "failures": {
+   "TLS_FAILURE": 5
+  }
+ },
+ {
+  "estate": "u-lalande",
+  "name": "Château Lalande",
+  "domain": "chateaulalande.fr",
+  "status": "BLOCKED_BY_POLICY",
+  "stopped": "ROBOTS_DISALLOW_SITE",
+  "ok": 0,
+  "text_artifacts": 0,
+  "failures": {
+   "ROBOTS_DISALLOW_SITE": 1
+  }
+ },
+ {
+  "estate": "u-lalande-d-auvion",
+  "name": "Château Lalande d'Auvion",
+  "status": "NO_KNOWN_SITE",
+  "domain": null
+ },
+ {
+  "estate": "u-lalaudey",
+  "name": "Château Lalaudey",
+  "domain": "chateau-lalaudey.fr",
+  "status": "UNREACHABLE",
+  "stopped": "FRONTIER_EMPTY",
+  "ok": 0,
+  "text_artifacts": 0,
+  "failures": {
+   "TLS_FAILURE": 5
+  }
+ },
+ {
+  "estate": "u-lamothe",
+  "name": "Château LAMOTHE",
+  "domain": "lamothe-despujols.com",
+  "status": "REACHED",
+  "stopped": "FRONTIER_EMPTY",
+  "ok": 32,
+  "text_artifacts": 29,
+  "failures": {
+   "HTTP_ERROR": 4
+  }
+ },
+ {
+  "estate": "u-lamothe-bergeron",
+  "name": "Château Lamothe Bergeron",
+  "domain": "lamothebergeron.fr",
+  "status": "REACHED",
+  "stopped": "FRONTIER_EMPTY",
+  "ok": 141,
+  "text_artifacts": 131,
+  "failures": {
+   "HTTP_ERROR": 1
+  }
+ },
+ {
+  "estate": "u-lamothe-guignard",
+  "name": "Château LAMOTHE-GUIGNARD",
+  "domain": "chateau-lamothe-guignard.fr",
+  "status": "REACHED",
+  "stopped": "FRONTIER_EMPTY",
+  "ok": 118,
+  "text_artifacts": 112,
+  "failures": {
+   "HTTP_ERROR": 6
+  }
+ },
+ {
+  "estate": "u-langoa-barton",
+  "name": "Château LANGOA BARTON",
+  "domain": "langoa-barton.com",
+  "status": "REACHED",
+  "stopped": "FRONTIER_EMPTY",
+  "ok": 63,
+  "text_artifacts": 62,
+  "failures": {
+   "HTTP_ERROR": 4
+  }
+ },
+ {
+  "estate": "u-laniote",
+  "name": "Château LANIOTE",
+  "domain": "laniote.com",
+  "status": "REACHED",
+  "stopped": "FRONTIER_EMPTY",
+  "ok": 39,
+  "text_artifacts": 31,
+  "failures": {
+   "HTTP_ERROR": 1
+  }
+ },
+ {
+  "estate": "u-larcis-ducasse",
+  "name": "Château LARCIS DUCASSE",
+  "domain": "larcis-ducasse.com",
+  "status": "REACHED",
+  "stopped": "FRONTIER_EMPTY",
+  "ok": 218,
+  "text_artifacts": 142,
+  "failures": {
+   "AUTH_REQUIRED": 1,
+   "TOO_LARGE": 4,
+   "TIMEOUT": 1,
+   "HTTP_ERROR": 2
+  }
+ },
+ {
+  "estate": "u-larmande",
+  "name": "Château LARMANDE",
+  "domain": "chateau-larmande.com",
+  "status": "BLOCKED_BY_POLICY",
+  "stopped": "ROBOTS_DISALLOW_SITE",
+  "ok": 0,
+  "text_artifacts": 0,
+  "failures": {
+   "ROBOTS_DISALLOW_SITE": 1
+  }
+ },
+ {
+  "estate": "u-laroque",
+  "name": "Château LAROQUE",
+  "domain": "chateau-laroque.com",
+  "status": "REACHED",
+  "stopped": "FRONTIER_EMPTY",
+  "ok": 80,
+  "text_artifacts": 58,
+  "failures": {
+   "HTTP_ERROR": 1,
+   "TOO_LARGE": 1
+  }
+ },
+ {
+  "estate": "u-laroze",
+  "name": "Château LAROZE",
+  "domain": "laroze.com",
+  "status": "REACHED",
+  "stopped": "FRONTIER_EMPTY",
+  "ok": 188,
+  "text_artifacts": 69,
+  "failures": {
+   "TOO_LARGE": 3,
+   "HTTP_ERROR": 14
+  }
+ },
+ {
+  "estate": "u-lascombes",
+  "name": "Château LASCOMBES",
+  "domain": "chateau-lascombes.com",
+  "status": "REACHED",
+  "stopped": "FRONTIER_EMPTY",
+  "ok": 176,
+  "text_artifacts": 169,
+  "failures": {
+   "HTTP_ERROR": 1,
+   "TOO_MANY_REDIRECTS": 2
+  }
+ },
+ {
+  "estate": "u-lassegue",
+  "name": "LASSEGUE",
+  "domain": "chateau.lassegue.com",
+  "status": "PARTIAL",
+  "stopped": "FRONTIER_EMPTY",
+  "ok": 1,
+  "text_artifacts": 0,
+  "failures": {
+   "HTTP_ERROR": 4
+  }
+ },
+ {
+  "estate": "u-lassus",
+  "name": "Château Lassus",
+  "domain": "vignoblespaeffgen.org",
+  "status": "BLOCKED_BY_POLICY",
+  "stopped": "ROBOTS_DISALLOW_SITE",
+  "ok": 0,
+  "text_artifacts": 0,
+  "failures": {
+   "ROBOTS_DISALLOW_SITE": 1
+  }
+ },
+ {
+  "estate": "u-latour",
+  "name": "Château LATOUR",
+  "domain": "chateau-latour.com",
+  "status": "REACHED",
+  "stopped": "FRONTIER_EMPTY",
+  "ok": 121,
+  "text_artifacts": 119,
+  "failures": {
+   "HTTP_ERROR": 3
+  }
+ },
+ {
+  "estate": "u-latour-martillac",
+  "name": "Château Latour-Martillac",
+  "domain": "latourmartillac.com",
+  "status": "REACHED",
+  "stopped": "BUDGET",
+  "ok": 370,
+  "text_artifacts": 342,
+  "failures": {
+   "HTTP_ERROR": 10
+  }
+ },
+ {
+  "estate": "u-laujac",
+  "name": "Château Laujac",
+  "domain": "chateaulaujac.com",
+  "status": "REACHED",
+  "stopped": "FRONTIER_EMPTY",
+  "ok": 148,
+  "text_artifacts": 139,
+  "failures": {}
+ },
+ {
+  "estate": "u-le-bourdieu",
+  "name": "Château le Bourdieu",
+  "domain": "lebourdieu.fr",
+  "status": "REACHED",
+  "stopped": "FRONTIER_EMPTY",
+  "ok": 178,
+  "text_artifacts": 93,
+  "failures": {
+   "HTTP_ERROR": 1
+  }
+ },
+ {
+  "estate": "u-le-bourdieu-vertheuil",
+  "name": "Château le Bourdieu Vertheuil",
+  "domain": "domainesrichard.fr",
+  "status": "REACHED",
+  "stopped": "BUDGET",
+  "ok": 377,
+  "text_artifacts": 311,
+  "failures": {}
+ },
+ {
+  "estate": "u-le-chatelet",
+  "name": "Château LE CHATELET",
+  "domain": "chateau-le-chatelet.com",
+  "status": "REACHED",
+  "stopped": "FRONTIER_EMPTY",
+  "ok": 85,
+  "text_artifacts": 77,
+  "failures": {
+   "HTTP_ERROR": 3,
+   "TOO_LARGE": 1
+  }
+ },
+ {
+  "estate": "u-le-crock",
+  "name": "Château le Crock",
+  "domain": "chateaulecrock.fr",
+  "status": "REACHED",
+  "stopped": "FRONTIER_EMPTY",
+  "ok": 85,
+  "text_artifacts": 80,
+  "failures": {
+   "AUTH_REQUIRED": 1
+  }
+ },
+ {
+  "estate": "u-le-monteil-d-arsac",
+  "name": "Château le Monteil d'Arsac",
+  "domain": "chateau-arsac.com",
+  "status": "REACHED",
+  "stopped": "FRONTIER_EMPTY",
+  "ok": 204,
+  "text_artifacts": 194,
+  "failures": {
+   "HTTP_ERROR": 1
+  }
+ },
+ {
+  "estate": "u-le-prieure",
+  "name": "Château LE PRIEURE",
+  "domain": "chateauleprieure.com",
+  "status": "REACHED",
+  "stopped": "FRONTIER_EMPTY",
+  "ok": 18,
+  "text_artifacts": 14,
+  "failures": {
+   "ROBOTS_DISALLOW": 1,
+   "OFFSITE_REDIRECT": 4,
+   "HTTP_ERROR": 8
+  }
+ },
+ {
+  "estate": "u-le-temple",
+  "name": "Château le Temple",
+  "status": "NO_KNOWN_SITE",
+  "domain": null
+ },
+ {
+  "estate": "u-le-vieux-fort",
+  "name": "Château le Vieux Fort",
+  "status": "NO_KNOWN_SITE",
+  "domain": null
+ },
+ {
+  "estate": "u-le-vieux-serestin",
+  "name": "Château le Vieux Serestin",
+  "status": "NO_KNOWN_SITE",
+  "domain": null
+ },
+ {
+  "estate": "u-leboscq",
+  "name": "Château Leboscq",
+  "domain": "antoinemoueix.com",
+  "status": "REACHED",
+  "stopped": "FRONTIER_EMPTY",
+  "ok": 214,
+  "text_artifacts": 201,
+  "failures": {
+   "HTTP_ERROR": 4
+  }
+ },
+ {
+  "estate": "u-leoville-barton",
+  "name": "Château LEOVILLE BARTON",
+  "domain": "leoville-barton.com",
+  "status": "REACHED",
+  "stopped": "FRONTIER_EMPTY",
+  "ok": 69,
+  "text_artifacts": 68,
+  "failures": {
+   "HTTP_ERROR": 4
+  }
+ },
+ {
+  "estate": "u-leoville-las-cases",
+  "name": "Château LEOVILLE LAS CASES",
+  "domain": "leovillelascases.com",
+  "status": "REACHED",
+  "stopped": "BUDGET",
+  "ok": 354,
+  "text_artifacts": 344,
+  "failures": {
+   "OFFSITE_REDIRECT": 4,
+   "HTTP_ERROR": 3
+  }
+ },
+ {
+  "estate": "u-leoville-poyferre",
+  "name": "Château LEOVILLE-POYFERRE",
+  "domain": "leoville-poyferre.fr",
+  "status": "REACHED",
+  "stopped": "FRONTIER_EMPTY",
+  "ok": 314,
+  "text_artifacts": 284,
+  "failures": {}
+ },
+ {
+  "estate": "u-les-anguilleys",
+  "name": "Château les Anguilleys",
+  "status": "NO_KNOWN_SITE",
+  "domain": null
+ },
+ {
+  "estate": "u-les-barraillots",
+  "name": "Château les Barraillots",
+  "domain": "vin-margaux-barraillots.fr",
+  "status": "REACHED",
+  "stopped": "FRONTIER_EMPTY",
+  "ok": 9,
+  "text_artifacts": 8,
+  "failures": {
+   "HTTP_ERROR": 3
+  }
+ },
+ {
+  "estate": "u-les-graves-de-loirac",
+  "name": "Château les Graves de Loirac",
+  "status": "NO_KNOWN_SITE",
+  "domain": null
+ },
+ {
+  "estate": "u-les-lattes",
+  "name": "Château les Lattes",
+  "domain": "leslattes.vignoblesdeterroirs.com",
+  "status": "REACHED",
+  "stopped": "FRONTIER_EMPTY",
+  "ok": 111,
+  "text_artifacts": 104,
+  "failures": {
+   "HTTP_ERROR": 1,
+   "OFFSITE_REDIRECT": 1,
+   "ROBOTS_DISALLOW": 58
+  }
+ },
+ {
+  "estate": "u-les-mourlanes",
+  "name": "Château les Mourlanes",
+  "status": "NO_KNOWN_SITE",
+  "domain": null
+ },
+ {
+  "estate": "u-les-tresquots",
+  "name": "Château les Tresquots",
+  "status": "NO_KNOWN_SITE",
+  "domain": null
+ },
+ {
+  "estate": "u-les-tuileries",
+  "name": "Château les Tuileries",
+  "domain": "chateaulestuileries.com",
+  "status": "REACHED",
+  "stopped": "FRONTIER_EMPTY",
+  "ok": 63,
+  "text_artifacts": 31,
+  "failures": {
+   "HTTP_ERROR": 1
+  }
+ },
+ {
+  "estate": "u-lestage-simon",
+  "name": "Château Lestage Simon",
+  "domain": "cdf-chateaux.com",
+  "status": "PARTIAL",
+  "stopped": "FRONTIER_EMPTY",
+  "ok": 1,
+  "text_artifacts": 0,
+  "failures": {
+   "HTTP_ERROR": 4
+  }
+ },
+ {
+  "estate": "u-lestruelle",
+  "name": "Château Lestruelle",
+  "domain": "famillebouey-vignobles-chateaux.fr",
+  "status": "UNREACHABLE",
+  "stopped": "FRONTIER_EMPTY",
+  "ok": 0,
+  "text_artifacts": 0,
+  "failures": {
+   "TLS_FAILURE": 5
+  }
+ },
+ {
+  "estate": "u-linot",
+  "name": "Château Linot",
+  "status": "NO_KNOWN_SITE",
+  "domain": null
+ },
+ {
+  "estate": "u-liouner",
+  "name": "Château Liouner",
+  "domain": "chateau-liouner-listracmedoc.fr",
+  "status": "REACHED",
+  "stopped": "FRONTIER_EMPTY",
+  "ok": 55,
+  "text_artifacts": 44,
+  "failures": {
+   "HTTP_ERROR": 2
+  }
+ },
+ {
+  "estate": "u-liversan",
+  "name": "Château Liversan",
+  "domain": "antoinemoueix.com",
+  "status": "REACHED",
+  "stopped": "FRONTIER_EMPTY",
+  "ok": 214,
+  "text_artifacts": 201,
+  "failures": {
+   "HTTP_ERROR": 4
+  }
+ },
+ {
+  "estate": "u-lousteauneuf",
+  "name": "Château Lousteauneuf",
+  "domain": "chateau-lousteauneuf.com",
+  "status": "BLOCKED_BY_POLICY",
+  "stopped": "ROBOTS_DISALLOW_SITE",
+  "ok": 0,
+  "text_artifacts": 0,
+  "failures": {
+   "ROBOTS_DISALLOW_SITE": 1
+  }
+ },
+ {
+  "estate": "u-lynch-bages",
+  "name": "Château LYNCH-BAGES",
+  "domain": "lynchbages.com",
+  "status": "REACHED",
+  "stopped": "FRONTIER_EMPTY",
+  "ok": 190,
+  "text_artifacts": 185,
+  "failures": {}
+ },
+ {
+  "estate": "u-lynch-moussas",
+  "name": "Château LYNCH-MOUSSAS",
+  "domain": "lynch-moussas.com",
+  "status": "REACHED",
+  "stopped": "FRONTIER_EMPTY",
+  "ok": 235,
+  "text_artifacts": 221,
+  "failures": {}
+ },
+ {
+  "estate": "u-magnol",
+  "name": "Château Magnol",
+  "domain": "barton-guestier.com",
+  "status": "REACHED",
+  "stopped": "FRONTIER_EMPTY",
+  "ok": 349,
+  "text_artifacts": 325,
+  "failures": {
+   "HTTP_ERROR": 4,
+   "BLOCKED_CHALLENGE": 2,
+   "ROBOTS_DISALLOW": 9
+  }
+ },
+ {
+  "estate": "u-maison-blanche",
+  "name": "Château Maison Blanche",
+  "domain": "famillebouey-vignobles-chateaux.com",
+  "status": "UNREACHABLE",
+  "stopped": "FRONTIER_EMPTY",
+  "ok": 0,
+  "text_artifacts": 0,
+  "failures": {
+   "TLS_FAILURE": 5
+  }
+ },
+ {
+  "estate": "u-malartic-lagraviere",
+  "name": "Château Malartic-Lagravière",
+  "domain": "malartic-lagraviere.com",
+  "status": "REACHED",
+  "stopped": "BUDGET",
+  "ok": 380,
+  "text_artifacts": 370,
+  "failures": {}
+ },
+ {
+  "estate": "u-malescasse",
+  "name": "Château Malescasse",
+  "domain": "chateau-malescasse.com",
+  "status": "REACHED",
+  "stopped": "FRONTIER_EMPTY",
+  "ok": 137,
+  "text_artifacts": 123,
+  "failures": {
+   "HTTP_ERROR": 11,
+   "OFFSITE_REDIRECT": 30
+  }
+ },
+ {
+  "estate": "u-malescot-saint-exupery",
+  "name": "Château MALESCOT SAINT-EXUPERY",
+  "domain": "malescot.com",
+  "status": "REACHED",
+  "stopped": "FRONTIER_EMPTY",
+  "ok": 126,
+  "text_artifacts": 121,
+  "failures": {}
+ },
+ {
+  "estate": "u-mangot",
+  "name": "Château MANGOT",
+  "domain": "chateaumangot.fr",
+  "status": "REACHED",
+  "stopped": "BUDGET",
+  "ok": 358,
+  "text_artifacts": 346,
+  "failures": {
+   "HTTP_ERROR": 21,
+   "AUTH_REQUIRED": 1
+  }
+ },
+ {
+  "estate": "u-marceline",
+  "name": "Château Marceline",
+  "domain": "chateaumarceline.com",
+  "status": "REACHED",
+  "stopped": "FRONTIER_EMPTY",
+  "ok": 36,
+  "text_artifacts": 20,
+  "failures": {
+   "HTTP_ERROR": 1
+  }
+ },
+ {
+  "estate": "u-mareil",
+  "name": "Château Mareil",
+  "status": "NO_KNOWN_SITE",
+  "domain": null
+ },
+ {
+  "estate": "u-margaux",
+  "name": "Château MARGAUX",
+  "domain": "chateau-margaux.com",
+  "status": "REACHED",
+  "stopped": "BUDGET",
+  "ok": 377,
+  "text_artifacts": 373,
+  "failures": {
+   "HTTP_ERROR": 3
+  }
+ },
+ {
+  "estate": "u-marquis-d-alesme-becker",
+  "name": "Château MARQUIS D’ALESME BECKER",
+  "domain": "marquis.wine",
+  "status": "REACHED",
+  "stopped": "FRONTIER_EMPTY",
+  "ok": 124,
+  "text_artifacts": 103,
+  "failures": {
+   "ROBOTS_DISALLOW": 1,
+   "OFFSITE_REDIRECT": 1,
+   "HTTP_ERROR": 1
+  }
+ },
+ {
+  "estate": "u-marquis-de-terme",
+  "name": "Château MARQUIS DE TERME",
+  "domain": "chateau-marquis-de-terme.com",
+  "status": "REACHED",
+  "stopped": "FRONTIER_EMPTY",
+  "ok": 177,
+  "text_artifacts": 164,
+  "failures": {}
+ },
+ {
+  "estate": "u-martin",
+  "name": "Château Martin",
+  "domain": "vignobles-martin.fr",
+  "status": "REACHED",
+  "stopped": "FRONTIER_EMPTY",
+  "ok": 13,
+  "text_artifacts": 8,
+  "failures": {}
+ },
+ {
+  "estate": "u-mazails",
+  "name": "Château Mazails",
+  "domain": "chateau-mazails.fr",
+  "status": "REACHED",
+  "stopped": "FRONTIER_EMPTY",
+  "ok": 13,
+  "text_artifacts": 6,
+  "failures": {}
+ },
+ {
+  "estate": "u-meric",
+  "name": "Château Méric",
+  "domain": "chateaumeric.com",
+  "status": "UNREACHABLE",
+  "stopped": "FRONTIER_EMPTY",
+  "ok": 0,
+  "text_artifacts": 0,
+  "failures": {
+   "TLS_FAILURE": 5
+  }
+ },
+ {
+  "estate": "u-meyre",
+  "name": "Château Meyre",
+  "domain": "closdemeyre.com",
+  "status": "UNREACHABLE",
+  "stopped": "FRONTIER_EMPTY",
+  "ok": 0,
+  "text_artifacts": 0,
+  "failures": {
+   "TLS_FAILURE": 5
+  }
+ },
+ {
+  "estate": "u-micalet",
+  "name": "Château Micalet",
+  "domain": "chateaumicalet.fr",
+  "status": "REACHED",
+  "stopped": "FRONTIER_EMPTY",
+  "ok": 63,
+  "text_artifacts": 55,
+  "failures": {
+   "HTTP_ERROR": 4
+  }
+ },
+ {
+  "estate": "u-monbousquet",
+  "name": "Château MONBOUSQUET",
+  "domain": "chateaumonbousquet.com",
+  "status": "REACHED",
+  "stopped": "FRONTIER_EMPTY",
+  "ok": 53,
+  "text_artifacts": 49,
+  "failures": {
+   "HTTP_ERROR": 4,
+   "BLOCKED_CHALLENGE": 6
+  }
+ },
+ {
+  "estate": "u-mongravey",
+  "name": "Château Mongravey",
+  "domain": "vignobles-bernaleau.com",
+  "status": "REACHED",
+  "stopped": "FRONTIER_EMPTY",
+  "ok": 276,
+  "text_artifacts": 266,
+  "failures": {
+   "HTTP_ERROR": 1
+  }
+ },
+ {
+  "estate": "u-montlabert",
+  "name": "Château MONTLABERT",
+  "domain": "chateau-montlabert.com",
+  "status": "BLOCKED_BY_POLICY",
+  "stopped": "ROBOTS_DISALLOW_SITE",
+  "ok": 0,
+  "text_artifacts": 0,
+  "failures": {
+   "ROBOTS_DISALLOW_SITE": 1
+  }
+ },
+ {
+  "estate": "u-montlisse",
+  "name": "Château MONTLISSE",
+  "domain": "chateau-montlisse.com",
+  "status": "REACHED",
+  "stopped": "FRONTIER_EMPTY",
+  "ok": 57,
+  "text_artifacts": 49,
+  "failures": {
+   "HTTP_ERROR": 2
+  }
+ },
+ {
+  "estate": "u-montrose",
+  "name": "Château MONTROSE",
+  "domain": "chateau-montrose.com",
+  "status": "REACHED",
+  "stopped": "FRONTIER_EMPTY",
+  "ok": 104,
+  "text_artifacts": 90,
+  "failures": {
+   "TOO_LARGE": 7
+  }
+ },
+ {
+  "estate": "u-moulin-de-bel-air",
+  "name": "Château Moulin de Bel Air",
+  "domain": "chateaulestuileries.com",
+  "status": "REACHED",
+  "stopped": "FRONTIER_EMPTY",
+  "ok": 63,
+  "text_artifacts": 31,
+  "failures": {
+   "HTTP_ERROR": 1
+  }
+ },
+ {
+  "estate": "u-moulin-de-blanchon",
+  "name": "Château Moulin de Blanchon",
+  "domain": "chateau-moulin-de-blanchon.com",
+  "status": "REACHED",
+  "stopped": "FRONTIER_EMPTY",
+  "ok": 209,
+  "text_artifacts": 142,
+  "failures": {
+   "HTTP_ERROR": 3
+  }
+ },
+ {
+  "estate": "u-moulin-de-canhaut",
+  "name": "Château Moulin de Canhaut",
+  "domain": "chateau-poitevin.com",
+  "status": "REACHED",
+  "stopped": "FRONTIER_EMPTY",
+  "ok": 231,
+  "text_artifacts": 197,
+  "failures": {
+   "HTTP_ERROR": 18
+  }
+ },
+ {
+  "estate": "u-moulin-de-l-abbaye",
+  "name": "Château Moulin de l'Abbaye",
+  "domain": "unimedoc.com",
+  "status": "REACHED",
+  "stopped": "FRONTIER_EMPTY",
+  "ok": 176,
+  "text_artifacts": 154,
+  "failures": {}
+ },
+ {
+  "estate": "u-moulin-de-taffard",
+  "name": "Château Moulin de Taffard",
+  "domain": "vignoblespeyruse.com",
+  "status": "REACHED",
+  "stopped": "FRONTIER_EMPTY",
+  "ok": 27,
+  "text_artifacts": 26,
+  "failures": {
+   "HTTP_ERROR": 3
+  }
+ },
+ {
+  "estate": "u-moulin-des-moines",
+  "name": "Château Moulin des Moines",
+  "status": "NO_KNOWN_SITE",
+  "domain": null
+ },
+ {
+  "estate": "u-moulin-du-cadet",
+  "name": "Château MOULIN DU CADET",
+  "domain": "chateau-sansonnet.com",
+  "status": "REACHED",
+  "stopped": "FRONTIER_EMPTY",
+  "ok": 235,
+  "text_artifacts": 196,
+  "failures": {
+   "HTTP_ERROR": 4,
+   "AUTH_REQUIRED": 1
+  }
+ },
+ {
+  "estate": "u-mouton-rothschild",
+  "name": "Château MOUTON ROTHSCHILD",
+  "domain": "chateau-mouton-rothschild.com",
+  "status": "REACHED",
+  "stopped": "BUDGET",
+  "ok": 378,
+  "text_artifacts": 311,
+  "failures": {
+   "HTTP_ERROR": 2
+  }
+ },
+ {
+  "estate": "u-moutte-blanc",
+  "name": "Château Moutte Blanc",
+  "domain": "moutte-blanc.fr",
+  "status": "REACHED",
+  "stopped": "FRONTIER_EMPTY",
+  "ok": 108,
+  "text_artifacts": 71,
+  "failures": {
+   "HTTP_ERROR": 1
+  }
+ },
+ {
+  "estate": "u-nairac",
+  "name": "Château NAIRAC",
+  "domain": "chateau-nairac.com",
+  "status": "REACHED",
+  "stopped": "FRONTIER_EMPTY",
+  "ok": 11,
+  "text_artifacts": 4,
+  "failures": {
+   "HTTP_ERROR": 1
+  }
+ },
+ {
+  "estate": "u-noaillac",
+  "name": "Château Noaillac",
+  "domain": "noaillac.org",
+  "status": "UNREACHABLE",
+  "stopped": "FRONTIER_EMPTY",
+  "ok": 0,
+  "text_artifacts": 0,
+  "failures": {
+   "TLS_FAILURE": 5
+  }
+ },
+ {
+  "estate": "u-nouret",
+  "name": "Château Nouret",
+  "domain": "nouret.fr",
+  "status": "REACHED",
+  "stopped": "FRONTIER_EMPTY",
+  "ok": 235,
+  "text_artifacts": 177,
+  "failures": {
+   "HTTP_ERROR": 1
+  }
+ },
+ {
+  "estate": "u-olivier",
+  "name": "Château Olivier",
+  "domain": "chateau-olivier.com",
+  "status": "REACHED",
+  "stopped": "FRONTIER_EMPTY",
+  "ok": 130,
+  "text_artifacts": 107,
+  "failures": {
+   "AUTH_REQUIRED": 1,
+   "NETWORK_FAILURE": 1
+  }
+ },
+ {
+  "estate": "u-palmer",
+  "name": "Château PALMER",
+  "domain": "chateau-palmer.com",
+  "status": "REACHED",
+  "stopped": "FRONTIER_EMPTY",
+  "ok": 147,
+  "text_artifacts": 146,
+  "failures": {
+   "HTTP_ERROR": 5
+  }
+ },
+ {
+  "estate": "u-paloumey",
+  "name": "Château Paloumey",
+  "domain": "chateaupaloumey.com",
+  "status": "REACHED",
+  "stopped": "FRONTIER_EMPTY",
+  "ok": 177,
+  "text_artifacts": 152,
+  "failures": {
+   "HTTP_ERROR": 1
+  }
+ },
+ {
+  "estate": "u-pape-clement",
+  "name": "Château Pape-Clément",
+  "domain": "bernard-magrez.com",
+  "status": "BLOCKED_BY_POLICY",
+  "stopped": "ROBOTS_DISALLOW_SITE",
+  "ok": 0,
+  "text_artifacts": 0,
+  "failures": {
+   "ROBOTS_DISALLOW_SITE": 1
+  }
+ },
+ {
+  "estate": "u-patache-d-aux",
+  "name": "Château Patache d’Aux",
+  "domain": "chateaupatachedaux.com",
+  "status": "UNREACHABLE",
+  "stopped": "FRONTIER_EMPTY",
+  "ok": 0,
+  "text_artifacts": 0,
+  "failures": {
+   "TIMEOUT": 5
+  }
+ },
+ {
+  "estate": "u-paveil-de-luze",
+  "name": "Château Paveil de Luze",
+  "domain": "chateaupaveildeluze.com",
+  "status": "REACHED",
+  "stopped": "FRONTIER_EMPTY",
+  "ok": 98,
+  "text_artifacts": 81,
+  "failures": {
+   "HTTP_ERROR": 1,
+   "TLS_FAILURE": 1
+  }
+ },
+ {
+  "estate": "u-pavie",
+  "name": "Château PAVIE",
+  "domain": "chateaupavie.com",
+  "status": "REACHED",
+  "stopped": "FRONTIER_EMPTY",
+  "ok": 170,
+  "text_artifacts": 170,
+  "failures": {
+   "HTTP_ERROR": 4
+  }
+ },
+ {
+  "estate": "u-pavie-macquin",
+  "name": "Château PAVIE MACQUIN",
+  "domain": "pavie-macquin.com",
+  "status": "REACHED",
+  "stopped": "FRONTIER_EMPTY",
+  "ok": 71,
+  "text_artifacts": 66,
+  "failures": {
+   "HTTP_ERROR": 1,
+   "AUTH_REQUIRED": 1,
+   "TOO_LARGE": 1
+  }
+ },
+ {
+  "estate": "u-peby-faugeres",
+  "name": "Château PEBY FAUGERES",
+  "domain": "vignobles-silvio-denz.com",
+  "status": "REACHED",
+  "stopped": "FRONTIER_EMPTY",
+  "ok": 151,
+  "text_artifacts": 143,
+  "failures": {
+   "HTTP_ERROR": 2
+  }
+ },
+ {
+  "estate": "u-pedesclaux",
+  "name": "Château PEDESCLAUX",
+  "domain": "chateau-pedesclaux.com",
+  "status": "REACHED",
+  "stopped": "FRONTIER_EMPTY",
+  "ok": 63,
+  "text_artifacts": 54,
+  "failures": {
+   "TOO_MANY_REDIRECTS": 1
+  }
+ },
+ {
+  "estate": "u-petit-faurie-de-soutard",
+  "name": "Château PETIT FAURIE DE SOUTARD",
+  "domain": "vignoblescapdemourlin.com",
+  "status": "BLOCKED_BY_POLICY",
+  "stopped": "ROBOTS_DISALLOW_SITE",
+  "ok": 0,
+  "text_artifacts": 0,
+  "failures": {
+   "ROBOTS_DISALLOW_SITE": 1
+  }
+ },
+ {
+  "estate": "u-pey-de-pont",
+  "name": "Château Pey de Pont",
+  "domain": "chateau-pey-de-pont.com",
+  "status": "BLOCKED_BY_POLICY",
+  "stopped": "ROBOTS_DISALLOW_SITE",
+  "ok": 0,
+  "text_artifacts": 0,
+  "failures": {
+   "ROBOTS_DISALLOW_SITE": 1
+  }
+ },
+ {
+  "estate": "u-pey-mallet",
+  "name": "Château Pey Mallet",
+  "domain": "pey-mallet.com",
+  "status": "UNREACHABLE",
+  "stopped": "FRONTIER_EMPTY",
+  "ok": 0,
+  "text_artifacts": 0,
+  "failures": {
+   "TLS_FAILURE": 5
+  }
+ },
+ {
+  "estate": "u-peyrabon",
+  "name": "Château Peyrabon",
+  "domain": "chateau-peyrabon.fr",
+  "status": "REACHED",
+  "stopped": "FRONTIER_EMPTY",
+  "ok": 56,
+  "text_artifacts": 46,
+  "failures": {
+   "OFFSITE_REDIRECT": 1,
+   "ROBOTS_DISALLOW": 15,
+   "HTTP_ERROR": 12
+  }
+ },
+ {
+  "estate": "u-peyrat-fourthon",
+  "name": "Château Peyrat-Fourthon",
+  "domain": "peyrat-fourthon.com",
+  "status": "REACHED",
+  "stopped": "FRONTIER_EMPTY",
+  "ok": 31,
+  "text_artifacts": 27,
+  "failures": {
+   "HTTP_ERROR": 3
+  }
+ },
+ {
+  "estate": "u-picard",
+  "name": "Château Picard",
+  "domain": "mahler-besse.com",
+  "status": "REACHED",
+  "stopped": "FRONTIER_EMPTY",
+  "ok": 196,
+  "text_artifacts": 195,
+  "failures": {
+   "HTTP_ERROR": 3
+  }
+ },
+ {
+  "estate": "u-pichon-baron",
+  "name": "Château PICHON-BARON",
+  "domain": "pichonbaron.com",
+  "status": "REACHED",
+  "stopped": "FRONTIER_EMPTY",
+  "ok": 95,
+  "text_artifacts": 94,
+  "failures": {
+   "HTTP_ERROR": 4
+  }
+ },
+ {
+  "estate": "u-pichon-longueville-comtesse-de-lalande",
+  "name": "Château PICHON LONGUEVILLE COMTESSE DE LALANDE",
+  "domain": "pichon-comtesse.com",
+  "status": "REACHED",
+  "stopped": "FRONTIER_EMPTY",
+  "ok": 121,
+  "text_artifacts": 120,
+  "failures": {
+   "HTTP_ERROR": 3
+  }
+ },
+ {
+  "estate": "u-pierre-de-montignac",
+  "name": "Château Pierre de Montignac",
+  "domain": "pierredemontignac.com",
+  "status": "BLOCKED_BY_POLICY",
+  "stopped": "ROBOTS_DISALLOW_SITE",
+  "ok": 0,
+  "text_artifacts": 0,
+  "failures": {
+   "ROBOTS_DISALLOW_SITE": 1
+  }
+ },
+ {
+  "estate": "u-plagnac",
+  "name": "Château Plagnac",
+  "domain": "chateauplagnac.fr",
+  "status": "PARTIAL",
+  "stopped": "FRONTIER_EMPTY",
+  "ok": 7,
+  "text_artifacts": 2,
+  "failures": {
+   "HTTP_ERROR": 1
+  }
+ },
+ {
+  "estate": "u-plantey",
+  "name": "Château Plantey",
+  "status": "NO_KNOWN_SITE",
+  "domain": null
+ },
+ {
+  "estate": "u-poitevin",
+  "name": "Château Poitevin",
+  "domain": "chateau-poitevin.com",
+  "status": "REACHED",
+  "stopped": "FRONTIER_EMPTY",
+  "ok": 231,
+  "text_artifacts": 197,
+  "failures": {
+   "HTTP_ERROR": 18
+  }
+ },
+ {
+  "estate": "u-pomeys",
+  "name": "Château Pomeys",
+  "domain": "chateau-lalaudey.fr",
+  "status": "UNREACHABLE",
+  "stopped": "FRONTIER_EMPTY",
+  "ok": 0,
+  "text_artifacts": 0,
+  "failures": {
+   "TLS_FAILURE": 5
+  }
+ },
+ {
+  "estate": "u-pontet-barrail",
+  "name": "Château Pontet Barrail",
+  "status": "NO_KNOWN_SITE",
+  "domain": null
+ },
+ {
+  "estate": "u-pontet-canet",
+  "name": "Château PONTET-CANET",
+  "domain": "pontet-canet.com",
+  "status": "REACHED",
+  "stopped": "FRONTIER_EMPTY",
+  "ok": 95,
+  "text_artifacts": 88,
+  "failures": {
+   "HTTP_ERROR": 1
+  }
+ },
+ {
+  "estate": "u-pontey",
+  "name": "Château Pontey",
+  "domain": "chateaupontey.fr",
+  "status": "PARTIAL",
+  "stopped": "FRONTIER_EMPTY",
+  "ok": 7,
+  "text_artifacts": 2,
+  "failures": {
+   "HTTP_ERROR": 1
+  }
+ },
+ {
+  "estate": "u-pontoise-cabarrus",
+  "name": "Château Pontoise Cabarrus",
+  "domain": "pontoise-cabarrus.com",
+  "status": "REACHED",
+  "stopped": "FRONTIER_EMPTY",
+  "ok": 105,
+  "text_artifacts": 86,
+  "failures": {
+   "HTTP_ERROR": 3
+  }
+ },
+ {
+  "estate": "u-pouget",
+  "name": "Château POUGET",
+  "domain": "chateau-pouget.com",
+  "status": "REACHED",
+  "stopped": "FRONTIER_EMPTY",
+  "ok": 110,
+  "text_artifacts": 108,
+  "failures": {
+   "HTTP_ERROR": 4
+  }
+ },
+ {
+  "estate": "u-preuillac",
+  "name": "Château Preuillac",
+  "domain": "chateaupreuillac.com",
+  "status": "REACHED",
+  "stopped": "FRONTIER_EMPTY",
+  "ok": 58,
+  "text_artifacts": 51,
+  "failures": {
+   "HTTP_ERROR": 34
+  }
+ },
+ {
+  "estate": "u-prieure-de-beyzac",
+  "name": "Château Prieuré de Beyzac",
+  "domain": "prieuredebeyzac.fr",
+  "status": "REACHED",
+  "stopped": "FRONTIER_EMPTY",
+  "ok": 29,
+  "text_artifacts": 15,
+  "failures": {}
+ },
+ {
+  "estate": "u-prieure-lichine",
+  "name": "Château PRIEURE-LICHINE",
+  "domain": "prieure-lichine.fr",
+  "status": "REACHED",
+  "stopped": "FRONTIER_EMPTY",
+  "ok": 229,
+  "text_artifacts": 202,
+  "failures": {
+   "HTTP_ERROR": 3,
+   "ROBOTS_DISALLOW": 3
+  }
+ },
+ {
+  "estate": "u-puy-castera",
+  "name": "Château Puy Castera",
+  "domain": "puycastera.fr",
+  "status": "REACHED",
+  "stopped": "FRONTIER_EMPTY",
+  "ok": 9,
+  "text_artifacts": 4,
+  "failures": {
+   "HTTP_ERROR": 1
+  }
+ },
+ {
+  "estate": "u-rabaud-promis",
+  "name": "Château RABAUD-PROMIS",
+  "domain": "rabaud-promis.com",
+  "status": "PARTIAL",
+  "stopped": "FRONTIER_EMPTY",
+  "ok": 5,
+  "text_artifacts": 0,
+  "failures": {
+   "HTTP_ERROR": 18
+  }
+ },
+ {
+  "estate": "u-ramafort",
+  "name": "Château Ramafort",
+  "domain": "chateauramafort.com",
+  "status": "REACHED",
+  "stopped": "FRONTIER_EMPTY",
+  "ok": 75,
+  "text_artifacts": 70,
+  "failures": {
+   "HTTP_ERROR": 2
+  }
+ },
+ {
+  "estate": "u-ramage-la-batisse",
+  "name": "Château Ramage la Batisse",
+  "domain": "gironderamagebelcier.com",
+  "status": "REACHED",
+  "stopped": "FRONTIER_EMPTY",
+  "ok": 169,
+  "text_artifacts": 158,
+  "failures": {
+   "OFFSITE_REDIRECT": 4,
+   "HTTP_ERROR": 1
+  }
+ },
+ {
+  "estate": "u-rauzan-gassies",
+  "name": "Château RAUZAN-GASSIES",
+  "domain": "domaines-quie.com",
+  "status": "REACHED",
+  "stopped": "FRONTIER_EMPTY",
+  "ok": 62,
+  "text_artifacts": 47,
+  "failures": {
+   "HTTP_ERROR": 1
+  }
+ },
+ {
+  "estate": "u-rauzan-segla",
+  "name": "Château RAUZAN-SEGLA",
+  "domain": "chateaurauzansegla.com",
+  "status": "BLOCKED_BY_POLICY",
+  "stopped": "ROBOTS_DISALLOW_SITE",
+  "ok": 0,
+  "text_artifacts": 0,
+  "failures": {
+   "ROBOTS_DISALLOW_SITE": 1
+  }
+ },
+ {
+  "estate": "u-reverdi",
+  "name": "Château Reverdi",
+  "domain": "chateaureverdi.fr",
+  "status": "REACHED",
+  "stopped": "FRONTIER_EMPTY",
+  "ok": 13,
+  "text_artifacts": 9,
+  "failures": {
+   "HTTP_ERROR": 3
+  }
+ },
+ {
+  "estate": "u-reysson",
+  "name": "Château Reysson",
+  "domain": "chateau-reysson.com",
+  "status": "UNREACHABLE",
+  "stopped": "FRONTIER_EMPTY",
+  "ok": 0,
+  "text_artifacts": 0,
+  "failures": {
+   "NETWORK_FAILURE": 5
+  }
+ },
+ {
+  "estate": "u-ricaudet",
+  "name": "Château Ricaudet",
+  "domain": "unimedoc.com",
+  "status": "REACHED",
+  "stopped": "FRONTIER_EMPTY",
+  "ok": 176,
+  "text_artifacts": 154,
+  "failures": {}
+ },
+ {
+  "estate": "u-rieussec",
+  "name": "Château RIEUSSEC",
+  "domain": "lafite.com",
+  "status": "REACHED",
+  "stopped": "BUDGET",
+  "ok": 48,
+  "text_artifacts": 38,
+  "failures": {
+   "TIMEOUT": 44
+  }
+ },
+ {
+  "estate": "u-ripeau",
+  "name": "Château RIPEAU",
+  "domain": "chateau-ripeau.com",
+  "status": "REACHED",
+  "stopped": "FRONTIER_EMPTY",
+  "ok": 249,
+  "text_artifacts": 181,
+  "failures": {
+   "HTTP_ERROR": 2,
+   "ROBOTS_DISALLOW": 85,
+   "AUTH_REQUIRED": 3
+  }
+ },
+ {
+  "estate": "u-rochebelle",
+  "name": "Château ROCHEBELLE",
+  "domain": "chateau-rochebelle.com",
+  "status": "REACHED",
+  "stopped": "FRONTIER_EMPTY",
+  "ok": 92,
+  "text_artifacts": 80,
+  "failures": {
+   "HTTP_ERROR": 2
+  }
+ },
+ {
+  "estate": "u-rol-valentin",
+  "name": "Château ROL VALENTIN",
+  "domain": "vignoblesrobin.com",
+  "status": "REACHED",
+  "stopped": "FRONTIER_EMPTY",
+  "ok": 56,
+  "text_artifacts": 46,
+  "failures": {
+   "HTTP_ERROR": 3
+  }
+ },
+ {
+  "estate": "u-rollin",
+  "name": "Château Rollin",
+  "domain": "chateaurollin.fr",
+  "status": "PARTIAL",
+  "stopped": "FRONTIER_EMPTY",
+  "ok": 4,
+  "text_artifacts": 3,
+  "failures": {
+   "ROBOTS_DISALLOW": 1,
+   "HTTP_ERROR": 3,
+   "BLOCKED_CHALLENGE": 3
+  }
+ },
+ {
+  "estate": "u-romer",
+  "name": "Château ROMER",
+  "status": "NO_KNOWN_SITE",
+  "domain": null
+ },
+ {
+  "estate": "u-romer-du-hayot",
+  "name": "Château ROMER-DU-HAYOT",
+  "domain": "vignobles-du-hayot.com",
+  "status": "REACHED",
+  "stopped": "FRONTIER_EMPTY",
+  "ok": 53,
+  "text_artifacts": 42,
+  "failures": {}
+ },
+ {
+  "estate": "u-roquegrave",
+  "name": "Château Roquegrave",
+  "domain": "vignoblesgm.com",
+  "status": "REACHED",
+  "stopped": "FRONTIER_EMPTY",
+  "ok": 124,
+  "text_artifacts": 116,
+  "failures": {
+   "HTTP_ERROR": 4
+  }
+ },
+ {
+  "estate": "u-rousseau-de-sipian",
+  "name": "Château Rousseau de Sipian",
+  "domain": "chateaurousseau.com",
+  "status": "REACHED",
+  "stopped": "FRONTIER_EMPTY",
+  "ok": 123,
+  "text_artifacts": 109,
+  "failures": {}
+ },
+ {
+  "estate": "u-saint-ahon",
+  "name": "Château Saint Ahon",
+  "domain": "saintahon.com",
+  "status": "UNREACHABLE",
+  "stopped": "FRONTIER_EMPTY",
+  "ok": 0,
+  "text_artifacts": 0,
+  "failures": {
+   "HTTP_ERROR": 6
+  }
+ },
+ {
+  "estate": "u-saint-aubin",
+  "name": "Château Saint-Aubin",
+  "domain": "chateausaintaubin.fr",
+  "status": "REACHED",
+  "stopped": "FRONTIER_EMPTY",
+  "ok": 36,
+  "text_artifacts": 35,
+  "failures": {
+   "HTTP_ERROR": 3,
+   "ROBOTS_DISALLOW": 30
+  }
+ },
+ {
+  "estate": "u-saint-bonnet",
+  "name": "Château Saint Bonnet",
+  "domain": "chateau-saint-bonnet.com",
+  "status": "PARTIAL",
+  "stopped": "FRONTIER_EMPTY",
+  "ok": 7,
+  "text_artifacts": 2,
+  "failures": {}
+ },
+ {
+  "estate": "u-saint-christophe",
+  "name": "Château Saint-Christophe",
+  "status": "NO_KNOWN_SITE",
+  "domain": null
+ },
+ {
+  "estate": "u-saint-georges-cote-pavie",
+  "name": "Château SAINT-GEORGES (COTE PAVIE)",
+  "domain": "saint-georges-cote-pavie.com",
+  "status": "REACHED",
+  "stopped": "FRONTIER_EMPTY",
+  "ok": 48,
+  "text_artifacts": 39,
+  "failures": {
+   "HTTP_ERROR": 3
+  }
+ },
+ {
+  "estate": "u-saint-gregoire",
+  "name": "Château Saint Gregoire",
+  "status": "NO_KNOWN_SITE",
+  "domain": null
+ },
+ {
+  "estate": "u-saint-hilaire",
+  "name": "Château Saint-Hilaire",
+  "domain": "chateau-st-hilaire.com",
+  "status": "REACHED",
+  "stopped": "FRONTIER_EMPTY",
+  "ok": 32,
+  "text_artifacts": 28,
+  "failures": {
+   "HTTP_ERROR": 28,
+   "BLOCKED_CHALLENGE": 1
+  }
+ },
+ {
+  "estate": "u-saint-pierre",
+  "name": "Château SAINT-PIERRE",
+  "domain": "chateau-saint-pierre.com",
+  "status": "UNREACHABLE",
+  "stopped": "FRONTIER_EMPTY",
+  "ok": 0,
+  "text_artifacts": 0,
+  "failures": {
+   "TIMEOUT": 5
+  }
+ },
+ {
+  "estate": "u-sansonnet",
+  "name": "Château SANSONNET",
+  "domain": "chateau-sansonnet.com",
+  "status": "REACHED",
+  "stopped": "FRONTIER_EMPTY",
+  "ok": 235,
+  "text_artifacts": 196,
+  "failures": {
+   "HTTP_ERROR": 4,
+   "AUTH_REQUIRED": 1
+  }
+ },
+ {
+  "estate": "u-semeillan-mazeau",
+  "name": "Château Sémeillan Mazeau",
+  "domain": "vignobles-jeandenisbibian.com",
+  "status": "REACHED",
+  "stopped": "FRONTIER_EMPTY",
+  "ok": 135,
+  "text_artifacts": 110,
+  "failures": {
+   "HTTP_ERROR": 20
+  }
+ },
+ {
+  "estate": "u-senilhac",
+  "name": "Château Sénilhac",
+  "domain": "chateausenilhac.com",
+  "status": "UNREACHABLE",
+  "stopped": "FRONTIER_EMPTY",
+  "ok": 0,
+  "text_artifacts": 0,
+  "failures": {
+   "OFFSITE_REDIRECT": 4,
+   "ROBOTS_DISALLOW_REDIRECT": 1
+  }
+ },
+ {
+  "estate": "u-sigalas-rabaud",
+  "name": "Château SIGALAS-RABAUD",
+  "domain": "chateau-sigalas-rabaud.com",
+  "status": "REACHED",
+  "stopped": "FRONTIER_EMPTY",
+  "ok": 242,
+  "text_artifacts": 230,
+  "failures": {
+   "ROBOTS_DISALLOW": 1
+  }
+ },
+ {
+  "estate": "u-smith-haut-lafitte",
+  "name": "Château Smith Haut Lafitte",
+  "domain": "smith-haut-lafitte.com",
+  "status": "REACHED",
+  "stopped": "FRONTIER_EMPTY",
+  "ok": 261,
+  "text_artifacts": 251,
+  "failures": {
+   "HTTP_ERROR": 3
+  }
+ },
+ {
+  "estate": "u-soutard",
+  "name": "Château SOUTARD",
+  "domain": "chateau-soutard.com",
+  "status": "UNREACHABLE",
+  "stopped": "FRONTIER_EMPTY",
+  "ok": 0,
+  "text_artifacts": 0,
+  "failures": {
+   "TIMEOUT": 2,
+   "NETWORK_FAILURE": 3
+  }
+ },
+ {
+  "estate": "u-suau",
+  "name": "Château SUAU",
+  "domain": "chateausuau.com",
+  "status": "BLOCKED_BY_POLICY",
+  "stopped": "ROBOTS_DISALLOW_SITE",
+  "ok": 0,
+  "text_artifacts": 0,
+  "failures": {
+   "ROBOTS_DISALLOW_SITE": 1
+  }
+ },
+ {
+  "estate": "u-suduiraut",
+  "name": "Château SUDUIRAUT",
+  "domain": "suduiraut.com",
+  "status": "REACHED",
+  "stopped": "FRONTIER_EMPTY",
+  "ok": 100,
+  "text_artifacts": 99,
+  "failures": {
+   "HTTP_ERROR": 9
+  }
+ },
+ {
+  "estate": "u-talbot",
+  "name": "Château TALBOT",
+  "domain": "chateau-talbot.com",
+  "status": "UNREACHABLE",
+  "stopped": "FRONTIER_EMPTY",
+  "ok": 0,
+  "text_artifacts": 0,
+  "failures": {
+   "TIMEOUT": 5
+  }
+ },
+ {
+  "estate": "u-tour-baladoz",
+  "name": "Château TOUR BALADOZ",
+  "status": "NO_KNOWN_SITE",
+  "domain": null
+ },
+ {
+  "estate": "u-tour-castillon",
+  "name": "Château Tour Castillon",
+  "domain": "vignoblespeyruse.com",
+  "status": "REACHED",
+  "stopped": "FRONTIER_EMPTY",
+  "ok": 27,
+  "text_artifacts": 26,
+  "failures": {
+   "HTTP_ERROR": 3
+  }
+ },
+ {
+  "estate": "u-tour-des-termes",
+  "name": "Château Tour des Termes",
+  "domain": "chateautourdestermes.com",
+  "status": "REACHED",
+  "stopped": "FRONTIER_EMPTY",
+  "ok": 57,
+  "text_artifacts": 29,
+  "failures": {
+   "HTTP_ERROR": 8
+  }
+ },
+ {
+  "estate": "u-tour-du-goua",
+  "name": "Château Tour du Goua",
+  "domain": "tourdugoua.fr",
+  "status": "REACHED",
+  "stopped": "FRONTIER_EMPTY",
+  "ok": 9,
+  "text_artifacts": 8,
+  "failures": {
+   "HTTP_ERROR": 3,
+   "ROBOTS_DISALLOW": 1
+  }
+ },
+ {
+  "estate": "u-tour-prignac",
+  "name": "Château Tour Prignac",
+  "domain": "chateaux-castel.com",
+  "status": "BLOCKED_BY_POLICY",
+  "stopped": "ROBOTS_DISALLOW_SITE",
+  "ok": 0,
+  "text_artifacts": 0,
+  "failures": {
+   "ROBOTS_DISALLOW_SITE": 1
+  }
+ },
+ {
+  "estate": "u-tour-saint-christophe",
+  "name": "Château TOUR SAINT CHRISTOPHE",
+  "domain": "vignoblesk.com",
+  "status": "REACHED",
+  "stopped": "BUDGET",
+  "ok": 320,
+  "text_artifacts": 318,
+  "failures": {
+   "HTTP_ERROR": 60
+  }
+ },
+ {
+  "estate": "u-tour-saint-fort",
+  "name": "Château Tour Saint-Fort",
+  "domain": "chateautoursaintfort.com",
+  "status": "REACHED",
+  "stopped": "FRONTIER_EMPTY",
+  "ok": 22,
+  "text_artifacts": 14,
+  "failures": {
+   "HTTP_ERROR": 1
+  }
+ },
+ {
+  "estate": "u-tour-saint-vincent",
+  "name": "Château Tour Saint Vincent",
+  "domain": "vignobles-lacombe.com",
+  "status": "REACHED",
+  "stopped": "FRONTIER_EMPTY",
+  "ok": 12,
+  "text_artifacts": 11,
+  "failures": {
+   "HTTP_ERROR": 3
+  }
+ },
+ {
+  "estate": "u-tourteran",
+  "name": "Château Tourteran",
+  "domain": "gironderamagebelcier.com",
+  "status": "REACHED",
+  "stopped": "FRONTIER_EMPTY",
+  "ok": 169,
+  "text_artifacts": 158,
+  "failures": {
+   "OFFSITE_REDIRECT": 4,
+   "HTTP_ERROR": 1
+  }
+ },
+ {
+  "estate": "u-troplong-mondot",
+  "name": "Château TROPLONG MONDOT",
+  "domain": "chateau-troplong-mondot.com",
+  "status": "UNREACHABLE",
+  "stopped": "FRONTIER_EMPTY",
+  "ok": 0,
+  "text_artifacts": 0,
+  "failures": {
+   "TLS_FAILURE": 5
+  }
+ },
+ {
+  "estate": "u-trottevieille",
+  "name": "Château TROTTEVIEILLE",
+  "domain": "trottevieille.com",
+  "status": "REACHED",
+  "stopped": "FRONTIER_EMPTY",
+  "ok": 245,
+  "text_artifacts": 207,
+  "failures": {
+   "HTTP_ERROR": 2,
+   "TOO_LARGE": 7
+  }
+ },
+ {
+  "estate": "u-troussas",
+  "name": "Château Troussas",
+  "domain": "unimedoc.com",
+  "status": "REACHED",
+  "stopped": "FRONTIER_EMPTY",
+  "ok": 176,
+  "text_artifacts": 154,
+  "failures": {}
+ },
+ {
+  "estate": "u-valandraud",
+  "name": "Château VALANDRAUD",
+  "domain": "valandraud.com",
+  "status": "REACHED",
+  "stopped": "FRONTIER_EMPTY",
+  "ok": 53,
+  "text_artifacts": 27,
+  "failures": {
+   "OFFSITE_REDIRECT": 4,
+   "ROBOTS_DISALLOW": 1,
+   "HTTP_ERROR": 2
+  }
+ },
+ {
+  "estate": "u-victoria",
+  "name": "Château Victoria",
+  "domain": "domainesrichard.fr",
+  "status": "REACHED",
+  "stopped": "BUDGET",
+  "ok": 377,
+  "text_artifacts": 311,
+  "failures": {}
+ },
+ {
+  "estate": "u-vieux-chateau-landon",
+  "name": "Vieux Château Landon",
+  "status": "NO_KNOWN_SITE",
+  "domain": null
+ },
+ {
+  "estate": "u-vieux-gabarey",
+  "name": "Château Vieux Gabarey",
+  "domain": "vieux-gabarey.com",
+  "status": "REACHED",
+  "stopped": "FRONTIER_EMPTY",
+  "ok": 13,
+  "text_artifacts": 13,
+  "failures": {
+   "HTTP_ERROR": 7
+  }
+ },
+ {
+  "estate": "u-vieux-gadet",
+  "name": "Château Vieux Gadet",
+  "domain": "chateau-vieux-gadet.com",
+  "status": "UNREACHABLE",
+  "stopped": "FRONTIER_EMPTY",
+  "ok": 0,
+  "text_artifacts": 0,
+  "failures": {
+   "NETWORK_FAILURE": 5
+  }
+ },
+ {
+  "estate": "u-vieux-landat",
+  "name": "Château Vieux Landat",
+  "domain": "vieuxlandat.com",
+  "status": "REACHED",
+  "stopped": "FRONTIER_EMPTY",
+  "ok": 115,
+  "text_artifacts": 105,
+  "failures": {
+   "HTTP_ERROR": 6
+  }
+ },
+ {
+  "estate": "u-vieux-robin",
+  "name": "Château Vieux Robin",
+  "domain": "chateau-vieux-robin.com",
+  "status": "REACHED",
+  "stopped": "FRONTIER_EMPTY",
+  "ok": 71,
+  "text_artifacts": 66,
+  "failures": {
+   "HTTP_ERROR": 11,
+   "ROBOTS_DISALLOW": 16,
+   "OFFSITE_REDIRECT": 68,
+   "ROBOTS_DISALLOW_REDIRECT": 22
+  }
+ },
+ {
+  "estate": "u-villemaurine",
+  "name": "Château VILLEMAURINE",
+  "domain": "villemaurine.com",
+  "status": "REACHED",
+  "stopped": "FRONTIER_EMPTY",
+  "ok": 44,
+  "text_artifacts": 44,
+  "failures": {
+   "HTTP_ERROR": 4,
+   "ROBOTS_DISALLOW": 55
+  }
+ },
+ {
+  "estate": "u-yon-figeac",
+  "name": "Château YON-FIGEAC",
+  "domain": "chateau-yon-figeac.com",
+  "status": "REACHED",
+  "stopped": "FRONTIER_EMPTY",
+  "ok": 34,
+  "text_artifacts": 28,
+  "failures": {
+   "HTTP_ERROR": 9
+  }
+ }
+]

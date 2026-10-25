@@ -1,0 +1,1 @@
+{"ai_input_no": false, "ai_refused": ["ClaudeBot", "Claude-User", "Claude-SearchBot", "anthropic-ai", "Claude-Web"], "at": "2026-10-25T05:52:35Z", "crawl_delay": 1.5, "kind": "ROBOTS_DISALLOW_SITE", "robots_sha256": null, "robots_status": 403, "scraper": "discover/1.0", "url": "http://www.chateau-larmande.com/"}

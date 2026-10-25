@@ -1,0 +1,9005 @@
+{
+ "phase": "3.3",
+ "built_by": "tools/discover.py targets",
+ "at": "2026-10-25",
+ "counts": {
+  "estates": 388,
+  "with_site": 339,
+  "no_known_site": 49,
+  "domains": 304,
+  "shared_domains": 25
+ },
+ "estates": [
+  {
+   "universe_id": "u-badette",
+   "name": "Château BADETTE",
+   "systems": [
+    "stem-2022"
+   ],
+   "canonical_ids": [
+    "stem-chateau-badette"
+   ],
+   "canonical_names": [
+    "Château Badette"
+   ],
+   "site": "https://chateau-badette.com/",
+   "site_basis": "websites.js tag 'cve' (prior record, not verified here)",
+   "status": "TARGET"
+  },
+  {
+   "universe_id": "u-balestard-la-tonnelle",
+   "name": "Château BALESTARD LA TONNELLE",
+   "systems": [
+    "stem-2022"
+   ],
+   "canonical_ids": [
+    "stem-chateau-balestard-la-tonnelle"
+   ],
+   "canonical_names": [
+    "Château Balestard La Tonnelle"
+   ],
+   "site": "http://www.vignoblescapdemourlin.com",
+   "site_basis": "websites.js tag 'cve' (prior record, not verified here)",
+   "status": "TARGET"
+  },
+  {
+   "universe_id": "u-barateau",
+   "name": "Château Barateau",
+   "systems": [
+    "cb-2025"
+   ],
+   "canonical_ids": [
+    "bourgeois-chateau-barateau"
+   ],
+   "canonical_names": [
+    "Château Barateau"
+   ],
+   "site": "http://chateau-barateau.com/",
+   "site_basis": "websites.js tag 'dom' (prior record, not verified here)",
+   "status": "TARGET"
+  },
+  {
+   "universe_id": "u-barde-haut",
+   "name": "Château BARDE-HAUT",
+   "systems": [
+    "stem-2022"
+   ],
+   "canonical_ids": [
+    "stem-chateau-barde-haut"
+   ],
+   "canonical_names": [
+    "Château Barde-Haut"
+   ],
+   "site": "https://chateaubardehaut.com/",
+   "site_basis": "websites.js tag 'dom' (prior record, not verified here)",
+   "status": "TARGET"
+  },
+  {
+   "universe_id": "u-barreyres",
+   "name": "Château Barreyres",
+   "systems": [
+    "cb-2025"
+   ],
+   "canonical_ids": [
+    "bourgeois-chateau-barreyres"
+   ],
+   "canonical_names": [
+    "Château Barreyres"
+   ],
+   "site": "https://www.chateaux-castel.com",
+   "site_basis": "websites.js tag 'cb' (prior record, not verified here)",
+   "status": "TARGET"
+  },
+  {
+   "universe_id": "u-batailley",
+   "name": "Château BATAILLEY",
+   "systems": [
+    "1855-medoc"
+   ],
+   "canonical_ids": [
+    "batailley"
+   ],
+   "canonical_names": [
+    "Château Batailley"
+   ],
+   "site": "https://batailley.com",
+   "site_basis": "websites.js tag 'ugcb' (prior record, not verified here)",
+   "status": "TARGET"
+  },
+  {
+   "universe_id": "u-beau-sejour-becot",
+   "name": "Château BEAU-SEJOUR BECOT",
+   "systems": [
+    "stem-2022"
+   ],
+   "canonical_ids": [
+    "beau-sejour-becot"
+   ],
+   "canonical_names": [
+    "Château Beau-Séjour Bécot"
+   ],
+   "site": null,
+   "site_basis": null,
+   "status": "NO_KNOWN_SITE"
+  },
+  {
+   "universe_id": "u-beaumont",
+   "name": "Château Beaumont",
+   "systems": [
+    "cb-2025"
+   ],
+   "canonical_ids": [
+    "bourgeois-chateau-beaumont"
+   ],
+   "canonical_names": [
+    "Château Beaumont"
+   ],
+   "site": "https://www.chateau-beaumont.com/",
+   "site_basis": "websites.js tag 'cb' (prior record, not verified here)",
+   "status": "TARGET"
+  },
+  {
+   "universe_id": "u-beausejour-heritiers-duffau-lagarrosse",
+   "name": "Château BEAUSEJOUR HERITIERS DUFFAU LAGARROSSE",
+   "systems": [
+    "stem-2022"
+   ],
+   "canonical_ids": [
+    "beausejour-duffau"
+   ],
+   "canonical_names": [
+    "Château Beauséjour (Héritiers Duffau-Lagarrosse)"
+   ],
+   "site": "https://beausejour-jdl.com/",
+   "site_basis": "websites.js tag 'domr' (prior record, not verified here)",
+   "status": "TARGET"
+  },
+  {
+   "universe_id": "u-beauvillage",
+   "name": "Château Beauvillage",
+   "systems": [
+    "cb-2025"
+   ],
+   "canonical_ids": [
+    "bourgeois-chateau-beauvillage"
+   ],
+   "canonical_names": [
+    "Château Beauvillage"
+   ],
+   "site": "https://chateaubeauvillage.com",
+   "site_basis": "websites.js tag 'cb' (prior record, not verified here)",
+   "status": "TARGET"
+  },
+  {
+   "universe_id": "u-begadan",
+   "name": "Château Begadan",
+   "systems": [
+    "cb-2025"
+   ],
+   "canonical_ids": [
+    "bourgeois-chateau-begadan"
+   ],
+   "canonical_names": [
+    "Château Begadan"
+   ],
+   "site": "https://mairie-begadan.jimdofree.com",
+   "site_basis": "websites.js tag 'wikidata' (prior record, not verified here)",
+   "status": "TARGET"
+  },
+  {
+   "universe_id": "u-begadanet",
+   "name": "Château Bégadanet",
+   "systems": [
+    "cb-2025"
+   ],
+   "canonical_ids": [
+    "bourgeois-chateau-begadanet"
+   ],
+   "canonical_names": [
+    "Château Bégadanet"
+   ],
+   "site": null,
+   "site_basis": null,
+   "status": "NO_KNOWN_SITE"
+  },
+  {
+   "universe_id": "u-bejac-romelys",
+   "name": "Château Bejac Romelys",
+   "systems": [
+    "ca-2022"
+   ],
+   "canonical_ids": [
+    "artisan-chateau-bejac-romelys"
+   ],
+   "canonical_names": [
+    "Château Bejac Romelys"
+   ],
+   "site": null,
+   "site_basis": null,
+   "status": "NO_KNOWN_SITE"
+  },
+  {
+   "universe_id": "u-bel-air-gloria",
+   "name": "Château Bel Air Gloria",
+   "systems": [
+    "cb-2025"
+   ],
+   "canonical_ids": [
+    "bourgeois-chateau-bel-air-gloria"
+   ],
+   "canonical_names": [
+    "Château Bel Air Gloria"
+   ],
+   "site": "https://www.domaines-henri-martin.com",
+   "site_basis": "websites.js tag 'cb' (prior record, not verified here)",
+   "status": "TARGET"
+  },
+  {
+   "universe_id": "u-belair-monange",
+   "name": "Château BELAIR MONANGE",
+   "systems": [
+    "stem-2022"
+   ],
+   "canonical_ids": [
+    "belair-monange"
+   ],
+   "canonical_names": [
+    "Château Bélair-Monange"
+   ],
+   "site": "https://chateau-belair-monange.com/",
+   "site_basis": "websites.js tag 'dom' (prior record, not verified here)",
+   "status": "TARGET"
+  },
+  {
+   "universe_id": "u-belgrave",
+   "name": "Château BELGRAVE",
+   "systems": [
+    "1855-medoc"
+   ],
+   "canonical_ids": [
+    "belgrave"
+   ],
+   "canonical_names": [
+    "Château Belgrave"
+   ],
+   "site": "https://www.chateau-belgrave.com",
+   "site_basis": "websites.js tag 'hand' (prior record, not verified here)",
+   "status": "TARGET"
+  },
+  {
+   "universe_id": "u-bellefont-belcier",
+   "name": "Château BELLEFONT-BELCIER",
+   "systems": [
+    "stem-2022"
+   ],
+   "canonical_ids": [
+    "stem-chateau-bellefont-belcier"
+   ],
+   "canonical_names": [
+    "Château Bellefont-Belcier"
+   ],
+   "site": "https://www.vignoblesk.com/",
+   "site_basis": "websites.js tag 'cve' (prior record, not verified here)",
+   "status": "TARGET"
+  },
+  {
+   "universe_id": "u-bellegrave",
+   "name": "Château Bellegrave",
+   "systems": [
+    "cb-2025"
+   ],
+   "canonical_ids": [
+    "bourgeois-chateau-bellegrave"
+   ],
+   "canonical_names": [
+    "Château Bellegrave"
+   ],
+   "site": "https://www.chateaubellegrave-chauvin.com",
+   "site_basis": "websites.js tag 'cb' (prior record, not verified here)",
+   "status": "TARGET"
+  },
+  {
+   "universe_id": "u-bellevue--cb-2025",
+   "name": "Château Bellevue",
+   "systems": [
+    "cb-2025"
+   ],
+   "canonical_ids": [
+    "bourgeois-chateau-bellevue"
+   ],
+   "canonical_names": [
+    "Château Bellevue"
+   ],
+   "site": null,
+   "site_basis": null,
+   "status": "NO_KNOWN_SITE"
+  },
+  {
+   "universe_id": "u-bellevue--stem-2022",
+   "name": "Château BELLEVUE",
+   "systems": [
+    "stem-2022"
+   ],
+   "canonical_ids": [
+    "stem-chateau-bellevue"
+   ],
+   "canonical_names": [
+    "Château Bellevue"
+   ],
+   "site": "https://chateaubellevue.fr/",
+   "site_basis": "websites.js tag 'dom' (prior record, not verified here)",
+   "status": "TARGET"
+  },
+  {
+   "universe_id": "u-berliquet",
+   "name": "Château BERLIQUET",
+   "systems": [
+    "stem-2022"
+   ],
+   "canonical_ids": [
+    "stem-chateau-berliquet"
+   ],
+   "canonical_names": [
+    "Château Berliquet"
+   ],
+   "site": "https://chateau-berliquet.com/",
+   "site_basis": "websites.js tag 'domr' (prior record, not verified here)",
+   "status": "TARGET"
+  },
+  {
+   "universe_id": "u-bessan-segur",
+   "name": "Château Bessan Ségur",
+   "systems": [
+    "cb-2025"
+   ],
+   "canonical_ids": [
+    "bourgeois-chateau-bessan-segur"
+   ],
+   "canonical_names": [
+    "Château Bessan Ségur"
+   ],
+   "site": "https://www.vignobles-lacombe.com",
+   "site_basis": "websites.js tag 'cb' (prior record, not verified here)",
+   "status": "TARGET"
+  },
+  {
+   "universe_id": "u-beychevelle",
+   "name": "Château BEYCHEVELLE",
+   "systems": [
+    "1855-medoc"
+   ],
+   "canonical_ids": [
+    "beychevelle"
+   ],
+   "canonical_names": [
+    "Château Beychevelle"
+   ],
+   "site": "https://beychevelle.com",
+   "site_basis": "websites.js tag 'ugcb' (prior record, not verified here)",
+   "status": "TARGET"
+  },
+  {
+   "universe_id": "u-bibian",
+   "name": "Château Bibian",
+   "systems": [
+    "cb-2025"
+   ],
+   "canonical_ids": [
+    "bourgeois-chateau-bibian"
+   ],
+   "canonical_names": [
+    "Château Bibian"
+   ],
+   "site": "https://vignobles-meyre.com/",
+   "site_basis": "websites.js tag 'domr' (prior record, not verified here)",
+   "status": "TARGET"
+  },
+  {
+   "universe_id": "u-biston-brillette",
+   "name": "Château Biston-Brillette",
+   "systems": [
+    "cb-2025"
+   ],
+   "canonical_ids": [
+    "bourgeois-chateau-biston-brillette"
+   ],
+   "canonical_names": [
+    "Château Biston-Brillette"
+   ],
+   "site": "https://chateaubistonbrillette.fr/",
+   "site_basis": "websites.js tag 'cb' (prior record, not verified here)",
+   "status": "TARGET"
+  },
+  {
+   "universe_id": "u-bournac",
+   "name": "Château Bournac",
+   "systems": [
+    "cb-2025"
+   ],
+   "canonical_ids": [
+    "bourgeois-chateau-bournac"
+   ],
+   "canonical_names": [
+    "Château Bournac"
+   ],
+   "site": "http://www.chateau-bournac.com/",
+   "site_basis": "websites.js tag 'cb' (prior record, not verified here)",
+   "status": "TARGET"
+  },
+  {
+   "universe_id": "u-bouscaut",
+   "name": "Château Bouscaut",
+   "systems": [
+    "graves"
+   ],
+   "canonical_ids": [
+    "bouscaut"
+   ],
+   "canonical_names": [
+    "Château Bouscaut"
+   ],
+   "site": "https://www.chateau-bouscaut.com",
+   "site_basis": "websites.js tag 'ugcb' (prior record, not verified here)",
+   "status": "TARGET"
+  },
+  {
+   "universe_id": "u-boutisse",
+   "name": "Château BOUTISSE",
+   "systems": [
+    "stem-2022"
+   ],
+   "canonical_ids": [
+    "stem-chateau-boutisse"
+   ],
+   "canonical_names": [
+    "Château Boutisse"
+   ],
+   "site": "http://www.chateau-boutisse.fr",
+   "site_basis": "websites.js tag 'cve' (prior record, not verified here)",
+   "status": "TARGET"
+  },
+  {
+   "universe_id": "u-boyd-cantenac",
+   "name": "Château BOYD-CANTENAC",
+   "systems": [
+    "1855-medoc"
+   ],
+   "canonical_ids": [
+    "boyd-cantenac"
+   ],
+   "canonical_names": [
+    "Château Boyd-Cantenac"
+   ],
+   "site": "http://boyd-cantenac.com/",
+   "site_basis": "websites.js tag 'dom' (prior record, not verified here)",
+   "status": "TARGET"
+  },
+  {
+   "universe_id": "u-branaire-ducru",
+   "name": "Château BRANAIRE-DUCRU",
+   "systems": [
+    "1855-medoc"
+   ],
+   "canonical_ids": [
+    "branaire-ducru"
+   ],
+   "canonical_names": [
+    "Château Branaire-Ducru"
+   ],
+   "site": "https://www.branaire.com",
+   "site_basis": "websites.js tag 'ugcb' (prior record, not verified here)",
+   "status": "TARGET"
+  },
+  {
+   "universe_id": "u-brane-cantenac",
+   "name": "Château BRANE-CANTENAC",
+   "systems": [
+    "1855-medoc"
+   ],
+   "canonical_ids": [
+    "brane-cantenac"
+   ],
+   "canonical_names": [
+    "Château Brane-Cantenac"
+   ],
+   "site": "https://www.brane-cantenac.com/fr/accueil",
+   "site_basis": "websites.js tag 'ugcb' (prior record, not verified here)",
+   "status": "TARGET"
+  },
+  {
+   "universe_id": "u-broustet",
+   "name": "Château BROUSTET",
+   "systems": [
+    "1855-sauternes"
+   ],
+   "canonical_ids": [
+    "broustet"
+   ],
+   "canonical_names": [
+    "Château Broustet"
+   ],
+   "site": "https://www.vignoblesdeterroirs.com",
+   "site_basis": "websites.js tag 'ugcb' (prior record, not verified here)",
+   "status": "TARGET"
+  },
+  {
+   "universe_id": "u-cadet-bon",
+   "name": "Château CADET-BON",
+   "systems": [
+    "stem-2022"
+   ],
+   "canonical_ids": [
+    "stem-chateau-cadet-bon"
+   ],
+   "canonical_names": [
+    "Château Cadet-Bon"
+   ],
+   "site": "http://www.cadet-bon.com/",
+   "site_basis": "websites.js tag 'cve' (prior record, not verified here)",
+   "status": "TARGET"
+  },
+  {
+   "universe_id": "u-caillou",
+   "name": "Château CAILLOU",
+   "systems": [
+    "1855-sauternes"
+   ],
+   "canonical_ids": [
+    "caillou"
+   ],
+   "canonical_names": [
+    "Château Caillou"
+   ],
+   "site": "https://www.chateaucaillou.com",
+   "site_basis": "websites.js tag 'wikidata' (prior record, not verified here)",
+   "status": "TARGET"
+  },
+  {
+   "universe_id": "u-calon-segur",
+   "name": "Château CALON SEGUR",
+   "systems": [
+    "1855-medoc"
+   ],
+   "canonical_ids": [
+    "calon-segur"
+   ],
+   "canonical_names": [
+    "Château Calon-Ségur"
+   ],
+   "site": "http://calon-segur.com/",
+   "site_basis": "websites.js tag 'dom' (prior record, not verified here)",
+   "status": "TARGET"
+  },
+  {
+   "universe_id": "u-cangruey",
+   "name": "Château Cangruey",
+   "systems": [
+    "cb-2025"
+   ],
+   "canonical_ids": [
+    "bourgeois-chateau-cangruey"
+   ],
+   "canonical_names": [
+    "Château Cangruey"
+   ],
+   "site": null,
+   "site_basis": null,
+   "status": "NO_KNOWN_SITE"
+  },
+  {
+   "universe_id": "u-canon",
+   "name": "Château CANON",
+   "systems": [
+    "stem-2022"
+   ],
+   "canonical_ids": [
+    "canon"
+   ],
+   "canonical_names": [
+    "Château Canon"
+   ],
+   "site": "https://www.chateaucanon.com",
+   "site_basis": "websites.js tag 'ugcb' (prior record, not verified here)",
+   "status": "TARGET"
+  },
+  {
+   "universe_id": "u-canon-la-gaffeliere",
+   "name": "Château CANON LA GAFFELIERE",
+   "systems": [
+    "stem-2022"
+   ],
+   "canonical_ids": [
+    "canon-la-gaffeliere"
+   ],
+   "canonical_names": [
+    "Château Canon La Gaffelière"
+   ],
+   "site": "https://www.neipperg.com/fr/chateaux/chateau-canon-la-gaffeliere.html",
+   "site_basis": "websites.js tag 'ugcb' (prior record, not verified here)",
+   "status": "TARGET"
+  },
+  {
+   "universe_id": "u-cantemerle",
+   "name": "Château CANTEMERLE",
+   "systems": [
+    "1855-medoc"
+   ],
+   "canonical_ids": [
+    "cantemerle"
+   ],
+   "canonical_names": [
+    "Château Cantemerle"
+   ],
+   "site": "https://www.cantemerle.com",
+   "site_basis": "websites.js tag 'ugcb' (prior record, not verified here)",
+   "status": "TARGET"
+  },
+  {
+   "universe_id": "u-cantenac-brown",
+   "name": "Château CANTENAC BROWN",
+   "systems": [
+    "1855-medoc"
+   ],
+   "canonical_ids": [
+    "cantenac-brown"
+   ],
+   "canonical_names": [
+    "Château Cantenac-Brown"
+   ],
+   "site": "https://www.cantenacbrown.com",
+   "site_basis": "websites.js tag 'ugcb' (prior record, not verified here)",
+   "status": "TARGET"
+  },
+  {
+   "universe_id": "u-cap-de-mourlin",
+   "name": "Château CAP DE MOURLIN",
+   "systems": [
+    "stem-2022"
+   ],
+   "canonical_ids": [
+    "stem-chateau-cap-de-mourlin"
+   ],
+   "canonical_names": [
+    "Château Cap de Mourlin"
+   ],
+   "site": "http://www.vignoblescapdemourlin.com",
+   "site_basis": "websites.js tag 'cve' (prior record, not verified here)",
+   "status": "TARGET"
+  },
+  {
+   "universe_id": "u-capdet",
+   "name": "Château Capdet",
+   "systems": [
+    "cb-2025"
+   ],
+   "canonical_ids": [
+    "bourgeois-chateau-capdet"
+   ],
+   "canonical_names": [
+    "Château Capdet"
+   ],
+   "site": "https://www.cave-listrac-medoc.com",
+   "site_basis": "websites.js tag 'cb' (prior record, not verified here)",
+   "status": "TARGET"
+  },
+  {
+   "universe_id": "u-carbonnieux",
+   "name": "Château Carbonnieux",
+   "systems": [
+    "graves"
+   ],
+   "canonical_ids": [
+    "carbonnieux"
+   ],
+   "canonical_names": [
+    "Château Carbonnieux"
+   ],
+   "site": "https://carbonnieux.com",
+   "site_basis": "websites.js tag 'osm' (prior record, not verified here)",
+   "status": "TARGET"
+  },
+  {
+   "universe_id": "u-carcanieux",
+   "name": "Château Carcanieux",
+   "systems": [
+    "cb-2025"
+   ],
+   "canonical_ids": [
+    "bourgeois-chateau-carcanieux"
+   ],
+   "canonical_names": [
+    "Château Carcanieux"
+   ],
+   "site": "https://www.carcanieux.vignoblesdeterroirs.com",
+   "site_basis": "websites.js tag 'cb' (prior record, not verified here)",
+   "status": "TARGET"
+  },
+  {
+   "universe_id": "u-castera",
+   "name": "Château Castera",
+   "systems": [
+    "cb-2025"
+   ],
+   "canonical_ids": [
+    "bourgeois-chateau-castera"
+   ],
+   "canonical_names": [
+    "Château Castera"
+   ],
+   "site": "https://www.chateau-castera.com",
+   "site_basis": "websites.js tag 'osm' (prior record, not verified here)",
+   "status": "TARGET"
+  },
+  {
+   "universe_id": "u-chantemerle",
+   "name": "Château Chantemerle",
+   "systems": [
+    "cb-2025"
+   ],
+   "canonical_ids": [
+    "bourgeois-chateau-chantemerle"
+   ],
+   "canonical_names": [
+    "Château Chantemerle"
+   ],
+   "site": "http://www.domaine-chantemerle.com/",
+   "site_basis": "websites.js tag 'cb' (prior record, not verified here)",
+   "status": "TARGET"
+  },
+  {
+   "universe_id": "u-chauvin",
+   "name": "Château CHAUVIN",
+   "systems": [
+    "stem-2022"
+   ],
+   "canonical_ids": [
+    "stem-chateau-chauvin"
+   ],
+   "canonical_names": [
+    "Château Chauvin"
+   ],
+   "site": "http://www.chateauchauvin.com",
+   "site_basis": "websites.js tag 'cve' (prior record, not verified here)",
+   "status": "TARGET"
+  },
+  {
+   "universe_id": "u-cissac",
+   "name": "Château Cissac",
+   "systems": [
+    "cb-2025"
+   ],
+   "canonical_ids": [
+    "bourgeois-chateau-cissac"
+   ],
+   "canonical_names": [
+    "Château Cissac"
+   ],
+   "site": "http://www.chateau-cissac.com/",
+   "site_basis": "websites.js tag 'cb' (prior record, not verified here)",
+   "status": "TARGET"
+  },
+  {
+   "universe_id": "u-clement-saint-jean",
+   "name": "Château Clément Saint Jean",
+   "systems": [
+    "cb-2025"
+   ],
+   "canonical_ids": [
+    "bourgeois-chateau-clement-saint-jean"
+   ],
+   "canonical_names": [
+    "Château Clément Saint Jean"
+   ],
+   "site": "http://www.unimedoc.com/",
+   "site_basis": "websites.js tag 'cbg' (prior record, not verified here)",
+   "status": "TARGET"
+  },
+  {
+   "universe_id": "u-clerc-milon",
+   "name": "Château CLERC MILON",
+   "systems": [
+    "1855-medoc"
+   ],
+   "canonical_ids": [
+    "clerc-milon"
+   ],
+   "canonical_names": [
+    "Château Clerc Milon"
+   ],
+   "site": "https://www.chateau-clerc-milon.com",
+   "site_basis": "websites.js tag 'ugcb' (prior record, not verified here)",
+   "status": "TARGET"
+  },
+  {
+   "universe_id": "u-climens",
+   "name": "Château CLIMENS",
+   "systems": [
+    "1855-sauternes"
+   ],
+   "canonical_ids": [
+    "climens"
+   ],
+   "canonical_names": [
+    "Château Climens"
+   ],
+   "site": "https://chateau-climens.com/",
+   "site_basis": "websites.js tag 'dom' (prior record, not verified here)",
+   "status": "TARGET"
+  },
+  {
+   "universe_id": "u-clos-badon-thunevin",
+   "name": "CLOS BADON THUNEVIN",
+   "systems": [
+    "stem-2022"
+   ],
+   "canonical_ids": [
+    "stem-clos-badon-thunevin"
+   ],
+   "canonical_names": [
+    "Clos Badon Thunevin"
+   ],
+   "site": "https://clos-badon-thunevin.com/",
+   "site_basis": "websites.js tag 'domr' (prior record, not verified here)",
+   "status": "TARGET"
+  },
+  {
+   "universe_id": "u-clos-de-bigos",
+   "name": "Clos de Bigos",
+   "systems": [
+    "ca-2022"
+   ],
+   "canonical_ids": [
+    "artisan-clos-de-bigos"
+   ],
+   "canonical_names": [
+    "Clos de Bigos"
+   ],
+   "site": "https://closdebigos.fr/",
+   "site_basis": "websites.js tag 'dom' (prior record, not verified here)",
+   "status": "TARGET"
+  },
+  {
+   "universe_id": "u-clos-de-l-oratoire",
+   "name": "CLOS DE L'ORATOIRE",
+   "systems": [
+    "stem-2022"
+   ],
+   "canonical_ids": [
+    "stem-clos-de-l-oratoire"
+   ],
+   "canonical_names": [
+    "Clos de l’Oratoire"
+   ],
+   "site": "http://neipperg.com",
+   "site_basis": "websites.js tag 'cve' (prior record, not verified here)",
+   "status": "TARGET"
+  },
+  {
+   "universe_id": "u-clos-de-sarpe",
+   "name": "Château CLOS DE SARPE",
+   "systems": [
+    "stem-2022"
+   ],
+   "canonical_ids": [
+    "stem-clos-de-sarpe"
+   ],
+   "canonical_names": [
+    "Clos de Sarpe"
+   ],
+   "site": "https://clos-de-sarpe.com/",
+   "site_basis": "websites.js tag 'dom' (prior record, not verified here)",
+   "status": "TARGET"
+  },
+  {
+   "universe_id": "u-clos-des-jacobins",
+   "name": "CLOS DES JACOBINS",
+   "systems": [
+    "stem-2022"
+   ],
+   "canonical_ids": [
+    "stem-clos-des-jacobins"
+   ],
+   "canonical_names": [
+    "Clos des Jacobins"
+   ],
+   "site": "http://www.mtdecoster.com",
+   "site_basis": "websites.js tag 'cve' (prior record, not verified here)",
+   "status": "TARGET"
+  },
+  {
+   "universe_id": "u-clos-dubreuil",
+   "name": "CLOS DUBREUIL",
+   "systems": [
+    "stem-2022"
+   ],
+   "canonical_ids": [
+    "stem-clos-dubreuil"
+   ],
+   "canonical_names": [
+    "Clos Dubreuil"
+   ],
+   "site": "http://closdubreuil.com",
+   "site_basis": "websites.js tag 'cve' (prior record, not verified here)",
+   "status": "TARGET"
+  },
+  {
+   "universe_id": "u-clos-fourtet",
+   "name": "CLOS FOURTET",
+   "systems": [
+    "stem-2022"
+   ],
+   "canonical_ids": [
+    "clos-fourtet"
+   ],
+   "canonical_names": [
+    "Clos Fourtet"
+   ],
+   "site": "https://www.closfourtet.com/fr",
+   "site_basis": "websites.js tag 'ugcb' (prior record, not verified here)",
+   "status": "TARGET"
+  },
+  {
+   "universe_id": "u-clos-haut-peyraguey",
+   "name": "Clos HAUT-PEYRAGUEY",
+   "systems": [
+    "1855-sauternes"
+   ],
+   "canonical_ids": [
+    "clos-haut-peyraguey"
+   ],
+   "canonical_names": [
+    "Clos Haut-Peyraguey"
+   ],
+   "site": "https://bernard-magrez.com",
+   "site_basis": "websites.js tag 'ugcb' (prior record, not verified here)",
+   "status": "TARGET"
+  },
+  {
+   "universe_id": "u-clos-la-boheme",
+   "name": "Clos la Bohème",
+   "systems": [
+    "cb-2025"
+   ],
+   "canonical_ids": [
+    "bourgeois-clos-la-boheme"
+   ],
+   "canonical_names": [
+    "Clos la Bohème"
+   ],
+   "site": "http://www.chateau-beau-rivage.fr",
+   "site_basis": "websites.js tag 'cb' (prior record, not verified here)",
+   "status": "TARGET"
+  },
+  {
+   "universe_id": "u-clos-saint-julien",
+   "name": "CLOS SAINT-JULIEN",
+   "systems": [
+    "stem-2022"
+   ],
+   "canonical_ids": [
+    "stem-clos-saint-julien"
+   ],
+   "canonical_names": [
+    "Clos Saint-Julien"
+   ],
+   "site": null,
+   "site_basis": null,
+   "status": "NO_KNOWN_SITE"
+  },
+  {
+   "universe_id": "u-clos-saint-martin",
+   "name": "CLOS SAINT-MARTIN",
+   "systems": [
+    "stem-2022"
+   ],
+   "canonical_ids": [
+    "stem-clos-saint-martin"
+   ],
+   "canonical_names": [
+    "Clos Saint-Martin"
+   ],
+   "site": "http://www.clos-saintmartin.fr",
+   "site_basis": "websites.js tag 'cve' (prior record, not verified here)",
+   "status": "TARGET"
+  },
+  {
+   "universe_id": "u-corbin",
+   "name": "Château CORBIN",
+   "systems": [
+    "stem-2022"
+   ],
+   "canonical_ids": [
+    "stem-chateau-corbin"
+   ],
+   "canonical_names": [
+    "Château Corbin"
+   ],
+   "site": "http://www.chateau-corbin.com",
+   "site_basis": "websites.js tag 'cve' (prior record, not verified here)",
+   "status": "TARGET"
+  },
+  {
+   "universe_id": "u-corbin-michotte",
+   "name": "Château CORBIN MICHOTTE",
+   "systems": [
+    "stem-2022"
+   ],
+   "canonical_ids": [
+    "stem-chateau-corbin-michotte"
+   ],
+   "canonical_names": [
+    "Château Corbin Michotte"
+   ],
+   "site": "https://chateau-corbinmichotte.com/",
+   "site_basis": "websites.js tag 'dom' (prior record, not verified here)",
+   "status": "TARGET"
+  },
+  {
+   "universe_id": "u-corconnac",
+   "name": "Château Corconnac",
+   "systems": [
+    "cb-2025"
+   ],
+   "canonical_ids": [
+    "bourgeois-chateau-corconnac"
+   ],
+   "canonical_names": [
+    "Château Corconnac"
+   ],
+   "site": "https://teynac-corconnac.com",
+   "site_basis": "websites.js tag 'cb' (prior record, not verified here)",
+   "status": "TARGET"
+  },
+  {
+   "universe_id": "u-cos-d-estournel",
+   "name": "Château COS D’ESTOURNEL",
+   "systems": [
+    "1855-medoc"
+   ],
+   "canonical_ids": [
+    "cos-destournel"
+   ],
+   "canonical_names": [
+    "Château Cos d’Estournel"
+   ],
+   "site": "https://www.estournel.com",
+   "site_basis": "websites.js tag 'wikidata' (prior record, not verified here)",
+   "status": "TARGET"
+  },
+  {
+   "universe_id": "u-cos-labory",
+   "name": "Château COS LABORY",
+   "systems": [
+    "1855-medoc"
+   ],
+   "canonical_ids": [
+    "cos-labory"
+   ],
+   "canonical_names": [
+    "Château Cos Labory"
+   ],
+   "site": "https://www.cos-labory.com",
+   "site_basis": "websites.js tag 'ugcb' (prior record, not verified here)",
+   "status": "TARGET"
+  },
+  {
+   "universe_id": "u-cote-de-baleau",
+   "name": "Château COTE DE BALEAU",
+   "systems": [
+    "stem-2022"
+   ],
+   "canonical_ids": [
+    "stem-chateau-cote-de-baleau"
+   ],
+   "canonical_names": [
+    "Château Côte de Baleau"
+   ],
+   "site": "http://www.cotedebaleau.com",
+   "site_basis": "websites.js tag 'cve' (prior record, not verified here)",
+   "status": "TARGET"
+  },
+  {
+   "universe_id": "u-cotes-de-blaignan",
+   "name": "Château Côtes de Blaignan",
+   "systems": [
+    "cb-2025"
+   ],
+   "canonical_ids": [
+    "bourgeois-chateau-cotes-de-blaignan"
+   ],
+   "canonical_names": [
+    "Château Côtes de Blaignan"
+   ],
+   "site": null,
+   "site_basis": null,
+   "status": "NO_KNOWN_SITE"
+  },
+  {
+   "universe_id": "u-couhins",
+   "name": "Château Couhins",
+   "systems": [
+    "graves"
+   ],
+   "canonical_ids": [
+    "couhins"
+   ],
+   "canonical_names": [
+    "Château Couhins"
+   ],
+   "site": "https://chateau-couhins.fr/",
+   "site_basis": "websites.js tag 'domr' (prior record, not verified here)",
+   "status": "TARGET"
+  },
+  {
+   "universe_id": "u-couhins-lurton",
+   "name": "Château Couhins-Lurton",
+   "systems": [
+    "graves"
+   ],
+   "canonical_ids": [
+    "couhins-lurton"
+   ],
+   "canonical_names": [
+    "Château Couhins-Lurton"
+   ],
+   "site": "https://chateau-couhins-lurton.com/",
+   "site_basis": "websites.js tag 'dom' (prior record, not verified here)",
+   "status": "TARGET"
+  },
+  {
+   "universe_id": "u-coutelin-merville",
+   "name": "Château Coutelin Merville",
+   "systems": [
+    "cb-2025"
+   ],
+   "canonical_ids": [
+    "bourgeois-chateau-coutelin-merville"
+   ],
+   "canonical_names": [
+    "Château Coutelin Merville"
+   ],
+   "site": null,
+   "site_basis": null,
+   "status": "NO_KNOWN_SITE"
+  },
+  {
+   "universe_id": "u-coutet",
+   "name": "Château COUTET",
+   "systems": [
+    "1855-sauternes"
+   ],
+   "canonical_ids": [
+    "coutet"
+   ],
+   "canonical_names": [
+    "Château Coutet"
+   ],
+   "site": "https://www.chateaucoutet.com",
+   "site_basis": "websites.js tag 'ugcb' (prior record, not verified here)",
+   "status": "TARGET"
+  },
+  {
+   "universe_id": "u-couvent-des-jacobins",
+   "name": "COUVENT DES JACOBINS",
+   "systems": [
+    "stem-2022"
+   ],
+   "canonical_ids": [
+    "stem-couvent-des-jacobins"
+   ],
+   "canonical_names": [
+    "Couvent des Jacobins"
+   ],
+   "site": "http://www.couvent.wine",
+   "site_basis": "websites.js tag 'cve' (prior record, not verified here)",
+   "status": "TARGET"
+  },
+  {
+   "universe_id": "u-croix-de-labrie",
+   "name": "Château CROIX DE LABRIE",
+   "systems": [
+    "stem-2022"
+   ],
+   "canonical_ids": [
+    "stem-chateau-croix-de-labrie"
+   ],
+   "canonical_names": [
+    "Château Croix de Labrie"
+   ],
+   "site": "http://www.chateau-croix-de-labrie.fr",
+   "site_basis": "websites.js tag 'cve' (prior record, not verified here)",
+   "status": "TARGET"
+  },
+  {
+   "universe_id": "u-croix-du-trale",
+   "name": "Château Croix du Trale",
+   "systems": [
+    "cb-2025"
+   ],
+   "canonical_ids": [
+    "bourgeois-chateau-croix-du-trale"
+   ],
+   "canonical_names": [
+    "Château Croix du Trale"
+   ],
+   "site": "https://www.chateaucroixdutrale.com",
+   "site_basis": "websites.js tag 'cb' (prior record, not verified here)",
+   "status": "TARGET"
+  },
+  {
+   "universe_id": "u-croizet-bages",
+   "name": "Château CROIZET-BAGES",
+   "systems": [
+    "1855-medoc"
+   ],
+   "canonical_ids": [
+    "croizet-bages"
+   ],
+   "canonical_names": [
+    "Château Croizet-Bages"
+   ],
+   "site": "https://www.domaines-quie.com",
+   "site_basis": "websites.js tag 'ugcb' (prior record, not verified here)",
+   "status": "TARGET"
+  },
+  {
+   "universe_id": "u-d-arche",
+   "name": "Château d’ARCHE",
+   "systems": [
+    "1855-sauternes"
+   ],
+   "canonical_ids": [
+    "darche"
+   ],
+   "canonical_names": [
+    "Château d’Arche"
+   ],
+   "site": "http://www.chateaudarche-sauternes.com",
+   "site_basis": "websites.js tag 'osm' (prior record, not verified here)",
+   "status": "TARGET"
+  },
+  {
+   "universe_id": "u-d-arcins",
+   "name": "Château d’Arcins",
+   "systems": [
+    "cb-2025"
+   ],
+   "canonical_ids": [
+    "bourgeois-chateau-d-arcins"
+   ],
+   "canonical_names": [
+    "Château d’Arcins"
+   ],
+   "site": "https://www.chateaudarcins.com/",
+   "site_basis": "websites.js tag 'cb' (prior record, not verified here)",
+   "status": "TARGET"
+  },
+  {
+   "universe_id": "u-d-argan",
+   "name": "Château d'Argan",
+   "systems": [
+    "cb-2025"
+   ],
+   "canonical_ids": [
+    "bourgeois-chateau-d-argan"
+   ],
+   "canonical_names": [
+    "Château d'Argan"
+   ],
+   "site": "https://vignobles-lamont.com/",
+   "site_basis": "websites.js tag 'cb' (prior record, not verified here)",
+   "status": "TARGET"
+  },
+  {
+   "universe_id": "u-d-armailhac",
+   "name": "Château D’ARMAILHAC",
+   "systems": [
+    "1855-medoc"
+   ],
+   "canonical_ids": [
+    "darmailhac"
+   ],
+   "canonical_names": [
+    "Château d’Armailhac"
+   ],
+   "site": "https://www.chateau-darmailhac.com",
+   "site_basis": "websites.js tag 'ugcb' (prior record, not verified here)",
+   "status": "TARGET"
+  },
+  {
+   "universe_id": "u-d-arsac",
+   "name": "Château d’Arsac",
+   "systems": [
+    "cb-2025"
+   ],
+   "canonical_ids": [
+    "bourgeois-chateau-d-arsac"
+   ],
+   "canonical_names": [
+    "Château d’Arsac"
+   ],
+   "site": "http://www.chateau-arsac.com/",
+   "site_basis": "websites.js tag 'cb' (prior record, not verified here)",
+   "status": "TARGET"
+  },
+  {
+   "universe_id": "u-d-aurilhac",
+   "name": "Château d'Aurilhac",
+   "systems": [
+    "cb-2025"
+   ],
+   "canonical_ids": [
+    "bourgeois-chateau-d-aurilhac"
+   ],
+   "canonical_names": [
+    "Château d'Aurilhac"
+   ],
+   "site": null,
+   "site_basis": null,
+   "status": "NO_KNOWN_SITE"
+  },
+  {
+   "universe_id": "u-d-escurac",
+   "name": "Château d'Escurac",
+   "systems": [
+    "cb-2025"
+   ],
+   "canonical_ids": [
+    "bourgeois-chateau-d-escurac"
+   ],
+   "canonical_names": [
+    "Château d'Escurac"
+   ],
+   "site": "https://www.chateaudescurac.com",
+   "site_basis": "websites.js tag 'cb' (prior record, not verified here)",
+   "status": "TARGET"
+  },
+  {
+   "universe_id": "u-d-issan",
+   "name": "Château D’ISSAN",
+   "systems": [
+    "1855-medoc"
+   ],
+   "canonical_ids": [
+    "issan"
+   ],
+   "canonical_names": [
+    "Château d’Issan"
+   ],
+   "site": "https://www.chateau-issan.com",
+   "site_basis": "websites.js tag 'wikidata' (prior record, not verified here)",
+   "status": "TARGET"
+  },
+  {
+   "universe_id": "u-d-osmond",
+   "name": "Château d’Osmond",
+   "systems": [
+    "ca-2022"
+   ],
+   "canonical_ids": [
+    "artisan-chateau-d-osmond"
+   ],
+   "canonical_names": [
+    "Château d’Osmond"
+   ],
+   "site": "http://www.moutte-blanc.fr",
+   "site_basis": "websites.js tag 'cag' (prior record, not verified here)",
+   "status": "TARGET"
+  },
+  {
+   "universe_id": "u-d-yquem",
+   "name": "Château d’YQUEM",
+   "systems": [
+    "1855-sauternes"
+   ],
+   "canonical_ids": [
+    "yquem"
+   ],
+   "canonical_names": [
+    "Château d’Yquem"
+   ],
+   "site": "https://www.yquem.fr",
+   "site_basis": "websites.js tag 'ugcb' (prior record, not verified here)",
+   "status": "TARGET"
+  },
+  {
+   "universe_id": "u-dacher-de-delmonte",
+   "name": "Château Dacher de Delmonte",
+   "systems": [
+    "ca-2022"
+   ],
+   "canonical_ids": [
+    "artisan-chateau-dacher-de-delmonte"
+   ],
+   "canonical_names": [
+    "Château Dacher de Delmonte"
+   ],
+   "site": null,
+   "site_basis": null,
+   "status": "NO_KNOWN_SITE"
+  },
+  {
+   "universe_id": "u-dassault",
+   "name": "Château DASSAULT",
+   "systems": [
+    "stem-2022"
+   ],
+   "canonical_ids": [
+    "stem-chateau-dassault"
+   ],
+   "canonical_names": [
+    "Château Dassault"
+   ],
+   "site": "http://chateaudassault.com/",
+   "site_basis": "websites.js tag 'dom' (prior record, not verified here)",
+   "status": "TARGET"
+  },
+  {
+   "universe_id": "u-dasvin-bel-air",
+   "name": "Château Dasvin Bel Air",
+   "systems": [
+    "cb-2025"
+   ],
+   "canonical_ids": [
+    "bourgeois-chateau-dasvin-bel-air"
+   ],
+   "canonical_names": [
+    "Château Dasvin Bel Air"
+   ],
+   "site": null,
+   "site_basis": null,
+   "status": "NO_KNOWN_SITE"
+  },
+  {
+   "universe_id": "u-dauzac",
+   "name": "Château DAUZAC",
+   "systems": [
+    "1855-medoc"
+   ],
+   "canonical_ids": [
+    "dauzac"
+   ],
+   "canonical_names": [
+    "Château Dauzac"
+   ],
+   "site": "https://www.chateaudauzac.com",
+   "site_basis": "websites.js tag 'ugcb' (prior record, not verified here)",
+   "status": "TARGET"
+  },
+  {
+   "universe_id": "u-de-bensse",
+   "name": "Château de Bensse",
+   "systems": [
+    "cb-2025"
+   ],
+   "canonical_ids": [
+    "bourgeois-chateau-de-bensse"
+   ],
+   "canonical_names": [
+    "Château de Bensse"
+   ],
+   "site": "https://www.unimedoc.com",
+   "site_basis": "websites.js tag 'cbg' (prior record, not verified here)",
+   "status": "TARGET"
+  },
+  {
+   "universe_id": "u-de-braude",
+   "name": "Château de Braude",
+   "systems": [
+    "cb-2025"
+   ],
+   "canonical_ids": [
+    "bourgeois-chateau-de-braude"
+   ],
+   "canonical_names": [
+    "Château de Braude"
+   ],
+   "site": "https://vignobles-bernaleau.com",
+   "site_basis": "websites.js tag 'cb' (prior record, not verified here)",
+   "status": "TARGET"
+  },
+  {
+   "universe_id": "u-de-camensac",
+   "name": "Château de CAMENSAC",
+   "systems": [
+    "1855-medoc"
+   ],
+   "canonical_ids": [
+    "de-camensac"
+   ],
+   "canonical_names": [
+    "Château de Camensac"
+   ],
+   "site": "https://chateaucamensac.com",
+   "site_basis": "websites.js tag 'ugcb' (prior record, not verified here)",
+   "status": "TARGET"
+  },
+  {
+   "universe_id": "u-de-cartujac",
+   "name": "Château de Cartujac",
+   "systems": [
+    "cb-2025"
+   ],
+   "canonical_ids": [
+    "bourgeois-chateau-de-cartujac"
+   ],
+   "canonical_names": [
+    "Château de Cartujac"
+   ],
+   "site": "http://linktr.ee/chateaulabridane",
+   "site_basis": "websites.js tag 'cb' (prior record, not verified here)",
+   "status": "TARGET"
+  },
+  {
+   "universe_id": "u-de-come",
+   "name": "Château de Côme",
+   "systems": [
+    "cb-2025"
+   ],
+   "canonical_ids": [
+    "bourgeois-chateau-de-come"
+   ],
+   "canonical_names": [
+    "Château de Côme"
+   ],
+   "site": "https://www.chateaudecome.com/",
+   "site_basis": "websites.js tag 'cb' (prior record, not verified here)",
+   "status": "TARGET"
+  },
+  {
+   "universe_id": "u-de-coudot",
+   "name": "Château de Coudot",
+   "systems": [
+    "ca-2022"
+   ],
+   "canonical_ids": [
+    "artisan-chateau-de-coudot"
+   ],
+   "canonical_names": [
+    "Château de Coudot"
+   ],
+   "site": null,
+   "site_basis": null,
+   "status": "NO_KNOWN_SITE"
+  },
+  {
+   "universe_id": "u-de-ferrand",
+   "name": "Château DE FERRAND",
+   "systems": [
+    "stem-2022"
+   ],
+   "canonical_ids": [
+    "stem-chateau-de-ferrand"
+   ],
+   "canonical_names": [
+    "Château de Ferrand"
+   ],
+   "site": "http://www.chateaudeferrand.com",
+   "site_basis": "websites.js tag 'cve' (prior record, not verified here)",
+   "status": "TARGET"
+  },
+  {
+   "universe_id": "u-de-fieuzal",
+   "name": "Château De Fieuzal",
+   "systems": [
+    "graves"
+   ],
+   "canonical_ids": [
+    "de-fieuzal"
+   ],
+   "canonical_names": [
+    "Château de Fieuzal"
+   ],
+   "site": "https://fieuzal.com",
+   "site_basis": "websites.js tag 'ugcb' (prior record, not verified here)",
+   "status": "TARGET"
+  },
+  {
+   "universe_id": "u-de-la-croix",
+   "name": "Château de la Croix",
+   "systems": [
+    "cb-2025"
+   ],
+   "canonical_ids": [
+    "bourgeois-chateau-de-la-croix"
+   ],
+   "canonical_names": [
+    "Château de la Croix"
+   ],
+   "site": "https://www.chateau-de-la-croix.com",
+   "site_basis": "websites.js tag 'osm' (prior record, not verified here)",
+   "status": "TARGET"
+  },
+  {
+   "universe_id": "u-de-lauga",
+   "name": "Château de Lauga",
+   "systems": [
+    "ca-2022"
+   ],
+   "canonical_ids": [
+    "artisan-chateau-de-lauga"
+   ],
+   "canonical_names": [
+    "Château de Lauga"
+   ],
+   "site": "https://www.lauga.com",
+   "site_basis": "websites.js tag 'ca' (prior record, not verified here)",
+   "status": "TARGET"
+  },
+  {
+   "universe_id": "u-de-malle",
+   "name": "Château de MALLE",
+   "systems": [
+    "1855-sauternes"
+   ],
+   "canonical_ids": [
+    "de-malle"
+   ],
+   "canonical_names": [
+    "Château de Malle"
+   ],
+   "site": "https://chateaudemalle.com/",
+   "site_basis": "websites.js tag 'dom' (prior record, not verified here)",
+   "status": "TARGET"
+  },
+  {
+   "universe_id": "u-de-malleret",
+   "name": "Château de Malleret",
+   "systems": [
+    "cb-2025"
+   ],
+   "canonical_ids": [
+    "bourgeois-chateau-de-malleret"
+   ],
+   "canonical_names": [
+    "Château de Malleret"
+   ],
+   "site": "https://www.chateau-malleret.fr",
+   "site_basis": "websites.js tag 'wikidata' (prior record, not verified here)",
+   "status": "TARGET"
+  },
+  {
+   "universe_id": "u-de-myrat",
+   "name": "Château de MYRAT",
+   "systems": [
+    "1855-sauternes"
+   ],
+   "canonical_ids": [
+    "de-myrat"
+   ],
+   "canonical_names": [
+    "Château de Myrat"
+   ],
+   "site": "https://chateaudemyrat.fr/index.php/fr",
+   "site_basis": "websites.js tag 'osm' (prior record, not verified here)",
+   "status": "TARGET"
+  },
+  {
+   "universe_id": "u-de-panigon",
+   "name": "Château de Panigon",
+   "systems": [
+    "cb-2025"
+   ],
+   "canonical_ids": [
+    "bourgeois-chateau-de-panigon"
+   ],
+   "canonical_names": [
+    "Château de Panigon"
+   ],
+   "site": "https://www.chateaudepanigon.fr",
+   "site_basis": "websites.js tag 'cb' (prior record, not verified here)",
+   "status": "TARGET"
+  },
+  {
+   "universe_id": "u-de-pressac",
+   "name": "Château DE PRESSAC",
+   "systems": [
+    "stem-2022"
+   ],
+   "canonical_ids": [
+    "stem-chateau-de-pressac"
+   ],
+   "canonical_names": [
+    "Château de Pressac"
+   ],
+   "site": "http://www.chateaudepressac.com",
+   "site_basis": "websites.js tag 'cve' (prior record, not verified here)",
+   "status": "TARGET"
+  },
+  {
+   "universe_id": "u-de-rayne-vigneau",
+   "name": "Château de RAYNE-VIGNEAU",
+   "systems": [
+    "1855-sauternes"
+   ],
+   "canonical_ids": [
+    "rayne-vigneau"
+   ],
+   "canonical_names": [
+    "Château de Rayne Vigneau"
+   ],
+   "site": "https://www.raynevigneau.fr",
+   "site_basis": "websites.js tag 'ugcb' (prior record, not verified here)",
+   "status": "TARGET"
+  },
+  {
+   "universe_id": "u-de-villambis",
+   "name": "Château de Villambis",
+   "systems": [
+    "cb-2025"
+   ],
+   "canonical_ids": [
+    "bourgeois-chateau-de-villambis"
+   ],
+   "canonical_names": [
+    "Château de Villambis"
+   ],
+   "site": "https://www.chateaudevillambis.com",
+   "site_basis": "websites.js tag 'cb' (prior record, not verified here)",
+   "status": "TARGET"
+  },
+  {
+   "universe_id": "u-des-cabans",
+   "name": "Château des Cabans",
+   "systems": [
+    "cb-2025"
+   ],
+   "canonical_ids": [
+    "bourgeois-chateau-des-cabans"
+   ],
+   "canonical_names": [
+    "Château des Cabans"
+   ],
+   "site": "https://www.vignobles-philippeberard.com",
+   "site_basis": "websites.js tag 'cb' (prior record, not verified here)",
+   "status": "TARGET"
+  },
+  {
+   "universe_id": "u-des-granges-d-or",
+   "name": "Château des Granges d'Or",
+   "systems": [
+    "cb-2025"
+   ],
+   "canonical_ids": [
+    "bourgeois-chateau-des-granges-d-or"
+   ],
+   "canonical_names": [
+    "Château des Granges d'Or"
+   ],
+   "site": "https://www.chateaudesgrangesdor.com",
+   "site_basis": "websites.js tag 'osm' (prior record, not verified here)",
+   "status": "TARGET"
+  },
+  {
+   "universe_id": "u-des-graviers",
+   "name": "Château des Graviers",
+   "systems": [
+    "ca-2022"
+   ],
+   "canonical_ids": [
+    "artisan-chateau-des-graviers"
+   ],
+   "canonical_names": [
+    "Château des Graviers"
+   ],
+   "site": null,
+   "site_basis": null,
+   "status": "NO_KNOWN_SITE"
+  },
+  {
+   "universe_id": "u-des-tourelles",
+   "name": "Château des Tourelles",
+   "systems": [
+    "cb-2025"
+   ],
+   "canonical_ids": [
+    "bourgeois-chateau-des-tourelles"
+   ],
+   "canonical_names": [
+    "Château des Tourelles"
+   ],
+   "site": null,
+   "site_basis": null,
+   "status": "NO_KNOWN_SITE"
+  },
+  {
+   "universe_id": "u-desmirail",
+   "name": "Château DESMIRAIL",
+   "systems": [
+    "1855-medoc"
+   ],
+   "canonical_ids": [
+    "desmirail"
+   ],
+   "canonical_names": [
+    "Château Desmirail"
+   ],
+   "site": "https://www.desmirail.com",
+   "site_basis": "websites.js tag 'ugcb' (prior record, not verified here)",
+   "status": "TARGET"
+  },
+  {
+   "universe_id": "u-destieux",
+   "name": "Château DESTIEUX",
+   "systems": [
+    "stem-2022"
+   ],
+   "canonical_ids": [
+    "stem-chateau-destieux"
+   ],
+   "canonical_names": [
+    "Château Destieux"
+   ],
+   "site": "https://chateau-destieux.com/",
+   "site_basis": "websites.js tag 'dom' (prior record, not verified here)",
+   "status": "TARGET"
+  },
+  {
+   "universe_id": "u-devise-d-ardilley",
+   "name": "Château Devise d'Ardilley",
+   "systems": [
+    "cb-2025"
+   ],
+   "canonical_ids": [
+    "bourgeois-chateau-devise-d-ardilley"
+   ],
+   "canonical_names": [
+    "Château Devise d'Ardilley"
+   ],
+   "site": "https://www.chateaudevisedardilley.fr",
+   "site_basis": "websites.js tag 'osm' (prior record, not verified here)",
+   "status": "TARGET"
+  },
+  {
+   "universe_id": "u-dillon",
+   "name": "Château Dillon",
+   "systems": [
+    "cb-2025"
+   ],
+   "canonical_ids": [
+    "bourgeois-chateau-dillon"
+   ],
+   "canonical_names": [
+    "Château Dillon"
+   ],
+   "site": "https://chateaudillon.com",
+   "site_basis": "websites.js tag 'wikidata' (prior record, not verified here)",
+   "status": "TARGET"
+  },
+  {
+   "universe_id": "u-doisy-daene",
+   "name": "Château DOISY DAËNE",
+   "systems": [
+    "1855-sauternes"
+   ],
+   "canonical_ids": [
+    "doisy-daene"
+   ],
+   "canonical_names": [
+    "Château Doisy-Daëne"
+   ],
+   "site": "https://www.denisdubourdieu.com",
+   "site_basis": "websites.js tag 'ugcb' (prior record, not verified here)",
+   "status": "TARGET"
+  },
+  {
+   "universe_id": "u-doisy-dubroca",
+   "name": "Château DOISY-DUBROCA",
+   "systems": [
+    "1855-sauternes"
+   ],
+   "canonical_ids": [
+    "doisy-dubroca"
+   ],
+   "canonical_names": [
+    "Château Doisy-Dubroca"
+   ],
+   "site": "https://denisdubourdieu.com/",
+   "site_basis": "websites.js tag 'domr' (prior record, not verified here)",
+   "status": "TARGET"
+  },
+  {
+   "universe_id": "u-doisy-vedrines",
+   "name": "Château DOISY-VEDRINES",
+   "systems": [
+    "1855-sauternes"
+   ],
+   "canonical_ids": [
+    "doisy-vedrines"
+   ],
+   "canonical_names": [
+    "Château Doisy-Védrines"
+   ],
+   "site": "https://doisy-vedrines.com/",
+   "site_basis": "websites.js tag 'dom' (prior record, not verified here)",
+   "status": "TARGET"
+  },
+  {
+   "universe_id": "u-domaine-de-chevalier",
+   "name": "Domaine De Chevalier",
+   "systems": [
+    "graves"
+   ],
+   "canonical_ids": [
+    "domaine-de-chevalier"
+   ],
+   "canonical_names": [
+    "Domaine de Chevalier"
+   ],
+   "site": "https://www.domainedechevalier.com",
+   "site_basis": "websites.js tag 'ugcb' (prior record, not verified here)",
+   "status": "TARGET"
+  },
+  {
+   "universe_id": "u-domaine-de-la-garenne",
+   "name": "Domaine de la Garenne",
+   "systems": [
+    "ca-2022"
+   ],
+   "canonical_ids": [
+    "artisan-domaine-de-la-garenne"
+   ],
+   "canonical_names": [
+    "Domaine de la Garenne"
+   ],
+   "site": null,
+   "site_basis": null,
+   "status": "NO_KNOWN_SITE"
+  },
+  {
+   "universe_id": "u-donissan",
+   "name": "Château Donissan",
+   "systems": [
+    "cb-2025"
+   ],
+   "canonical_ids": [
+    "bourgeois-chateau-donissan"
+   ],
+   "canonical_names": [
+    "Château Donissan"
+   ],
+   "site": "https://www.chateau-donissan.com",
+   "site_basis": "websites.js tag 'cb' (prior record, not verified here)",
+   "status": "TARGET"
+  },
+  {
+   "universe_id": "u-du-cartillon",
+   "name": "Château du Cartillon",
+   "systems": [
+    "cb-2025"
+   ],
+   "canonical_ids": [
+    "bourgeois-chateau-du-cartillon"
+   ],
+   "canonical_names": [
+    "Château du Cartillon"
+   ],
+   "site": "https://www.cdf-chateaux.com",
+   "site_basis": "websites.js tag 'cb' (prior record, not verified here)",
+   "status": "TARGET"
+  },
+  {
+   "universe_id": "u-du-ha",
+   "name": "Château du Ha",
+   "systems": [
+    "ca-2022"
+   ],
+   "canonical_ids": [
+    "artisan-chateau-du-ha"
+   ],
+   "canonical_names": [
+    "Château du Hâ"
+   ],
+   "site": "https://www.chateau-du-ha.com/",
+   "site_basis": "websites.js tag 'ca' (prior record, not verified here)",
+   "status": "TARGET"
+  },
+  {
+   "universe_id": "u-du-moulin-rouge",
+   "name": "Château du Moulin Rouge",
+   "systems": [
+    "cb-2025"
+   ],
+   "canonical_ids": [
+    "bourgeois-chateau-du-moulin-rouge"
+   ],
+   "canonical_names": [
+    "Château du Moulin Rouge"
+   ],
+   "site": "https://www.chateaudumoulinrouge.fr",
+   "site_basis": "websites.js tag 'cb' (prior record, not verified here)",
+   "status": "TARGET"
+  },
+  {
+   "universe_id": "u-du-raux",
+   "name": "Château du Raux",
+   "systems": [
+    "cb-2025"
+   ],
+   "canonical_ids": [
+    "bourgeois-chateau-du-raux"
+   ],
+   "canonical_names": [
+    "Château du Raux"
+   ],
+   "site": null,
+   "site_basis": null,
+   "status": "NO_KNOWN_SITE"
+  },
+  {
+   "universe_id": "u-du-taillan",
+   "name": "Château du Taillan",
+   "systems": [
+    "cb-2025"
+   ],
+   "canonical_ids": [
+    "bourgeois-chateau-du-taillan"
+   ],
+   "canonical_names": [
+    "Château du Taillan"
+   ],
+   "site": "https://www.chateaudutaillan.com",
+   "site_basis": "websites.js tag 'cb' (prior record, not verified here)",
+   "status": "TARGET"
+  },
+  {
+   "universe_id": "u-du-tertre",
+   "name": "Château DU TERTRE",
+   "systems": [
+    "1855-medoc"
+   ],
+   "canonical_ids": [
+    "du-tertre"
+   ],
+   "canonical_names": [
+    "Château du Tertre"
+   ],
+   "site": "https://www.chateaudutertre.fr",
+   "site_basis": "websites.js tag 'ugcb' (prior record, not verified here)",
+   "status": "TARGET"
+  },
+  {
+   "universe_id": "u-ducru-beaucaillou",
+   "name": "Château DUCRU-BEAUCAILLOU",
+   "systems": [
+    "1855-medoc"
+   ],
+   "canonical_ids": [
+    "ducru-beaucaillou"
+   ],
+   "canonical_names": [
+    "Château Ducru-Beaucaillou"
+   ],
+   "site": "https://chateau-ducru-beaucaillou.com/",
+   "site_basis": "websites.js tag 'dom' (prior record, not verified here)",
+   "status": "TARGET"
+  },
+  {
+   "universe_id": "u-duhart-milon",
+   "name": "Château DUHART-MILON",
+   "systems": [
+    "1855-medoc"
+   ],
+   "canonical_ids": [
+    "duhart-milon"
+   ],
+   "canonical_names": [
+    "Château Duhart-Milon"
+   ],
+   "site": "https://www.lafite.com",
+   "site_basis": "websites.js tag 'ugcb' (prior record, not verified here)",
+   "status": "TARGET"
+  },
+  {
+   "universe_id": "u-durfort-vivens",
+   "name": "Château DURFORT-VIVENS",
+   "systems": [
+    "1855-medoc"
+   ],
+   "canonical_ids": [
+    "durfort-vivens"
+   ],
+   "canonical_names": [
+    "Château Durfort-Vivens"
+   ],
+   "site": "http://durfort-vivens.fr/",
+   "site_basis": "websites.js tag 'dom' (prior record, not verified here)",
+   "status": "TARGET"
+  },
+  {
+   "universe_id": "u-escot",
+   "name": "Château Escot",
+   "systems": [
+    "cb-2025"
+   ],
+   "canonical_ids": [
+    "bourgeois-chateau-escot"
+   ],
+   "canonical_names": [
+    "Château Escot"
+   ],
+   "site": "https://www.chateau-d-escot.com",
+   "site_basis": "websites.js tag 'cb' (prior record, not verified here)",
+   "status": "TARGET"
+  },
+  {
+   "universe_id": "u-faugeres",
+   "name": "Château FAUGERES",
+   "systems": [
+    "stem-2022"
+   ],
+   "canonical_ids": [
+    "stem-chateau-faugeres"
+   ],
+   "canonical_names": [
+    "Château Faugères"
+   ],
+   "site": "http://chateau-faugeres.fr/",
+   "site_basis": "websites.js tag 'dom' (prior record, not verified here)",
+   "status": "TARGET"
+  },
+  {
+   "universe_id": "u-ferriere",
+   "name": "Château FERRIERE",
+   "systems": [
+    "1855-medoc"
+   ],
+   "canonical_ids": [
+    "ferriere"
+   ],
+   "canonical_names": [
+    "Château Ferrière"
+   ],
+   "site": "http://ferriere.com/",
+   "site_basis": "websites.js tag 'dom' (prior record, not verified here)",
+   "status": "TARGET"
+  },
+  {
+   "universe_id": "u-figeac",
+   "name": "Château FIGEAC",
+   "systems": [
+    "stem-2022"
+   ],
+   "canonical_ids": [
+    "figeac"
+   ],
+   "canonical_names": [
+    "Château Figeac"
+   ],
+   "site": "https://www.chateau-figeac.com",
+   "site_basis": "websites.js tag 'ugcb' (prior record, not verified here)",
+   "status": "TARGET"
+  },
+  {
+   "universe_id": "u-filhot",
+   "name": "Château FILHOT",
+   "systems": [
+    "1855-sauternes"
+   ],
+   "canonical_ids": [
+    "filhot"
+   ],
+   "canonical_names": [
+    "Château Filhot"
+   ],
+   "site": "https://www.filhot.fr",
+   "site_basis": "websites.js tag 'wikidata' (prior record, not verified here)",
+   "status": "TARGET"
+  },
+  {
+   "universe_id": "u-fleur-cardinale",
+   "name": "Château FLEUR CARDINALE",
+   "systems": [
+    "stem-2022"
+   ],
+   "canonical_ids": [
+    "stem-chateau-fleur-cardinale"
+   ],
+   "canonical_names": [
+    "Château Fleur Cardinale"
+   ],
+   "site": "https://lamaisoncardinale.com",
+   "site_basis": "websites.js tag 'cve' (prior record, not verified here)",
+   "status": "TARGET"
+  },
+  {
+   "universe_id": "u-fleur-la-mothe",
+   "name": "Château Fleur la Mothe",
+   "systems": [
+    "cb-2025"
+   ],
+   "canonical_ids": [
+    "bourgeois-chateau-fleur-la-mothe"
+   ],
+   "canonical_names": [
+    "Château Fleur la Mothe"
+   ],
+   "site": "https://www.chateaufleurlamothe.fr",
+   "site_basis": "websites.js tag 'cb' (prior record, not verified here)",
+   "status": "TARGET"
+  },
+  {
+   "universe_id": "u-fombrauge",
+   "name": "Château FOMBRAUGE",
+   "systems": [
+    "stem-2022"
+   ],
+   "canonical_ids": [
+    "stem-chateau-fombrauge"
+   ],
+   "canonical_names": [
+    "Château Fombrauge"
+   ],
+   "site": "https://chateau-fombrauge.fr/",
+   "site_basis": "websites.js tag 'dom' (prior record, not verified here)",
+   "status": "TARGET"
+  },
+  {
+   "universe_id": "u-fonplegade",
+   "name": "Château FONPLEGADE",
+   "systems": [
+    "stem-2022"
+   ],
+   "canonical_ids": [
+    "stem-chateau-fonplegade"
+   ],
+   "canonical_names": [
+    "Château Fonplégade"
+   ],
+   "site": "http://www.fonplegade.com",
+   "site_basis": "websites.js tag 'cve' (prior record, not verified here)",
+   "status": "TARGET"
+  },
+  {
+   "universe_id": "u-fonroque",
+   "name": "Château FONROQUE",
+   "systems": [
+    "stem-2022"
+   ],
+   "canonical_ids": [
+    "stem-chateau-fonroque"
+   ],
+   "canonical_names": [
+    "Château Fonroque"
+   ],
+   "site": "http://www.chateaufonroque.net",
+   "site_basis": "websites.js tag 'cve' (prior record, not verified here)",
+   "status": "TARGET"
+  },
+  {
+   "universe_id": "u-franc-mayne",
+   "name": "Château FRANC MAYNE",
+   "systems": [
+    "stem-2022"
+   ],
+   "canonical_ids": [
+    "stem-chateau-franc-mayne"
+   ],
+   "canonical_names": [
+    "Château Franc Mayne"
+   ],
+   "site": "http://www.chateaufrancmayne.com",
+   "site_basis": "websites.js tag 'cve' (prior record, not verified here)",
+   "status": "TARGET"
+  },
+  {
+   "universe_id": "u-gadet-terrefort",
+   "name": "Château Gadet Terrefort",
+   "systems": [
+    "ca-2022"
+   ],
+   "canonical_ids": [
+    "artisan-chateau-gadet-terrefort"
+   ],
+   "canonical_names": [
+    "Château Gadet Terrefort"
+   ],
+   "site": "https://gadet-terrefort.com",
+   "site_basis": "websites.js tag 'osm' (prior record, not verified here)",
+   "status": "TARGET"
+  },
+  {
+   "universe_id": "u-garance-haut-grenat",
+   "name": "Château Garance Haut Grenat",
+   "systems": [
+    "ca-2022"
+   ],
+   "canonical_ids": [
+    "artisan-chateau-garance-haut-grenat"
+   ],
+   "canonical_names": [
+    "Château Garance Haut Grenat"
+   ],
+   "site": "https://chateau-garance-haut-grenat-02.webself.net/",
+   "site_basis": "websites.js tag 'ca' (prior record, not verified here)",
+   "status": "TARGET"
+  },
+  {
+   "universe_id": "u-gemeillan",
+   "name": "Château Gémeillan",
+   "systems": [
+    "cb-2025"
+   ],
+   "canonical_ids": [
+    "bourgeois-chateau-gemeillan"
+   ],
+   "canonical_names": [
+    "Château Gémeillan"
+   ],
+   "site": "https://www.chateau-st-hilaire.com",
+   "site_basis": "websites.js tag 'cb' (prior record, not verified here)",
+   "status": "TARGET"
+  },
+  {
+   "universe_id": "u-german-marbuzet",
+   "name": "Château German Marbuzet",
+   "systems": [
+    "cb-2025"
+   ],
+   "canonical_ids": [
+    "bourgeois-chateau-german-marbuzet"
+   ],
+   "canonical_names": [
+    "Château German Marbuzet"
+   ],
+   "site": null,
+   "site_basis": null,
+   "status": "NO_KNOWN_SITE"
+  },
+  {
+   "universe_id": "u-giscours",
+   "name": "Château GISCOURS",
+   "systems": [
+    "1855-medoc"
+   ],
+   "canonical_ids": [
+    "giscours"
+   ],
+   "canonical_names": [
+    "Château Giscours"
+   ],
+   "site": "https://giscours.com",
+   "site_basis": "websites.js tag 'ugcb' (prior record, not verified here)",
+   "status": "TARGET"
+  },
+  {
+   "universe_id": "u-grand-brun",
+   "name": "Château Grand Brun",
+   "systems": [
+    "ca-2022"
+   ],
+   "canonical_ids": [
+    "artisan-chateau-grand-brun"
+   ],
+   "canonical_names": [
+    "Château Grand Brun"
+   ],
+   "site": "https://www.chateau-grand-brun.com",
+   "site_basis": "websites.js tag 'ca' (prior record, not verified here)",
+   "status": "TARGET"
+  },
+  {
+   "universe_id": "u-grand-clapeau-olivier",
+   "name": "Château Grand Clapeau Olivier",
+   "systems": [
+    "cb-2025"
+   ],
+   "canonical_ids": [
+    "bourgeois-chateau-grand-clapeau-olivier"
+   ],
+   "canonical_names": [
+    "Château Grand Clapeau Olivier"
+   ],
+   "site": "https://www.chateau-grand-clapeau-olivier.fr",
+   "site_basis": "websites.js tag 'cb' (prior record, not verified here)",
+   "status": "TARGET"
+  },
+  {
+   "universe_id": "u-grand-corbin",
+   "name": "Château GRAND CORBIN",
+   "systems": [
+    "stem-2022"
+   ],
+   "canonical_ids": [
+    "stem-chateau-grand-corbin"
+   ],
+   "canonical_names": [
+    "Château Grand Corbin"
+   ],
+   "site": "https://grand-corbin.com",
+   "site_basis": "websites.js tag 'osm' (prior record, not verified here)",
+   "status": "TARGET"
+  },
+  {
+   "universe_id": "u-grand-corbin-despagne",
+   "name": "Château GRAND CORBIN-DESPAGNE",
+   "systems": [
+    "stem-2022"
+   ],
+   "canonical_ids": [
+    "stem-chateau-grand-corbin-despagne"
+   ],
+   "canonical_names": [
+    "Château Grand Corbin-Despagne"
+   ],
+   "site": "https://www.grand-corbin-despagne.com",
+   "site_basis": "websites.js tag 'osm' (prior record, not verified here)",
+   "status": "TARGET"
+  },
+  {
+   "universe_id": "u-grand-mayne",
+   "name": "Château GRAND MAYNE",
+   "systems": [
+    "stem-2022"
+   ],
+   "canonical_ids": [
+    "stem-chateau-grand-mayne"
+   ],
+   "canonical_names": [
+    "Château Grand Mayne"
+   ],
+   "site": "http://www.grand-mayne.com",
+   "site_basis": "websites.js tag 'cve' (prior record, not verified here)",
+   "status": "TARGET"
+  },
+  {
+   "universe_id": "u-grand-puy-ducasse",
+   "name": "Château GRAND-PUY DUCASSE",
+   "systems": [
+    "1855-medoc"
+   ],
+   "canonical_ids": [
+    "grand-puy-ducasse"
+   ],
+   "canonical_names": [
+    "Château Grand-Puy-Ducasse"
+   ],
+   "site": "https://www.grandpuyducasse.fr",
+   "site_basis": "websites.js tag 'ugcb' (prior record, not verified here)",
+   "status": "TARGET"
+  },
+  {
+   "universe_id": "u-grand-puy-lacoste",
+   "name": "Château GRAND-PUY-LACOSTE",
+   "systems": [
+    "1855-medoc"
+   ],
+   "canonical_ids": [
+    "grand-puy-lacoste"
+   ],
+   "canonical_names": [
+    "Château Grand-Puy-Lacoste"
+   ],
+   "site": "https://www.chateau-grand-puy-lacoste.com",
+   "site_basis": "websites.js tag 'hand' (prior record, not verified here)",
+   "status": "TARGET"
+  },
+  {
+   "universe_id": "u-grandis",
+   "name": "Château Grandis",
+   "systems": [
+    "cb-2025"
+   ],
+   "canonical_ids": [
+    "bourgeois-chateau-grandis"
+   ],
+   "canonical_names": [
+    "Château Grandis"
+   ],
+   "site": null,
+   "site_basis": null,
+   "status": "NO_KNOWN_SITE"
+  },
+  {
+   "universe_id": "u-graves-de-pez",
+   "name": "Château Graves de Pez",
+   "systems": [
+    "ca-2022"
+   ],
+   "canonical_ids": [
+    "artisan-chateau-graves-de-pez"
+   ],
+   "canonical_names": [
+    "Château Graves de Pez"
+   ],
+   "site": "https://www.gravesdepez.com",
+   "site_basis": "websites.js tag 'ca' (prior record, not verified here)",
+   "status": "TARGET"
+  },
+  {
+   "universe_id": "u-greysac",
+   "name": "Château Greysac",
+   "systems": [
+    "cb-2025"
+   ],
+   "canonical_ids": [
+    "bourgeois-chateau-greysac"
+   ],
+   "canonical_names": [
+    "Château Greysac"
+   ],
+   "site": "https://www.domaines-rollandeby.com/",
+   "site_basis": "websites.js tag 'cb' (prior record, not verified here)",
+   "status": "TARGET"
+  },
+  {
+   "universe_id": "u-griviere",
+   "name": "Château Grivière",
+   "systems": [
+    "cb-2025"
+   ],
+   "canonical_ids": [
+    "bourgeois-chateau-griviere"
+   ],
+   "canonical_names": [
+    "Château Grivière"
+   ],
+   "site": "https://www.chateaugriviere.com",
+   "site_basis": "websites.js tag 'cb' (prior record, not verified here)",
+   "status": "TARGET"
+  },
+  {
+   "universe_id": "u-gruaud-larose",
+   "name": "Château GRUAUD LAROSE",
+   "systems": [
+    "1855-medoc"
+   ],
+   "canonical_ids": [
+    "gruaud-larose"
+   ],
+   "canonical_names": [
+    "Château Gruaud-Larose"
+   ],
+   "site": "https://www.gruaud-larose.com",
+   "site_basis": "websites.js tag 'ugcb' (prior record, not verified here)",
+   "status": "TARGET"
+  },
+  {
+   "universe_id": "u-guadet",
+   "name": "Château GUADET",
+   "systems": [
+    "stem-2022"
+   ],
+   "canonical_ids": [
+    "stem-chateau-guadet"
+   ],
+   "canonical_names": [
+    "Château Guadet"
+   ],
+   "site": null,
+   "site_basis": null,
+   "status": "NO_KNOWN_SITE"
+  },
+  {
+   "universe_id": "u-guiraud",
+   "name": "Château GUIRAUD",
+   "systems": [
+    "1855-sauternes"
+   ],
+   "canonical_ids": [
+    "guiraud"
+   ],
+   "canonical_names": [
+    "Château Guiraud"
+   ],
+   "site": "https://www.chateauguiraud.com",
+   "site_basis": "websites.js tag 'ugcb' (prior record, not verified here)",
+   "status": "TARGET"
+  },
+  {
+   "universe_id": "u-guitignan",
+   "name": "Château Guitignan",
+   "systems": [
+    "cb-2025"
+   ],
+   "canonical_ids": [
+    "bourgeois-chateau-guitignan"
+   ],
+   "canonical_names": [
+    "Château Guitignan"
+   ],
+   "site": "https://www.cave-listrac-medoc.com",
+   "site_basis": "websites.js tag 'cb' (prior record, not verified here)",
+   "status": "TARGET"
+  },
+  {
+   "universe_id": "u-haut-bages-liberal",
+   "name": "Château HAUT-BAGES LIBERAL",
+   "systems": [
+    "1855-medoc"
+   ],
+   "canonical_ids": [
+    "haut-bages-liberal"
+   ],
+   "canonical_names": [
+    "Château Haut-Bages Libéral"
+   ],
+   "site": "http://hautbagesliberal.com/",
+   "site_basis": "websites.js tag 'dom' (prior record, not verified here)",
+   "status": "TARGET"
+  },
+  {
+   "universe_id": "u-haut-bailly",
+   "name": "Château Haut-Bailly",
+   "systems": [
+    "graves"
+   ],
+   "canonical_ids": [
+    "haut-bailly"
+   ],
+   "canonical_names": [
+    "Château Haut-Bailly"
+   ],
+   "site": "https://www.haut-bailly.com",
+   "site_basis": "websites.js tag 'ugcb' (prior record, not verified here)",
+   "status": "TARGET"
+  },
+  {
+   "universe_id": "u-haut-bana",
+   "name": "Château Haut-Bana",
+   "systems": [
+    "cb-2025"
+   ],
+   "canonical_ids": [
+    "bourgeois-chateau-haut-bana"
+   ],
+   "canonical_names": [
+    "Château Haut-Bana"
+   ],
+   "site": null,
+   "site_basis": null,
+   "status": "NO_KNOWN_SITE"
+  },
+  {
+   "universe_id": "u-haut-barrail",
+   "name": "Château Haut Barrail",
+   "systems": [
+    "cb-2025"
+   ],
+   "canonical_ids": [
+    "bourgeois-chateau-haut-barrail"
+   ],
+   "canonical_names": [
+    "Château Haut Barrail"
+   ],
+   "site": "http://www.chateauhautbarrail.com/",
+   "site_basis": "websites.js tag 'cb' (prior record, not verified here)",
+   "status": "TARGET"
+  },
+  {
+   "universe_id": "u-haut-batailley",
+   "name": "Château HAUT-BATAILLEY",
+   "systems": [
+    "1855-medoc"
+   ],
+   "canonical_ids": [
+    "haut-batailley"
+   ],
+   "canonical_names": [
+    "Château Haut-Batailley"
+   ],
+   "site": "https://hautbatailley.com",
+   "site_basis": "websites.js tag 'ugcb' (prior record, not verified here)",
+   "status": "TARGET"
+  },
+  {
+   "universe_id": "u-haut-beyzac",
+   "name": "Château Haut Beyzac",
+   "systems": [
+    "cb-2025"
+   ],
+   "canonical_ids": [
+    "bourgeois-chateau-haut-beyzac"
+   ],
+   "canonical_names": [
+    "Château Haut Beyzac"
+   ],
+   "site": "http://www.vignoblesraguenot.fr/",
+   "site_basis": "websites.js tag 'cb' (prior record, not verified here)",
+   "status": "TARGET"
+  },
+  {
+   "universe_id": "u-haut-brion",
+   "name": "Château HAUT-BRION",
+   "systems": [
+    "1855-medoc",
+    "graves"
+   ],
+   "canonical_ids": [
+    "haut-brion"
+   ],
+   "canonical_names": [
+    "Château Haut-Brion"
+   ],
+   "site": "https://haut-brion.com",
+   "site_basis": "websites.js tag 'wikidata' (prior record, not verified here)",
+   "status": "TARGET"
+  },
+  {
+   "universe_id": "u-haut-brisey",
+   "name": "Château Haut Brisey",
+   "systems": [
+    "ca-2022"
+   ],
+   "canonical_ids": [
+    "artisan-chateau-haut-brisey"
+   ],
+   "canonical_names": [
+    "Château Haut Brisey"
+   ],
+   "site": null,
+   "site_basis": null,
+   "status": "NO_KNOWN_SITE"
+  },
+  {
+   "universe_id": "u-haut-canteloup",
+   "name": "Château Haut Canteloup",
+   "systems": [
+    "cb-2025"
+   ],
+   "canonical_ids": [
+    "bourgeois-chateau-haut-canteloup"
+   ],
+   "canonical_names": [
+    "Château Haut Canteloup"
+   ],
+   "site": "https://www.vignobles-lacombe.com",
+   "site_basis": "websites.js tag 'cb' (prior record, not verified here)",
+   "status": "TARGET"
+  },
+  {
+   "universe_id": "u-haut-couloumey",
+   "name": "Château Haut Couloumey",
+   "systems": [
+    "ca-2022"
+   ],
+   "canonical_ids": [
+    "artisan-chateau-haut-couloumey"
+   ],
+   "canonical_names": [
+    "Château Haut Couloumey"
+   ],
+   "site": "https://www.hautcouloumey.fr/",
+   "site_basis": "websites.js tag 'ca' (prior record, not verified here)",
+   "status": "TARGET"
+  },
+  {
+   "universe_id": "u-haut-gravat",
+   "name": "Château Haut Gravat",
+   "systems": [
+    "ca-2022"
+   ],
+   "canonical_ids": [
+    "artisan-chateau-haut-gravat"
+   ],
+   "canonical_names": [
+    "Château Haut Gravat"
+   ],
+   "site": "https://www.chateau-haut-gravat.fr",
+   "site_basis": "websites.js tag 'osm' (prior record, not verified here)",
+   "status": "TARGET"
+  },
+  {
+   "universe_id": "u-haut-madrac",
+   "name": "Château Haut-Madrac",
+   "systems": [
+    "cb-2025"
+   ],
+   "canonical_ids": [
+    "bourgeois-chateau-haut-madrac"
+   ],
+   "canonical_names": [
+    "Château Haut-Madrac"
+   ],
+   "site": null,
+   "site_basis": null,
+   "status": "NO_KNOWN_SITE"
+  },
+  {
+   "universe_id": "u-haut-maurac",
+   "name": "Château Haut-Maurac",
+   "systems": [
+    "cb-2025"
+   ],
+   "canonical_ids": [
+    "bourgeois-chateau-haut-maurac"
+   ],
+   "canonical_names": [
+    "Château Haut-Maurac"
+   ],
+   "site": null,
+   "site_basis": null,
+   "status": "NO_KNOWN_SITE"
+  },
+  {
+   "universe_id": "u-haut-queyran",
+   "name": "Château Haut Queyran",
+   "systems": [
+    "cb-2025"
+   ],
+   "canonical_ids": [
+    "bourgeois-chateau-haut-queyran"
+   ],
+   "canonical_names": [
+    "Château Haut Queyran"
+   ],
+   "site": null,
+   "site_basis": null,
+   "status": "NO_KNOWN_SITE"
+  },
+  {
+   "universe_id": "u-haut-sarpe",
+   "name": "Château HAUT-SARPE",
+   "systems": [
+    "stem-2022"
+   ],
+   "canonical_ids": [
+    "stem-chateau-haut-sarpe"
+   ],
+   "canonical_names": [
+    "Château Haut-Sarpe"
+   ],
+   "site": "http://chateau-haut-sarpe.fr/",
+   "site_basis": "websites.js tag 'dom' (prior record, not verified here)",
+   "status": "TARGET"
+  },
+  {
+   "universe_id": "u-jean-faure",
+   "name": "Château JEAN FAURE",
+   "systems": [
+    "stem-2022"
+   ],
+   "canonical_ids": [
+    "stem-chateau-jean-faure"
+   ],
+   "canonical_names": [
+    "Château Jean Faure"
+   ],
+   "site": "https://www.jeanfaure.com",
+   "site_basis": "websites.js tag 'osm' (prior record, not verified here)",
+   "status": "TARGET"
+  },
+  {
+   "universe_id": "u-kirwan",
+   "name": "Château KIRWAN",
+   "systems": [
+    "1855-medoc"
+   ],
+   "canonical_ids": [
+    "kirwan"
+   ],
+   "canonical_names": [
+    "Château Kirwan"
+   ],
+   "site": "https://www.chateau-kirwan.com",
+   "site_basis": "websites.js tag 'ugcb' (prior record, not verified here)",
+   "status": "TARGET"
+  },
+  {
+   "universe_id": "u-l-argenteyre",
+   "name": "Château l'Argenteyre",
+   "systems": [
+    "cb-2025"
+   ],
+   "canonical_ids": [
+    "bourgeois-chateau-l-argenteyre"
+   ],
+   "canonical_names": [
+    "Château l'Argenteyre"
+   ],
+   "site": null,
+   "site_basis": null,
+   "status": "NO_KNOWN_SITE"
+  },
+  {
+   "universe_id": "u-l-evasion",
+   "name": "Château l’Evasion",
+   "systems": [
+    "ca-2022"
+   ],
+   "canonical_ids": [
+    "artisan-chateau-l-evasion"
+   ],
+   "canonical_names": [
+    "Château l’Evasion"
+   ],
+   "site": "https://www.chateaulevasion.fr/",
+   "site_basis": "websites.js tag 'ca' (prior record, not verified here)",
+   "status": "TARGET"
+  },
+  {
+   "universe_id": "u-la-baie-de-lalo",
+   "name": "Château La baie de Lalo",
+   "systems": [
+    "ca-2022"
+   ],
+   "canonical_ids": [
+    "artisan-chateau-la-baie-de-lalo"
+   ],
+   "canonical_names": [
+    "Château La Baie de Lalo"
+   ],
+   "site": null,
+   "site_basis": null,
+   "status": "NO_KNOWN_SITE"
+  },
+  {
+   "universe_id": "u-la-branne",
+   "name": "Château la Branne",
+   "systems": [
+    "cb-2025"
+   ],
+   "canonical_ids": [
+    "bourgeois-chateau-la-branne"
+   ],
+   "canonical_names": [
+    "Château la Branne"
+   ],
+   "site": "https://www.chateau-labranne.com/accueil",
+   "site_basis": "websites.js tag 'osm' (prior record, not verified here)",
+   "status": "TARGET"
+  },
+  {
+   "universe_id": "u-la-cardonne",
+   "name": "Château la Cardonne",
+   "systems": [
+    "cb-2025"
+   ],
+   "canonical_ids": [
+    "bourgeois-chateau-la-cardonne"
+   ],
+   "canonical_names": [
+    "Château la Cardonne"
+   ],
+   "site": "https://chateaulacardonne.com",
+   "site_basis": "websites.js tag 'osm' (prior record, not verified here)",
+   "status": "TARGET"
+  },
+  {
+   "universe_id": "u-la-chandelliere",
+   "name": "Château la Chandellière",
+   "systems": [
+    "cb-2025"
+   ],
+   "canonical_ids": [
+    "bourgeois-chateau-la-chandelliere"
+   ],
+   "canonical_names": [
+    "Château la Chandellière"
+   ],
+   "site": "https://chateaulachandelliere.fr/",
+   "site_basis": "websites.js tag 'dom' (prior record, not verified here)",
+   "status": "TARGET"
+  },
+  {
+   "universe_id": "u-la-commanderie--cb-2025",
+   "name": "Château la Commanderie",
+   "systems": [
+    "cb-2025"
+   ],
+   "canonical_ids": [
+    "bourgeois-chateau-la-commanderie"
+   ],
+   "canonical_names": [
+    "Château la Commanderie"
+   ],
+   "site": null,
+   "site_basis": null,
+   "status": "NO_KNOWN_SITE"
+  },
+  {
+   "universe_id": "u-la-commanderie--stem-2022",
+   "name": "Château LA COMMANDERIE",
+   "systems": [
+    "stem-2022"
+   ],
+   "canonical_ids": [
+    "stem-chateau-la-commanderie"
+   ],
+   "canonical_names": [
+    "Château La Commanderie"
+   ],
+   "site": "http://chateaulacommanderie.fr/",
+   "site_basis": "websites.js tag 'dom' (prior record, not verified here)",
+   "status": "TARGET"
+  },
+  {
+   "universe_id": "u-la-confession",
+   "name": "Château LA CONFESSION",
+   "systems": [
+    "stem-2022"
+   ],
+   "canonical_ids": [
+    "stem-chateau-la-confession"
+   ],
+   "canonical_names": [
+    "Château La Confession"
+   ],
+   "site": "http://jpjdomaines.com",
+   "site_basis": "websites.js tag 'cve' (prior record, not verified here)",
+   "status": "TARGET"
+  },
+  {
+   "universe_id": "u-la-couspaude",
+   "name": "Château LA COUSPAUDE",
+   "systems": [
+    "stem-2022"
+   ],
+   "canonical_ids": [
+    "stem-chateau-la-couspaude"
+   ],
+   "canonical_names": [
+    "Château La Couspaude"
+   ],
+   "site": "http://www.aubert-vignobles.com",
+   "site_basis": "websites.js tag 'cve' (prior record, not verified here)",
+   "status": "TARGET"
+  },
+  {
+   "universe_id": "u-la-croizille",
+   "name": "Château LA CROIZILLE",
+   "systems": [
+    "stem-2022"
+   ],
+   "canonical_ids": [
+    "stem-chateau-la-croizille"
+   ],
+   "canonical_names": [
+    "Château La Croizille"
+   ],
+   "site": "http://www.chateaulacroizille.com",
+   "site_basis": "websites.js tag 'cve' (prior record, not verified here)",
+   "status": "TARGET"
+  },
+  {
+   "universe_id": "u-la-dominique",
+   "name": "Château LA DOMINIQUE",
+   "systems": [
+    "stem-2022"
+   ],
+   "canonical_ids": [
+    "stem-chateau-la-dominique"
+   ],
+   "canonical_names": [
+    "Château La Dominique"
+   ],
+   "site": "https://www.chateau-ladominique.com",
+   "site_basis": "websites.js tag 'osm' (prior record, not verified here)",
+   "status": "TARGET"
+  },
+  {
+   "universe_id": "u-la-fleur-lauga",
+   "name": "Château la Fleur Lauga",
+   "systems": [
+    "ca-2022"
+   ],
+   "canonical_ids": [
+    "artisan-chateau-la-fleur-lauga"
+   ],
+   "canonical_names": [
+    "Château La Fleur Lauga"
+   ],
+   "site": "https://www.lauga.com",
+   "site_basis": "websites.js tag 'ca' (prior record, not verified here)",
+   "status": "TARGET"
+  },
+  {
+   "universe_id": "u-la-fleur-morange",
+   "name": "Château LA FLEUR MORANGE",
+   "systems": [
+    "stem-2022"
+   ],
+   "canonical_ids": [
+    "stem-chateau-la-fleur-morange"
+   ],
+   "canonical_names": [
+    "Château La Fleur Morange"
+   ],
+   "site": "https://www.lafleurmorange.club",
+   "site_basis": "websites.js tag 'cve' (prior record, not verified here)",
+   "status": "TARGET"
+  },
+  {
+   "universe_id": "u-la-fon-du-berger",
+   "name": "Château la Fon du Berger",
+   "systems": [
+    "cb-2025"
+   ],
+   "canonical_ids": [
+    "bourgeois-chateau-la-fon-du-berger"
+   ],
+   "canonical_names": [
+    "Château la Fon du Berger"
+   ],
+   "site": "https://lafonduberger.com/",
+   "site_basis": "websites.js tag 'dom' (prior record, not verified here)",
+   "status": "TARGET"
+  },
+  {
+   "universe_id": "u-la-fortune",
+   "name": "Château la Fortune",
+   "systems": [
+    "cb-2025"
+   ],
+   "canonical_ids": [
+    "bourgeois-chateau-la-fortune"
+   ],
+   "canonical_names": [
+    "Château la Fortune"
+   ],
+   "site": null,
+   "site_basis": null,
+   "status": "NO_KNOWN_SITE"
+  },
+  {
+   "universe_id": "u-la-france-delhomme",
+   "name": "Château la France Delhomme",
+   "systems": [
+    "cb-2025"
+   ],
+   "canonical_ids": [
+    "bourgeois-chateau-la-france-delhomme"
+   ],
+   "canonical_names": [
+    "Château la France Delhomme"
+   ],
+   "site": null,
+   "site_basis": null,
+   "status": "NO_KNOWN_SITE"
+  },
+  {
+   "universe_id": "u-la-grange-de-bessan",
+   "name": "Château la Grange de Bessan",
+   "systems": [
+    "cb-2025"
+   ],
+   "canonical_ids": [
+    "bourgeois-chateau-la-grange-de-bessan"
+   ],
+   "canonical_names": [
+    "Château la Grange de Bessan"
+   ],
+   "site": "https://www.vignobles-lacombe.com",
+   "site_basis": "websites.js tag 'cb' (prior record, not verified here)",
+   "status": "TARGET"
+  },
+  {
+   "universe_id": "u-la-hourcade",
+   "name": "Château La Hourcade",
+   "systems": [
+    "ca-2022"
+   ],
+   "canonical_ids": [
+    "artisan-chateau-la-hourcade"
+   ],
+   "canonical_names": [
+    "Château La Hourcade"
+   ],
+   "site": "https://www.chateaulahourcade.fr/",
+   "site_basis": "websites.js tag 'ca' (prior record, not verified here)",
+   "status": "TARGET"
+  },
+  {
+   "universe_id": "u-la-lagune",
+   "name": "Château LA LAGUNE",
+   "systems": [
+    "1855-medoc"
+   ],
+   "canonical_ids": [
+    "la-lagune"
+   ],
+   "canonical_names": [
+    "Château La Lagune"
+   ],
+   "site": "https://chateau-lalagune.com/fr",
+   "site_basis": "websites.js tag 'ugcb' (prior record, not verified here)",
+   "status": "TARGET"
+  },
+  {
+   "universe_id": "u-la-marzelle",
+   "name": "Château LA MARZELLE",
+   "systems": [
+    "stem-2022"
+   ],
+   "canonical_ids": [
+    "stem-chateau-la-marzelle"
+   ],
+   "canonical_names": [
+    "Château La Marzelle"
+   ],
+   "site": "http://www.chateaulamarzelle.com",
+   "site_basis": "websites.js tag 'cve' (prior record, not verified here)",
+   "status": "TARGET"
+  },
+  {
+   "universe_id": "u-la-mission-haut-brion",
+   "name": "Château La Mission Haut-Brion",
+   "systems": [
+    "graves"
+   ],
+   "canonical_ids": [
+    "la-mission-haut-brion"
+   ],
+   "canonical_names": [
+    "Château La Mission Haut-Brion"
+   ],
+   "site": "http://www.mission-haut-brion.com/#/intro",
+   "site_basis": "websites.js tag 'osm' (prior record, not verified here)",
+   "status": "TARGET"
+  },
+  {
+   "universe_id": "u-la-mondotte",
+   "name": "LA MONDOTTE",
+   "systems": [
+    "stem-2022"
+   ],
+   "canonical_ids": [
+    "la-mondotte"
+   ],
+   "canonical_names": [
+    "La Mondotte"
+   ],
+   "site": "http://neipperg.com",
+   "site_basis": "websites.js tag 'cve' (prior record, not verified here)",
+   "status": "TARGET"
+  },
+  {
+   "universe_id": "u-la-mouline",
+   "name": "Château la Mouline",
+   "systems": [
+    "cb-2025"
+   ],
+   "canonical_ids": [
+    "bourgeois-chateau-la-mouline"
+   ],
+   "canonical_names": [
+    "Château la Mouline"
+   ],
+   "site": "https://www.chateaulamouline.com",
+   "site_basis": "websites.js tag 'cb' (prior record, not verified here)",
+   "status": "TARGET"
+  },
+  {
+   "universe_id": "u-la-pirouette",
+   "name": "Château La Pirouette",
+   "systems": [
+    "cb-2025"
+   ],
+   "canonical_ids": [
+    "bourgeois-chateau-la-pirouette"
+   ],
+   "canonical_names": [
+    "Château La Pirouette"
+   ],
+   "site": "https://chateau-la-pirouette.com/",
+   "site_basis": "websites.js tag 'dom' (prior record, not verified here)",
+   "status": "TARGET"
+  },
+  {
+   "universe_id": "u-la-ribaud",
+   "name": "Château la Ribaud",
+   "systems": [
+    "cb-2025"
+   ],
+   "canonical_ids": [
+    "bourgeois-chateau-la-ribaud"
+   ],
+   "canonical_names": [
+    "Château la Ribaud"
+   ],
+   "site": "https://www.vignoblesaudebert.com",
+   "site_basis": "websites.js tag 'cb' (prior record, not verified here)",
+   "status": "TARGET"
+  },
+  {
+   "universe_id": "u-la-roque-de-by",
+   "name": "Château la Roque de By",
+   "systems": [
+    "cb-2025"
+   ],
+   "canonical_ids": [
+    "bourgeois-chateau-la-roque-de-by"
+   ],
+   "canonical_names": [
+    "Château la Roque de By"
+   ],
+   "site": "https://www.la-tour-de-by.com",
+   "site_basis": "websites.js tag 'cb' (prior record, not verified here)",
+   "status": "TARGET"
+  },
+  {
+   "universe_id": "u-la-serre",
+   "name": "Château LA SERRE",
+   "systems": [
+    "stem-2022"
+   ],
+   "canonical_ids": [
+    "stem-chateau-la-serre"
+   ],
+   "canonical_names": [
+    "Château La Serre"
+   ],
+   "site": "http://www.chateaulaserre.com",
+   "site_basis": "websites.js tag 'cve' (prior record, not verified here)",
+   "status": "TARGET"
+  },
+  {
+   "universe_id": "u-la-tessonniere",
+   "name": "Château La Tessonnière",
+   "systems": [
+    "ca-2022"
+   ],
+   "canonical_ids": [
+    "artisan-chateau-la-tessoniere"
+   ],
+   "canonical_names": [
+    "Château La Tessonière"
+   ],
+   "site": null,
+   "site_basis": null,
+   "status": "NO_KNOWN_SITE"
+  },
+  {
+   "universe_id": "u-la-tour-blanche",
+   "name": "Château LA TOUR BLANCHE",
+   "systems": [
+    "1855-sauternes"
+   ],
+   "canonical_ids": [
+    "la-tour-blanche"
+   ],
+   "canonical_names": [
+    "Château La Tour Blanche"
+   ],
+   "site": "https://www.tour-blanche.com",
+   "site_basis": "websites.js tag 'ugcb' (prior record, not verified here)",
+   "status": "TARGET"
+  },
+  {
+   "universe_id": "u-la-tour-carnet",
+   "name": "Château LA TOUR CARNET",
+   "systems": [
+    "1855-medoc"
+   ],
+   "canonical_ids": [
+    "la-tour-carnet"
+   ],
+   "canonical_names": [
+    "Château La Tour Carnet"
+   ],
+   "site": "https://bernard-magrez.com/collections/vins/grands-crus-classes/chateau-la-tour-carnet",
+   "site_basis": "websites.js tag 'ugcb' (prior record, not verified here)",
+   "status": "TARGET"
+  },
+  {
+   "universe_id": "u-la-tour-figeac",
+   "name": "Château LA TOUR FIGEAC",
+   "systems": [
+    "stem-2022"
+   ],
+   "canonical_ids": [
+    "stem-chateau-la-tour-figeac"
+   ],
+   "canonical_names": [
+    "Château La Tour Figeac"
+   ],
+   "site": "https://latourfigeac.fr",
+   "site_basis": "websites.js tag 'osm' (prior record, not verified here)",
+   "status": "TARGET"
+  },
+  {
+   "universe_id": "u-la-valiere",
+   "name": "Château la Valière",
+   "systems": [
+    "cb-2025"
+   ],
+   "canonical_ids": [
+    "bourgeois-chateau-la-valiere"
+   ],
+   "canonical_names": [
+    "Château la Valière"
+   ],
+   "site": null,
+   "site_basis": null,
+   "status": "NO_KNOWN_SITE"
+  },
+  {
+   "universe_id": "u-labadie",
+   "name": "Château Labadie",
+   "systems": [
+    "cb-2025"
+   ],
+   "canonical_ids": [
+    "bourgeois-chateau-labadie"
+   ],
+   "canonical_names": [
+    "Château Labadie"
+   ],
+   "site": "https://www.chateau-labadie.com",
+   "site_basis": "websites.js tag 'cb' (prior record, not verified here)",
+   "status": "TARGET"
+  },
+  {
+   "universe_id": "u-lacombe-noaillac",
+   "name": "Château Lacombe Noaillac",
+   "systems": [
+    "cb-2025"
+   ],
+   "canonical_ids": [
+    "bourgeois-chateau-lacombe-noaillac"
+   ],
+   "canonical_names": [
+    "Château Lacombe Noaillac"
+   ],
+   "site": "https://www.chateau-chantemerle.com/",
+   "site_basis": "websites.js tag 'cb' (prior record, not verified here)",
+   "status": "TARGET"
+  },
+  {
+   "universe_id": "u-lacour-jacquet",
+   "name": "Château Lacour Jacquet",
+   "systems": [
+    "cb-2025"
+   ],
+   "canonical_ids": [
+    "bourgeois-chateau-lacour-jacquet"
+   ],
+   "canonical_names": [
+    "Château Lacour Jacquet"
+   ],
+   "site": "https://chateau-lacour-jacquet.fr/",
+   "site_basis": "websites.js tag 'dom' (prior record, not verified here)",
+   "status": "TARGET"
+  },
+  {
+   "universe_id": "u-ladignac",
+   "name": "Château Ladignac",
+   "systems": [
+    "cb-2025"
+   ],
+   "canonical_ids": [
+    "bourgeois-chateau-ladignac"
+   ],
+   "canonical_names": [
+    "Château Ladignac"
+   ],
+   "site": "https://unimedoc.com",
+   "site_basis": "websites.js tag 'cb' (prior record, not verified here)",
+   "status": "TARGET"
+  },
+  {
+   "universe_id": "u-lafaurie-peyraguey",
+   "name": "Château LAFAURIE-PEYRAGUEY",
+   "systems": [
+    "1855-sauternes"
+   ],
+   "canonical_ids": [
+    "lafaurie-peyraguey"
+   ],
+   "canonical_names": [
+    "Château Lafaurie-Peyraguey"
+   ],
+   "site": "https://www.lafaurie-peyraguey.com",
+   "site_basis": "websites.js tag 'wikidata' (prior record, not verified here)",
+   "status": "TARGET"
+  },
+  {
+   "universe_id": "u-laffitte-carcasset",
+   "name": "Château Laffitte Carcasset",
+   "systems": [
+    "cb-2025"
+   ],
+   "canonical_ids": [
+    "bourgeois-chateau-laffitte-carcasset"
+   ],
+   "canonical_names": [
+    "Château Laffitte Carcasset"
+   ],
+   "site": "https://www.laffittecarcasset.com",
+   "site_basis": "websites.js tag 'cb' (prior record, not verified here)",
+   "status": "TARGET"
+  },
+  {
+   "universe_id": "u-lafite-rothschild",
+   "name": "Château LAFITE-ROTHSCHILD",
+   "systems": [
+    "1855-medoc"
+   ],
+   "canonical_ids": [
+    "lafite"
+   ],
+   "canonical_names": [
+    "Château Lafite Rothschild"
+   ],
+   "site": "https://www.lafite.com",
+   "site_basis": "websites.js tag 'wikidata' (prior record, not verified here)",
+   "status": "TARGET"
+  },
+  {
+   "universe_id": "u-lafon",
+   "name": "Château Lafon",
+   "systems": [
+    "cb-2025"
+   ],
+   "canonical_ids": [
+    "bourgeois-chateau-lafon"
+   ],
+   "canonical_names": [
+    "Château Lafon"
+   ],
+   "site": "http://chateau-lafon.com/",
+   "site_basis": "websites.js tag 'dom' (prior record, not verified here)",
+   "status": "TARGET"
+  },
+  {
+   "universe_id": "u-lafon-rochet",
+   "name": "Château LAFON-ROCHET",
+   "systems": [
+    "1855-medoc"
+   ],
+   "canonical_ids": [
+    "lafon-rochet"
+   ],
+   "canonical_names": [
+    "Château Lafon-Rochet"
+   ],
+   "site": "https://www.lafon-rochet.com",
+   "site_basis": "websites.js tag 'ugcb' (prior record, not verified here)",
+   "status": "TARGET"
+  },
+  {
+   "universe_id": "u-lagrange",
+   "name": "Château LAGRANGE",
+   "systems": [
+    "1855-medoc"
+   ],
+   "canonical_ids": [
+    "lagrange"
+   ],
+   "canonical_names": [
+    "Château Lagrange"
+   ],
+   "site": "https://chateau-lagrange.com",
+   "site_basis": "websites.js tag 'ugcb' (prior record, not verified here)",
+   "status": "TARGET"
+  },
+  {
+   "universe_id": "u-lalande",
+   "name": "Château Lalande",
+   "systems": [
+    "cb-2025"
+   ],
+   "canonical_ids": [
+    "bourgeois-chateau-lalande"
+   ],
+   "canonical_names": [
+    "Château Lalande"
+   ],
+   "site": "https://www.chateaulalande.fr",
+   "site_basis": "websites.js tag 'cb' (prior record, not verified here)",
+   "status": "TARGET"
+  },
+  {
+   "universe_id": "u-lalande-d-auvion",
+   "name": "Château Lalande d'Auvion",
+   "systems": [
+    "cb-2025"
+   ],
+   "canonical_ids": [
+    "bourgeois-chateau-lalande-d-auvion"
+   ],
+   "canonical_names": [
+    "Château Lalande d'Auvion"
+   ],
+   "site": null,
+   "site_basis": null,
+   "status": "NO_KNOWN_SITE"
+  },
+  {
+   "universe_id": "u-lalaudey",
+   "name": "Château Lalaudey",
+   "systems": [
+    "cb-2025"
+   ],
+   "canonical_ids": [
+    "bourgeois-chateau-lalaudey"
+   ],
+   "canonical_names": [
+    "Château Lalaudey"
+   ],
+   "site": "https://www.chateau-lalaudey.fr",
+   "site_basis": "websites.js tag 'cb' (prior record, not verified here)",
+   "status": "TARGET"
+  },
+  {
+   "universe_id": "u-lamothe",
+   "name": "Château LAMOTHE",
+   "systems": [
+    "1855-sauternes"
+   ],
+   "canonical_ids": [
+    "lamothe"
+   ],
+   "canonical_names": [
+    "Château Lamothe"
+   ],
+   "site": "https://www.lamothe-despujols.com",
+   "site_basis": "websites.js tag 'wikidata' (prior record, not verified here)",
+   "status": "TARGET"
+  },
+  {
+   "universe_id": "u-lamothe-bergeron",
+   "name": "Château Lamothe Bergeron",
+   "systems": [
+    "cb-2025"
+   ],
+   "canonical_ids": [
+    "bourgeois-chateau-lamothe-bergeron"
+   ],
+   "canonical_names": [
+    "Château Lamothe Bergeron"
+   ],
+   "site": "https://www.lamothebergeron.fr",
+   "site_basis": "websites.js tag 'cb' (prior record, not verified here)",
+   "status": "TARGET"
+  },
+  {
+   "universe_id": "u-lamothe-guignard",
+   "name": "Château LAMOTHE-GUIGNARD",
+   "systems": [
+    "1855-sauternes"
+   ],
+   "canonical_ids": [
+    "lamothe-guignard"
+   ],
+   "canonical_names": [
+    "Château Lamothe-Guignard"
+   ],
+   "site": "https://www.chateau-lamothe-guignard.fr",
+   "site_basis": "websites.js tag 'wikidata' (prior record, not verified here)",
+   "status": "TARGET"
+  },
+  {
+   "universe_id": "u-langoa-barton",
+   "name": "Château LANGOA BARTON",
+   "systems": [
+    "1855-medoc"
+   ],
+   "canonical_ids": [
+    "langoa-barton"
+   ],
+   "canonical_names": [
+    "Château Langoa-Barton"
+   ],
+   "site": "https://www.langoa-barton.com",
+   "site_basis": "websites.js tag 'hand' (prior record, not verified here)",
+   "status": "TARGET"
+  },
+  {
+   "universe_id": "u-laniote",
+   "name": "Château LANIOTE",
+   "systems": [
+    "stem-2022"
+   ],
+   "canonical_ids": [
+    "stem-chateau-laniote"
+   ],
+   "canonical_names": [
+    "Château Laniote"
+   ],
+   "site": "http://laniote.com",
+   "site_basis": "websites.js tag 'cve' (prior record, not verified here)",
+   "status": "TARGET"
+  },
+  {
+   "universe_id": "u-larcis-ducasse",
+   "name": "Château LARCIS DUCASSE",
+   "systems": [
+    "stem-2022"
+   ],
+   "canonical_ids": [
+    "larcis-ducasse"
+   ],
+   "canonical_names": [
+    "Château Larcis Ducasse"
+   ],
+   "site": "https://www.larcis-ducasse.com",
+   "site_basis": "websites.js tag 'ugcb' (prior record, not verified here)",
+   "status": "TARGET"
+  },
+  {
+   "universe_id": "u-larmande",
+   "name": "Château LARMANDE",
+   "systems": [
+    "stem-2022"
+   ],
+   "canonical_ids": [
+    "stem-chateau-larmande"
+   ],
+   "canonical_names": [
+    "Château Larmande"
+   ],
+   "site": "http://www.chateau-larmande.com",
+   "site_basis": "websites.js tag 'cve' (prior record, not verified here)",
+   "status": "TARGET"
+  },
+  {
+   "universe_id": "u-laroque",
+   "name": "Château LAROQUE",
+   "systems": [
+    "stem-2022"
+   ],
+   "canonical_ids": [
+    "stem-chateau-laroque"
+   ],
+   "canonical_names": [
+    "Château Laroque"
+   ],
+   "site": "http://www.chateau-laroque.com",
+   "site_basis": "websites.js tag 'cve' (prior record, not verified here)",
+   "status": "TARGET"
+  },
+  {
+   "universe_id": "u-laroze",
+   "name": "Château LAROZE",
+   "systems": [
+    "stem-2022"
+   ],
+   "canonical_ids": [
+    "stem-chateau-laroze"
+   ],
+   "canonical_names": [
+    "Château Laroze"
+   ],
+   "site": "http://www.laroze.com",
+   "site_basis": "websites.js tag 'cve' (prior record, not verified here)",
+   "status": "TARGET"
+  },
+  {
+   "universe_id": "u-lascombes",
+   "name": "Château LASCOMBES",
+   "systems": [
+    "1855-medoc"
+   ],
+   "canonical_ids": [
+    "lascombes"
+   ],
+   "canonical_names": [
+    "Château Lascombes"
+   ],
+   "site": "https://www.chateau-lascombes.com",
+   "site_basis": "websites.js tag 'ugcb' (prior record, not verified here)",
+   "status": "TARGET"
+  },
+  {
+   "universe_id": "u-lassegue",
+   "name": "LASSEGUE",
+   "systems": [
+    "stem-2022"
+   ],
+   "canonical_ids": [
+    "stem-chateau-lassegue"
+   ],
+   "canonical_names": [
+    "Château Lassègue"
+   ],
+   "site": "http://www.chateau.lassegue.com",
+   "site_basis": "websites.js tag 'cve' (prior record, not verified here)",
+   "status": "TARGET"
+  },
+  {
+   "universe_id": "u-lassus",
+   "name": "Château Lassus",
+   "systems": [
+    "cb-2025"
+   ],
+   "canonical_ids": [
+    "bourgeois-chateau-lassus"
+   ],
+   "canonical_names": [
+    "Château Lassus"
+   ],
+   "site": "https://vignoblespaeffgen.org/lassus/index.fr.html",
+   "site_basis": "websites.js tag 'cb' (prior record, not verified here)",
+   "status": "TARGET"
+  },
+  {
+   "universe_id": "u-latour",
+   "name": "Château LATOUR",
+   "systems": [
+    "1855-medoc"
+   ],
+   "canonical_ids": [
+    "latour"
+   ],
+   "canonical_names": [
+    "Château Latour"
+   ],
+   "site": "https://www.chateau-latour.com",
+   "site_basis": "websites.js tag 'osm' (prior record, not verified here)",
+   "status": "TARGET"
+  },
+  {
+   "universe_id": "u-latour-martillac",
+   "name": "Château Latour-Martillac",
+   "systems": [
+    "graves"
+   ],
+   "canonical_ids": [
+    "latour-martillac"
+   ],
+   "canonical_names": [
+    "Château Latour-Martillac"
+   ],
+   "site": "https://www.latourmartillac.com",
+   "site_basis": "websites.js tag 'ugcb' (prior record, not verified here)",
+   "status": "TARGET"
+  },
+  {
+   "universe_id": "u-laujac",
+   "name": "Château Laujac",
+   "systems": [
+    "cb-2025"
+   ],
+   "canonical_ids": [
+    "bourgeois-chateau-laujac"
+   ],
+   "canonical_names": [
+    "Château Laujac"
+   ],
+   "site": "https://www.chateaulaujac.com",
+   "site_basis": "websites.js tag 'cb' (prior record, not verified here)",
+   "status": "TARGET"
+  },
+  {
+   "universe_id": "u-le-bourdieu",
+   "name": "Château le Bourdieu",
+   "systems": [
+    "cb-2025"
+   ],
+   "canonical_ids": [
+    "bourgeois-chateau-le-bourdieu"
+   ],
+   "canonical_names": [
+    "Château le Bourdieu"
+   ],
+   "site": "https://www.lebourdieu.fr",
+   "site_basis": "websites.js tag 'cb' (prior record, not verified here)",
+   "status": "TARGET"
+  },
+  {
+   "universe_id": "u-le-bourdieu-vertheuil",
+   "name": "Château le Bourdieu Vertheuil",
+   "systems": [
+    "cb-2025"
+   ],
+   "canonical_ids": [
+    "bourgeois-chateau-le-bourdieu-vertheuil"
+   ],
+   "canonical_names": [
+    "Château le Bourdieu Vertheuil"
+   ],
+   "site": "https://www.domainesrichard.fr/",
+   "site_basis": "websites.js tag 'cbg' (prior record, not verified here)",
+   "status": "TARGET"
+  },
+  {
+   "universe_id": "u-le-chatelet",
+   "name": "Château LE CHATELET",
+   "systems": [
+    "stem-2022"
+   ],
+   "canonical_ids": [
+    "stem-chateau-le-chatelet"
+   ],
+   "canonical_names": [
+    "Château Le Châtelet"
+   ],
+   "site": "https://www.chateau-le-chatelet.com",
+   "site_basis": "websites.js tag 'osm' (prior record, not verified here)",
+   "status": "TARGET"
+  },
+  {
+   "universe_id": "u-le-crock",
+   "name": "Château le Crock",
+   "systems": [
+    "cb-2025"
+   ],
+   "canonical_ids": [
+    "bourgeois-chateau-le-crock"
+   ],
+   "canonical_names": [
+    "Château le Crock"
+   ],
+   "site": "https://chateaulecrock.fr/visites-et-degustations/",
+   "site_basis": "websites.js tag 'cb' (prior record, not verified here)",
+   "status": "TARGET"
+  },
+  {
+   "universe_id": "u-le-monteil-d-arsac",
+   "name": "Château le Monteil d'Arsac",
+   "systems": [
+    "cb-2025"
+   ],
+   "canonical_ids": [
+    "bourgeois-chateau-le-monteil-d-arsac"
+   ],
+   "canonical_names": [
+    "Château le Monteil d'Arsac"
+   ],
+   "site": "https://www.chateau-arsac.com",
+   "site_basis": "websites.js tag 'cb' (prior record, not verified here)",
+   "status": "TARGET"
+  },
+  {
+   "universe_id": "u-le-prieure",
+   "name": "Château LE PRIEURE",
+   "systems": [
+    "stem-2022"
+   ],
+   "canonical_ids": [
+    "stem-chateau-le-prieure"
+   ],
+   "canonical_names": [
+    "Château Le Prieuré"
+   ],
+   "site": "http://chateauleprieure.com/",
+   "site_basis": "websites.js tag 'dom' (prior record, not verified here)",
+   "status": "TARGET"
+  },
+  {
+   "universe_id": "u-le-temple",
+   "name": "Château le Temple",
+   "systems": [
+    "cb-2025"
+   ],
+   "canonical_ids": [
+    "bourgeois-chateau-le-temple"
+   ],
+   "canonical_names": [
+    "Château le Temple"
+   ],
+   "site": null,
+   "site_basis": null,
+   "status": "NO_KNOWN_SITE"
+  },
+  {
+   "universe_id": "u-le-vieux-fort",
+   "name": "Château le Vieux Fort",
+   "systems": [
+    "cb-2025"
+   ],
+   "canonical_ids": [
+    "bourgeois-chateau-le-vieux-fort"
+   ],
+   "canonical_names": [
+    "Château le Vieux Fort"
+   ],
+   "site": null,
+   "site_basis": null,
+   "status": "NO_KNOWN_SITE"
+  },
+  {
+   "universe_id": "u-le-vieux-serestin",
+   "name": "Château le Vieux Serestin",
+   "systems": [
+    "cb-2025"
+   ],
+   "canonical_ids": [
+    "bourgeois-chateau-le-vieux-serestin"
+   ],
+   "canonical_names": [
+    "Château le Vieux Serestin"
+   ],
+   "site": null,
+   "site_basis": null,
+   "status": "NO_KNOWN_SITE"
+  },
+  {
+   "universe_id": "u-leboscq",
+   "name": "Château Leboscq",
+   "systems": [
+    "cb-2025"
+   ],
+   "canonical_ids": [
+    "bourgeois-chateau-leboscq"
+   ],
+   "canonical_names": [
+    "Château Leboscq"
+   ],
+   "site": "https://www.antoinemoueix.com",
+   "site_basis": "websites.js tag 'cbg' (prior record, not verified here)",
+   "status": "TARGET"
+  },
+  {
+   "universe_id": "u-leoville-barton",
+   "name": "Château LEOVILLE BARTON",
+   "systems": [
+    "1855-medoc"
+   ],
+   "canonical_ids": [
+    "leoville-barton"
+   ],
+   "canonical_names": [
+    "Château Léoville-Barton"
+   ],
+   "site": "https://www.leoville-barton.com",
+   "site_basis": "websites.js tag 'hand' (prior record, not verified here)",
+   "status": "TARGET"
+  },
+  {
+   "universe_id": "u-leoville-las-cases",
+   "name": "Château LEOVILLE LAS CASES",
+   "systems": [
+    "1855-medoc"
+   ],
+   "canonical_ids": [
+    "leoville-las-cases"
+   ],
+   "canonical_names": [
+    "Château Léoville-Las Cases"
+   ],
+   "site": "http://leovillelascases.com/",
+   "site_basis": "websites.js tag 'dom' (prior record, not verified here)",
+   "status": "TARGET"
+  },
+  {
+   "universe_id": "u-leoville-poyferre",
+   "name": "Château LEOVILLE-POYFERRE",
+   "systems": [
+    "1855-medoc"
+   ],
+   "canonical_ids": [
+    "leoville-poyferre"
+   ],
+   "canonical_names": [
+    "Château Léoville-Poyferré"
+   ],
+   "site": "https://www.leoville-poyferre.fr",
+   "site_basis": "websites.js tag 'ugcb' (prior record, not verified here)",
+   "status": "TARGET"
+  },
+  {
+   "universe_id": "u-les-anguilleys",
+   "name": "Château les Anguilleys",
+   "systems": [
+    "cb-2025"
+   ],
+   "canonical_ids": [
+    "bourgeois-chateau-les-anguilleys"
+   ],
+   "canonical_names": [
+    "Château les Anguilleys"
+   ],
+   "site": null,
+   "site_basis": null,
+   "status": "NO_KNOWN_SITE"
+  },
+  {
+   "universe_id": "u-les-barraillots",
+   "name": "Château les Barraillots",
+   "systems": [
+    "ca-2022"
+   ],
+   "canonical_ids": [
+    "artisan-chateau-les-barraillots"
+   ],
+   "canonical_names": [
+    "Château Les Barraillots"
+   ],
+   "site": "https://www.vin-margaux-barraillots.fr/",
+   "site_basis": "websites.js tag 'ca' (prior record, not verified here)",
+   "status": "TARGET"
+  },
+  {
+   "universe_id": "u-les-graves-de-loirac",
+   "name": "Château les Graves de Loirac",
+   "systems": [
+    "ca-2022"
+   ],
+   "canonical_ids": [
+    "artisan-chateau-les-graves-de-loirac"
+   ],
+   "canonical_names": [
+    "Château Les Graves de Loirac"
+   ],
+   "site": null,
+   "site_basis": null,
+   "status": "NO_KNOWN_SITE"
+  },
+  {
+   "universe_id": "u-les-lattes",
+   "name": "Château les Lattes",
+   "systems": [
+    "cb-2025"
+   ],
+   "canonical_ids": [
+    "bourgeois-chateau-les-lattes"
+   ],
+   "canonical_names": [
+    "Château les Lattes"
+   ],
+   "site": "https://www.leslattes.vignoblesdeterroirs.com",
+   "site_basis": "websites.js tag 'cb' (prior record, not verified here)",
+   "status": "TARGET"
+  },
+  {
+   "universe_id": "u-les-mourlanes",
+   "name": "Château les Mourlanes",
+   "systems": [
+    "cb-2025"
+   ],
+   "canonical_ids": [
+    "bourgeois-chateau-les-mourlanes"
+   ],
+   "canonical_names": [
+    "Château les Mourlanes"
+   ],
+   "site": null,
+   "site_basis": null,
+   "status": "NO_KNOWN_SITE"
+  },
+  {
+   "universe_id": "u-les-tresquots",
+   "name": "Château les Tresquots",
+   "systems": [
+    "cb-2025"
+   ],
+   "canonical_ids": [
+    "bourgeois-chateau-les-tresquots"
+   ],
+   "canonical_names": [
+    "Château les Tresquots"
+   ],
+   "site": null,
+   "site_basis": null,
+   "status": "NO_KNOWN_SITE"
+  },
+  {
+   "universe_id": "u-les-tuileries",
+   "name": "Château les Tuileries",
+   "systems": [
+    "cb-2025"
+   ],
+   "canonical_ids": [
+    "bourgeois-chateau-les-tuileries"
+   ],
+   "canonical_names": [
+    "Château les Tuileries"
+   ],
+   "site": "https://www.chateaulestuileries.com",
+   "site_basis": "websites.js tag 'cb' (prior record, not verified here)",
+   "status": "TARGET"
+  },
+  {
+   "universe_id": "u-lestage-simon",
+   "name": "Château Lestage Simon",
+   "systems": [
+    "cb-2025"
+   ],
+   "canonical_ids": [
+    "bourgeois-chateau-lestage-simon"
+   ],
+   "canonical_names": [
+    "Château Lestage Simon"
+   ],
+   "site": "https://www.cdf-chateaux.com",
+   "site_basis": "websites.js tag 'cb' (prior record, not verified here)",
+   "status": "TARGET"
+  },
+  {
+   "universe_id": "u-lestruelle",
+   "name": "Château Lestruelle",
+   "systems": [
+    "cb-2025"
+   ],
+   "canonical_ids": [
+    "bourgeois-chateau-lestruelle"
+   ],
+   "canonical_names": [
+    "Château Lestruelle"
+   ],
+   "site": "https://www.famillebouey-vignobles-chateaux.fr",
+   "site_basis": "websites.js tag 'cb' (prior record, not verified here)",
+   "status": "TARGET"
+  },
+  {
+   "universe_id": "u-linot",
+   "name": "Château Linot",
+   "systems": [
+    "ca-2022"
+   ],
+   "canonical_ids": [
+    "artisan-chateau-linot"
+   ],
+   "canonical_names": [
+    "Château Linot"
+   ],
+   "site": null,
+   "site_basis": null,
+   "status": "NO_KNOWN_SITE"
+  },
+  {
+   "universe_id": "u-liouner",
+   "name": "Château Liouner",
+   "systems": [
+    "cb-2025"
+   ],
+   "canonical_ids": [
+    "bourgeois-chateau-liouner"
+   ],
+   "canonical_names": [
+    "Château Liouner"
+   ],
+   "site": "https://chateau-liouner-listracmedoc.fr/",
+   "site_basis": "websites.js tag 'hand' (prior record, not verified here)",
+   "status": "TARGET"
+  },
+  {
+   "universe_id": "u-liversan",
+   "name": "Château Liversan",
+   "systems": [
+    "cb-2025"
+   ],
+   "canonical_ids": [
+    "bourgeois-chateau-liversan"
+   ],
+   "canonical_names": [
+    "Château Liversan"
+   ],
+   "site": "https://www.antoinemoueix.com",
+   "site_basis": "websites.js tag 'cb' (prior record, not verified here)",
+   "status": "TARGET"
+  },
+  {
+   "universe_id": "u-lousteauneuf",
+   "name": "Château Lousteauneuf",
+   "systems": [
+    "cb-2025"
+   ],
+   "canonical_ids": [
+    "bourgeois-chateau-lousteauneuf"
+   ],
+   "canonical_names": [
+    "Château Lousteauneuf"
+   ],
+   "site": "http://www.chateau-lousteauneuf.com/",
+   "site_basis": "websites.js tag 'cb' (prior record, not verified here)",
+   "status": "TARGET"
+  },
+  {
+   "universe_id": "u-lynch-bages",
+   "name": "Château LYNCH-BAGES",
+   "systems": [
+    "1855-medoc"
+   ],
+   "canonical_ids": [
+    "lynch-bages"
+   ],
+   "canonical_names": [
+    "Château Lynch-Bages"
+   ],
+   "site": "https://www.lynchbages.com",
+   "site_basis": "websites.js tag 'ugcb' (prior record, not verified here)",
+   "status": "TARGET"
+  },
+  {
+   "universe_id": "u-lynch-moussas",
+   "name": "Château LYNCH-MOUSSAS",
+   "systems": [
+    "1855-medoc"
+   ],
+   "canonical_ids": [
+    "lynch-moussas"
+   ],
+   "canonical_names": [
+    "Château Lynch-Moussas"
+   ],
+   "site": "https://www.lynch-moussas.com",
+   "site_basis": "websites.js tag 'ugcb' (prior record, not verified here)",
+   "status": "TARGET"
+  },
+  {
+   "universe_id": "u-magnol",
+   "name": "Château Magnol",
+   "systems": [
+    "cb-2025"
+   ],
+   "canonical_ids": [
+    "bourgeois-chateau-magnol"
+   ],
+   "canonical_names": [
+    "Château Magnol"
+   ],
+   "site": "https://www.barton-guestier.com",
+   "site_basis": "websites.js tag 'cb' (prior record, not verified here)",
+   "status": "TARGET"
+  },
+  {
+   "universe_id": "u-maison-blanche",
+   "name": "Château Maison Blanche",
+   "systems": [
+    "cb-2025"
+   ],
+   "canonical_ids": [
+    "bourgeois-chateau-maison-blanche"
+   ],
+   "canonical_names": [
+    "Château Maison Blanche"
+   ],
+   "site": "https://www.famillebouey-vignobles-chateaux.com/main.html",
+   "site_basis": "websites.js tag 'cb' (prior record, not verified here)",
+   "status": "TARGET"
+  },
+  {
+   "universe_id": "u-malartic-lagraviere",
+   "name": "Château Malartic-Lagravière",
+   "systems": [
+    "graves"
+   ],
+   "canonical_ids": [
+    "malartic-lagraviere"
+   ],
+   "canonical_names": [
+    "Château Malartic-Lagravière"
+   ],
+   "site": "https://www.malartic-lagraviere.com",
+   "site_basis": "websites.js tag 'ugcb' (prior record, not verified here)",
+   "status": "TARGET"
+  },
+  {
+   "universe_id": "u-malescasse",
+   "name": "Château Malescasse",
+   "systems": [
+    "cb-2025"
+   ],
+   "canonical_ids": [
+    "bourgeois-chateau-malescasse"
+   ],
+   "canonical_names": [
+    "Château Malescasse"
+   ],
+   "site": "https://www.chateau-malescasse.com",
+   "site_basis": "websites.js tag 'cb' (prior record, not verified here)",
+   "status": "TARGET"
+  },
+  {
+   "universe_id": "u-malescot-saint-exupery",
+   "name": "Château MALESCOT SAINT-EXUPERY",
+   "systems": [
+    "1855-medoc"
+   ],
+   "canonical_ids": [
+    "malescot"
+   ],
+   "canonical_names": [
+    "Château Malescot St. Exupéry"
+   ],
+   "site": "https://www.malescot.com",
+   "site_basis": "websites.js tag 'ugcb' (prior record, not verified here)",
+   "status": "TARGET"
+  },
+  {
+   "universe_id": "u-mangot",
+   "name": "Château MANGOT",
+   "systems": [
+    "stem-2022"
+   ],
+   "canonical_ids": [
+    "stem-chateau-mangot"
+   ],
+   "canonical_names": [
+    "Château Mangot"
+   ],
+   "site": "http://www.chateaumangot.fr",
+   "site_basis": "websites.js tag 'cve' (prior record, not verified here)",
+   "status": "TARGET"
+  },
+  {
+   "universe_id": "u-marceline",
+   "name": "Château Marceline",
+   "systems": [
+    "ca-2022"
+   ],
+   "canonical_ids": [
+    "artisan-chateau-marceline"
+   ],
+   "canonical_names": [
+    "Château Marceline"
+   ],
+   "site": "https://chateaumarceline.com/",
+   "site_basis": "websites.js tag 'dom' (prior record, not verified here)",
+   "status": "TARGET"
+  },
+  {
+   "universe_id": "u-mareil",
+   "name": "Château Mareil",
+   "systems": [
+    "cb-2025"
+   ],
+   "canonical_ids": [
+    "bourgeois-chateau-mareil"
+   ],
+   "canonical_names": [
+    "Château Mareil"
+   ],
+   "site": null,
+   "site_basis": null,
+   "status": "NO_KNOWN_SITE"
+  },
+  {
+   "universe_id": "u-margaux",
+   "name": "Château MARGAUX",
+   "systems": [
+    "1855-medoc"
+   ],
+   "canonical_ids": [
+    "margaux"
+   ],
+   "canonical_names": [
+    "Château Margaux"
+   ],
+   "site": "https://www.chateau-margaux.com",
+   "site_basis": "websites.js tag 'wikidata' (prior record, not verified here)",
+   "status": "TARGET"
+  },
+  {
+   "universe_id": "u-marquis-d-alesme-becker",
+   "name": "Château MARQUIS D’ALESME BECKER",
+   "systems": [
+    "1855-medoc"
+   ],
+   "canonical_ids": [
+    "marquis-dalesme"
+   ],
+   "canonical_names": [
+    "Château Marquis d’Alesme"
+   ],
+   "site": "https://marquis.wine/",
+   "site_basis": "websites.js tag 'dom' (prior record, not verified here)",
+   "status": "TARGET"
+  },
+  {
+   "universe_id": "u-marquis-de-terme",
+   "name": "Château MARQUIS DE TERME",
+   "systems": [
+    "1855-medoc"
+   ],
+   "canonical_ids": [
+    "marquis-de-terme"
+   ],
+   "canonical_names": [
+    "Château Marquis de Terme"
+   ],
+   "site": "https://chateau-marquis-de-terme.com",
+   "site_basis": "websites.js tag 'ugcb' (prior record, not verified here)",
+   "status": "TARGET"
+  },
+  {
+   "universe_id": "u-martin",
+   "name": "Château Martin",
+   "systems": [
+    "cb-2025"
+   ],
+   "canonical_ids": [
+    "bourgeois-chateau-martin"
+   ],
+   "canonical_names": [
+    "Château Martin"
+   ],
+   "site": "https://vignobles-martin.fr/",
+   "site_basis": "websites.js tag 'dom' (prior record, not verified here)",
+   "status": "TARGET"
+  },
+  {
+   "universe_id": "u-mazails",
+   "name": "Château Mazails",
+   "systems": [
+    "cb-2025"
+   ],
+   "canonical_ids": [
+    "bourgeois-chateau-mazails"
+   ],
+   "canonical_names": [
+    "Château Mazails"
+   ],
+   "site": "https://www.chateau-mazails.fr",
+   "site_basis": "websites.js tag 'cb' (prior record, not verified here)",
+   "status": "TARGET"
+  },
+  {
+   "universe_id": "u-meric",
+   "name": "Château Méric",
+   "systems": [
+    "cb-2025"
+   ],
+   "canonical_ids": [
+    "bourgeois-chateau-meric"
+   ],
+   "canonical_names": [
+    "Château Méric"
+   ],
+   "site": "https://www.chateaumeric.com",
+   "site_basis": "websites.js tag 'cb' (prior record, not verified here)",
+   "status": "TARGET"
+  },
+  {
+   "universe_id": "u-meyre",
+   "name": "Château Meyre",
+   "systems": [
+    "cb-2025"
+   ],
+   "canonical_ids": [
+    "bourgeois-chateau-meyre"
+   ],
+   "canonical_names": [
+    "Château Meyre"
+   ],
+   "site": "https://closdemeyre.com/",
+   "site_basis": "websites.js tag 'cb' (prior record, not verified here)",
+   "status": "TARGET"
+  },
+  {
+   "universe_id": "u-micalet",
+   "name": "Château Micalet",
+   "systems": [
+    "ca-2022"
+   ],
+   "canonical_ids": [
+    "artisan-chateau-micalet"
+   ],
+   "canonical_names": [
+    "Château Micalet"
+   ],
+   "site": "https://www.chateaumicalet.fr",
+   "site_basis": "websites.js tag 'ca' (prior record, not verified here)",
+   "status": "TARGET"
+  },
+  {
+   "universe_id": "u-monbousquet",
+   "name": "Château MONBOUSQUET",
+   "systems": [
+    "stem-2022"
+   ],
+   "canonical_ids": [
+    "stem-chateau-monbousquet"
+   ],
+   "canonical_names": [
+    "Château Monbousquet"
+   ],
+   "site": "https://www.chateaumonbousquet.com",
+   "site_basis": "websites.js tag 'osm' (prior record, not verified here)",
+   "status": "TARGET"
+  },
+  {
+   "universe_id": "u-mongravey",
+   "name": "Château Mongravey",
+   "systems": [
+    "cb-2025"
+   ],
+   "canonical_ids": [
+    "bourgeois-chateau-mongravey"
+   ],
+   "canonical_names": [
+    "Château Mongravey"
+   ],
+   "site": "https://vignobles-bernaleau.com",
+   "site_basis": "websites.js tag 'cb' (prior record, not verified here)",
+   "status": "TARGET"
+  },
+  {
+   "universe_id": "u-montlabert",
+   "name": "Château MONTLABERT",
+   "systems": [
+    "stem-2022"
+   ],
+   "canonical_ids": [
+    "stem-chateau-montlabert"
+   ],
+   "canonical_names": [
+    "Château Montlabert"
+   ],
+   "site": "http://www.chateau-montlabert.com",
+   "site_basis": "websites.js tag 'cve' (prior record, not verified here)",
+   "status": "TARGET"
+  },
+  {
+   "universe_id": "u-montlisse",
+   "name": "Château MONTLISSE",
+   "systems": [
+    "stem-2022"
+   ],
+   "canonical_ids": [
+    "stem-chateau-montlisse"
+   ],
+   "canonical_names": [
+    "Château Montlisse"
+   ],
+   "site": "https://chateau-montlisse.com/",
+   "site_basis": "websites.js tag 'dom' (prior record, not verified here)",
+   "status": "TARGET"
+  },
+  {
+   "universe_id": "u-montrose",
+   "name": "Château MONTROSE",
+   "systems": [
+    "1855-medoc"
+   ],
+   "canonical_ids": [
+    "montrose"
+   ],
+   "canonical_names": [
+    "Château Montrose"
+   ],
+   "site": "https://www.chateau-montrose.com",
+   "site_basis": "websites.js tag 'wikidata' (prior record, not verified here)",
+   "status": "TARGET"
+  },
+  {
+   "universe_id": "u-moulin-de-bel-air",
+   "name": "Château Moulin de Bel Air",
+   "systems": [
+    "cb-2025"
+   ],
+   "canonical_ids": [
+    "bourgeois-chateau-moulin-de-bel-air"
+   ],
+   "canonical_names": [
+    "Château Moulin de Bel Air"
+   ],
+   "site": "https://www.chateaulestuileries.com",
+   "site_basis": "websites.js tag 'cbg' (prior record, not verified here)",
+   "status": "TARGET"
+  },
+  {
+   "universe_id": "u-moulin-de-blanchon",
+   "name": "Château Moulin de Blanchon",
+   "systems": [
+    "cb-2025"
+   ],
+   "canonical_ids": [
+    "bourgeois-chateau-moulin-de-blanchon"
+   ],
+   "canonical_names": [
+    "Château Moulin de Blanchon"
+   ],
+   "site": "https://chateau-moulin-de-blanchon.com/",
+   "site_basis": "websites.js tag 'dom' (prior record, not verified here)",
+   "status": "TARGET"
+  },
+  {
+   "universe_id": "u-moulin-de-canhaut",
+   "name": "Château Moulin de Canhaut",
+   "systems": [
+    "cb-2025"
+   ],
+   "canonical_ids": [
+    "bourgeois-chateau-moulin-de-canhaut"
+   ],
+   "canonical_names": [
+    "Château Moulin de Canhaut"
+   ],
+   "site": "https://www.chateau-poitevin.com",
+   "site_basis": "websites.js tag 'cb' (prior record, not verified here)",
+   "status": "TARGET"
+  },
+  {
+   "universe_id": "u-moulin-de-l-abbaye",
+   "name": "Château Moulin de l'Abbaye",
+   "systems": [
+    "cb-2025"
+   ],
+   "canonical_ids": [
+    "bourgeois-chateau-moulin-de-l-abbaye"
+   ],
+   "canonical_names": [
+    "Château Moulin de l'Abbaye"
+   ],
+   "site": "https://www.unimedoc.com",
+   "site_basis": "websites.js tag 'cbg' (prior record, not verified here)",
+   "status": "TARGET"
+  },
+  {
+   "universe_id": "u-moulin-de-taffard",
+   "name": "Château Moulin de Taffard",
+   "systems": [
+    "cb-2025"
+   ],
+   "canonical_ids": [
+    "bourgeois-chateau-moulin-de-taffard"
+   ],
+   "canonical_names": [
+    "Château Moulin de Taffard"
+   ],
+   "site": "https://www.vignoblespeyruse.com",
+   "site_basis": "websites.js tag 'cbg' (prior record, not verified here)",
+   "status": "TARGET"
+  },
+  {
+   "universe_id": "u-moulin-des-moines",
+   "name": "Château Moulin des Moines",
+   "systems": [
+    "cb-2025"
+   ],
+   "canonical_ids": [
+    "bourgeois-chateau-moulin-des-moines"
+   ],
+   "canonical_names": [
+    "Château Moulin des Moines"
+   ],
+   "site": null,
+   "site_basis": null,
+   "status": "NO_KNOWN_SITE"
+  },
+  {
+   "universe_id": "u-moulin-du-cadet",
+   "name": "Château MOULIN DU CADET",
+   "systems": [
+    "stem-2022"
+   ],
+   "canonical_ids": [
+    "stem-chateau-moulin-du-cadet"
+   ],
+   "canonical_names": [
+    "Château Moulin du Cadet"
+   ],
+   "site": "http://www.chateau-sansonnet.com",
+   "site_basis": "websites.js tag 'cve' (prior record, not verified here)",
+   "status": "TARGET"
+  },
+  {
+   "universe_id": "u-mouton-rothschild",
+   "name": "Château MOUTON ROTHSCHILD",
+   "systems": [
+    "1855-medoc"
+   ],
+   "canonical_ids": [
+    "mouton"
+   ],
+   "canonical_names": [
+    "Château Mouton Rothschild"
+   ],
+   "site": "https://www.chateau-mouton-rothschild.com",
+   "site_basis": "websites.js tag 'ugcb' (prior record, not verified here)",
+   "status": "TARGET"
+  },
+  {
+   "universe_id": "u-moutte-blanc",
+   "name": "Château Moutte Blanc",
+   "systems": [
+    "ca-2022"
+   ],
+   "canonical_ids": [
+    "artisan-chateau-moutte-blanc"
+   ],
+   "canonical_names": [
+    "Château Moutte Blanc"
+   ],
+   "site": "https://www.moutte-blanc.fr",
+   "site_basis": "websites.js tag 'ca' (prior record, not verified here)",
+   "status": "TARGET"
+  },
+  {
+   "universe_id": "u-nairac",
+   "name": "Château NAIRAC",
+   "systems": [
+    "1855-sauternes"
+   ],
+   "canonical_ids": [
+    "nairac"
+   ],
+   "canonical_names": [
+    "Château Nairac"
+   ],
+   "site": "https://www.chateau-nairac.com/",
+   "site_basis": "websites.js tag 'wikidata' (prior record, not verified here)",
+   "status": "TARGET"
+  },
+  {
+   "universe_id": "u-noaillac",
+   "name": "Château Noaillac",
+   "systems": [
+    "cb-2025"
+   ],
+   "canonical_ids": [
+    "bourgeois-chateau-noaillac"
+   ],
+   "canonical_names": [
+    "Château Noaillac"
+   ],
+   "site": "https://www.noaillac.org",
+   "site_basis": "websites.js tag 'wikidata' (prior record, not verified here)",
+   "status": "TARGET"
+  },
+  {
+   "universe_id": "u-nouret",
+   "name": "Château Nouret",
+   "systems": [
+    "cb-2025"
+   ],
+   "canonical_ids": [
+    "bourgeois-chateau-nouret"
+   ],
+   "canonical_names": [
+    "Château Nouret"
+   ],
+   "site": "http://nouret.fr/",
+   "site_basis": "websites.js tag 'cb' (prior record, not verified here)",
+   "status": "TARGET"
+  },
+  {
+   "universe_id": "u-olivier",
+   "name": "Château Olivier",
+   "systems": [
+    "graves"
+   ],
+   "canonical_ids": [
+    "olivier"
+   ],
+   "canonical_names": [
+    "Château Olivier"
+   ],
+   "site": "https://www.chateau-olivier.com",
+   "site_basis": "websites.js tag 'ugcb' (prior record, not verified here)",
+   "status": "TARGET"
+  },
+  {
+   "universe_id": "u-palmer",
+   "name": "Château PALMER",
+   "systems": [
+    "1855-medoc"
+   ],
+   "canonical_ids": [
+    "palmer"
+   ],
+   "canonical_names": [
+    "Château Palmer"
+   ],
+   "site": "https://www.chateau-palmer.com",
+   "site_basis": "websites.js tag 'wikidata' (prior record, not verified here)",
+   "status": "TARGET"
+  },
+  {
+   "universe_id": "u-paloumey",
+   "name": "Château Paloumey",
+   "systems": [
+    "cb-2025"
+   ],
+   "canonical_ids": [
+    "bourgeois-chateau-paloumey"
+   ],
+   "canonical_names": [
+    "Château Paloumey"
+   ],
+   "site": "https://www.chateaupaloumey.com",
+   "site_basis": "websites.js tag 'cb' (prior record, not verified here)",
+   "status": "TARGET"
+  },
+  {
+   "universe_id": "u-pape-clement",
+   "name": "Château Pape-Clément",
+   "systems": [
+    "graves"
+   ],
+   "canonical_ids": [
+    "pape-clement"
+   ],
+   "canonical_names": [
+    "Château Pape Clément"
+   ],
+   "site": "https://bernard-magrez.com",
+   "site_basis": "websites.js tag 'ugcb' (prior record, not verified here)",
+   "status": "TARGET"
+  },
+  {
+   "universe_id": "u-patache-d-aux",
+   "name": "Château Patache d’Aux",
+   "systems": [
+    "cb-2025"
+   ],
+   "canonical_ids": [
+    "bourgeois-chateau-patache-d-aux"
+   ],
+   "canonical_names": [
+    "Château Patache d’Aux"
+   ],
+   "site": "https://www.chateaupatachedaux.com",
+   "site_basis": "websites.js tag 'cb' (prior record, not verified here)",
+   "status": "TARGET"
+  },
+  {
+   "universe_id": "u-paveil-de-luze",
+   "name": "Château Paveil de Luze",
+   "systems": [
+    "cb-2025"
+   ],
+   "canonical_ids": [
+    "bourgeois-chateau-paveil-de-luze"
+   ],
+   "canonical_names": [
+    "Château Paveil de Luze"
+   ],
+   "site": "https://www.chateaupaveildeluze.com",
+   "site_basis": "websites.js tag 'wikidata' (prior record, not verified here)",
+   "status": "TARGET"
+  },
+  {
+   "universe_id": "u-pavie",
+   "name": "Château PAVIE",
+   "systems": [
+    "stem-2022"
+   ],
+   "canonical_ids": [
+    "pavie"
+   ],
+   "canonical_names": [
+    "Château Pavie"
+   ],
+   "site": "https://www.chateaupavie.com",
+   "site_basis": "websites.js tag 'wikidata' (prior record, not verified here)",
+   "status": "TARGET"
+  },
+  {
+   "universe_id": "u-pavie-macquin",
+   "name": "Château PAVIE MACQUIN",
+   "systems": [
+    "stem-2022"
+   ],
+   "canonical_ids": [
+    "pavie-macquin"
+   ],
+   "canonical_names": [
+    "Château Pavie Macquin"
+   ],
+   "site": "https://www.pavie-macquin.com",
+   "site_basis": "websites.js tag 'ugcb' (prior record, not verified here)",
+   "status": "TARGET"
+  },
+  {
+   "universe_id": "u-peby-faugeres",
+   "name": "Château PEBY FAUGERES",
+   "systems": [
+    "stem-2022"
+   ],
+   "canonical_ids": [
+    "stem-chateau-peby-faugeres"
+   ],
+   "canonical_names": [
+    "Château Peby Faugères"
+   ],
+   "site": "https://www.vignobles-silvio-denz.com/",
+   "site_basis": "websites.js tag 'cve' (prior record, not verified here)",
+   "status": "TARGET"
+  },
+  {
+   "universe_id": "u-pedesclaux",
+   "name": "Château PEDESCLAUX",
+   "systems": [
+    "1855-medoc"
+   ],
+   "canonical_ids": [
+    "pedesclaux"
+   ],
+   "canonical_names": [
+    "Château Pédesclaux"
+   ],
+   "site": "http://www.chateau-pedesclaux.com/",
+   "site_basis": "websites.js tag 'wikidata' (prior record, not verified here)",
+   "status": "TARGET"
+  },
+  {
+   "universe_id": "u-petit-faurie-de-soutard",
+   "name": "Château PETIT FAURIE DE SOUTARD",
+   "systems": [
+    "stem-2022"
+   ],
+   "canonical_ids": [
+    "stem-chateau-petit-faurie-de-soutard"
+   ],
+   "canonical_names": [
+    "Château Petit Faurie de Soutard"
+   ],
+   "site": "http://www.vignoblescapdemourlin.com",
+   "site_basis": "websites.js tag 'cve' (prior record, not verified here)",
+   "status": "TARGET"
+  },
+  {
+   "universe_id": "u-pey-de-pont",
+   "name": "Château Pey de Pont",
+   "systems": [
+    "cb-2025"
+   ],
+   "canonical_ids": [
+    "bourgeois-chateau-pey-de-pont"
+   ],
+   "canonical_names": [
+    "Château Pey de Pont"
+   ],
+   "site": "https://www.chateau-pey-de-pont.com",
+   "site_basis": "websites.js tag 'cb' (prior record, not verified here)",
+   "status": "TARGET"
+  },
+  {
+   "universe_id": "u-pey-mallet",
+   "name": "Château Pey Mallet",
+   "systems": [
+    "ca-2022"
+   ],
+   "canonical_ids": [
+    "artisan-chateau-pey-mallet"
+   ],
+   "canonical_names": [
+    "Château Pey Mallet"
+   ],
+   "site": "https://www.pey-mallet.com",
+   "site_basis": "websites.js tag 'ca' (prior record, not verified here)",
+   "status": "TARGET"
+  },
+  {
+   "universe_id": "u-peyrabon",
+   "name": "Château Peyrabon",
+   "systems": [
+    "cb-2025"
+   ],
+   "canonical_ids": [
+    "bourgeois-chateau-peyrabon"
+   ],
+   "canonical_names": [
+    "Château Peyrabon"
+   ],
+   "site": "http://chateau-peyrabon.fr/",
+   "site_basis": "websites.js tag 'cb' (prior record, not verified here)",
+   "status": "TARGET"
+  },
+  {
+   "universe_id": "u-peyrat-fourthon",
+   "name": "Château Peyrat-Fourthon",
+   "systems": [
+    "cb-2025"
+   ],
+   "canonical_ids": [
+    "bourgeois-chateau-peyrat-fourthon"
+   ],
+   "canonical_names": [
+    "Château Peyrat-Fourthon"
+   ],
+   "site": "https://www.peyrat-fourthon.com",
+   "site_basis": "websites.js tag 'cb' (prior record, not verified here)",
+   "status": "TARGET"
+  },
+  {
+   "universe_id": "u-picard",
+   "name": "Château Picard",
+   "systems": [
+    "cb-2025"
+   ],
+   "canonical_ids": [
+    "bourgeois-chateau-picard"
+   ],
+   "canonical_names": [
+    "Château Picard"
+   ],
+   "site": "https://www.mahler-besse.com",
+   "site_basis": "websites.js tag 'cb' (prior record, not verified here)",
+   "status": "TARGET"
+  },
+  {
+   "universe_id": "u-pichon-baron",
+   "name": "Château PICHON-BARON",
+   "systems": [
+    "1855-medoc"
+   ],
+   "canonical_ids": [
+    "pichon-baron"
+   ],
+   "canonical_names": [
+    "Château Pichon-Longueville Baron"
+   ],
+   "site": "https://pichonbaron.com/",
+   "site_basis": "websites.js tag 'domr' (prior record, not verified here)",
+   "status": "TARGET"
+  },
+  {
+   "universe_id": "u-pichon-longueville-comtesse-de-lalande",
+   "name": "Château PICHON LONGUEVILLE COMTESSE DE LALANDE",
+   "systems": [
+    "1855-medoc"
+   ],
+   "canonical_ids": [
+    "pichon-comtesse"
+   ],
+   "canonical_names": [
+    "Château Pichon Longueville Comtesse de Lalande"
+   ],
+   "site": "https://www.pichon-comtesse.com",
+   "site_basis": "websites.js tag 'ugcb' (prior record, not verified here)",
+   "status": "TARGET"
+  },
+  {
+   "universe_id": "u-pierre-de-montignac",
+   "name": "Château Pierre de Montignac",
+   "systems": [
+    "cb-2025"
+   ],
+   "canonical_ids": [
+    "bourgeois-chateau-pierre-de-montignac"
+   ],
+   "canonical_names": [
+    "Château Pierre de Montignac"
+   ],
+   "site": "https://www.pierredemontignac.com/",
+   "site_basis": "websites.js tag 'cb' (prior record, not verified here)",
+   "status": "TARGET"
+  },
+  {
+   "universe_id": "u-plagnac",
+   "name": "Château Plagnac",
+   "systems": [
+    "cb-2025"
+   ],
+   "canonical_ids": [
+    "bourgeois-chateau-plagnac"
+   ],
+   "canonical_names": [
+    "Château Plagnac"
+   ],
+   "site": "https://chateauplagnac.fr/",
+   "site_basis": "websites.js tag 'cb' (prior record, not verified here)",
+   "status": "TARGET"
+  },
+  {
+   "universe_id": "u-plantey",
+   "name": "Château Plantey",
+   "systems": [
+    "cb-2025"
+   ],
+   "canonical_ids": [
+    "bourgeois-chateau-plantey"
+   ],
+   "canonical_names": [
+    "Château Plantey"
+   ],
+   "site": null,
+   "site_basis": null,
+   "status": "NO_KNOWN_SITE"
+  },
+  {
+   "universe_id": "u-poitevin",
+   "name": "Château Poitevin",
+   "systems": [
+    "cb-2025"
+   ],
+   "canonical_ids": [
+    "bourgeois-chateau-poitevin"
+   ],
+   "canonical_names": [
+    "Château Poitevin"
+   ],
+   "site": "https://www.chateau-poitevin.com",
+   "site_basis": "websites.js tag 'cb' (prior record, not verified here)",
+   "status": "TARGET"
+  },
+  {
+   "universe_id": "u-pomeys",
+   "name": "Château Pomeys",
+   "systems": [
+    "cb-2025"
+   ],
+   "canonical_ids": [
+    "bourgeois-chateau-pomeys"
+   ],
+   "canonical_names": [
+    "Château Pomeys"
+   ],
+   "site": "https://www.chateau-lalaudey.fr",
+   "site_basis": "websites.js tag 'cb' (prior record, not verified here)",
+   "status": "TARGET"
+  },
+  {
+   "universe_id": "u-pontet-barrail",
+   "name": "Château Pontet Barrail",
+   "systems": [
+    "cb-2025"
+   ],
+   "canonical_ids": [
+    "bourgeois-chateau-pontet-barrail"
+   ],
+   "canonical_names": [
+    "Château Pontet Barrail"
+   ],
+   "site": null,
+   "site_basis": null,
+   "status": "NO_KNOWN_SITE"
+  },
+  {
+   "universe_id": "u-pontet-canet",
+   "name": "Château PONTET-CANET",
+   "systems": [
+    "1855-medoc"
+   ],
+   "canonical_ids": [
+    "pontet-canet"
+   ],
+   "canonical_names": [
+    "Château Pontet-Canet"
+   ],
+   "site": "https://www.pontet-canet.com",
+   "site_basis": "websites.js tag 'wikidata' (prior record, not verified here)",
+   "status": "TARGET"
+  },
+  {
+   "universe_id": "u-pontey",
+   "name": "Château Pontey",
+   "systems": [
+    "cb-2025"
+   ],
+   "canonical_ids": [
+    "bourgeois-chateau-pontey"
+   ],
+   "canonical_names": [
+    "Château Pontey"
+   ],
+   "site": "https://chateaupontey.fr/",
+   "site_basis": "websites.js tag 'cb' (prior record, not verified here)",
+   "status": "TARGET"
+  },
+  {
+   "universe_id": "u-pontoise-cabarrus",
+   "name": "Château Pontoise Cabarrus",
+   "systems": [
+    "cb-2025"
+   ],
+   "canonical_ids": [
+    "bourgeois-chateau-pontoise-cabarrus"
+   ],
+   "canonical_names": [
+    "Château Pontoise Cabarrus"
+   ],
+   "site": "https://www.pontoise-cabarrus.com",
+   "site_basis": "websites.js tag 'cb' (prior record, not verified here)",
+   "status": "TARGET"
+  },
+  {
+   "universe_id": "u-pouget",
+   "name": "Château POUGET",
+   "systems": [
+    "1855-medoc"
+   ],
+   "canonical_ids": [
+    "pouget"
+   ],
+   "canonical_names": [
+    "Château Pouget"
+   ],
+   "site": "https://chateau-pouget.com/",
+   "site_basis": "websites.js tag 'dom' (prior record, not verified here)",
+   "status": "TARGET"
+  },
+  {
+   "universe_id": "u-preuillac",
+   "name": "Château Preuillac",
+   "systems": [
+    "cb-2025"
+   ],
+   "canonical_ids": [
+    "bourgeois-chateau-preuillac"
+   ],
+   "canonical_names": [
+    "Château Preuillac"
+   ],
+   "site": "https://www.chateaupreuillac.com",
+   "site_basis": "websites.js tag 'osm' (prior record, not verified here)",
+   "status": "TARGET"
+  },
+  {
+   "universe_id": "u-prieure-de-beyzac",
+   "name": "Château Prieuré de Beyzac",
+   "systems": [
+    "cb-2025"
+   ],
+   "canonical_ids": [
+    "bourgeois-chateau-prieure-de-beyzac"
+   ],
+   "canonical_names": [
+    "Château Prieuré de Beyzac"
+   ],
+   "site": "https://www.prieuredebeyzac.fr/",
+   "site_basis": "websites.js tag 'cb' (prior record, not verified here)",
+   "status": "TARGET"
+  },
+  {
+   "universe_id": "u-prieure-lichine",
+   "name": "Château PRIEURE-LICHINE",
+   "systems": [
+    "1855-medoc"
+   ],
+   "canonical_ids": [
+    "prieure-lichine"
+   ],
+   "canonical_names": [
+    "Château Prieuré-Lichine"
+   ],
+   "site": "https://prieure-lichine.fr",
+   "site_basis": "websites.js tag 'ugcb' (prior record, not verified here)",
+   "status": "TARGET"
+  },
+  {
+   "universe_id": "u-puy-castera",
+   "name": "Château Puy Castera",
+   "systems": [
+    "cb-2025"
+   ],
+   "canonical_ids": [
+    "bourgeois-chateau-puy-castera"
+   ],
+   "canonical_names": [
+    "Château Puy Castera"
+   ],
+   "site": "https://puycastera.fr/",
+   "site_basis": "websites.js tag 'domr' (prior record, not verified here)",
+   "status": "TARGET"
+  },
+  {
+   "universe_id": "u-rabaud-promis",
+   "name": "Château RABAUD-PROMIS",
+   "systems": [
+    "1855-sauternes"
+   ],
+   "canonical_ids": [
+    "rabaud-promis"
+   ],
+   "canonical_names": [
+    "Château Rabaud-Promis"
+   ],
+   "site": "https://www.rabaud-promis.com",
+   "site_basis": "websites.js tag 'osm' (prior record, not verified here)",
+   "status": "TARGET"
+  },
+  {
+   "universe_id": "u-ramafort",
+   "name": "Château Ramafort",
+   "systems": [
+    "cb-2025"
+   ],
+   "canonical_ids": [
+    "bourgeois-chateau-ramafort"
+   ],
+   "canonical_names": [
+    "Château Ramafort"
+   ],
+   "site": "https://www.chateauramafort.com",
+   "site_basis": "websites.js tag 'cb' (prior record, not verified here)",
+   "status": "TARGET"
+  },
+  {
+   "universe_id": "u-ramage-la-batisse",
+   "name": "Château Ramage la Batisse",
+   "systems": [
+    "cb-2025"
+   ],
+   "canonical_ids": [
+    "bourgeois-chateau-ramage-la-batisse"
+   ],
+   "canonical_names": [
+    "Château Ramage la Batisse"
+   ],
+   "site": "http://gironderamagebelcier.com/",
+   "site_basis": "websites.js tag 'dom' (prior record, not verified here)",
+   "status": "TARGET"
+  },
+  {
+   "universe_id": "u-rauzan-gassies",
+   "name": "Château RAUZAN-GASSIES",
+   "systems": [
+    "1855-medoc"
+   ],
+   "canonical_ids": [
+    "rauzan-gassies"
+   ],
+   "canonical_names": [
+    "Château Rauzan-Gassies"
+   ],
+   "site": "https://www.domaines-quie.com/rauzan-gassies",
+   "site_basis": "websites.js tag 'ugcb' (prior record, not verified here)",
+   "status": "TARGET"
+  },
+  {
+   "universe_id": "u-rauzan-segla",
+   "name": "Château RAUZAN-SEGLA",
+   "systems": [
+    "1855-medoc"
+   ],
+   "canonical_ids": [
+    "rauzan-segla"
+   ],
+   "canonical_names": [
+    "Château Rauzan-Ségla"
+   ],
+   "site": "https://www.chateaurauzansegla.com",
+   "site_basis": "websites.js tag 'ugcb' (prior record, not verified here)",
+   "status": "TARGET"
+  },
+  {
+   "universe_id": "u-reverdi",
+   "name": "Château Reverdi",
+   "systems": [
+    "cb-2025"
+   ],
+   "canonical_ids": [
+    "bourgeois-chateau-reverdi"
+   ],
+   "canonical_names": [
+    "Château Reverdi"
+   ],
+   "site": "https://www.chateaureverdi.fr",
+   "site_basis": "websites.js tag 'cb' (prior record, not verified here)",
+   "status": "TARGET"
+  },
+  {
+   "universe_id": "u-reysson",
+   "name": "Château Reysson",
+   "systems": [
+    "cb-2025"
+   ],
+   "canonical_ids": [
+    "bourgeois-chateau-reysson"
+   ],
+   "canonical_names": [
+    "Château Reysson"
+   ],
+   "site": "https://www.chateau-reysson.com",
+   "site_basis": "websites.js tag 'cb' (prior record, not verified here)",
+   "status": "TARGET"
+  },
+  {
+   "universe_id": "u-ricaudet",
+   "name": "Château Ricaudet",
+   "systems": [
+    "cb-2025"
+   ],
+   "canonical_ids": [
+    "bourgeois-chateau-ricaudet"
+   ],
+   "canonical_names": [
+    "Château Ricaudet"
+   ],
+   "site": "https://www.unimedoc.com",
+   "site_basis": "websites.js tag 'cbg' (prior record, not verified here)",
+   "status": "TARGET"
+  },
+  {
+   "universe_id": "u-rieussec",
+   "name": "Château RIEUSSEC",
+   "systems": [
+    "1855-sauternes"
+   ],
+   "canonical_ids": [
+    "rieussec"
+   ],
+   "canonical_names": [
+    "Château Rieussec"
+   ],
+   "site": "https://www.lafite.com",
+   "site_basis": "websites.js tag 'ugcb' (prior record, not verified here)",
+   "status": "TARGET"
+  },
+  {
+   "universe_id": "u-ripeau",
+   "name": "Château RIPEAU",
+   "systems": [
+    "stem-2022"
+   ],
+   "canonical_ids": [
+    "stem-chateau-ripeau"
+   ],
+   "canonical_names": [
+    "Château Ripeau"
+   ],
+   "site": "http://www.chateau-ripeau.com",
+   "site_basis": "websites.js tag 'cve' (prior record, not verified here)",
+   "status": "TARGET"
+  },
+  {
+   "universe_id": "u-rochebelle",
+   "name": "Château ROCHEBELLE",
+   "systems": [
+    "stem-2022"
+   ],
+   "canonical_ids": [
+    "stem-chateau-rochebelle"
+   ],
+   "canonical_names": [
+    "Château Rochebelle"
+   ],
+   "site": "https://chateau-rochebelle.com/",
+   "site_basis": "websites.js tag 'dom' (prior record, not verified here)",
+   "status": "TARGET"
+  },
+  {
+   "universe_id": "u-rol-valentin",
+   "name": "Château ROL VALENTIN",
+   "systems": [
+    "stem-2022"
+   ],
+   "canonical_ids": [
+    "stem-chateau-rol-valentin"
+   ],
+   "canonical_names": [
+    "Château Rol Valentin"
+   ],
+   "site": "http://www.vignoblesrobin.com",
+   "site_basis": "websites.js tag 'cve' (prior record, not verified here)",
+   "status": "TARGET"
+  },
+  {
+   "universe_id": "u-rollin",
+   "name": "Château Rollin",
+   "systems": [
+    "cb-2025"
+   ],
+   "canonical_ids": [
+    "bourgeois-chateau-rollin"
+   ],
+   "canonical_names": [
+    "Château Rollin"
+   ],
+   "site": "https://chateaurollin.fr/",
+   "site_basis": "websites.js tag 'dom' (prior record, not verified here)",
+   "status": "TARGET"
+  },
+  {
+   "universe_id": "u-romer",
+   "name": "Château ROMER",
+   "systems": [
+    "1855-sauternes"
+   ],
+   "canonical_ids": [
+    "romer"
+   ],
+   "canonical_names": [
+    "Château Romer"
+   ],
+   "site": null,
+   "site_basis": null,
+   "status": "NO_KNOWN_SITE"
+  },
+  {
+   "universe_id": "u-romer-du-hayot",
+   "name": "Château ROMER-DU-HAYOT",
+   "systems": [
+    "1855-sauternes"
+   ],
+   "canonical_ids": [
+    "romer-du-hayot"
+   ],
+   "canonical_names": [
+    "Château Romer du Hayot"
+   ],
+   "site": "https://vignobles-du-hayot.com",
+   "site_basis": "websites.js tag 'wikidata' (prior record, not verified here)",
+   "status": "TARGET"
+  },
+  {
+   "universe_id": "u-roquegrave",
+   "name": "Château Roquegrave",
+   "systems": [
+    "cb-2025"
+   ],
+   "canonical_ids": [
+    "bourgeois-chateau-roquegrave"
+   ],
+   "canonical_names": [
+    "Château Roquegrave"
+   ],
+   "site": "https://vignoblesgm.com",
+   "site_basis": "websites.js tag 'cb' (prior record, not verified here)",
+   "status": "TARGET"
+  },
+  {
+   "universe_id": "u-rousseau-de-sipian",
+   "name": "Château Rousseau de Sipian",
+   "systems": [
+    "cb-2025"
+   ],
+   "canonical_ids": [
+    "bourgeois-chateau-rousseau-de-sipian"
+   ],
+   "canonical_names": [
+    "Château Rousseau de Sipian"
+   ],
+   "site": "http://www.chateaurousseau.com",
+   "site_basis": "websites.js tag 'osm' (prior record, not verified here)",
+   "status": "TARGET"
+  },
+  {
+   "universe_id": "u-saint-ahon",
+   "name": "Château Saint Ahon",
+   "systems": [
+    "cb-2025"
+   ],
+   "canonical_ids": [
+    "bourgeois-chateau-saint-ahon"
+   ],
+   "canonical_names": [
+    "Château Saint Ahon"
+   ],
+   "site": "https://www.saintahon.com",
+   "site_basis": "websites.js tag 'cb' (prior record, not verified here)",
+   "status": "TARGET"
+  },
+  {
+   "universe_id": "u-saint-aubin",
+   "name": "Château Saint-Aubin",
+   "systems": [
+    "cb-2025"
+   ],
+   "canonical_ids": [
+    "bourgeois-chateau-saint-aubin"
+   ],
+   "canonical_names": [
+    "Château Saint-Aubin"
+   ],
+   "site": "https://www.chateausaintaubin.fr",
+   "site_basis": "websites.js tag 'wikidata' (prior record, not verified here)",
+   "status": "TARGET"
+  },
+  {
+   "universe_id": "u-saint-bonnet",
+   "name": "Château Saint Bonnet",
+   "systems": [
+    "cb-2025"
+   ],
+   "canonical_ids": [
+    "bourgeois-chateau-saint-bonnet"
+   ],
+   "canonical_names": [
+    "Château Saint Bonnet"
+   ],
+   "site": "https://chateau-saint-bonnet.com/",
+   "site_basis": "websites.js tag 'dom' (prior record, not verified here)",
+   "status": "TARGET"
+  },
+  {
+   "universe_id": "u-saint-christophe",
+   "name": "Château Saint-Christophe",
+   "systems": [
+    "cb-2025"
+   ],
+   "canonical_ids": [
+    "bourgeois-chateau-saint-christophe"
+   ],
+   "canonical_names": [
+    "Château Saint-Christophe"
+   ],
+   "site": null,
+   "site_basis": null,
+   "status": "NO_KNOWN_SITE"
+  },
+  {
+   "universe_id": "u-saint-georges-cote-pavie",
+   "name": "Château SAINT-GEORGES (COTE PAVIE)",
+   "systems": [
+    "stem-2022"
+   ],
+   "canonical_ids": [
+    "stem-chateau-saint-georges-cote-pavie"
+   ],
+   "canonical_names": [
+    "Château Saint-Georges Côte Pavie"
+   ],
+   "site": "http://saint-georges-cote-pavie.com",
+   "site_basis": "websites.js tag 'cve' (prior record, not verified here)",
+   "status": "TARGET"
+  },
+  {
+   "universe_id": "u-saint-gregoire",
+   "name": "Château Saint Gregoire",
+   "systems": [
+    "ca-2022"
+   ],
+   "canonical_ids": [
+    "artisan-chateau-saint-gregoire"
+   ],
+   "canonical_names": [
+    "Château Saint Grégoire"
+   ],
+   "site": null,
+   "site_basis": null,
+   "status": "NO_KNOWN_SITE"
+  },
+  {
+   "universe_id": "u-saint-hilaire",
+   "name": "Château Saint-Hilaire",
+   "systems": [
+    "cb-2025"
+   ],
+   "canonical_ids": [
+    "bourgeois-chateau-saint-hilaire"
+   ],
+   "canonical_names": [
+    "Château Saint-Hilaire"
+   ],
+   "site": "https://www.chateau-st-hilaire.com",
+   "site_basis": "websites.js tag 'cb' (prior record, not verified here)",
+   "status": "TARGET"
+  },
+  {
+   "universe_id": "u-saint-pierre",
+   "name": "Château SAINT-PIERRE",
+   "systems": [
+    "1855-medoc"
+   ],
+   "canonical_ids": [
+    "saint-pierre"
+   ],
+   "canonical_names": [
+    "Château Saint-Pierre"
+   ],
+   "site": "https://www.chateau-saint-pierre.com",
+   "site_basis": "websites.js tag 'ugcb' (prior record, not verified here)",
+   "status": "TARGET"
+  },
+  {
+   "universe_id": "u-sansonnet",
+   "name": "Château SANSONNET",
+   "systems": [
+    "stem-2022"
+   ],
+   "canonical_ids": [
+    "stem-chateau-sansonnet"
+   ],
+   "canonical_names": [
+    "Château Sansonnet"
+   ],
+   "site": "http://www.chateau-sansonnet.com",
+   "site_basis": "websites.js tag 'cve' (prior record, not verified here)",
+   "status": "TARGET"
+  },
+  {
+   "universe_id": "u-semeillan-mazeau",
+   "name": "Château Sémeillan Mazeau",
+   "systems": [
+    "cb-2025"
+   ],
+   "canonical_ids": [
+    "bourgeois-chateau-semeillan-mazeau"
+   ],
+   "canonical_names": [
+    "Château Sémeillan Mazeau"
+   ],
+   "site": "https://vignobles-jeandenisbibian.com/",
+   "site_basis": "websites.js tag 'dom' (prior record, not verified here)",
+   "status": "TARGET"
+  },
+  {
+   "universe_id": "u-senilhac",
+   "name": "Château Sénilhac",
+   "systems": [
+    "cb-2025"
+   ],
+   "canonical_ids": [
+    "bourgeois-chateau-senilhac"
+   ],
+   "canonical_names": [
+    "Château Sénilhac"
+   ],
+   "site": "https://chateausenilhac.com/",
+   "site_basis": "websites.js tag 'dom' (prior record, not verified here)",
+   "status": "TARGET"
+  },
+  {
+   "universe_id": "u-sigalas-rabaud",
+   "name": "Château SIGALAS-RABAUD",
+   "systems": [
+    "1855-sauternes"
+   ],
+   "canonical_ids": [
+    "sigalas-rabaud"
+   ],
+   "canonical_names": [
+    "Château Sigalas-Rabaud"
+   ],
+   "site": "https://chateau-sigalas-rabaud.com/",
+   "site_basis": "websites.js tag 'dom' (prior record, not verified here)",
+   "status": "TARGET"
+  },
+  {
+   "universe_id": "u-smith-haut-lafitte",
+   "name": "Château Smith Haut Lafitte",
+   "systems": [
+    "graves"
+   ],
+   "canonical_ids": [
+    "smith-haut-lafitte"
+   ],
+   "canonical_names": [
+    "Château Smith Haut Lafitte"
+   ],
+   "site": "https://www.smith-haut-lafitte.com",
+   "site_basis": "websites.js tag 'wikidata' (prior record, not verified here)",
+   "status": "TARGET"
+  },
+  {
+   "universe_id": "u-soutard",
+   "name": "Château SOUTARD",
+   "systems": [
+    "stem-2022"
+   ],
+   "canonical_ids": [
+    "stem-chateau-soutard"
+   ],
+   "canonical_names": [
+    "Château Soutard"
+   ],
+   "site": "http://www.chateau-soutard.com",
+   "site_basis": "websites.js tag 'cve' (prior record, not verified here)",
+   "status": "TARGET"
+  },
+  {
+   "universe_id": "u-suau",
+   "name": "Château SUAU",
+   "systems": [
+    "1855-sauternes"
+   ],
+   "canonical_ids": [
+    "suau"
+   ],
+   "canonical_names": [
+    "Château Suau"
+   ],
+   "site": "https://chateausuau.com",
+   "site_basis": "websites.js tag 'handx' (prior record, not verified here)",
+   "status": "TARGET"
+  },
+  {
+   "universe_id": "u-suduiraut",
+   "name": "Château SUDUIRAUT",
+   "systems": [
+    "1855-sauternes"
+   ],
+   "canonical_ids": [
+    "suduiraut"
+   ],
+   "canonical_names": [
+    "Château Suduiraut"
+   ],
+   "site": "https://www.suduiraut.com",
+   "site_basis": "websites.js tag 'wikidata' (prior record, not verified here)",
+   "status": "TARGET"
+  },
+  {
+   "universe_id": "u-talbot",
+   "name": "Château TALBOT",
+   "systems": [
+    "1855-medoc"
+   ],
+   "canonical_ids": [
+    "talbot"
+   ],
+   "canonical_names": [
+    "Château Talbot"
+   ],
+   "site": "https://www.chateau-talbot.com",
+   "site_basis": "websites.js tag 'ugcb' (prior record, not verified here)",
+   "status": "TARGET"
+  },
+  {
+   "universe_id": "u-tour-baladoz",
+   "name": "Château TOUR BALADOZ",
+   "systems": [
+    "stem-2022"
+   ],
+   "canonical_ids": [
+    "stem-chateau-tour-baladoz"
+   ],
+   "canonical_names": [
+    "Château Tour Baladoz"
+   ],
+   "site": null,
+   "site_basis": null,
+   "status": "NO_KNOWN_SITE"
+  },
+  {
+   "universe_id": "u-tour-castillon",
+   "name": "Château Tour Castillon",
+   "systems": [
+    "cb-2025"
+   ],
+   "canonical_ids": [
+    "bourgeois-chateau-tour-castillon"
+   ],
+   "canonical_names": [
+    "Château Tour Castillon"
+   ],
+   "site": "https://www.vignoblespeyruse.com",
+   "site_basis": "websites.js tag 'cb' (prior record, not verified here)",
+   "status": "TARGET"
+  },
+  {
+   "universe_id": "u-tour-des-termes",
+   "name": "Château Tour des Termes",
+   "systems": [
+    "cb-2025"
+   ],
+   "canonical_ids": [
+    "bourgeois-chateau-tour-des-termes"
+   ],
+   "canonical_names": [
+    "Château Tour des Termes"
+   ],
+   "site": "https://www.chateautourdestermes.com",
+   "site_basis": "websites.js tag 'cb' (prior record, not verified here)",
+   "status": "TARGET"
+  },
+  {
+   "universe_id": "u-tour-du-goua",
+   "name": "Château Tour du Goua",
+   "systems": [
+    "ca-2022"
+   ],
+   "canonical_ids": [
+    "artisan-chateau-tour-du-goua"
+   ],
+   "canonical_names": [
+    "Château Tour du Goua"
+   ],
+   "site": "https://www.tourdugoua.fr",
+   "site_basis": "websites.js tag 'ca' (prior record, not verified here)",
+   "status": "TARGET"
+  },
+  {
+   "universe_id": "u-tour-prignac",
+   "name": "Château Tour Prignac",
+   "systems": [
+    "cb-2025"
+   ],
+   "canonical_ids": [
+    "bourgeois-chateau-tour-prignac"
+   ],
+   "canonical_names": [
+    "Château Tour Prignac"
+   ],
+   "site": "https://www.chateaux-castel.com",
+   "site_basis": "websites.js tag 'cb' (prior record, not verified here)",
+   "status": "TARGET"
+  },
+  {
+   "universe_id": "u-tour-saint-christophe",
+   "name": "Château TOUR SAINT CHRISTOPHE",
+   "systems": [
+    "stem-2022"
+   ],
+   "canonical_ids": [
+    "stem-chateau-tour-saint-christophe"
+   ],
+   "canonical_names": [
+    "Château Tour Saint Christophe"
+   ],
+   "site": "https://vignoblesk.com/",
+   "site_basis": "websites.js tag 'dom' (prior record, not verified here)",
+   "status": "TARGET"
+  },
+  {
+   "universe_id": "u-tour-saint-fort",
+   "name": "Château Tour Saint-Fort",
+   "systems": [
+    "cb-2025"
+   ],
+   "canonical_ids": [
+    "bourgeois-chateau-tour-saint-fort"
+   ],
+   "canonical_names": [
+    "Château Tour Saint-Fort"
+   ],
+   "site": "https://www.chateautoursaintfort.com",
+   "site_basis": "websites.js tag 'cb' (prior record, not verified here)",
+   "status": "TARGET"
+  },
+  {
+   "universe_id": "u-tour-saint-vincent",
+   "name": "Château Tour Saint Vincent",
+   "systems": [
+    "cb-2025"
+   ],
+   "canonical_ids": [
+    "bourgeois-chateau-tour-saint-vincent"
+   ],
+   "canonical_names": [
+    "Château Tour Saint Vincent"
+   ],
+   "site": "https://www.vignobles-lacombe.com",
+   "site_basis": "websites.js tag 'cb' (prior record, not verified here)",
+   "status": "TARGET"
+  },
+  {
+   "universe_id": "u-tourteran",
+   "name": "Château Tourteran",
+   "systems": [
+    "cb-2025"
+   ],
+   "canonical_ids": [
+    "bourgeois-chateau-tourteran"
+   ],
+   "canonical_names": [
+    "Château Tourteran"
+   ],
+   "site": "http://gironderamagebelcier.com/",
+   "site_basis": "websites.js tag 'dom' (prior record, not verified here)",
+   "status": "TARGET"
+  },
+  {
+   "universe_id": "u-troplong-mondot",
+   "name": "Château TROPLONG MONDOT",
+   "systems": [
+    "stem-2022"
+   ],
+   "canonical_ids": [
+    "troplong-mondot"
+   ],
+   "canonical_names": [
+    "Château Troplong Mondot"
+   ],
+   "site": "https://www.chateau-troplong-mondot.com",
+   "site_basis": "websites.js tag 'osm' (prior record, not verified here)",
+   "status": "TARGET"
+  },
+  {
+   "universe_id": "u-trottevieille",
+   "name": "Château TROTTEVIEILLE",
+   "systems": [
+    "stem-2022"
+   ],
+   "canonical_ids": [
+    "trotte-vieille"
+   ],
+   "canonical_names": [
+    "Château Trotte Vieille"
+   ],
+   "site": "https://trottevieille.com/",
+   "site_basis": "websites.js tag 'dom' (prior record, not verified here)",
+   "status": "TARGET"
+  },
+  {
+   "universe_id": "u-troussas",
+   "name": "Château Troussas",
+   "systems": [
+    "cb-2025"
+   ],
+   "canonical_ids": [
+    "bourgeois-chateau-troussas"
+   ],
+   "canonical_names": [
+    "Château Troussas"
+   ],
+   "site": "https://www.unimedoc.com",
+   "site_basis": "websites.js tag 'cbg' (prior record, not verified here)",
+   "status": "TARGET"
+  },
+  {
+   "universe_id": "u-valandraud",
+   "name": "Château VALANDRAUD",
+   "systems": [
+    "stem-2022"
+   ],
+   "canonical_ids": [
+    "valandraud"
+   ],
+   "canonical_names": [
+    "Château Valandraud"
+   ],
+   "site": "https://www.valandraud.com",
+   "site_basis": "websites.js tag 'ugcb' (prior record, not verified here)",
+   "status": "TARGET"
+  },
+  {
+   "universe_id": "u-victoria",
+   "name": "Château Victoria",
+   "systems": [
+    "cb-2025"
+   ],
+   "canonical_ids": [
+    "bourgeois-chateau-victoria"
+   ],
+   "canonical_names": [
+    "Château Victoria"
+   ],
+   "site": "https://www.domainesrichard.fr/",
+   "site_basis": "websites.js tag 'cb' (prior record, not verified here)",
+   "status": "TARGET"
+  },
+  {
+   "universe_id": "u-vieux-chateau-landon",
+   "name": "Vieux Château Landon",
+   "systems": [
+    "cb-2025"
+   ],
+   "canonical_ids": [
+    "bourgeois-vieux-chateau-landon"
+   ],
+   "canonical_names": [
+    "Vieux Château Landon"
+   ],
+   "site": null,
+   "site_basis": null,
+   "status": "NO_KNOWN_SITE"
+  },
+  {
+   "universe_id": "u-vieux-gabarey",
+   "name": "Château Vieux Gabarey",
+   "systems": [
+    "ca-2022"
+   ],
+   "canonical_ids": [
+    "artisan-chateau-vieux-gabarey"
+   ],
+   "canonical_names": [
+    "Château Vieux Gabarey"
+   ],
+   "site": "https://www.vieux-gabarey.com",
+   "site_basis": "websites.js tag 'ca' (prior record, not verified here)",
+   "status": "TARGET"
+  },
+  {
+   "universe_id": "u-vieux-gadet",
+   "name": "Château Vieux Gadet",
+   "systems": [
+    "ca-2022"
+   ],
+   "canonical_ids": [
+    "artisan-chateau-vieux-gadet"
+   ],
+   "canonical_names": [
+    "Château Vieux Gadet"
+   ],
+   "site": "https://www.chateau-vieux-gadet.com",
+   "site_basis": "websites.js tag 'ca' (prior record, not verified here)",
+   "status": "TARGET"
+  },
+  {
+   "universe_id": "u-vieux-landat",
+   "name": "Château Vieux Landat",
+   "systems": [
+    "cb-2025"
+   ],
+   "canonical_ids": [
+    "bourgeois-chateau-vieux-landat"
+   ],
+   "canonical_names": [
+    "Château Vieux Landat"
+   ],
+   "site": "https://www.vieuxlandat.com/",
+   "site_basis": "websites.js tag 'cb' (prior record, not verified here)",
+   "status": "TARGET"
+  },
+  {
+   "universe_id": "u-vieux-robin",
+   "name": "Château Vieux Robin",
+   "systems": [
+    "cb-2025"
+   ],
+   "canonical_ids": [
+    "bourgeois-chateau-vieux-robin"
+   ],
+   "canonical_names": [
+    "Château Vieux Robin"
+   ],
+   "site": "https://www.chateau-vieux-robin.com",
+   "site_basis": "websites.js tag 'cb' (prior record, not verified here)",
+   "status": "TARGET"
+  },
+  {
+   "universe_id": "u-villemaurine",
+   "name": "Château VILLEMAURINE",
+   "systems": [
+    "stem-2022"
+   ],
+   "canonical_ids": [
+    "stem-chateau-villemaurine"
+   ],
+   "canonical_names": [
+    "Château Villemaurine"
+   ],
+   "site": "http://www.villemaurine.com",
+   "site_basis": "websites.js tag 'cve' (prior record, not verified here)",
+   "status": "TARGET"
+  },
+  {
+   "universe_id": "u-yon-figeac",
+   "name": "Château YON-FIGEAC",
+   "systems": [
+    "stem-2022"
+   ],
+   "canonical_ids": [
+    "stem-chateau-yon-figeac"
+   ],
+   "canonical_names": [
+    "Château Yon-Figeac"
+   ],
+   "site": "https://chateau-yon-figeac.com/",
+   "site_basis": "websites.js tag 'cve' (prior record, not verified here)",
+   "status": "TARGET"
+  }
+ ],
+ "domains": [
+  {
+   "domain": "chateau-badette.com",
+   "seeds": [
+    "https://chateau-badette.com/"
+   ],
+   "estates": [
+    "u-badette"
+   ]
+  },
+  {
+   "domain": "vignoblescapdemourlin.com",
+   "seeds": [
+    "http://www.vignoblescapdemourlin.com/"
+   ],
+   "estates": [
+    "u-balestard-la-tonnelle",
+    "u-cap-de-mourlin",
+    "u-petit-faurie-de-soutard"
+   ]
+  },
+  {
+   "domain": "chateau-barateau.com",
+   "seeds": [
+    "http://chateau-barateau.com/"
+   ],
+   "estates": [
+    "u-barateau"
+   ]
+  },
+  {
+   "domain": "chateaubardehaut.com",
+   "seeds": [
+    "https://chateaubardehaut.com/"
+   ],
+   "estates": [
+    "u-barde-haut"
+   ]
+  },
+  {
+   "domain": "chateaux-castel.com",
+   "seeds": [
+    "https://www.chateaux-castel.com/"
+   ],
+   "estates": [
+    "u-barreyres",
+    "u-tour-prignac"
+   ]
+  },
+  {
+   "domain": "batailley.com",
+   "seeds": [
+    "https://batailley.com/"
+   ],
+   "estates": [
+    "u-batailley"
+   ]
+  },
+  {
+   "domain": "chateau-beaumont.com",
+   "seeds": [
+    "https://www.chateau-beaumont.com/"
+   ],
+   "estates": [
+    "u-beaumont"
+   ]
+  },
+  {
+   "domain": "beausejour-jdl.com",
+   "seeds": [
+    "https://beausejour-jdl.com/"
+   ],
+   "estates": [
+    "u-beausejour-heritiers-duffau-lagarrosse"
+   ]
+  },
+  {
+   "domain": "chateaubeauvillage.com",
+   "seeds": [
+    "https://chateaubeauvillage.com/"
+   ],
+   "estates": [
+    "u-beauvillage"
+   ]
+  },
+  {
+   "domain": "mairie-begadan.jimdofree.com",
+   "seeds": [
+    "https://mairie-begadan.jimdofree.com/"
+   ],
+   "estates": [
+    "u-begadan"
+   ]
+  },
+  {
+   "domain": "domaines-henri-martin.com",
+   "seeds": [
+    "https://www.domaines-henri-martin.com/"
+   ],
+   "estates": [
+    "u-bel-air-gloria"
+   ]
+  },
+  {
+   "domain": "chateau-belair-monange.com",
+   "seeds": [
+    "https://chateau-belair-monange.com/"
+   ],
+   "estates": [
+    "u-belair-monange"
+   ]
+  },
+  {
+   "domain": "chateau-belgrave.com",
+   "seeds": [
+    "https://www.chateau-belgrave.com/"
+   ],
+   "estates": [
+    "u-belgrave"
+   ]
+  },
+  {
+   "domain": "vignoblesk.com",
+   "seeds": [
+    "https://www.vignoblesk.com/",
+    "https://vignoblesk.com/"
+   ],
+   "estates": [
+    "u-bellefont-belcier",
+    "u-tour-saint-christophe"
+   ]
+  },
+  {
+   "domain": "chateaubellegrave-chauvin.com",
+   "seeds": [
+    "https://www.chateaubellegrave-chauvin.com/"
+   ],
+   "estates": [
+    "u-bellegrave"
+   ]
+  },
+  {
+   "domain": "chateaubellevue.fr",
+   "seeds": [
+    "https://chateaubellevue.fr/"
+   ],
+   "estates": [
+    "u-bellevue--stem-2022"
+   ]
+  },
+  {
+   "domain": "chateau-berliquet.com",
+   "seeds": [
+    "https://chateau-berliquet.com/"
+   ],
+   "estates": [
+    "u-berliquet"
+   ]
+  },
+  {
+   "domain": "vignobles-lacombe.com",
+   "seeds": [
+    "https://www.vignobles-lacombe.com/"
+   ],
+   "estates": [
+    "u-bessan-segur",
+    "u-haut-canteloup",
+    "u-la-grange-de-bessan",
+    "u-tour-saint-vincent"
+   ]
+  },
+  {
+   "domain": "beychevelle.com",
+   "seeds": [
+    "https://beychevelle.com/"
+   ],
+   "estates": [
+    "u-beychevelle"
+   ]
+  },
+  {
+   "domain": "vignobles-meyre.com",
+   "seeds": [
+    "https://vignobles-meyre.com/"
+   ],
+   "estates": [
+    "u-bibian"
+   ]
+  },
+  {
+   "domain": "chateaubistonbrillette.fr",
+   "seeds": [
+    "https://chateaubistonbrillette.fr/"
+   ],
+   "estates": [
+    "u-biston-brillette"
+   ]
+  },
+  {
+   "domain": "chateau-bournac.com",
+   "seeds": [
+    "http://www.chateau-bournac.com/"
+   ],
+   "estates": [
+    "u-bournac"
+   ]
+  },
+  {
+   "domain": "chateau-bouscaut.com",
+   "seeds": [
+    "https://www.chateau-bouscaut.com/"
+   ],
+   "estates": [
+    "u-bouscaut"
+   ]
+  },
+  {
+   "domain": "chateau-boutisse.fr",
+   "seeds": [
+    "http://www.chateau-boutisse.fr/"
+   ],
+   "estates": [
+    "u-boutisse"
+   ]
+  },
+  {
+   "domain": "boyd-cantenac.com",
+   "seeds": [
+    "http://boyd-cantenac.com/"
+   ],
+   "estates": [
+    "u-boyd-cantenac"
+   ]
+  },
+  {
+   "domain": "branaire.com",
+   "seeds": [
+    "https://www.branaire.com/"
+   ],
+   "estates": [
+    "u-branaire-ducru"
+   ]
+  },
+  {
+   "domain": "brane-cantenac.com",
+   "seeds": [
+    "https://www.brane-cantenac.com/fr/accueil"
+   ],
+   "estates": [
+    "u-brane-cantenac"
+   ]
+  },
+  {
+   "domain": "vignoblesdeterroirs.com",
+   "seeds": [
+    "https://www.vignoblesdeterroirs.com/"
+   ],
+   "estates": [
+    "u-broustet"
+   ]
+  },
+  {
+   "domain": "cadet-bon.com",
+   "seeds": [
+    "http://www.cadet-bon.com/"
+   ],
+   "estates": [
+    "u-cadet-bon"
+   ]
+  },
+  {
+   "domain": "chateaucaillou.com",
+   "seeds": [
+    "https://www.chateaucaillou.com/"
+   ],
+   "estates": [
+    "u-caillou"
+   ]
+  },
+  {
+   "domain": "calon-segur.com",
+   "seeds": [
+    "http://calon-segur.com/"
+   ],
+   "estates": [
+    "u-calon-segur"
+   ]
+  },
+  {
+   "domain": "chateaucanon.com",
+   "seeds": [
+    "https://www.chateaucanon.com/"
+   ],
+   "estates": [
+    "u-canon"
+   ]
+  },
+  {
+   "domain": "neipperg.com",
+   "seeds": [
+    "https://www.neipperg.com/fr/chateaux/chateau-canon-la-gaffeliere.html",
+    "http://neipperg.com/"
+   ],
+   "estates": [
+    "u-canon-la-gaffeliere",
+    "u-clos-de-l-oratoire",
+    "u-la-mondotte"
+   ]
+  },
+  {
+   "domain": "cantemerle.com",
+   "seeds": [
+    "https://www.cantemerle.com/"
+   ],
+   "estates": [
+    "u-cantemerle"
+   ]
+  },
+  {
+   "domain": "cantenacbrown.com",
+   "seeds": [
+    "https://www.cantenacbrown.com/"
+   ],
+   "estates": [
+    "u-cantenac-brown"
+   ]
+  },
+  {
+   "domain": "cave-listrac-medoc.com",
+   "seeds": [
+    "https://www.cave-listrac-medoc.com/"
+   ],
+   "estates": [
+    "u-capdet",
+    "u-guitignan"
+   ]
+  },
+  {
+   "domain": "carbonnieux.com",
+   "seeds": [
+    "https://carbonnieux.com/"
+   ],
+   "estates": [
+    "u-carbonnieux"
+   ]
+  },
+  {
+   "domain": "carcanieux.vignoblesdeterroirs.com",
+   "seeds": [
+    "https://www.carcanieux.vignoblesdeterroirs.com/"
+   ],
+   "estates": [
+    "u-carcanieux"
+   ]
+  },
+  {
+   "domain": "chateau-castera.com",
+   "seeds": [
+    "https://www.chateau-castera.com/"
+   ],
+   "estates": [
+    "u-castera"
+   ]
+  },
+  {
+   "domain": "domaine-chantemerle.com",
+   "seeds": [
+    "http://www.domaine-chantemerle.com/"
+   ],
+   "estates": [
+    "u-chantemerle"
+   ]
+  },
+  {
+   "domain": "chateauchauvin.com",
+   "seeds": [
+    "http://www.chateauchauvin.com/"
+   ],
+   "estates": [
+    "u-chauvin"
+   ]
+  },
+  {
+   "domain": "chateau-cissac.com",
+   "seeds": [
+    "http://www.chateau-cissac.com/"
+   ],
+   "estates": [
+    "u-cissac"
+   ]
+  },
+  {
+   "domain": "unimedoc.com",
+   "seeds": [
+    "http://www.unimedoc.com/",
+    "https://www.unimedoc.com/",
+    "https://unimedoc.com/"
+   ],
+   "estates": [
+    "u-clement-saint-jean",
+    "u-de-bensse",
+    "u-ladignac",
+    "u-moulin-de-l-abbaye",
+    "u-ricaudet",
+    "u-troussas"
+   ]
+  },
+  {
+   "domain": "chateau-clerc-milon.com",
+   "seeds": [
+    "https://www.chateau-clerc-milon.com/"
+   ],
+   "estates": [
+    "u-clerc-milon"
+   ]
+  },
+  {
+   "domain": "chateau-climens.com",
+   "seeds": [
+    "https://chateau-climens.com/"
+   ],
+   "estates": [
+    "u-climens"
+   ]
+  },
+  {
+   "domain": "clos-badon-thunevin.com",
+   "seeds": [
+    "https://clos-badon-thunevin.com/"
+   ],
+   "estates": [
+    "u-clos-badon-thunevin"
+   ]
+  },
+  {
+   "domain": "closdebigos.fr",
+   "seeds": [
+    "https://closdebigos.fr/"
+   ],
+   "estates": [
+    "u-clos-de-bigos"
+   ]
+  },
+  {
+   "domain": "clos-de-sarpe.com",
+   "seeds": [
+    "https://clos-de-sarpe.com/"
+   ],
+   "estates": [
+    "u-clos-de-sarpe"
+   ]
+  },
+  {
+   "domain": "mtdecoster.com",
+   "seeds": [
+    "http://www.mtdecoster.com/"
+   ],
+   "estates": [
+    "u-clos-des-jacobins"
+   ]
+  },
+  {
+   "domain": "closdubreuil.com",
+   "seeds": [
+    "http://closdubreuil.com/"
+   ],
+   "estates": [
+    "u-clos-dubreuil"
+   ]
+  },
+  {
+   "domain": "closfourtet.com",
+   "seeds": [
+    "https://www.closfourtet.com/fr"
+   ],
+   "estates": [
+    "u-clos-fourtet"
+   ]
+  },
+  {
+   "domain": "bernard-magrez.com",
+   "seeds": [
+    "https://bernard-magrez.com/",
+    "https://bernard-magrez.com/collections/vins/grands-crus-classes/chateau-la-tour-carnet"
+   ],
+   "estates": [
+    "u-clos-haut-peyraguey",
+    "u-la-tour-carnet",
+    "u-pape-clement"
+   ]
+  },
+  {
+   "domain": "chateau-beau-rivage.fr",
+   "seeds": [
+    "http://www.chateau-beau-rivage.fr/"
+   ],
+   "estates": [
+    "u-clos-la-boheme"
+   ]
+  },
+  {
+   "domain": "clos-saintmartin.fr",
+   "seeds": [
+    "http://www.clos-saintmartin.fr/"
+   ],
+   "estates": [
+    "u-clos-saint-martin"
+   ]
+  },
+  {
+   "domain": "chateau-corbin.com",
+   "seeds": [
+    "http://www.chateau-corbin.com/"
+   ],
+   "estates": [
+    "u-corbin"
+   ]
+  },
+  {
+   "domain": "chateau-corbinmichotte.com",
+   "seeds": [
+    "https://chateau-corbinmichotte.com/"
+   ],
+   "estates": [
+    "u-corbin-michotte"
+   ]
+  },
+  {
+   "domain": "teynac-corconnac.com",
+   "seeds": [
+    "https://teynac-corconnac.com/"
+   ],
+   "estates": [
+    "u-corconnac"
+   ]
+  },
+  {
+   "domain": "estournel.com",
+   "seeds": [
+    "https://www.estournel.com/"
+   ],
+   "estates": [
+    "u-cos-d-estournel"
+   ]
+  },
+  {
+   "domain": "cos-labory.com",
+   "seeds": [
+    "https://www.cos-labory.com/"
+   ],
+   "estates": [
+    "u-cos-labory"
+   ]
+  },
+  {
+   "domain": "cotedebaleau.com",
+   "seeds": [
+    "http://www.cotedebaleau.com/"
+   ],
+   "estates": [
+    "u-cote-de-baleau"
+   ]
+  },
+  {
+   "domain": "chateau-couhins.fr",
+   "seeds": [
+    "https://chateau-couhins.fr/"
+   ],
+   "estates": [
+    "u-couhins"
+   ]
+  },
+  {
+   "domain": "chateau-couhins-lurton.com",
+   "seeds": [
+    "https://chateau-couhins-lurton.com/"
+   ],
+   "estates": [
+    "u-couhins-lurton"
+   ]
+  },
+  {
+   "domain": "chateaucoutet.com",
+   "seeds": [
+    "https://www.chateaucoutet.com/"
+   ],
+   "estates": [
+    "u-coutet"
+   ]
+  },
+  {
+   "domain": "couvent.wine",
+   "seeds": [
+    "http://www.couvent.wine/"
+   ],
+   "estates": [
+    "u-couvent-des-jacobins"
+   ]
+  },
+  {
+   "domain": "chateau-croix-de-labrie.fr",
+   "seeds": [
+    "http://www.chateau-croix-de-labrie.fr/"
+   ],
+   "estates": [
+    "u-croix-de-labrie"
+   ]
+  },
+  {
+   "domain": "chateaucroixdutrale.com",
+   "seeds": [
+    "https://www.chateaucroixdutrale.com/"
+   ],
+   "estates": [
+    "u-croix-du-trale"
+   ]
+  },
+  {
+   "domain": "domaines-quie.com",
+   "seeds": [
+    "https://www.domaines-quie.com/",
+    "https://www.domaines-quie.com/rauzan-gassies"
+   ],
+   "estates": [
+    "u-croizet-bages",
+    "u-rauzan-gassies"
+   ]
+  },
+  {
+   "domain": "chateaudarche-sauternes.com",
+   "seeds": [
+    "http://www.chateaudarche-sauternes.com/"
+   ],
+   "estates": [
+    "u-d-arche"
+   ]
+  },
+  {
+   "domain": "chateaudarcins.com",
+   "seeds": [
+    "https://www.chateaudarcins.com/"
+   ],
+   "estates": [
+    "u-d-arcins"
+   ]
+  },
+  {
+   "domain": "vignobles-lamont.com",
+   "seeds": [
+    "https://vignobles-lamont.com/"
+   ],
+   "estates": [
+    "u-d-argan"
+   ]
+  },
+  {
+   "domain": "chateau-darmailhac.com",
+   "seeds": [
+    "https://www.chateau-darmailhac.com/"
+   ],
+   "estates": [
+    "u-d-armailhac"
+   ]
+  },
+  {
+   "domain": "chateau-arsac.com",
+   "seeds": [
+    "http://www.chateau-arsac.com/",
+    "https://www.chateau-arsac.com/"
+   ],
+   "estates": [
+    "u-d-arsac",
+    "u-le-monteil-d-arsac"
+   ]
+  },
+  {
+   "domain": "chateaudescurac.com",
+   "seeds": [
+    "https://www.chateaudescurac.com/"
+   ],
+   "estates": [
+    "u-d-escurac"
+   ]
+  },
+  {
+   "domain": "chateau-issan.com",
+   "seeds": [
+    "https://www.chateau-issan.com/"
+   ],
+   "estates": [
+    "u-d-issan"
+   ]
+  },
+  {
+   "domain": "moutte-blanc.fr",
+   "seeds": [
+    "http://www.moutte-blanc.fr/",
+    "https://www.moutte-blanc.fr/"
+   ],
+   "estates": [
+    "u-d-osmond",
+    "u-moutte-blanc"
+   ]
+  },
+  {
+   "domain": "yquem.fr",
+   "seeds": [
+    "https://www.yquem.fr/"
+   ],
+   "estates": [
+    "u-d-yquem"
+   ]
+  },
+  {
+   "domain": "chateaudassault.com",
+   "seeds": [
+    "http://chateaudassault.com/"
+   ],
+   "estates": [
+    "u-dassault"
+   ]
+  },
+  {
+   "domain": "chateaudauzac.com",
+   "seeds": [
+    "https://www.chateaudauzac.com/"
+   ],
+   "estates": [
+    "u-dauzac"
+   ]
+  },
+  {
+   "domain": "vignobles-bernaleau.com",
+   "seeds": [
+    "https://vignobles-bernaleau.com/"
+   ],
+   "estates": [
+    "u-de-braude",
+    "u-mongravey"
+   ]
+  },
+  {
+   "domain": "chateaucamensac.com",
+   "seeds": [
+    "https://chateaucamensac.com/"
+   ],
+   "estates": [
+    "u-de-camensac"
+   ]
+  },
+  {
+   "domain": "linktr.ee",
+   "seeds": [
+    "http://linktr.ee/chateaulabridane"
+   ],
+   "estates": [
+    "u-de-cartujac"
+   ]
+  },
+  {
+   "domain": "chateaudecome.com",
+   "seeds": [
+    "https://www.chateaudecome.com/"
+   ],
+   "estates": [
+    "u-de-come"
+   ]
+  },
+  {
+   "domain": "chateaudeferrand.com",
+   "seeds": [
+    "http://www.chateaudeferrand.com/"
+   ],
+   "estates": [
+    "u-de-ferrand"
+   ]
+  },
+  {
+   "domain": "fieuzal.com",
+   "seeds": [
+    "https://fieuzal.com/"
+   ],
+   "estates": [
+    "u-de-fieuzal"
+   ]
+  },
+  {
+   "domain": "chateau-de-la-croix.com",
+   "seeds": [
+    "https://www.chateau-de-la-croix.com/"
+   ],
+   "estates": [
+    "u-de-la-croix"
+   ]
+  },
+  {
+   "domain": "lauga.com",
+   "seeds": [
+    "https://www.lauga.com/"
+   ],
+   "estates": [
+    "u-de-lauga",
+    "u-la-fleur-lauga"
+   ]
+  },
+  {
+   "domain": "chateaudemalle.com",
+   "seeds": [
+    "https://chateaudemalle.com/"
+   ],
+   "estates": [
+    "u-de-malle"
+   ]
+  },
+  {
+   "domain": "chateau-malleret.fr",
+   "seeds": [
+    "https://www.chateau-malleret.fr/"
+   ],
+   "estates": [
+    "u-de-malleret"
+   ]
+  },
+  {
+   "domain": "chateaudemyrat.fr",
+   "seeds": [
+    "https://chateaudemyrat.fr/index.php/fr"
+   ],
+   "estates": [
+    "u-de-myrat"
+   ]
+  },
+  {
+   "domain": "chateaudepanigon.fr",
+   "seeds": [
+    "https://www.chateaudepanigon.fr/"
+   ],
+   "estates": [
+    "u-de-panigon"
+   ]
+  },
+  {
+   "domain": "chateaudepressac.com",
+   "seeds": [
+    "http://www.chateaudepressac.com/"
+   ],
+   "estates": [
+    "u-de-pressac"
+   ]
+  },
+  {
+   "domain": "raynevigneau.fr",
+   "seeds": [
+    "https://www.raynevigneau.fr/"
+   ],
+   "estates": [
+    "u-de-rayne-vigneau"
+   ]
+  },
+  {
+   "domain": "chateaudevillambis.com",
+   "seeds": [
+    "https://www.chateaudevillambis.com/"
+   ],
+   "estates": [
+    "u-de-villambis"
+   ]
+  },
+  {
+   "domain": "vignobles-philippeberard.com",
+   "seeds": [
+    "https://www.vignobles-philippeberard.com/"
+   ],
+   "estates": [
+    "u-des-cabans"
+   ]
+  },
+  {
+   "domain": "chateaudesgrangesdor.com",
+   "seeds": [
+    "https://www.chateaudesgrangesdor.com/"
+   ],
+   "estates": [
+    "u-des-granges-d-or"
+   ]
+  },
+  {
+   "domain": "desmirail.com",
+   "seeds": [
+    "https://www.desmirail.com/"
+   ],
+   "estates": [
+    "u-desmirail"
+   ]
+  },
+  {
+   "domain": "chateau-destieux.com",
+   "seeds": [
+    "https://chateau-destieux.com/"
+   ],
+   "estates": [
+    "u-destieux"
+   ]
+  },
+  {
+   "domain": "chateaudevisedardilley.fr",
+   "seeds": [
+    "https://www.chateaudevisedardilley.fr/"
+   ],
+   "estates": [
+    "u-devise-d-ardilley"
+   ]
+  },
+  {
+   "domain": "chateaudillon.com",
+   "seeds": [
+    "https://chateaudillon.com/"
+   ],
+   "estates": [
+    "u-dillon"
+   ]
+  },
+  {
+   "domain": "denisdubourdieu.com",
+   "seeds": [
+    "https://www.denisdubourdieu.com/",
+    "https://denisdubourdieu.com/"
+   ],
+   "estates": [
+    "u-doisy-daene",
+    "u-doisy-dubroca"
+   ]
+  },
+  {
+   "domain": "doisy-vedrines.com",
+   "seeds": [
+    "https://doisy-vedrines.com/"
+   ],
+   "estates": [
+    "u-doisy-vedrines"
+   ]
+  },
+  {
+   "domain": "domainedechevalier.com",
+   "seeds": [
+    "https://www.domainedechevalier.com/"
+   ],
+   "estates": [
+    "u-domaine-de-chevalier"
+   ]
+  },
+  {
+   "domain": "chateau-donissan.com",
+   "seeds": [
+    "https://www.chateau-donissan.com/"
+   ],
+   "estates": [
+    "u-donissan"
+   ]
+  },
+  {
+   "domain": "cdf-chateaux.com",
+   "seeds": [
+    "https://www.cdf-chateaux.com/"
+   ],
+   "estates": [
+    "u-du-cartillon",
+    "u-lestage-simon"
+   ]
+  },
+  {
+   "domain": "chateau-du-ha.com",
+   "seeds": [
+    "https://www.chateau-du-ha.com/"
+   ],
+   "estates": [
+    "u-du-ha"
+   ]
+  },
+  {
+   "domain": "chateaudumoulinrouge.fr",
+   "seeds": [
+    "https://www.chateaudumoulinrouge.fr/"
+   ],
+   "estates": [
+    "u-du-moulin-rouge"
+   ]
+  },
+  {
+   "domain": "chateaudutaillan.com",
+   "seeds": [
+    "https://www.chateaudutaillan.com/"
+   ],
+   "estates": [
+    "u-du-taillan"
+   ]
+  },
+  {
+   "domain": "chateaudutertre.fr",
+   "seeds": [
+    "https://www.chateaudutertre.fr/"
+   ],
+   "estates": [
+    "u-du-tertre"
+   ]
+  },
+  {
+   "domain": "chateau-ducru-beaucaillou.com",
+   "seeds": [
+    "https://chateau-ducru-beaucaillou.com/"
+   ],
+   "estates": [
+    "u-ducru-beaucaillou"
+   ]
+  },
+  {
+   "domain": "lafite.com",
+   "seeds": [
+    "https://www.lafite.com/"
+   ],
+   "estates": [
+    "u-duhart-milon",
+    "u-lafite-rothschild",
+    "u-rieussec"
+   ]
+  },
+  {
+   "domain": "durfort-vivens.fr",
+   "seeds": [
+    "http://durfort-vivens.fr/"
+   ],
+   "estates": [
+    "u-durfort-vivens"
+   ]
+  },
+  {
+   "domain": "chateau-d-escot.com",
+   "seeds": [
+    "https://www.chateau-d-escot.com/"
+   ],
+   "estates": [
+    "u-escot"
+   ]
+  },
+  {
+   "domain": "chateau-faugeres.fr",
+   "seeds": [
+    "http://chateau-faugeres.fr/"
+   ],
+   "estates": [
+    "u-faugeres"
+   ]
+  },
+  {
+   "domain": "ferriere.com",
+   "seeds": [
+    "http://ferriere.com/"
+   ],
+   "estates": [
+    "u-ferriere"
+   ]
+  },
+  {
+   "domain": "chateau-figeac.com",
+   "seeds": [
+    "https://www.chateau-figeac.com/"
+   ],
+   "estates": [
+    "u-figeac"
+   ]
+  },
+  {
+   "domain": "filhot.fr",
+   "seeds": [
+    "https://www.filhot.fr/"
+   ],
+   "estates": [
+    "u-filhot"
+   ]
+  },
+  {
+   "domain": "lamaisoncardinale.com",
+   "seeds": [
+    "https://lamaisoncardinale.com/"
+   ],
+   "estates": [
+    "u-fleur-cardinale"
+   ]
+  },
+  {
+   "domain": "chateaufleurlamothe.fr",
+   "seeds": [
+    "https://www.chateaufleurlamothe.fr/"
+   ],
+   "estates": [
+    "u-fleur-la-mothe"
+   ]
+  },
+  {
+   "domain": "chateau-fombrauge.fr",
+   "seeds": [
+    "https://chateau-fombrauge.fr/"
+   ],
+   "estates": [
+    "u-fombrauge"
+   ]
+  },
+  {
+   "domain": "fonplegade.com",
+   "seeds": [
+    "http://www.fonplegade.com/"
+   ],
+   "estates": [
+    "u-fonplegade"
+   ]
+  },
+  {
+   "domain": "chateaufonroque.net",
+   "seeds": [
+    "http://www.chateaufonroque.net/"
+   ],
+   "estates": [
+    "u-fonroque"
+   ]
+  },
+  {
+   "domain": "chateaufrancmayne.com",
+   "seeds": [
+    "http://www.chateaufrancmayne.com/"
+   ],
+   "estates": [
+    "u-franc-mayne"
+   ]
+  },
+  {
+   "domain": "gadet-terrefort.com",
+   "seeds": [
+    "https://gadet-terrefort.com/"
+   ],
+   "estates": [
+    "u-gadet-terrefort"
+   ]
+  },
+  {
+   "domain": "chateau-garance-haut-grenat-02.webself.net",
+   "seeds": [
+    "https://chateau-garance-haut-grenat-02.webself.net/"
+   ],
+   "estates": [
+    "u-garance-haut-grenat"
+   ]
+  },
+  {
+   "domain": "chateau-st-hilaire.com",
+   "seeds": [
+    "https://www.chateau-st-hilaire.com/"
+   ],
+   "estates": [
+    "u-gemeillan",
+    "u-saint-hilaire"
+   ]
+  },
+  {
+   "domain": "giscours.com",
+   "seeds": [
+    "https://giscours.com/"
+   ],
+   "estates": [
+    "u-giscours"
+   ]
+  },
+  {
+   "domain": "chateau-grand-brun.com",
+   "seeds": [
+    "https://www.chateau-grand-brun.com/"
+   ],
+   "estates": [
+    "u-grand-brun"
+   ]
+  },
+  {
+   "domain": "chateau-grand-clapeau-olivier.fr",
+   "seeds": [
+    "https://www.chateau-grand-clapeau-olivier.fr/"
+   ],
+   "estates": [
+    "u-grand-clapeau-olivier"
+   ]
+  },
+  {
+   "domain": "grand-corbin.com",
+   "seeds": [
+    "https://grand-corbin.com/"
+   ],
+   "estates": [
+    "u-grand-corbin"
+   ]
+  },
+  {
+   "domain": "grand-corbin-despagne.com",
+   "seeds": [
+    "https://www.grand-corbin-despagne.com/"
+   ],
+   "estates": [
+    "u-grand-corbin-despagne"
+   ]
+  },
+  {
+   "domain": "grand-mayne.com",
+   "seeds": [
+    "http://www.grand-mayne.com/"
+   ],
+   "estates": [
+    "u-grand-mayne"
+   ]
+  },
+  {
+   "domain": "grandpuyducasse.fr",
+   "seeds": [
+    "https://www.grandpuyducasse.fr/"
+   ],
+   "estates": [
+    "u-grand-puy-ducasse"
+   ]
+  },
+  {
+   "domain": "chateau-grand-puy-lacoste.com",
+   "seeds": [
+    "https://www.chateau-grand-puy-lacoste.com/"
+   ],
+   "estates": [
+    "u-grand-puy-lacoste"
+   ]
+  },
+  {
+   "domain": "gravesdepez.com",
+   "seeds": [
+    "https://www.gravesdepez.com/"
+   ],
+   "estates": [
+    "u-graves-de-pez"
+   ]
+  },
+  {
+   "domain": "domaines-rollandeby.com",
+   "seeds": [
+    "https://www.domaines-rollandeby.com/"
+   ],
+   "estates": [
+    "u-greysac"
+   ]
+  },
+  {
+   "domain": "chateaugriviere.com",
+   "seeds": [
+    "https://www.chateaugriviere.com/"
+   ],
+   "estates": [
+    "u-griviere"
+   ]
+  },
+  {
+   "domain": "gruaud-larose.com",
+   "seeds": [
+    "https://www.gruaud-larose.com/"
+   ],
+   "estates": [
+    "u-gruaud-larose"
+   ]
+  },
+  {
+   "domain": "chateauguiraud.com",
+   "seeds": [
+    "https://www.chateauguiraud.com/"
+   ],
+   "estates": [
+    "u-guiraud"
+   ]
+  },
+  {
+   "domain": "hautbagesliberal.com",
+   "seeds": [
+    "http://hautbagesliberal.com/"
+   ],
+   "estates": [
+    "u-haut-bages-liberal"
+   ]
+  },
+  {
+   "domain": "haut-bailly.com",
+   "seeds": [
+    "https://www.haut-bailly.com/"
+   ],
+   "estates": [
+    "u-haut-bailly"
+   ]
+  },
+  {
+   "domain": "chateauhautbarrail.com",
+   "seeds": [
+    "http://www.chateauhautbarrail.com/"
+   ],
+   "estates": [
+    "u-haut-barrail"
+   ]
+  },
+  {
+   "domain": "hautbatailley.com",
+   "seeds": [
+    "https://hautbatailley.com/"
+   ],
+   "estates": [
+    "u-haut-batailley"
+   ]
+  },
+  {
+   "domain": "vignoblesraguenot.fr",
+   "seeds": [
+    "http://www.vignoblesraguenot.fr/"
+   ],
+   "estates": [
+    "u-haut-beyzac"
+   ]
+  },
+  {
+   "domain": "haut-brion.com",
+   "seeds": [
+    "https://haut-brion.com/"
+   ],
+   "estates": [
+    "u-haut-brion"
+   ]
+  },
+  {
+   "domain": "hautcouloumey.fr",
+   "seeds": [
+    "https://www.hautcouloumey.fr/"
+   ],
+   "estates": [
+    "u-haut-couloumey"
+   ]
+  },
+  {
+   "domain": "chateau-haut-gravat.fr",
+   "seeds": [
+    "https://www.chateau-haut-gravat.fr/"
+   ],
+   "estates": [
+    "u-haut-gravat"
+   ]
+  },
+  {
+   "domain": "chateau-haut-sarpe.fr",
+   "seeds": [
+    "http://chateau-haut-sarpe.fr/"
+   ],
+   "estates": [
+    "u-haut-sarpe"
+   ]
+  },
+  {
+   "domain": "jeanfaure.com",
+   "seeds": [
+    "https://www.jeanfaure.com/"
+   ],
+   "estates": [
+    "u-jean-faure"
+   ]
+  },
+  {
+   "domain": "chateau-kirwan.com",
+   "seeds": [
+    "https://www.chateau-kirwan.com/"
+   ],
+   "estates": [
+    "u-kirwan"
+   ]
+  },
+  {
+   "domain": "chateaulevasion.fr",
+   "seeds": [
+    "https://www.chateaulevasion.fr/"
+   ],
+   "estates": [
+    "u-l-evasion"
+   ]
+  },
+  {
+   "domain": "chateau-labranne.com",
+   "seeds": [
+    "https://www.chateau-labranne.com/accueil"
+   ],
+   "estates": [
+    "u-la-branne"
+   ]
+  },
+  {
+   "domain": "chateaulacardonne.com",
+   "seeds": [
+    "https://chateaulacardonne.com/"
+   ],
+   "estates": [
+    "u-la-cardonne"
+   ]
+  },
+  {
+   "domain": "chateaulachandelliere.fr",
+   "seeds": [
+    "https://chateaulachandelliere.fr/"
+   ],
+   "estates": [
+    "u-la-chandelliere"
+   ]
+  },
+  {
+   "domain": "chateaulacommanderie.fr",
+   "seeds": [
+    "http://chateaulacommanderie.fr/"
+   ],
+   "estates": [
+    "u-la-commanderie--stem-2022"
+   ]
+  },
+  {
+   "domain": "jpjdomaines.com",
+   "seeds": [
+    "http://jpjdomaines.com/"
+   ],
+   "estates": [
+    "u-la-confession"
+   ]
+  },
+  {
+   "domain": "aubert-vignobles.com",
+   "seeds": [
+    "http://www.aubert-vignobles.com/"
+   ],
+   "estates": [
+    "u-la-couspaude"
+   ]
+  },
+  {
+   "domain": "chateaulacroizille.com",
+   "seeds": [
+    "http://www.chateaulacroizille.com/"
+   ],
+   "estates": [
+    "u-la-croizille"
+   ]
+  },
+  {
+   "domain": "chateau-ladominique.com",
+   "seeds": [
+    "https://www.chateau-ladominique.com/"
+   ],
+   "estates": [
+    "u-la-dominique"
+   ]
+  },
+  {
+   "domain": "lafleurmorange.club",
+   "seeds": [
+    "https://www.lafleurmorange.club/"
+   ],
+   "estates": [
+    "u-la-fleur-morange"
+   ]
+  },
+  {
+   "domain": "lafonduberger.com",
+   "seeds": [
+    "https://lafonduberger.com/"
+   ],
+   "estates": [
+    "u-la-fon-du-berger"
+   ]
+  },
+  {
+   "domain": "chateaulahourcade.fr",
+   "seeds": [
+    "https://www.chateaulahourcade.fr/"
+   ],
+   "estates": [
+    "u-la-hourcade"
+   ]
+  },
+  {
+   "domain": "chateau-lalagune.com",
+   "seeds": [
+    "https://chateau-lalagune.com/fr"
+   ],
+   "estates": [
+    "u-la-lagune"
+   ]
+  },
+  {
+   "domain": "chateaulamarzelle.com",
+   "seeds": [
+    "http://www.chateaulamarzelle.com/"
+   ],
+   "estates": [
+    "u-la-marzelle"
+   ]
+  },
+  {
+   "domain": "mission-haut-brion.com",
+   "seeds": [
+    "http://www.mission-haut-brion.com/"
+   ],
+   "estates": [
+    "u-la-mission-haut-brion"
+   ]
+  },
+  {
+   "domain": "chateaulamouline.com",
+   "seeds": [
+    "https://www.chateaulamouline.com/"
+   ],
+   "estates": [
+    "u-la-mouline"
+   ]
+  },
+  {
+   "domain": "chateau-la-pirouette.com",
+   "seeds": [
+    "https://chateau-la-pirouette.com/"
+   ],
+   "estates": [
+    "u-la-pirouette"
+   ]
+  },
+  {
+   "domain": "vignoblesaudebert.com",
+   "seeds": [
+    "https://www.vignoblesaudebert.com/"
+   ],
+   "estates": [
+    "u-la-ribaud"
+   ]
+  },
+  {
+   "domain": "la-tour-de-by.com",
+   "seeds": [
+    "https://www.la-tour-de-by.com/"
+   ],
+   "estates": [
+    "u-la-roque-de-by"
+   ]
+  },
+  {
+   "domain": "chateaulaserre.com",
+   "seeds": [
+    "http://www.chateaulaserre.com/"
+   ],
+   "estates": [
+    "u-la-serre"
+   ]
+  },
+  {
+   "domain": "tour-blanche.com",
+   "seeds": [
+    "https://www.tour-blanche.com/"
+   ],
+   "estates": [
+    "u-la-tour-blanche"
+   ]
+  },
+  {
+   "domain": "latourfigeac.fr",
+   "seeds": [
+    "https://latourfigeac.fr/"
+   ],
+   "estates": [
+    "u-la-tour-figeac"
+   ]
+  },
+  {
+   "domain": "chateau-labadie.com",
+   "seeds": [
+    "https://www.chateau-labadie.com/"
+   ],
+   "estates": [
+    "u-labadie"
+   ]
+  },
+  {
+   "domain": "chateau-chantemerle.com",
+   "seeds": [
+    "https://www.chateau-chantemerle.com/"
+   ],
+   "estates": [
+    "u-lacombe-noaillac"
+   ]
+  },
+  {
+   "domain": "chateau-lacour-jacquet.fr",
+   "seeds": [
+    "https://chateau-lacour-jacquet.fr/"
+   ],
+   "estates": [
+    "u-lacour-jacquet"
+   ]
+  },
+  {
+   "domain": "lafaurie-peyraguey.com",
+   "seeds": [
+    "https://www.lafaurie-peyraguey.com/"
+   ],
+   "estates": [
+    "u-lafaurie-peyraguey"
+   ]
+  },
+  {
+   "domain": "laffittecarcasset.com",
+   "seeds": [
+    "https://www.laffittecarcasset.com/"
+   ],
+   "estates": [
+    "u-laffitte-carcasset"
+   ]
+  },
+  {
+   "domain": "chateau-lafon.com",
+   "seeds": [
+    "http://chateau-lafon.com/"
+   ],
+   "estates": [
+    "u-lafon"
+   ]
+  },
+  {
+   "domain": "lafon-rochet.com",
+   "seeds": [
+    "https://www.lafon-rochet.com/"
+   ],
+   "estates": [
+    "u-lafon-rochet"
+   ]
+  },
+  {
+   "domain": "chateau-lagrange.com",
+   "seeds": [
+    "https://chateau-lagrange.com/"
+   ],
+   "estates": [
+    "u-lagrange"
+   ]
+  },
+  {
+   "domain": "chateaulalande.fr",
+   "seeds": [
+    "https://www.chateaulalande.fr/"
+   ],
+   "estates": [
+    "u-lalande"
+   ]
+  },
+  {
+   "domain": "chateau-lalaudey.fr",
+   "seeds": [
+    "https://www.chateau-lalaudey.fr/"
+   ],
+   "estates": [
+    "u-lalaudey",
+    "u-pomeys"
+   ]
+  },
+  {
+   "domain": "lamothe-despujols.com",
+   "seeds": [
+    "https://www.lamothe-despujols.com/"
+   ],
+   "estates": [
+    "u-lamothe"
+   ]
+  },
+  {
+   "domain": "lamothebergeron.fr",
+   "seeds": [
+    "https://www.lamothebergeron.fr/"
+   ],
+   "estates": [
+    "u-lamothe-bergeron"
+   ]
+  },
+  {
+   "domain": "chateau-lamothe-guignard.fr",
+   "seeds": [
+    "https://www.chateau-lamothe-guignard.fr/"
+   ],
+   "estates": [
+    "u-lamothe-guignard"
+   ]
+  },
+  {
+   "domain": "langoa-barton.com",
+   "seeds": [
+    "https://www.langoa-barton.com/"
+   ],
+   "estates": [
+    "u-langoa-barton"
+   ]
+  },
+  {
+   "domain": "laniote.com",
+   "seeds": [
+    "http://laniote.com/"
+   ],
+   "estates": [
+    "u-laniote"
+   ]
+  },
+  {
+   "domain": "larcis-ducasse.com",
+   "seeds": [
+    "https://www.larcis-ducasse.com/"
+   ],
+   "estates": [
+    "u-larcis-ducasse"
+   ]
+  },
+  {
+   "domain": "chateau-larmande.com",
+   "seeds": [
+    "http://www.chateau-larmande.com/"
+   ],
+   "estates": [
+    "u-larmande"
+   ]
+  },
+  {
+   "domain": "chateau-laroque.com",
+   "seeds": [
+    "http://www.chateau-laroque.com/"
+   ],
+   "estates": [
+    "u-laroque"
+   ]
+  },
+  {
+   "domain": "laroze.com",
+   "seeds": [
+    "http://www.laroze.com/"
+   ],
+   "estates": [
+    "u-laroze"
+   ]
+  },
+  {
+   "domain": "chateau-lascombes.com",
+   "seeds": [
+    "https://www.chateau-lascombes.com/"
+   ],
+   "estates": [
+    "u-lascombes"
+   ]
+  },
+  {
+   "domain": "chateau.lassegue.com",
+   "seeds": [
+    "http://www.chateau.lassegue.com/"
+   ],
+   "estates": [
+    "u-lassegue"
+   ]
+  },
+  {
+   "domain": "vignoblespaeffgen.org",
+   "seeds": [
+    "https://vignoblespaeffgen.org/lassus/index.fr.html"
+   ],
+   "estates": [
+    "u-lassus"
+   ]
+  },
+  {
+   "domain": "chateau-latour.com",
+   "seeds": [
+    "https://www.chateau-latour.com/"
+   ],
+   "estates": [
+    "u-latour"
+   ]
+  },
+  {
+   "domain": "latourmartillac.com",
+   "seeds": [
+    "https://www.latourmartillac.com/"
+   ],
+   "estates": [
+    "u-latour-martillac"
+   ]
+  },
+  {
+   "domain": "chateaulaujac.com",
+   "seeds": [
+    "https://www.chateaulaujac.com/"
+   ],
+   "estates": [
+    "u-laujac"
+   ]
+  },
+  {
+   "domain": "lebourdieu.fr",
+   "seeds": [
+    "https://www.lebourdieu.fr/"
+   ],
+   "estates": [
+    "u-le-bourdieu"
+   ]
+  },
+  {
+   "domain": "domainesrichard.fr",
+   "seeds": [
+    "https://www.domainesrichard.fr/"
+   ],
+   "estates": [
+    "u-le-bourdieu-vertheuil",
+    "u-victoria"
+   ]
+  },
+  {
+   "domain": "chateau-le-chatelet.com",
+   "seeds": [
+    "https://www.chateau-le-chatelet.com/"
+   ],
+   "estates": [
+    "u-le-chatelet"
+   ]
+  },
+  {
+   "domain": "chateaulecrock.fr",
+   "seeds": [
+    "https://chateaulecrock.fr/visites-et-degustations/"
+   ],
+   "estates": [
+    "u-le-crock"
+   ]
+  },
+  {
+   "domain": "chateauleprieure.com",
+   "seeds": [
+    "http://chateauleprieure.com/"
+   ],
+   "estates": [
+    "u-le-prieure"
+   ]
+  },
+  {
+   "domain": "antoinemoueix.com",
+   "seeds": [
+    "https://www.antoinemoueix.com/"
+   ],
+   "estates": [
+    "u-leboscq",
+    "u-liversan"
+   ]
+  },
+  {
+   "domain": "leoville-barton.com",
+   "seeds": [
+    "https://www.leoville-barton.com/"
+   ],
+   "estates": [
+    "u-leoville-barton"
+   ]
+  },
+  {
+   "domain": "leovillelascases.com",
+   "seeds": [
+    "http://leovillelascases.com/"
+   ],
+   "estates": [
+    "u-leoville-las-cases"
+   ]
+  },
+  {
+   "domain": "leoville-poyferre.fr",
+   "seeds": [
+    "https://www.leoville-poyferre.fr/"
+   ],
+   "estates": [
+    "u-leoville-poyferre"
+   ]
+  },
+  {
+   "domain": "vin-margaux-barraillots.fr",
+   "seeds": [
+    "https://www.vin-margaux-barraillots.fr/"
+   ],
+   "estates": [
+    "u-les-barraillots"
+   ]
+  },
+  {
+   "domain": "leslattes.vignoblesdeterroirs.com",
+   "seeds": [
+    "https://www.leslattes.vignoblesdeterroirs.com/"
+   ],
+   "estates": [
+    "u-les-lattes"
+   ]
+  },
+  {
+   "domain": "chateaulestuileries.com",
+   "seeds": [
+    "https://www.chateaulestuileries.com/"
+   ],
+   "estates": [
+    "u-les-tuileries",
+    "u-moulin-de-bel-air"
+   ]
+  },
+  {
+   "domain": "famillebouey-vignobles-chateaux.fr",
+   "seeds": [
+    "https://www.famillebouey-vignobles-chateaux.fr/"
+   ],
+   "estates": [
+    "u-lestruelle"
+   ]
+  },
+  {
+   "domain": "chateau-liouner-listracmedoc.fr",
+   "seeds": [
+    "https://chateau-liouner-listracmedoc.fr/"
+   ],
+   "estates": [
+    "u-liouner"
+   ]
+  },
+  {
+   "domain": "chateau-lousteauneuf.com",
+   "seeds": [
+    "http://www.chateau-lousteauneuf.com/"
+   ],
+   "estates": [
+    "u-lousteauneuf"
+   ]
+  },
+  {
+   "domain": "lynchbages.com",
+   "seeds": [
+    "https://www.lynchbages.com/"
+   ],
+   "estates": [
+    "u-lynch-bages"
+   ]
+  },
+  {
+   "domain": "lynch-moussas.com",
+   "seeds": [
+    "https://www.lynch-moussas.com/"
+   ],
+   "estates": [
+    "u-lynch-moussas"
+   ]
+  },
+  {
+   "domain": "barton-guestier.com",
+   "seeds": [
+    "https://www.barton-guestier.com/"
+   ],
+   "estates": [
+    "u-magnol"
+   ]
+  },
+  {
+   "domain": "famillebouey-vignobles-chateaux.com",
+   "seeds": [
+    "https://www.famillebouey-vignobles-chateaux.com/main.html"
+   ],
+   "estates": [
+    "u-maison-blanche"
+   ]
+  },
+  {
+   "domain": "malartic-lagraviere.com",
+   "seeds": [
+    "https://www.malartic-lagraviere.com/"
+   ],
+   "estates": [
+    "u-malartic-lagraviere"
+   ]
+  },
+  {
+   "domain": "chateau-malescasse.com",
+   "seeds": [
+    "https://www.chateau-malescasse.com/"
+   ],
+   "estates": [
+    "u-malescasse"
+   ]
+  },
+  {
+   "domain": "malescot.com",
+   "seeds": [
+    "https://www.malescot.com/"
+   ],
+   "estates": [
+    "u-malescot-saint-exupery"
+   ]
+  },
+  {
+   "domain": "chateaumangot.fr",
+   "seeds": [
+    "http://www.chateaumangot.fr/"
+   ],
+   "estates": [
+    "u-mangot"
+   ]
+  },
+  {
+   "domain": "chateaumarceline.com",
+   "seeds": [
+    "https://chateaumarceline.com/"
+   ],
+   "estates": [
+    "u-marceline"
+   ]
+  },
+  {
+   "domain": "chateau-margaux.com",
+   "seeds": [
+    "https://www.chateau-margaux.com/"
+   ],
+   "estates": [
+    "u-margaux"
+   ]
+  },
+  {
+   "domain": "marquis.wine",
+   "seeds": [
+    "https://marquis.wine/"
+   ],
+   "estates": [
+    "u-marquis-d-alesme-becker"
+   ]
+  },
+  {
+   "domain": "chateau-marquis-de-terme.com",
+   "seeds": [
+    "https://chateau-marquis-de-terme.com/"
+   ],
+   "estates": [
+    "u-marquis-de-terme"
+   ]
+  },
+  {
+   "domain": "vignobles-martin.fr",
+   "seeds": [
+    "https://vignobles-martin.fr/"
+   ],
+   "estates": [
+    "u-martin"
+   ]
+  },
+  {
+   "domain": "chateau-mazails.fr",
+   "seeds": [
+    "https://www.chateau-mazails.fr/"
+   ],
+   "estates": [
+    "u-mazails"
+   ]
+  },
+  {
+   "domain": "chateaumeric.com",
+   "seeds": [
+    "https://www.chateaumeric.com/"
+   ],
+   "estates": [
+    "u-meric"
+   ]
+  },
+  {
+   "domain": "closdemeyre.com",
+   "seeds": [
+    "https://closdemeyre.com/"
+   ],
+   "estates": [
+    "u-meyre"
+   ]
+  },
+  {
+   "domain": "chateaumicalet.fr",
+   "seeds": [
+    "https://www.chateaumicalet.fr/"
+   ],
+   "estates": [
+    "u-micalet"
+   ]
+  },
+  {
+   "domain": "chateaumonbousquet.com",
+   "seeds": [
+    "https://www.chateaumonbousquet.com/"
+   ],
+   "estates": [
+    "u-monbousquet"
+   ]
+  },
+  {
+   "domain": "chateau-montlabert.com",
+   "seeds": [
+    "http://www.chateau-montlabert.com/"
+   ],
+   "estates": [
+    "u-montlabert"
+   ]
+  },
+  {
+   "domain": "chateau-montlisse.com",
+   "seeds": [
+    "https://chateau-montlisse.com/"
+   ],
+   "estates": [
+    "u-montlisse"
+   ]
+  },
+  {
+   "domain": "chateau-montrose.com",
+   "seeds": [
+    "https://www.chateau-montrose.com/"
+   ],
+   "estates": [
+    "u-montrose"
+   ]
+  },
+  {
+   "domain": "chateau-moulin-de-blanchon.com",
+   "seeds": [
+    "https://chateau-moulin-de-blanchon.com/"
+   ],
+   "estates": [
+    "u-moulin-de-blanchon"
+   ]
+  },
+  {
+   "domain": "chateau-poitevin.com",
+   "seeds": [
+    "https://www.chateau-poitevin.com/"
+   ],
+   "estates": [
+    "u-moulin-de-canhaut",
+    "u-poitevin"
+   ]
+  },
+  {
+   "domain": "vignoblespeyruse.com",
+   "seeds": [
+    "https://www.vignoblespeyruse.com/"
+   ],
+   "estates": [
+    "u-moulin-de-taffard",
+    "u-tour-castillon"
+   ]
+  },
+  {
+   "domain": "chateau-sansonnet.com",
+   "seeds": [
+    "http://www.chateau-sansonnet.com/"
+   ],
+   "estates": [
+    "u-moulin-du-cadet",
+    "u-sansonnet"
+   ]
+  },
+  {
+   "domain": "chateau-mouton-rothschild.com",
+   "seeds": [
+    "https://www.chateau-mouton-rothschild.com/"
+   ],
+   "estates": [
+    "u-mouton-rothschild"
+   ]
+  },
+  {
+   "domain": "chateau-nairac.com",
+   "seeds": [
+    "https://www.chateau-nairac.com/"
+   ],
+   "estates": [
+    "u-nairac"
+   ]
+  },
+  {
+   "domain": "noaillac.org",
+   "seeds": [
+    "https://www.noaillac.org/"
+   ],
+   "estates": [
+    "u-noaillac"
+   ]
+  },
+  {
+   "domain": "nouret.fr",
+   "seeds": [
+    "http://nouret.fr/"
+   ],
+   "estates": [
+    "u-nouret"
+   ]
+  },
+  {
+   "domain": "chateau-olivier.com",
+   "seeds": [
+    "https://www.chateau-olivier.com/"
+   ],
+   "estates": [
+    "u-olivier"
+   ]
+  },
+  {
+   "domain": "chateau-palmer.com",
+   "seeds": [
+    "https://www.chateau-palmer.com/"
+   ],
+   "estates": [
+    "u-palmer"
+   ]
+  },
+  {
+   "domain": "chateaupaloumey.com",
+   "seeds": [
+    "https://www.chateaupaloumey.com/"
+   ],
+   "estates": [
+    "u-paloumey"
+   ]
+  },
+  {
+   "domain": "chateaupatachedaux.com",
+   "seeds": [
+    "https://www.chateaupatachedaux.com/"
+   ],
+   "estates": [
+    "u-patache-d-aux"
+   ]
+  },
+  {
+   "domain": "chateaupaveildeluze.com",
+   "seeds": [
+    "https://www.chateaupaveildeluze.com/"
+   ],
+   "estates": [
+    "u-paveil-de-luze"
+   ]
+  },
+  {
+   "domain": "chateaupavie.com",
+   "seeds": [
+    "https://www.chateaupavie.com/"
+   ],
+   "estates": [
+    "u-pavie"
+   ]
+  },
+  {
+   "domain": "pavie-macquin.com",
+   "seeds": [
+    "https://www.pavie-macquin.com/"
+   ],
+   "estates": [
+    "u-pavie-macquin"
+   ]
+  },
+  {
+   "domain": "vignobles-silvio-denz.com",
+   "seeds": [
+    "https://www.vignobles-silvio-denz.com/"
+   ],
+   "estates": [
+    "u-peby-faugeres"
+   ]
+  },
+  {
+   "domain": "chateau-pedesclaux.com",
+   "seeds": [
+    "http://www.chateau-pedesclaux.com/"
+   ],
+   "estates": [
+    "u-pedesclaux"
+   ]
+  },
+  {
+   "domain": "chateau-pey-de-pont.com",
+   "seeds": [
+    "https://www.chateau-pey-de-pont.com/"
+   ],
+   "estates": [
+    "u-pey-de-pont"
+   ]
+  },
+  {
+   "domain": "pey-mallet.com",
+   "seeds": [
+    "https://www.pey-mallet.com/"
+   ],
+   "estates": [
+    "u-pey-mallet"
+   ]
+  },
+  {
+   "domain": "chateau-peyrabon.fr",
+   "seeds": [
+    "http://chateau-peyrabon.fr/"
+   ],
+   "estates": [
+    "u-peyrabon"
+   ]
+  },
+  {
+   "domain": "peyrat-fourthon.com",
+   "seeds": [
+    "https://www.peyrat-fourthon.com/"
+   ],
+   "estates": [
+    "u-peyrat-fourthon"
+   ]
+  },
+  {
+   "domain": "mahler-besse.com",
+   "seeds": [
+    "https://www.mahler-besse.com/"
+   ],
+   "estates": [
+    "u-picard"
+   ]
+  },
+  {
+   "domain": "pichonbaron.com",
+   "seeds": [
+    "https://pichonbaron.com/"
+   ],
+   "estates": [
+    "u-pichon-baron"
+   ]
+  },
+  {
+   "domain": "pichon-comtesse.com",
+   "seeds": [
+    "https://www.pichon-comtesse.com/"
+   ],
+   "estates": [
+    "u-pichon-longueville-comtesse-de-lalande"
+   ]
+  },
+  {
+   "domain": "pierredemontignac.com",
+   "seeds": [
+    "https://www.pierredemontignac.com/"
+   ],
+   "estates": [
+    "u-pierre-de-montignac"
+   ]
+  },
+  {
+   "domain": "chateauplagnac.fr",
+   "seeds": [
+    "https://chateauplagnac.fr/"
+   ],
+   "estates": [
+    "u-plagnac"
+   ]
+  },
+  {
+   "domain": "pontet-canet.com",
+   "seeds": [
+    "https://www.pontet-canet.com/"
+   ],
+   "estates": [
+    "u-pontet-canet"
+   ]
+  },
+  {
+   "domain": "chateaupontey.fr",
+   "seeds": [
+    "https://chateaupontey.fr/"
+   ],
+   "estates": [
+    "u-pontey"
+   ]
+  },
+  {
+   "domain": "pontoise-cabarrus.com",
+   "seeds": [
+    "https://www.pontoise-cabarrus.com/"
+   ],
+   "estates": [
+    "u-pontoise-cabarrus"
+   ]
+  },
+  {
+   "domain": "chateau-pouget.com",
+   "seeds": [
+    "https://chateau-pouget.com/"
+   ],
+   "estates": [
+    "u-pouget"
+   ]
+  },
+  {
+   "domain": "chateaupreuillac.com",
+   "seeds": [
+    "https://www.chateaupreuillac.com/"
+   ],
+   "estates": [
+    "u-preuillac"
+   ]
+  },
+  {
+   "domain": "prieuredebeyzac.fr",
+   "seeds": [
+    "https://www.prieuredebeyzac.fr/"
+   ],
+   "estates": [
+    "u-prieure-de-beyzac"
+   ]
+  },
+  {
+   "domain": "prieure-lichine.fr",
+   "seeds": [
+    "https://prieure-lichine.fr/"
+   ],
+   "estates": [
+    "u-prieure-lichine"
+   ]
+  },
+  {
+   "domain": "puycastera.fr",
+   "seeds": [
+    "https://puycastera.fr/"
+   ],
+   "estates": [
+    "u-puy-castera"
+   ]
+  },
+  {
+   "domain": "rabaud-promis.com",
+   "seeds": [
+    "https://www.rabaud-promis.com/"
+   ],
+   "estates": [
+    "u-rabaud-promis"
+   ]
+  },
+  {
+   "domain": "chateauramafort.com",
+   "seeds": [
+    "https://www.chateauramafort.com/"
+   ],
+   "estates": [
+    "u-ramafort"
+   ]
+  },
+  {
+   "domain": "gironderamagebelcier.com",
+   "seeds": [
+    "http://gironderamagebelcier.com/"
+   ],
+   "estates": [
+    "u-ramage-la-batisse",
+    "u-tourteran"
+   ]
+  },
+  {
+   "domain": "chateaurauzansegla.com",
+   "seeds": [
+    "https://www.chateaurauzansegla.com/"
+   ],
+   "estates": [
+    "u-rauzan-segla"
+   ]
+  },
+  {
+   "domain": "chateaureverdi.fr",
+   "seeds": [
+    "https://www.chateaureverdi.fr/"
+   ],
+   "estates": [
+    "u-reverdi"
+   ]
+  },
+  {
+   "domain": "chateau-reysson.com",
+   "seeds": [
+    "https://www.chateau-reysson.com/"
+   ],
+   "estates": [
+    "u-reysson"
+   ]
+  },
+  {
+   "domain": "chateau-ripeau.com",
+   "seeds": [
+    "http://www.chateau-ripeau.com/"
+   ],
+   "estates": [
+    "u-ripeau"
+   ]
+  },
+  {
+   "domain": "chateau-rochebelle.com",
+   "seeds": [
+    "https://chateau-rochebelle.com/"
+   ],
+   "estates": [
+    "u-rochebelle"
+   ]
+  },
+  {
+   "domain": "vignoblesrobin.com",
+   "seeds": [
+    "http://www.vignoblesrobin.com/"
+   ],
+   "estates": [
+    "u-rol-valentin"
+   ]
+  },
+  {
+   "domain": "chateaurollin.fr",
+   "seeds": [
+    "https://chateaurollin.fr/"
+   ],
+   "estates": [
+    "u-rollin"
+   ]
+  },
+  {
+   "domain": "vignobles-du-hayot.com",
+   "seeds": [
+    "https://vignobles-du-hayot.com/"
+   ],
+   "estates": [
+    "u-romer-du-hayot"
+   ]
+  },
+  {
+   "domain": "vignoblesgm.com",
+   "seeds": [
+    "https://vignoblesgm.com/"
+   ],
+   "estates": [
+    "u-roquegrave"
+   ]
+  },
+  {
+   "domain": "chateaurousseau.com",
+   "seeds": [
+    "http://www.chateaurousseau.com/"
+   ],
+   "estates": [
+    "u-rousseau-de-sipian"
+   ]
+  },
+  {
+   "domain": "saintahon.com",
+   "seeds": [
+    "https://www.saintahon.com/"
+   ],
+   "estates": [
+    "u-saint-ahon"
+   ]
+  },
+  {
+   "domain": "chateausaintaubin.fr",
+   "seeds": [
+    "https://www.chateausaintaubin.fr/"
+   ],
+   "estates": [
+    "u-saint-aubin"
+   ]
+  },
+  {
+   "domain": "chateau-saint-bonnet.com",
+   "seeds": [
+    "https://chateau-saint-bonnet.com/"
+   ],
+   "estates": [
+    "u-saint-bonnet"
+   ]
+  },
+  {
+   "domain": "saint-georges-cote-pavie.com",
+   "seeds": [
+    "http://saint-georges-cote-pavie.com/"
+   ],
+   "estates": [
+    "u-saint-georges-cote-pavie"
+   ]
+  },
+  {
+   "domain": "chateau-saint-pierre.com",
+   "seeds": [
+    "https://www.chateau-saint-pierre.com/"
+   ],
+   "estates": [
+    "u-saint-pierre"
+   ]
+  },
+  {
+   "domain": "vignobles-jeandenisbibian.com",
+   "seeds": [
+    "https://vignobles-jeandenisbibian.com/"
+   ],
+   "estates": [
+    "u-semeillan-mazeau"
+   ]
+  },
+  {
+   "domain": "chateausenilhac.com",
+   "seeds": [
+    "https://chateausenilhac.com/"
+   ],
+   "estates": [
+    "u-senilhac"
+   ]
+  },
+  {
+   "domain": "chateau-sigalas-rabaud.com",
+   "seeds": [
+    "https://chateau-sigalas-rabaud.com/"
+   ],
+   "estates": [
+    "u-sigalas-rabaud"
+   ]
+  },
+  {
+   "domain": "smith-haut-lafitte.com",
+   "seeds": [
+    "https://www.smith-haut-lafitte.com/"
+   ],
+   "estates": [
+    "u-smith-haut-lafitte"
+   ]
+  },
+  {
+   "domain": "chateau-soutard.com",
+   "seeds": [
+    "http://www.chateau-soutard.com/"
+   ],
+   "estates": [
+    "u-soutard"
+   ]
+  },
+  {
+   "domain": "chateausuau.com",
+   "seeds": [
+    "https://chateausuau.com/"
+   ],
+   "estates": [
+    "u-suau"
+   ]
+  },
+  {
+   "domain": "suduiraut.com",
+   "seeds": [
+    "https://www.suduiraut.com/"
+   ],
+   "estates": [
+    "u-suduiraut"
+   ]
+  },
+  {
+   "domain": "chateau-talbot.com",
+   "seeds": [
+    "https://www.chateau-talbot.com/"
+   ],
+   "estates": [
+    "u-talbot"
+   ]
+  },
+  {
+   "domain": "chateautourdestermes.com",
+   "seeds": [
+    "https://www.chateautourdestermes.com/"
+   ],
+   "estates": [
+    "u-tour-des-termes"
+   ]
+  },
+  {
+   "domain": "tourdugoua.fr",
+   "seeds": [
+    "https://www.tourdugoua.fr/"
+   ],
+   "estates": [
+    "u-tour-du-goua"
+   ]
+  },
+  {
+   "domain": "chateautoursaintfort.com",
+   "seeds": [
+    "https://www.chateautoursaintfort.com/"
+   ],
+   "estates": [
+    "u-tour-saint-fort"
+   ]
+  },
+  {
+   "domain": "chateau-troplong-mondot.com",
+   "seeds": [
+    "https://www.chateau-troplong-mondot.com/"
+   ],
+   "estates": [
+    "u-troplong-mondot"
+   ]
+  },
+  {
+   "domain": "trottevieille.com",
+   "seeds": [
+    "https://trottevieille.com/"
+   ],
+   "estates": [
+    "u-trottevieille"
+   ]
+  },
+  {
+   "domain": "valandraud.com",
+   "seeds": [
+    "https://www.valandraud.com/"
+   ],
+   "estates": [
+    "u-valandraud"
+   ]
+  },
+  {
+   "domain": "vieux-gabarey.com",
+   "seeds": [
+    "https://www.vieux-gabarey.com/"
+   ],
+   "estates": [
+    "u-vieux-gabarey"
+   ]
+  },
+  {
+   "domain": "chateau-vieux-gadet.com",
+   "seeds": [
+    "https://www.chateau-vieux-gadet.com/"
+   ],
+   "estates": [
+    "u-vieux-gadet"
+   ]
+  },
+  {
+   "domain": "vieuxlandat.com",
+   "seeds": [
+    "https://www.vieuxlandat.com/"
+   ],
+   "estates": [
+    "u-vieux-landat"
+   ]
+  },
+  {
+   "domain": "chateau-vieux-robin.com",
+   "seeds": [
+    "https://www.chateau-vieux-robin.com/"
+   ],
+   "estates": [
+    "u-vieux-robin"
+   ]
+  },
+  {
+   "domain": "villemaurine.com",
+   "seeds": [
+    "http://www.villemaurine.com/"
+   ],
+   "estates": [
+    "u-villemaurine"
+   ]
+  },
+  {
+   "domain": "chateau-yon-figeac.com",
+   "seeds": [
+    "https://chateau-yon-figeac.com/"
+   ],
+   "estates": [
+    "u-yon-figeac"
+   ]
+  }
+ ]
+}

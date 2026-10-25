@@ -1,6 +1,6 @@
 {
  "_": "The normalized model (Phase 4). Built by tools/migrate.py; do not edit by hand. Layout and id rules: tools/model_schema.py; storage decision D3 there.",
- "stage": "M5",
+ "stage": "M6",
  "contract": "docs/phase34-model.json",
  "files": {
   "cross/findings.jsonl": {
@@ -10,8 +10,33 @@
   },
   "cross/provenance.jsonl": {
    "entity": "Provenance",
-   "rows": 341,
-   "sha256": "79e3e63793a0aa9a383f865680beccb24b71fa096dc6126a59c3a2acaab07aa7"
+   "rows": 13759,
+   "sha256": "c5afd20af91e67442ea09c67cfc9d692de95b0b0f74132a62bc47086896f1107"
+  },
+  "document/artifact-dates.jsonl": {
+   "entity": "ArtifactDate",
+   "rows": 0,
+   "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  },
+  "document/artifact-relations.jsonl": {
+   "entity": "ArtifactRelation",
+   "rows": 0,
+   "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  },
+  "document/assessments.jsonl": {
+   "entity": "ArtifactAssessment",
+   "rows": 7577,
+   "sha256": "8f94c2831737b72d1828d805853b4b06ad52cfad0abd6bd57906b987d3a5b1ba"
+  },
+  "document/attributions.jsonl": {
+   "entity": "Attribution",
+   "rows": 5455,
+   "sha256": "062ebf1d865dfd9b4ad66cf0fe38cee25f3b43630b25e324d2e7ee65dd2d3e38"
+  },
+  "document/families.jsonl": {
+   "entity": "DocumentFamily",
+   "rows": 0,
+   "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
   },
   "document/legacy-references.jsonl": {
    "entity": "LegacyDocumentReference",
@@ -40,8 +65,8 @@
   },
   "identity/identity-map.jsonl": {
    "entity": "IdentityMap",
-   "rows": 56164,
-   "sha256": "cd1e205c1ea4d0847a2ba0fb650318b9a63787394d0a6d69863243b7dc2f7cf9"
+   "rows": 56531,
+   "sha256": "6b9836b4ab9d9f9145e4507ac3798a97f04f258c161f2d16bf1d65c491e1351a"
   },
   "identity/names.jsonl": {
    "entity": "NameRecord",
@@ -53,6 +78,11 @@
    "rows": 5,
    "sha256": "8fa5fce00988b354195b46e7091d34030f53f988711eb378ab12a21611e7607e"
   },
+  "identity/sources.jsonl": {
+   "entity": "Source",
+   "rows": 367,
+   "sha256": "c2f785125cbc1b68d45c068b0c31e723076a125c94291cd091135a45f2c638d4"
+  },
   "identity/transitions.jsonl": {
    "entity": "IdentityTransition",
    "rows": 0,
@@ -60,13 +90,18 @@
   },
   "identity/vintages.jsonl": {
    "entity": "Vintage",
-   "rows": 5196,
-   "sha256": "1a6435a1914e0a881ca3f9615778a5ab71fce9a90861b846411adce4a66494d9"
+   "rows": 5286,
+   "sha256": "7dac2137a468d97c36727f43d252455490b9b1f94522ebc522844fd26f49a357"
   },
   "identity/wines.jsonl": {
    "entity": "Wine",
    "rows": 639,
    "sha256": "8cff517259e09b0f20830b1bb7cf86b38fb0cf2ade3245f2d28cfa35232afb01"
+  },
+  "observation/evidence-links.jsonl": {
+   "entity": "EvidenceLink",
+   "rows": 81544,
+   "sha256": "ed87672e2b82003742508289aeed45711b7a01e3098e2d7a449f321d14807fcf"
   },
   "state/appellation-memberships.jsonl": {
    "entity": "AppellationMembership",
@@ -122,6 +157,11 @@
    "entity": "RankAssertion",
    "rows": 684,
    "sha256": "6d715a928bfb98c7c74838e3712ecaf61629b88fa36fe63a03d0a2cd1098503d"
+  },
+  "state/source-estate.jsonl": {
+   "entity": "SourceEstateRelationship",
+   "rows": 409,
+   "sha256": "f01b55cafa424184a4774ed6b9b80b063bb106c19b458a986c414f63294fda96"
   },
   "state/vintage-statements.jsonl": {
    "entity": "VintageStatement",
@@ -246,6 +286,29 @@
     "unresolved estate|slug|vintage records": 2,
     "unresolved estate|vintage records": 17,
     "vintages": 5196
+   }
+  },
+  "M6": {
+   "sources (hosts, of which shared by estates)": [
+    365,
+    30
+   ],
+   "manifest rows": {
+    "assessment combined": 2,
+    "assessment group report": 14,
+    "assessment page": 2096,
+    "assessment skip": 1097,
+    "assessment unknown": 4368,
+    "attribution grand": 2566,
+    "attribution other": 1502,
+    "attribution second": 1387,
+    "wine named, not resolved": 181
+   },
+   "evidence links": {
+    "v4": 40772,
+    "v5": 40772,
+    "with artifact": 81544,
+    "with wine": 74804
    }
   }
  }

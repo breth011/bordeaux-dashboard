@@ -96,7 +96,12 @@ VIEWS = {
 
 def ref_entity(ref):
     if isinstance(ref, dict):
-        return 'Locator' if set(ref) == {'kind', 'value'} else None
+        if set(ref) == {'kind', 'value'}:
+            return 'Locator'
+        if {'origin', 'record_key', 'basename'} <= set(ref) <= {'origin', 'record_key', 'field',
+                                                                'basename'}:
+            return 'LegacyDocumentReference'
+        return None
     if not isinstance(ref, str):
         return None
     if ref.startswith('vt:'):

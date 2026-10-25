@@ -202,8 +202,14 @@ def m1_raw_store_addresses_by_digest():
 
 # ---------------------------------------------------------------- the model, any stage
 
+_tables = {}
+
+
 def T(rel):
-    return L.read_table(rel)
+    # The model's files do not change during a run; read each once.
+    if rel not in _tables:
+        _tables[rel] = L.read_table(rel)
+    return _tables[rel]
 
 
 def stage_at_least(st):
@@ -362,8 +368,14 @@ def m2_digest_joins_only_where_proven():
 
 # ---------------------------------------------------------------- M3
 
+_imaps = {}
+
+
 def imap(ns):
-    return {r['legacy_key']: r for r in T('identity/identity-map.jsonl') if r['namespace'] == ns}
+    if ns not in _imaps:
+        _imaps[ns] = {r['legacy_key']: r for r in T('identity/identity-map.jsonl')
+                      if r['namespace'] == ns}
+    return _imaps[ns]
 
 
 @check
@@ -452,13 +464,13 @@ def ranks_by_wine():
 def m4_other_never_becomes_a_rank():
     slugmap = imap('wine-by-slug')
     rk = ranks_by_wine()
+    p_c = next(p['id'] for p in T('cross/provenance.jsonl') if p.get('actor') == 'data/cuvees.js'
+               and p['kind'] == 'LEGACY_UNSOURCED' and 'quote' not in p and 'code_state' not in p)
     n = 0
     for lid, ws in L.g('BDX_CUVEE_WINES').items():
         for w in ws:
             wid = slugmap['%s|%s' % (lid, w['slug'])]['stable_id']
-            cuv = [r for r in rk[wid] if r['provenance'] == next(
-                p['id'] for p in T('cross/provenance.jsonl') if p.get('actor') == 'data/cuvees.js'
-                and p['kind'] == 'LEGACY_UNSOURCED' and 'quote' not in p)]
+            cuv = [r for r in rk[wid] if r['provenance'] == p_c]
             assert len(cuv) == 1, (lid, w['slug'])
             want = ('SECOND', 'second') if w['role'] == 'second' else ('UNKNOWN', 'other')
             assert (cuv[0]['tier'], cuv[0]['legacy_term']) == want, (lid, w, cuv[0])
@@ -492,10 +504,10 @@ def m4_second_field_kept_whole_dash_is_absence_not_unknown():
 @check
 def m4_no_wine_minted_where_the_estate_lists_wines():
     listed = set(L.g('BDX_CUVEE_WINES'))
+    cuvee_ids = {x['stable_id'] for x in imap('wine-by-slug').values()}
     for k, r in imap('second-by-name').items():
         lid = k.split('|')[0]
-        minted = r.get('stable_id') and r['stable_id'] not in {
-            x['stable_id'] for x in imap('wine-by-slug').values()}
+        minted = r.get('stable_id') and r['stable_id'] not in cuvee_ids
         if minted:
             assert lid not in listed, k
     # undecided renames stay undecided: Haut-Bailly's La Parde is not merged into Haut-Bailly II
@@ -583,6 +595,69 @@ def m5_every_slug_vintage_key_maps_to_its_wine_or_is_kept():
     assert len(orphans) == 16
     np = T('state/vintage-statements.jsonl')
     assert len(np) == sum(len(x) for x in L.g('BDX_NOT_PRODUCED').values()) == 18
+
+
+# ---------------------------------------------------------------- M6
+
+@check
+def m6_every_manifest_row_is_one_attribution_or_assessment():
+    prov = {r['id']: r for r in T('cross/provenance.jsonl')}
+    rows = collections.Counter()
+    for t in ('document/attributions.jsonl', 'document/assessments.jsonl'):
+        for r in T(t):
+            rows[prov[r['provenance']]['code_state']['row']] += 1
+    sheets = L.sources_rows()['sheets']
+    assert set(rows) == set(range(len(sheets))) and set(rows.values()) == {1}
+    att = T('document/attributions.jsonl')
+    assert {r['method'] for r in att} == {'LEGACY_UNKNOWN'}, 'a legacy how text was classified (D6)'
+    assert {r['status'] for r in att} == {'LEGACY'}
+    by_art = collections.Counter(r['artifact'] for r in att)
+    assert max(by_art.values()) > 1, 'attributions are not many per artifact (I14)'
+
+
+@check
+def m6_null_wine_never_defaults_to_the_grand_vin():
+    prov = {r['id']: r for r in T('cross/provenance.jsonl')}
+    sheets = L.sources_rows()['sheets']
+    gv = imap('grand-vin')
+    grand = {r['stable_id'] for r in gv.values()}
+    for a in T('document/attributions.jsonl'):
+        r = sheets[prov[a['provenance']]['code_state']['row']]
+        if not r.get('wine') and not r.get('slug'):
+            if r['role'] == 'grand' and r['estate'] in gv:
+                assert a.get('wine') == gv[r['estate']]['stable_id']
+            else:
+                assert 'wine' not in a, r
+        if a.get('wine') in grand:
+            assert r['role'] == 'grand' or r.get('wine') or r.get('slug'), r
+
+
+@check
+def m6_sources_never_estate_identity():
+    src = {r['id']: r for r in T('identity/sources.jsonl')}
+    est = {r['id'] for r in T('identity/estates.jsonl')}
+    assert not set(src) & est
+    links = collections.defaultdict(set)
+    for r in T('state/source-estate.jsonl'):
+        links[r['source']].add(r['estate'])
+    for sid, es in links.items():
+        assert src[sid]['kind'] == ('ESTATE_SITE' if len(es) == 1 else 'UNKNOWN'), src[sid]
+    assert len(T('state/source-estate.jsonl')) == len(L.g('BDX_SITES'))
+
+
+@check
+def m6_evidence_links_one_per_v4_v5_row_same_key_as_the_store():
+    import evidence
+    links = T('observation/evidence-links.jsonl')
+    keys = {(r['evidence_version'], r['row_key']) for r in links}
+    n = 0
+    for v in (4, 5):
+        for d in L.jsonl_lines(L.ROOT + 'data/evidence/decisions-v%d.jsonl' % v):
+            k = (v, L.dumps(list(evidence.row_key(d))))
+            assert k in keys
+            n += 1
+    assert n == len(links) == len(keys)
+    assert not any(r['evidence_version'] < 4 for r in links), 'v1-v3 linked to bytes never hashed'
 
 
 def main():

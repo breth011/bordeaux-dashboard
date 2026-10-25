@@ -15,3 +15,5 @@ data/app/** text eol=lf
 data/history/** text eol=lf
 # The M3 candidate audit is checked byte for byte by tools/extract-historical-m3.py --check.
 data/audit/historical-m3-*.jsonl text eol=lf
+# The data-gap register is checked byte for byte by tools/build-data-gap-register.py --check.
+data/audit/data-gap-register.jsonl text eol=lf

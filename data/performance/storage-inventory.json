@@ -1,0 +1,303 @@
+{
+ "_": "Phase 5 M0 storage inventory: descriptive, not normative (tools/benchmark-phase5.py). bytes = logical length; allocated_bytes = rounded up to the 4096-byte cluster (NTFS compression and sparse files are not measured).",
+ "commit": "b1ce39b",
+ "cluster_bytes": 4096,
+ "categories": {
+  "authoritative/protected": {
+   "canonical data": {
+    "bytes": 10780400,
+    "allocated_bytes": 10850304,
+    "files": 39,
+    "tracked_files": 39,
+    "by_extension": {
+     ".json": 6606662,
+     ".js": 4173738
+    }
+   },
+   "discovery data": {
+    "bytes": 140025013,
+    "allocated_bytes": 141217792,
+    "files": 571,
+    "tracked_files": 571,
+    "by_extension": {
+     ".jsonl": 135729864,
+     ".json": 4295149
+    }
+   },
+   "evidence v1-v5": {
+    "bytes": 143065946,
+    "allocated_bytes": 143081472,
+    "files": 8,
+    "tracked_files": 8,
+    "by_extension": {
+     ".jsonl": 143063248,
+     ".json": 2698
+    }
+   },
+   "normalized model": {
+    "bytes": 79240945,
+    "allocated_bytes": 79314944,
+    "files": 41,
+    "tracked_files": 41,
+    "by_extension": {
+     ".jsonl": 79149765,
+     ".json": 88967,
+     ".md": 2213
+    }
+   },
+   "proposal and audit records (phase records)": {
+    "bytes": 15274663,
+    "allocated_bytes": 15306752,
+    "files": 14,
+    "tracked_files": 14,
+    "by_extension": {
+     ".jsonl": 14918371,
+     ".json": 356292
+    }
+   },
+   "review and audit records": {
+    "bytes": 302708,
+    "allocated_bytes": 307200,
+    "files": 2,
+    "tracked_files": 2,
+    "by_extension": {
+     ".json": 302708
+    }
+   },
+   "scope data": {
+    "bytes": 561213,
+    "allocated_bytes": 569344,
+    "files": 3,
+    "tracked_files": 3,
+    "by_extension": {
+     ".json": 475275,
+     ".jsonl": 85938
+    }
+   }
+  },
+  "code": {
+   "application and other": {
+    "bytes": 15078903,
+    "allocated_bytes": 15454208,
+    "files": 173,
+    "tracked_files": 82,
+    "by_extension": {
+     ".json": 11561012,
+     ".txt": 1481557,
+     ".xlsx": 1410075,
+     ".js": 239508,
+     ".woff2": 145384,
+     ".md": 144467,
+     ".css": 64297,
+     ".png": 23071
+    }
+   },
+   "tools": {
+    "bytes": 1726147,
+    "allocated_bytes": 1933312,
+    "files": 111,
+    "tracked_files": 109,
+    "by_extension": {
+     ".py": 1721294,
+     ".js": 4853
+    }
+   }
+  },
+  "derived or potentially derived": {
+   "benchmark outputs": {
+    "bytes": 2286,
+    "allocated_bytes": 4096,
+    "files": 1,
+    "tracked_files": 0,
+    "by_extension": {
+     ".jsonl": 2286
+    }
+   },
+   "caches (__pycache__)": {
+    "bytes": 1079516,
+    "allocated_bytes": 1146880,
+    "files": 40,
+    "tracked_files": 0,
+    "by_extension": {
+     ".pyc": 1079516
+    }
+   },
+   "discovery derived (local)": {
+    "bytes": 106658168,
+    "allocated_bytes": 106659840,
+    "files": 1,
+    "tracked_files": 0,
+    "by_extension": {
+     ".jsonl": 106658168
+    }
+   },
+   "discovery extracted text (local)": {
+    "bytes": 505972054,
+    "allocated_bytes": 570523648,
+    "files": 29517,
+    "tracked_files": 0,
+    "by_extension": {
+     ".json": 505972054
+    }
+   },
+   "model check reports": {
+    "bytes": 448572,
+    "allocated_bytes": 462848,
+    "files": 5,
+    "tracked_files": 5,
+    "by_extension": {
+     ".json": 448572
+    }
+   },
+   "model derived indexes": {
+    "bytes": 413896,
+    "allocated_bytes": 425984,
+    "files": 6,
+    "tracked_files": 6,
+    "by_extension": {
+     ".json": 413896
+    }
+   },
+   "reports and docs": {
+    "bytes": 757712,
+    "allocated_bytes": 823296,
+    "files": 30,
+    "tracked_files": 30,
+    "by_extension": {
+     ".md": 513651,
+     ".json": 244061
+    }
+   }
+  },
+  "raw/source": {
+   "crawled pages (legacy)": {
+    "bytes": 8639853,
+    "allocated_bytes": 13864960,
+    "files": 2477,
+    "tracked_files": 0,
+    "by_extension": {
+     ".txt": 8639853
+    }
+   },
+   "discovery blobs (content-addressed)": {
+    "bytes": 8186538377,
+    "allocated_bytes": 8248909824,
+    "files": 29738,
+    "tracked_files": 0,
+    "by_extension": {
+     "(raw blob)": 7491835884,
+     ".gz": 694702493
+    }
+   },
+   "discovery crawl state": {
+    "bytes": 26776218,
+    "allocated_bytes": 27496448,
+    "files": 304,
+    "tracked_files": 0,
+    "by_extension": {
+     ".json": 26776218
+    }
+   },
+   "other source artifacts (bordoverview)": {
+    "bytes": 11225079,
+    "allocated_bytes": 11235328,
+    "files": 4,
+    "tracked_files": 0,
+    "by_extension": {
+     ".html": 10147874,
+     ".csv": 1077205
+    }
+   },
+   "other source artifacts (hydro)": {
+    "bytes": 1852293848,
+    "allocated_bytes": 1852338176,
+    "files": 15,
+    "tracked_files": 0,
+    "by_extension": {
+     ".shp": 960638624,
+     ".dbf": 575497037,
+     ".zip": 308704684,
+     ".shx": 7414008,
+     ".html": 37305,
+     ".qmd": 1576,
+     ".prj": 597,
+     ".cpg": 10
+    }
+   },
+   "other source artifacts (inao)": {
+    "bytes": 908201231,
+    "allocated_bytes": 908214272,
+    "files": 6,
+    "tracked_files": 0,
+    "by_extension": {
+     ".shp": 601075296,
+     ".zip": 267241877,
+     ".dbf": 39789496,
+     ".shx": 94108,
+     ".prj": 449,
+     ".cpg": 5
+    }
+   },
+   "other source artifacts (isvv)": {
+    "bytes": 60238443,
+    "allocated_bytes": 61095936,
+    "files": 384,
+    "tracked_files": 0,
+    "by_extension": {
+     ".pdf": 55270421,
+     ".html": 3216492,
+     ".txt": 1719962,
+     ".json": 31568
+    }
+   },
+   "other source artifacts (quinney)": {
+    "bytes": 911698,
+    "allocated_bytes": 921600,
+    "files": 5,
+    "tracked_files": 0,
+    "by_extension": {
+     ".jpg": 700677,
+     ".png": 211021
+    }
+   },
+   "other source artifacts (scope)": {
+    "bytes": 4394702,
+    "allocated_bytes": 4431872,
+    "files": 16,
+    "tracked_files": 0,
+    "by_extension": {
+     ".html": 1736947,
+     ".jpg": 1423277,
+     ".pdf": 1222563,
+     ".json": 11915
+    }
+   },
+   "technical sheets (legacy)": {
+    "bytes": 10397829555,
+    "allocated_bytes": 10421039104,
+    "files": 11441,
+    "tracked_files": 0,
+    "by_extension": {
+     ".pdf": 10395556195,
+     ".com-liste-classement-2025-crus-bourgeois-du-medoc-web-1-liste-classement-2025-crus-": 935755,
+     ".p": 682023,
+     "(none)": 561541,
+     ".txt": 94041
+    }
+   }
+  },
+  "repository overhead": {
+   ".git": {
+    "bytes": 146242096,
+    "allocated_bytes": 154038272,
+    "files": 2989,
+    "tracked_files": 0,
+    "by_extension": {
+     "(none)": 146202196,
+     ".sample": 26788,
+     ".graph": 13112
+    }
+   }
+  }
+ }
+}

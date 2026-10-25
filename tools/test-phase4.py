@@ -399,7 +399,11 @@ def m3_classification_on_wines_editorial_on_estates():
     mem = T('state/classification-memberships.jsonl')
     assert all(r['wine'].startswith('wn_') for r in mem)
     eds = {r['id']: r for r in T('state/classification-editions.jsonl')}
-    n = collections.Counter(eds[r['edition']]['label'].split(' (as ')[0] for r in mem)
+    grand = {r['stable_id'] for r in imap('grand-vin').values()}
+    n = collections.Counter(eds[r['edition']]['label'].split(' (as ')[0] for r in mem
+                            if r['wine'] in grand)
+    whites = {r['stable_id'] for r in imap('graves-white').values() if r.get('stable_id')}
+    assert {r['wine'] for r in mem if r['wine'] not in grand} == whites and len(whites) == 6
     want = {'Classification of 1855': 61, 'Sauternes & Barsac 1855': 27, 'Saint-Émilion 2022': 85,
             'Crus Classés de Graves': 16, 'Crus Bourgeois du Médoc 2025': 170,
             'Crus Artisans du Médoc': 34}
@@ -432,6 +436,104 @@ def m3_grand_vin_rank_is_a_dataset_claim():
     assert len(ra) == len(gv)
     assert all(r['tier'] == 'FIRST' and r['scope'] == 'ESTATE_RANGE' and r['claimant'] == 'DATASET'
                and r['legacy_term'] == 'grand' for r in ra)
+
+
+# ---------------------------------------------------------------- M4
+
+def ranks_by_wine():
+    rels = {r['id']: r for r in T('state/estate-wine.jsonl')}
+    out = collections.defaultdict(list)
+    for r in T('state/rank-assertions.jsonl'):
+        out[rels[r['relationship']]['wine']].append(r)
+    return out
+
+
+@check
+def m4_other_never_becomes_a_rank():
+    slugmap = imap('wine-by-slug')
+    rk = ranks_by_wine()
+    n = 0
+    for lid, ws in L.g('BDX_CUVEE_WINES').items():
+        for w in ws:
+            wid = slugmap['%s|%s' % (lid, w['slug'])]['stable_id']
+            cuv = [r for r in rk[wid] if r['provenance'] == next(
+                p['id'] for p in T('cross/provenance.jsonl') if p.get('actor') == 'data/cuvees.js'
+                and p['kind'] == 'LEGACY_UNSOURCED' and 'quote' not in p)]
+            assert len(cuv) == 1, (lid, w['slug'])
+            want = ('SECOND', 'second') if w['role'] == 'second' else ('UNKNOWN', 'other')
+            assert (cuv[0]['tier'], cuv[0]['legacy_term']) == want, (lid, w, cuv[0])
+            n += 1
+    assert n == 135
+    for r in T('state/rank-assertions.jsonl'):
+        assert r['tier'] in ('FIRST', 'SECOND', 'UNKNOWN'), 'a tier no legacy term supports'
+        assert r['legacy_term'] in ('grand', 'second', 'other', 'red and white')
+
+
+@check
+def m4_second_field_kept_whole_dash_is_absence_not_unknown():
+    sec = imap('second-by-name')
+    files = [r for _, r in L.estate_files() if 'second' in r]
+    assert {'%s|%s' % (r['id'], r['second']) for r in files} == set(sec)
+    est = {k: r['stable_id'] for k, r in imap('estate').items() if r.get('stable_id')}
+    absent = {r['estate'] for r in T('state/rank-absences.jsonl')}
+    for r in files:
+        k = '%s|%s' % (r['id'], r['second'])
+        if r['second'] == '—':
+            assert est[r['id']] in absent and sec[k]['status'] == 'RETIRED'
+        elif '(' in r['second']:
+            assert not sec[k].get('stable_id'), k
+    assert len(absent) == 34
+    # Yquem's Y is not made a second wine.
+    rk = ranks_by_wine()
+    y = imap('wine-by-slug')["yquem|" + next(w['slug'] for w in L.g('BDX_CUVEE_WINES')['yquem'])]['stable_id']
+    assert {r['tier'] for r in rk[y]} == {'UNKNOWN'}
+
+
+@check
+def m4_no_wine_minted_where_the_estate_lists_wines():
+    listed = set(L.g('BDX_CUVEE_WINES'))
+    for k, r in imap('second-by-name').items():
+        lid = k.split('|')[0]
+        minted = r.get('stable_id') and r['stable_id'] not in {
+            x['stable_id'] for x in imap('wine-by-slug').values()}
+        if minted:
+            assert lid not in listed, k
+    # undecided renames stay undecided: Haut-Bailly's La Parde is not merged into Haut-Bailly II
+    hb = imap('second-by-name')['haut-bailly|La Parde de Haut-Bailly']
+    assert hb['status'] == 'AMBIGUOUS' and not hb.get('stable_id') and hb['candidates']
+
+
+@check
+def m4_phase2_proposals_not_applied():
+    names = {r['name'] for r in T('identity/names.jsonl')}
+    assert not any('murets' in n.lower() for n in names), 'Murets in the model'
+    est = imap('estate')['stem-chateau-tour-saint-christophe']['stable_id']
+    rels = [r for r in T('state/estate-wine.jsonl') if r['estate'] == est]
+    assert len(rels) == 1, 'Terrasses attached to Tour Saint-Christophe'
+    assert not T('identity/transitions.jsonl'), 'an identity transition decided (Echo)'
+    echo = imap('second-by-name')['lynch-bages|Echo de Lynch-Bages']
+    assert echo['stable_id'] == imap('wine-by-slug')['lynch-bages|echo-de-lynch-bages']['stable_id']
+
+
+@check
+def m4_evidence_target_wines_resolve_or_are_classified():
+    import glob
+    dm = imap('wine-by-display-name')
+    used = set()
+    for p in glob.glob(L.ROOT + 'data/evidence/decisions-v*.jsonl'):
+        for d in L.jsonl_lines(p):
+            c = d.get('ctx') or {}
+            if c.get('target_wine') and c.get('estate'):
+                used.add('%s|%s' % (c['estate'], c['target_wine']))
+    assert used <= set(dm), sorted(used - set(dm))[:5]
+    sec = imap('second-by-name')
+    for k in used:
+        if not dm[k].get('stable_id') and k in sec:
+            # an undecided second: classified exactly as the second field was
+            assert dm[k]['status'] == sec[k]['status'] == 'AMBIGUOUS'
+            assert dm[k].get('candidates', []) == sec[k].get('candidates', [])
+    unresolved = sorted(k for k in used if not dm[k].get('stable_id') and k not in sec)
+    assert unresolved == ['pomerol-chateau-l-enclos|Château L’Enclos'], unresolved
 
 
 def main():

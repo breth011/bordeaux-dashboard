@@ -7,7 +7,8 @@ wine exists:
   - the estate has a full record (its cat, blend and appellation describe
     the wine the estate is judged on: sources.json roles.grand); or
   - a legacy 'estate|vintage' record exists for it (fiches, field-src,
-    fiches-url, ratings, cellar, BDX_SCORES, BDX_NOT_PRODUCED).
+    fiches-url, ratings, cellar, BDX_SCORES, BDX_NOT_PRODUCED); or
+  - the manifest attributes a sheet to it with role 'grand'.
 An estate with none of these (an editorial compact-list name and nothing
 else) gets no Wine: the app's defaults for it (cat red, the list's
 appellation) are page behaviour, reproduced as such in M8, not facts.
@@ -58,6 +59,10 @@ def support(view):
             sup[k.split('|')[0]].append(name)
     for k in L.g('BDX_NOT_PRODUCED'):
         sup[k].append('BDX_NOT_PRODUCED')
+    # The manifest says a sheet is the grand vin of the estate.
+    for r in L.sources_rows()['sheets']:
+        if r['estate'] and r['role'] == 'grand':
+            sup[r['estate']].append('sources.json role grand')
     return {k: sorted(set(v)) for k, v in sup.items()}
 
 

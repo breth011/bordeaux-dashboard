@@ -1,17 +1,17 @@
 {
  "_": "The normalized model (Phase 4). Built by tools/migrate.py; do not edit by hand. Layout and id rules: tools/model_schema.py; storage decision D3 there.",
- "stage": "M3",
+ "stage": "M4",
  "contract": "docs/phase34-model.json",
  "files": {
   "cross/findings.jsonl": {
    "entity": "QualityFinding",
-   "rows": 200,
-   "sha256": "6df4d117a4844944c3c9447fd097782a1cc3603f6fcd7b2d9d5dd1c293e34e19"
+   "rows": 224,
+   "sha256": "3120a816ae89d4a7304fc846ba7628b1fedd09166c520c36752b71a103d0ac45"
   },
   "cross/provenance.jsonl": {
    "entity": "Provenance",
-   "rows": 289,
-   "sha256": "3c2f0d6e0d07061791cb9b828c5a4a7c149d9ed602eb6eab144290c93e94f00e"
+   "rows": 304,
+   "sha256": "b9235ceb64e6321ff6d8069139c43ec082baef6591e56e62430bffbd4d430e9a"
   },
   "document/legacy-references.jsonl": {
    "entity": "LegacyDocumentReference",
@@ -40,13 +40,13 @@
   },
   "identity/identity-map.jsonl": {
    "entity": "IdentityMap",
-   "rows": 50031,
-   "sha256": "62df8cf8fbb93baaf5047b0afab140e0380542e1f9c2a9a2bebed3466ff48c3c"
+   "rows": 50966,
+   "sha256": "679e85f551ce2253aa17f44e27dc36fe7349f4dc5631fc9b7d318204d471d455"
   },
   "identity/names.jsonl": {
    "entity": "NameRecord",
-   "rows": 928,
-   "sha256": "841e09b25a64679f1a6102b91cce12767f68216a0300733f817696fecd698793"
+   "rows": 1104,
+   "sha256": "72f0a87cba3aeefff26b84a85a83d3473481faca24772dc5a1c325ad063f76c4"
   },
   "identity/parties.jsonl": {
    "entity": "Party",
@@ -60,8 +60,8 @@
   },
   "identity/wines.jsonl": {
    "entity": "Wine",
-   "rows": 458,
-   "sha256": "6cb24d13dba552ab1e5c18d34049c7657ad28ed16ad359a40f89e0cd263fb010"
+   "rows": 639,
+   "sha256": "8cff517259e09b0f20830b1bb7cf86b38fb0cf2ade3245f2d28cfa35232afb01"
   },
   "state/appellation-memberships.jsonl": {
    "entity": "AppellationMembership",
@@ -80,8 +80,8 @@
   },
   "state/classification-memberships.jsonl": {
    "entity": "ClassificationMembership",
-   "rows": 393,
-   "sha256": "ebd0c02c8e37d98e0b1b9f8b58e5d3d045d6cb9633b84d07cce0e1971fd978d0"
+   "rows": 399,
+   "sha256": "2b0244f64daba8b63cb507761e1e6f8538982524dadc5cd405a56e582acab6a7"
   },
   "state/classification-schemes.jsonl": {
    "entity": "ClassificationScheme",
@@ -100,18 +100,28 @@
   },
   "state/estate-wine.jsonl": {
    "entity": "EstateWineRelationship",
-   "rows": 458,
-   "sha256": "6a964eb81bf3fd6340931ea81062a0b346da00ab1f9b5282245f2df8e54407c9"
+   "rows": 639,
+   "sha256": "aff6f183b4b2e84c5e6ea6073a7360e10939e815a93c2d994952892ae4b9a009"
   },
   "state/ownership.jsonl": {
    "entity": "Ownership",
    "rows": 0,
    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
   },
+  "state/rank-absences.jsonl": {
+   "entity": "RankAbsence",
+   "rows": 34,
+   "sha256": "e68011c7d055958351fe389caf84c8eb47cf2c11378ac1e7e43b746f97a0e2c6"
+  },
   "state/rank-assertions.jsonl": {
    "entity": "RankAssertion",
-   "rows": 458,
-   "sha256": "b7b015bcd9dfda26614dce1317a999422794b6c0657b00985e027ae1339d8c8c"
+   "rows": 684,
+   "sha256": "6d715a928bfb98c7c74838e3712ecaf61629b88fa36fe63a03d0a2cd1098503d"
+  },
+  "state/wine-descriptors.jsonl": {
+   "entity": "WineDescriptor",
+   "rows": 0,
+   "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
   }
  },
  "views": {
@@ -192,6 +202,30 @@
     "stem": 85
    },
    "appellation memberships": 376
+  },
+  "M4": {
+   "cuvee wines": 135,
+   "estate-file second field": {
+    "a listed wine (exact)": 42,
+    "a listed wine (typography)": 3,
+    "another name than the listed wines": 11,
+    "claimed by several estates": 2,
+    "commentary in parentheses": 4,
+    "dash contradicted by cuvees.js": 2,
+    "dash: RankAbsence": 34,
+    "minted (the estate lists no wines)": 41
+   },
+   "Graves 'red and white' white wines": {
+    "minted, name UNKNOWN (D8)": 5,
+    "several listed whites: waits": 2,
+    "the one listed white": 1
+   },
+   "display names": {
+    "...used by evidence": 1,
+    "ambiguous (an undecided second)": 17,
+    "resolved": 637,
+    "unresolved": 1
+   }
   }
  }
 }

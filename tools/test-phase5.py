@@ -20,8 +20,9 @@ START = 'b1ce39b'
 BENCH = L.ROOT + 'data/performance/benchmarks.jsonl'
 INV = L.ROOT + 'data/performance/storage-inventory.json'
 REPORT = L.ROOT + 'docs/PHASE-5-BASELINE-BENCHMARK.md'
-OWN = ('tools/benchmark-phase5.py', 'tools/test-phase5.py', 'data/performance/',
-       'docs/PHASE-5-BASELINE-BENCHMARK.md')
+# Phase 5's own paths: its tools, its measurements and its documents (the baseline
+# report and the decision documents that follow from it).
+OWN = ('tools/benchmark-phase5.py', 'tools/test-phase5.py', 'data/performance/', 'docs/PHASE-5-')
 CHECKS = []
 
 

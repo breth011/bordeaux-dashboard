@@ -1102,6 +1102,26 @@ def t31_migration_rolls_back_stage_by_stage():
     assert before == after, 'a protected group changed during rollback'
 
 
+# ---------------------------------------------------------------- M14
+
+@check
+def m14_report_has_the_seventeen_sections_and_a_gate():
+    p = L.ROOT + 'docs/PHASE-4-MIGRATION-REPORT.md'
+    s = open(p, encoding='utf-8').read()
+    heads = re.findall(r'^## (\d+)\. (.+)$', s, re.M)
+    assert [int(n) for n, _ in heads] == list(range(1, 18)), heads
+    want = ['Baseline', 'New physical representation', 'Identity mapping', 'Estate migration',
+            'Wine migration', 'Vintage migration', 'Provenance migration', 'Observation migration',
+            'Canonical reconstruction', 'Dual-read results', 'Quality audit', 'Proposal compatibility',
+            'Known legacy ambiguities', 'Unresolved migration issues', 'Exact hashes and counts',
+            'Rollback procedure', 'Phase 5 boundary']
+    assert [h for _, h in heads] == want
+    gates = re.findall(r'Gate: \*\*(.+?)\*\*', s)
+    assert gates == ['SAFE — NORMALIZED MODEL IMPLEMENTED — DUAL READ PASS'], gates
+    for g, v in baseline()['groups'].items():
+        assert v['digest'][:16] in s, g
+
+
 def main():
     only = sys.argv[1:]
     fails = 0

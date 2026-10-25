@@ -385,6 +385,8 @@ def take_estate_page(get, man, e, eid, url, held_url, held_sha,
     # Named without a year, because it has none and a filename that
     # implied one would be read as a claim.
     name = 'estate__%s.txt' % slug_of(url)
+    if os.path.exists(folder + name):
+        os.remove(folder + name)   # Phase 5 C3: remove first, so a hard-linked twin in sources/ is never overwritten.
     io.open(folder + name, 'w', encoding='utf-8',
             newline='').write(blob)
     man['sheets'].append({
@@ -457,6 +459,8 @@ def split_one(get, man, e, eid, url, held_url, held_sha, apply):
                 if p]
         name = '%d__%s.txt' % (
             yr, slug_of('/%s/%s' % (eid, tail[-1] if tail else 'page')))
+        if os.path.exists(folder + name):
+            os.remove(folder + name)   # Phase 5 C3: remove first, so a hard-linked twin in sources/ is never overwritten.
         io.open(folder + name, 'w', encoding='utf-8',
                 newline='').write(blob)
         man['sheets'].append({
@@ -608,6 +612,8 @@ def main():
                 print('   already held under another name: %s' % u[:58])
                 continue
             name = '%d__%s.txt' % (yr, slug_of(u))
+            if os.path.exists(folder + name):
+                os.remove(folder + name)   # Phase 5 C3: remove first, so a hard-linked twin in sources/ is never overwritten.
             io.open(folder + name, 'w', encoding='utf-8',
                     newline='').write(blob)
             man['sheets'].append({

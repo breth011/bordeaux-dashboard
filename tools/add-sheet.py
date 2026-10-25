@@ -126,6 +126,8 @@ def main():
             continue
         if not os.path.isdir(folder):
             os.makedirs(folder)
+        if os.path.exists(folder + name):
+            os.remove(folder + name)   # Phase 5 C3: remove first, so a hard-linked twin in sources/ is never overwritten.
         io.open(folder + name, 'wb').write(blob)
         # The vintage from the document, as harvest.py insists.
         yr, how = a.year, 'was provided by hand'

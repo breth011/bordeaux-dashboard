@@ -222,6 +222,41 @@ def only_phase5_baseline_artifacts_changed():
     assert not banned, sorted(banned)[:5]
 
 
+WRITERS = ('tools/add-sheet.py', 'tools/harvest.py', 'tools/crawl-pages.py')
+
+
+@check
+def c3_writers_into_sources_never_write_through_a_link():
+    # A write into an existing file of sources/ would change every hard-linked
+    # twin; each writer removes the file first, so the write makes a new one.
+    n = 0
+    for t in WRITERS:
+        lines = open(L.ROOT + t, encoding='utf-8').read().split('\n')
+        for i, l in enumerate(lines):
+            m = re.search(r"open\((folder \+ name|path), '(?:w|wb)'", l)
+            if m:
+                n += 1
+                guard = '\n'.join(lines[max(0, i - 2):i])
+                assert 'os.remove(%s)' % m.group(1) in guard, '%s:%d writes without removing' % (t, i + 1)
+    assert n == 5, n
+
+
+@check
+def c3_linked_paths_hold_their_own_bytes():
+    j = L.ROOT + 'sources/.link-journal.jsonl'
+    if not os.path.exists(j):
+        return              # the raw store is local; another checkout has no links
+    import hashlib
+    entries = L.jsonl_lines(j)
+    for e in entries:
+        p, k = L.ROOT + e['path'], L.ROOT + e['keeper']
+        sp, sk = os.stat(p), os.stat(k)
+        assert (sp.st_dev, sp.st_ino) == (sk.st_dev, sk.st_ino), 'no longer linked: ' + e['path']
+    for e in entries[::max(1, len(entries) // 40)]:
+        h = hashlib.sha256(open(L.ROOT + e['path'], 'rb').read()).hexdigest()
+        assert h == e['sha256'], 'bytes changed: ' + e['path']
+
+
 def main():
     fails = 0
     for f in CHECKS:

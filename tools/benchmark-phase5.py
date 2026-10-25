@@ -847,21 +847,30 @@ def fam_storage():
     f0 = guard('storage')
     cl = cluster_size()
     tracked = set(git('ls-files').splitlines())
-    agg = collections.defaultdict(lambda: {'bytes': 0, 'allocated': 0, 'files': 0, 'tracked_files': 0,
-                                           'ext': collections.Counter()})
+    agg = collections.defaultdict(lambda: {'bytes': 0, 'allocated': 0, 'physical': 0, 'files': 0,
+                                           'tracked_files': 0, 'ext': collections.Counter()})
+    seen = set()                 # (device, file id) of files with several links (Phase 5 C3)
     t = time.perf_counter()
     for dp, dn, fn in os.walk(L.ROOT):
         for f in fn:
             p = os.path.join(dp, f)
             rel = os.path.relpath(p, L.ROOT).replace('\\', '/')
             try:
-                n = os.stat(p).st_size
+                st = os.stat(p)
             except OSError:
                 continue
+            n = st.st_size
             cat, sub = categorize(rel)
             a = agg[(cat, sub)]
             a['bytes'] += n
             a['allocated'] += allocated(n, cl)
+            # Physical: a hard-linked file counts once, at the first path the walk meets.
+            if st.st_nlink > 1:
+                if (st.st_dev, st.st_ino) not in seen:
+                    seen.add((st.st_dev, st.st_ino))
+                    a['physical'] += allocated(n, cl)
+            else:
+                a['physical'] += allocated(n, cl)
             a['files'] += 1
             a['tracked_files'] += rel in tracked
             ext = os.path.splitext(f)[1].lower()
@@ -871,18 +880,24 @@ def fam_storage():
     walk_ms = (time.perf_counter() - t) * 1000
     inv = {}
     for (cat, sub), a in sorted(agg.items()):
-        inv.setdefault(cat, {})[sub] = {'bytes': a['bytes'], 'allocated_bytes': a['allocated'], 'files': a['files'],
+        inv.setdefault(cat, {})[sub] = {'bytes': a['bytes'], 'allocated_bytes': a['allocated'],
+                                        'physical_bytes': a['physical'], 'files': a['files'],
                                         'tracked_files': a['tracked_files'],
                                         'by_extension': dict(a['ext'].most_common(8))}
-    doc = {'_': 'Phase 5 M0 storage inventory: descriptive, not normative (tools/benchmark-phase5.py). '
-                'bytes = logical length; allocated_bytes = rounded up to the %d-byte cluster (NTFS '
-                'compression and sparse files are not measured).' % cl,
+    doc = {'_': 'Phase 5 storage inventory: descriptive, not normative (tools/benchmark-phase5.py). '
+                'bytes = logical length; allocated_bytes = rounded up to the %d-byte cluster; '
+                'physical_bytes = allocated, a hard-linked file counted once (NTFS compression and '
+                'sparse files are not measured).' % cl,
            'commit': environment()['commit'], 'cluster_bytes': cl, 'categories': inv}
-    open(INVENTORY, 'w', encoding='utf-8', newline='\n').write(json.dumps(doc, ensure_ascii=False, indent=1) + '\n')
+    # The M0 inventory stays as it was; a re-measurement writes its own.
+    path = INVENTORY if environment()['commit'] == 'b1ce39b' else \
+        INVENTORY.replace('.json', '-%s.json' % environment()['commit'])
+    open(path, 'w', encoding='utf-8', newline='\n').write(json.dumps(doc, ensure_ascii=False, indent=1) + '\n')
     for cat, subs in inv.items():
         record('storage.' + cat.split('/')[0].replace(' ', '-'), 'storage', cat,
                output_counts={'bytes': sum(v['bytes'] for v in subs.values()),
                               'allocated_bytes': sum(v['allocated_bytes'] for v in subs.values()),
+                              'physical_bytes': sum(v['physical_bytes'] for v in subs.values()),
                               'files': sum(v['files'] for v in subs.values())},
                free_before=f0, extra={k: {kk: vv for kk, vv in v.items() if kk != 'by_extension'}
                                       for k, v in subs.items()})

@@ -333,6 +333,8 @@ def main():
             os.makedirs(folder)
         safe = re.sub(r'[^A-Za-z0-9._-]+', '-', base)[:110] or (sha[:12] + '.pdf')
         path = os.path.join(folder, safe)
+        if os.path.exists(path):
+            os.remove(path)   # Phase 5 C3: remove first, so a hard-linked twin in sources/ is never overwritten.
         open(path, 'wb').write(blob)
         try:
             d = pymupdf.open(path)

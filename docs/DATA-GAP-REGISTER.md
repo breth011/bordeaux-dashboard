@@ -244,8 +244,9 @@ Gaps a recovery stream reduced. Each keeps its id, tier and original count; the 
 | M3.2B | `b4ec482` | DETERMINISTIC_MAPPING | 1 | 71 |
 | M3.2C | `a556a01` | DETERMINISTIC_MAPPING | 27 | 284 |
 | M3.2D | `552c5b3` | EXISTING_EVIDENCE_REVIEW | 12 | 25 |
+| M3.4B | `fa2c436` | DETERMINISTIC_MAPPING | 14 | 26 |
 
-38 gaps resolved outright, 60 partly; 1,092 of their 1,720 affected items recovered, 628 remain.
+42 gaps resolved outright, 70 partly; 1,118 of their 1,887 affected items recovered, 769 remain.
 
 
 ## Method and limits

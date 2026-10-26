@@ -1,5 +1,5 @@
 {
- "_": "M3.2: the commit that applied each recovery stream. tools/build-data-gap-register.py records it on the gaps the stream resolved; the register keeps every gap, with its original id and counts.",
+ "_": "M3.2 and M3.4B: the commit that applied each recovery stream. tools/build-data-gap-register.py records it on the gaps the stream resolved; the register keeps every gap, with its original id and counts.",
  "M3.2A": {
   "commit": "ba5aaa4",
   "method": "PROVENANCE_REPAIR",
@@ -20,5 +20,10 @@
   "commit": "552c5b3",
   "method": "EXISTING_EVIDENCE_REVIEW",
   "what": "vintage figures the model lacked, stated in exactly mapped harvested sheets (APPLY_VALUE rows)"
+ },
+ "M3.4B": {
+  "commit": "fa2c436",
+  "method": "DETERMINISTIC_MAPPING",
+  "what": "document-less vintages linked to an audited accepted document (APPLIED rows of data/audit/m3.4b-mapping-application.jsonl); only \"no document\" is resolved, the vintage's figures stay with their own gaps"
  }
 }

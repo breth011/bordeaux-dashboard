@@ -164,7 +164,7 @@ Recorded, not extracted: the core figures the model does not hold for each newly
 
 - **Correction proposals.** 211 wrong existing attributions (219 accepted decisions) await separate reconciliation. They are proposals only: no decision is refused here.
 - **Fetched documents.** 714 of them (204 vintages) need an evidence-store review before any attribution: the cheapest next source of documents, with no acquisition needed.
-- **The gap register** records M3.5 on 0 estate gap(s) (`VINTAGE_NO_DOCUMENT`), with its commit, keeping each gap's id, original count and earlier history. Only "no document" is resolved; the vintages' figures stay with their own gaps.
+- **The gap register** records M3.5 on 2 estate gap(s) (`VINTAGE_NO_DOCUMENT`), with its commit, keeping each gap's id, original count and earlier history. Only "no document" is resolved; the vintages' figures stay with their own gaps.
 - **Unchanged.** The conflicts in section 6, the open identity decisions, and D1 and D5 stay open.
 
 ## 10. Recommendation for the next phase

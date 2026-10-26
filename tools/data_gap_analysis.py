@@ -121,6 +121,8 @@ def figures():
                 continue
             p = pv[c['provenance']]
             recovered = None
+            if (p.get('code_state') or {}).get('stream') == 'M3.2D':
+                continue          # a value M3.2D added to the model: no legacy figure, not this population
             if p['kind'] == 'DOCUMENT' and str((p.get('code_state') or {}).get('stream', '')).startswith('M3.2'):
                 # recovered by M3.2: measured as it stood before (M3.1 stays reproducible), flagged
                 recovered = {'stream': p['code_state']['stream'], 'provenance': p['id']}
@@ -499,7 +501,10 @@ def fillable_slots():
     wine and vintage all EXACT) carries an observation of that field: data present, unconnected."""
     def build():
         have = collections.defaultdict(set)
+        pv = by_id('cross/provenance.jsonl')
         for c in table('canonical/values.jsonl'):
+            if (pv[c['provenance']].get('code_state') or {}).get('stream') == 'M3.2D':
+                continue          # recovered by M3.2D: measured as it stood before (still a fillable slot)
             if c['subject'].startswith('vt:'):
                 have[c['subject']].add(c['field'])
         vintages = {'vt:%s:%s' % (v['wine'], v['label']) for v in table('identity/vintages.jsonl')}

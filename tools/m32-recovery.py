@@ -18,6 +18,7 @@ The migration (tools/mig_m6_provenance.value_prov) reads the APPLY_* rows and no
 clock, no network; the raw sources and the evidence store are only read.
 """
 import collections
+import re
 import importlib.util
 import json
 import os
@@ -258,8 +259,208 @@ def stream_c():
     return out
 
 
+UNIT = {'alc': '%', 'ph': None, 'yld': 'hl/ha', 'blend': '%'}
+YIELD_UNIT = re.compile(r'h[l]\s*/\s*ha|hectolitres?\s+(?:par|per)\s+hectare|hl\s*par\s*ha')
+
+
+def parse_value(field, raw):
+    """(value, unit) in the model's own form, or (None, reason). Never a conversion: the model holds
+    alcohol in % vol, yield in hl/ha, pH bare, a blend as grape-code shares."""
+    t = R.fold(raw or '')
+    if field == 'blend':
+        run = R._read_run(t)
+        if len(run) < 1 or not 97 <= sum(run.values()) <= 101:
+            return None, 'blend shares do not make a whole'
+        return {k: (int(v) if float(v).is_integer() else v) for k, v in sorted(run.items())}, '%'
+    m = R.VALUE_NUM[field].search(t)
+    if not m:
+        return None, 'no value of the field\'s shape'
+    if field == 'yld' and not YIELD_UNIT.search(t):
+        return None, 'UNIT_UNCERTAIN: a yield must be stated per hectare (hl/ha)'
+    v = float(m.group(1).replace(',', '.'))
+    return (int(v) if v.is_integer() else v), UNIT[field]
+
+
+def exact_slots():
+    """sha256 -> vintage id, for harvested documents mapped exactly to estate, wine and vintage."""
+    out = {}
+    for sha in A.observation_counts():
+        m = A.artifact_mapping(sha)
+        if m['estate'] == 'EXACT' and m['wine'] == 'EXACT' and m['vintage'] == 'EXACT':
+            out[sha] = 'vt:%s:%d' % (m['wines'][0], m['vintages'][0])
+    return out
+
+
+def harvest_figures():
+    """Every figure observation on an exactly mapped document, with its parsed value and how it
+    stands against the model: [{sha, vt, field, obs, label, raw, value, unit, state}]."""
+    import glob
+    slots = exact_slots()
+    vint = {'vt:%s:%s' % (v['wine'], v['label']) for v in A.table('identity/vintages.jsonl')}
+    pv = A.by_id('cross/provenance.jsonl')
+    # the model as it stood before M3.2D: its own recovered values do not count as already held
+    canon = {(c['subject'], c['field']): c['value'] for c in A.table('canonical/values.jsonl')
+             if (pv[c['provenance']].get('code_state') or {}).get('stream') != 'M3.2D'}
+    out = []
+    for p in sorted(glob.glob(L.ROOT + 'data/discovery/observations/*.jsonl')):
+        for line in open(p, encoding='utf-8'):
+            i = line.find(A.ART_KEY) + len(A.ART_KEY)
+            sha = line[i:i + 64]
+            if sha not in slots:
+                continue
+            o = json.loads(line)
+            lab = R.fold(o.get('label') or '').strip()
+            vt = slots[sha]
+            field = next((f for f, rx in A.LABEL_FIELD if rx.match(lab)), None)
+            if not field:
+                continue
+            if any(y != vt.rsplit(':', 1)[1] for y in re.findall(r'(?<!\d)(?:19|20)\d\d(?!\d)', lab)):
+                state = 'OTHER_YEAR_LABEL'
+                value, unit = None, None
+            elif not A.VALUE_SHAPE[field].search(R.fold(o.get('value') or '')):
+                state, value, unit = 'FIELD_MAPPING_AMBIGUOUS', None, None
+            else:
+                value, unit = parse_value(field, o.get('value'))
+                if value is None:
+                    state = 'UNIT_UNCERTAIN' if str(unit).startswith('UNIT') else 'FIELD_MAPPING_AMBIGUOUS'
+                elif vt not in vint:
+                    state = 'NO_MODEL_VINTAGE'
+                elif (vt, field) not in canon:
+                    state = 'MODEL_MISSING'
+                elif _same(canon[(vt, field)], value):
+                    state = 'MODEL_MATCHES'
+                else:
+                    state = 'MODEL_CONFLICT'
+            out.append({'sha': sha, 'vt': vt, 'field': field, 'obs': o['id'], 'label': o.get('label'),
+                        'raw': (o.get('value') or '')[:120], 'value': value, 'unit': unit, 'state': state,
+                        'lang': o.get('lang'), 'locus': o.get('locus')})
+    return out
+
+
+def _same(a, b):
+    if isinstance(a, dict) or isinstance(b, dict):
+        return isinstance(a, dict) and isinstance(b, dict) and set(a) == set(b) and \
+            all(abs(float(a[k]) - float(b[k])) < 1e-9 for k in a)
+    try:
+        return abs(float(a) - float(b)) < 1e-9
+    except (TypeError, ValueError):
+        return False
+
+
+RED_GRAPES, WHITE_GRAPES = {'CS', 'CF', 'ME', 'PV', 'MA', 'CR'}, {'SB', 'SG', 'SE', 'MU'}
+APPROX = re.compile(r'environ|approx\w*|about|around|circa|\bca\.|~|±|potentiel\w*|potential|provisoire|provisional'
+                    r'|estim\w*|attendu|expected|pr[ée]vu')
+
+
+def colour_ok(field, value, wine):
+    """A blend must agree with the wine's colour in the model; an unknown colour admits none."""
+    if field != 'blend':
+        return True, None
+    t = (wine or {}).get('type')
+    if t in ('RED', 'ROSE'):
+        ok = set(value) <= RED_GRAPES
+    elif t in ('WHITE_DRY', 'WHITE_SWEET'):
+        ok = set(value) <= WHITE_GRAPES
+    else:
+        return False, 'WINE_COLOUR_UNKNOWN: the model does not hold the wine\'s colour'
+    return ok, None if ok else 'WRONG_COLOUR: %s grapes for a %s wine' % (sorted(value), t)
+
+
+def approximate(field, value, quote):
+    """True when the stated value is qualified as approximate, potential or provisional."""
+    if field == 'blend' or not quote:
+        return False
+    q = R.fold(quote)
+    for m in re.finditer(R._alt(value), q):
+        if APPROX.search(q[max(0, m.start() - 40):m.start()]):
+            return True
+    return False
+
+
+def stream_d():
+    """The harvested figures the model lacks, on exactly mapped documents (estate, wine and vintage
+    all from an accepted decision). A value is eligible (APPLY_VALUE) only when the document itself,
+    read with stream A's rules, states it labelled, once, with its unit - and every exactly mapped
+    document of that vintage that states the field agrees. Different values: no winner."""
+    gaps = gap_ids()
+    figs = harvest_figures()
+    by_slot = collections.defaultdict(list)
+    for f in figs:
+        if f['state'] == 'MODEL_MISSING':
+            by_slot[(f['vt'], f['field'])].append(f)
+    sha2aid = A.sha_to_artifact()
+    wine_estate = {r['wine']: r['estate'] for r in A.table('state/estate-wine.jsonl')}
+    out = []
+    for (vt, field), fs in sorted(by_slot.items()):
+        checks = []
+        for f in sorted(fs, key=lambda f: (f['sha'], f['obs'])):
+            aid = sha2aid.get(f['sha'])
+            segs, how = segments(aid)
+            if segs is None and local_pdf(aid):
+                flat, _, how = pdf_text(local_pdf(aid))
+                segs = [('pdf:flat', flat)] if flat else None
+            c = R.classify(field, f['value'], segs or [])
+            checks.append((f, aid, c, how))
+        clear = [(f, aid, c, how) for f, aid, c, how in checks if c['classification'] == 'MODEL_MATCHES']
+        values = [f['value'] for f, _, _, _ in clear]
+        distinct = []
+        for v in values:
+            if not any(_same(v, d) for d in distinct):
+                distinct.append(v)
+        wine = A.by_id('identity/wines.jsonl').get(vt.split(':')[1])
+        colour = colour_ok(field, distinct[0], wine) if len(distinct) == 1 else (True, None)
+        approx = any(approximate(field, f['value'], c.get('quote')) for f, _, c, _ in clear)
+        if clear and len(distinct) == 1 and len(clear) == len(checks) and not colour[0]:
+            cls, disp = 'FIELD_MAPPING_AMBIGUOUS', 'REVIEW'
+        elif clear and len(distinct) == 1 and len(clear) == len(checks) and approx:
+            cls, disp = 'APPROXIMATE_VALUE', 'REVIEW'
+        elif clear and len(distinct) == 1 and len(clear) == len(checks):
+            cls, disp = 'MODEL_MISSING', 'APPLY_VALUE'
+        elif len(distinct) > 1:
+            cls, disp = 'CONFLICT_BETWEEN_SHEETS', 'REVIEW'
+        elif clear:
+            cls, disp = 'AMBIGUOUS', 'REVIEW'            # one sheet states it, another does not as such
+        else:
+            worst = sorted({c['classification'] for _, _, c, _ in checks})
+            cls, disp = ('DUPLICATE_VALUE' if 'DUPLICATE_VALUE' in worst else 'AMBIGUOUS'), 'REVIEW'
+        f0, aid0, c0, how0 = (clear or checks)[0]
+        est = wine_estate.get(vt.split(':')[1])
+        out.append({'stream': 'D', 'key': 'D|%s|%s' % (vt, field), 'gap_id': gaps.get('FILLABLE|%s' % est),
+                    'target': {'subject': vt, 'field': field, 'estate': est},
+                    'current_value': None,
+                    'proposed': {'value': distinct[0], 'unit': f0['unit'],
+                                 'rule': 'UNANIMOUS' if len(clear) > 1 else 'ONLY_CANDIDATE'} if disp == 'APPLY_VALUE' else None,
+                    'source': {'artifacts': sorted({aid for _, aid, _, _ in checks if aid}),
+                               'observations': [{'id': f['obs'], 'artifact': aid, 'label': f['label'], 'raw': f['raw'],
+                                                 'value': f['value'], 'unit': f['unit'], 'lang': f['lang'],
+                                                 'classification': c['classification'], 'locus': c.get('locus'),
+                                                 'quote': c.get('quote'), 'text': how}
+                                                for f, aid, c, how in checks]},
+                    'evidence': {'locus': c0.get('locus'), 'quote': c0.get('quote'), 'documents': len(checks),
+                                 'clear': len(clear)},
+                    'classification': cls, 'disposition': disp,
+                    'confidence': 'HIGH' if disp == 'APPLY_VALUE' else 'LOW',
+                    'colour': colour[1],
+                    'reason': {'MODEL_MISSING': 'the model lacks it; the exactly mapped sheet states it labelled, once, with its unit',
+                               'FIELD_MAPPING_AMBIGUOUS': colour[1] or 'the field mapping is not established',
+                               'APPROXIMATE_VALUE': 'the sheet states it as approximate, potential or provisional: an exact figure would claim more',
+                               'CONFLICT_BETWEEN_SHEETS': 'the vintage\'s sheets state different values: no winner (D5)',
+                               'AMBIGUOUS': 'not every sheet states it as that field',
+                               'DUPLICATE_VALUE': 'the sheet states the field with more than one value'}[cls]})
+    return out
+
+
+def harvest_summary():
+    """The stream D quantification over every exactly mapped figure observation."""
+    figs = harvest_figures()
+    return {'exact_documents': len(exact_slots()),
+            'figure_observations': len(figs),
+            'by_state': dict(sorted(collections.Counter(f['state'] for f in figs).items())),
+            'by_field_state': {'%s|%s' % k: v for k, v in sorted(collections.Counter((f['field'], f['state']) for f in figs).items())}}
+
+
 def build():
-    rows = stream_a() + stream_b() + stream_c()
+    rows = stream_a() + stream_b() + stream_c() + stream_d()
     for r in rows:
         r['id'] = 'm32_' + L.stable_hash('M32Candidate', r['key'])
         r['extractor'] = R.VERSION

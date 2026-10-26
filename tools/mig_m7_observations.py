@@ -215,6 +215,59 @@ def estate_fields(m, n):
                           ACTOR, p)
 
 
+CRAWLED = '2026-10-25'                  # the Phase 3.3 crawl's date: when the harvested sheets were read
+
+
+def recovered_values(m):
+    """M3.2D: vintage figures the model lacked, stated in an exactly mapped harvested sheet (estate,
+    wine and vintage from an accepted decision), labelled, once, with their unit, agreeing across the
+    vintage's sheets. Read from the audit's APPLY_VALUE rows only. Each stating sheet becomes an
+    Observation with its own DOCUMENT provenance; one Reconciliation, ONLY_CANDIDATE (one sheet) or
+    UNANIMOUS (several agreeing) - never a newest-wins rule (D5 is not adopted); the canonical value
+    SOURCED. The legacy files hold none of these: the app's projection of them is unchanged."""
+    import os
+    if not os.path.exists(L.ROOT + M6.RECOVERY):
+        return
+    n = 0
+    for r in L.jsonl_lines(L.ROOT + M6.RECOVERY):
+        if r['disposition'] != 'APPLY_VALUE':
+            continue
+        vt, field, prop = r['target']['subject'], r['target']['field'], r['proposed']
+        oids, provs = [], []
+        for o in r['source']['observations']:
+            pid = m.prov('DOCUMENT', M6.RECOVERY_ACTOR, artifact=o['artifact'], quote=o['quote'],
+                         code_state={'stream': 'M3.2D', 'candidate': r['id'], 'locus': o['locus'],
+                                     'observation': o['id'], 'text': o['text']})
+            oid = S.hid('Observation', vt, field, 'm32d', o['id'])
+            row = {'id': oid, 'subject': vt, 'field': field, 'value': o['value'], 'raw_value': o['raw'],
+                   'raw_label': o['label'], 'artifact': o['artifact'], 'locus': o['locus'],
+                   # file and record name where the statement was harvested, as every extraction does
+                   'extraction': {'method': 'discover-extract/1.0', 'mapping': 'm32-recovery/1',
+                                  'file': 'data/discovery/observations', 'record': o['id']},
+                   'confidence': 'EXPLICIT_LABELLED', 'observed_at': CRAWLED, 'provenance': pid,
+                   'subject_status': 'ESTABLISHED'}
+            for k, v in (('unit', o['unit']), ('lang', o['lang'])):
+                if v:
+                    row[k] = v
+            m.add('observation/observations.jsonl', row)
+            oids.append(oid)
+            provs.append(pid)
+        rule = prop['rule']
+        rid = S.hid('Reconciliation', vt, field, 'm32d')
+        m.add('reconciliation/reconciliations.jsonl', {
+            'id': rid, 'subject': vt, 'field': field, 'candidates': oids, 'selected': oids[0], 'rule': rule,
+            'status': 'SINGLE' if rule == 'ONLY_CANDIDATE' else 'AGREED',
+            'reason': 'stated labelled, once, with its unit, in %d exactly mapped sheet(s); %s' % (
+                len(oids), 'the only candidate' if rule == 'ONLY_CANDIDATE' else 'every sheet agrees'),
+            'resolver': M6.RECOVERY_ACTOR, 'decided_at': CRAWLED,
+            'provenance': m.prov('DERIVATION', M6.RECOVERY_ACTOR, derived_from=sorted(provs),
+                                 code_state={'stream': 'M3.2D', 'candidate': r['id'], 'rule': rule})})
+        m.add('canonical/values.jsonl', {'subject': vt, 'field': field, 'value': prop['value'], 'status': 'SOURCED',
+                                         'reconciliation': rid, 'provenance': provs[0]})
+        n += 1
+    m.stat('M7', 'M3.2D recovered values', n)
+
+
 def run(m):
     m.p_rec = m.prov('DERIVATION', ACTOR, quote='legacy values are retained; no reconciliation '
                      'rule chose them (LEGACY_NEVER_OVERWRITE)')
@@ -225,3 +278,4 @@ def run(m):
     single_value_files(m, n)
     estate_fields(m, n)
     m.stat('M7', 'backfill', dict(sorted(n.items())))
+    recovered_values(m)

@@ -1863,6 +1863,7 @@
 {"field":"blend","provenance":"pv_96e570739846","reconciliation":"rc_a2d754e7f5b1","status":"LEGACY_RECORD_SOURCE_ONLY","subject":"vt:wn_00239:2025","value":{"CF":11,"CS":55,"ME":34}}
 {"field":"months","provenance":"pv_9fb18ce6688a","reconciliation":"rc_b614eb984044","status":"LEGACY_RECORD_SOURCE_ONLY","subject":"vt:wn_00241:2004","value":"10"}
 {"field":"oak","provenance":"pv_9fb18ce6688a","reconciliation":"rc_bcc7665d0976","status":"LEGACY_RECORD_SOURCE_ONLY","subject":"vt:wn_00241:2004","value":30}
+{"field":"blend","provenance":"pv_75b7206079d0","reconciliation":"rc_de7e742bf960","status":"SOURCED","subject":"vt:wn_00241:2005","value":{"SB":100}}
 {"field":"months","provenance":"pv_7ec561dfb33f","reconciliation":"rc_4dc869af4dbb","status":"LEGACY_RECORD_SOURCE_ONLY","subject":"vt:wn_00241:2005","value":"10"}
 {"field":"oak","provenance":"pv_7ec561dfb33f","reconciliation":"rc_7a45df750a1e","status":"LEGACY_RECORD_SOURCE_ONLY","subject":"vt:wn_00241:2005","value":30}
 {"field":"pick","provenance":"pv_b24873ada0fb","reconciliation":"rc_5721f0ab48f4","status":"LEGACY_FIELD_SOURCE","subject":"vt:wn_00241:2005","value":{"ALL":"08-31|"}}
@@ -2376,11 +2377,13 @@
 {"field":"ph","provenance":"pv_4f45aecb5097","reconciliation":"rc_90c0e6c4c53e","status":"LEGACY_FIELD_SOURCE","subject":"vt:wn_00258:2011","value":3.1}
 {"field":"pick","provenance":"pv_a6f422d73569","reconciliation":"rc_d74d3b4b793c","status":"LEGACY_RECORD_SOURCE_ONLY","subject":"vt:wn_00258:2011","value":{"ALL":"08-23|"}}
 {"field":"yld","provenance":"pv_a6f422d73569","reconciliation":"rc_1a51a5a5462c","status":"LEGACY_RECORD_SOURCE_ONLY","subject":"vt:wn_00258:2011","value":37}
+{"field":"alc","provenance":"pv_bdec91f15b88","reconciliation":"rc_e42fee31ee59","status":"SOURCED","subject":"vt:wn_00258:2012","value":13.5}
 {"field":"blend","provenance":"pv_c25ab8b55d52","reconciliation":"rc_93fa54faa6b0","status":"LEGACY_FIELD_SOURCE","subject":"vt:wn_00258:2012","value":{"CS":65,"ME":30,"PV":5}}
 {"field":"months","provenance":"pv_1ef8a8e12ee0","reconciliation":"rc_03ccb7be60ea","status":"LEGACY_FIELD_SOURCE","subject":"vt:wn_00258:2012","value":"16-20"}
 {"field":"oak","provenance":"pv_c842f607e175","reconciliation":"rc_80411574140e","status":"LEGACY_FIELD_SOURCE","subject":"vt:wn_00258:2012","value":35}
 {"field":"ph","provenance":"pv_944444490b9e","reconciliation":"rc_488c9ee4b5d9","status":"LEGACY_FIELD_SOURCE","subject":"vt:wn_00258:2012","value":3.7}
 {"field":"pick","provenance":"pv_23b0823b9406","reconciliation":"rc_0c4955463a82","status":"LEGACY_FIELD_SOURCE","subject":"vt:wn_00258:2012","value":{"ALL":"10-09|10-18"}}
+{"field":"alc","provenance":"pv_855ce6a3eae7","reconciliation":"rc_dc7834ca6b41","status":"SOURCED","subject":"vt:wn_00258:2013","value":13}
 {"field":"blend","provenance":"pv_5a036f22d59e","reconciliation":"rc_7b98a1edd37b","status":"LEGACY_RECORD_SOURCE_ONLY","subject":"vt:wn_00258:2013","value":{"CS":65,"ME":30,"PV":5}}
 {"field":"months","provenance":"pv_144c1b63ec5f","reconciliation":"rc_0ff848ad9064","status":"LEGACY_FIELD_SOURCE","subject":"vt:wn_00258:2013","value":"16-20"}
 {"field":"oak","provenance":"pv_2262acc0e62e","reconciliation":"rc_94cd8033358d","status":"LEGACY_FIELD_SOURCE","subject":"vt:wn_00258:2013","value":35}
@@ -2420,6 +2423,7 @@
 {"field":"oak","provenance":"pv_9955229ffabe","reconciliation":"rc_99fef37fd567","status":"LEGACY_FIELD_SOURCE","subject":"vt:wn_00258:2019","value":35}
 {"field":"pick","provenance":"pv_d3545bc68f80","reconciliation":"rc_5e172221b3c9","status":"LEGACY_FIELD_SOURCE","subject":"vt:wn_00258:2019","value":{"ALL":"09-23|10-13"}}
 {"field":"yld","provenance":"pv_bd0d4ebc053d","reconciliation":"rc_8c4f7e141a06","status":"LEGACY_FIELD_SOURCE","subject":"vt:wn_00258:2019","value":45}
+{"field":"alc","provenance":"pv_04d4f9fb5213","reconciliation":"rc_2024cd298ce2","status":"SOURCED","subject":"vt:wn_00258:2020","value":14}
 {"field":"blend","provenance":"pv_8f5325fde2f8","reconciliation":"rc_00b53f9c4a53","status":"LEGACY_AMBIGUOUS_SOURCE","subject":"vt:wn_00258:2020","value":{"CF":5,"CS":55,"ME":35,"PV":5}}
 {"field":"months","provenance":"pv_8d3a855fac99","reconciliation":"rc_30cfe714ac83","status":"LEGACY_AMBIGUOUS_SOURCE","subject":"vt:wn_00258:2020","value":"18"}
 {"field":"oak","provenance":"pv_a5a2df6d4d1e","reconciliation":"rc_c44fc39b1974","status":"LEGACY_FIELD_SOURCE","subject":"vt:wn_00258:2020","value":35}
@@ -2434,6 +2438,7 @@
 {"field":"months","provenance":"pv_f983a506304a","reconciliation":"rc_68939ed17038","status":"LEGACY_RECORD_SOURCE_ONLY","subject":"vt:wn_00258:2022","value":"16-18"}
 {"field":"pick","provenance":"pv_55af7198cd9a","reconciliation":"rc_4339ee8856fc","status":"LEGACY_FIELD_SOURCE","subject":"vt:wn_00258:2022","value":{"ALL":"09-05|09-30"}}
 {"field":"yld","provenance":"pv_f983a506304a","reconciliation":"rc_3a24ceadde29","status":"LEGACY_RECORD_SOURCE_ONLY","subject":"vt:wn_00258:2022","value":40}
+{"field":"alc","provenance":"pv_08125993e3a5","reconciliation":"rc_ae3024076607","status":"SOURCED","subject":"vt:wn_00258:2023","value":13}
 {"field":"blend","provenance":"pv_d1e6420d4d8a","reconciliation":"rc_e4f2ca09e694","status":"LEGACY_FIELD_SOURCE","subject":"vt:wn_00258:2023","value":{"CF":5,"CS":60,"ME":30,"PV":5}}
 {"field":"oak","provenance":"pv_b176325f6709","reconciliation":"rc_e8c4cb408709","status":"LEGACY_FIELD_SOURCE","subject":"vt:wn_00258:2023","value":35}
 {"field":"ph","provenance":"pv_033a2e324cb3","reconciliation":"rc_dbbde357dea6","status":"LEGACY_FIELD_SOURCE","subject":"vt:wn_00258:2023","value":3.62}
@@ -2444,6 +2449,7 @@
 {"field":"ph","provenance":"pv_7ccc2cbb3de1","reconciliation":"rc_a62af9e603f3","status":"LEGACY_FIELD_SOURCE","subject":"vt:wn_00258:2024","value":3.62}
 {"field":"pick","provenance":"pv_ed1f6bde8b79","reconciliation":"rc_15eaa5b81345","status":"LEGACY_FIELD_SOURCE","subject":"vt:wn_00258:2024","value":{"ALL":"09-20|10-08"}}
 {"field":"yld","provenance":"pv_73576dd0db49","reconciliation":"rc_9bead5a77729","status":"LEGACY_FIELD_SOURCE","subject":"vt:wn_00258:2024","value":48}
+{"field":"alc","provenance":"pv_c5b4c5de5e07","reconciliation":"rc_43307f9e8026","status":"SOURCED","subject":"vt:wn_00258:2025","value":12.5}
 {"field":"blend","provenance":"pv_e789cc64196b","reconciliation":"rc_9bf750f2cac1","status":"LEGACY_RECORD_SOURCE_ONLY","subject":"vt:wn_00258:2025","value":{"CS":65,"ME":30,"PV":5}}
 {"field":"oak","provenance":"pv_935010580704","reconciliation":"rc_7abd7e2485a1","status":"LEGACY_FIELD_SOURCE","subject":"vt:wn_00258:2025","value":35}
 {"field":"ph","provenance":"pv_ca8dc541048c","reconciliation":"rc_91f18ad4565f","status":"LEGACY_FIELD_SOURCE","subject":"vt:wn_00258:2025","value":3.71}
@@ -6975,6 +6981,7 @@
 {"field":"oak","provenance":"pv_637c747378d4","reconciliation":"rc_784072b054ff","status":"LEGACY_FIELD_SOURCE","subject":"vt:wn_00360:2020","value":40}
 {"field":"pick","provenance":"pv_ac8ee7979dd2","reconciliation":"rc_4f114ef9dbce","status":"LEGACY_RECORD_SOURCE_ONLY","subject":"vt:wn_00360:2020","value":{"ALL":"10-01|"}}
 {"field":"yld","provenance":"pv_c1cabdecd98f","reconciliation":"rc_1630f19dbc97","status":"SOURCED","subject":"vt:wn_00360:2020","value":34}
+{"field":"ph","provenance":"pv_d381978f994a","reconciliation":"rc_e0c6c215000a","status":"SOURCED","subject":"vt:wn_00360:2021","value":3.72}
 {"field":"blend","provenance":"pv_57ccef73f299","reconciliation":"rc_cdc26c726ec9","status":"SOURCED","subject":"vt:wn_00360:2022","value":{"CS":65,"ME":30,"PV":5}}
 {"field":"oak","provenance":"pv_cbaa85229873","reconciliation":"rc_6cacd1657941","status":"LEGACY_FIELD_SOURCE","subject":"vt:wn_00360:2022","value":40}
 {"field":"pick","provenance":"pv_698db008636e","reconciliation":"rc_228a16af1f15","status":"LEGACY_FIELD_SOURCE","subject":"vt:wn_00360:2022","value":{"ALL":"09-12|09-21"}}
@@ -8724,6 +8731,7 @@
 {"field":"ph","provenance":"pv_ba41d7080268","reconciliation":"rc_c7809bd657a8","status":"LEGACY_RECORD_SOURCE_ONLY","subject":"vt:wn_00426:2022","value":3.37}
 {"field":"pick","provenance":"pv_036d37bd405a","reconciliation":"rc_97ba5dbad5ad","status":"LEGACY_FIELD_SOURCE","subject":"vt:wn_00426:2022","value":{"ALL":"09-16|"}}
 {"field":"yld","provenance":"pv_ba41d7080268","reconciliation":"rc_e31e191d28a9","status":"LEGACY_RECORD_SOURCE_ONLY","subject":"vt:wn_00426:2022","value":43}
+{"field":"alc","provenance":"pv_2e5c1cfb29ff","reconciliation":"rc_34893212e5f6","status":"SOURCED","subject":"vt:wn_00426:2023","value":14.5}
 {"field":"blend","provenance":"pv_0fcade4314d9","reconciliation":"rc_9abed994854c","status":"LEGACY_RECORD_SOURCE_ONLY","subject":"vt:wn_00426:2023","value":{"ME":100}}
 {"field":"months","provenance":"pv_0fcade4314d9","reconciliation":"rc_1ae503519f02","status":"LEGACY_RECORD_SOURCE_ONLY","subject":"vt:wn_00426:2023","value":"16"}
 {"field":"oak","provenance":"pv_0fcade4314d9","reconciliation":"rc_e6500eb80ffe","status":"LEGACY_RECORD_SOURCE_ONLY","subject":"vt:wn_00426:2023","value":70}
@@ -8858,6 +8866,7 @@
 {"field":"ph","provenance":"pv_27dd9d97de5e","reconciliation":"rc_16b67f9ecf5d","status":"LEGACY_RECORD_SOURCE_ONLY","subject":"vt:wn_00433:2022","value":3.43}
 {"field":"pick","provenance":"pv_9f7d84258a0d","reconciliation":"rc_0576e1a966cd","status":"LEGACY_FIELD_SOURCE","subject":"vt:wn_00433:2022","value":{"ALL":"09-13|09-22"}}
 {"field":"yld","provenance":"pv_27dd9d97de5e","reconciliation":"rc_325ca3c6bdeb","status":"LEGACY_RECORD_SOURCE_ONLY","subject":"vt:wn_00433:2022","value":34}
+{"field":"alc","provenance":"pv_1bf31f39ea14","reconciliation":"rc_4ec4feffd215","status":"SOURCED","subject":"vt:wn_00433:2023","value":14.5}
 {"field":"blend","provenance":"pv_c656eeae3d59","reconciliation":"rc_abcbd2d3e4c1","status":"LEGACY_RECORD_SOURCE_ONLY","subject":"vt:wn_00433:2023","value":{"CF":8,"CS":5,"ME":87}}
 {"field":"months","provenance":"pv_c656eeae3d59","reconciliation":"rc_5ddd490f988f","status":"LEGACY_RECORD_SOURCE_ONLY","subject":"vt:wn_00433:2023","value":"16"}
 {"field":"oak","provenance":"pv_c656eeae3d59","reconciliation":"rc_1e6093b71464","status":"LEGACY_RECORD_SOURCE_ONLY","subject":"vt:wn_00433:2023","value":70}
@@ -9770,13 +9779,19 @@
 {"field":"blend","provenance":"pv_b0cc7ea95eff","reconciliation":"rc_1fd9ecf236b6","status":"LEGACY_RECORD_SOURCE_ONLY","subject":"vt:wn_00486:2023","value":{"SB":80,"SEM":20}}
 {"field":"blend","provenance":"pv_a43c777ccf1b","reconciliation":"rc_4c5d60ff1e18","status":"LEGACY_RECORD_SOURCE_ONLY","subject":"vt:wn_00486:2024","value":{"SB":61,"SEM":39}}
 {"field":"blend","provenance":"pv_4721937536da","reconciliation":"rc_1fa0da8dd85b","status":"LEGACY_RECORD_SOURCE_ONLY","subject":"vt:wn_00486:2025","value":{"SB":67,"SEM":33}}
+{"field":"blend","provenance":"pv_10c83a2fd2fc","reconciliation":"rc_3d2c96a87b4a","status":"SOURCED","subject":"vt:wn_00488:1989","value":{"SE":100}}
 {"field":"pick","provenance":"pv_3f135a68e40e","reconciliation":"rc_2d1279249a9f","status":"LEGACY_FIELD_SOURCE","subject":"vt:wn_00488:1989","value":{"ALL":"09-26|10-24"}}
+{"field":"blend","provenance":"pv_8980ad2de159","reconciliation":"rc_e596ec480751","status":"SOURCED","subject":"vt:wn_00488:1990","value":{"SE":100}}
 {"field":"pick","provenance":"pv_34e5cc5736b0","reconciliation":"rc_eeb1d7c340ec","status":"LEGACY_FIELD_SOURCE","subject":"vt:wn_00488:1990","value":{"ALL":"10-09|"}}
+{"field":"blend","provenance":"pv_f6246793332e","reconciliation":"rc_6f8fa6f4cb9a","status":"SOURCED","subject":"vt:wn_00488:1995","value":{"SE":100}}
 {"field":"pick","provenance":"pv_49c05074a0e4","reconciliation":"rc_66e31d015643","status":"LEGACY_FIELD_SOURCE","subject":"vt:wn_00488:1995","value":{"ALL":"09-21|"}}
+{"field":"blend","provenance":"pv_58402a6d0f5e","reconciliation":"rc_47c0cdefa20a","status":"SOURCED","subject":"vt:wn_00488:1997","value":{"SE":100}}
 {"field":"pick","provenance":"pv_28dcbc0a8cfd","reconciliation":"rc_90187cc507ce","status":"LEGACY_FIELD_SOURCE","subject":"vt:wn_00488:1997","value":{"ALL":"10-14|"}}
 {"field":"blend","provenance":"pv_ca33dd7ff9d7","reconciliation":"rc_ce7d3d6be75c","status":"LEGACY_RECORD_SOURCE_ONLY","subject":"vt:wn_00488:2001","value":{"SEM":100}}
 {"field":"pick","provenance":"pv_395079e9117b","reconciliation":"rc_2eb93fa8d619","status":"LEGACY_FIELD_SOURCE","subject":"vt:wn_00488:2001","value":{"ALL":"10-10|"}}
+{"field":"blend","provenance":"pv_fc95d9cde396","reconciliation":"rc_bda8e598fa68","status":"SOURCED","subject":"vt:wn_00488:2003","value":{"SE":100}}
 {"field":"pick","provenance":"pv_a0edf179e947","reconciliation":"rc_95e2f1236f01","status":"LEGACY_FIELD_SOURCE","subject":"vt:wn_00488:2003","value":{"ALL":"09-30|"}}
+{"field":"blend","provenance":"pv_eb2fcd409c81","reconciliation":"rc_c611c63012ad","status":"SOURCED","subject":"vt:wn_00488:2009","value":{"SE":100}}
 {"field":"pick","provenance":"pv_c7bfad8f3cbd","reconciliation":"rc_779ac43461d1","status":"LEGACY_FIELD_SOURCE","subject":"vt:wn_00488:2009","value":{"ALL":"09-15|"}}
 {"field":"months","provenance":"pv_4a1c3a5d9f5b","reconciliation":"rc_53280b68b5c8","status":"LEGACY_FIELD_SOURCE","subject":"vt:wn_00489:2022","value":"18"}
 {"field":"pick","provenance":"pv_12ff9771f2cc","reconciliation":"rc_b5cfdde32d80","status":"LEGACY_FIELD_SOURCE","subject":"vt:wn_00489:2022","value":{"ALL":"09-26|10-28"}}
@@ -10191,6 +10206,7 @@
 {"field":"ph","provenance":"pv_5f7a43939466","reconciliation":"rc_0c4c1d22aff5","status":"LEGACY_FIELD_SOURCE","subject":"vt:wn_00503:2023","value":3.13}
 {"field":"pick","provenance":"pv_b697dac91997","reconciliation":"rc_0163ea9e247f","status":"LEGACY_FIELD_SOURCE","subject":"vt:wn_00503:2023","value":{"ALL":"08-28|09-06"}}
 {"field":"yld","provenance":"pv_eb2b3ad7f154","reconciliation":"rc_215258a8c32f","status":"LEGACY_FIELD_SOURCE","subject":"vt:wn_00503:2023","value":45}
+{"field":"alc","provenance":"pv_9c37a8a3d7e7","reconciliation":"rc_15a5fed6a395","status":"SOURCED","subject":"vt:wn_00503:2024","value":12.8}
 {"field":"blend","provenance":"pv_2324822b5853","reconciliation":"rc_d7cca1c43670","status":"LEGACY_FIELD_SOURCE","subject":"vt:wn_00503:2024","value":{"SB":75,"SEM":25}}
 {"field":"oak","provenance":"pv_653f8950831a","reconciliation":"rc_c2a2d2a770c4","status":"LEGACY_FIELD_SOURCE","subject":"vt:wn_00503:2024","value":35}
 {"field":"ph","provenance":"pv_3b82f25aa0e8","reconciliation":"rc_d628572b79a3","status":"LEGACY_FIELD_SOURCE","subject":"vt:wn_00503:2024","value":3.13}
@@ -10808,6 +10824,7 @@
 {"field":"yld","provenance":"pv_25e108b29413","reconciliation":"rc_55a2c2ae4273","status":"LEGACY_FIELD_SOURCE","subject":"vt:wn_00519:2016","value":22}
 {"field":"months","provenance":"pv_a3c4cb712248","reconciliation":"rc_4d0e60f5a730","status":"LEGACY_FIELD_SOURCE","subject":"vt:wn_00519:2017","value":"12"}
 {"field":"yld","provenance":"pv_8fb2fe7e1a27","reconciliation":"rc_a0386303f22d","status":"LEGACY_FIELD_SOURCE","subject":"vt:wn_00519:2017","value":12}
+{"field":"blend","provenance":"pv_7755e4c3b756","reconciliation":"rc_8b613401366b","status":"SOURCED","subject":"vt:wn_00519:2022","value":{"SB":35,"SE":65}}
 {"field":"blend","provenance":"pv_5f91d274ab39","reconciliation":"rc_351c3152aa5a","status":"LEGACY_RECORD_SOURCE_ONLY","subject":"vt:wn_00520:2022","value":{"SB":35,"SEM":65}}
 {"field":"months","provenance":"pv_5f91d274ab39","reconciliation":"rc_859e034a0c21","status":"LEGACY_RECORD_SOURCE_ONLY","subject":"vt:wn_00520:2022","value":"12"}
 {"field":"ph","provenance":"pv_5f91d274ab39","reconciliation":"rc_8e9182eaeeee","status":"LEGACY_RECORD_SOURCE_ONLY","subject":"vt:wn_00520:2022","value":3.97}
@@ -11335,6 +11352,7 @@
 {"field":"pick","provenance":"pv_39b552b783f5","reconciliation":"rc_9e39df7ecafb","status":"LEGACY_FIELD_SOURCE","subject":"vt:wn_00531:2023","value":{"ALL":"09-07|"}}
 {"field":"ta","provenance":"pv_5184dd2f6956","reconciliation":"rc_0e19fb6f1c1a","status":"LEGACY_FIELD_SOURCE","subject":"vt:wn_00531:2023","value":3.13}
 {"field":"yld","provenance":"pv_39e5030f4bf2","reconciliation":"rc_21f0c2948107","status":"LEGACY_FIELD_SOURCE","subject":"vt:wn_00531:2023","value":43}
+{"field":"alc","provenance":"pv_ee43058049fc","reconciliation":"rc_40b83fd8ea6d","status":"SOURCED","subject":"vt:wn_00533:2016","value":13.5}
 {"field":"alc","provenance":"pv_a0ef0fa05be4","reconciliation":"rc_95df806d2755","status":"LEGACY_FIELD_SOURCE","subject":"vt:wn_00533:2018","value":14}
 {"field":"blend","provenance":"pv_1e9301ce65b6","reconciliation":"rc_ad19bcdec842","status":"LEGACY_FIELD_SOURCE","subject":"vt:wn_00533:2018","value":{"CS":60,"ME":10,"PV":30}}
 {"field":"months","provenance":"pv_73e28b1dcf9e","reconciliation":"rc_444cca370732","status":"LEGACY_FIELD_SOURCE","subject":"vt:wn_00533:2018","value":"12"}
@@ -11773,6 +11791,7 @@
 {"field":"blend","provenance":"pv_6ebed46080fb","reconciliation":"rc_8844bb7be123","status":"LEGACY_RECORD_SOURCE_ONLY","subject":"vt:wn_00541:2025","value":{"CS":15,"ME":85}}
 {"field":"pick","provenance":"pv_3da994e7d639","reconciliation":"rc_bb931fb2eec5","status":"LEGACY_FIELD_SOURCE","subject":"vt:wn_00541:2025","value":{"ALL":"09-08|09-25"}}
 {"field":"yld","provenance":"pv_8835110825c9","reconciliation":"rc_f531e229df56","status":"LEGACY_FIELD_SOURCE","subject":"vt:wn_00541:2025","value":28.5}
+{"field":"alc","provenance":"pv_d17610846809","reconciliation":"rc_be2769363b33","status":"SOURCED","subject":"vt:wn_00542:2022","value":14}
 {"field":"months","provenance":"pv_7bfcbaf30606","reconciliation":"rc_81875e4702b4","status":"LEGACY_FIELD_SOURCE","subject":"vt:wn_00542:2022","value":"12"}
 {"field":"oak","provenance":"pv_65796fbc1246","reconciliation":"rc_748cbbbb82aa","status":"LEGACY_FIELD_SOURCE","subject":"vt:wn_00542:2022","value":40}
 {"field":"pick","provenance":"pv_2bacd9d44a76","reconciliation":"rc_01b1d83eede7","status":"LEGACY_FIELD_SOURCE","subject":"vt:wn_00542:2022","value":{"ALL":"09-06|09-15"}}
@@ -11845,6 +11864,7 @@
 {"field":"months","provenance":"pv_2a3e989025d7","reconciliation":"rc_040ac2a3993a","status":"LEGACY_FIELD_SOURCE","subject":"vt:wn_00546:2016","value":"6"}
 {"field":"oak","provenance":"pv_1af022f39664","reconciliation":"rc_e4b4fb029202","status":"LEGACY_FIELD_SOURCE","subject":"vt:wn_00546:2016","value":50}
 {"field":"pick","provenance":"pv_9e72ce447eb6","reconciliation":"rc_1dd87c874754","status":"LEGACY_FIELD_SOURCE","subject":"vt:wn_00546:2016","value":{"ALL":"09-19|"}}
+{"field":"blend","provenance":"pv_0c5b54bb394f","reconciliation":"rc_09c35e182932","status":"SOURCED","subject":"vt:wn_00546:2017","value":{"MU":19,"SB":40,"SE":41}}
 {"field":"months","provenance":"pv_61dff8000ae0","reconciliation":"rc_71bd0dba3310","status":"LEGACY_RECORD_SOURCE_ONLY","subject":"vt:wn_00546:2017","value":"6"}
 {"field":"oak","provenance":"pv_61dff8000ae0","reconciliation":"rc_1e9904ee58fc","status":"LEGACY_RECORD_SOURCE_ONLY","subject":"vt:wn_00546:2017","value":45}
 {"field":"pick","provenance":"pv_0aad67cf03b8","reconciliation":"rc_5eeb0e83ccaf","status":"LEGACY_FIELD_SOURCE","subject":"vt:wn_00546:2017","value":{"ALL":"09-05|"}}
@@ -12197,12 +12217,15 @@
 {"field":"oak","provenance":"pv_1b291eef26ee","reconciliation":"rc_7f31ea008a0b","status":"LEGACY_FIELD_SOURCE","subject":"vt:wn_00558:2015","value":35}
 {"field":"pick","provenance":"pv_9b848d1dfd61","reconciliation":"rc_2ab37c271e37","status":"LEGACY_FIELD_SOURCE","subject":"vt:wn_00558:2015","value":{"ALL":"09-01|09-10"}}
 {"field":"yld","provenance":"pv_06978d2cd075","reconciliation":"rc_806d765b266d","status":"LEGACY_RECORD_SOURCE_ONLY","subject":"vt:wn_00558:2015","value":38}
+{"field":"alc","provenance":"pv_f7f7e28df861","reconciliation":"rc_71de8a6d246b","status":"SOURCED","subject":"vt:wn_00558:2018","value":13.5}
 {"field":"oak","provenance":"pv_13a1dcec5ce3","reconciliation":"rc_41c9c5ab33c1","status":"LEGACY_FIELD_SOURCE","subject":"vt:wn_00558:2018","value":35}
 {"field":"pick","provenance":"pv_332385dbf1c2","reconciliation":"rc_d566b0680997","status":"LEGACY_FIELD_SOURCE","subject":"vt:wn_00558:2018","value":{"ALL":"08-28|09-12"}}
 {"field":"yld","provenance":"pv_2b7986a9fa9b","reconciliation":"rc_f4fea786df01","status":"LEGACY_RECORD_SOURCE_ONLY","subject":"vt:wn_00558:2018","value":46}
+{"field":"alc","provenance":"pv_5f3f4cd9f5db","reconciliation":"rc_fe1a91eae7fe","status":"SOURCED","subject":"vt:wn_00558:2019","value":13.5}
 {"field":"oak","provenance":"pv_13ea09d8aac1","reconciliation":"rc_7dbee9ae800e","status":"LEGACY_FIELD_SOURCE","subject":"vt:wn_00558:2019","value":35}
 {"field":"pick","provenance":"pv_a5ca288210dc","reconciliation":"rc_4d67c6ab5025","status":"LEGACY_FIELD_SOURCE","subject":"vt:wn_00558:2019","value":{"ALL":"08-29|09-12"}}
 {"field":"yld","provenance":"pv_66ea4bb0f697","reconciliation":"rc_88414f8d2d53","status":"LEGACY_RECORD_SOURCE_ONLY","subject":"vt:wn_00558:2019","value":44}
+{"field":"blend","provenance":"pv_2a0128ca8626","reconciliation":"rc_73293f6ba59c","status":"SOURCED","subject":"vt:wn_00558:2022","value":{"SB":75,"SE":25}}
 {"field":"ph","provenance":"pv_24f944351e96","reconciliation":"rc_5ec884a81906","status":"LEGACY_RECORD_SOURCE_ONLY","subject":"vt:wn_00558:2022","value":3.25}
 {"field":"pick","provenance":"pv_d59705b0e0ed","reconciliation":"rc_f609b5ccbd17","status":"LEGACY_FIELD_SOURCE","subject":"vt:wn_00558:2022","value":{"ALL":"08-18|08-31"}}
 {"field":"yld","provenance":"pv_24f944351e96","reconciliation":"rc_92e88b35cace","status":"LEGACY_RECORD_SOURCE_ONLY","subject":"vt:wn_00558:2022","value":45}
@@ -12610,8 +12633,10 @@
 {"field":"yld","provenance":"pv_12e53ad16c39","reconciliation":"rc_2592347a3df0","status":"LEGACY_RECORD_SOURCE_ONLY","subject":"vt:wn_00575:2024","value":45}
 {"field":"blend","provenance":"pv_ebd7a1eddaf3","reconciliation":"rc_a9e0c12c2c60","status":"LEGACY_RECORD_SOURCE_ONLY","subject":"vt:wn_00575:2025","value":{"CF":30,"ME":65,"PV":5}}
 {"field":"yld","provenance":"pv_ebd7a1eddaf3","reconciliation":"rc_984a083d1cd1","status":"LEGACY_RECORD_SOURCE_ONLY","subject":"vt:wn_00575:2025","value":45}
+{"field":"blend","provenance":"pv_1882398ecd0d","reconciliation":"rc_6343829547d4","status":"SOURCED","subject":"vt:wn_00576:2015","value":{"CF":10,"ME":90}}
 {"field":"months","provenance":"pv_741a89ece327","reconciliation":"rc_f5f73881a9f7","status":"LEGACY_RECORD_SOURCE_ONLY","subject":"vt:wn_00576:2015","value":"5"}
 {"field":"oak","provenance":"pv_f007a3d124e5","reconciliation":"rc_4892339be1ce","status":"LEGACY_FIELD_SOURCE","subject":"vt:wn_00576:2015","value":50}
+{"field":"blend","provenance":"pv_5bc28516f463","reconciliation":"rc_de6133a6b724","status":"SOURCED","subject":"vt:wn_00576:2016","value":{"CF":10,"CS":5,"ME":85}}
 {"field":"oak","provenance":"pv_461648a0a32f","reconciliation":"rc_78af79b0eb71","status":"LEGACY_FIELD_SOURCE","subject":"vt:wn_00576:2016","value":50}
 {"field":"blend","provenance":"pv_96d2458efbad","reconciliation":"rc_4698d666f61a","status":"LEGACY_RECORD_SOURCE_ONLY","subject":"vt:wn_00576:2017","value":{"CF":10,"CS":5,"ME":85}}
 {"field":"months","provenance":"pv_96d2458efbad","reconciliation":"rc_20998c51c8b0","status":"LEGACY_RECORD_SOURCE_ONLY","subject":"vt:wn_00576:2017","value":"15"}

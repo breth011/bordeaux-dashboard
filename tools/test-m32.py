@@ -100,11 +100,22 @@ def units_are_preserved():
     a = audit()
     old = {(json.loads(l)['subject'], json.loads(l)['field']): json.loads(l)
            for l in git('show', BEFORE + ':data/model/canonical/values.jsonl').splitlines()}
+    added = {(r['target']['subject'], r['target']['field']): r for r in a if r['disposition'] == 'APPLY_VALUE'}
     for c in L.read_table('canonical/values.jsonl'):
+        if (c['subject'], c['field']) in added:
+            # M3.2D: the value as the sheet states it, in the model's own unit; the raw text kept
+            r = added[(c['subject'], c['field'])]
+            assert c['value'] == r['proposed']['value'] and (c['subject'], c['field']) not in old
+            continue
         o = old[(c['subject'], c['field'])]
         assert c['value'] == o['value'], (c['subject'], c['field'])
+    for o in L.read_table('observation/observations.jsonl'):
+        if H.is_m32d_observation(o):
+            assert o.get('raw_value') and o.get('unit') == {'alc': '%', 'ph': None, 'yld': 'hl/ha', 'blend': '%'}[o['field']]
     obs_old = {json.loads(l)['id']: json.loads(l) for l in git('show', BEFORE + ':data/model/observation/observations.jsonl').splitlines()}
     for o in L.read_table('observation/observations.jsonl'):
+        if H.is_m32d_observation(o):
+            continue                                  # checked above: added, not changed
         p = obs_old[o['id']]
         assert (o['value'], o.get('unit'), o.get('qualifier')) == (p['value'], p.get('unit'), p.get('qualifier')), o['id']
     assert a
@@ -174,7 +185,7 @@ def provenance_history_is_preserved():
 
 @check
 def model_missing_and_conflicts_are_never_applied():
-    eligible = {'A': 'MODEL_MATCHES', 'B': 'EXACT_FIRST_PARTY', 'C': 'MODEL_MATCHES'}
+    eligible = {'A': 'MODEL_MATCHES', 'B': 'EXACT_FIRST_PARTY', 'C': 'MODEL_MATCHES', 'D': 'MODEL_MISSING'}
     for r in audit():
         if r['classification'] != eligible[r['stream']]:
             assert not r['disposition'].startswith('APPLY'), r['key']
@@ -213,8 +224,11 @@ def open_decisions_stay_open():
     f = L.read_table('cross/findings.jsonl')
     assert sum(1 for x in f if x['kind'] == 'AMBIGUOUS_SEMANTICS' and x['status'] == 'OPEN') == 179, 'D1'
     assert sum(1 for x in f if x['kind'] == 'CONFLICT' and x['status'] == 'OPEN') == 7, 'D5'
-    rules = {r['rule'] for r in L.read_table('reconciliation/reconciliations.jsonl')}
-    assert rules == {'LEGACY_NEVER_OVERWRITE'}, rules                 # no new winner rule
+    recs = L.read_table('reconciliation/reconciliations.jsonl')
+    assert {r['rule'] for r in recs if not H.is_m32d_reconciliation(r)} == {'LEGACY_NEVER_OVERWRITE'}
+    # M3.2D chose no winner: one sheet, or several that agree; never newest-wins or source priority (D5)
+    assert {r['rule'] for r in recs if H.is_m32d_reconciliation(r)} <= {'ONLY_CANDIDATE', 'UNANIMOUS'}
+    assert not [r for r in recs if 'dispositions' in r]
     idm = [r for r in L.read_table('identity/identity-map.jsonl') if r['legacy_key'] == 'haut-bailly|La Parde de Haut-Bailly']
     assert idm and all(r['status'] == 'AMBIGUOUS' for r in idm)
 
@@ -222,7 +236,8 @@ def open_decisions_stay_open():
 @check
 def gap_ids_are_stable_and_the_register_keeps_its_history():
     reg = {r['gap_id']: r for r in L.jsonl_lines(L.ROOT + 'data/audit/data-gap-register.jsonl')}
-    family = {'A': 'FIG_UNSOURCED|', 'B': 'FIG_FILE_ONLY|URL_IN_DISCOVERY', 'C': 'FIG_UNSOURCED|3b_TEXT_NOT_STORED|'}
+    family = {'A': 'FIG_UNSOURCED|', 'B': 'FIG_FILE_ONLY|URL_IN_DISCOVERY', 'C': 'FIG_UNSOURCED|3b_TEXT_NOT_STORED|',
+              'D': 'FILLABLE|'}
     for r in audit():
         assert r['gap_id'] in reg, r['key']
         assert reg[r['gap_id']]['gap_key'].startswith(family[r['stream']]), r['key']
@@ -275,6 +290,55 @@ def m32c_reads_the_held_pdf_and_keeps_only_the_passage():
     # a share is read with its own grape, never both neighbours
     assert RR._read_run(': cabernet sauvignon 49% merlot 38% cabernet franc 7% petit verdot 6%') == {'CS': 49, 'ME': 38, 'CF': 7, 'PV': 6}
     assert RR._read_run(': 98% merlot et 2% cabernet franc') == {'ME': 98, 'CF': 2}
+
+
+# -- M3.2D: harvested observations ----------------------------------------------------------------
+
+def recovery_tool():
+    import importlib.util
+    spec = importlib.util.spec_from_file_location('m32tool', L.ROOT + 'tools/m32-recovery.py')
+    mod = importlib.util.module_from_spec(spec)
+    spec.loader.exec_module(mod)
+    return mod
+
+
+@check
+def m32d_adds_only_clear_values_with_their_units_and_meaning():
+    M = recovery_tool()
+    # units: kept, never converted; a yield must be per hectare
+    assert M.parse_value('alc', '13,5 % vol.') == (13.5, '%')
+    assert M.parse_value('yld', '35 hl/ha') == (35, 'hl/ha')
+    assert M.parse_value('yld', 'Rendement 38.5 hl')[0] is None              # UNIT_UNCERTAIN
+    assert M.parse_value('blend', 'Merlot 77% / Cabernet Sauvignon 23%') == ({'CS': 23, 'ME': 77}, '%')
+    assert M.parse_value('blend', 'Merlot 70%')[0] is None                    # not a whole blend
+    # approximate, potential, provisional figures are not exact ones
+    assert M.approximate('alc', 13.5, 'Degré : Environ 13,5 ° Production')
+    assert M.approximate('alc', 14.5, 'Degré approximatif : 14.5°')
+    assert not M.approximate('alc', 13.5, 'TAUX ALCOOL : 13.5 % VOL')
+    # a blend must agree with the wine's colour; an unknown colour admits none
+    assert not M.colour_ok('blend', {'ME': 77, 'CS': 23}, {'type': 'WHITE_DRY'})[0]
+    assert M.colour_ok('blend', {'SE': 100}, {'type': 'WHITE_SWEET'})[0]
+    assert not M.colour_ok('blend', {'ME': 100}, {'type': 'UNKNOWN'})[0]
+    # the audit: every added value from exactly mapped sheets, all stating it, labelled, agreeing
+    for r in audit():
+        if r['stream'] != 'D':
+            continue
+        if r['disposition'] == 'APPLY_VALUE':
+            obs = r['source']['observations']
+            assert obs and all(o['classification'] == 'MODEL_MATCHES' and o['quote'] for o in obs), r['key']
+            assert r['proposed']['rule'] == ('UNANIMOUS' if len(obs) > 1 else 'ONLY_CANDIDATE'), r['key']
+        else:
+            assert r['proposed'] is None, r['key']
+    cls = {r['classification'] for r in audit() if r['stream'] == 'D'}
+    assert {'CONFLICT_BETWEEN_SHEETS', 'APPROXIMATE_VALUE', 'FIELD_MAPPING_AMBIGUOUS'} <= cls, cls
+
+
+@check
+def m32d_values_stay_out_of_the_legacy_projection():
+    # the app's files reconstruct the legacy ones; a model-only value is not slipped into them
+    out = subprocess.run([sys.executable, L.ROOT + 'tools/build-app-data.py', '--check'], capture_output=True, text=True)
+    assert out.returncode == 0, out.stdout
+    assert not git('diff', '--stat', '75a120d', '--', 'data/app').strip(), 'the app data changed in M3.2D'
 
 
 # -- M3.2B: online addresses -----------------------------------------------------------------------

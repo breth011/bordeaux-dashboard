@@ -290,3 +290,101 @@ SOURCED canonical values now total **996** (712 from A, 284 from C). `migrate --
 ### Gate
 
 **SAFE — M3.2C EXISTING DATA RECOVERY COMPLETE**
+
+## M3.2D: harvested-observation recovery
+
+**Scope:** only observations whose document maps **exactly** to estate, wine and vintage, through
+an accepted evidence decision or a legacy attribution. That is 22,593 observations on 2,728
+documents. No probable mapping was promoted.
+
+### What the exact mappings hold
+
+Of the observations on those documents, 2,984 carry a vintage figure the model knows: alcohol,
+pH, yield, blend. Each is read by a documented label (alcool / alcohol / degré / TAV;
+pH; rendement / yield; assemblage / blend) and then a value of the field's shape.
+
+| State | Observations |
+|---|---:|
+| The model holds the same value | 1,224 |
+| The model holds another value (conflict, uncorrected) | 225 |
+| The model lacks the figure | 89 |
+| Field mapping ambiguous: the label matches, the value is not the field (mostly partial blend lines) | 1,358 |
+| Unit uncertain: a yield not stated per hectare | 64 |
+| The vintage is not in the model | 22 |
+| The label names another year ("Rendement 2023" on a 2024 sheet) | 2 |
+
+Every harvested observation carries its artifact; provenance is never missing.
+
+### The 89 missing, by vintage and field: 47 slots
+
+Each slot is checked against the document itself, not only the harvested line, with stream A's
+anchored rules. A value is eligible only when all of these hold:
+
+- the document states it labelled, once, and with its unit;
+- every exactly mapped sheet of that vintage that states the field agrees;
+- it is not qualified as approximate, potential or provisional;
+- for a blend, the grapes agree with the wine's colour in the model (an unknown colour admits none).
+
+| Classification | Slots | Disposition |
+|---|---:|---|
+| MODEL_MISSING (clear) | **25** | APPLY_VALUE |
+| CONFLICT_BETWEEN_SHEETS | 11 | review: no winner (D5) |
+| APPROXIMATE_VALUE | 5 | review: Pontoise Cabarrus 2022 "Degré approximatif : 14.5°"; Boyd-Cantenac 2022–2025 "Degré : Environ 13,5 °" |
+| FIELD_MAPPING_AMBIGUOUS | 3 | review: Couhins-Lurton 2007, 2011, 2019, red blends for a white wine |
+| DUPLICATE_VALUE | 2 | review |
+| AMBIGUOUS | 1 | review |
+
+**Couhins-Lurton is an evidence finding.** Its slots receive both its white and its red sheets.
+The model holds the wine as WHITE_DRY, so the red Merlot/Cabernet sheets the evidence store
+accepted for it are colour mismatches. M3.2 does not touch evidence decisions; this is reported
+for review.
+
+**The 25 values added:**
+
+- **By field:** 12 alcohol, 12 blend, 1 pH.
+- **Where they come from:** 12 estates, 37 stating sheets.
+- **How they were reconciled:** 15 have one sheet (ONLY_CANDIDATE, SINGLE); 10 have several
+  agreeing sheets (UNANIMOUS, AGREED).
+
+Examples:
+
+- Domaine de Chevalier 2012, 2013, 2020, 2023 and 2025 alcohol;
+- Cuvée Madame Blanc 1989–2009 blend, "100% Sémillon";
+- Blanc de Lynch-Bages 2017, "40 % Sauvignon, 41 % Sémillon, 19 % Muscadelle";
+- Prieuré-Lichine 2021, pH 3.72.
+
+### Application
+
+The migration (M7 `recovered_values`) reads the APPLY_VALUE rows. For each value it adds:
+
+- one **Observation** per stating sheet: the value in the model's own unit (alcohol % vol, yield
+  hl/ha, pH bare, blend as grape shares), the raw text, the unit, the artifact, the locus, the
+  language, the harvested observation it came from, and its own DOCUMENT provenance;
+- one **Reconciliation**, ONLY_CANDIDATE or UNANIMOUS. These are the rules allowed before D5;
+  never newest-wins or source priority, and no dispositions;
+- the **CanonicalValue**, status SOURCED.
+
+No conversion was made; every value is in the unit the sheet states.
+
+| File | Change |
+|---|---|
+| `canonical/values.jsonl` | +25 |
+| `observation/observations.jsonl` | +37 |
+| `reconciliation/reconciliations.jsonl` | +25 |
+| `cross/provenance.jsonl` | +62 (37 DOCUMENT, 25 DERIVATION) |
+| `data/app/` | **unchanged** |
+
+**Why the app does not show them yet.** The app's generated files reconstruct the legacy files,
+which is how Phase 5 kept it equivalent to its control. A value only the model holds is not
+slipped into that reconstruction. Showing model-only values is a presentation decision for a later
+phase (M5 in the roadmap). The values are in the model, sourced and reconciled; they wait for that
+decision, not for evidence.
+
+The earlier suites name M3.2D's rows exactly: added canonical values, observations and
+reconciliations with M3.2D provenance and allowed rules, nothing else. Phase 4's guarantee that the
+migration copies nothing from the harvest still holds for every migrated row; M3.2D's reviewed
+recoveries are the named exception.
+
+### Gate
+
+**SAFE — M3.2D EXISTING DATA RECOVERY COMPLETE**

@@ -55,6 +55,12 @@ ANCHORED = {
     'months': [re.compile(r'(?:elevage|eleve|ageing|aging|aged|barrique|barrel|fut|oak|cuve)[^\n]{0,80}?'
                           r'(?<![\d.,])(\d{1,2})\s*(?:mois|months?|maanden)')],
 }
+# The value of a field, as stream D reads an observation's value (its unit required where it has one).
+VALUE_NUM = {
+    'alc': re.compile(r'(?<![\d.,])(1[0-6](?:[.,]\d{1,2})?)\s*(?:%|°|vol)'),
+    'ph': re.compile(r'(?<![\d.,])([23][.,]\d{1,2})(?![\d])'),
+    'yld': re.compile(r'(?<![\d.,])(\d{1,3}(?:[.,]\d{1,2})?)\s*(?:hl|hecto)'),
+}
 # A labelled number outside the field's plausible range is another figure caught by the label.
 RANGE = {'alc': (8, 17.5), 'ph': (2.5, 4.5), 'yld': (5, 120), 'oak': (0, 100), 'months': (1, 48)}
 PLAIN = {

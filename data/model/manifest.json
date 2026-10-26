@@ -10,8 +10,8 @@
   },
   "canonical/values.jsonl": {
    "entity": "CanonicalValue",
-   "rows": 12959,
-   "sha256": "ed8a99e54d15fc96269d1a69fade857921fc715c4ccf19146def03e42b3d46d1"
+   "rows": 12984,
+   "sha256": "feab62092babe1bb8abe9d67000cd458f94f6eeef68d09efb02e94f2aed1f3eb"
   },
   "cross/findings.jsonl": {
    "entity": "QualityFinding",
@@ -20,8 +20,8 @@
   },
   "cross/provenance.jsonl": {
    "entity": "Provenance",
-   "rows": 27018,
-   "sha256": "0af4011aced8edfbaa7a4b629b3d58b7f38d6526a688b59d3e3c6cc292b2efbf"
+   "rows": 27080,
+   "sha256": "924f401912349a70e7ea83990ba8d2d5d4fd234fa2f7973555f1884d5adb8a1d"
   },
   "document/artifact-dates.jsonl": {
    "entity": "ArtifactDate",
@@ -115,13 +115,13 @@
   },
   "observation/observations.jsonl": {
    "entity": "Observation",
-   "rows": 22437,
-   "sha256": "b528cf39753ef77f5e9f37898c89510e41365b70afb9b7d73cb57dc5a9e5788f"
+   "rows": 22474,
+   "sha256": "76ef57c7df8cfd656f53a3902ab9285f226956a073e3ec118ac005539f574661"
   },
   "reconciliation/reconciliations.jsonl": {
    "entity": "Reconciliation",
-   "rows": 12959,
-   "sha256": "530b8119cf74fc8370f609469c7a1d60604203dd36e47b1fd6645e4bbc4c98ac"
+   "rows": 12984,
+   "sha256": "b98376737c8e6b5adb55b75ba2b7be92bd9b0caf8f91ce593c682bc6957f68e0"
   },
   "state/appellation-memberships.jsonl": {
    "entity": "AppellationMembership",
@@ -382,7 +382,8 @@
     "records holding no value": 3,
     "translations nl": 1072,
     "translations of an absent field": 5
-   }
+   },
+   "M3.2D recovered values": 25
   }
  }
 }

@@ -29,8 +29,10 @@ import migration_lib as L
 M2_FILES = ('cross/provenance.jsonl', 'document/artifact-dates.jsonl', 'manifest.json')
 M32_FILES = ('canonical/values.jsonl', 'observation/observations.jsonl',      # M3.2A
              'document/placements.jsonl', 'document/locators.jsonl',        # M3.2B
-             'derived/source-documents.json')                               # M3.2B, its index
+             'derived/source-documents.json',                               # M3.2B, its index
+             'reconciliation/reconciliations.jsonl')                        # M3.2D
 M32B_STAT = 'M3.2B placements (recovered addresses)'
+M32D_STAT = 'M3.2D recovered values'
 ALLOWED = set(M2_FILES) | set(M32_FILES)
 M2_ACTOR = 'tools/extract-document-dates.py'
 M32_ACTOR = 'tools/m32-recovery.py'
@@ -75,6 +77,29 @@ def is_m32_source(p):
     """A provenance row M3.2 wrote: a figure's own held sheet, proven from its labelled text."""
     return (p.get('kind') == 'DOCUMENT' and p.get('actor') == M32_ACTOR
             and str((p.get('code_state') or {}).get('stream', '')).startswith('M3.2') and bool(p.get('derived_from')))
+
+
+def is_m32d(p):
+    """A provenance row of a value M3.2D added (a recovered harvested figure, or its reconciliation)."""
+    return p.get('actor') == M32_ACTOR and (p.get('code_state') or {}).get('stream') == 'M3.2D'
+
+
+def is_m32d_observation(o):
+    return (o.get('extraction') or {}).get('mapping') == 'm32-recovery/1'
+
+
+def is_m32d_reconciliation(r):
+    return r.get('resolver') == M32_ACTOR and r.get('rule') in ('ONLY_CANDIDATE', 'UNANIMOUS')
+
+
+def m32d_applied():
+    """{(vintage, field)} the M3.2 audit's APPLY_VALUE rows added to the model."""
+    out = set()
+    for line in open(L.ROOT + M32_AUDIT, encoding='utf-8'):
+        r = json.loads(line)
+        if r['disposition'] == 'APPLY_VALUE':
+            out.add((r['target']['subject'], r['target']['field']))
+    return out
 
 
 def m32_applied():
@@ -148,7 +173,12 @@ def model_changes_are_m2_only(before):
     for rel, check in (('document/artifact-dates.jsonl',
                         lambda r: r['kind'] == 'STATED_IN_TEXT' and r['value']['axis'] == 'CALENDAR'),
                        ('cross/provenance.jsonl',
-                        lambda r: r['kind'] == 'DOCUMENT' and r['actor'] in (M2_ACTOR, M32_ACTOR))):
+                        lambda r: (r['kind'] == 'DOCUMENT' and r['actor'] in (M2_ACTOR, M32_ACTOR)) or
+                        (r['kind'] == 'DERIVATION' and r['actor'] == M32_ACTOR
+                         and (r.get('code_state') or {}).get('stream') == 'M3.2D')),
+                       ('reconciliation/reconciliations.jsonl',
+                        lambda r: r['resolver'] == M32_ACTOR and r['rule'] in ('ONLY_CANDIDATE', 'UNANIMOUS')
+                        and r['status'] in ('SINGLE', 'AGREED') and 'dispositions' not in r)):
         if rel not in changed:
             continue
         old, new = _lines(before, rel)
@@ -189,7 +219,12 @@ def model_changes_are_m2_only(before):
         old, new = _lines(before, rel)
         o = {key(json.loads(x)): json.loads(x) for x in old.splitlines()}
         n = {key(json.loads(x)): json.loads(x) for x in new.splitlines()}
-        assert o.keys() == n.keys(), '%s: rows added or removed' % rel
+        assert set(o) <= set(n), '%s: rows removed' % rel
+        for k in set(n) - set(o):
+            # M3.2D: a recovered value or the observation that states it, each with its M3.2D provenance
+            p = prov.get(n[k]['provenance']) or {}
+            assert p.get('actor') == M32_ACTOR and (p.get('code_state') or {}).get('stream') == 'M3.2D', \
+                '%s %s: an added row is not M3.2D\'s' % (rel, k)
         for k in o:
             if o[k] == n[k]:
                 continue
@@ -209,10 +244,9 @@ def model_changes_are_m2_only(before):
                 a_all, b_all = _sourced_moved(old[k]), _sourced_moved(new[k])
                 for st in set(a_all) | set(b_all):
                     a, b = dict(a_all.get(st, {})), dict(b_all.get(st, {}))
-                    if st == 'M6':
-                        for s in (M2_STAT, M32B_STAT):
-                            a.pop(s, None)
-                            b.pop(s, None)
+                    for s in (M2_STAT, M32B_STAT, M32D_STAT):
+                        a.pop(s, None)
+                        b.pop(s, None)
                     assert a == b, 'manifest stats %s changed' % st
             else:
                 assert old.get(k) == new.get(k), 'manifest %s changed' % k

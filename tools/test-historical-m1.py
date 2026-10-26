@@ -274,6 +274,9 @@ def c20_every_legacy_row_valid_with_historical_fields_absent():
     prov = L.read_table('cross/provenance.jsonl')
     m32 = sum(1 for p in prov if p.get('actor') == historical_m2_scope.M32_ACTOR)
     m32 += 2 * sum(1 for p in prov if (p.get('code_state') or {}).get('stream') == 'M3.2B')
+    # D: the recovered values, their observations and their reconciliations
+    m32 += sum(1 for o in L.read_table('observation/observations.jsonl') if historical_m2_scope.is_m32d_observation(o))
+    m32 += 2 * sum(1 for r in L.read_table('reconciliation/reconciliations.jsonl') if historical_m2_scope.is_m32d_reconciliation(r))
     assert n == 333022 + m2 + m32 and not bad, (n, m2, m32, bad[:3])
 
 
@@ -315,7 +318,8 @@ def model_generated_data_and_protected_groups_unchanged():
         assert L.group_hashes(g)['digest'] == b0[g]['digest'], g
     # the reconciliations' candidate lists are exactly as they were
     old = [json.loads(l) for l in git('show', BEFORE + ':data/model/reconciliation/reconciliations.jsonl').splitlines() if l.strip()]
-    now = L.read_table('reconciliation/reconciliations.jsonl')
+    # M3.2D adds its own reconciliations (named); every one there before keeps its candidates
+    now = [r for r in L.read_table('reconciliation/reconciliations.jsonl') if not historical_m2_scope.is_m32d_reconciliation(r)]
     assert [r['candidates'] for r in old] == [r['candidates'] for r in now] and len(now) == 12959
 
 

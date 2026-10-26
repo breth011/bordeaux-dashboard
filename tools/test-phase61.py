@@ -164,6 +164,8 @@ def measure():
         if s not in linked or s not in rec_of:
             continue
         p = pv[c['provenance']]
+        if (p.get('code_state') or {}).get('stream') == 'M3.2D':
+            continue          # M3.2D: a value added to the model, not a legacy figure (not shown by the page)
         shown = src(rec_of[s], c['field'])
         if p['kind'] == 'LEGACY_FIELD_SOURCE':
             own = urls[p['artifact']]

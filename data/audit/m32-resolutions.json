@@ -15,5 +15,10 @@
   "commit": "a556a01",
   "method": "DETERMINISTIC_MAPPING",
   "what": "figures stated in held PDF sheets whose text was never stored, read as the sheet reader reads them (APPLY_PROVENANCE rows, stream C)"
+ },
+ "M3.2D": {
+  "commit": "552c5b3",
+  "method": "EXISTING_EVIDENCE_REVIEW",
+  "what": "vintage figures the model lacked, stated in exactly mapped harvested sheets (APPLY_VALUE rows)"
  }
 }

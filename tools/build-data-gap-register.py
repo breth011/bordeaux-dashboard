@@ -646,6 +646,14 @@ def resolve(rows):
     for f in A.file_only_figures():
         if f.get('recovered') and f['url_known']:
             recovered[('FIG_FILE_ONLY|URL_IN_DISCOVERY', f['recovered']['stream'])] += 1
+    # M3.2D: a fillable slot (M3.1's vintage, field) the model now holds through a recovered value
+    pv = A.by_id('cross/provenance.jsonl')
+    wine_estate = {r['wine']: r['estate'] for r in A.table('state/estate-wine.jsonl')}
+    fillable = set(A.fillable_slots())
+    for c in A.table('canonical/values.jsonl'):
+        if (pv[c['provenance']].get('code_state') or {}).get('stream') == 'M3.2D' and \
+                '%s|%s' % (c['subject'], c['field']) in fillable:
+            recovered[('FILLABLE|%s' % wine_estate.get(c['subject'].split(':')[1], '?'), 'M3.2D')] += 1
     for r in rows:
         done = {s: n for (k, s), n in recovered.items() if k == r['gap_key'] and s in applied}
         if not done:

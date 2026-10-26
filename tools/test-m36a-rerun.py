@@ -117,10 +117,13 @@ def model_canonical_and_app_unchanged_nothing_mapped_or_corrected():
     historical_m2_scope.model_changes_are_m2_only(BEFORE)
     assert not git('diff', '--stat', BEFORE, '--', 'data/app', ':(glob)data/*.js', 'data/sources.json',
                    'data/history', 'data/review', 'data/scope', 'data/discovery', 'assets', 'index.html',
-                   'data/audit/data-gap-register.jsonl', 'docs/DATA-GAP-REGISTER.md',
                    'data/audit/m3.5-held-document-review.jsonl', 'data/audit/m3.4b-mapping-application.jsonl').strip()
-    for t in ('tools/migrate.py', 'tools/build-app-data.py'):
-        out = subprocess.run([sys.executable, L.ROOT + t, '--check'], capture_output=True, text=True)
+    # the gap register: changed only by M3.6B's resolution entries, named exactly, and reproducing
+    historical_m2_scope.register_changes_are_m34b_only(BEFORE)
+    for t, args in (('tools/migrate.py', ['--check']), ('tools/build-app-data.py', ['--check']),
+                    ('tools/build-data-gap-register.py', ['--check']),
+                    ('tools/build-data-gap-register.py', ['--report', '--check'])):
+        out = subprocess.run([sys.executable, L.ROOT + t] + args, capture_output=True, text=True)
         assert out.returncode == 0, (t, out.stdout[-200:])
     src = open(L.ROOT + 'tools/mig_m6_provenance.py', encoding='utf-8').read()
     # the migration reads no M3.6A output: M3.6A applied nothing (M3.6B's own manifest is what it reads)

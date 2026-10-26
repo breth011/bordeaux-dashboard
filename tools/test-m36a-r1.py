@@ -260,8 +260,18 @@ def r14_nothing_else_changed():
                    'data/audit/m3.6a-blocked-run-summary.json', 'data/audit/m3.6b-mapping-application.jsonl',
                    'data/audit/m3.6b-correction-application.jsonl', 'data/audit/m3.6b-historical-flags.jsonl'}
     changed = set(git('diff', '--name-only', BEFORE, '--', 'data').split())
-    assert not git('diff', '--name-only', '--diff-filter=M', BEFORE, '--', 'data/audit').strip(), 'an audit output changed'
-    assert {f for f in changed if f.startswith('data/audit/')} <= later_audit, 'data changed'
+    # an existing audit output changes only as later phases record themselves: the gap register by their
+    # resolution entries (historical_m2_scope.register_changes_are_m34b_only), its resolutions file by their keys
+    modified = set(git('diff', '--name-only', '--diff-filter=M', BEFORE, '--', 'data/audit').split())
+    assert modified <= {'data/audit/data-gap-register.jsonl', 'data/audit/m32-resolutions.json'}, 'an audit output changed'
+    if modified:
+        H.register_changes_are_m34b_only(BEFORE)
+        old = json.loads(git('show', '%s:data/audit/m32-resolutions.json' % BEFORE))
+        new = json.load(open(L.ROOT + 'data/audit/m32-resolutions.json', encoding='utf-8'))
+        assert all(new[k] == v for k, v in old.items() if k != '_') and set(new) - set(old) <= set(H.LINKING_PHASES)
+    added = set(git('diff', '--name-only', '--diff-filter=A', BEFORE, '--', 'data/audit').split())
+    assert added <= later_audit, 'data changed'
+    assert {f for f in changed if f.startswith('data/audit/')} <= added | modified, 'data changed'
     H.model_changes_are_m2_only(BEFORE)
     H.evidence_changes_are_m36b_only(BEFORE)
     assert not {f for f in changed if not f.startswith(('data/audit/', 'data/model/', 'data/evidence/'))}, 'data changed'

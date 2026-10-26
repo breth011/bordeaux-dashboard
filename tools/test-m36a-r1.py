@@ -254,11 +254,13 @@ def r13_verdicts_are_deterministic():
 @check
 def r14_nothing_else_changed():
     # R1 itself changed no data. Later phases' changes are named exactly: M3.6A's audit outputs (added files
-    # only), M3.6B's model rows and its evidence version 6; everything else under data/ is as at BEFORE.
+    # only), M3.6B's model rows and its evidence version 6, M3.6C's identity audit; everything else under data/
+    # is as at BEFORE.
     import historical_m2_scope as H
     later_audit = {'data/audit/m3.6a-rerun-held-document-proposals.jsonl', 'data/audit/m3.6a-rerun-evidence-corrections.jsonl',
                    'data/audit/m3.6a-blocked-run-summary.json', 'data/audit/m3.6b-mapping-application.jsonl',
-                   'data/audit/m3.6b-correction-application.jsonl', 'data/audit/m3.6b-historical-flags.jsonl'}
+                   'data/audit/m3.6b-correction-application.jsonl', 'data/audit/m3.6b-historical-flags.jsonl',
+                   'data/audit/m3.6c-cuvee-mongravey-identity.jsonl'}
     changed = set(git('diff', '--name-only', BEFORE, '--', 'data').split())
     # an existing audit output changes only as later phases record themselves: the gap register by their
     # resolution entries (historical_m2_scope.register_changes_are_m34b_only), its resolutions file by their keys

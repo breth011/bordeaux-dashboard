@@ -35,3 +35,5 @@ data/audit/m3.6a-blocked-run-summary.json text eol=lf
 data/audit/m3.6b-mapping-application.jsonl text eol=lf
 data/audit/m3.6b-correction-application.jsonl text eol=lf
 data/audit/m3.6b-historical-flags.jsonl text eol=lf
+# The M3.6C identity review is checked byte for byte by tools/test-m36c.py --check.
+data/audit/m3.6c-cuvee-mongravey-identity.jsonl text eol=lf

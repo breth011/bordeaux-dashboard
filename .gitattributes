@@ -27,3 +27,7 @@ data/audit/m3.4a-mapping-proposals.jsonl text eol=lf
 data/audit/m3.4b-mapping-application.jsonl text eol=lf
 # The M3.5 held-document review is read by the migration and checked byte for byte.
 data/audit/m3.5-held-document-review.jsonl text eol=lf
+# The M3.6A rerun outputs are checked byte for byte by tools/m36a-rerun.py --check.
+data/audit/m3.6a-rerun-held-document-proposals.jsonl text eol=lf
+data/audit/m3.6a-rerun-evidence-corrections.jsonl text eol=lf
+data/audit/m3.6a-blocked-run-summary.json text eol=lf

@@ -349,7 +349,9 @@ def _same(a, b):
 
 RED_GRAPES, WHITE_GRAPES = {'CS', 'CF', 'ME', 'PV', 'MA', 'CR'}, {'SB', 'SG', 'SE', 'MU'}
 APPROX = re.compile(r'environ|approx\w*|about|around|circa|\bca\.|~|±|potentiel\w*|potential|provisoire|provisional'
-                    r'|estim\w*|attendu|expected|pr[ée]vu')
+                    r'|estim\w*|attendu|expected|pr[ée]vu'
+                    # a bound is not a figure either: "inférieurs à 32 hl/ha"
+                    r'|inf[ée]rieur\w*|sup[ée]rieur\w*|moins\s+de|plus\s+de|less\s+than|more\s+than|up\s+to|jusqu')
 
 
 def colour_ok(field, value, wine):
@@ -459,8 +461,80 @@ def harvest_summary():
             'by_field_state': {'%s|%s' % k: v for k, v in sorted(collections.Counter((f['field'], f['state']) for f in figs).items())}}
 
 
+OCR_DIR = L.ROOT + 'sources/discovery/ocr/'
+CORE = ('alc', 'ph', 'yld', 'oak', 'months')
+
+
+def ocr_values(text):
+    """{field: [(value, quote)]}: every labelled value of a core field in OCR text, by stream A's
+    anchored rules and plausible ranges. Several values for one field are kept, never chosen."""
+    out = {}
+    t = R.fold(text)
+    for field in CORE:
+        for rx in R.ANCHORED[field]:
+            for m in rx.finditer(t):
+                v = R._f(m.group(1))
+                if v is None or not R.RANGE[field][0] <= v <= R.RANGE[field][1] or R.in_range_phrase(t, m.start(1), m.end(1)):
+                    continue
+                q = R._quote(text, m.start(), m.end())
+                if not any(abs(v - x) < 1e-9 for x, _ in out.get(field, [])):
+                    out.setdefault(field, []).append((v, q))
+    return out
+
+
+def stream_e():
+    """The image-only documents M3.1 tied to a gap. Re-checked now: a record sheet whose figures are
+    all sourced touches no gap and is not OCR'd; a vintage's only document, with the vintage holding
+    no core figure, is OCR'd (tools/m32-ocr.py) and what it states is recorded for evidence review.
+    OCR text never becomes a model value here (OCR_REVIEW)."""
+    gaps = gap_ids()
+    unsourced = collections.Counter(f['record'] for f in A.unsourced_figures() if not f.get('recovered'))
+    held = collections.defaultdict(set)
+    for c in A.table('canonical/values.jsonl'):
+        held[c['subject']].add(c['field'])
+    out = []
+    for o in A.ocr_backlog():
+        if o['benefit'] == 'NONE':
+            continue
+        g = o['gaps']
+        a = A.by_id('identity/artifacts.jsonl')[o['artifact']]
+        base = {'stream': 'E', 'key': 'E|%s' % o['artifact'], 'gap_id': gaps.get('OCR|%s' % o['artifact']),
+                'current_value': None, 'proposed': None,
+                'source': {'artifact': o['artifact'], 'sha256': a['sha256'], 'filename': (o['names'] or [None])[0]}}
+        live_records = [r for r in g['record_sheet_of'] if unsourced.get(r)]
+        vintages = [v for v in g['only_document_of_vintages'] if not set(CORE) & held.get(v, set())]
+        if not live_records and not vintages:
+            out.append(dict(base, target={'record_sheet_of': g['record_sheet_of']}, evidence={},
+                            classification='NO_LONGER_A_GAP', disposition='NONE', confidence='HIGH',
+                            reason='the record\'s figures are all sourced now: OCR would close no gap'))
+            continue
+        p = OCR_DIR + a['sha256'] + '.json'
+        if not os.path.exists(p):
+            out.append(dict(base, target={'vintages': vintages, 'records': live_records}, evidence={},
+                            classification='OCR_PENDING', disposition='OCR_CANDIDATE', confidence='LOW',
+                            reason='OCR worth doing (the only document of a vintage with no core figure); not yet run'))
+            continue
+        d = json.load(open(p, encoding='utf-8'))
+        text = '\n'.join(line['text'] for page in d['pages'] for line in page)
+        conf = [line['confidence'] for page in d['pages'] for line in page]
+        vals = ocr_values(text)
+        found = {f: [{'value': v, 'quote': q, 'qualified': approximate(f, v, q)} for v, q in vs]
+                 for f, vs in sorted(vals.items())}
+        multi = sorted(f for f, vs in vals.items() if len(vs) > 1)
+        out.append(dict(base, target={'vintages': vintages, 'records': live_records},
+                        evidence={'engine': d['engine'], 'dpi': d['dpi'], 'pages': len(d['pages']), 'chars': d['chars'],
+                                  'text_sha256': d['text_sha256'],
+                                  'mean_confidence': round(sum(conf) / len(conf), 3) if conf else None,
+                                  'labelled_values': found, 'several_values': multi},
+                        classification='OCR_TEXT_RECOVERED' if found else 'OCR_NO_LABELLED_FIGURE',
+                        disposition='OCR_REVIEW', confidence='LOW',
+                        reason='derived OCR text: what it states waits for evidence review; never a model value by itself'
+                               + ('; several values for %s' % ', '.join(multi) if multi else '')))
+    return out
+
+
 def build():
-    rows = stream_a() + stream_b() + stream_c() + stream_d()
+    rows = stream_a() + stream_b() + stream_c() + stream_d() + stream_e()
     for r in rows:
         r['id'] = 'm32_' + L.stable_hash('M32Candidate', r['key'])
         r['extractor'] = R.VERSION

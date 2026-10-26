@@ -185,7 +185,8 @@ def provenance_history_is_preserved():
 
 @check
 def model_missing_and_conflicts_are_never_applied():
-    eligible = {'A': 'MODEL_MATCHES', 'B': 'EXACT_FIRST_PARTY', 'C': 'MODEL_MATCHES', 'D': 'MODEL_MISSING'}
+    eligible = {'A': 'MODEL_MATCHES', 'B': 'EXACT_FIRST_PARTY', 'C': 'MODEL_MATCHES', 'D': 'MODEL_MISSING',
+                'E': None}                                     # E: OCR text is never applied
     for r in audit():
         if r['classification'] != eligible[r['stream']]:
             assert not r['disposition'].startswith('APPLY'), r['key']
@@ -237,7 +238,7 @@ def open_decisions_stay_open():
 def gap_ids_are_stable_and_the_register_keeps_its_history():
     reg = {r['gap_id']: r for r in L.jsonl_lines(L.ROOT + 'data/audit/data-gap-register.jsonl')}
     family = {'A': 'FIG_UNSOURCED|', 'B': 'FIG_FILE_ONLY|URL_IN_DISCOVERY', 'C': 'FIG_UNSOURCED|3b_TEXT_NOT_STORED|',
-              'D': 'FILLABLE|'}
+              'D': 'FILLABLE|', 'E': 'OCR|'}
     for r in audit():
         assert r['gap_id'] in reg, r['key']
         assert reg[r['gap_id']]['gap_key'].startswith(family[r['stream']]), r['key']
@@ -339,6 +340,33 @@ def m32d_values_stay_out_of_the_legacy_projection():
     out = subprocess.run([sys.executable, L.ROOT + 'tools/build-app-data.py', '--check'], capture_output=True, text=True)
     assert out.returncode == 0, out.stdout
     assert not git('diff', '--stat', '75a120d', '--', 'data/app').strip(), 'the app data changed in M3.2D'
+
+
+# -- M3.2E: OCR ----------------------------------------------------------------------------------
+
+@check
+def m32e_ocr_candidates_are_never_silently_skipped():
+    import data_gap_analysis as A
+    e = [r for r in audit() if r['stream'] == 'E']
+    backlog = {o['artifact'] for o in A.ocr_backlog() if o['benefit'] != 'NONE'}
+    assert {r['source']['artifact'] for r in e} == backlog and len(e) == 17     # every candidate accounted for
+    unsourced = {f['record'] for f in A.unsourced_figures() if not f.get('recovered')}
+    for r in e:
+        assert r['disposition'] in ('NONE', 'OCR_CANDIDATE', 'OCR_REVIEW'), r['key']   # nothing applied from OCR
+        if r['classification'] == 'NO_LONGER_A_GAP':
+            assert not set(r['target']['record_sheet_of']) & unsourced, r['key']
+        if r['disposition'] == 'OCR_REVIEW':
+            ev = r['evidence']
+            assert ev['engine'].startswith('rapidocr_onnxruntime') and ev['dpi'] == 200 and ev['text_sha256'], r['key']
+            p = L.ROOT + 'sources/discovery/ocr/' + r['source']['sha256'] + '.json'
+            if os.path.exists(p):                                                 # held locally, never in git
+                d = json.load(open(p, encoding='utf-8'))
+                text = '\n'.join(l['text'] for pg in d['pages'] for l in pg)
+                assert hashlib.sha256(text.encode('utf-8')).hexdigest() == ev['text_sha256'], r['key']
+    assert not git('ls-files', 'sources').strip(), 'OCR text or sources committed'
+    # a bound in OCR text is flagged, not read as a figure
+    M = recovery_tool()
+    assert M.approximate('yld', 32, 'Les rendements, inférieurs à 32 hl/ha')
 
 
 # -- M3.2B: online addresses -----------------------------------------------------------------------

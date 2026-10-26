@@ -388,3 +388,95 @@ recoveries are the named exception.
 ### Gate
 
 **SAFE — M3.2D EXISTING DATA RECOVERY COMPLETE**
+
+## M3.2E: OCR
+
+**Candidates:** the 17 image-only documents M3.1 tied to a gap. Each is re-checked against today's
+model before anything is read:
+
+| Check | Result |
+|---|---|
+| Does it still touch a gap? | **11 yes:** the only document of a vintage for which the model holds no core figure (Destieux 2013, 2014, 2021; Le Châtelet 2009; Micalet 2012, 2016, 2020; Beychevelle 2014, 2024, 2025; Léoville-Poyferré 2015, which holds only its blend and picking dates). **6 no:** the Batailley 2003, 2006, 2008, 2022 and Branaire-Ducru 2020, 2022 record sheets, whose figures are all sourced now: NO_LONGER_A_GAP, not OCR'd. |
+| Can existing extraction solve it? | No. All 17 have no text layer worth the name (at most 76 characters). Beychevelle 2024 and 2025 are twelve pages of vector outlines, with no text and no images. |
+| Is an OCR engine available? | Yes, already installed: rapidocr_onnxruntime 1.4.4 on onnxruntime 1.31.0. Nothing was installed. Tesseract is absent. |
+
+**Process** (`tools/m32-ocr.py`):
+
+- each page of the 11 is rendered at 200 dpi and read;
+- the output is kept as a derived extraction under `sources/discovery/ocr/` (local and gitignored:
+  the text is the estate's), with the engine, the resolution, the text's hash and each line's
+  confidence;
+- the source PDFs are only read, and their hash is checked against the artifact.
+
+A second full run reproduced all 11 byte for byte, so the OCR is deterministic. It takes about
+5 minutes per pass, so it is not part of the test suite. The suite checks the stored text against
+its recorded hash instead.
+
+**Findings.** The mean line confidence is 0.85–0.99. Six documents state labelled figures and five
+state none in a labelled form:
+
+| Document | Labelled figures read |
+|---|---|
+| Le Châtelet 2009 | new oak 40 % ("40% barriques neuves, 6o% …": OCR misreads 60 as "6o") |
+| Destieux 2014 | yield 38 hl/ha ("Rendements 38 hl par ha") |
+| Destieux 2021 | new oak 70 %, yield 35 hl/ha |
+| Beychevelle 2024 | new oak 70 % |
+| Beychevelle 2025 | new oak 70 %; yield "inférieurs à 32 hl/ha", **a bound, flagged, not a figure** |
+| Beychevelle 2014 | new oak 50 %, pH 3.64, yield 38 hl/ha, **on a two-wine sheet** (Beychevelle and Amiral: "pH 3.64 3,63", "Bois neuf 50% 25%"): which number is whose is for review |
+
+**Nothing from OCR entered the model.** Every finding is OCR_REVIEW. OCR text is evidence for
+review, never a model value by itself, and these examples show why: a bound, a two-wine sheet, OCR
+noise. The rule for bounds ("inférieur à", "moins de", "less than", "up to") was added to stream D's
+qualifier check as well; none of D's 25 values carried one.
+
+### Gate
+
+**SAFE — M3.2E EXISTING DATA RECOVERY COMPLETE.** The 11 worth doing were OCR'd deterministically
+and recorded for review, the 6 that no longer touch a gap were not, and nothing was populated.
+
+## Recovery, overall
+
+| Measure | Result |
+|---|---:|
+| M3.1 no-new-data gaps **resolved outright** | **38 of 325 (11.7 %)** |
+| …resolved in part | 60 more (98 of 325 touched, 30.2 %) |
+| Affected items recovered | **1,092** (712 own-sheet, 71 addresses, 284 held-sheet, 25 values) |
+| Model fields added | **25** (12 alcohol, 12 blend, 1 pH) |
+| Figures gaining their own source | **996** (712 from A, 284 from C) |
+| Figures gaining a web address | **88** (48 first-party addresses of 47 sheets) |
+| Conflicts discovered (sheet against model; none corrected) | 10 (A) + 13 (C) + 225 harvested observations (D); 11 slots where sheets disagree |
+| Ambiguities remaining (review) | A 525, C 114, D 11, E 6 documents for review |
+| Live gaps unchanged | 360 |
+| New-data gaps | 133, untouched (as the brief requires) |
+| OCR | 11 documents read, 6 hold labelled figures, all waiting for review; 6 no longer needed |
+
+A gap counts as resolved only when its items are recovered. Reclassification never counts.
+
+**No unresolved domain decision was made:**
+
+- **D2 (Echo):** untouched.
+- **La Parde:** untouched.
+- **D5:** no newest-wins or source-priority rule, and every conflict kept.
+- **D1:** the blend rule refuses planting tables.
+- **Terrasses:** untouched.
+- **Batailley / Lynch-Moussas:** untouched.
+
+**Evidence and data, untouched:**
+
+- No evidence decision, raw source, canonical file, discovery record or historical claim changed.
+- The 4 stream A figures the stricter rule refused were withdrawn openly.
+
+## Performance
+
+| Step | Time |
+|---|---|
+| `tools/m32-recovery.py`, all five streams | about 50 s (stream C reads 195 PDFs with pymupdf; nothing cached) |
+| `tools/m32-ocr.py`, 11 documents | about 5 min per pass |
+| Full suite | 33 suites; the performance check compares each run with the last |
+
+Nothing was optimised early. The recovery audit's PDF reading dominates `test-m32`, about 45 s,
+because the suite checks that the audit reproduces.
+
+## Gate
+
+**SAFE — M3.2 EXISTING DATA RECOVERY COMPLETE — READY FOR TARGETED NEW-DATA ACQUISITION**

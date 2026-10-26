@@ -128,6 +128,93 @@ def every_mapping_has_its_v6_decision_and_provenance():
         assert os.path.exists(blob) and hashlib.sha256(B.held_bytes(d['read']['path'])).hexdigest() == r['sha256']
 
 
+# -- the 199 corrections ----------------------------------------------------------------------------
+
+CORR = L.jsonl_lines(B.CORRECTIONS)
+FLAGROWS = L.jsonl_lines(B.FLAGS)
+
+
+def v5_rows():
+    return {M6.row_key(d): d for d in L.jsonl_lines(L.ROOT + 'data/evidence/decisions-v5.jsonl')}
+
+
+@check
+def exactly_199_superseding_decisions_each_asking_its_v5_question():
+    assert len(CORR) == 199 and all(r['result'] == 'APPLIED' and not r['failures'] for r in CORR)
+    assert sorted(r['decision'] for r in CORR) == sorted(c['decision'] for c in SUP)
+    rows = [d for d in V6.values() if d['kind'] == 'correction']
+    assert len(rows) == 199 and sorted(M6.row_key(d) for d in rows) == sorted(r['superseded_by'] for r in CORR)
+    audit = {c['decision']: c for c in SUP}
+    for r in CORR:
+        d = V6[r['superseded_by']]
+        assert d['decision'] == 'REFUSED' and d['code'] == audit[r['decision']]['category'] == r['category']
+        assert d['supersedes'] == {'row_key': r['decision'], 'v': 5, 'decision': 'ACCEPTED', 'code': 'ACCEPTED'}
+        assert json.loads(r['superseded_by'])[:-1] == json.loads(r['decision'])[:-1]      # the same question
+        assert d['read']['sha256'] == r['sha256'] and ST.provenance_problem(d) is None
+    assert not [d for d in V6.values() if d['kind'] == 'correction' and d['decision'] == 'ACCEPTED']
+
+
+@check
+def the_corrections_are_the_latest_answers_and_the_originals_stand():
+    import evidence as EV
+    latest = ST.latest_by_context()
+    v5 = v5_rows()
+    for r in CORR:
+        old = v5[r['decision']]
+        assert old['decision'] == 'ACCEPTED' and old['read']['sha256'] == r['sha256']        # historical row unchanged
+        assert latest[EV.row_key(old)[:-1]] == V6[r['superseded_by']]                         # read through v6
+    for f in FLAGROWS:                                                                        # a flag supersedes nothing
+        assert latest[EV.row_key(v5[f['decision']])[:-1]] == v5[f['decision']]
+    assert not git('diff', '--stat', BEFORE, '--', 'data/evidence/decisions-v1.jsonl', 'data/evidence/decisions-v2.jsonl',
+                   'data/evidence/decisions-v3.jsonl', 'data/evidence/decisions-v4.jsonl',
+                   'data/evidence/decisions-v5.jsonl').strip()
+
+
+@check
+def replacements_are_preserved_and_none_invented():
+    v5 = v5_rows()
+    m35 = {a['id'] for a in A.m35_attributions()}
+    withr = [r for r in CORR if r['replacement']['decision']]
+    assert len(withr) == 62 and len(CORR) - len(withr) == 137
+    for r in withr:
+        d = v5[r['replacement']['decision']]
+        assert d['decision'] == 'ACCEPTED' and d['read']['sha256'] == r['sha256'] and r['replacement']['decision'] != r['decision']
+        assert r['replacement']['attribution'] is None or r['replacement']['attribution'] in m35
+        assert V6[r['superseded_by']]['replacement']['decision'] == r['replacement']['decision']
+    for r in CORR:
+        if not r['replacement']['decision']:
+            assert not r['document_is']['model_wines'] and V6[r['superseded_by']]['document_is']['unlisted']
+    assert not git('diff', '--stat', BEFORE, '--', 'data/model/identity', 'data/model/state').strip()   # no wine created
+
+
+@check
+def the_twenty_cuvee_de_mongravey_flags():
+    assert len(FLAGROWS) == 20 and sorted(f['decision'] for f in FLAGROWS) == sorted(c['decision'] for c in FLAGS)
+    corrected = {r['decision'] for r in CORR}
+    for f in FLAGROWS:
+        assert f['flag'] == 'RETAIN_AS_HISTORICAL_ACCEPTANCE_BUT_FLAG' and f['reason'] == B.FLAG_REASON
+        assert f['replacement'] is None and f['decision'] not in corrected
+        assert 'cuvee de mongravey' in f['document_is']['title'][0] and f['wine_name'] == 'Château Mongravey'
+    assert not [n for n in A.table('identity/names.jsonl') if 'cuvee de mongravey' in A.fold(n['name'])]
+
+
+@check
+def the_register_records_only_the_mappings():
+    H.register_changes_are_m34b_only(BEFORE)
+    reg = L.jsonl_lines(L.ROOT + 'data/audit/data-gap-register.jsonl')
+    m36b = [g for g in reg if any(b['phase'] == 'M3.6B' for b in (g.get('resolution') or {}).get('by', []))]
+    assert sorted(g['entity_id'] for g in m36b) == ['es_00167', 'es_00241', 'es_00398']
+    assert all(g['gap_key'].startswith('VINTAGE_NO_DOCUMENT|') for g in m36b)
+
+
+@check
+def the_report_states_the_gate():
+    assert 'is current' in run('tools/m36b-apply.py', '--report', '--check')
+    text = open(B.REPORT, encoding='utf-8').read()
+    assert 'M3.6B corrected evidence history without erasing the historical record.' in text
+    assert 'SAFE — M3.6B AUDITED MAPPINGS AND EVIDENCE CORRECTIONS APPLIED' in text
+
+
 # -- safety ---------------------------------------------------------------------------------------
 
 @check

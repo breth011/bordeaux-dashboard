@@ -25,3 +25,5 @@ data/audit/m3.3-source-acquisition-plan.jsonl text eol=lf
 data/audit/m3.4a-mapping-proposals.jsonl text eol=lf
 # The M3.4B application manifest is read by the migration and checked byte for byte.
 data/audit/m3.4b-mapping-application.jsonl text eol=lf
+# The M3.5 held-document review is read by the migration and checked byte for byte.
+data/audit/m3.5-held-document-review.jsonl text eol=lf

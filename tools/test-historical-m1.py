@@ -279,6 +279,8 @@ def c20_every_legacy_row_valid_with_historical_fields_absent():
     m32 += 2 * sum(1 for r in L.read_table('reconciliation/reconciliations.jsonl') if historical_m2_scope.is_m32d_reconciliation(r))
     # M3.4B adds one Attribution and its DOCUMENT provenance per applied mapping
     m34b = 2 * len(historical_m2_scope.m34b_applied())
+    # M3.5 likewise, one Attribution and its provenance per eligible review row
+    m34b += 2 * len(historical_m2_scope.m35_applied())
     assert n == 333022 + m2 + m32 + m34b and not bad, (n, m2, m32, m34b, bad[:3])
 
 

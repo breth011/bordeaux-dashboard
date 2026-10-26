@@ -28,8 +28,13 @@ def report(rows, allow):
     rejected = [r for r in rows if r['result'] != 'APPLIED']
     m0 = json.loads(_git('show', '%s:data/model/manifest.json' % BEFORE))
     m1 = json.load(open(L.MODEL + 'manifest.json', encoding='utf-8'))
+    # the state M3.4B left: a later phase's rows (M3.5's attributions and their provenance) taken out
+    import data_gap_analysis as A
+    later = len(A.m35_attributions())
+    for f in ('document/attributions.jsonl', 'cross/provenance.jsonl'):
+        m1['files'][f] = dict(m1['files'][f], rows=m1['files'][f]['rows'] - later)
     vd0 = json.loads(_git('show', '%s:data/model/derived/vintage-documents.json' % BEFORE))
-    vd1 = json.load(open(L.MODEL + 'derived/vintage-documents.json', encoding='utf-8'))
+    vd1 = A.vintage_documents((A.M35_ACTOR,))
     vintages = sum(1 for _ in open(L.MODEL + 'identity/vintages.jsonl', encoding='utf-8'))
     changed = sorted(f[len('data/model/'):] for f in _git('diff', '--name-only', BEFORE, '--', 'data/model').split())
     out = []

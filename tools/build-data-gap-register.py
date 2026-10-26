@@ -653,8 +653,12 @@ def resolve(rows):
     # M3.4B: a document-less vintage (as the register measured it) that an audited accepted document
     # now documents. Only "no document" is resolved: its figures stay with their own gaps.
     before = A.vintage_documents()
-    for vt in sorted({a['vintage'] for a in A.m34b_attributions() if not before.get(a['vintage'])}):
+    m34b = {a['vintage'] for a in A.m34b_attributions() if not before.get(a['vintage'])}
+    for vt in sorted(m34b):
         recovered[('VINTAGE_NO_DOCUMENT|%s' % wine_estate.get(vt.split(':')[1], '?'), 'M3.4B')] += 1
+    # M3.5: likewise, a vintage a reviewed held document now documents (one M3.4B did not)
+    for vt in sorted({a['vintage'] for a in A.m35_attributions() if not before.get(a['vintage'])} - m34b):
+        recovered[('VINTAGE_NO_DOCUMENT|%s' % wine_estate.get(vt.split(':')[1], '?'), 'M3.5')] += 1
     for c in A.table('canonical/values.jsonl'):
         if (pv[c['provenance']].get('code_state') or {}).get('stream') == 'M3.2D' and \
                 '%s|%s' % (c['subject'], c['field']) in fillable:

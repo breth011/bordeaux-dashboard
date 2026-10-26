@@ -328,23 +328,38 @@ def accepted_by_sha():
 
 
 M34B_ACTOR = 'tools/m34b-apply.py'
+M35_ACTOR = 'tools/m35-review.py'
+LATER_ACTORS = (M34B_ACTOR, M35_ACTOR)      # the phases that link documents to vintages after the audits
 
 
-def m34b_attributions():
-    """M3.4B: the attributions that link an audited accepted document to its vintage (provenance by
-    tools/m34b-apply.py). The audits measure the model as it stood before them."""
+def later_attributions(actors=LATER_ACTORS):
+    """The attributions a later phase made (M3.4B audited mappings, M3.5 held-document review), by the
+    actor of their provenance. The audits measure the model as it stood before them."""
     def build():
         pv = by_id('cross/provenance.jsonl')
         return [a for a in table('document/attributions.jsonl')
-                if (pv.get(a['provenance']) or {}).get('actor') == M34B_ACTOR]
-    return cached('m34b_att', build)
+                if (pv.get(a['provenance']) or {}).get('actor') in LATER_ACTORS]
+    pv = by_id('cross/provenance.jsonl')
+    return [a for a in cached('later_att', build) if pv[a['provenance']]['actor'] in actors]
 
 
-def vintage_documents():
-    """derived/vintage-documents.json as before M3.4B: a (vintage, artifact) link only M3.4B made is left out."""
+def m34b_attributions():
+    """M3.4B: the attributions that link an audited accepted document to its vintage."""
+    return later_attributions((M34B_ACTOR,))
+
+
+def m35_attributions():
+    """M3.5: the attributions that link a reviewed held document to the vintage its title establishes."""
+    return later_attributions((M35_ACTOR,))
+
+
+def vintage_documents(actors=LATER_ACTORS):
+    """derived/vintage-documents.json as before the later phases (by default M3.4B and M3.5; M3.5's review
+    passes its own actor only): a (vintage, artifact) link only those phases made is left out."""
     def build():
         vd = json.load(open(L.MODEL + 'derived/vintage-documents.json', encoding='utf-8'))
-        ids = {a['id'] for a in m34b_attributions()}
+        mine = later_attributions(actors)
+        ids = {a['id'] for a in mine}
         other = {(a['vintage'], a['artifact']) for a in table('document/attributions.jsonl')
                  if a.get('vintage') and a['id'] not in ids}
         pv = by_id('cross/provenance.jsonl')
@@ -352,20 +367,20 @@ def vintage_documents():
             p = pv[o['provenance']]
             if o['subject'].startswith('vt:') and p.get('artifact') and p['kind'] == 'LEGACY_FIELD_SOURCE':
                 other.add((o['subject'], p['artifact']))
-        for a in m34b_attributions():
+        for a in mine:
             vt, aid = a['vintage'], a['artifact']
             if (vt, aid) not in other and aid in vd.get(vt, []):
                 vd[vt] = [x for x in vd[vt] if x != aid]
                 if not vd[vt]:
                     del vd[vt]
         return vd
-    return cached('vintage_documents', build)
+    return cached('vintage_documents|' + '|'.join(actors), build)
 
 
 def legacy_attr_by_artifact():
-    """The manifest's attributions per artifact (M3.4B's audited links are not legacy)."""
+    """The manifest's attributions per artifact (the later phases' links are not legacy)."""
     def build():
-        ids = {a['id'] for a in m34b_attributions()}
+        ids = {a['id'] for a in later_attributions()}
         return _group([a for a in table('document/attributions.jsonl') if a['id'] not in ids], 'artifact')
     return cached('attr_by_art', build)
 

@@ -20,8 +20,8 @@
   },
   "cross/provenance.jsonl": {
    "entity": "Provenance",
-   "rows": 27119,
-   "sha256": "2df7b1aa8f358dac0056e903b391ffa57d280622df5ad621fc67d58e07107d7f"
+   "rows": 27151,
+   "sha256": "d6bfa2022aebe4bf1cf4b679d141e843f383d6becc1533c2fa620ab027765453"
   },
   "document/artifact-dates.jsonl": {
    "entity": "ArtifactDate",
@@ -40,8 +40,8 @@
   },
   "document/attributions.jsonl": {
    "entity": "Attribution",
-   "rows": 12167,
-   "sha256": "e37c9493c148ee4109b4ffae8c152a0f7493ce3082a67a10fd0dc0ba25987f2a"
+   "rows": 12199,
+   "sha256": "2504719dc45c72a27f702ff9dd4b1f8814e78419dfee3e9b5265a883090693f3"
   },
   "document/families.jsonl": {
    "entity": "DocumentFamily",
@@ -349,7 +349,8 @@
     "REJECTED_VINTAGE_ONLY": 2875
    },
    "M3.2B placements (recovered addresses)": 48,
-   "M3.4B audited mappings": 39
+   "M3.4B audited mappings": 39,
+   "M3.5 held-document attributions": 32
   },
   "M7": {
    "backfill": {

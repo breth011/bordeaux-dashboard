@@ -35,6 +35,10 @@ ROWS = L.jsonl_lines(MANIFEST)
 PROV = A.by_id('cross/provenance.jsonl')
 ATT = A.table('document/attributions.jsonl')
 MINE = [a for a in ATT if (PROV.get(a['provenance']) or {}).get('actor') == B.M6.MAPPINGS_ACTOR]
+# the one later phase that adds attributions (M3.5's held-document review), each exactly a row of its
+# review (historical_m2_scope.is_m35_attribution): named, never counted as M3.4B's
+LATER = [a for a in ATT if (PROV.get(a['provenance']) or {}).get('actor') == H.M35_ACTOR]
+assert all(H.is_m35_attribution(a, PROV) for a in LATER)
 
 
 def check(f):
@@ -82,13 +86,14 @@ def no_allow_list_entry_is_missing():
 def no_extra_mapping_exists():
     old = {json.loads(x)['id'] for x in at_before('data/model/document/attributions.jsonl').splitlines()}
     added = [a for a in ATT if a['id'] not in old]
-    assert sorted(a['id'] for a in added) == sorted(a['id'] for a in MINE), 'an attribution beyond M3.4B'
-    assert {a['id'] for a in ATT if a['method'] != 'LEGACY_UNKNOWN' or a['status'] != 'LEGACY'} == {a['id'] for a in MINE}
+    assert sorted(a['id'] for a in added) == sorted(a['id'] for a in MINE + LATER), 'an attribution beyond M3.4B (and M3.5)'
+    assert {a['id'] for a in ATT if a['method'] != 'LEGACY_UNKNOWN' or a['status'] != 'LEGACY'} == {a['id'] for a in MINE + LATER}
     assert all(H.is_m34b_attribution(a, PROV) for a in MINE)
     old_vd = json.loads(at_before('data/model/derived/vintage-documents.json'))
     new_vd = json.load(open(L.MODEL + 'derived/vintage-documents.json', encoding='utf-8'))
     gained = {(k, x) for k in new_vd for x in set(new_vd[k]) - set(old_vd.get(k, []))}
-    assert gained == {(a['vintage'], a['artifact']) for a in MINE}, 'a vintage gained a document beyond M3.4B'
+    assert gained == {(a['vintage'], a['artifact']) for a in MINE + LATER}, 'a vintage gained a document beyond M3.4B (and M3.5)'
+    gained = {(a['vintage'], a['artifact']) for a in MINE}
     assert all(set(old_vd[k]) <= set(new_vd.get(k, [])) for k in old_vd), 'a link was removed'
     assert len({k for k, _ in gained}) == 26 and not any(k in old_vd for k, _ in gained)
 
@@ -143,7 +148,7 @@ def provenance_is_preserved():
         L.MODEL + 'cross/provenance.jsonl', encoding='utf-8').read().splitlines()
     assert set(old) <= set(new), 'a provenance row changed or was removed'
     added = [json.loads(x) for x in set(new) - set(old)]
-    assert sorted(p['id'] for p in added) == sorted(a['provenance'] for a in MINE)
+    assert sorted(p['id'] for p in added) == sorted(a['provenance'] for a in MINE + LATER)
     for a in MINE:
         p = PROV[a['provenance']]
         r = next(x for x in ROWS if x['attribution'] == a['id'])
@@ -195,8 +200,8 @@ def no_figure_or_value_was_added():
     H.model_changes_are_m2_only(BEFORE)
     m0, m1 = json.loads(at_before('data/model/manifest.json')), json.load(open(L.MODEL + 'manifest.json', encoding='utf-8'))
     assert {k: v['rows'] for k, v in m1['files'].items() if m0['files'].get(k) != v} == {
-        'cross/provenance.jsonl': m0['files']['cross/provenance.jsonl']['rows'] + 39,
-        'document/attributions.jsonl': m0['files']['document/attributions.jsonl']['rows'] + 39}
+        'cross/provenance.jsonl': m0['files']['cross/provenance.jsonl']['rows'] + 39 + len(LATER),
+        'document/attributions.jsonl': m0['files']['document/attributions.jsonl']['rows'] + 39 + len(LATER)}
     assert m1['stats']['M6']['M3.4B audited mappings'] == 39
 
 
@@ -236,7 +241,7 @@ def generated_data_is_internally_consistent():
         assert a['artifact'] in vd[a['vintage']] and a['provenance'] in PROV
     # the legacy manifest is still exactly the manifest: M3.4B's rows are none of its rows
     legacy = H.legacy_attributions(ATT, PROV)
-    assert len(legacy) == len(ATT) - len(MINE)
+    assert len(legacy) == len(ATT) - len(MINE) - len(LATER)
     assert all(PROV[a['provenance']]['kind'] == 'LEGACY_MANIFEST' for a in legacy)
 
 

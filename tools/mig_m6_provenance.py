@@ -355,3 +355,33 @@ def run(m):
     document_dates(m)
     recovered_placements(m)
     audited_mappings(m)
+    held_document_attributions(m)
+
+
+HELD_REVIEW = 'data/audit/m3.5-held-document-review.jsonl'
+HELD_REVIEW_ACTOR = 'tools/m35-review.py'
+
+
+def held_document_attributions(m):
+    """M3.5: a held document linked to the wine and vintage its own title establishes. Read from the
+    review's eligible rows only (SAFE_TO_ATTRIBUTE or BOTH_ESTATES_SUPPORTED, each through the fail-closed
+    preflight of tools/m35-review.py). One Attribution per row (method DOCUMENT_TEXT, status ACCEPTED);
+    its DOCUMENT provenance quotes the review's basis, names the accepted decision(s) and derives from
+    the artifact's manifest provenance. No value, figure, name or date follows from it."""
+    if not os.path.exists(L.ROOT + HELD_REVIEW):
+        return
+    n = 0
+    for r in L.jsonl_lines(L.ROOT + HELD_REVIEW):
+        if not r['eligible']:
+            continue
+        pid = m.prov('DOCUMENT', HELD_REVIEW_ACTOR, artifact=r['artifact'], quote=r['basis'],
+                     derived_from=r['manifest_provenance'],
+                     code_state={'stream': 'M3.5', 'review': HELD_REVIEW, 'population': r['population'],
+                                 'rule': r['rule'], 'evidence_decisions': r['evidence_decisions'],
+                                 'disposition': r['disposition'], 'sha256': r['sha256']})
+        m.add('document/attributions.jsonl', {
+            'id': r['attribution'], 'artifact': r['artifact'], 'estate': r['estate'], 'wine': r['wine'],
+            'vintage': r['vintage_id'], 'role': r['role'], 'method': 'DOCUMENT_TEXT', 'status': 'ACCEPTED',
+            'provenance': pid})
+        n += 1
+    m.stat('M6', 'M3.5 held-document attributions', n)

@@ -20,6 +20,7 @@ import sys
 
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 import data_gap_analysis as A  # noqa: E402
+import check_cache as CC  # noqa: E402
 import migration_lib as L  # noqa: E402
 
 BEFORE = 'f911873'               # M3: the state before M3.1
@@ -54,7 +55,7 @@ def fam(r):
 def t01_output_is_deterministic():
     assert body(ROWS) == body(B.build()), 'two builds in one process differ'
     assert open(REGISTER, 'rb').read() == body(ROWS), 'the committed register is not a fresh build'
-    out = subprocess.run([sys.executable, L.ROOT + 'tools/build-data-gap-register.py', '--check'], capture_output=True, text=True)
+    out = CC.run([sys.executable, L.ROOT + 'tools/build-data-gap-register.py', '--check'])
     assert out.returncode == 0, out.stdout + out.stderr
 
 
@@ -209,8 +210,7 @@ def t14_scraping_candidates_trace_to_actual_gaps():
 
 @check
 def t15_report_totals_match_the_register():
-    out = subprocess.run([sys.executable, L.ROOT + 'tools/build-data-gap-register.py', '--report', '--check'],
-                         capture_output=True, text=True)
+    out = CC.run([sys.executable, L.ROOT + 'tools/build-data-gap-register.py', '--report', '--check'])
     assert out.returncode == 0, out.stdout + out.stderr
     text = open(L.ROOT + 'docs/DATA-GAP-REGISTER.md', encoding='utf-8').read()
     t = collections.Counter(r['priority'] for r in ROWS)

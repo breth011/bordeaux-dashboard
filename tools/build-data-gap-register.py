@@ -2,6 +2,7 @@
 
     python tools/build-data-gap-register.py             write data/audit/data-gap-register.jsonl
     python tools/build-data-gap-register.py --check     recompute and compare, byte for byte
+    python tools/build-data-gap-register.py --check-all recompute once; compare the output and the report, byte for byte
     python tools/build-data-gap-register.py --summary   the tier and category counts, nothing written
 
 Audit only. Every row is a gap measured from the committed state by tools/data_gap_analysis.py,
@@ -940,18 +941,20 @@ def report(rows):
 
 def main():
     rows = build()
-    if '--report' in sys.argv:
+    if '--report' in sys.argv or '--check-all' in sys.argv:
         text = report(rows)
-        if '--check' in sys.argv:
+        if '--check' in sys.argv or '--check-all' in sys.argv:
             same = os.path.exists(REPORT) and open(REPORT, encoding='utf-8').read() == text
             print('docs/DATA-GAP-REGISTER.md ' + ('is current' if same else 'differs from a fresh run'))
-            sys.exit(0 if same else 1)
-        with open(REPORT, 'w', encoding='utf-8', newline='\n') as f:
-            f.write(text)
-        print('wrote docs/DATA-GAP-REGISTER.md')
-        return
+            if not same or '--check-all' not in sys.argv:
+                sys.exit(0 if same else 1)
+        else:
+            with open(REPORT, 'w', encoding='utf-8', newline='\n') as f:
+                f.write(text)
+            print('wrote docs/DATA-GAP-REGISTER.md')
+            return
     body = ''.join(json.dumps(r, ensure_ascii=False, sort_keys=True, separators=(',', ':')) + '\n' for r in rows).encode('utf-8')
-    if '--check' in sys.argv:
+    if '--check' in sys.argv or '--check-all' in sys.argv:
         same = os.path.exists(OUT) and open(OUT, 'rb').read() == body
         print('data/audit/data-gap-register.jsonl ' + ('is current' if same else 'differs from a fresh run'))
         sys.exit(0 if same else 1)

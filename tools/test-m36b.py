@@ -19,6 +19,7 @@ sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 import data_gap_analysis as A  # noqa: E402
 import evidence_store as ST  # noqa: E402
 import historical_m2_scope as H  # noqa: E402
+import check_cache as CC  # noqa: E402
 import migration_lib as L  # noqa: E402
 import mig_m6_provenance as M6  # noqa: E402
 
@@ -46,7 +47,7 @@ def git(*a):
 
 
 def run(*args):
-    out = subprocess.run([sys.executable] + [L.ROOT + args[0]] + list(args[1:]), capture_output=True, text=True)
+    out = CC.run([sys.executable] + [L.ROOT + args[0]] + list(args[1:]))
     assert out.returncode == 0, (args, out.stdout[-400:] + out.stderr[-400:])
     return out.stdout
 
@@ -240,7 +241,7 @@ def everything_recomputes():
     assert 'rebuild byte for byte' in run('tools/build-indexes.py', '--check')
     assert 'byte for byte' in run('tools/build-app-data.py', '--check')
     assert 'every part matches' in run('tools/evidence_store.py', '--verify')
-    out = subprocess.run([sys.executable, '-I', L.ROOT + 'tools/m36a-rerun.py', '--check'], capture_output=True, text=True)
+    out = CC.run([sys.executable, '-I', L.ROOT + 'tools/m36a-rerun.py', '--check-all'])
     assert out.returncode == 0, out.stdout[-300:]                                  # the audit it applied is unchanged
 
 

@@ -290,6 +290,10 @@ def documents(m):
         idmap(m, 'artifact-by-sha256', s256, aid, p_mint)
 
     read_any = {h for hs in reads.values() for h in hs}
+    first_path = {}                                         # sha1 -> the first path, in versions order, holding it
+    for pp, vs in versions.items():
+        for s1 in vs:
+            first_path.setdefault(s1, pp)
     rows = {}
     for (kind, dg), aid in art.items():
         r = rows.setdefault(aid, {'id': aid})
@@ -316,7 +320,7 @@ def documents(m):
         else:
             r['extraction_status'] = 'EXTRACTED' if r.get('sha256') in read_any else 'PENDING'
         if 'media_type' not in r:
-            p = next((pp for pp, vs in versions.items() if r.get('sha1') in vs), '')
+            p = first_path.get(r.get('sha1'), '')
             r['media_type'] = MEDIA.get(os.path.splitext(p)[1].lower())
             if r['media_type'] is None:
                 del r['media_type']

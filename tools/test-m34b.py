@@ -19,6 +19,7 @@ import sys
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 import data_gap_analysis as A  # noqa: E402
 import historical_m2_scope as H  # noqa: E402
+import check_cache as CC  # noqa: E402
 import migration_lib as L  # noqa: E402
 
 BEFORE = '8b1c25b'               # M3.4A: the state before M3.4B
@@ -55,7 +56,7 @@ def git(*a):
 
 
 def run(*args):
-    out = subprocess.run([sys.executable] + [L.ROOT + args[0]] + list(args[1:]), capture_output=True, text=True)
+    out = CC.run([sys.executable] + [L.ROOT + args[0]] + list(args[1:]))
     assert out.returncode == 0, (args, out.stdout[-400:] + out.stderr[-400:])
     return out.stdout
 
@@ -216,7 +217,7 @@ def no_figure_or_value_was_added():
 def repeated_generation_is_deterministic():
     rows, _ = B.build()
     assert B.body(rows) == open(MANIFEST, 'rb').read()
-    for args in (('tools/m34b-apply.py', '--check'), ('tools/m34b-apply.py', '--report', '--check'), ('tools/migrate.py', '--check')):
+    for args in (('tools/m34b-apply.py', '--check-all'), ('tools/migrate.py', '--check')):
         run(*args)
     text = open(MANIFEST, encoding='utf-8').read()
     assert L.ROOT not in text and 'Users' not in text and not re.search(r'20\d\d-\d\d-\d\dT', text)

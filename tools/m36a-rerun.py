@@ -3,6 +3,7 @@
     python tools/m36a-rerun.py             write data/audit/m3.6a-rerun-held-document-proposals.jsonl and
                                            data/audit/m3.6a-rerun-evidence-corrections.jsonl
     python tools/m36a-rerun.py --check     recompute both and compare, byte for byte
+    python tools/m36a-rerun.py --check-all recompute once; compare the output and the report, byte for byte
     python tools/m36a-rerun.py --report    write docs/PHASE-M3.6A-RERUN.md (also --check)
 
 PART 1 - the fetched estate documents, recalculated on the model as it stands: M3.3's
@@ -461,18 +462,20 @@ def main():
             print('  SAFE breaks R1: %s %s' % (r['candidate'], r['r1_gate']))
         for r in unknown[:20]:
             print('  unnamed false-positive class: %s %s' % (r['candidate'], r['reader_false_positive']))
-    if '--report' in sys.argv:
+    if '--report' in sys.argv or '--check-all' in sys.argv:
         import m36a_rerun_report
         text = m36a_rerun_report.report(props, corr, fps, base, json.load(open(BLOCKED_RUN, encoding='utf-8')))
-        if '--check' in sys.argv:
+        if '--check' in sys.argv or '--check-all' in sys.argv:
             same = os.path.exists(REPORT) and open(REPORT, encoding='utf-8').read() == text
             print('docs/PHASE-M3.6A-RERUN.md ' + ('is current' if same else 'differs from a fresh run'))
-            sys.exit(0 if same else 1)
-        open(REPORT, 'w', encoding='utf-8', newline='\n').write(text)
-        print('wrote docs/PHASE-M3.6A-RERUN.md')
-        return
+            if not same or '--check-all' not in sys.argv:
+                sys.exit(0 if same else 1)
+        else:
+            open(REPORT, 'w', encoding='utf-8', newline='\n').write(text)
+            print('wrote docs/PHASE-M3.6A-RERUN.md')
+            return
     outs = ((PROPOSALS, body(props)), (CORRECTIONS, body(corr)))
-    if '--check' in sys.argv:
+    if '--check' in sys.argv or '--check-all' in sys.argv:
         bad = [p for p, b in outs if not os.path.exists(p) or open(p, 'rb').read() != b]
         print('M3.6A rerun outputs ' + ('are current' if not bad else 'differ: %s' % bad))
         sys.exit(1 if bad else 0)

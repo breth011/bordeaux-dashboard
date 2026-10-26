@@ -241,8 +241,8 @@ def historical_decisions(cuvee_shas):
 
 # -- the audit --------------------------------------------------------------------------------------
 
-def build():
-    docs = held_documents()
+def build(docs=None):
+    docs = held_documents() if docs is None else docs
     recs = []
     for d in docs:
         disp, loc, vintage = classify(d)
@@ -660,7 +660,7 @@ DOCS_CACHE = []
 def build_cached():
     if not DOCS_CACHE:
         docs = held_documents()
-        recs, F = build()
+        recs, F = build(docs)                 # one reading of the held documents, not two
         DOCS_CACHE.extend([docs, recs, F])
     return DOCS_CACHE[1], DOCS_CACHE[2]
 

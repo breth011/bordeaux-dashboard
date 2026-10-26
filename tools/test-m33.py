@@ -16,6 +16,7 @@ import subprocess
 import sys
 
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+import check_cache as CC  # noqa: E402
 import migration_lib as L  # noqa: E402
 
 BEFORE = 'd7fb120'               # M3.2E: the state before M3.3
@@ -122,9 +123,8 @@ def repeated_generation_is_byte_identical():
     rows1, _, _ = BUILT
     rows2, _, _ = P.build()                   # a second, independent build
     assert P.body(rows1) == P.body(rows2) == open(PLAN, 'rb').read()
-    for args in (['--check'], ['--report', '--check']):
-        out = subprocess.run([sys.executable, L.ROOT + 'tools/m33-source-plan.py'] + args, capture_output=True, text=True)
-        assert out.returncode == 0, out.stdout + out.stderr
+    out = CC.run([sys.executable, L.ROOT + 'tools/m33-source-plan.py', '--check-all'])   # the plan and its report
+    assert out.returncode == 0, out.stdout + out.stderr
     # no clock, no environment in the output
     text = open(PLAN, encoding='utf-8').read()
     assert L.ROOT not in text and 'Users' not in text and 'T0' not in text
@@ -184,7 +184,7 @@ def no_model_evidence_or_app_data_was_mutated():
     H.model_changes_are_m2_only(BEFORE)
     H.register_changes_are_m34b_only(BEFORE)
     for args in (['--check'], ['--report', '--check']):
-        out = subprocess.run([sys.executable, L.ROOT + 'tools/build-data-gap-register.py'] + args, capture_output=True, text=True)
+        out = CC.run([sys.executable, L.ROOT + 'tools/build-data-gap-register.py'] + args)
         assert out.returncode == 0, out.stdout + out.stderr
     b0 = json.load(open(L.MODEL + 'baseline.json', encoding='utf-8'))['groups']
     for g in b0:

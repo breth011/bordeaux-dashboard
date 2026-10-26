@@ -3,8 +3,9 @@
     python tools/test-run-tests.py
 
 Read-only, fast: exercises the comparison and the recording on runs built here, in a temporary
-file; the suites are not run. A full run more than 10 % slower than the last passing run at the
-same worker count is a regression (exit status 2); a failing run is neither compared nor recorded.
+file; the suites are not run. A full run more than 10 % slower than the baseline at the same
+worker count is a regression (exit status 2); the baseline moves only with --set-baseline; a
+failing run is neither compared nor recorded.
 """
 import importlib.util
 import os
@@ -70,7 +71,7 @@ def references_are_kept_per_worker_count():
         assert len(R.load_log(p)['history']) == R.HISTORY
 
 
-def drive_main(seconds, d, fail=False):
+def drive_main(seconds, d, fail=False, args=()):
     """Run the real main() on two stub suites taking `seconds` in all, logging to a temp file;
     return its exit status and printed text."""
     import contextlib
@@ -81,7 +82,7 @@ def drive_main(seconds, d, fail=False):
     R.run = lambda name: {'suite': name, 'ok': not fail, 'checks': 3, 'seconds': seconds / 2, 'tail': ['x']}
     R.RUNTIME_LOG = os.path.join(d, 'reports', 'suite-runtime.json')
     R.time.perf_counter = lambda: next(clock)
-    sys.argv = ['run-tests.py']
+    sys.argv = ['run-tests.py'] + list(args)
     out = io.StringIO()
     try:
         with contextlib.redirect_stdout(out):
@@ -106,6 +107,42 @@ def main_records_compares_and_sets_the_exit_status():
         code, text = drive_main(900, d, fail=True)
         assert code == 1 and 'PERFORMANCE' not in text                           # a failing run is not judged
         assert R.load_log(os.path.join(d, 'reports', 'suite-runtime.json'))['last']['2']['seconds'] == 400
+
+
+@check
+def small_increases_add_up_against_the_baseline():
+    # each run under 10 % slower than the one before, together 21 % slower than the baseline
+    with tempfile.TemporaryDirectory() as d:
+        assert drive_main(300, d)[0] == 0                                        # the baseline
+        assert drive_main(325, d)[0] == 0                                        # +8 %
+        code, text = drive_main(345, d)                                          # +6 % on 325, +15 % on 300
+        assert code == 2 and 'PERFORMANCE REGRESSION' in text and '300.0s' in text, (code, text)
+        assert drive_main(363, d)[0] == 2                                        # +5 % on 345: still +21 %
+
+
+@check
+def running_again_does_not_accept_a_regression():
+    with tempfile.TemporaryDirectory() as d:
+        drive_main(300, d)
+        assert drive_main(400, d)[0] == 2
+        code, text = drive_main(400, d)
+        assert code == 2 and '--set-baseline' in text, (code, text)
+        assert R.baseline(R.load_log(os.path.join(d, 'reports', 'suite-runtime.json')), 2)['seconds'] == 300
+
+
+@check
+def only_set_baseline_moves_the_baseline():
+    with tempfile.TemporaryDirectory() as d:
+        p = os.path.join(d, 'reports', 'suite-runtime.json')
+        drive_main(300, d)
+        assert drive_main(200, d)[0] == 0                                        # faster: fine, and no move
+        assert R.baseline(R.load_log(p), 2)['seconds'] == 300
+        code, text = drive_main(400, d, args=['--set-baseline'])                 # a deliberate cost
+        assert code == 0 and 'baseline for 2 worker(s) set: 400.0s' in text, (code, text)
+        assert R.baseline(R.load_log(p), 2)['seconds'] == 400
+        assert drive_main(430, d)[0] == 0 and drive_main(441, d)[0] == 2         # judged against 400 now
+        assert drive_main(900, d, fail=True, args=['--set-baseline'])[0] == 1    # a failing run never sets it
+        assert R.baseline(R.load_log(p), 2)['seconds'] == 400
 
 
 @check

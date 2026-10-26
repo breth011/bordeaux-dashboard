@@ -2,6 +2,7 @@
 
     python tools/m34b-apply.py             preflight; write data/audit/m3.4b-mapping-application.jsonl
     python tools/m34b-apply.py --check     recompute and compare, byte for byte
+    python tools/m34b-apply.py --check-all recompute once; compare the output and the report, byte for byte
     python tools/m34b-apply.py --report    write docs/PHASE-M3.4B-MAPPING-APPLICATION.md (also --check)
 
 The allow-list is M3.4A's SAFE_TO_MAP rows (data/audit/m3.4a-mapping-proposals.jsonl) and nothing
@@ -214,18 +215,20 @@ def main():
         print('STOP: the allow-list (%d mappings, %d vintages, %d wines) differs from M3.4A\'s report %s'
               % (counts + (recorded_counts(),)))
         sys.exit(2)
-    if '--report' in sys.argv:
+    if '--report' in sys.argv or '--check-all' in sys.argv:
         import m34b_report
         text = m34b_report.report(rows, allow)
-        if '--check' in sys.argv:
+        if '--check' in sys.argv or '--check-all' in sys.argv:
             same = os.path.exists(REPORT) and open(REPORT, encoding='utf-8').read() == text
             print('docs/PHASE-M3.4B-MAPPING-APPLICATION.md ' + ('is current' if same else 'differs from a fresh run'))
-            sys.exit(0 if same else 1)
-        open(REPORT, 'w', encoding='utf-8', newline='\n').write(text)
-        print('wrote docs/PHASE-M3.4B-MAPPING-APPLICATION.md')
-        return
+            if not same or '--check-all' not in sys.argv:
+                sys.exit(0 if same else 1)
+        else:
+            open(REPORT, 'w', encoding='utf-8', newline='\n').write(text)
+            print('wrote docs/PHASE-M3.4B-MAPPING-APPLICATION.md')
+            return
     b = body(rows)
-    if '--check' in sys.argv:
+    if '--check' in sys.argv or '--check-all' in sys.argv:
         same = os.path.exists(OUT) and open(OUT, 'rb').read() == b
         print('data/audit/m3.4b-mapping-application.jsonl ' + ('is current' if same else 'differs from a fresh run'))
         sys.exit(0 if same else 1)

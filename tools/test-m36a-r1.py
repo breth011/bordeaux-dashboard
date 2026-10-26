@@ -18,6 +18,7 @@ import sys
 
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 import data_gap_analysis as A  # noqa: E402
+import check_cache as CC  # noqa: E402
 import migration_lib as L  # noqa: E402
 import web_evidence as WE  # noqa: E402
 
@@ -286,7 +287,7 @@ def r14_nothing_else_changed():
     spec.loader.exec_module(ev)
     assert ev.reader_fingerprint() == '7e8cfed1c24e'          # the v5 decisions' reader, unchanged
     for t in ('tools/migrate.py', 'tools/build-app-data.py'):
-        out = subprocess.run([sys.executable, L.ROOT + t, '--check'], capture_output=True, text=True)
+        out = CC.run([sys.executable, L.ROOT + t, '--check'])
         assert out.returncode == 0, (t, out.stdout[-200:])
 
 

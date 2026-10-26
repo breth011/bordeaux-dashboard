@@ -64,6 +64,9 @@ for cls, lang, lab in LABELS:
     for form, rx in DATE_FORMS:
         LABEL_DATE.append((cls, lang, form, re.compile(r'(?<![\w])(?:%s)%s(%s)%s' % (lab, SEP, rx, NOT_AFTER),
                                                        re.IGNORECASE)))
+# Every LABEL_DATE pattern starts with one of these labels after a non-word character, so text in
+# which this finds nothing holds no labelled date; it only spares running the 28 patterns over it.
+ANY_LABEL = re.compile(r'(?<![\w])(?:%s)' % '|'.join(lab for _, _, lab in LABELS), re.IGNORECASE)
 LABEL_EXTERNAL = re.compile(r'(?<![\w])(?:%s|%s)%s(?:%s)' % (
     LABEL_EN_PUB, LABEL_FR_PUB, EXTERNAL,
     '|'.join(re.sub(r'\?P<\w+>', '', r) for _, r in DATE_FORMS[:5])), re.IGNORECASE)
@@ -125,7 +128,11 @@ def labelled_dates(segments):
     after a comma, the predicate of a sentence about its own subject, in a sentence about another
     document (a privacy or cookie policy, terms), or followed by a critic's score."""
     found = []
+    if not ANY_LABEL.search('\n'.join(t for _, t in segments)):
+        return found
     for locus, text in segments:
+        if not ANY_LABEL.search(text):
+            continue
         taken = []
         for cls, lang, form, rx in LABEL_DATE:
             for m in rx.finditer(text):

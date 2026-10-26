@@ -2,6 +2,7 @@
 
     python tools/m35-review.py             review; write data/audit/m3.5-held-document-review.jsonl
     python tools/m35-review.py --check     recompute and compare, byte for byte
+    python tools/m35-review.py --check-all recompute once; compare the output and the report, byte for byte
     python tools/m35-review.py --report    write docs/PHASE-M3.5-HELD-DOCUMENT-REVIEW.md (also --check)
 
 The question for every candidate: what exact estate / wine / vintage relationship does the held
@@ -287,18 +288,20 @@ def main():
     if stop:
         print('STOP: the pilot found document(s) outside the rubric: %s' % ', '.join(stop[:10]))
         sys.exit(3)
-    if '--report' in sys.argv:
+    if '--report' in sys.argv or '--check-all' in sys.argv:
         import m35_report
         text = m35_report.report(rows)
-        if '--check' in sys.argv:
+        if '--check' in sys.argv or '--check-all' in sys.argv:
             same = os.path.exists(REPORT) and open(REPORT, encoding='utf-8').read() == text
             print('docs/PHASE-M3.5-HELD-DOCUMENT-REVIEW.md ' + ('is current' if same else 'differs from a fresh run'))
-            sys.exit(0 if same else 1)
-        open(REPORT, 'w', encoding='utf-8', newline='\n').write(text)
-        print('wrote docs/PHASE-M3.5-HELD-DOCUMENT-REVIEW.md')
-        return
+            if not same or '--check-all' not in sys.argv:
+                sys.exit(0 if same else 1)
+        else:
+            open(REPORT, 'w', encoding='utf-8', newline='\n').write(text)
+            print('wrote docs/PHASE-M3.5-HELD-DOCUMENT-REVIEW.md')
+            return
     b = body(rows)
-    if '--check' in sys.argv:
+    if '--check' in sys.argv or '--check-all' in sys.argv:
         same = os.path.exists(OUT) and open(OUT, 'rb').read() == b
         print('data/audit/m3.5-held-document-review.jsonl ' + ('is current' if same else 'differs from a fresh run'))
         sys.exit(0 if same else 1)

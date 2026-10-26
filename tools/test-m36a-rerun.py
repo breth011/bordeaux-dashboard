@@ -20,6 +20,7 @@ import sys
 
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 import data_gap_analysis as A  # noqa: E402
+import check_cache as CC  # noqa: E402
 import migration_lib as L  # noqa: E402
 
 BEFORE = '0564fcb'               # the controlled web-page rule update: the state this audit read
@@ -123,7 +124,7 @@ def model_canonical_and_app_unchanged_nothing_mapped_or_corrected():
     for t, args in (('tools/migrate.py', ['--check']), ('tools/build-app-data.py', ['--check']),
                     ('tools/build-data-gap-register.py', ['--check']),
                     ('tools/build-data-gap-register.py', ['--report', '--check'])):
-        out = subprocess.run([sys.executable, L.ROOT + t] + args, capture_output=True, text=True)
+        out = CC.run([sys.executable, L.ROOT + t] + args)
         assert out.returncode == 0, (t, out.stdout[-200:])
     src = open(L.ROOT + 'tools/mig_m6_provenance.py', encoding='utf-8').read()
     # the migration reads no M3.6A output: M3.6A applied nothing (M3.6B's own manifest is what it reads)
@@ -171,7 +172,7 @@ def the_r1_gate_holds_and_no_new_false_positive_class():
 
 @check
 def the_r1_regressions_hold():
-    out = subprocess.run([sys.executable, L.ROOT + 'tools/test-m36a-r1.py'], capture_output=True, text=True)
+    out = CC.run([sys.executable, L.ROOT + 'tools/test-m36a-r1.py'])
     assert out.returncode == 0, out.stdout[-400:]
     # on the audit's own rows: the genuine page kept, the five classes and their kin refused
     assert {r['disposition'] for r in by_url('nos-vins/chateau-paloumey-2022-2/', 2022)} == {'SAFE_TO_MAP'}
@@ -208,9 +209,8 @@ def outputs_are_deterministic():
     again = X.build()                       # a second, independent build
     assert X.body(props) == X.body(again[0]) == open(PROPS, 'rb').read()
     assert X.body(corr) == X.body(again[1]) == open(CORR, 'rb').read()
-    for args in (['--check'], ['--report', '--check']):
-        out = subprocess.run([sys.executable, '-I', L.ROOT + 'tools/m36a-rerun.py'] + args, capture_output=True, text=True)
-        assert out.returncode == 0, out.stdout[-300:] + out.stderr[-300:]
+    out = CC.run([sys.executable, '-I', L.ROOT + 'tools/m36a-rerun.py', '--check-all'])   # both outputs and the report
+    assert out.returncode == 0, out.stdout[-300:] + out.stderr[-300:]
     text = open(PROPS, encoding='utf-8').read() + open(CORR, encoding='utf-8').read() + open(REPORT, encoding='utf-8').read()
     import tempfile
     assert L.ROOT not in text and 'Users' not in text and tempfile.gettempdir() not in text

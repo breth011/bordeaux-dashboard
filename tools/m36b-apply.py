@@ -304,11 +304,20 @@ def stored_v6():
     return [d for d in ST.iter_rows([VERSION])] if VERSION in ST.versions() else []
 
 
+_IN_HEAD = {}                                      # commit -> in HEAD's history; asked once per commit
+
+
+def in_head(commit):
+    if commit not in _IN_HEAD:
+        _IN_HEAD[commit] = subprocess.run(['git', 'merge-base', '--is-ancestor', commit, 'HEAD'],
+                                          cwd=L.ROOT).returncode == 0
+    return _IN_HEAD[commit]
+
+
 def same_but_git(a, b):
     a, b = dict(a), dict(b)
     ga, gb = a.pop('git'), b.pop('git')
-    return a == b and ga.get('commit') and subprocess.run(
-        ['git', 'merge-base', '--is-ancestor', ga['commit'], 'HEAD'], cwd=L.ROOT).returncode == 0
+    return a == b and ga.get('commit') and in_head(ga['commit'])
 
 
 def main():

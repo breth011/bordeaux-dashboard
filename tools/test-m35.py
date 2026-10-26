@@ -20,6 +20,7 @@ import sys
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 import data_gap_analysis as A  # noqa: E402
 import historical_m2_scope as H  # noqa: E402
+import check_cache as CC  # noqa: E402
 import migration_lib as L  # noqa: E402
 import m35_rubric as RB  # noqa: E402
 
@@ -269,11 +270,10 @@ def nothing_else_changed():
 def output_is_deterministic():
     rows, stop = V.build()
     assert not stop and V.body(rows) == open(OUT, 'rb').read()
-    for args in (['--check'], ['--report', '--check']):
-        out = subprocess.run([sys.executable, L.ROOT + 'tools/m35-review.py'] + args, capture_output=True, text=True)
-        assert out.returncode == 0, out.stdout + out.stderr
+    out = CC.run([sys.executable, L.ROOT + 'tools/m35-review.py', '--check-all'])   # the review and its report
+    assert out.returncode == 0, out.stdout + out.stderr
     for t in ('tools/migrate.py', 'tools/build-indexes.py', 'tools/build-app-data.py'):
-        out = subprocess.run([sys.executable, L.ROOT + t, '--check'], capture_output=True, text=True)
+        out = CC.run([sys.executable, L.ROOT + t, '--check'])
         assert out.returncode == 0, (t, out.stdout[-300:])
     text = open(OUT, encoding='utf-8').read()
     assert L.ROOT not in text and 'Users' not in text and not re.search(r'20\d\d-\d\d-\d\dT\d', text)

@@ -17,6 +17,7 @@ import sys
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 import historical_m2_scope as H  # noqa: E402
 import m32_recovery as R  # noqa: E402
+import check_cache as CC  # noqa: E402
 import migration_lib as L  # noqa: E402
 
 BEFORE = 'eb3772e'               # the state before M3.2
@@ -131,9 +132,9 @@ def candidate_generation_is_deterministic():
 
 @check
 def application_is_deterministic():
-    out = subprocess.run([sys.executable, L.ROOT + 'tools/migrate.py', '--check'], capture_output=True, text=True)
+    out = CC.run([sys.executable, L.ROOT + 'tools/migrate.py', '--check'])
     assert out.returncode == 0 and 'byte for byte' in out.stdout, out.stdout + out.stderr
-    out = subprocess.run([sys.executable, L.ROOT + 'tools/build-app-data.py', '--check'], capture_output=True, text=True)
+    out = CC.run([sys.executable, L.ROOT + 'tools/build-app-data.py', '--check'])
     assert out.returncode == 0, out.stdout + out.stderr
 
 
@@ -342,7 +343,7 @@ def m32d_adds_only_clear_values_with_their_units_and_meaning():
 @check
 def m32d_values_stay_out_of_the_legacy_projection():
     # the app's files reconstruct the legacy ones; a model-only value is not slipped into them
-    out = subprocess.run([sys.executable, L.ROOT + 'tools/build-app-data.py', '--check'], capture_output=True, text=True)
+    out = CC.run([sys.executable, L.ROOT + 'tools/build-app-data.py', '--check'])
     assert out.returncode == 0, out.stdout
     assert not git('diff', '--stat', '75a120d', '--', 'data/app').strip(), 'the app data changed in M3.2D'
 

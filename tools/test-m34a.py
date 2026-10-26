@@ -18,6 +18,7 @@ import subprocess
 import sys
 
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+import check_cache as CC  # noqa: E402
 import migration_lib as L  # noqa: E402
 
 BEFORE = '357f44c'               # M3.3: the state before M3.4A
@@ -168,7 +169,7 @@ def nothing_was_mutated():
     H.model_changes_are_m2_only(BEFORE)
     H.register_changes_are_m34b_only(BEFORE)
     for args in (['--check'], ['--report', '--check']):
-        out = subprocess.run([sys.executable, L.ROOT + 'tools/build-data-gap-register.py'] + args, capture_output=True, text=True)
+        out = CC.run([sys.executable, L.ROOT + 'tools/build-data-gap-register.py'] + args)
         assert out.returncode == 0, out.stdout + out.stderr
     b0 = json.load(open(L.MODEL + 'baseline.json', encoding='utf-8'))['groups']
     for g in b0:
@@ -181,7 +182,7 @@ def output_is_deterministic():
     again = M.build()                          # a second, independent build
     assert M.body(BUILT) == M.body(again) == open(OUT, 'rb').read()
     for args in (['--check'], ['--report', '--check']):
-        out = subprocess.run([sys.executable, L.ROOT + 'tools/m34a-mapping-audit.py'] + args, capture_output=True, text=True)
+        out = CC.run([sys.executable, L.ROOT + 'tools/m34a-mapping-audit.py'] + args)
         assert out.returncode == 0, out.stdout + out.stderr
     text = open(OUT, encoding='utf-8').read() + open(REPORT, encoding='utf-8').read()
     assert L.ROOT not in text and 'Users' not in text                          # no environment in the output

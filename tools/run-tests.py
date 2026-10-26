@@ -13,12 +13,23 @@ saved little more and varied by 23 s between runs; four left 8 MB of memory free
 The longest suites start first so that two workers finish together. Exit status 1 if
 any suite fails; its last lines are printed.
 
-Performance check. After a run in which every suite passes, the wall time is compared with
-the previous passing run at the same worker count. More than 10 % slower is a performance
-regression: the suites that grew most are printed, with any suites added or removed (a new
-suite is the usual legitimate cause), and the exit status is 2. Times are kept locally in
-reports/suite-runtime.json (gitignored: they belong to the machine, not to the repository);
-every passing run becomes the new reference.
+Shared checks. The suites of one run share a cache of --check results (tools/check_cache.py):
+a check one suite has run is not rebuilt by the next, as long as nothing in the repository has
+changed. The cache lives only for the run.
+
+    python tools/run-tests.py --no-cache        every suite runs every check itself
+
+Performance check. After a run in which every suite passes, the wall time is compared with a
+fixed baseline for the worker count. More than 10 % slower is a performance regression: the
+suites that grew most are printed, with any suites added or removed, and the exit status is 2.
+The baseline does not follow the runs: several changes each under 10 % still add up against it,
+and running again does not accept a regression. It moves only when asked:
+
+    python tools/run-tests.py --set-baseline    this run, if every suite passes, is the baseline
+
+(after a deliberate speed-up, or a new suite whose cost is accepted). The first passing run at
+a worker count with no baseline sets it. Times are kept locally in reports/suite-runtime.json
+(gitignored: they belong to the machine, not to the repository).
 
     python tools/run-tests.py --no-perf-check   run and record, without comparing
 """
@@ -27,8 +38,10 @@ import glob
 import json
 import os
 import re
+import shutil
 import subprocess
 import sys
+import tempfile
 import time
 
 TOOLS = os.path.dirname(os.path.abspath(__file__))
@@ -60,13 +73,13 @@ def run(name):
 
 
 RUNTIME_LOG = os.path.join(ROOT, 'reports', 'suite-runtime.json')
-LIMIT = 0.10                     # more than 10 % slower than the last passing run is a regression
+LIMIT = 0.10                     # more than 10 % slower than the baseline is a regression
 HISTORY = 20
 
 
 def compare(prev, now, limit=LIMIT):
-    """None when `now` is within `limit` of `prev` (or there is no reference); otherwise what grew.
-    prev and now: {'seconds', 'suites': {name: seconds}, 'checks'}."""
+    """None when `now` is within `limit` of the baseline `prev` (or there is none); otherwise what
+    grew. prev and now: {'seconds', 'suites': {name: seconds}, 'checks'}."""
     if not prev or not prev.get('seconds'):
         return None
     growth = now['seconds'] / prev['seconds'] - 1
@@ -88,11 +101,18 @@ def load_log(path=None):
         return {}
 
 
-def record(log, workers, run, path=None):
-    """The run becomes the reference for its worker count; a short history is kept beside it."""
+def baseline(log, workers):
+    return log.get('baseline', {}).get(str(workers))
+
+
+def record(log, workers, run, path=None, set_baseline=False):
+    """The run is kept as the last for its worker count, with a short history beside it. It becomes
+    the baseline only when asked, or when that worker count has none."""
     path = path or RUNTIME_LOG
     key = str(workers)
     log.setdefault('last', {})[key] = run
+    if set_baseline or not baseline(log, workers):
+        log.setdefault('baseline', {})[key] = run
     log['history'] = (log.get('history', []) + [dict(run, workers=workers, suites=None)])[-HISTORY:]
     os.makedirs(os.path.dirname(path), exist_ok=True)
     with open(path + '.tmp', 'w', encoding='utf-8') as f:
@@ -108,12 +128,13 @@ def record(log, workers, run, path=None):
 
 
 def describe(reg, workers):
-    lines = ['PERFORMANCE REGRESSION: the full suite took %.1fs, %.0f %% slower than the last passing run '
-             '(%.1fs, %s) with %d worker(s); the limit is %.0f %%.' % (
+    lines = ['PERFORMANCE REGRESSION: the full suite took %.1fs, %.0f %% slower than the baseline '
+             '(%.1fs, set %s) with %d worker(s); the limit is %.0f %%.' % (
                  reg['after'], reg['growth'] * 100, reg['before'], reg['reference_at'] or '?', workers, LIMIT * 100)]
     if reg['added'] or reg['removed']:
-        lines.append('  suites added: %s; removed: %s (a new suite is a legitimate cause: rerun to accept it)' % (
+        lines.append('  suites added: %s; removed: %s' % (
             ', '.join(reg['added']) or 'none', ', '.join(reg['removed']) or 'none'))
+    lines.append('  running again does not accept it; if the cost is deliberate: run-tests.py --set-baseline')
     for s, a, b in reg['grown']:
         lines.append('  %-28s %6.1fs -> %6.1fs (+%.1fs)' % (s, a, b, b - a))
     lines.append('  checks: %s -> %s' % reg['checks'])
@@ -126,11 +147,19 @@ def main():
     names = suites('--reverse' in a)
     t0 = time.perf_counter()
     results = []
-    with concurrent.futures.ThreadPoolExecutor(max_workers=max(1, workers)) as ex:
-        for r in ex.map(run, names):
-            results.append(r)
-            print('%-4s %-20s %6.1fs  %d check(s)' % ('ok' if r['ok'] else 'FAIL', r['suite'],
-                                                     r['seconds'], r['checks']), flush=True)
+    cache = None if '--no-cache' in a else tempfile.mkdtemp(prefix='bdx-check-cache-')
+    if cache:
+        os.environ['BDX_CHECK_CACHE'] = cache            # the suites inherit it (tools/check_cache.py)
+    try:
+        with concurrent.futures.ThreadPoolExecutor(max_workers=max(1, workers)) as ex:
+            for r in ex.map(run, names):
+                results.append(r)
+                print('%-4s %-20s %6.1fs  %d check(s)' % ('ok' if r['ok'] else 'FAIL', r['suite'],
+                                                         r['seconds'], r['checks']), flush=True)
+    finally:
+        if cache:
+            os.environ.pop('BDX_CHECK_CACHE', None)
+            shutil.rmtree(cache, ignore_errors=True)
     failed = [r for r in results if not r['ok']]
     for r in failed:
         print('\n--- %s ---\n%s' % (r['suite'], '\n'.join(r['tail'])))
@@ -144,8 +173,11 @@ def main():
                 'suites': {r['suite']: round(r['seconds'], 1) for r in results},
                 'at': time.strftime('%Y-%m-%d %H:%M')}
     log = load_log()
-    reg = None if '--no-perf-check' in a else compare(log.get('last', {}).get(str(workers)), this_run)
-    record(log, workers, this_run)
+    setting = '--set-baseline' in a
+    reg = None if '--no-perf-check' in a or setting else compare(baseline(log, workers), this_run)
+    record(log, workers, this_run, set_baseline=setting)
+    if setting:
+        print('baseline for %d worker(s) set: %.1fs' % (workers, this_run['seconds']))
     if reg:
         print('\n' + describe(reg, workers))
         sys.exit(2)

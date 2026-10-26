@@ -10,10 +10,12 @@ Nothing here changes a file, and nothing here resolves a gap: where a check read
 evidence is likely to settle the question.
 """
 import collections
+import functools
 import glob
 import json
 import os
 import re
+import sys
 import unicodedata
 
 import migration_lib as L
@@ -29,8 +31,25 @@ def cached(name, f):
     return _cache[name]
 
 
+_MARKS = []                                   # every combining mark (category Mn), built on first need
+
+
+def _fold(s):
+    # lower case, accents decomposed and their marks dropped; ASCII text has no marks to drop
+    s = s.lower()
+    if s.isascii():
+        return s
+    if not _MARKS:
+        _MARKS.append({cp: None for cp in range(sys.maxunicode + 1) if unicodedata.category(chr(cp)) == 'Mn'})
+    return unicodedata.normalize('NFD', s).translate(_MARKS[0])
+
+
+_fold_name = functools.lru_cache(maxsize=1 << 17)(_fold)
+
+
 def fold(s):
-    return ''.join(c for c in unicodedata.normalize('NFD', s.lower()) if unicodedata.category(c) != 'Mn')
+    # names are folded again and again: remembered; a whole document's text is not kept
+    return _fold_name(s) if len(s) <= 200 else _fold(s)
 
 
 def table(rel):

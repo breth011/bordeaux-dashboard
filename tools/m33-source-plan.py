@@ -2,6 +2,7 @@
 
     python tools/m33-source-plan.py             write data/audit/m3.3-source-acquisition-plan.jsonl
     python tools/m33-source-plan.py --check     recompute and compare, byte for byte
+    python tools/m33-source-plan.py --check-all recompute once; compare the output and the report, byte for byte
     python tools/m33-source-plan.py --report    write docs/PHASE-M3.3-HIGHEST-YIELD-SOURCES.md (also --check)
 
 Nothing is fetched, crawled, OCR'd or written to the model. For every unresolved new-data gap of
@@ -472,18 +473,20 @@ def body(rows):
 
 def main():
     rows, gaps, best = build()
-    if '--report' in sys.argv:
+    if '--report' in sys.argv or '--check-all' in sys.argv:
         import m33_report
         text = m33_report.report(rows, gaps, best)
-        if '--check' in sys.argv:
+        if '--check' in sys.argv or '--check-all' in sys.argv:
             same = os.path.exists(REPORT) and open(REPORT, encoding='utf-8').read() == text
             print('docs/PHASE-M3.3-HIGHEST-YIELD-SOURCES.md ' + ('is current' if same else 'differs from a fresh run'))
-            sys.exit(0 if same else 1)
-        open(REPORT, 'w', encoding='utf-8', newline='\n').write(text)
-        print('wrote docs/PHASE-M3.3-HIGHEST-YIELD-SOURCES.md')
-        return
+            if not same or '--check-all' not in sys.argv:
+                sys.exit(0 if same else 1)
+        else:
+            open(REPORT, 'w', encoding='utf-8', newline='\n').write(text)
+            print('wrote docs/PHASE-M3.3-HIGHEST-YIELD-SOURCES.md')
+            return
     b = body(rows)
-    if '--check' in sys.argv:
+    if '--check' in sys.argv or '--check-all' in sys.argv:
         same = os.path.exists(OUT) and open(OUT, 'rb').read() == b
         print('data/audit/m3.3-source-acquisition-plan.jsonl ' + ('is current' if same else 'differs from a fresh run'))
         sys.exit(0 if same else 1)

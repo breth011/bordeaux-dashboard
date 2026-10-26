@@ -124,7 +124,8 @@ def main():
         b = json.load(open(OUT_JSON, encoding='utf-8'))
         bad = 0
         for k in L.GROUPS:
-            now = L.group_hashes(k)
+            # M3.6B's evidence version 6 named and set aside (historical_m2_scope.protected_group)
+            now = __import__('historical_m2_scope').protected_group(k)
             if now['digest'] != b['groups'][k]['digest']:
                 bad += 1
                 old = b['groups'][k]['files']

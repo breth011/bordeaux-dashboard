@@ -39,6 +39,10 @@ MINE = [a for a in ATT if (PROV.get(a['provenance']) or {}).get('actor') == B.M6
 # review (historical_m2_scope.is_m35_attribution): named, never counted as M3.4B's
 LATER = [a for a in ATT if (PROV.get(a['provenance']) or {}).get('actor') == H.M35_ACTOR]
 assert all(H.is_m35_attribution(a, PROV) for a in LATER)
+# and M3.6B's audited web-page mappings, each exactly a row of its manifest (historical_m2_scope.is_m36b_attribution)
+_m36b = [a for a in ATT if (PROV.get(a['provenance']) or {}).get('actor') == H.M36B_ACTOR]
+assert all(H.is_m36b_attribution(a, PROV) for a in _m36b)
+LATER += _m36b
 
 
 def check(f):
@@ -124,7 +128,10 @@ def artifact_hashes_are_unchanged():
 
 @check
 def evidence_decision_ids_are_preserved():
-    assert not git('diff', '--stat', BEFORE, '--', 'data/evidence', 'data/model/observation/evidence-links.jsonl').strip()
+    # M3.6B adds evidence version 6 beside v1-v5 (the store grows by design); every v1-v5 assertion stands,
+    # and v6 must be exactly M3.6B's decisions (historical_m2_scope.evidence_changes_are_m36b_only)
+    H.evidence_changes_are_m36b_only(BEFORE)
+    assert not git('diff', '--stat', BEFORE, '--', 'data/model/observation/evidence-links.jsonl').strip()
     links = {e['row_key']: e for e in A.table('observation/evidence-links.jsonl') if e['evidence_version'] == 5}
     decs = B.v5_decisions()
     for a in MINE:

@@ -253,7 +253,19 @@ def r13_verdicts_are_deterministic():
 
 @check
 def r14_nothing_else_changed():
-    assert not git('diff', '--stat', BEFORE, '--', 'data', 'assets', 'index.html').strip(), 'data changed'
+    # R1 itself changed no data. Later phases' changes are named exactly: M3.6A's audit outputs (added files
+    # only), M3.6B's model rows and its evidence version 6; everything else under data/ is as at BEFORE.
+    import historical_m2_scope as H
+    later_audit = {'data/audit/m3.6a-rerun-held-document-proposals.jsonl', 'data/audit/m3.6a-rerun-evidence-corrections.jsonl',
+                   'data/audit/m3.6a-blocked-run-summary.json', 'data/audit/m3.6b-mapping-application.jsonl',
+                   'data/audit/m3.6b-correction-application.jsonl', 'data/audit/m3.6b-historical-flags.jsonl'}
+    changed = set(git('diff', '--name-only', BEFORE, '--', 'data').split())
+    assert not git('diff', '--name-only', '--diff-filter=M', BEFORE, '--', 'data/audit').strip(), 'an audit output changed'
+    assert {f for f in changed if f.startswith('data/audit/')} <= later_audit, 'data changed'
+    H.model_changes_are_m2_only(BEFORE)
+    H.evidence_changes_are_m36b_only(BEFORE)
+    assert not {f for f in changed if not f.startswith(('data/audit/', 'data/model/', 'data/evidence/'))}, 'data changed'
+    assert not git('diff', '--stat', BEFORE, '--', 'assets', 'index.html').strip(), 'the app changed'
     assert not git('diff', '--stat', BEFORE, '--', 'tools/sheetreader.py', 'tools/read-fiches.py',
                    'tools/m35_rubric.py', 'tools/evidence.py', 'tools/evidence-wines.py').strip(), 'the reader or rubric changed'
     import importlib.util

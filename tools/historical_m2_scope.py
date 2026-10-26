@@ -36,6 +36,7 @@ M3.5 (held-document review) links a reviewed held document to the vintage its ow
 model_changes_are_m2_only(before) - the name is kept for its callers - holds when every other model
 file is byte-identical to `before`, and every difference in the files above is one of these.
 """
+import hashlib
 import json
 import re
 import subprocess
@@ -54,6 +55,11 @@ M34B_STAT = 'M3.4B audited mappings'
 M35_STAT = 'M3.5 held-document attributions'
 M35_ACTOR = 'tools/m35-review.py'
 M35_REVIEW = 'data/audit/m3.5-held-document-review.jsonl'
+M36B_STAT = 'M3.6B audited web-page mappings'
+M36B_ACTOR = 'tools/m36b-apply.py'
+M36B_MAPPINGS = 'data/audit/m3.6b-mapping-application.jsonl'
+M36B_CORRECTIONS = 'data/audit/m3.6b-correction-application.jsonl'
+M36B_EVIDENCE_VERSION = 6
 ALLOWED = set(M2_FILES) | set(M32_FILES) | set(M34B_FILES)
 M2_ACTOR = 'tools/extract-document-dates.py'
 M32_ACTOR = 'tools/m32-recovery.py'
@@ -79,6 +85,24 @@ def m35_applied():
     except FileNotFoundError:
         return set()
     return {(r['attribution'], r['artifact'], r['estate'], r['wine'], r['vintage_id']) for r in rows if r['eligible']}
+
+
+def m36b_applied():
+    """(attribution id, artifact, estate, wine, vintage) of every APPLIED row of the M3.6B mapping manifest."""
+    try:
+        rows = L.jsonl_lines(L.ROOT + M36B_MAPPINGS)
+    except FileNotFoundError:
+        return set()
+    return {(r['attribution'], r['artifact'], r['estate'], r['wine'], r['vintage_id']) for r in rows
+            if r['result'] == 'APPLIED'}
+
+
+def is_m36b_attribution(a, prov):
+    p = prov.get(a.get('provenance')) or {}
+    return (a.get('method') == 'DOCUMENT_TEXT' and a.get('status') == 'ACCEPTED' and a.get('role') == 'FIRST'
+            and p.get('kind') == 'DOCUMENT' and p.get('actor') == M36B_ACTOR
+            and (p.get('code_state') or {}).get('stream') == 'M3.6B'
+            and (a['id'], a['artifact'], a.get('estate'), a.get('wine'), a.get('vintage')) in m36b_applied())
 
 
 def is_m35_attribution(a, prov):
@@ -107,6 +131,9 @@ def legacy_attributions(rows, prov):
             continue
         if actor == M35_ACTOR:
             assert is_m35_attribution(a, prov), ('an M3.5 attribution not in its review', a['id'])
+            continue
+        if actor == M36B_ACTOR:
+            assert is_m36b_attribution(a, prov), ('an M3.6B attribution not in its manifest', a['id'])
             continue
         out.append(a)
     return out
@@ -251,6 +278,8 @@ def model_changes_are_m2_only(before):
                          and (r.get('code_state') or {}).get('stream') == 'M3.4B') or
                         (r['kind'] == 'DOCUMENT' and r['actor'] == M35_ACTOR
                          and (r.get('code_state') or {}).get('stream') == 'M3.5') or
+                        (r['kind'] == 'DOCUMENT' and r['actor'] == M36B_ACTOR
+                         and (r.get('code_state') or {}).get('stream') == 'M3.6B') or
                         (r['kind'] == 'DERIVATION' and r['actor'] == M32_ACTOR
                          and (r.get('code_state') or {}).get('stream') == 'M3.2D')),
                        ('reconciliation/reconciliations.jsonl',
@@ -270,10 +299,10 @@ def model_changes_are_m2_only(before):
         assert o <= n, 'document/attributions.jsonl: %d rows changed or removed' % len(o - n)
         for x in n - o:
             a = json.loads(x)
-            assert is_m34b_attribution(a, prov) or is_m35_attribution(a, prov), ('not an M3.4B or M3.5 attribution', a['id'])
+            assert is_m34b_attribution(a, prov) or is_m35_attribution(a, prov) or is_m36b_attribution(a, prov),                 ('not an M3.4B, M3.5 or M3.6B attribution', a['id'])
     if 'derived/vintage-documents.json' in changed:
         old, new = (json.loads(x) for x in _lines(before, 'derived/vintage-documents.json'))
-        linked = {(r[4], r[1]) for r in m34b_applied() | m35_applied()}
+        linked = {(r[4], r[1]) for r in m34b_applied() | m35_applied() | m36b_applied()}
         for k in set(old) | set(new):
             o, n = set(old.get(k, [])), set(new.get(k, []))
             assert o <= n and {(k, a) for a in n - o} <= linked, ('derived/vintage-documents.json', k, sorted(o - n))
@@ -335,7 +364,7 @@ def model_changes_are_m2_only(before):
                 a_all, b_all = _sourced_moved(old[k]), _sourced_moved(new[k])
                 for st in set(a_all) | set(b_all):
                     a, b = dict(a_all.get(st, {})), dict(b_all.get(st, {}))
-                    for s in (M2_STAT, M32B_STAT, M32D_STAT, M34B_STAT, M35_STAT):
+                    for s in (M2_STAT, M32B_STAT, M32D_STAT, M34B_STAT, M35_STAT, M36B_STAT):
                         a.pop(s, None)
                         b.pop(s, None)
                     assert a == b, 'manifest stats %s changed' % st
@@ -345,7 +374,7 @@ def model_changes_are_m2_only(before):
 
 
 REGISTER = 'data/audit/data-gap-register.jsonl'
-LINKING_PHASES = ('M3.4B', 'M3.5')
+LINKING_PHASES = ('M3.4B', 'M3.5', 'M3.6B')
 
 
 def register_changes_are_m34b_only(before):
@@ -368,3 +397,93 @@ def register_changes_are_m34b_only(before):
         assert res['affected_before'] == n['affected_count'] and \
             res['recovered'] == sum(b['items'] for b in nb) and res['affected_after'] == res['affected_before'] - res['recovered'], g
     return True
+
+
+# -- the evidence store: M3.6B's decider version --------------------------------------------------
+# Suites written before M3.6B assert the store holds v1-v5 only, 177,127 decisions, unchanged since their
+# baseline. M3.6B adds decider version 6 beside them (the store grows by design: a new version and its
+# index entry). These name that addition exactly; every assertion about v1-v5 stands unchanged.
+
+def m36b_evidence_keys():
+    """The row keys M3.6B's manifests say it wrote to v6: the mappings' decisions and the corrections'."""
+    out = set()
+    for path, field in ((M36B_MAPPINGS, 'evidence_decision'), (M36B_CORRECTIONS, 'superseded_by')):
+        try:
+            rows = L.jsonl_lines(L.ROOT + path)
+        except FileNotFoundError:
+            continue
+        out |= {r[field] for r in rows if r['result'] == 'APPLIED'}
+    return out
+
+
+def m36b_evidence_rows():
+    """v6, verified to be exactly M3.6B's decisions: every row its manifests name, and no other."""
+    import evidence_store as ST
+    import mig_m6_provenance as M6
+    if M36B_EVIDENCE_VERSION not in ST.versions():
+        return []
+    rows = list(ST.iter_rows([M36B_EVIDENCE_VERSION]))
+    keys = [M6.row_key(d) for d in rows]
+    assert len(keys) == len(set(keys)) and set(keys) == m36b_evidence_keys(), 'v6 is not exactly M3.6B\'s decisions'
+    assert all(d.get('kind') in ('web_page_review', 'correction') for d in rows), 'a v6 row of another kind'
+    return rows
+
+
+def evidence_versions_before_m36b():
+    """The store's versions, M3.6B's v6 verified and set aside."""
+    import evidence_store as ST
+    m36b_evidence_rows()
+    return [v for v in ST.versions() if v != M36B_EVIDENCE_VERSION]
+
+
+def evidence_rows_before_m36b():
+    """How many decisions the store holds besides M3.6B's v6."""
+    import evidence_store as ST
+    return sum(1 for _ in ST.iter_rows(evidence_versions_before_m36b()))
+
+
+def evidence_changes_are_m36b_only(before):
+    """data/evidence as at `before`, but for M3.6B: v1-v5, their files and index entries byte for byte; v6
+    exactly M3.6B's decisions; no other file. True, or an assertion error saying what else changed."""
+    changed = set(_git('diff', '--name-only', before, '--', 'data/evidence').split())
+    untracked = set(_git('ls-files', '--others', '--exclude-standard', '--', 'data/evidence').split())
+    assert (changed | untracked) <= {'data/evidence/index.json', 'data/evidence/decisions-v6.jsonl'}, \
+        'the evidence store changed beyond M3.6B: %s' % sorted(changed | untracked)
+    if 'data/evidence/index.json' in changed:
+        old = json.loads(_git('show', '%s:data/evidence/index.json' % before))
+        new = json.load(open(L.ROOT + 'data/evidence/index.json', encoding='utf-8'))
+        v = str(M36B_EVIDENCE_VERSION)
+        assert {k: x for k, x in new.items() if k != 'versions'} == {k: x for k, x in old.items() if k != 'versions'}
+        assert {k: x for k, x in new['versions'].items() if k != v} == \
+            {k: x for k, x in old['versions'].items() if k != v}, 'a historical version changed in the index'
+    m36b_evidence_rows()
+    return True
+
+
+def protected_group(name):
+    """migration_lib.group_hashes(name) for Phase 4's protected groups, with M3.6B's evidence version 6 named
+    and set aside: every other group exactly as group_hashes gives it; 'evidence' as v1-v5's files, byte for
+    byte, and index.json as the store serialises it without the v6 entry - which reproduces the old index
+    only if nothing else in it changed. v6 must be exactly M3.6B's decisions; no v6 failure file may exist."""
+    import evidence_store as ST
+    if name != 'evidence':
+        return L.group_hashes(name)
+    v = M36B_EVIDENCE_VERSION
+    files = {}
+    for p in L.GROUPS['evidence']():
+        r = L.rel(p)
+        base = r.rsplit('/', 1)[-1]
+        assert base != 'provenance-failures-v%d.jsonl' % v, 'a v6 provenance failure'
+        if base == 'decisions-v%d.jsonl' % v or base.startswith('decisions-v%d.part' % v):
+            continue
+        if base == 'index.json':
+            ix = json.load(open(p, encoding='utf-8'))
+            if str(v) in ix.get('versions', {}):
+                m36b_evidence_rows()
+                del ix['versions'][str(v)]
+            b = (json.dumps(ix, ensure_ascii=False, indent=1, sort_keys=True) + '\n').encode('utf-8')
+            files[r] = hashlib.sha256(b).hexdigest()
+            continue
+        files[r] = L.sha256_file(p)
+    digest = hashlib.sha256(json.dumps(files, sort_keys=True).encode()).hexdigest()
+    return {'files': files, 'digest': digest}

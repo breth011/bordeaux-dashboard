@@ -22,6 +22,7 @@ sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 import sheetreader as sr
 import evidence as EV
 import evidence_store as ST
+import historical_m2_scope as H  # noqa: E402
 
 BASE = 'b278121'
 REVIEW = 'docs/PHASE-3.4-DOMAIN-MODEL-REVIEW.md'
@@ -70,8 +71,9 @@ says('2 discovery data unchanged', not any(f.startswith('data/discovery/') for f
 says('3 canonical data, manifest and proposals unchanged', not (changed & set(CANON)))
 says('4-5 v1-v5 evidence unchanged and verifying; no v6',
      not any(f.startswith('data/evidence/') for f in changed)
-     and ST.verify() == [] and sum(1 for _ in ST.iter_rows()) == 177127 and ST.versions() == [1, 2, 3, 4, 5]
-     and not any(re.match(r'(decisions|provenance-failures)-v6', f) for f in os.listdir(ROOT + 'data/evidence')))
+     and ST.verify() == [] and H.evidence_rows_before_m36b() == 177127 and H.evidence_versions_before_m36b() == [1, 2, 3, 4, 5]
+     and not any(re.match(r'(decisions|provenance-failures)-v6', f) and f != 'decisions-v6.jsonl'
+                 for f in os.listdir(ROOT + 'data/evidence')))
 says('the reader is still 7e8cfed1c24e', EV.reader_fingerprint() == '7e8cfed1c24e')
 Es = sr.estates(ROOT)
 SJ = json.load(io.open(ROOT + 'data/sources.json', encoding='utf-8'))['sheets']

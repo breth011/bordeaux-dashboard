@@ -59,7 +59,7 @@ DECISION_ITEMS = {('wn_00547', 2008): 'D2', ('wn_00522', 2018): 'LAPARDE_IDENTIT
 
 # -- inputs ----------------------------------------------------------------------------------------
 
-LATER = ('M3.4B', 'M3.5')         # phases after this plan: what they resolved was unresolved when it was made
+LATER = ('M3.4B', 'M3.5', 'M3.6B')         # phases after this plan: what they resolved was unresolved when it was made
 
 
 def resolved_before(r):

@@ -243,7 +243,8 @@ def generated_data_and_protected_groups_unchanged():
         'generated app data changed'
     b0 = json.load(open(L.MODEL + 'baseline.json', encoding='utf-8'))['groups']
     for g in b0:
-        assert L.group_hashes(g)['digest'] == b0[g]['digest'], g
+        # M3.6B's evidence version 6 named and set aside; v1-v5 and every other group byte for byte
+        assert __import__('historical_m2_scope').protected_group(g)['digest'] == b0[g]['digest'], g
 
 
 def main():

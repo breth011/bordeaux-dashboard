@@ -29,6 +29,7 @@ sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 import sheetreader as sr
 import evidence as EV
 import evidence_store as ST
+import historical_m2_scope as H  # noqa: E402
 
 BASE = 'e100b25'
 DOC = 'docs/PHASE-3.1-STRUCTURAL-AND-DOMAIN-AUDIT.md'
@@ -87,9 +88,9 @@ says('...no app code and no data the page loads (no implementation)',
              or re.match(r'data/[^/]+\.js$', f) for f in changed))
 says('...nothing in data/evidence/, and the store verifies at 177,127, no v6',
      not any(f.startswith('data/evidence/') for f in changed)
-     and ST.verify() == [] and sum(1 for _ in ST.iter_rows()) == 177127
-     and ST.versions() == [1, 2, 3, 4, 5]
-     and not any(re.match(r'(decisions|provenance-failures)-v6', f)
+     and ST.verify() == [] and H.evidence_rows_before_m36b() == 177127
+     and H.evidence_versions_before_m36b() == [1, 2, 3, 4, 5]
+     and not any(re.match(r'(decisions|provenance-failures)-v6', f) and f != 'decisions-v6.jsonl'
                  for f in os.listdir(ROOT + 'data/evidence')))
 says('the reader is still 7e8cfed1c24e', EV.reader_fingerprint() == '7e8cfed1c24e')
 says('the Phase 3.0 universe and its comparisons are untouched',

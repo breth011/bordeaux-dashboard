@@ -230,7 +230,11 @@ def t15_report_totals_match_the_register():
 
 @check
 def t16_no_model_evidence_canonical_or_app_mutation():
-    assert not git('diff', '--stat', BEFORE, '--', 'data/evidence', 'data/history',
+    # M3.6B adds evidence version 6 beside v1-v5 (the store grows by design); every v1-v5 assertion stands,
+    # and v6 must be exactly M3.6B's decisions (historical_m2_scope.evidence_changes_are_m36b_only)
+    import historical_m2_scope
+    historical_m2_scope.evidence_changes_are_m36b_only(BEFORE)
+    assert not git('diff', '--stat', BEFORE, '--', 'data/history',
                    'data/discovery', 'data/review', 'data/scope', ':(glob)data/*.js', 'data/sources.json',
                    'data/audit/historical-m3-candidates.jsonl', 'assets', 'index.html').strip()
     # after M3.1: M3.2 changes the model and figure-sources.js in named ways only
@@ -239,7 +243,8 @@ def t16_no_model_evidence_canonical_or_app_mutation():
     assert not historical_m2_scope.app_files_changed_beyond_m32(git('diff', '--name-only', BEFORE, '--', 'data/app').split())
     b0 = json.load(open(L.MODEL + 'baseline.json', encoding='utf-8'))['groups']
     for g in b0:
-        assert L.group_hashes(g)['digest'] == b0[g]['digest'], g
+        # M3.6B's evidence version 6 named and set aside; v1-v5 and every other group byte for byte
+        assert __import__('historical_m2_scope').protected_group(g)['digest'] == b0[g]['digest'], g
     # the M3.1 commit itself touched only M3.1's files (later commits are their own phases)
     changed = set(git('show', '--name-only', '--format=', M31).split())
     allowed = {'data/audit/data-gap-register.jsonl', 'docs/DATA-GAP-REGISTER.md', 'tools/build-data-gap-register.py',

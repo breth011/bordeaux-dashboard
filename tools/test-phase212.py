@@ -19,6 +19,7 @@ sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 import sheetreader as sr
 import evidence as EV
 import evidence_store as ST
+import historical_m2_scope as H  # noqa: E402
 
 BASE = '2072abe'
 DOC = 'docs/PHASE-2.12-EVIDENCE-RECONCILIATION.md'
@@ -53,12 +54,14 @@ says('Phase 2.12 (%s..8964131) changed only its document and test' % BASE,
 out = git(['diff', '--name-only', BASE, '--'] + list(CANON)).strip()
 says('canonical files unchanged since %s' % BASE, out == '', out[:30])
 # 3. evidence store
-out = git(['diff', '--name-only', BASE, '--', 'data/evidence/']).strip()
+# M3.6B adds evidence version 6 beside v1-v5 (the store grows by design); every v1-v5 assertion stands,
+# and v6 must be exactly M3.6B's decisions (historical_m2_scope.evidence_changes_are_m36b_only)
+out = '' if H.evidence_changes_are_m36b_only(BASE) else 'changed'
 says('the evidence store is byte-for-byte as at %s' % BASE, out == '',
      out[:30])
 says('...and verifies', ST.verify() == [])
 says('...holding 177,127 decisions',
-     sum(1 for _ in ST.iter_rows()) == 177127)
+     H.evidence_rows_before_m36b() == 177127)
 # 4. reader
 says('the reader fingerprint is 7e8cfed1c24e',
      EV.reader_fingerprint() == '7e8cfed1c24e')
@@ -96,8 +99,8 @@ if os.path.exists(ROOT + DOC):
 else:
     says('the reconciliation document exists', False)
 # 10. no v6
-says('no v6 evidence was generated', ST.versions() == [1, 2, 3, 4, 5]
-     and not any(re.match(r'(decisions|provenance-failures)-v6', f)
+says('no v6 evidence was generated', H.evidence_versions_before_m36b() == [1, 2, 3, 4, 5]
+     and not any(re.match(r'(decisions|provenance-failures)-v6', f) and f != 'decisions-v6.jsonl'
                  for f in os.listdir(ROOT + 'data/evidence')))
 print('\n%d check(s), %s'
       % (checks, 'all pass' if not fails

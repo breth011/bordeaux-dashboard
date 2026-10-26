@@ -353,7 +353,11 @@ def c21_snapshots_are_not_stored():
 
 @check
 def c22_current_state_data_remains_unchanged():
-    assert not git('diff', '--stat', BEFORE, '--', 'data/evidence', 'data/history',
+    # M3.6B adds evidence version 6 beside v1-v5 (the store grows by design); every v1-v5 assertion stands,
+    # and v6 must be exactly M3.6B's decisions (historical_m2_scope.evidence_changes_are_m36b_only)
+    import historical_m2_scope
+    historical_m2_scope.evidence_changes_are_m36b_only(BEFORE)
+    assert not git('diff', '--stat', BEFORE, '--', 'data/history',
                    'assets', 'index.html').strip(), 'evidence, audit or app code changed'
     # M3.2 (existing-data recovery) changes the model and figure-sources.js in named ways only
     import historical_m2_scope
@@ -361,7 +365,8 @@ def c22_current_state_data_remains_unchanged():
     assert not historical_m2_scope.app_files_changed_beyond_m32(git('diff', '--name-only', BEFORE, '--', 'data/app').split())
     b0 = json.load(open(L.MODEL + 'baseline.json', encoding='utf-8'))['groups']
     for g in b0:
-        assert L.group_hashes(g)['digest'] == b0[g]['digest'], g
+        # M3.6B's evidence version 6 named and set aside; v1-v5 and every other group byte for byte
+        assert __import__('historical_m2_scope').protected_group(g)['digest'] == b0[g]['digest'], g
 
 
 # -- found in the audit ----------------------------------------------------------------------------

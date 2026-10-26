@@ -161,7 +161,8 @@ def report_has_its_eighteen_sections():
 
 def same_group(name):
     b = json.load(open(L.MODEL + 'baseline.json', encoding='utf-8'))['groups'][name]
-    now = L.group_hashes(name)
+    # M3.6B's evidence version 6 named and set aside; v1-v5 and every other group file by file
+    now = __import__('historical_m2_scope').protected_group(name)
     changed = sorted(f for f in set(b['files']) | set(now['files']) if b['files'].get(f) != now['files'].get(f))
     assert not changed, (name, changed[:5])
 
@@ -174,7 +175,9 @@ def no_canonical_change():
 @check
 def no_evidence_change_no_v6():
     same_group('evidence')
-    assert not os.path.exists(L.ROOT + 'data/evidence/decisions-v6.jsonl')
+    # a v6 file only as M3.6B's decisions, verified to be exactly those (historical_m2_scope)
+    assert not os.path.exists(L.ROOT + 'data/evidence/decisions-v6.jsonl') or \
+        __import__('historical_m2_scope').m36b_evidence_rows()
 
 
 @check

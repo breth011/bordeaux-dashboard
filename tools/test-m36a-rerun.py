@@ -94,7 +94,10 @@ def artifact_ids_and_hashes_are_their_own():
 
 @check
 def historical_decisions_remain_unchanged():
-    assert not git('diff', '--stat', BEFORE, '--', 'data/evidence').strip(), 'the evidence store changed'
+    # M3.6B adds evidence version 6 beside v1-v5 (the store grows by design); every v1-v5 assertion stands,
+    # and v6 must be exactly M3.6B's decisions (historical_m2_scope.evidence_changes_are_m36b_only)
+    import historical_m2_scope
+    historical_m2_scope.evidence_changes_are_m36b_only(BEFORE)
     decs = {}
     m6 = importlib.util.spec_from_file_location('m6', L.ROOT + 'tools/mig_m6_provenance.py')
     M6 = importlib.util.module_from_spec(m6)
@@ -109,7 +112,10 @@ def historical_decisions_remain_unchanged():
 
 @check
 def model_canonical_and_app_unchanged_nothing_mapped_or_corrected():
-    assert not git('diff', '--stat', BEFORE, '--', 'data/model', 'data/app', ':(glob)data/*.js', 'data/sources.json',
+    # the model: M3.6B's audited web-page mappings are the only later change, named exactly
+    import historical_m2_scope
+    historical_m2_scope.model_changes_are_m2_only(BEFORE)
+    assert not git('diff', '--stat', BEFORE, '--', 'data/app', ':(glob)data/*.js', 'data/sources.json',
                    'data/history', 'data/review', 'data/scope', 'data/discovery', 'assets', 'index.html',
                    'data/audit/data-gap-register.jsonl', 'docs/DATA-GAP-REGISTER.md',
                    'data/audit/m3.5-held-document-review.jsonl', 'data/audit/m3.4b-mapping-application.jsonl').strip()
@@ -117,7 +123,8 @@ def model_canonical_and_app_unchanged_nothing_mapped_or_corrected():
         out = subprocess.run([sys.executable, L.ROOT + t, '--check'], capture_output=True, text=True)
         assert out.returncode == 0, (t, out.stdout[-200:])
     src = open(L.ROOT + 'tools/mig_m6_provenance.py', encoding='utf-8').read()
-    assert 'm3.6a' not in src.lower(), 'the migration reads an M3.6A output'      # no mapping, no correction
+    # the migration reads no M3.6A output: M3.6A applied nothing (M3.6B's own manifest is what it reads)
+    assert 'm3.6a-rerun-' not in src and 'm3.6a-held-document' not in src, 'the migration reads an M3.6A output'
 
 
 @check

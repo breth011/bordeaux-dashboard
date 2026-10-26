@@ -81,7 +81,7 @@ class Ctx:
         for r in A.table('state/estate-wine.jsonl'):
             self.ew[r['estate']].append(r['wine'])
         self.blocked = M34A.open_decision_wines(self.nm)
-        self.vd = A.vintage_documents((A.M35_ACTOR,))     # now, as before this phase's own links
+        self.vd = A.vintage_documents((A.M35_ACTOR, A.M36B_ACTOR))     # now, as before this phase's own links and later ones
         self.vintages = {'vt:%s:%s' % (v['wine'], v['label']) for v in A.table('identity/vintages.jsonl')}
         self.arts = A.by_id('identity/artifacts.jsonl')
         self.s2a = A.sha_to_artifact()

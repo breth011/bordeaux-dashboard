@@ -31,7 +31,8 @@ def baseline():
 
 def same_group(name):
     b = baseline()['groups'][name]
-    now = L.group_hashes(name)
+    # M3.6B's evidence version 6 named and set aside; v1-v5 and every other group file by file
+    now = __import__('historical_m2_scope').protected_group(name)
     changed = sorted(f for f in set(b['files']) | set(now['files'])
                      if b['files'].get(f) != now['files'].get(f))
     assert not changed, '%s changed: %s' % (name, changed[:8])
@@ -55,7 +56,9 @@ def canonical_files_unchanged():
 @check
 def evidence_unchanged_no_v6():
     same_group('evidence')
-    assert not os.path.exists(L.ROOT + 'data/evidence/decisions-v6.jsonl')
+    # a v6 file only as M3.6B's decisions, verified to be exactly those (historical_m2_scope)
+    assert not os.path.exists(L.ROOT + 'data/evidence/decisions-v6.jsonl') or \
+        __import__('historical_m2_scope').m36b_evidence_rows()
 
 
 @check
@@ -90,7 +93,12 @@ def baseline_counts_still_hold():
     spec = importlib.util.spec_from_file_location('b', L.ROOT + 'tools/phase4-baseline.py')
     m = importlib.util.module_from_spec(spec)
     spec.loader.exec_module(m)
-    assert m.counts() == baseline()['counts']
+    c = m.counts()
+    # M3.6B's evidence version 6, verified to be exactly its decisions, is not one of Phase 4's counts
+    if 'data/evidence/decisions-v6.jsonl' in c.get('evidence_lines', {}):
+        __import__('historical_m2_scope').m36b_evidence_rows()
+        del c['evidence_lines']['data/evidence/decisions-v6.jsonl']
+    assert c == baseline()['counts']
 
 
 def slug(s):

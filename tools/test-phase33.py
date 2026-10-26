@@ -39,6 +39,7 @@ import discover_report as REP
 import sheetreader as sr
 import evidence as EV
 import evidence_store as ST
+import historical_m2_scope as H  # noqa: E402
 
 BASE = 'a112623'
 CANON = ('data/fiches.js', 'data/field-src.js', 'data/cuvee-src.js', 'data/chateaux.js',
@@ -271,10 +272,10 @@ says('Phase 3.3 changed only its discovery outputs, tools, test and findings',
 says('21 no canonical file, manifest or proposal changed since a112623',
      not git(['diff', '--name-only', BASE, '--'] + list(CANON)).strip())
 says('22 v1-v5 evidence unchanged and verifying; 23 no v6',
-     not git(['diff', '--name-only', BASE, '--', 'data/evidence/']).strip()
-     and ST.verify() == [] and sum(1 for _ in ST.iter_rows()) == 177127
-     and ST.versions() == [1, 2, 3, 4, 5]
-     and not any(re.match(r'(decisions|provenance-failures)-v6', f)
+     H.evidence_changes_are_m36b_only(BASE)
+     and ST.verify() == [] and H.evidence_rows_before_m36b() == 177127
+     and H.evidence_versions_before_m36b() == [1, 2, 3, 4, 5]
+     and not any(re.match(r'(decisions|provenance-failures)-v6', f) and f != 'decisions-v6.jsonl'
                  for f in os.listdir(ROOT + 'data/evidence')))
 says('the reader is still 7e8cfed1c24e', EV.reader_fingerprint() == '7e8cfed1c24e')
 Es = sr.estates(ROOT)

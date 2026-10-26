@@ -356,6 +356,7 @@ def run(m):
     recovered_placements(m)
     audited_mappings(m)
     held_document_attributions(m)
+    m36b_mappings(m)
 
 
 HELD_REVIEW = 'data/audit/m3.5-held-document-review.jsonl'
@@ -385,3 +386,32 @@ def held_document_attributions(m):
             'provenance': pid})
         n += 1
     m.stat('M6', 'M3.5 held-document attributions', n)
+
+
+WEB_MAPPINGS = 'data/audit/m3.6b-mapping-application.jsonl'
+WEB_MAPPINGS_ACTOR = 'tools/m36b-apply.py'
+
+
+def m36b_mappings(m):
+    """M3.6B: a fetched web page linked to the wine and vintage its own main heading establishes. Read from
+    the mapping manifest's APPLIED rows only - M3.6A's SAFE_TO_MAP allow-list, each through the preflight of
+    tools/m36b-apply.py, each with its v6 ACCEPTED evidence decision. One Attribution per row (method
+    DOCUMENT_TEXT, status ACCEPTED, role FIRST); its DOCUMENT provenance names that decision and the page's
+    identity and vintage source. A fetched page had no manifest attribution, so there is none to derive from."""
+    if not os.path.exists(L.ROOT + WEB_MAPPINGS):
+        return
+    n = 0
+    for r in L.jsonl_lines(L.ROOT + WEB_MAPPINGS):
+        if r['result'] != 'APPLIED':
+            continue
+        pid = m.prov('DOCUMENT', WEB_MAPPINGS_ACTOR, artifact=r['artifact'], quote=r['supporting_evidence'],
+                     code_state={'stream': 'M3.6B', 'manifest': WEB_MAPPINGS, 'candidate': r['candidate'],
+                                 'evidence_decisions': [r['evidence_decision']], 'page_type': r['page_type'],
+                                 'identity': r['identity'], 'identity_source': r['identity_source'],
+                                 'vintage_source': r['vintage_source'], 'sha256': r['sha256']})
+        m.add('document/attributions.jsonl', {
+            'id': r['attribution'], 'artifact': r['artifact'], 'estate': r['estate'], 'wine': r['wine'],
+            'vintage': r['vintage_id'], 'role': r['role'], 'method': 'DOCUMENT_TEXT', 'status': 'ACCEPTED',
+            'provenance': pid})
+        n += 1
+    m.stat('M6', 'M3.6B audited web-page mappings', n)

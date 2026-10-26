@@ -163,7 +163,9 @@ def r10_wrong_existing_attribution():
     ex = rows_for(lambda r: 'FT-Ch-Mongravey-2016.pdf' in files(r) and r['wine'] == BRAUDE and r['vintage'] == 1981)
     assert ex and ex[0]['disposition'] == 'WRONG_EXISTING_ATTRIBUTION'
     # the decision itself stands: the evidence store is untouched, its acceptance not converted or deleted
-    assert not git('diff', '--stat', BEFORE, '--', 'data/evidence').strip()
+    # M3.6B adds evidence version 6 beside v1-v5 (the store grows by design); every v1-v5 assertion stands,
+    # and v6 must be exactly M3.6B's decisions (historical_m2_scope.evidence_changes_are_m36b_only)
+    H.evidence_changes_are_m36b_only(BEFORE)
     for rk in ex[0]['evidence_decisions']:
         assert CX.decs[rk]['decision'] == 'ACCEPTED'
 
@@ -248,7 +250,8 @@ def nothing_else_changed():
     assert changed <= {'data/model/' + f for f in ('document/attributions.jsonl', 'cross/provenance.jsonl',
                                                     'derived/vintage-documents.json', 'manifest.json')}, sorted(changed)
     H.model_changes_are_m2_only(BEFORE)
-    assert not git('diff', '--stat', BEFORE, '--', 'data/evidence', 'data/app', 'data/discovery', ':(glob)data/*.js',
+    H.evidence_changes_are_m36b_only(BEFORE)
+    assert not git('diff', '--stat', BEFORE, '--', 'data/app', 'data/discovery', ':(glob)data/*.js',
                    'data/sources.json', 'data/history', 'data/review', 'data/scope', 'assets', 'index.html',
                    'data/audit/m3.4a-mapping-proposals.jsonl', 'data/audit/m3.4b-mapping-application.jsonl',
                    'data/audit/m3.3-source-acquisition-plan.jsonl').strip()

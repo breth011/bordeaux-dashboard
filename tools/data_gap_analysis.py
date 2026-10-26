@@ -329,7 +329,8 @@ def accepted_by_sha():
 
 M34B_ACTOR = 'tools/m34b-apply.py'
 M35_ACTOR = 'tools/m35-review.py'
-LATER_ACTORS = (M34B_ACTOR, M35_ACTOR)      # the phases that link documents to vintages after the audits
+M36B_ACTOR = 'tools/m36b-apply.py'
+LATER_ACTORS = (M34B_ACTOR, M35_ACTOR, M36B_ACTOR)      # the phases that link documents to vintages after the audits
 
 
 def later_attributions(actors=LATER_ACTORS):
@@ -351,6 +352,11 @@ def m34b_attributions():
 def m35_attributions():
     """M3.5: the attributions that link a reviewed held document to the vintage its title establishes."""
     return later_attributions((M35_ACTOR,))
+
+
+def m36b_attributions():
+    """M3.6B: the attributions that link an audited fetched web page to the vintage its heading establishes."""
+    return later_attributions((M36B_ACTOR,))
 
 
 def vintage_documents(actors=LATER_ACTORS):

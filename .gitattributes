@@ -31,3 +31,7 @@ data/audit/m3.5-held-document-review.jsonl text eol=lf
 data/audit/m3.6a-rerun-held-document-proposals.jsonl text eol=lf
 data/audit/m3.6a-rerun-evidence-corrections.jsonl text eol=lf
 data/audit/m3.6a-blocked-run-summary.json text eol=lf
+# M3.6B manifests are read by the migration and checked by tools/m36b-apply.py --check.
+data/audit/m3.6b-mapping-application.jsonl text eol=lf
+data/audit/m3.6b-correction-application.jsonl text eol=lf
+data/audit/m3.6b-historical-flags.jsonl text eol=lf

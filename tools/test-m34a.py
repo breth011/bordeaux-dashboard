@@ -153,7 +153,11 @@ def open_decisions_stay_unresolved():
 
 @check
 def nothing_was_mutated():
-    assert not git('diff', '--stat', BEFORE, '--', 'data/evidence', 'data/app', 'data/discovery',
+    # M3.6B adds evidence version 6 beside v1-v5 (the store grows by design); every v1-v5 assertion stands,
+    # and v6 must be exactly M3.6B's decisions (historical_m2_scope.evidence_changes_are_m36b_only)
+    import historical_m2_scope
+    historical_m2_scope.evidence_changes_are_m36b_only(BEFORE)
+    assert not git('diff', '--stat', BEFORE, '--', 'data/app', 'data/discovery',
                    'data/history', 'data/review', 'data/scope', ':(glob)data/*.js', 'data/sources.json',
                    'data/audit/m32-recovery-candidates.jsonl',
                    'data/audit/m3.3-source-acquisition-plan.jsonl',
@@ -168,7 +172,8 @@ def nothing_was_mutated():
         assert out.returncode == 0, out.stdout + out.stderr
     b0 = json.load(open(L.MODEL + 'baseline.json', encoding='utf-8'))['groups']
     for g in b0:
-        assert L.group_hashes(g)['digest'] == b0[g]['digest'], g
+        # M3.6B's evidence version 6 named and set aside; v1-v5 and every other group byte for byte
+        assert __import__('historical_m2_scope').protected_group(g)['digest'] == b0[g]['digest'], g
 
 
 @check

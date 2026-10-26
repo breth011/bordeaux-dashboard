@@ -289,7 +289,7 @@ def r1_gate(row):
 
 def population(cx):
     ev, _ = P.item_evidence(P.states())
-    vd = json.load(open(L.MODEL + 'derived/vintage-documents.json', encoding='utf-8'))      # the model now
+    vd = A.vintage_documents((A.M36B_ACTOR,))      # the model as this audit read it: before M3.6B's own links
     every, out, removed = set(), set(), set()
     for (e, w, y), xs in ev.items():
         for x in xs:
@@ -441,7 +441,7 @@ def corrections(cx):
 
 def build():
     cx = V.Ctx()
-    cx.vd = json.load(open(L.MODEL + 'derived/vintage-documents.json', encoding='utf-8'))      # the model now
+    cx.vd = A.vintage_documents((A.M36B_ACTOR,))      # the model as this audit read it: before M3.6B's own links
     props, base = proposals(cx)
     return props, corrections(cx), fingerprints(), base
 

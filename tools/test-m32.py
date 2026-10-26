@@ -201,11 +201,15 @@ def model_missing_and_conflicts_are_never_applied():
 
 @check
 def no_raw_source_or_evidence_mutation():
-    assert not git('diff', '--stat', BEFORE, '--', 'data/evidence', 'data/discovery', ':(glob)data/*.js',
+    # M3.6B adds evidence version 6 beside v1-v5 (the store grows by design); every v1-v5 assertion stands,
+    # and v6 must be exactly M3.6B's decisions (historical_m2_scope.evidence_changes_are_m36b_only)
+    H.evidence_changes_are_m36b_only(BEFORE)
+    assert not git('diff', '--stat', BEFORE, '--', 'data/discovery', ':(glob)data/*.js',
                    'data/sources.json', 'data/scope', 'data/review').strip()
     b0 = json.load(open(L.MODEL + 'baseline.json', encoding='utf-8'))['groups']
     for g in b0:
-        assert L.group_hashes(g)['digest'] == b0[g]['digest'], g
+        # M3.6B's evidence version 6 named and set aside; v1-v5 and every other group byte for byte
+        assert __import__('historical_m2_scope').protected_group(g)['digest'] == b0[g]['digest'], g
     # the held bytes behind every applied source are still exactly what the model proved
     arts = {a['id']: a for a in L.read_table('identity/artifacts.jsonl')}
     pls = {}

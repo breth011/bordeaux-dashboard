@@ -287,7 +287,8 @@ def existing_generated_files_and_protected_data_unchanged():
     assert not changed, changed
     b = json.load(open(L.MODEL + 'baseline.json', encoding='utf-8'))['groups']
     for g in ('canonical', 'evidence', 'discovery', 'scope', 'phase_records'):
-        assert L.group_hashes(g)['digest'] == b[g]['digest'], g
+        # M3.6B's evidence version 6 named and set aside; v1-v5 and every other group byte for byte
+        assert __import__('historical_m2_scope').protected_group(g)['digest'] == b[g]['digest'], g
     # Historical M2 adds document dates to three model files, additions only; nothing else changes.
     import historical_m2_scope
     historical_m2_scope.model_changes_are_m2_only('8b13cb0')

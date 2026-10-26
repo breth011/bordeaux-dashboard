@@ -281,6 +281,8 @@ def c20_every_legacy_row_valid_with_historical_fields_absent():
     m34b = 2 * len(historical_m2_scope.m34b_applied())
     # M3.5 likewise, one Attribution and its provenance per eligible review row
     m34b += 2 * len(historical_m2_scope.m35_applied())
+    # M3.6B likewise, one Attribution and its provenance per applied web-page mapping
+    m34b += 2 * len(historical_m2_scope.m36b_applied())
     assert n == 333022 + m2 + m32 + m34b and not bad, (n, m2, m32, m34b, bad[:3])
 
 
@@ -319,7 +321,8 @@ def model_generated_data_and_protected_groups_unchanged():
     historical_m2_scope.model_changes_are_m2_only(BEFORE)
     b0 = json.load(open(L.MODEL + 'baseline.json', encoding='utf-8'))['groups']
     for g in b0:
-        assert L.group_hashes(g)['digest'] == b0[g]['digest'], g
+        # M3.6B's evidence version 6 named and set aside; v1-v5 and every other group byte for byte
+        assert __import__('historical_m2_scope').protected_group(g)['digest'] == b0[g]['digest'], g
     # the reconciliations' candidate lists are exactly as they were
     old = [json.loads(l) for l in git('show', BEFORE + ':data/model/reconciliation/reconciliations.jsonl').splitlines() if l.strip()]
     # M3.2D adds its own reconciliations (named); every one there before keeps its candidates

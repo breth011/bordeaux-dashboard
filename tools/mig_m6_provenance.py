@@ -316,6 +316,36 @@ def recovered_placements(m):
     m.stat('M6', 'M3.2B placements (recovered addresses)', n)
 
 
+MAPPINGS = 'data/audit/m3.4b-mapping-application.jsonl'
+MAPPINGS_ACTOR = 'tools/m34b-apply.py'
+
+
+def audited_mappings(m):
+    """M3.4B: an accepted document linked to the vintage it is evidence for. Read from the manifest's
+    APPLIED rows only - M3.4A's SAFE_TO_MAP allow-list, each through tools/m34b-apply.py's fail-closed
+    preflight. One Attribution per row (method DOCUMENT_TEXT, status ACCEPTED, role FIRST); its DOCUMENT
+    provenance quotes the audit's basis, names the accepted decision(s) and derives from the manifest
+    provenance the artifact already had. It says only that this document is evidence for this estate,
+    wine and vintage: no value, figure, name or date follows from it."""
+    if not os.path.exists(L.ROOT + MAPPINGS):
+        return
+    n = 0
+    for r in L.jsonl_lines(L.ROOT + MAPPINGS):
+        if r['result'] != 'APPLIED':
+            continue
+        pid = m.prov('DOCUMENT', MAPPINGS_ACTOR, artifact=r['artifact'], quote=r['basis'],
+                     derived_from=r['manifest_provenance'],
+                     code_state={'stream': 'M3.4B', 'audit': 'data/audit/m3.4a-mapping-proposals.jsonl',
+                                 'gap': r['gap_id'], 'evidence_decisions': r['evidence_decisions'],
+                                 'audit_role': r['audit_role'], 'colour': r['colour'], 'sha256': r['sha256']})
+        m.add('document/attributions.jsonl', {
+            'id': r['attribution'], 'artifact': r['artifact'], 'estate': r['estate'], 'wine': r['wine'],
+            'vintage': r['vintage_id'], 'role': r['role'], 'method': 'DOCUMENT_TEXT', 'status': 'ACCEPTED',
+            'provenance': pid})
+        n += 1
+    m.stat('M6', 'M3.4B audited mappings', n)
+
+
 def run(m):
     documentation(m)
     sources(m)
@@ -324,3 +354,4 @@ def run(m):
     prepare_value_prov(m)
     document_dates(m)
     recovered_placements(m)
+    audited_mappings(m)

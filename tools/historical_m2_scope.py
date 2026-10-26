@@ -17,6 +17,14 @@ M3.2 (existing-data recovery) gives a figure its own held sheet as source:
     manifest.json                   those files' counts and hashes; M7 status counts moved from
                                     LEGACY_RECORD_SOURCE_ONLY to SOURCED, totals unchanged
 
+M3.4B (audited existing-evidence mappings) links an accepted document to its vintage:
+
+    document/attributions.jsonl     Attribution rows added, method DOCUMENT_TEXT, status ACCEPTED, each
+                                    exactly an APPLIED row of data/audit/m3.4b-mapping-application.jsonl
+    cross/provenance.jsonl          their DOCUMENT provenance (actor tools/m34b-apply.py, stream M3.4B)
+    derived/vintage-documents.json  a vintage gains only the artifacts those attributions link to it
+    manifest.json                   those files' counts and hashes, one M6 stat
+
 model_changes_are_m2_only(before) - the name is kept for its callers - holds when every other model
 file is byte-identical to `before`, and every difference in the files above is one of these.
 """
@@ -33,10 +41,43 @@ M32_FILES = ('canonical/values.jsonl', 'observation/observations.jsonl',      # 
              'reconciliation/reconciliations.jsonl')                        # M3.2D
 M32B_STAT = 'M3.2B placements (recovered addresses)'
 M32D_STAT = 'M3.2D recovered values'
-ALLOWED = set(M2_FILES) | set(M32_FILES)
+M34B_FILES = ('document/attributions.jsonl', 'derived/vintage-documents.json')
+M34B_STAT = 'M3.4B audited mappings'
+ALLOWED = set(M2_FILES) | set(M32_FILES) | set(M34B_FILES)
 M2_ACTOR = 'tools/extract-document-dates.py'
 M32_ACTOR = 'tools/m32-recovery.py'
+M34B_ACTOR = 'tools/m34b-apply.py'
+M34B_MANIFEST = 'data/audit/m3.4b-mapping-application.jsonl'
 M2_STAT = 'document dates (historical M2 audit)'
+
+
+def m34b_applied():
+    """(attribution id, artifact, estate, wine, vintage) of every APPLIED row of the M3.4B manifest."""
+    try:
+        rows = L.jsonl_lines(L.ROOT + M34B_MANIFEST)
+    except FileNotFoundError:
+        return set()
+    return {(r['attribution'], r['artifact'], r['estate'], r['wine'], r['vintage_id']) for r in rows
+            if r['result'] == 'APPLIED'}
+
+
+def is_m34b_attribution(a, prov):
+    p = prov.get(a.get('provenance')) or {}
+    return (a.get('method') == 'DOCUMENT_TEXT' and a.get('status') == 'ACCEPTED' and a.get('role') == 'FIRST'
+            and p.get('kind') == 'DOCUMENT' and p.get('actor') == M34B_ACTOR
+            and (p.get('code_state') or {}).get('stream') == 'M3.4B'
+            and (a['id'], a['artifact'], a.get('estate'), a.get('wine'), a.get('vintage')) in m34b_applied())
+
+
+def legacy_attributions(rows, prov):
+    """The manifest's attributions: every row but M3.4B's, which must each be exactly an applied mapping."""
+    out = []
+    for a in rows:
+        if (prov.get(a['provenance']) or {}).get('actor') == M34B_ACTOR:
+            assert is_m34b_attribution(a, prov), ('an M3.4B attribution not in its manifest', a['id'])
+            continue
+        out.append(a)
+    return out
 
 
 def _git(*a):
@@ -174,6 +215,8 @@ def model_changes_are_m2_only(before):
                         lambda r: r['kind'] == 'STATED_IN_TEXT' and r['value']['axis'] == 'CALENDAR'),
                        ('cross/provenance.jsonl',
                         lambda r: (r['kind'] == 'DOCUMENT' and r['actor'] in (M2_ACTOR, M32_ACTOR)) or
+                        (r['kind'] == 'DOCUMENT' and r['actor'] == M34B_ACTOR
+                         and (r.get('code_state') or {}).get('stream') == 'M3.4B') or
                         (r['kind'] == 'DERIVATION' and r['actor'] == M32_ACTOR
                          and (r.get('code_state') or {}).get('stream') == 'M3.2D')),
                        ('reconciliation/reconciliations.jsonl',
@@ -186,6 +229,19 @@ def model_changes_are_m2_only(before):
         assert o <= n, '%s: %d rows changed or removed' % (rel, len(o - n))
         bad = [r for r in (json.loads(x) for x in n - o) if not check(r)]
         assert not bad, '%s: an added row is not M2\'s or M3.2\'s: %s' % (rel, bad[:1])
+    # M3.4B: attributions added, each exactly an applied mapping; a vintage gains only their artifacts
+    if 'document/attributions.jsonl' in changed:
+        old, new = _lines(before, 'document/attributions.jsonl')
+        o, n = set(old.splitlines()), set(new.splitlines())
+        assert o <= n, 'document/attributions.jsonl: %d rows changed or removed' % len(o - n)
+        for x in n - o:
+            assert is_m34b_attribution(json.loads(x), prov), ('not an M3.4B mapping', json.loads(x)['id'])
+    if 'derived/vintage-documents.json' in changed:
+        old, new = (json.loads(x) for x in _lines(before, 'derived/vintage-documents.json'))
+        linked = {(r[4], r[1]) for r in m34b_applied()}
+        for k in set(old) | set(new):
+            o, n = set(old.get(k, [])), set(new.get(k, []))
+            assert o <= n and {(k, a) for a in n - o} <= linked, ('derived/vintage-documents.json', k, sorted(o - n))
     # M3.2B: URL placements (and their locators) added, each with an M3.2B provenance
     for rel in ('document/placements.jsonl', 'document/locators.jsonl'):
         if rel not in changed:
@@ -244,10 +300,35 @@ def model_changes_are_m2_only(before):
                 a_all, b_all = _sourced_moved(old[k]), _sourced_moved(new[k])
                 for st in set(a_all) | set(b_all):
                     a, b = dict(a_all.get(st, {})), dict(b_all.get(st, {}))
-                    for s in (M2_STAT, M32B_STAT, M32D_STAT):
+                    for s in (M2_STAT, M32B_STAT, M32D_STAT, M34B_STAT):
                         a.pop(s, None)
                         b.pop(s, None)
                     assert a == b, 'manifest stats %s changed' % st
             else:
                 assert old.get(k) == new.get(k), 'manifest %s changed' % k
     return changed
+
+
+REGISTER = 'data/audit/data-gap-register.jsonl'
+
+
+def register_changes_are_m34b_only(before):
+    """The gap register as at `before`, but for M3.4B's resolution records: every gap kept with its id
+    and every field, a gap's `resolution` gaining only `by` entries of phase M3.4B (its counts moved by
+    those entries' items), and the ranks M3.1 gave unchanged."""
+    old = {r['gap_id']: r for r in (json.loads(x) for x in _git('show', '%s:%s' % (before, REGISTER)).splitlines())}
+    new = {r['gap_id']: r for r in L.jsonl_lines(L.ROOT + REGISTER)}
+    assert set(old) == set(new), 'a gap was added or removed'
+    for g, n in new.items():
+        o = old[g]
+        assert {k: v for k, v in o.items() if k != 'resolution'} == {k: v for k, v in n.items() if k != 'resolution'}, g
+        if o.get('resolution') == n.get('resolution'):
+            continue
+        ob = (o.get('resolution') or {}).get('by', [])
+        nb = n['resolution']['by']
+        added = [b for b in nb if b not in ob]
+        assert all(b in nb for b in ob) and added and all(b['phase'] == 'M3.4B' for b in added), (g, added)
+        res = n['resolution']
+        assert res['affected_before'] == n['affected_count'] and \
+            res['recovered'] == sum(b['items'] for b in nb) and res['affected_after'] == res['affected_before'] - res['recovered'], g
+    return True

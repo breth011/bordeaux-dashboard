@@ -324,7 +324,7 @@ def ocr_rows():
 def source_rows():
     rows = []
     dc = A.discovery_coverage()
-    vdocs = json.load(open(L.MODEL + 'derived/vintage-documents.json', encoding='utf-8'))
+    vdocs = A.vintage_documents()
     ew = collections.defaultdict(set)
     for r in A.table('state/estate-wine.jsonl'):
         ew[r['estate']].add(r['wine'])
@@ -650,6 +650,11 @@ def resolve(rows):
     pv = A.by_id('cross/provenance.jsonl')
     wine_estate = {r['wine']: r['estate'] for r in A.table('state/estate-wine.jsonl')}
     fillable = set(A.fillable_slots())
+    # M3.4B: a document-less vintage (as the register measured it) that an audited accepted document
+    # now documents. Only "no document" is resolved: its figures stay with their own gaps.
+    before = A.vintage_documents()
+    for vt in sorted({a['vintage'] for a in A.m34b_attributions() if not before.get(a['vintage'])}):
+        recovered[('VINTAGE_NO_DOCUMENT|%s' % wine_estate.get(vt.split(':')[1], '?'), 'M3.4B')] += 1
     for c in A.table('canonical/values.jsonl'):
         if (pv[c['provenance']].get('code_state') or {}).get('stream') == 'M3.2D' and \
                 '%s|%s' % (c['subject'], c['field']) in fillable:

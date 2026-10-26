@@ -170,10 +170,18 @@ def existing_data_is_kept_apart_from_acquisition():
 
 @check
 def no_model_evidence_or_app_data_was_mutated():
-    assert not git('diff', '--stat', BEFORE, '--', 'data/model', 'data/evidence', 'data/app', 'data/discovery',
+    assert not git('diff', '--stat', BEFORE, '--', 'data/evidence', 'data/app', 'data/discovery',
                    'data/history', 'data/review', 'data/scope', ':(glob)data/*.js', 'data/sources.json',
-                   'data/audit/data-gap-register.jsonl', 'data/audit/m32-recovery-candidates.jsonl',
+                   'data/audit/m32-recovery-candidates.jsonl',
                    'assets', 'index.html').strip()
+    # the model and the gap register: M3.4B (an audited accepted document linked to its vintage, and the
+    # register's record of what that resolved) is the only later change, each named exactly
+    import historical_m2_scope as H
+    H.model_changes_are_m2_only(BEFORE)
+    H.register_changes_are_m34b_only(BEFORE)
+    for args in (['--check'], ['--report', '--check']):
+        out = subprocess.run([sys.executable, L.ROOT + 'tools/build-data-gap-register.py'] + args, capture_output=True, text=True)
+        assert out.returncode == 0, out.stdout + out.stderr
     b0 = json.load(open(L.MODEL + 'baseline.json', encoding='utf-8'))['groups']
     for g in b0:
         assert L.group_hashes(g)['digest'] == b0[g]['digest'], g

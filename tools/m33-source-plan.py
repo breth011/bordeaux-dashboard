@@ -59,9 +59,19 @@ DECISION_ITEMS = {('wn_00547', 2008): 'D2', ('wn_00522', 2018): 'LAPARDE_IDENTIT
 
 # -- inputs ----------------------------------------------------------------------------------------
 
+LATER = ('M3.4B',)           # phases after this plan: what they resolved was unresolved when it was made
+
+
+def resolved_before(r):
+    """A gap the register records as resolved by the phases before this plan (M3.2), not by later ones."""
+    res = r.get('resolution') or {}
+    earlier = sum(b['items'] for b in res.get('by', []) if b['phase'] not in LATER)
+    return bool(res) and earlier >= res['affected_before']
+
+
 def new_data_gaps():
     return [r for r in L.jsonl_lines(REGISTER) if r['requires_new_data'] and r['priority'] != 'DEFERRED'
-            and (r.get('resolution') or {}).get('status') != 'RESOLVED']
+            and not resolved_before(r)]
 
 
 def names():
@@ -87,7 +97,7 @@ def states():
 
 def documentless():
     """estate -> [(wine, year)] exactly as the register derives VINTAGE_NO_DOCUMENT."""
-    vdocs = json.load(open(L.MODEL + 'derived/vintage-documents.json', encoding='utf-8'))
+    vdocs = A.vintage_documents()
     ew = collections.defaultdict(set)
     for r in A.table('state/estate-wine.jsonl'):
         ew[r['estate']].add(r['wine'])
@@ -110,7 +120,7 @@ def item_evidence(st):
     """For every documentless (estate, wine, year): the evidence each kind of source offers."""
     nm = names()
     nodoc = documentless()
-    vdocs = json.load(open(L.MODEL + 'derived/vintage-documents.json', encoding='utf-8'))
+    vdocs = A.vintage_documents()
     accepted = collections.defaultdict(set)                     # (wine, year) -> artifacts
     for d in A.decisions():
         if d['decision'] == 'ACCEPTED' and d['wine'] and d['vintage'] and d['sha256']:

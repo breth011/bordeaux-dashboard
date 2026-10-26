@@ -266,11 +266,18 @@ def project(model=None, classifications=None):
     arts = {a['id']: a for a in M.rows('identity/artifacts.jsonl')}
     rows = {}
     est_of_att = {}
+    # the manifest's rows only: an attribution whose provenance is not the manifest (M3.4B's audited
+    # links) is no row of data/sources.json
+    manifest = lambda a: prov[a['provenance']]['kind'] == 'LEGACY_MANIFEST'
     for a in M.rows('document/attributions.jsonl'):
+        if not manifest(a):
+            continue
         cs = prov[a['provenance']]['code_state']
         est_of_att[cs['row']] = est_back.get(a.get('estate'))
     for t in ('document/attributions.jsonl', 'document/assessments.jsonl'):
         for a in M.rows(t):
+            if not manifest(a):
+                continue
             p = prov[a['provenance']]
             cs = p['code_state']
             i = cs['row']

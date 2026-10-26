@@ -257,7 +257,8 @@ def gap_ids_are_stable_and_the_register_keeps_its_history():
         assert res['status'] == ('RESOLVED' if res['affected_after'] == 0 else 'PARTIALLY_RESOLVED')
         for b in res['by']:
             assert b['commit'] == commits[b['phase']]['commit'], gid
-        recovered += res['recovered']
+        # M3.2's own items (M3.4B's linked vintages are recorded beside them, by phase)
+        recovered += sum(b['items'] for b in res['by'] if b['phase'].startswith('M3.2'))
     # the register counts the streams whose applying commit is recorded
     assert recovered == sum(1 for r in audit() if r['disposition'].startswith('APPLY')
                             and 'M3.2' + r['stream'] in commits), recovered

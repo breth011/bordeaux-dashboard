@@ -131,7 +131,7 @@ def build():
     ev, _ = P.item_evidence(st)
     blocked_wines = open_decision_wines(nm)
     arts = A.by_id('identity/artifacts.jsonl')
-    vdocs = json.load(open(L.MODEL + 'derived/vintage-documents.json', encoding='utf-8'))
+    vdocs = A.vintage_documents()
     raw, links = accepted_claims()
     gaps = {g['gap_key']: g['gap_id'] for g in P.new_data_gaps()}
     wines = A.by_id('identity/wines.jsonl')

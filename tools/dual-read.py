@@ -109,7 +109,10 @@ class NewReader:
         self.rels = collections.defaultdict(list)
         for r in M.rows('state/estate-wine.jsonl'):
             self.rels[r['estate']].append(r['wine'])
-        self.att = collections.Counter(a.get('estate') for a in M.rows('document/attributions.jsonl'))
+        # the manifest's sheets per estate: its own attributions, not M3.4B's audited links
+        manifest = {p['id'] for p in M.rows('cross/provenance.jsonl') if p['kind'] == 'LEGACY_MANIFEST'}
+        self.att = collections.Counter(a.get('estate') for a in M.rows('document/attributions.jsonl')
+                                       if a['provenance'] in manifest)
 
     def _vintage(self, ns, key):
         r = self.im[ns].get(key)

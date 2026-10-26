@@ -277,7 +277,9 @@ def c20_every_legacy_row_valid_with_historical_fields_absent():
     # D: the recovered values, their observations and their reconciliations
     m32 += sum(1 for o in L.read_table('observation/observations.jsonl') if historical_m2_scope.is_m32d_observation(o))
     m32 += 2 * sum(1 for r in L.read_table('reconciliation/reconciliations.jsonl') if historical_m2_scope.is_m32d_reconciliation(r))
-    assert n == 333022 + m2 + m32 and not bad, (n, m2, m32, bad[:3])
+    # M3.4B adds one Attribution and its DOCUMENT provenance per applied mapping
+    m34b = 2 * len(historical_m2_scope.m34b_applied())
+    assert n == 333022 + m2 + m32 + m34b and not bad, (n, m2, m32, m34b, bad[:3])
 
 
 @check

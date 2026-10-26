@@ -327,8 +327,47 @@ def accepted_by_sha():
     return cached('accepted_by_sha', build)
 
 
+M34B_ACTOR = 'tools/m34b-apply.py'
+
+
+def m34b_attributions():
+    """M3.4B: the attributions that link an audited accepted document to its vintage (provenance by
+    tools/m34b-apply.py). The audits measure the model as it stood before them."""
+    def build():
+        pv = by_id('cross/provenance.jsonl')
+        return [a for a in table('document/attributions.jsonl')
+                if (pv.get(a['provenance']) or {}).get('actor') == M34B_ACTOR]
+    return cached('m34b_att', build)
+
+
+def vintage_documents():
+    """derived/vintage-documents.json as before M3.4B: a (vintage, artifact) link only M3.4B made is left out."""
+    def build():
+        vd = json.load(open(L.MODEL + 'derived/vintage-documents.json', encoding='utf-8'))
+        ids = {a['id'] for a in m34b_attributions()}
+        other = {(a['vintage'], a['artifact']) for a in table('document/attributions.jsonl')
+                 if a.get('vintage') and a['id'] not in ids}
+        pv = by_id('cross/provenance.jsonl')
+        for o in table('observation/observations.jsonl'):
+            p = pv[o['provenance']]
+            if o['subject'].startswith('vt:') and p.get('artifact') and p['kind'] == 'LEGACY_FIELD_SOURCE':
+                other.add((o['subject'], p['artifact']))
+        for a in m34b_attributions():
+            vt, aid = a['vintage'], a['artifact']
+            if (vt, aid) not in other and aid in vd.get(vt, []):
+                vd[vt] = [x for x in vd[vt] if x != aid]
+                if not vd[vt]:
+                    del vd[vt]
+        return vd
+    return cached('vintage_documents', build)
+
+
 def legacy_attr_by_artifact():
-    return cached('attr_by_art', lambda: _group(table('document/attributions.jsonl'), 'artifact'))
+    """The manifest's attributions per artifact (M3.4B's audited links are not legacy)."""
+    def build():
+        ids = {a['id'] for a in m34b_attributions()}
+        return _group([a for a in table('document/attributions.jsonl') if a['id'] not in ids], 'artifact')
+    return cached('attr_by_art', build)
 
 
 def sha_to_artifact():
@@ -548,7 +587,7 @@ def ocr_backlog():
                 if c in pls and pls[c].get('artifact'):
                     refs_by_art[pls[c]['artifact']].append(rk)
         unsourced_by_rec = collections.Counter(f['record'] for f in unsourced_figures())
-        vdocs = json.load(open(L.MODEL + 'derived/vintage-documents.json', encoding='utf-8'))
+        vdocs = vintage_documents()
         sole = collections.defaultdict(list)
         for vt, ds in vdocs.items():
             if len(ds) == 1:
@@ -591,7 +630,7 @@ def unincorporated_documents():
     heading year that is a vintage of the estate's wines with no document."""
     def build():
         reviewed = {d['sha256'] for d in decisions() if d['sha256']}
-        vdocs = json.load(open(L.MODEL + 'derived/vintage-documents.json', encoding='utf-8'))
+        vdocs = vintage_documents()
         wvint = json.load(open(L.MODEL + 'derived/wine-vintages.json', encoding='utf-8'))
         ew = collections.defaultdict(set)
         for r in table('state/estate-wine.jsonl'):
@@ -660,7 +699,7 @@ def wines_without_estate():
 
 
 def vintage_document_counts():
-    vdocs = json.load(open(L.MODEL + 'derived/vintage-documents.json', encoding='utf-8'))
+    vdocs = vintage_documents()
     out = collections.Counter()
     for v in table('identity/vintages.jsonl'):
         n = len(vdocs.get('vt:%s:%s' % (v['wine'], v['label']), []))

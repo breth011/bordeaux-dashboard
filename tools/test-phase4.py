@@ -659,10 +659,14 @@ def m5_every_slug_vintage_key_maps_to_its_wine_or_is_kept():
 @check
 def m6_every_manifest_row_is_one_attribution_or_assessment():
     prov = {r['id']: r for r in T('cross/provenance.jsonl')}
+    import historical_m2_scope
     rows = collections.Counter()
     sheets = L.sources_rows()['sheets']
+    # the manifest's attributions; M3.4B's audited links are none of its rows, each exactly a manifest
+    # row of data/audit/m3.4b-mapping-application.jsonl (historical_m2_scope.legacy_attributions)
+    legacy = historical_m2_scope.legacy_attributions(T('document/attributions.jsonl'), prov)
     for t in ('document/attributions.jsonl', 'document/assessments.jsonl'):
-        for r in T(t):
+        for r in (legacy if t.startswith('document/attributions') else T(t)):
             if t.startswith('document/attributions') and 'role' not in r:
                 # an estate claim beside an assessment
                 i = prov[r['provenance']]['code_state']['row']
@@ -670,7 +674,7 @@ def m6_every_manifest_row_is_one_attribution_or_assessment():
                 continue
             rows[prov[r['provenance']]['code_state']['row']] += 1
     assert set(rows) == set(range(len(sheets))) and set(rows.values()) == {1}
-    att = T('document/attributions.jsonl')
+    att = legacy
     assert {r['method'] for r in att} == {'LEGACY_UNKNOWN'}, 'a legacy how text was classified (D6)'
     assert {r['status'] for r in att} == {'LEGACY'}
     by_art = collections.Counter(r['artifact'] for r in att)
@@ -683,7 +687,8 @@ def m6_null_wine_never_defaults_to_the_grand_vin():
     sheets = L.sources_rows()['sheets']
     gv = imap('grand-vin')
     grand = {r['stable_id'] for r in gv.values()}
-    for a in T('document/attributions.jsonl'):
+    import historical_m2_scope
+    for a in historical_m2_scope.legacy_attributions(T('document/attributions.jsonl'), prov):
         r = sheets[prov[a['provenance']]['code_state']['row']]
         if not r.get('wine') and not r.get('slug'):
             if r['role'] == 'grand' and r['estate'] in gv:

@@ -19,3 +19,5 @@ data/audit/historical-m3-*.jsonl text eol=lf
 data/audit/data-gap-register.jsonl text eol=lf
 # The M3.2 recovery audit is read by the migration and checked byte for byte.
 data/audit/m32-recovery-candidates.jsonl text eol=lf
+# The M3.3 source plan is checked byte for byte by tools/m33-source-plan.py --check.
+data/audit/m3.3-source-acquisition-plan.jsonl text eol=lf

@@ -110,6 +110,19 @@ def main_records_compares_and_sets_the_exit_status():
 
 
 @check
+def the_longest_suites_start_first():
+    every = R.suites(times={})                                          # no log: LONG first, as before
+    assert every[:len([s for s in R.LONG if s in every])] == [s for s in R.LONG if s in every]
+    times = {s: float(i) for i, s in enumerate(sorted(every))}         # the last name took longest
+    times.pop(every[-1])                                                # one suite never timed: a new one
+    order = R.suites(times=times)
+    assert sorted(order) == sorted(every)                               # every suite, once
+    assert order[0] == every[-1]                                        # the untimed suite goes first
+    assert [times[s] for s in order[1:]] == sorted(times.values(), reverse=True)
+    assert R.suites(reverse=True, times=times) == sorted(every, reverse=True)
+
+
+@check
 def small_increases_add_up_against_the_baseline():
     # each run under 10 % slower than the one before, together 21 % slower than the baseline
     with tempfile.TemporaryDirectory() as d:

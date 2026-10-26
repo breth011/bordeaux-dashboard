@@ -10,8 +10,8 @@ workers is the measured choice (Phase 6.6C, docs/PHASE-6.6-PERFORMANCE-OPTIMIZAT
 about a third off the wall clock, with stable times and a safe memory margin. Three
 saved little more and varied by 23 s between runs; four left 8 MB of memory free.
 
-The longest suites start first so that two workers finish together. Exit status 1 if
-any suite fails; its last lines are printed.
+The longest suites start first, by their times in the last passing run (kept locally, below),
+so that two workers finish together. Exit status 1 if any suite fails; its last lines are printed.
 
 Shared checks. The suites of one run share a cache of --check results (tools/check_cache.py):
 a check one suite has run is not rebuilt by the next, as long as nothing in the repository has
@@ -51,10 +51,16 @@ LONG = ['test-phase63.py', 'test-phase4.py', 'test-phase5.py', 'test-phase65.py'
         'test-phase33.py']
 
 
-def suites(reverse=False):
+def suites(reverse=False, times=None):
+    """Longest first, by each suite's time in the last passing run, so that the workers finish
+    together; a suite with no recorded time (a new one) goes first, LONG's order without a log."""
     names = sorted(os.path.basename(p) for p in glob.glob(os.path.join(TOOLS, 'test-*.py')))
     if reverse:
         return names[::-1]
+    if times is None:
+        times = (load_log().get('last', {}).get('2') or {}).get('suites') or {}
+    if times:
+        return sorted(names, key=lambda s: (s in times, -times.get(s, 0), s))
     return [s for s in LONG if s in names] + [s for s in names if s not in LONG]
 
 

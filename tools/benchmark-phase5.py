@@ -311,7 +311,8 @@ class Server:
                 pass
         self.srv = http.server.ThreadingHTTPServer(('127.0.0.1', 0),
                                                    functools.partial(Quiet, directory=self.root))
-        threading.Thread(target=self.srv.serve_forever, daemon=True).start()
+        # a short poll: shutdown() waits for the loop to notice, up to one poll interval (0.5 s by default)
+        threading.Thread(target=self.srv.serve_forever, kwargs={'poll_interval': 0.05}, daemon=True).start()
         self.url = 'http://127.0.0.1:%d/index.html' % self.srv.server_address[1]
         return self
 

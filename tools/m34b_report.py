@@ -37,6 +37,8 @@ def report(rows, allow):
     vd1 = A.vintage_documents((A.M35_ACTOR, A.M36B_ACTOR))
     vintages = sum(1 for _ in open(L.MODEL + 'identity/vintages.jsonl', encoding='utf-8'))
     changed = sorted(f[len('data/model/'):] for f in _git('diff', '--name-only', BEFORE, '--', 'data/model').split())
+    import historical_m2_scope as H
+    changed, m1 = H.without_m36d(changed, m1)               # M3.6D's wine, a later decision, taken out too
     out = []
     w = out.append
 

@@ -283,7 +283,10 @@ def c20_every_legacy_row_valid_with_historical_fields_absent():
     m34b += 2 * len(historical_m2_scope.m35_applied())
     # M3.6B likewise, one Attribution and its provenance per applied web-page mapping
     m34b += 2 * len(historical_m2_scope.m36b_applied())
-    assert n == 333022 + m2 + m32 + m34b and not bad, (n, m2, m32, m34b, bad[:3])
+    # M3.6D: one wine, its names, identity keys, relationship, descriptor and their provenance
+    m36d = sum(len(historical_m2_scope.m36d_rows(r)) for r in historical_m2_scope.M36D_FILES + ('cross/provenance.jsonl',)
+               if r.endswith('.jsonl'))
+    assert n == 333022 + m2 + m32 + m34b + m36d and not bad, (n, m2, m32, m34b, m36d, bad[:3])
 
 
 @check
@@ -294,7 +297,12 @@ def nothing_populated():
     assert not L.read_table('identity/transitions.jsonl'), 'an identity transition was written'
     # M2 writes document dates (STATED_IN_TEXT only); M1 itself wrote none, and nothing else dates a document
     assert all(r['kind'] == 'STATED_IN_TEXT' for r in L.read_table('document/artifact-dates.jsonl')), 'a document date not from M2'
-    assert not [n for n in L.read_table('identity/names.jsonl') if n['kind'] != 'CURRENT'], 'a former name'
+    import historical_m2_scope
+    m36d = historical_m2_scope.m36d_rows('identity/names.jsonl')
+    assert not [n for n in L.read_table('identity/names.jsonl') if n['kind'] != 'CURRENT' and n not in m36d], 'a former name'
+    # M3.6D's two variants of its wine's name: neither former nor dated
+    assert all(n['kind'] in ('CURRENT', 'SOURCE_RENDERING', 'MARKET_ALIAS') and n['validity'] == {'valid_from': {'kind': 'UNKNOWN'}, 'valid_to': {'kind': 'OPEN'}}
+               for n in m36d), 'a former or dated M3.6D name'
 
 
 @check
@@ -309,7 +317,9 @@ def the_extension_makes_no_current_fact_historical():
         for r in L.read_table(rel):
             n += 1
             assert r['validity']['valid_from'] == {'kind': 'UNKNOWN'} and r['validity']['valid_to'] == {'kind': 'OPEN'}, (rel, r['id'])
-    assert n == 3917, n
+    import historical_m2_scope                    # M3.6D's names and relationship, as current as the rest
+    assert n == 3917 + sum(len(historical_m2_scope.m36d_rows(rel)) for rel in rels
+                           if rel in historical_m2_scope.M36D_FILES), n
 
 
 @check

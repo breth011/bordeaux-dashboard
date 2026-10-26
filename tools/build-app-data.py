@@ -231,11 +231,13 @@ def wine_established(model=None):
       "x"   years with a NOT_PRODUCED VintageStatement
     A wine without a fact simply lacks the key: an absent record is not a value."""
     M = model or R.Model()
+    # M3.6D's Cuvée Mongravey is in no legacy file, so the page cannot show it (tools/model_reader.py)
+    m36d = {p['id'] for p in M.rows('cross/provenance.jsonl') if p.get('actor') == 'tools/m36d-cuvee.py'}
     im = {}
     for r in M.rows('identity/identity-map.jsonl'):
         if r['namespace'] == 'grand-vin' and r.get('stable_id'):
             im[r['stable_id']] = r['legacy_key'] + '|grand'
-        elif r['namespace'] == 'wine-by-slug' and r.get('stable_id'):
+        elif r['namespace'] == 'wine-by-slug' and r.get('stable_id') and r['provenance'] not in m36d:
             im[r['stable_id']] = r['legacy_key']
     out = {key: {} for key in im.values()}
     for n in M.rows('identity/names.jsonl'):

@@ -55911,6 +55911,7 @@
 {"legacy_key":"bourgeois-chateau-meric|Château Méric","namespace":"wine-by-display-name","provenance":"pv_4e0899ec8f29","stable_id":"wn_00156","status":"ACTIVE"}
 {"legacy_key":"bourgeois-chateau-meyre|Château Meyre","namespace":"wine-by-display-name","provenance":"pv_4e0899ec8f29","stable_id":"wn_00157","status":"ACTIVE"}
 {"legacy_key":"bourgeois-chateau-mongravey|Château Mongravey","namespace":"wine-by-display-name","provenance":"pv_4e0899ec8f29","stable_id":"wn_00158","status":"ACTIVE"}
+{"legacy_key":"bourgeois-chateau-mongravey|Cuvée Mongravey","namespace":"wine-by-display-name","provenance":"pv_4e0899ec8f29","stable_id":"wn_00640","status":"ACTIVE"}
 {"legacy_key":"bourgeois-chateau-moulin-de-bel-air|Château Moulin de Bel Air","namespace":"wine-by-display-name","provenance":"pv_4e0899ec8f29","stable_id":"wn_00159","status":"ACTIVE"}
 {"legacy_key":"bourgeois-chateau-moulin-de-blanchon|Château Moulin de Blanchon","namespace":"wine-by-display-name","provenance":"pv_4e0899ec8f29","stable_id":"wn_00160","status":"ACTIVE"}
 {"legacy_key":"bourgeois-chateau-moulin-de-canhaut|Château Moulin de Canhaut","namespace":"wine-by-display-name","provenance":"pv_4e0899ec8f29","stable_id":"wn_00161","status":"ACTIVE"}
@@ -56405,6 +56406,7 @@
 {"legacy_key":"bourgeois-chateau-dillon|la-comtesse-noire","namespace":"wine-by-slug","provenance":"pv_c0431e887aed","stable_id":"wn_00467","status":"ACTIVE"}
 {"legacy_key":"bourgeois-chateau-dillon|secret-de-la-comtesse","namespace":"wine-by-slug","provenance":"pv_c0431e887aed","stable_id":"wn_00468","status":"ACTIVE"}
 {"legacy_key":"bourgeois-chateau-magnol|charmes-de-magnol","namespace":"wine-by-slug","provenance":"pv_c0431e887aed","stable_id":"wn_00469","status":"ACTIVE"}
+{"legacy_key":"bourgeois-chateau-mongravey|cuvee-mongravey","namespace":"wine-by-slug","provenance":"pv_88d394c52d2a","stable_id":"wn_00640","status":"ACTIVE"}
 {"legacy_key":"bourgeois-chateau-paloumey|plume-de-paloumey","namespace":"wine-by-slug","provenance":"pv_c0431e887aed","stable_id":"wn_00470","status":"ACTIVE"}
 {"legacy_key":"bourgeois-chateau-paveil-de-luze|le-petit-paveil","namespace":"wine-by-slug","provenance":"pv_c0431e887aed","stable_id":"wn_00471","status":"ACTIVE"}
 {"legacy_key":"branaire-ducru|duluc-de-branaire-ducru","namespace":"wine-by-slug","provenance":"pv_c0431e887aed","stable_id":"wn_00472","status":"ACTIVE"}

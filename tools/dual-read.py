@@ -181,8 +181,11 @@ def queries():
         for w in e['wines']:
             names[e['id']].append(w['name'])
     sec = {r['id']: r.get('second') for _, r in L.estate_files()}
+    # M3.6D's Cuvée Mongravey: a wine of the model that no legacy file lists, so the old view cannot hold it
+    m36d_prov = {p['id'] for p in L.read_table('cross/provenance.jsonl') if p.get('actor') == 'tools/m36d-cuvee.py'}
+    m36d_names = {n['name'] for n in L.read_table('identity/names.jsonl') if n['provenance'] in m36d_prov}
     for lid, ns in names.items():
-        # the new reader's wines: the grand vin, the listed wines, the seconds it minted;
+        # the new reader's wines: the grand vin, the listed wines, the seconds it minted, M3.6D's wine;
         # the old view's: the estate name and its listed wines. Compare what both hold.
         got = new.wine_names(lid)
         want = sorted(set(ns))
@@ -191,7 +194,7 @@ def queries():
         if set(want) - set(got) - ({names[lid][0]} if not got else set()):
             bad.append('estate wines %r: old %s / new %s' % (lid, want, got))
         for x in extra:
-            if x != sec.get(lid):
+            if x != sec.get(lid) and x not in m36d_names:
                 bad.append('estate wines %r: new holds %r' % (lid, x))
     man = collections.Counter(r['estate'] for r in L.sources_rows()['sheets'] if r['estate'])
     for lid, c in man.items():

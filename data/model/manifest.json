@@ -20,8 +20,8 @@
   },
   "cross/provenance.jsonl": {
    "entity": "Provenance",
-   "rows": 27159,
-   "sha256": "c67a78a31f2906c550e2d0a0b8968f1b2e0c241f76f850a0be47fe2edff24527"
+   "rows": 27167,
+   "sha256": "1203217cc6fbbbac002782d8aa45af81d73334586e28a05af8081105665c640d"
   },
   "document/artifact-dates.jsonl": {
    "entity": "ArtifactDate",
@@ -75,13 +75,13 @@
   },
   "identity/identity-map.jsonl": {
    "entity": "IdentityMap",
-   "rows": 56531,
-   "sha256": "6b9836b4ab9d9f9145e4507ac3798a97f04f258c161f2d16bf1d65c491e1351a"
+   "rows": 56533,
+   "sha256": "d524ecf3d5c8e4619ee27fe8e9028b78abc0e716eea17f73f4019e2f7221751e"
   },
   "identity/names.jsonl": {
    "entity": "NameRecord",
-   "rows": 1104,
-   "sha256": "72f0a87cba3aeefff26b84a85a83d3473481faca24772dc5a1c325ad063f76c4"
+   "rows": 1107,
+   "sha256": "0c60a40b1fa935e5720e719c6ad1e246128cdf10b8c2f6a2bfdafcd47588e19f"
   },
   "identity/parties.jsonl": {
    "entity": "Party",
@@ -105,8 +105,8 @@
   },
   "identity/wines.jsonl": {
    "entity": "Wine",
-   "rows": 639,
-   "sha256": "8cff517259e09b0f20830b1bb7cf86b38fb0cf2ade3245f2d28cfa35232afb01"
+   "rows": 640,
+   "sha256": "34e63f64a4829b1306a047db831b0eb0c0a2563545d2500abe02703774f0db65"
   },
   "observation/evidence-links.jsonl": {
    "entity": "EvidenceLink",
@@ -160,8 +160,8 @@
   },
   "state/estate-wine.jsonl": {
    "entity": "EstateWineRelationship",
-   "rows": 639,
-   "sha256": "aff6f183b4b2e84c5e6ea6073a7360e10939e815a93c2d994952892ae4b9a009"
+   "rows": 640,
+   "sha256": "9738f82f6b031cdeb9d0556271beb53f11474a1c5cea7fc2c6dff049f91649cc"
   },
   "state/ownership.jsonl": {
    "entity": "Ownership",
@@ -190,8 +190,8 @@
   },
   "state/wine-descriptors.jsonl": {
    "entity": "WineDescriptor",
-   "rows": 0,
-   "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+   "rows": 1,
+   "sha256": "13378b43e039c035ac672752a58315a594ffed762d74a2fc502c725730f15d5a"
   }
  },
  "views": {
@@ -290,10 +290,11 @@
     "several listed whites: waits": 2,
     "the one listed white": 1
    },
+   "M3.6D canonical wines": 1,
    "display names": {
     "...used by evidence": 1,
     "ambiguous (an undecided second)": 17,
-    "resolved": 637,
+    "resolved": 638,
     "unresolved": 1
    }
   },

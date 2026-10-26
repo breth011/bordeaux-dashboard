@@ -155,6 +155,8 @@ def project(model=None, classifications=None):
     for k, r in im['wine-by-slug'].items():
         lid, slug = k.split('|')
         wid = r['stable_id']
+        if prov[r['provenance']]['actor'] == 'tools/m36d-cuvee.py':
+            continue        # M3.6D's Cuvée Mongravey is in no legacy file: it has no cuvees.js shape (no legacy role)
         rel = [x for x in rels.values() if x['wine'] == wid][0]
         ra = [x for x in M.rows('state/rank-assertions.jsonl') if x['relationship'] == rel['id']
               and prov[x['provenance']]['actor'] == 'data/cuvees.js']

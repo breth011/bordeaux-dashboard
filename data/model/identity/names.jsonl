@@ -859,6 +859,7 @@
 {"id":"nm_c8ed922ab99c","kind":"CURRENT","name":"Château Brane-Cantenac","provenance":"pv_6319b09d8794","subject":"wn_00215","validity":{"valid_from":{"kind":"UNKNOWN"},"valid_to":{"kind":"OPEN"}}}
 {"id":"nm_c90b5b1a2fff","kind":"CURRENT","name":"Château Saint Bonnet","provenance":"pv_11f40c267c53","subject":"es_00195","validity":{"valid_from":{"kind":"UNKNOWN"},"valid_to":{"kind":"OPEN"}}}
 {"id":"nm_c94b71998a60","kind":"CURRENT","name":"Château Pontoise Cabarrus","provenance":"pv_11f40c267c53","subject":"es_00181","validity":{"valid_from":{"kind":"UNKNOWN"},"valid_to":{"kind":"OPEN"}}}
+{"id":"nm_c9ca751837bb","kind":"CURRENT","name":"Cuvée Mongravey","provenance":"pv_c8de7e8ef34b","subject":"wn_00640","validity":{"valid_from":{"kind":"UNKNOWN"},"valid_to":{"kind":"OPEN"}}}
 {"id":"nm_ca55c297e956","kind":"CURRENT","name":"Château Destieux","provenance":"pv_0377fa70c247","subject":"es_00405","validity":{"valid_from":{"kind":"UNKNOWN"},"valid_to":{"kind":"OPEN"}}}
 {"id":"nm_caa110f2f1c8","kind":"CURRENT","name":"Château Franc Mayne","provenance":"pv_0377fa70c247","subject":"es_00411","validity":{"valid_from":{"kind":"UNKNOWN"},"valid_to":{"kind":"OPEN"}}}
 {"id":"nm_cad2a4b05b7a","kind":"CURRENT","name":"Château La Tour Figeac","provenance":"pv_0377fa70c247","subject":"es_00426","validity":{"valid_from":{"kind":"UNKNOWN"},"valid_to":{"kind":"OPEN"}}}
@@ -915,6 +916,7 @@
 {"id":"nm_d40e792bffd6","kind":"CURRENT","name":"Château Moulin Pey-Labrie","provenance":"pv_116ea930fdbf","subject":"es_00335","validity":{"valid_from":{"kind":"UNKNOWN"},"valid_to":{"kind":"OPEN"}}}
 {"id":"nm_d461aa6a9f4e","kind":"CURRENT","name":"Château La Hourcade","provenance":"pv_537d1e191755","subject":"es_00018","validity":{"valid_from":{"kind":"UNKNOWN"},"valid_to":{"kind":"OPEN"}}}
 {"id":"nm_d46e300a15e1","kind":"CURRENT","name":"Château Laffitte Carcasset","provenance":"pv_11f40c267c53","subject":"es_00124","validity":{"valid_from":{"kind":"UNKNOWN"},"valid_to":{"kind":"OPEN"}}}
+{"id":"nm_d4e8b69cfbee","kind":"MARKET_ALIAS","name":"Mongravey Cuvée Spéciale","provenance":"pv_9ba33e140d3e","subject":"wn_00640","validity":{"valid_from":{"kind":"UNKNOWN"},"valid_to":{"kind":"OPEN"}}}
 {"id":"nm_d514e7106fe7","kind":"CURRENT","name":"Château Haut-Madrac","provenance":"pv_6319b09d8794","subject":"wn_00103","validity":{"valid_from":{"kind":"UNKNOWN"},"valid_to":{"kind":"OPEN"}}}
 {"id":"nm_d518c62c4e7b","kind":"CURRENT","name":"Grand Enclos du Château de Cérons","provenance":"pv_6319b09d8794","subject":"wn_00272","validity":{"valid_from":{"kind":"UNKNOWN"},"valid_to":{"kind":"OPEN"}}}
 {"id":"nm_d51c5cd1a1d0","kind":"CURRENT","name":"Château la Valière","provenance":"pv_11f40c267c53","subject":"es_00119","validity":{"valid_from":{"kind":"UNKNOWN"},"valid_to":{"kind":"OPEN"}}}
@@ -973,6 +975,7 @@
 {"id":"nm_e12a2767a69d","kind":"CURRENT","name":"Château Lacombe Noaillac","provenance":"pv_6319b09d8794","subject":"wn_00121","validity":{"valid_from":{"kind":"UNKNOWN"},"valid_to":{"kind":"OPEN"}}}
 {"id":"nm_e1922d953837","kind":"CURRENT","name":"Château Rahoul","provenance":"pv_6319b09d8794","subject":"wn_00363","validity":{"valid_from":{"kind":"UNKNOWN"},"valid_to":{"kind":"OPEN"}}}
 {"id":"nm_e1a91f68f24f","kind":"CURRENT","name":"Château Léoville-Poyferré","provenance":"pv_dcde0cc6132f","subject":"es_00318","validity":{"valid_from":{"kind":"UNKNOWN"},"valid_to":{"kind":"OPEN"}}}
+{"id":"nm_e1c2314d087a","kind":"SOURCE_RENDERING","name":"Cuvée de Mongravey","provenance":"pv_e5d6b7289bb7","subject":"wn_00640","validity":{"valid_from":{"kind":"UNKNOWN"},"valid_to":{"kind":"OPEN"}}}
 {"id":"nm_e24f9ecc535d","kind":"CURRENT","name":"Château Rousseau de Sipian","provenance":"pv_11f40c267c53","subject":"es_00192","validity":{"valid_from":{"kind":"UNKNOWN"},"valid_to":{"kind":"OPEN"}}}
 {"id":"nm_e2c05bf48472","kind":"CURRENT","name":"Château La Tour Haut-Brion","provenance":"pv_e45f5d20b569","subject":"es_00296","validity":{"valid_from":{"kind":"UNKNOWN"},"valid_to":{"kind":"OPEN"}}}
 {"id":"nm_e2de09caccb0","kind":"CURRENT","name":"Château Mouton Rothschild","provenance":"pv_6319b09d8794","subject":"wn_00336","validity":{"valid_from":{"kind":"UNKNOWN"},"valid_to":{"kind":"OPEN"}}}

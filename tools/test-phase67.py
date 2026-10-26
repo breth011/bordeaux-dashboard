@@ -70,6 +70,8 @@ def every_fact_is_a_model_record():
             key_of[r['stable_id']] = r['legacy_key'] + '|grand'
         elif r['namespace'] == 'wine-by-slug' and r.get('stable_id'):
             key_of[r['stable_id']] = r['legacy_key']
+    import historical_m2_scope                    # M3.6D's wine is in no legacy file: the page cannot show it
+    key_of.pop(historical_m2_scope.m36d_wine(), None)
     g = generated()
     assert set(g) == set(key_of.values()), 'one record per wine the page can show'
     names = {n['subject']: n for n in T('identity/names.jsonl') if n['kind'] == 'CURRENT'}
@@ -126,7 +128,10 @@ def every_fact_is_a_model_record():
 def no_history_invented():
     # The model holds no FORMER name and no dated name; so neither does the page's data.
     T = L.read_table
-    assert not [n for n in T('identity/names.jsonl') if n['kind'] != 'CURRENT']
+    import historical_m2_scope                    # M3.6D's two name variants: not former, not dated
+    m36d = historical_m2_scope.m36d_rows('identity/names.jsonl')
+    assert not [n for n in T('identity/names.jsonl') if n['kind'] != 'CURRENT' and n not in m36d]
+    assert not [n for n in T('identity/names.jsonl') if n['kind'] == 'FORMER']
     assert all(n['validity']['valid_from']['kind'] == 'UNKNOWN' for n in T('identity/names.jsonl'))
     assert not T('identity/transitions.jsonl')
     g = generated()

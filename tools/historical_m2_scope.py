@@ -36,6 +36,7 @@ M3.5 (held-document review) links a reviewed held document to the vintage its ow
 model_changes_are_m2_only(before) - the name is kept for its callers - holds when every other model
 file is byte-identical to `before`, and every difference in the files above is one of these.
 """
+import functools
 import hashlib
 import json
 import re
@@ -60,7 +61,13 @@ M36B_ACTOR = 'tools/m36b-apply.py'
 M36B_MAPPINGS = 'data/audit/m3.6b-mapping-application.jsonl'
 M36B_CORRECTIONS = 'data/audit/m3.6b-correction-application.jsonl'
 M36B_EVIDENCE_VERSION = 6
-ALLOWED = set(M2_FILES) | set(M32_FILES) | set(M34B_FILES)
+# M3.6D: one canonical wine (Cuvée Mongravey), its names, its estate relationship and its descriptor
+M36D_ACTOR = 'tools/m36d-cuvee.py'
+M36D_MANIFEST = 'data/audit/m3.6d-cuvee-mongravey.jsonl'
+M36D_STAT = 'M3.6D canonical wines'
+M36D_FILES = ('identity/wines.jsonl', 'identity/names.jsonl', 'identity/identity-map.jsonl',
+              'state/estate-wine.jsonl', 'state/wine-descriptors.jsonl', 'derived/estate-wines.json')
+ALLOWED = set(M2_FILES) | set(M32_FILES) | set(M34B_FILES) | set(M36D_FILES)
 M2_ACTOR = 'tools/extract-document-dates.py'
 M32_ACTOR = 'tools/m32-recovery.py'
 M34B_ACTOR = 'tools/m34b-apply.py'
@@ -266,6 +273,69 @@ def app_files_changed_beyond_m32(changed):
     return rest
 
 
+@functools.lru_cache(maxsize=None)
+def m36d_wine():
+    """The wine M3.6D minted (its wine-by-slug key is on M3.6D's provenance), or None."""
+    prov = {p['id'] for p in L.read_table('cross/provenance.jsonl') if p.get('actor') == M36D_ACTOR}
+    ws = [r['stable_id'] for r in L.read_table('identity/identity-map.jsonl')
+          if r['namespace'] == 'wine-by-slug' and r.get('provenance') in prov]
+    assert len(ws) <= 1, ('M3.6D mints one wine', ws)
+    return ws[0] if ws else None
+
+
+def is_m36d_row(rel, r, prov):
+    """A model row M3.6D added: on M3.6D's provenance, or the minted wine's own row or identity-map key."""
+    p = prov.get(r.get('provenance')) or {}
+    if p.get('actor') == M36D_ACTOR and (p.get('code_state') or {}).get('stream') == 'M3.6D':
+        return True
+    w = m36d_wine()
+    return bool(w) and ((rel == 'identity/wines.jsonl' and r['id'] == w) or
+                        (rel == 'identity/identity-map.jsonl' and r.get('stable_id') == w))
+
+
+def m36d_rows(rel):
+    """The rows of `rel` M3.6D added, in file order."""
+    prov = {p['id']: p for p in L.read_table('cross/provenance.jsonl')}
+    if rel == 'cross/provenance.jsonl':
+        return [p for p in prov.values() if p.get('actor') == M36D_ACTOR]
+    return [r for r in L.read_table(rel) if is_m36d_row(rel, r, prov)]
+
+
+def unchanged_but_m36d(before, *paths):
+    """`git diff before -- paths` (paths under data/model/) is empty but for M3.6D: only its files differ, and
+    with its rows taken out each is exactly as at `before`, line for line and in order. True, or an assertion
+    error naming what else changed."""
+    for f in _git('diff', '--name-only', before, '--', *paths).split():
+        rel = f[len('data/model/'):]
+        assert (rel in M36D_FILES or rel == 'cross/provenance.jsonl') and m36d_wine(), '%s changed, and not by M3.6D' % f
+        old = _git('show', '%s:%s' % (before, f))
+        new = open(L.ROOT + f, encoding='utf-8').read()
+        if rel == 'cross/provenance.jsonl':
+            kept = [x for x in new.splitlines() if json.loads(x).get('actor') != M36D_ACTOR]
+            assert kept == old.splitlines(), '%s changed beyond M3.6D\'s provenance' % f
+        elif rel.endswith('.jsonl'):
+            prov = {p['id']: p for p in L.read_table('cross/provenance.jsonl')}
+            kept = [x for x in new.splitlines() if not is_m36d_row(rel, json.loads(x), prov)]
+            assert kept == old.splitlines(), '%s changed beyond M3.6D\'s rows' % f
+        else:
+            w = m36d_wine()
+            a, b = json.loads(old), json.loads(new)
+            assert {k: [x for x in v if x != w] for k, v in b.items()} == a, '%s changed beyond M3.6D' % f
+    return True
+
+
+def without_m36d(changed, manifest):
+    """An earlier phase's report of the model with M3.6D taken out: its files (which only it changes - no earlier
+    phase touches identity or state) left off the changed list, and its rows subtracted from the manifest's
+    counts. (changed, manifest) unchanged when there is no M3.6D wine."""
+    if not m36d_wine():
+        return changed, manifest
+    files = dict(manifest['files'])
+    for rel in [f for f in M36D_FILES if f.endswith('.jsonl')] + ['cross/provenance.jsonl']:
+        files[rel] = dict(files[rel], rows=files[rel]['rows'] - len(m36d_rows(rel)))
+    return [f for f in changed if f not in M36D_FILES], dict(manifest, files=files)
+
+
 def model_changes_are_m2_only(before):
     changed = [f[len('data/model/'):] for f in _git('diff', '--name-only', before, '--', 'data/model').split()]
     assert set(changed) <= ALLOWED, 'the model changed beyond M2 and M3.2: %s' % sorted(set(changed) - ALLOWED)
@@ -280,6 +350,8 @@ def model_changes_are_m2_only(before):
                          and (r.get('code_state') or {}).get('stream') == 'M3.5') or
                         (r['kind'] == 'DOCUMENT' and r['actor'] == M36B_ACTOR
                          and (r.get('code_state') or {}).get('stream') == 'M3.6B') or
+                        (r['kind'] in ('DOCUMENT', 'DERIVATION') and r['actor'] == M36D_ACTOR
+                         and (r.get('code_state') or {}).get('stream') == 'M3.6D') or
                         (r['kind'] == 'DERIVATION' and r['actor'] == M32_ACTOR
                          and (r.get('code_state') or {}).get('stream') == 'M3.2D')),
                        ('reconciliation/reconciliations.jsonl',
@@ -306,6 +378,21 @@ def model_changes_are_m2_only(before):
         for k in set(old) | set(new):
             o, n = set(old.get(k, [])), set(new.get(k, []))
             assert o <= n and {(k, a) for a in n - o} <= linked, ('derived/vintage-documents.json', k, sorted(o - n))
+    # M3.6D: its wine, names, identity keys, relationship and descriptor added, every existing row kept
+    for rel in M36D_FILES:
+        if rel not in changed or not rel.endswith('.jsonl'):
+            continue
+        old, new = _lines(before, rel)
+        o, n = set(old.splitlines()), set(new.splitlines())
+        assert o <= n, '%s: %d rows changed or removed' % (rel, len(o - n))
+        bad = [r for r in (json.loads(x) for x in n - o) if not is_m36d_row(rel, r, prov)]
+        assert not bad, '%s: an added row is not M3.6D\'s: %s' % (rel, bad[:1])
+    if 'derived/estate-wines.json' in changed:
+        old, new = (json.loads(x) for x in _lines(before, 'derived/estate-wines.json'))
+        w = m36d_wine()
+        moved = {k for k in set(old) | set(new) if old.get(k) != new.get(k)}
+        assert all(set(new[k]) - set(old.get(k, [])) == {w} and set(old.get(k, [])) <= set(new[k]) for k in moved), \
+            ('derived/estate-wines.json changed beyond M3.6D', sorted(moved))
     # M3.2B: URL placements (and their locators) added, each with an M3.2B provenance
     for rel in ('document/placements.jsonl', 'document/locators.jsonl'):
         if rel not in changed:
@@ -364,9 +451,12 @@ def model_changes_are_m2_only(before):
                 a_all, b_all = _sourced_moved(old[k]), _sourced_moved(new[k])
                 for st in set(a_all) | set(b_all):
                     a, b = dict(a_all.get(st, {})), dict(b_all.get(st, {}))
-                    for s in (M2_STAT, M32B_STAT, M32D_STAT, M34B_STAT, M35_STAT, M36B_STAT):
+                    for s in (M2_STAT, M32B_STAT, M32D_STAT, M34B_STAT, M35_STAT, M36B_STAT, M36D_STAT):
                         a.pop(s, None)
                         b.pop(s, None)
+                    if st == 'M4' and m36d_wine() and 'display names' in b:
+                        # M3.6D's wine resolves one more display name (its own, in its estate)
+                        b['display names'] = dict(b['display names'], resolved=b['display names']['resolved'] - 1)
                     assert a == b, 'manifest stats %s changed' % st
             else:
                 assert old.get(k) == new.get(k), 'manifest %s changed' % k

@@ -193,7 +193,10 @@ def c14_no_historical_claims():
     fields = {'claimed_validity', 'claimed_window', 'statement_mode'}
     found = [o['id'] for o in L.read_table('observation/observations.jsonl') if fields & set(o)]
     assert not found, found[:3]
-    assert all(n['kind'] == 'CURRENT' for n in L.read_table('identity/names.jsonl'))
+    m36d = H.m36d_rows('identity/names.jsonl')         # M3.6D's two name variants: not former, not dated
+    assert all(n['kind'] == 'CURRENT' for n in L.read_table('identity/names.jsonl') if n not in m36d)
+    assert all(n['kind'] in ('CURRENT', 'SOURCE_RENDERING', 'MARKET_ALIAS')
+               and n['validity'] == {'valid_from': {'kind': 'UNKNOWN'}, 'valid_to': {'kind': 'OPEN'}} for n in m36d)
 
 
 @check

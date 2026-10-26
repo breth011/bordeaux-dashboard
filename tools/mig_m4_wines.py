@@ -27,6 +27,7 @@ candidates); with none, a white Wine is minted with name_status UNKNOWN
 (D8: the names found in Phase 3.4 are not applied).
 """
 import collections
+import os
 import re
 import unicodedata
 
@@ -36,6 +37,8 @@ import mig_m2_identity as M2
 
 ACTOR = 'tools/migrate.py M4'
 TYPE = {'red': 'RED', 'white': 'WHITE_DRY', 'sweet': 'WHITE_SWEET', 'rose': 'ROSE'}
+M36D = 'data/audit/m3.6d-cuvee-mongravey.jsonl'
+M36D_ACTOR = 'tools/m36d-cuvee.py'
 
 
 def current():
@@ -201,6 +204,59 @@ def graves_white(m):
     m.stat('M4', "Graves 'red and white' white wines", dict(sorted(out.items())))
 
 
+def m36d_cuvee(m):
+    """M3.6D: Cuvée Mongravey, the canonical wine M3.6C's identity review supports. Read from the audited
+    manifest's applied facts only (tools/m36d-cuvee.py), each with a DOCUMENT provenance naming the held
+    document and its words: one Wine (type as its documents give it, on the provenance it is minted
+    with), its names, PRODUCED_BY - current, start unknown, like every other relationship - and a
+    WineDescriptor. No RankAssertion: nobody ranks it. Its stated first vintage is a historical claim the
+    manifest records and does not apply (Historical M3's gate). No vintage, figure or attribution."""
+    m.m36d = None
+    if not os.path.exists(L.ROOT + M36D):
+        return
+    facts = collections.defaultdict(list)
+    for r in L.jsonl_lines(L.ROOT + M36D):
+        if r['applied']:
+            facts[r['fact']].append(r)
+    assert 'first_vintage' not in facts, 'M3.6D: a dated claim waits for the historical gate'
+    (key,) = {r['wine_key'] for rs in facts.values() for r in rs}
+    lid = key.split('|')[0]
+    eid = m.estate[lid]
+
+    def doc(r):
+        return m.prov('DOCUMENT', M36D_ACTOR, artifact=r['artifact'], quote=r['quote'],
+                      code_state={'stream': 'M3.6D', 'manifest': M36D, 'fact': r['fact'],
+                                  'm36c_record': r['m36c_record'], 'sha256': r['sha256']})
+    (wtype,) = {r['value']['type'] for r in facts['type']}
+    p_wine = m.prov('DERIVATION', M36D_ACTOR, quote='one Wine for the audited M3.6D decision; type %s as its '
+                    'documents give it' % wtype, derived_from=sorted(doc(r) for r in facts['type']),
+                    code_state={'stream': 'M3.6D', 'manifest': M36D})
+    wid = m.mint('Wine', 'wine-by-slug', key)
+    m.add('identity/wines.jsonl', {'id': wid, 'name_status': 'KNOWN', 'type': wtype})
+    M2.idmap(m, 'wine-by-slug', key, wid, p_wine)
+    current_name = None
+    for r in facts['name']:
+        n = r['value']
+        m.add('identity/names.jsonl', {
+            'id': S.hid('NameRecord', wid, n['name'], n['kind']), 'subject': wid, 'name': n['name'],
+            'kind': n['kind'], 'validity': current(), 'provenance': doc(r)})
+        if n['kind'] == 'CURRENT':
+            current_name = n['name']
+    (est,) = facts['estate']
+    assert est['value']['estate'] == eid
+    rel = S.hid('EstateWineRelationship', eid, wid, est['value']['kind'])
+    m.add('state/estate-wine.jsonl', {
+        'id': rel, 'estate': eid, 'wine': wid, 'status': 'ESTABLISHED', 'kind': est['value']['kind'],
+        'validity': current(), 'provenance': doc(est)})
+    for r in facts['descriptor']:
+        d = r['value']
+        m.add('state/wine-descriptors.jsonl', {
+            'id': S.hid('WineDescriptor', wid, d['kind'], d['source_term']), 'wine': wid, 'kind': d['kind'],
+            'source_term': d['source_term'], 'validity': current(), 'provenance': doc(r)})
+    m.m36d = (lid, current_name, wid)
+    m.stat('M4', 'M3.6D canonical wines', 1)
+
+
 def display_names(m):
     """(estate, display name) -> wine: what evidence target_wine resolves through."""
     names = collections.defaultdict(set)
@@ -210,6 +266,9 @@ def display_names(m):
     for (lid, slug), wid in m.cuvee.items():
         w = next(x for x in L.g('BDX_CUVEE_WINES')[lid] if x['slug'] == slug)
         names[(lid, w['name'])].add(wid)
+    if m.m36d:
+        lid, name, wid = m.m36d
+        names[(lid, name)].add(wid)
     # The estate files' second strings resolve as M4 resolved them.
     second = {}
     for r in m.rows('identity/identity-map.jsonl'):
@@ -252,4 +311,5 @@ def run(m):
     cuvee_wines(m)
     second_field(m)
     graves_white(m)
+    m36d_cuvee(m)
     display_names(m)

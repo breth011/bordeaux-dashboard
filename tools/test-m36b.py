@@ -101,7 +101,7 @@ def couhins_lurton_colour_is_preserved():
     cl = [r for r in MANIFEST if r['wine_name'] == 'Château Couhins-Lurton']
     assert len(cl) == 3 and {r['colour'] for r in cl} == {'WHITE'}
     assert A.by_id('identity/wines.jsonl')['wn_00241']['type'] == 'WHITE_DRY'
-    assert not git('diff', '--stat', BEFORE, '--', 'data/model/identity').strip()            # no wine created or retyped
+    assert H.unchanged_but_m36d(BEFORE, 'data/model/identity')   # no wine created or retyped (M3.6D's, later, aside)
 
 
 @check
@@ -185,7 +185,7 @@ def replacements_are_preserved_and_none_invented():
     for r in CORR:
         if not r['replacement']['decision']:
             assert not r['document_is']['model_wines'] and V6[r['superseded_by']]['document_is']['unlisted']
-    assert not git('diff', '--stat', BEFORE, '--', 'data/model/identity', 'data/model/state').strip()   # no wine created
+    assert H.unchanged_but_m36d(BEFORE, 'data/model/identity', 'data/model/state')   # no wine created (M3.6D's aside)
 
 
 @check
@@ -222,9 +222,10 @@ def the_report_states_the_gate():
 def historical_evidence_and_everything_else_unchanged():
     H.evidence_changes_are_m36b_only(BEFORE)
     assert H.evidence_versions_before_m36b() == [1, 2, 3, 4, 5] and H.evidence_rows_before_m36b() == 177127
+    H.unchanged_but_m36d(BEFORE, 'data/model/identity', 'data/model/state')   # M3.6D's wine, later, aside
     assert not git('diff', '--stat', BEFORE, '--', 'data/model/canonical', 'data/model/observation',
-                   'data/model/reconciliation', 'data/model/cross/findings.jsonl', 'data/model/identity',
-                   'data/model/state', 'data/app', ':(glob)data/*.js', 'data/sources.json', 'data/discovery',
+                   'data/model/reconciliation', 'data/model/cross/findings.jsonl',
+                   'data/app', ':(glob)data/*.js', 'data/sources.json', 'data/discovery',
                    'data/history', 'data/review', 'data/scope', 'assets', 'index.html').strip()
     f = L.read_table('cross/findings.jsonl')
     assert sum(1 for x in f if x['kind'] == 'AMBIGUOUS_SEMANTICS' and x['status'] == 'OPEN') == 179      # D1

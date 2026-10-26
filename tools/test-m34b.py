@@ -117,7 +117,7 @@ def every_mapping_points_to_the_expected_artifact():
 
 @check
 def artifact_hashes_are_unchanged():
-    assert not git('diff', '--stat', BEFORE, '--', 'data/model/identity').strip(), 'an identity table changed'
+    assert H.unchanged_but_m36d(BEFORE, 'data/model/identity'), 'an identity table changed'   # but for M3.6D's wine
     arts = A.by_id('identity/artifacts.jsonl')
     for r in ROWS:
         assert arts[r['artifact']]['sha256'] == r['sha256'] == PROV[
@@ -156,7 +156,8 @@ def provenance_is_preserved():
         L.MODEL + 'cross/provenance.jsonl', encoding='utf-8').read().splitlines()
     assert set(old) <= set(new), 'a provenance row changed or was removed'
     added = [json.loads(x) for x in set(new) - set(old)]
-    assert sorted(p['id'] for p in added) == sorted(a['provenance'] for a in MINE + LATER)
+    assert sorted(p['id'] for p in added) == sorted([a['provenance'] for a in MINE + LATER] +
+                                                    [p['id'] for p in H.m36d_rows('cross/provenance.jsonl')])   # and M3.6D's
     for a in MINE:
         p = PROV[a['provenance']]
         r = next(x for x in ROWS if x['attribution'] == a['id'])
@@ -186,7 +187,8 @@ def estate_wine_vintage_identity_is_exact():
 @check
 def no_open_identity_decision_changed():
     assert not git('diff', '--stat', BEFORE, '--', 'data/model/cross/findings.jsonl',
-                   'data/model/identity/transitions.jsonl', 'data/model/state').strip()
+                   'data/model/identity/transitions.jsonl').strip()
+    H.unchanged_but_m36d(BEFORE, 'data/model/state')          # state: M3.6D's relationship and descriptor only
     assert not L.read_table('identity/transitions.jsonl')
     f = L.read_table('cross/findings.jsonl')
     assert sum(1 for x in f if x['kind'] == 'AMBIGUOUS_SEMANTICS' and x['status'] == 'OPEN') == 179   # D1
@@ -200,14 +202,17 @@ def no_open_identity_decision_changed():
 
 @check
 def no_figure_or_value_was_added():
-    changed = set(git('diff', '--name-only', BEFORE, '--', 'data/model').split())
+    # M3.6D's wine set aside: its files hold only its rows beside what was there (unchanged_but_m36d)
+    H.unchanged_but_m36d(BEFORE, *('data/model/' + f for f in H.M36D_FILES))
+    changed = set(git('diff', '--name-only', BEFORE, '--', 'data/model').split()) - {'data/model/' + f for f in H.M36D_FILES}
     assert changed == {'data/model/' + f for f in ('document/attributions.jsonl', 'cross/provenance.jsonl',
                                                     'derived/vintage-documents.json', 'manifest.json')}, sorted(changed)
     assert not git('diff', '--stat', BEFORE, '--', 'data/app', ':(glob)data/*.js', 'data/sources.json', 'data/history',
                    'data/review', 'data/scope', 'data/discovery', 'assets', 'index.html').strip()
     H.model_changes_are_m2_only(BEFORE)
     m0, m1 = json.loads(at_before('data/model/manifest.json')), json.load(open(L.MODEL + 'manifest.json', encoding='utf-8'))
-    assert {k: v['rows'] for k, v in m1['files'].items() if m0['files'].get(k) != v} == {
+    _, m1 = H.without_m36d([], m1)                            # M3.6D's rows subtracted
+    assert {k: v['rows'] for k, v in m1['files'].items() if m0['files'].get(k) != v and k not in H.M36D_FILES} == {
         'cross/provenance.jsonl': m0['files']['cross/provenance.jsonl']['rows'] + 39 + len(LATER),
         'document/attributions.jsonl': m0['files']['document/attributions.jsonl']['rows'] + 39 + len(LATER)}
     assert m1['stats']['M6']['M3.4B audited mappings'] == 39

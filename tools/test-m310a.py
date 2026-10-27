@@ -109,24 +109,29 @@ def t05_registration_is_not_attribution():
     for r in rows('registration') + rows('result'):
         assert (r['evidence_decision'], r['attribution'], r['value_application']) == ('NONE', 'NONE', 'NONE')
     ids = {r['artifact'] for r in rows('result')}
-    assert not [a for a in L.read_table('document/attributions.jsonl') if a.get('artifact') in ids]
+    prov = {p['id']: p for p in L.read_table('cross/provenance.jsonl')}
+    # M3.10B's attributions, a later phase, are the only ones: registration made none
+    assert all(H.is_m310b_attribution(a, prov) for a in L.read_table('document/attributions.jsonl')
+               if a.get('artifact') in ids)
     assert not [o for o in L.read_table('observation/observations.jsonl') if o.get('artifact') in ids]
     assert not [e for e in L.read_table('observation/evidence-links.jsonl') if e.get('artifact') in ids]
     names = {os.path.basename(g['url']) for g in rows('registration')}
     import evidence_store as ST
-    assert ST.versions() == [1, 2, 3, 4, 5, 6, 7, 8] and ST.verify() == []
-    assert not [d for d in ST.iter_rows(ST.versions()) if d.get('artifact') in names
+    assert [v for v in ST.versions() if v != H.M310B_EVIDENCE_VERSION] == [1, 2, 3, 4, 5, 6, 7, 8] and ST.verify() == []
+    assert not [d for d in ST.iter_rows([v for v in ST.versions() if v != H.M310B_EVIDENCE_VERSION])
+                if d.get('artifact') in names
                 or (d.get('read') or {}).get('sha256') in {g['sha256'] for g in rows('registration')}]
 
 
 @check
 def t06_only_the_registration_moved_in_the_model():
     changed = {f[len('data/model/'):] for f in git('diff', '--name-only', BEFORE, '--', 'data/model').split()}
-    assert changed <= set(H.M310A_FILES), sorted(changed - set(H.M310A_FILES))
+    later = set(H.M310B_FILES)                       # M3.10B's attributions, a later phase, set aside
+    assert changed <= set(H.M310A_FILES) | later, sorted(changed - set(H.M310A_FILES) - later)
     H.unchanged_but_m310a(BEFORE, 'data/model')
     for rel in ('canonical/values.jsonl', 'observation/observations.jsonl', 'reconciliation/reconciliations.jsonl',
-                'document/attributions.jsonl', 'identity/wines.jsonl', 'identity/vintages.jsonl',
-                'observation/evidence-links.jsonl', 'derived/vintage-documents.json', 'derived/source-documents.json'):
+                'identity/wines.jsonl', 'identity/vintages.jsonl',
+                'observation/evidence-links.jsonl', 'derived/source-documents.json'):
         assert rel not in changed, rel
     old, new = (json.loads(t) for t in (git('show', '%s:data/model/manifest.json' % BEFORE),
                                          open(L.MODEL + 'manifest.json', encoding='utf-8').read()))
@@ -136,7 +141,8 @@ def t06_only_the_registration_moved_in_the_model():
 
 @check
 def t07_discovery_evidence_gap_and_app_unchanged():
-    paths = ('data/discovery', 'tools/discover.py', 'tools/discover_extract.py', 'data/evidence', 'data/app',
+    H.evidence_unchanged_but_m310b(BEFORE)           # M3.10B's v9, a later phase
+    paths = ('data/discovery', 'tools/discover.py', 'tools/discover_extract.py', 'data/app',
              'data/audit/data-gap-register.jsonl', 'data/sources.json', 'data/websites.js', ':(glob)data/*.js',
              'assets', 'index.html', 'data/audit/m3.8-acquisition-pilot.jsonl',
              'data/audit/m3.9-evidence-review.jsonl', 'data/audit/m3.7-source-confirmation.jsonl', *READER)

@@ -156,13 +156,14 @@ def t08_the_stored_bytes_are_what_the_audit_says():
 @check
 def t09_model_evidence_gap_and_app_unchanged():
     __import__('historical_m2_scope').unchanged_but_m310a(BEFORE, 'data/model')   # M3.10A, a later phase
-    paths = ('data/evidence', 'data/app', 'data/sources.json', 'data/websites.js', ':(glob)data/*.js',
+    __import__('historical_m2_scope').evidence_unchanged_but_m310b(BEFORE)   # M3.10B's v9, a later phase
+    paths = ('data/app', 'data/sources.json', 'data/websites.js', ':(glob)data/*.js',
              'assets', 'index.html', 'data/audit/data-gap-register.jsonl', 'data/audit/m3.7-source-confirmation.jsonl',
              'data/discovery')
     assert not git('diff', '--stat', BEFORE, '--', *paths).strip()
     assert not git('status', '--porcelain', '--', *paths).strip()
     import evidence_store as ST
-    assert ST.versions() == [1, 2, 3, 4, 5, 6, 7, 8] and ST.verify() == []
+    assert [v for v in ST.versions() if v != __import__('historical_m2_scope').M310B_EVIDENCE_VERSION] == [1, 2, 3, 4, 5, 6, 7, 8] and ST.verify() == []
 
 
 def main():

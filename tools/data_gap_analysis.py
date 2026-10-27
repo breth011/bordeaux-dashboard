@@ -371,7 +371,9 @@ def accepted_by_sha():
 M34B_ACTOR = 'tools/m34b-apply.py'
 M35_ACTOR = 'tools/m35-review.py'
 M36B_ACTOR = 'tools/m36b-apply.py'
-LATER_ACTORS = (M34B_ACTOR, M35_ACTOR, M36B_ACTOR)      # the phases that link documents to vintages after the audits
+M310B_ACTOR = 'tools/m310b-accept.py'
+# the phases that link documents to vintages after the audits (M3.10B's resolution is recorded once its commit exists)
+LATER_ACTORS = (M34B_ACTOR, M35_ACTOR, M36B_ACTOR, M310B_ACTOR)
 
 
 def later_attributions(actors=LATER_ACTORS):

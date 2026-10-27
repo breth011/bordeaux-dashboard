@@ -215,7 +215,7 @@ def t12_every_new_fact_has_its_provenance():
 def t13_only_m36d_changed_the_model_and_nothing_else_moved():
     import historical_m2_scope as H                 # M3.6F's vintages and values, a later phase: additions, set aside
     changed = set(git('diff', '--name-only', BEFORE, '--', 'data/model').split())
-    assert {c[len('data/model/'):] for c in changed} <= M36D_TABLES | set(H.M36F_FILES) | set(H.M310A_FILES), sorted(changed)
+    assert {c[len('data/model/'):] for c in changed} <= M36D_TABLES | set(H.M36F_FILES) | set(H.M310A_FILES) | set(H.M310B_FILES), sorted(changed)
     H.unchanged_but_m310a(BEFORE, *('data/model/' + f for f in ('identity/artifacts.jsonl', 'document/placements.jsonl', 'document/locators.jsonl')))   # M3.10A, a later phase
     H.unchanged_but_m36d(BEFORE, *('data/model/' + f for f in H.M36F_FILES))
     for rel in M36D_TABLES - {'manifest.json', 'derived/estate-wines.json'}:

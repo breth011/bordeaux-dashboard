@@ -20,8 +20,8 @@
   },
   "cross/provenance.jsonl": {
    "entity": "Provenance",
-   "rows": 27203,
-   "sha256": "2027930fdd4828722d41df5ad3e4f2ee254531d985b62464ff7021bd0962413a"
+   "rows": 27207,
+   "sha256": "982db87b4244b42426712a425ba5bb80c05a911826c5a102d11c81b2bab3b1a9"
   },
   "document/artifact-dates.jsonl": {
    "entity": "ArtifactDate",
@@ -40,8 +40,8 @@
   },
   "document/attributions.jsonl": {
    "entity": "Attribution",
-   "rows": 12207,
-   "sha256": "e98c007214cc1fe35442f7e1535e585ff19f873f24a98a0d66fe061f1222516e"
+   "rows": 12211,
+   "sha256": "9c03c1d4c2e13c4512d799f5f63ae69ae85056f12003ac31b1d8b83f88e8a9be"
   },
   "document/families.jsonl": {
    "entity": "DocumentFamily",
@@ -354,7 +354,8 @@
    "M3.10A placements (externally acquired documents)": 4,
    "M3.4B audited mappings": 39,
    "M3.5 held-document attributions": 32,
-   "M3.6B audited web-page mappings": 8
+   "M3.6B audited web-page mappings": 8,
+   "M3.10B accepted external documents": 4
   },
   "M7": {
    "backfill": {

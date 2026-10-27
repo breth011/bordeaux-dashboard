@@ -345,6 +345,34 @@ def external_placements(m):
     m.stat('M6', 'M3.10A placements (externally acquired documents)', n)
 
 
+M310B = 'data/audit/m3.10b-evidence-decisions.jsonl'
+M310B_ACTOR = 'tools/m310b-accept.py'
+
+
+def m310b_attributions(m):
+    """M3.10B: a registered, externally acquired document linked to the wine and vintage its own text
+    establishes, as M3.6B's pages are. Read from the manifest's APPLIED decision rows only - M3.9's SAFE_TO_MAP
+    documents of Durfort-Vivens, each with its v9 ACCEPTED evidence decision. One Attribution per row (method
+    DOCUMENT_TEXT, status ACCEPTED, role FIRST); its DOCUMENT provenance names that decision."""
+    if not os.path.exists(L.ROOT + M310B):
+        return
+    n = 0
+    for r in L.jsonl_lines(L.ROOT + M310B):
+        if r['record'] != 'decision' or r['result'] != 'APPLIED':
+            continue
+        pid = m.prov('DOCUMENT', M310B_ACTOR, artifact=r['artifact'], quote=r['supporting_evidence'],
+                     code_state={'stream': 'M3.10B', 'manifest': M310B, 'candidate': r['candidate'],
+                                 'evidence_decisions': [r['evidence_decision']], 'evidence_version': r['evidence_version'],
+                                 'identity_source': r['identity_source'], 'vintage_source': r['vintage_source'],
+                                 'sha256': r['sha256']})
+        m.add('document/attributions.jsonl', {
+            'id': r['attribution'], 'artifact': r['artifact'], 'estate': r['estate'], 'wine': r['wine'],
+            'vintage': r['vintage_id'], 'role': r['role'], 'method': 'DOCUMENT_TEXT', 'status': 'ACCEPTED',
+            'provenance': pid})
+        n += 1
+    m.stat('M6', 'M3.10B accepted external documents', n)
+
+
 MAPPINGS = 'data/audit/m3.4b-mapping-application.jsonl'
 MAPPINGS_ACTOR = 'tools/m34b-apply.py'
 
@@ -387,6 +415,7 @@ def run(m):
     audited_mappings(m)
     held_document_attributions(m)
     m36b_mappings(m)
+    m310b_attributions(m)
 
 
 HELD_REVIEW = 'data/audit/m3.5-held-document-review.jsonl'

@@ -829,6 +829,7 @@
 {"artifact":"ar_011069","estate":"es_00255","id":"at_117f63b6c522","method":"LEGACY_UNKNOWN","provenance":"pv_67c9800d7983","status":"LEGACY"}
 {"artifact":"ar_008673","estate":"es_00169","id":"at_118095eefd94","method":"LEGACY_UNKNOWN","provenance":"pv_6a8f3a8ae9ae","status":"LEGACY"}
 {"artifact":"ar_010888","estate":"es_00225","id":"at_118776647f30","method":"LEGACY_UNKNOWN","provenance":"pv_6de3d6d9484f","role":"FIRST","status":"LEGACY","vintage":"vt:wn_00225:2022","wine":"wn_00225"}
+{"artifact":"ar_037071","estate":"es_00263","id":"at_118b7dcaeeb1","method":"DOCUMENT_TEXT","provenance":"pv_8a32edf458e4","role":"FIRST","status":"ACCEPTED","vintage":"vt:wn_00263:2024","wine":"wn_00263"}
 {"artifact":"ar_007753","estate":"es_00249","id":"at_118d051ae04a","method":"LEGACY_UNKNOWN","provenance":"pv_602dcc78c07c","role":"UNKNOWN","status":"LEGACY","vintage":"vt:wn_00496:2016","wine":"wn_00496"}
 {"artifact":"ar_011109","estate":"es_00278","id":"at_118d7b81706d","method":"LEGACY_UNKNOWN","provenance":"pv_771f4f0322a4","status":"LEGACY"}
 {"artifact":"ar_000870","estate":"es_00281","id":"at_119728b45382","method":"LEGACY_UNKNOWN","provenance":"pv_059a5345f1e3","role":"UNKNOWN","status":"LEGACY"}
@@ -6902,6 +6903,7 @@
 {"artifact":"ar_006888","estate":"es_00278","id":"at_91ba573ad5a1","method":"LEGACY_UNKNOWN","provenance":"pv_3da2cf9cb6a2","status":"LEGACY"}
 {"artifact":"ar_005148","estate":"es_00283","id":"at_91bc6c46f97c","method":"LEGACY_UNKNOWN","provenance":"pv_343aed63a7f7","role":"FIRST","status":"LEGACY","vintage":"vt:wn_00283:2006","wine":"wn_00283"}
 {"artifact":"ar_006460","estate":"es_00275","id":"at_91c4b711bb25","method":"LEGACY_UNKNOWN","provenance":"pv_f48e888e05cc","role":"SECOND","status":"LEGACY","vintage":"vt:wn_00516:2014","wine":"wn_00516"}
+{"artifact":"ar_037070","estate":"es_00263","id":"at_91c573288977","method":"DOCUMENT_TEXT","provenance":"pv_266f7283e697","role":"FIRST","status":"ACCEPTED","vintage":"vt:wn_00263:2021","wine":"wn_00263"}
 {"artifact":"ar_010035","estate":"es_00249","id":"at_91c840113433","method":"LEGACY_UNKNOWN","provenance":"pv_dad072eb9bec","role":"SECOND","status":"LEGACY","vintage":"vt:wn_00496:2006","wine":"wn_00496"}
 {"artifact":"ar_002154","estate":"es_00073","id":"at_91ca5141702e","method":"LEGACY_UNKNOWN","provenance":"pv_eb7df65751e3","status":"LEGACY"}
 {"artifact":"ar_007672","estate":"es_00262","id":"at_91d293a4cb62","method":"LEGACY_UNKNOWN","provenance":"pv_fd5d64876972","status":"LEGACY"}
@@ -7242,6 +7244,7 @@
 {"artifact":"ar_001624","estate":"es_00275","id":"at_98de15bbcc64","method":"LEGACY_UNKNOWN","provenance":"pv_75ad7e79f686","role":"SECOND","status":"LEGACY","vintage":"vt:wn_00516:2007","wine":"wn_00516"}
 {"artifact":"ar_002507","estate":"es_00292","id":"at_98e837479c17","method":"LEGACY_UNKNOWN","provenance":"pv_a9a3bf8f962c","role":"FIRST","status":"LEGACY","vintage":"vt:wn_00292:2005","wine":"wn_00292"}
 {"artifact":"ar_005317","estate":"es_00322","id":"at_98f612a87862","method":"LEGACY_UNKNOWN","provenance":"pv_b0c140c07d5c","role":"UNKNOWN","status":"LEGACY","vintage":"vt:wn_00546:2022","wine":"wn_00546"}
+{"artifact":"ar_037069","estate":"es_00263","id":"at_98fa95f00ec5","method":"DOCUMENT_TEXT","provenance":"pv_8d5a21ab5809","role":"FIRST","status":"ACCEPTED","vintage":"vt:wn_00263:2014","wine":"wn_00263"}
 {"artifact":"ar_002251","estate":"es_00445","id":"at_98fbdb644dba","method":"LEGACY_UNKNOWN","provenance":"pv_c33ad2cfbc81","role":"FIRST","status":"LEGACY","vintage":"vt:wn_00433:2020","wine":"wn_00433"}
 {"artifact":"ar_004160","estate":"es_00258","id":"at_98fbebd4c97f","method":"LEGACY_UNKNOWN","provenance":"pv_70b1e6823118","role":"UNKNOWN","status":"LEGACY"}
 {"artifact":"ar_010967","estate":"es_00294","id":"at_9902d7ff3a78","method":"LEGACY_UNKNOWN","provenance":"pv_9bdb1ac7f06e","role":"FIRST","status":"LEGACY","vintage":"vt:wn_00294:2019","wine":"wn_00294"}
@@ -10760,6 +10763,7 @@
 {"artifact":"ar_005903","estate":"es_00258","id":"at_e224eb33f660","method":"LEGACY_UNKNOWN","provenance":"pv_91be7a69010b","role":"SECOND","status":"LEGACY","vintage":"vt:wn_00504:2022","wine":"wn_00504"}
 {"artifact":"ar_001817","estate":"es_00234","id":"at_e22726e187b1","method":"LEGACY_UNKNOWN","provenance":"pv_3e6868c36a1c","status":"LEGACY"}
 {"artifact":"ar_010709","estate":"es_00387","id":"at_e22d41f1523e","method":"LEGACY_UNKNOWN","provenance":"pv_602940255c8a","status":"LEGACY"}
+{"artifact":"ar_037068","estate":"es_00263","id":"at_e232a1fc3cfc","method":"DOCUMENT_TEXT","provenance":"pv_e2f074d1686e","role":"FIRST","status":"ACCEPTED","vintage":"vt:wn_00263:2014","wine":"wn_00263"}
 {"artifact":"ar_006582","estate":"es_00311","id":"at_e232a2d8de6f","method":"LEGACY_UNKNOWN","provenance":"pv_0f922d6f0ac9","status":"LEGACY"}
 {"artifact":"ar_012009","estate":"es_00299","id":"at_e236e550067f","method":"LEGACY_UNKNOWN","provenance":"pv_12e6b5c313b7","role":"FIRST","status":"LEGACY","vintage":"vt:wn_00299:2024","wine":"wn_00299"}
 {"artifact":"ar_003481","estate":"es_00232","id":"at_e239e260e860","method":"LEGACY_UNKNOWN","provenance":"pv_ab8a5a7552b9","status":"LEGACY"}

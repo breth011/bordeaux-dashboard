@@ -68,6 +68,11 @@ M36E_EVIDENCE_VERSION = 7
 # M3.6H: the one Cuvée Mongravey acceptance M3.6E did not see (found by M3.6G), corrected as decider version 8
 M36H_MANIFEST = 'data/audit/m3.6h-cuvee-2015-correction.jsonl'
 M36H_EVIDENCE_VERSION = 8
+# M3.10B: the four documents M3.10A registered, accepted as evidence (decider version 9) and attributed
+M310B_ACTOR = 'tools/m310b-accept.py'
+M310B_MANIFEST = 'data/audit/m3.10b-evidence-decisions.jsonl'
+M310B_EVIDENCE_VERSION = 9
+M310B_STAT = 'M3.10B accepted external documents'
 # M3.6D: one canonical wine (Cuvée Mongravey), its names, its estate relationship and its descriptor
 M36D_ACTOR = 'tools/m36d-cuvee.py'
 M36D_MANIFEST = 'data/audit/m3.6d-cuvee-mongravey.jsonl'
@@ -127,6 +132,23 @@ def m36b_applied():
             if r['result'] == 'APPLIED'}
 
 
+def m310b_applied():
+    """(attribution id, artifact, estate, wine, vintage) of every APPLIED decision row of the M3.10B manifest."""
+    try:
+        rows = L.jsonl_lines(L.ROOT + M310B_MANIFEST)
+    except FileNotFoundError:
+        return set()
+    return {(r['attribution'], r['artifact'], r['estate'], r['wine'], r['vintage_id']) for r in rows
+            if r['record'] == 'decision' and r['result'] == 'APPLIED'}
+
+
+def is_m310b_attribution(a, prov):
+    p = prov.get(a.get('provenance')) or {}
+    return (p.get('kind') == 'DOCUMENT' and p.get('actor') == M310B_ACTOR
+            and (p.get('code_state') or {}).get('stream') == 'M3.10B'
+            and (a['id'], a['artifact'], a.get('estate'), a.get('wine'), a.get('vintage')) in m310b_applied())
+
+
 def is_m36b_attribution(a, prov):
     p = prov.get(a.get('provenance')) or {}
     return (a.get('method') == 'DOCUMENT_TEXT' and a.get('status') == 'ACCEPTED' and a.get('role') == 'FIRST'
@@ -164,6 +186,9 @@ def legacy_attributions(rows, prov):
             continue
         if actor == M36B_ACTOR:
             assert is_m36b_attribution(a, prov), ('an M3.6B attribution not in its manifest', a['id'])
+            continue
+        if actor == M310B_ACTOR:
+            assert is_m310b_attribution(a, prov), ('an M3.10B attribution not in its manifest', a['id'])
             continue
         out.append(a)
     return out
@@ -386,19 +411,32 @@ def is_m310a_row(rel, r, prov):
             (rel == 'document/locators.jsonl' and r.get('kind') == 'URL' and r.get('value') in urls))
 
 
+def is_m310b_row(rel, r, prov):
+    """A model row M3.10B added: an attribution of a registered document, or its DOCUMENT provenance."""
+    if rel == 'cross/provenance.jsonl':
+        return r.get('actor') == M310B_ACTOR and (r.get('code_state') or {}).get('stream') == 'M3.10B'
+    return rel == 'document/attributions.jsonl' and is_m310b_attribution(r, prov)
+
+
+M310B_FILES = ('document/attributions.jsonl', 'derived/vintage-documents.json', 'cross/provenance.jsonl', 'manifest.json')
+
+
 def _without_m310a_manifest(m):
-    """A model manifest with M3.10A's rows taken out of its counts and its stat set aside."""
+    """A model manifest with M3.10A's and M3.10B's rows taken out of its counts and their stats set aside."""
     m = json.loads(json.dumps(m))
     regs = m310a_registrations()
     stats = m.get('stats') or {}
-    if not regs or M310A_STAT not in (stats.get('M6') or {}):
-        return m
-    stats['M6'].pop(M310A_STAT)
-    a = stats['M2'][M310A_ARTIFACT_STAT]
-    stats['M2'][M310A_ARTIFACT_STAT] = [a[0], a[1] - len(regs)]
-    for rel in M310A_FILES:
-        if rel in m.get('files', {}) and rel != 'manifest.json':
-            m['files'][rel] = {'rows': m['files'][rel]['rows'] - len(regs)}
+    if regs and M310A_STAT in (stats.get('M6') or {}):
+        stats['M6'].pop(M310A_STAT)
+        a = stats['M2'][M310A_ARTIFACT_STAT]
+        stats['M2'][M310A_ARTIFACT_STAT] = [a[0], a[1] - len(regs)]
+        for rel in M310A_FILES:
+            if rel in m.get('files', {}) and rel != 'manifest.json':
+                m['files'][rel] = {'rows': m['files'][rel]['rows'] - len(regs)}
+    n = stats.get('M6', {}).pop(M310B_STAT, None)
+    if n:
+        for rel in ('document/attributions.jsonl', 'cross/provenance.jsonl'):
+            m['files'][rel] = {'rows': m['files'][rel]['rows'] - n}
     return m
 
 
@@ -407,19 +445,26 @@ def unchanged_but_m310a(before, *paths):
     its rows taken out each is exactly as at `before`, line for line and in order (the manifest: its counts and
     stat set aside, every file's hash aside). True, or an assertion error naming what else changed."""
     prov = {p['id']: p for p in L.read_table('cross/provenance.jsonl')}
+    later = {(r[4], r[1]) for r in m310b_applied()}            # M3.10B's (vintage, artifact) links
     for f in _git('diff', '--name-only', before, '--', *paths).split():
         rel = f[len('data/model/'):]
-        assert rel in M310A_FILES and m310a_registrations(), '%s changed, and not by M3.10A' % f
+        assert rel in set(M310A_FILES) | set(M310B_FILES) and m310a_registrations(), '%s changed, and not by M3.10A' % f
         old = _git('show', '%s:%s' % (before, f))
         new = open(L.ROOT + f, encoding='utf-8').read()
         if rel == 'manifest.json':
             a, b = (_without_m310a_manifest(json.loads(t)) for t in (old, new))
             for d in (a, b):
                 d['files'] = {k: {'rows': v['rows']} for k, v in d['files'].items()}
-            assert a == b, '%s changed beyond M3.10A' % f
+            assert a == b, '%s changed beyond M3.10A and M3.10B' % f
             continue
-        kept = [[x for x in t.splitlines() if not is_m310a_row(rel, json.loads(x), prov)] for t in (new, old)]
-        assert kept[0] == kept[1], '%s changed beyond M3.10A\'s rows' % f
+        if rel == 'derived/vintage-documents.json':
+            a, b = ({k: [x for x in v if (k, x) not in later] for k, v in json.loads(t).items()} for t in (old, new))
+            a, b = ({k: v for k, v in d.items() if v} for d in (a, b))
+            assert a == b, '%s changed beyond M3.10B\'s links' % f
+            continue
+        kept = [[x for x in t.splitlines() if not is_m310a_row(rel, json.loads(x), prov)
+                 and not is_m310b_row(rel, json.loads(x), prov)] for t in (new, old)]
+        assert kept[0] == kept[1], '%s changed beyond M3.10A\'s and M3.10B\'s rows' % f
     return True
 
 
@@ -429,8 +474,8 @@ def unchanged_but_m36d(before, *paths):
     error naming what else changed."""
     for f in _git('diff', '--name-only', before, '--', *paths).split():
         rel = f[len('data/model/'):]
-        if rel in M310A_FILES and rel not in CUVEE_FILES and rel != 'cross/provenance.jsonl':
-            unchanged_but_m310a(before, f)            # M3.10A's registrations, a later phase, set aside alike
+        if rel in set(M310A_FILES) | set(M310B_FILES) and rel not in CUVEE_FILES and rel != 'cross/provenance.jsonl':
+            unchanged_but_m310a(before, f)            # M3.10A's and M3.10B's rows, later phases, set aside alike
             continue
         assert (rel in CUVEE_FILES or rel == 'cross/provenance.jsonl') and m36d_wine(), '%s changed, and not by M3.6D' % f
         old = _git('show', '%s:%s' % (before, f))
@@ -439,7 +484,8 @@ def unchanged_but_m36d(before, *paths):
         if rel == 'cross/provenance.jsonl':
             # `before` may hold M3.6D's rows already (a later phase's check): both sides without them
             kept = [[x for x in t.splitlines() if json.loads(x).get('actor') not in CUVEE_ACTORS
-                     and not is_m310a_row(rel, json.loads(x), prov)] for t in (new, old)]
+                     and not is_m310a_row(rel, json.loads(x), prov) and not is_m310b_row(rel, json.loads(x), prov)]
+                    for t in (new, old)]
             assert kept[0] == kept[1], '%s changed beyond M3.6D\'s provenance' % f
         elif rel.endswith('.jsonl'):
             kept = [[x for x in t.splitlines() if not is_m36d_row(rel, json.loads(x), prov)
@@ -472,6 +518,12 @@ def without_m36d(changed, manifest):
             files[rel] = dict(files[rel], rows=files[rel]['rows'] - n)
         only = ('identity/artifacts.jsonl', 'document/placements.jsonl', 'document/locators.jsonl')
         changed = [f for f in changed if f not in only]
+    # M3.10B's attributions and their provenance, a later linking phase: its rows out of the counts (the files
+    # stay changed: the reports that call this were written after earlier phases' attributions moved them)
+    for rel in ('document/attributions.jsonl', 'cross/provenance.jsonl'):
+        n = sum(1 for r in L.read_table(rel) if is_m310b_row(rel, r, prov))
+        if n:
+            files[rel] = dict(files[rel], rows=files[rel]['rows'] - n)
     return changed, dict(manifest, files=files)
 
 
@@ -493,7 +545,9 @@ def model_changes_are_m2_only(before):
                          and (r.get('code_state') or {}).get('stream') == CUVEE_ACTORS[r['actor']]) or
                         (r['kind'] == 'DERIVATION' and r['actor'] == M32_ACTOR
                          and (r.get('code_state') or {}).get('stream') == 'M3.2D') or
-                        (r['kind'] == 'DOCUMENT' and is_m310a_row('cross/provenance.jsonl', r, {}))),
+                        (r['kind'] == 'DOCUMENT' and is_m310a_row('cross/provenance.jsonl', r, {})) or
+                        (r['kind'] == 'DOCUMENT' and r['actor'] == M310B_ACTOR
+                         and (r.get('code_state') or {}).get('stream') == 'M3.10B')),
                        ('reconciliation/reconciliations.jsonl',
                         lambda r: r['resolver'] in (M32_ACTOR, M36F_ACTOR) and r['rule'] in ('ONLY_CANDIDATE', 'UNANIMOUS')
                         and r['status'] in ('SINGLE', 'AGREED') and 'dispositions' not in r
@@ -512,10 +566,11 @@ def model_changes_are_m2_only(before):
         assert o <= n, 'document/attributions.jsonl: %d rows changed or removed' % len(o - n)
         for x in n - o:
             a = json.loads(x)
-            assert is_m34b_attribution(a, prov) or is_m35_attribution(a, prov) or is_m36b_attribution(a, prov),                 ('not an M3.4B, M3.5 or M3.6B attribution', a['id'])
+            assert is_m34b_attribution(a, prov) or is_m35_attribution(a, prov) or is_m36b_attribution(a, prov) or \
+                is_m310b_attribution(a, prov),                 ('not an M3.4B, M3.5 or M3.6B attribution', a['id'])
     if 'derived/vintage-documents.json' in changed:
         old, new = (json.loads(x) for x in _lines(before, 'derived/vintage-documents.json'))
-        linked = {(r[4], r[1]) for r in m34b_applied() | m35_applied() | m36b_applied()}
+        linked = {(r[4], r[1]) for r in m34b_applied() | m35_applied() | m36b_applied() | m310b_applied()}
         for k in set(old) | set(new):
             o, n = set(old.get(k, [])), set(new.get(k, []))
             assert o <= n and {(k, a) for a in n - o} <= linked, ('derived/vintage-documents.json', k, sorted(o - n))
@@ -612,7 +667,8 @@ def model_changes_are_m2_only(before):
                 for st in set(a_all) | set(b_all):
                     a, b = dict(a_all.get(st, {})), dict(b_all.get(st, {}))
                     had_m36d = M36D_STAT in a                  # `before` already holds M3.6D (a later phase's check)
-                    for s in (M2_STAT, M32B_STAT, M32D_STAT, M34B_STAT, M35_STAT, M36B_STAT, M36D_STAT) + M36F_STATS:
+                    for s in (M2_STAT, M32B_STAT, M32D_STAT, M34B_STAT, M35_STAT, M36B_STAT, M36D_STAT,
+                              M310B_STAT) + M36F_STATS:
                         a.pop(s, None)
                         b.pop(s, None)
                     if st == 'M4' and m36d_wine() and 'display names' in b and not had_m36d:
@@ -710,8 +766,23 @@ def m36h_evidence_rows():
     return rows
 
 
+def m310b_evidence_rows():
+    """v9, verified to be exactly M3.10B's decisions: every row its manifest names, and no other, each an ACCEPTED
+    `guard` row on the bytes M3.10A registered."""
+    import evidence_store as ST
+    import mig_m6_provenance as M6
+    if M310B_EVIDENCE_VERSION not in ST.versions():
+        return []
+    rows = list(ST.iter_rows([M310B_EVIDENCE_VERSION]))
+    keys = [M6.row_key(d) for d in rows]
+    want = {r['evidence_decision'] for r in L.jsonl_lines(L.ROOT + M310B_MANIFEST) if r.get('result') == 'APPLIED'}
+    assert len(keys) == len(set(keys)) and set(keys) == want, 'v9 is not exactly M3.10B\'s decisions'
+    assert all(d.get('kind') == 'guard' and d.get('decision') == 'ACCEPTED' for d in rows), 'a v9 row of another kind'
+    return rows
+
+
 LATER_EVIDENCE_VERSIONS = {M36B_EVIDENCE_VERSION: m36b_evidence_rows, M36E_EVIDENCE_VERSION: m36e_evidence_rows,
-                           M36H_EVIDENCE_VERSION: m36h_evidence_rows}
+                           M36H_EVIDENCE_VERSION: m36h_evidence_rows, M310B_EVIDENCE_VERSION: m310b_evidence_rows}
 
 
 def evidence_versions_before_m36b():
@@ -729,7 +800,9 @@ def latest_before_m36e():
     m36e_evidence_rows()
     m36h_evidence_rows()
     out = {}
-    for d in ST.iter_rows([v for v in ST.versions() if v not in (M36E_EVIDENCE_VERSION, M36H_EVIDENCE_VERSION)]):
+    m310b_evidence_rows()
+    for d in ST.iter_rows([v for v in ST.versions() if v not in (M36E_EVIDENCE_VERSION, M36H_EVIDENCE_VERSION,
+                                                                 M310B_EVIDENCE_VERSION)]):
         k = EV.row_key(d)[:-1]
         if k not in out or (d.get('v') or 0) >= (out[k].get('v') or 0):
             out[k] = d
@@ -759,13 +832,19 @@ def evidence_unchanged_but_m36e(before):
     """data/evidence as at `before` but for M3.6E: decisions-v7.jsonl and index.json's version 7 entry, v7
     exactly M3.6E's decisions; every other file, and every other index entry, byte for byte. M3.6H's v8, a
     later correction, is verified and set aside alike."""
-    return _evidence_unchanged_but(before, (M36E_EVIDENCE_VERSION, M36H_EVIDENCE_VERSION), 'M3.6E')
+    return _evidence_unchanged_but(before, (M36E_EVIDENCE_VERSION, M36H_EVIDENCE_VERSION, M310B_EVIDENCE_VERSION), 'M3.6E')
 
 
 def evidence_unchanged_but_m36h(before):
     """data/evidence as at `before` but for M3.6H: decisions-v8.jsonl and index.json's version 8 entry, v8
     exactly M3.6H's decision; v1-v7 and their index entries byte for byte."""
-    return _evidence_unchanged_but(before, (M36H_EVIDENCE_VERSION,), 'M3.6H')
+    return _evidence_unchanged_but(before, (M36H_EVIDENCE_VERSION, M310B_EVIDENCE_VERSION), 'M3.6H')
+
+
+def evidence_unchanged_but_m310b(before):
+    """data/evidence as at `before` but for M3.10B: decisions-v9.jsonl and index.json's version 9 entry, v9
+    exactly M3.10B's decisions; v1-v8 and their index entries byte for byte."""
+    return _evidence_unchanged_but(before, (M310B_EVIDENCE_VERSION,), 'M3.10B')
 
 
 def evidence_rows_before_m36b():

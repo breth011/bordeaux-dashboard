@@ -128,7 +128,7 @@ def t06_v1_to_v6_are_byte_for_byte():
     H.evidence_unchanged_but_m36e(BEFORE)
     assert not git('diff', '--stat', BEFORE, '--', *['data/evidence/decisions-v%d.jsonl' % v for v in range(1, 7)]).strip()
     # M3.6H's v8, a later correction, verified (by evidence_unchanged_but_m36e) and set aside
-    assert ST.verify() == [] and [v for v in ST.versions() if v != H.M36H_EVIDENCE_VERSION] == [1, 2, 3, 4, 5, 6, 7]
+    assert ST.verify() == [] and [v for v in ST.versions() if v not in (H.M36H_EVIDENCE_VERSION, H.M310B_EVIDENCE_VERSION)] == [1, 2, 3, 4, 5, 6, 7]
     assert H.evidence_versions_before_m36b() == [1, 2, 3, 4, 5] and H.evidence_rows_before_m36b() == 177127
 
 

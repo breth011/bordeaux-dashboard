@@ -110,12 +110,22 @@ def t05_accepted_documents_and_their_figures():
 
 @check
 def t06_the_reader_and_the_evidence_store_unchanged():
-    assert not git('diff', '--stat', BEFORE, '--', *M.READER_FILES, 'tools/evidence.py', 'tools/evidence_store.py',
-                   'tools/m35-review.py', 'tools/m36a-rerun.py').strip()
+    assert not git('diff', '--stat', BEFORE, '--', *M.READER_FILES, 'tools/evidence.py', 'tools/evidence_store.py').strip()
+    # the review pipeline's two orchestration files differ only where they set M3.10B's documents aside, as
+    # they set M3.6B's (vintage_documents' later phases): no rule, no reading
+    lines = [x for x in git('diff', '-U0', BEFORE, '--', 'tools/m35-review.py', 'tools/m36a-rerun.py').splitlines()
+             if x[:1] in '+-' and not x.startswith(('+++', '---'))]
+    assert all('A.vintage_documents((' in x for x in lines), lines[:2]
+    assert all('M310B_ACTOR' in x for x in lines if x.startswith('+')), lines[:2]
+    def norm(x):        # the line without the added actor, a tuple's trailing comma or the comment's addition
+        x = ''.join(x[1:].replace(' and later ones', '').split())
+        return x.replace(',A.M310B_ACTOR', '').replace(',)', ')')
+    assert [norm(x) for x in lines if x.startswith('+')] == [norm(x) for x in lines if x.startswith('-')], \
+        'beyond the set-aside'
     [scope] = audit('scope')
     assert scope['reader_fingerprint'] == M.EV.reader_fingerprint()
     import evidence_store as ST
-    assert ST.versions() == [1, 2, 3, 4, 5, 6, 7, 8] and ST.verify() == []
+    assert [v for v in ST.versions() if v != __import__('historical_m2_scope').M310B_EVIDENCE_VERSION] == [1, 2, 3, 4, 5, 6, 7, 8] and ST.verify() == []
     [s] = audit('summary')
     assert s['evidence_decisions_written'] == 0 and s['model_changes'] == 0
 
@@ -123,7 +133,8 @@ def t06_the_reader_and_the_evidence_store_unchanged():
 @check
 def t07_no_model_or_app_mutation():
     __import__('historical_m2_scope').unchanged_but_m310a(BEFORE, 'data/model')   # M3.10A, a later phase
-    paths = ('data/evidence', 'data/app', 'data/sources.json', 'data/websites.js', ':(glob)data/*.js',
+    __import__('historical_m2_scope').evidence_unchanged_but_m310b(BEFORE)   # M3.10B's v9, a later phase
+    paths = ('data/app', 'data/sources.json', 'data/websites.js', ':(glob)data/*.js',
              'assets', 'index.html', 'data/audit/data-gap-register.jsonl', 'data/discovery',
              'data/audit/m3.7-source-confirmation.jsonl', 'data/audit/m3.8-acquisition-pilot.jsonl')
     assert not git('diff', '--stat', BEFORE, '--', *paths).strip()

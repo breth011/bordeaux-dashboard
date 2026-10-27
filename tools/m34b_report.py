@@ -34,7 +34,7 @@ def report(rows, allow):
     for f in ('document/attributions.jsonl', 'cross/provenance.jsonl'):
         m1['files'][f] = dict(m1['files'][f], rows=m1['files'][f]['rows'] - later)
     vd0 = json.loads(_git('show', '%s:data/model/derived/vintage-documents.json' % BEFORE))
-    vd1 = A.vintage_documents((A.M35_ACTOR, A.M36B_ACTOR))
+    vd1 = A.vintage_documents((A.M35_ACTOR, A.M36B_ACTOR, A.M310B_ACTOR))
     vintages = len(A.table('identity/vintages.jsonl'))      # M3.6F's Cuvée vintages, a later decision, set aside
     changed = sorted(f[len('data/model/'):] for f in _git('diff', '--name-only', BEFORE, '--', 'data/model').split())
     import historical_m2_scope as H

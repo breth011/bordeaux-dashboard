@@ -79,12 +79,15 @@ def every_identity_is_exactly_the_audited_one():
 @check
 def no_extra_mapping_exists():
     old = {json.loads(x)['id'] for x in git('show', '%s:data/model/document/attributions.jsonl' % BEFORE).splitlines()}
-    added = sorted(a['id'] for a in ATT if a['id'] not in old)
+    # M3.10B's attributions, a later linking phase, each exactly a row of its manifest, set aside
+    later = [a for a in ATT if a['id'] not in old and H.is_m310b_attribution(a, PROV)]
+    added = sorted(a['id'] for a in ATT if a['id'] not in old and a not in later)
     assert added == sorted(a['id'] for a in MINE), 'an attribution beyond M3.6B'
     H.model_changes_are_m2_only(BEFORE)
     old_vd = json.loads(git('show', '%s:data/model/derived/vintage-documents.json' % BEFORE))
     new_vd = json.load(open(L.MODEL + 'derived/vintage-documents.json', encoding='utf-8'))
     gained = {(k, x) for k in new_vd for x in set(new_vd[k]) - set(old_vd.get(k, []))}
+    gained -= {(a['vintage'], a['artifact']) for a in later}
     assert gained == {(a['vintage'], a['artifact']) for a in MINE}
 
 

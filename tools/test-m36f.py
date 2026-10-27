@@ -166,7 +166,7 @@ def t09_only_m36f_changed_the_model():
     H.model_changes_are_m2_only(BEFORE)
     changed = set(git('diff', '--name-only', BEFORE, '--', 'data/model').split())
     # M3.10A's registrations, a later phase, set aside (unchanged_but_m36d verified they hold only its rows)
-    assert changed <= {'data/model/' + f for f in H.M36F_FILES + H.M310A_FILES + ('cross/provenance.jsonl', 'manifest.json')}, changed
+    assert changed <= {'data/model/' + f for f in H.M36F_FILES + H.M310A_FILES + H.M310B_FILES + ('cross/provenance.jsonl', 'manifest.json')}, changed
     assert not git('diff', '--stat', BEFORE, '--', 'data/app', ':(glob)data/*.js', 'data/sources.json',
                    'data/audit/data-gap-register.jsonl', 'assets', 'index.html').strip()
 

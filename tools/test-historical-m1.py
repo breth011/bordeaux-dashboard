@@ -283,6 +283,8 @@ def c20_every_legacy_row_valid_with_historical_fields_absent():
     m34b += 2 * len(historical_m2_scope.m35_applied())
     # M3.6B likewise, one Attribution and its provenance per applied web-page mapping
     m34b += 2 * len(historical_m2_scope.m36b_applied())
+    # M3.10B likewise, one Attribution and its provenance per accepted external document
+    m34b += 2 * len(historical_m2_scope.m310b_applied())
     # M3.6D: one wine, its names, identity keys, relationship, descriptor and their provenance
     m36d = sum(len(historical_m2_scope.m36d_rows(r)) for r in historical_m2_scope.CUVEE_FILES + ('cross/provenance.jsonl',)
                if r.endswith('.jsonl'))

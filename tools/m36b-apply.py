@@ -130,7 +130,7 @@ def held_bytes(rel):
 class Ctx:
     def __init__(self):
         self.cx = V.Ctx()
-        self.before = A.vintage_documents((A.M36B_ACTOR,))          # the model as M3.6A read it
+        self.before = A.vintage_documents((A.M36B_ACTOR, A.M310B_ACTOR))          # the model as M3.6A read it
         self.cx.vd = self.before
         self.estates = X.legacy_estates()
         self.gv = {}

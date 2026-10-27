@@ -44,6 +44,10 @@ assert all(H.is_m35_attribution(a, PROV) for a in LATER)
 _m36b = [a for a in ATT if (PROV.get(a['provenance']) or {}).get('actor') == H.M36B_ACTOR]
 assert all(H.is_m36b_attribution(a, PROV) for a in _m36b)
 LATER += _m36b
+# and M3.10B's accepted external documents, each exactly a row of its manifest (is_m310b_attribution)
+_m310b = [a for a in ATT if (PROV.get(a['provenance']) or {}).get('actor') == H.M310B_ACTOR]
+assert all(H.is_m310b_attribution(a, PROV) for a in _m310b)
+LATER += _m310b
 
 
 def check(f):
@@ -222,8 +226,9 @@ def no_figure_or_value_was_added():
     assert all(m1['files'][k]['rows'] == m0['files'][k]['rows'] for k in only_m310a), 'beyond M3.10A\'s rows'
     assert {k: v['rows'] for k, v in m1['files'].items() if m0['files'].get(k) != v and k not in H.CUVEE_FILES
             and k not in only_m310a} == {
-        'cross/provenance.jsonl': m0['files']['cross/provenance.jsonl']['rows'] + 39 + len(LATER),
-        'document/attributions.jsonl': m0['files']['document/attributions.jsonl']['rows'] + 39 + len(LATER)}
+        # M3.10B's rows are subtracted by without_m36d, so its attributions are not counted again here
+        'cross/provenance.jsonl': m0['files']['cross/provenance.jsonl']['rows'] + 39 + len(LATER) - len(_m310b),
+        'document/attributions.jsonl': m0['files']['document/attributions.jsonl']['rows'] + 39 + len(LATER) - len(_m310b)}
     assert m1['stats']['M6']['M3.4B audited mappings'] == 39
 
 

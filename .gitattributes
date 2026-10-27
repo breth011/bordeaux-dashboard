@@ -41,3 +41,4 @@ data/audit/m3.6c-cuvee-mongravey-identity.jsonl text eol=lf
 data/audit/m3.6d-cuvee-mongravey.jsonl text eol=lf
 data/audit/m3.6e-cuvee-historical-corrections.jsonl text eol=lf
 data/audit/m3.6f-cuvee-vintages.jsonl text eol=lf
+data/audit/m3.6g-cuvee-acquisition.jsonl text eol=lf

@@ -10,8 +10,8 @@
   },
   "canonical/values.jsonl": {
    "entity": "CanonicalValue",
-   "rows": 12984,
-   "sha256": "feab62092babe1bb8abe9d67000cd458f94f6eeef68d09efb02e94f2aed1f3eb"
+   "rows": 12995,
+   "sha256": "cca2c3532cb598a904e62f2a5f42ae5e5b5cdd47624731336cf847f8a709db67"
   },
   "cross/findings.jsonl": {
    "entity": "QualityFinding",
@@ -20,8 +20,8 @@
   },
   "cross/provenance.jsonl": {
    "entity": "Provenance",
-   "rows": 27167,
-   "sha256": "1203217cc6fbbbac002782d8aa45af81d73334586e28a05af8081105665c640d"
+   "rows": 27199,
+   "sha256": "26e0bf0e8596994205af65c397f37bb04ad132c2b892d3761241b696670d5bff"
   },
   "document/artifact-dates.jsonl": {
    "entity": "ArtifactDate",
@@ -100,8 +100,8 @@
   },
   "identity/vintages.jsonl": {
    "entity": "Vintage",
-   "rows": 5286,
-   "sha256": "7dac2137a468d97c36727f43d252455490b9b1f94522ebc522844fd26f49a357"
+   "rows": 5292,
+   "sha256": "d56165d9ffa58c1bcf7a7aa92da9e0cbb0ab485bcfb54906807a10ba986614cb"
   },
   "identity/wines.jsonl": {
    "entity": "Wine",
@@ -115,13 +115,13 @@
   },
   "observation/observations.jsonl": {
    "entity": "Observation",
-   "rows": 22474,
-   "sha256": "76ef57c7df8cfd656f53a3902ab9285f226956a073e3ec118ac005539f574661"
+   "rows": 22495,
+   "sha256": "08e243fdb4952abacb902a37a50d7f954b90ff1191c45723ac570d67a3dc9ca6"
   },
   "reconciliation/reconciliations.jsonl": {
    "entity": "Reconciliation",
-   "rows": 12984,
-   "sha256": "b98376737c8e6b5adb55b75ba2b7be92bd9b0caf8f91ce593c682bc6957f68e0"
+   "rows": 12995,
+   "sha256": "8fbed1902f698a514fbc33d9331742f9b4a42ee683312e90468b2122707092ec"
   },
   "state/appellation-memberships.jsonl": {
    "entity": "AppellationMembership",
@@ -307,7 +307,8 @@
     "unresolved estate|slug|vintage records": 2,
     "unresolved estate|vintage records": 17,
     "vintages": 5196
-   }
+   },
+   "M3.6F Cuvée vintages": 6
   },
   "M6": {
    "sources (hosts, of which shared by estates)": [
@@ -387,7 +388,8 @@
     "translations nl": 1072,
     "translations of an absent field": 5
    },
-   "M3.2D recovered values": 25
+   "M3.2D recovered values": 25,
+   "M3.6F Cuvée values": 11
   }
  }
 }

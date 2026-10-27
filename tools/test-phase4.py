@@ -780,6 +780,10 @@ def m7_record_source_never_promoted_badette_2020_oak():
             # M3.2D: a value the model lacked, quoted from its exactly mapped sheet
             assert c['status'] == 'SOURCED' and p['quote'] and (c['subject'], c['field']) in historical_m2_scope.m32d_applied()
             continue
+        if 'artifact' in p and historical_m2_scope.is_m36f(p):
+            # M3.6F: a Cuvée Mongravey vintage value, quoted from its own held technical sheet
+            assert c['status'] == 'SOURCED' and p['quote'] and (c['subject'], c['field']) in historical_m2_scope.m36f_applied()
+            continue
         if 'artifact' in p:
             assert p['kind'] == 'LEGACY_FIELD_SOURCE' and c['status'] == 'LEGACY_FIELD_SOURCE'
         if p['kind'] == 'LEGACY_AMBIGUOUS_SOURCE':
@@ -828,9 +832,15 @@ def m7_reconciliations_keep_every_candidate_none_deleted():
             assert (r['rule'], r['status']) in (('ONLY_CANDIDATE', 'SINGLE'), ('UNANIMOUS', 'AGREED')), r['id']
             assert (r['subject'], r['field']) in H.m32d_applied(), r['id']
             continue
+        if H.is_m36f_reconciliation(r):
+            # M3.6F: Cuvée Mongravey's vintage values from its held sheets; the same rules as M3.2D
+            assert (r['rule'], r['status']) in (('ONLY_CANDIDATE', 'SINGLE'), ('UNANIMOUS', 'AGREED')), r['id']
+            assert (r['subject'], r['field']) in H.m36f_applied(), r['id']
+            continue
         assert r['rule'] == 'LEGACY_NEVER_OVERWRITE' and r['status'] == 'LEGACY_RETAINED'
-    # the migration copies nothing from the harvest; M3.2D's reviewed recoveries are named, and only they
-    methods = {o['extraction']['method'] for o in T('observation/observations.jsonl') if not H.is_m32d_observation(o)}
+    # the migration copies nothing from the harvest; M3.2D's reviewed recoveries and M3.6F's are named, and only they
+    methods = {o['extraction']['method'] for o in T('observation/observations.jsonl')
+               if not H.is_m32d_observation(o) and not H.is_m36f_observation(o)}
     assert methods == {'LEGACY'}, 'an observation re-extracted or copied from the harvest'
 
 
@@ -1024,13 +1034,15 @@ def t20_legacy_and_unsourced_values_remain_marked():
     st = collections.Counter(c['status'] for c in T('canonical/values.jsonl'))
     # M3.2 marks exactly its recovered figures SOURCED; no other status appears
     import historical_m2_scope
-    m32 = len(historical_m2_scope.m32_applied()) + len(historical_m2_scope.m32d_applied())
+    # ... and M3.6F its Cuvée Mongravey vintage values
+    m32 = len(historical_m2_scope.m32_applied()) + len(historical_m2_scope.m32d_applied()) + \
+        len(historical_m2_scope.m36f_applied())
     assert set(st) <= {'LEGACY_FIELD_SOURCE', 'LEGACY_AMBIGUOUS_SOURCE', 'LEGACY_RECORD_SOURCE_ONLY',
                        'LEGACY_UNSOURCED'} | ({'SOURCED'} if m32 else set()), st
     assert st['LEGACY_UNSOURCED'] == 171 and st.get('SOURCED', 0) == m32 and 'MANUAL_UNSOURCED' not in st
-    # every migrated observation is LEGACY; M3.2D's recovered ones are named (EXPLICIT_LABELLED)
+    # every migrated observation is LEGACY; M3.2D's recovered ones and M3.6F's are named (EXPLICIT_LABELLED)
     assert {o['confidence'] for o in T('observation/observations.jsonl')
-            if not historical_m2_scope.is_m32d_observation(o)} == {'LEGACY'}
+            if not historical_m2_scope.is_m32d_observation(o) and not historical_m2_scope.is_m36f_observation(o)} == {'LEGACY'}
 
 
 @check

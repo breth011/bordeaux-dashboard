@@ -268,6 +268,58 @@ def recovered_values(m):
     m.stat('M7', 'M3.2D recovered values', n)
 
 
+M36F = 'data/audit/m3.6f-cuvee-vintages.jsonl'
+M36F_ACTOR = 'tools/m36f-vintages.py'
+
+
+def m36f_values(m):
+    """M3.6F: Cuvée Mongravey's class-A vintage values (months, new-oak share) from its held technical sheets,
+    read from the audited manifest's applied value rows only, as M3.2D's recovered values are: each stating
+    sheet an Observation with its own DOCUMENT provenance quoting the line; one Reconciliation, ONLY_CANDIDATE
+    (one sheet) or UNANIMOUS (its French and English sheets agreeing); the canonical value SOURCED. A field the
+    manifest withholds, or states only with qualifying words, is absent."""
+    import os
+    if not os.path.exists(L.ROOT + M36F):
+        return
+    n = 0
+    for r in L.jsonl_lines(L.ROOT + M36F):
+        if r['record'] != 'value' or not r['applied']:
+            continue
+        vt, field = r['vintage'], r['field']
+        oids, provs = [], []
+        for o in r['observations']:
+            pid = m.prov('DOCUMENT', M36F_ACTOR, artifact=o['artifact'], quote=o['quote'],
+                         code_state={'stream': 'M3.6F', 'manifest': M36F, 'vintage': vt, 'field': field,
+                                     'locus': o['locus']})
+            oid = S.hid('Observation', vt, field, 'm36f', o['artifact'])
+            row = {'id': oid, 'subject': vt, 'field': field, 'value': o['value'], 'raw_value': o['quote'],
+                   'artifact': o['artifact'], 'locus': o['locus'],
+                   # one extraction per sheet: its vintage, field and artifact
+                   'extraction': {'method': 'm36f-vintages/1', 'file': M36F, 'record': '%s|%s|%s' % (vt, field, o['artifact'])},
+                   'confidence': 'EXPLICIT_LABELLED', 'observed_at': CRAWLED, 'provenance': pid,
+                   'subject_status': 'ESTABLISHED'}
+            for k, v in (('unit', r.get('unit')), ('lang', o['lang'])):
+                if v:
+                    row[k] = v
+            m.add('observation/observations.jsonl', row)
+            oids.append(oid)
+            provs.append(pid)
+        rule = r['rule']
+        rid = S.hid('Reconciliation', vt, field, 'm36f')
+        m.add('reconciliation/reconciliations.jsonl', {
+            'id': rid, 'subject': vt, 'field': field, 'candidates': oids, 'selected': oids[0], 'rule': rule,
+            'status': 'SINGLE' if rule == 'ONLY_CANDIDATE' else 'AGREED',
+            'reason': 'stated on its own line, labelled by its own words, in %d held technical sheet(s); %s' % (
+                len(oids), 'the only candidate' if rule == 'ONLY_CANDIDATE' else 'every sheet agrees'),
+            'resolver': M36F_ACTOR, 'decided_at': CRAWLED,
+            'provenance': m.prov('DERIVATION', M36F_ACTOR, derived_from=sorted(provs),
+                                 code_state={'stream': 'M3.6F', 'vintage': vt, 'field': field, 'rule': rule})})
+        m.add('canonical/values.jsonl', {'subject': vt, 'field': field, 'value': r['value'], 'status': 'SOURCED',
+                                         'reconciliation': rid, 'provenance': provs[0]})
+        n += 1
+    m.stat('M7', 'M3.6F Cuvée values', n)
+
+
 def run(m):
     m.p_rec = m.prov('DERIVATION', ACTOR, quote='legacy values are retained; no reconciliation '
                      'rule chose them (LEGACY_NEVER_OVERWRITE)')
@@ -279,3 +331,4 @@ def run(m):
     estate_fields(m, n)
     m.stat('M7', 'backfill', dict(sorted(n.items())))
     recovered_values(m)
+    m36f_values(m)

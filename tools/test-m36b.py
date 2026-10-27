@@ -223,8 +223,9 @@ def historical_evidence_and_everything_else_unchanged():
     H.evidence_changes_are_m36b_only(BEFORE)
     assert H.evidence_versions_before_m36b() == [1, 2, 3, 4, 5] and H.evidence_rows_before_m36b() == 177127
     H.unchanged_but_m36d(BEFORE, 'data/model/identity', 'data/model/state')   # M3.6D's wine, later, aside
-    assert not git('diff', '--stat', BEFORE, '--', 'data/model/canonical', 'data/model/observation',
-                   'data/model/reconciliation', 'data/model/cross/findings.jsonl',
+    H.unchanged_but_m36d(BEFORE, 'data/model/canonical', 'data/model/observation',     # M3.6F's Cuvée values aside
+                         'data/model/reconciliation')
+    assert not git('diff', '--stat', BEFORE, '--', 'data/model/cross/findings.jsonl',
                    'data/app', ':(glob)data/*.js', 'data/sources.json', 'data/discovery',
                    'data/history', 'data/review', 'data/scope', 'assets', 'index.html').strip()
     f = L.read_table('cross/findings.jsonl')

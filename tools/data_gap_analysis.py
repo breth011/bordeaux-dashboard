@@ -53,13 +53,15 @@ def fold(s):
 
 
 M36D_ACTOR = 'tools/m36d-cuvee.py'       # identity decided after the audits (M3.6D: Cuvée Mongravey)
+M36F_ACTOR = 'tools/m36f-vintages.py'    # and its vintages' values (M3.6F)
 
 
 def _later_identity():
-    """M3.6D's provenance records and the wine it minted: the audits read the model as it stood before
-    that decision, as vintage_documents() reads it before the later linking phases."""
+    """M3.6D's and M3.6F's provenance records and the wine M3.6D minted: the audits read the model as it stood
+    before that decision, as vintage_documents() reads it before the later linking phases. The wine's rows go
+    with it: its vintages (by `wine`), their observations, reconciliations and values (on M3.6F's provenance)."""
     def build():
-        prov = {p['id'] for p in T('cross/provenance.jsonl') if p.get('actor') == M36D_ACTOR}
+        prov = {p['id'] for p in T('cross/provenance.jsonl') if p.get('actor') in (M36D_ACTOR, M36F_ACTOR)}
         wines = {r['stable_id'] for r in T('identity/identity-map.jsonl')
                  if r['namespace'] == 'wine-by-slug' and r.get('provenance') in prov}
         return prov, wines

@@ -105,3 +105,22 @@ def run(m):
             n['NOT_PRODUCED statements'] += 1
     n['vintages'] = len(m.rows('identity/vintages.jsonl'))
     m.stat('M5', 'decomposition', dict(sorted(n.items())))
+    m36f_vintages(m)
+
+
+M36F = 'data/audit/m3.6f-cuvee-vintages.jsonl'
+
+
+def m36f_vintages(m):
+    """M3.6F: the vintages of Cuvée Mongravey its held technical sheets title, each read from the audited
+    manifest (tools/m36f-vintages.py): the wine M3.6D minted, the year in the sheet's own title. Nothing else
+    of the wine changes; a vintage nobody's sheet titles - 1999 among them - is not created."""
+    import os
+    if not os.path.exists(L.ROOT + M36F):
+        return
+    n = 0
+    for r in L.jsonl_lines(L.ROOT + M36F):
+        if r['record'] == 'vintage' and r['applied']:
+            vintage(m, r['wine'], r['label'])
+            n += 1
+    m.stat('M5', 'M3.6F Cuvée vintages', n)

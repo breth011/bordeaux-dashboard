@@ -142,13 +142,19 @@ def t07_the_first_vintage_is_stated_and_waits_for_the_historical_gate():
 
 @check
 def t08_no_vintage_was_created():
-    assert not [v for v in table('identity/vintages.jsonl') if v.get('wine') == WINE]
-    assert table('identity/vintages.jsonl') == before('identity/vintages.jsonl')
+    # M3.6D made none; the vintages M3.6F later read from the wine's own sheets are set aside, exactly
+    m36f = L.ROOT + 'data/audit/m3.6f-cuvee-vintages.jsonl'
+    later = {r['label'] for r in L.jsonl_lines(m36f) if r['record'] == 'vintage' and r['applied']} \
+        if os.path.exists(m36f) else set()
+    assert {v['label'] for v in table('identity/vintages.jsonl') if v.get('wine') == WINE} == later
+    assert [v for v in table('identity/vintages.jsonl') if v.get('wine') != WINE] == before('identity/vintages.jsonl')
+    prov = {p['id']: p for p in table('cross/provenance.jsonl')}
     for rel in ('state/vintage-statements.jsonl', 'document/attributions.jsonl', 'observation/observations.jsonl',
                 'canonical/values.jsonl'):
-        assert WINE not in open(L.MODEL + rel, encoding='utf-8').read(), rel
+        assert all((prov.get(r.get('provenance')) or {}).get('actor') == 'tools/m36f-vintages.py'
+                   for r in table(rel) if WINE in json.dumps(r)), rel
     wv = json.load(open(L.MODEL + 'derived/wine-vintages.json', encoding='utf-8'))
-    assert WINE not in wv
+    assert set(wv.get(WINE, [])) == later
 
 
 @check
@@ -204,8 +210,10 @@ def t12_every_new_fact_has_its_provenance():
 
 @check
 def t13_only_m36d_changed_the_model_and_nothing_else_moved():
+    import historical_m2_scope as H                 # M3.6F's vintages and values, a later phase: additions, set aside
     changed = set(git('diff', '--name-only', BEFORE, '--', 'data/model').split())
-    assert {c[len('data/model/'):] for c in changed} <= M36D_TABLES, sorted(changed)
+    assert {c[len('data/model/'):] for c in changed} <= M36D_TABLES | set(H.M36F_FILES), sorted(changed)
+    H.unchanged_but_m36d(BEFORE, *('data/model/' + f for f in H.M36F_FILES))
     for rel in M36D_TABLES - {'manifest.json', 'derived/estate-wines.json'}:
         old = {json.dumps(r, sort_keys=True) for r in before(rel)}
         new = {json.dumps(r, sort_keys=True) for r in table(rel)}

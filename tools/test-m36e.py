@@ -133,7 +133,10 @@ def t06_v1_to_v6_are_byte_for_byte():
 
 @check
 def t07_no_model_or_generated_data_changed():
-    assert not git('diff', '--stat', BEFORE, '--', 'data/model', 'data/app', ':(glob)data/*.js', 'data/sources.json',
+    # M3.6F's vintages, a later phase, set aside: with its rows taken out the model is as at BEFORE
+    H.unchanged_but_m36d(BEFORE, 'data/model', ':(exclude)data/model/manifest.json')
+    H.model_changes_are_m2_only(BEFORE)
+    assert not git('diff', '--stat', BEFORE, '--', 'data/app', ':(glob)data/*.js', 'data/sources.json',
                    'data/audit/data-gap-register.jsonl', 'data/audit/m3.6b-historical-flags.jsonl',
                    'data/audit/m3.6b-correction-application.jsonl', 'data/audit/m3.6c-cuvee-mongravey-identity.jsonl',
                    'data/audit/m3.6d-cuvee-mongravey.jsonl', 'assets', 'index.html').strip()
@@ -161,7 +164,12 @@ def t09_the_margaux_name_stays_unresolved():
 
 @check
 def t10_no_vintage_was_created():
-    assert not [v for v in L.read_table('identity/vintages.jsonl') if v['wine'] == WINE]
+    # none by M3.6E; M3.6F's, read later from the wine's own sheets, are its manifest's and never 1999
+    m36f = L.ROOT + 'data/audit/m3.6f-cuvee-vintages.jsonl'
+    later = {r['label'] for r in L.jsonl_lines(m36f) if r['record'] == 'vintage' and r['applied']} \
+        if os.path.exists(m36f) else set()
+    assert {v['label'] for v in L.read_table('identity/vintages.jsonl') if v['wine'] == WINE} == later
+    assert '1999' not in later
     assert all(r['vintage_created'] is False for r in manifest())
     first = [r for r in L.jsonl_lines(M36D) if r.get('fact') == 'first_vintage']
     assert len(first) == 1 and first[0]['applied'] is False and first[0]['value']['kind'] == 'FIRST_VINTAGE_STATED'

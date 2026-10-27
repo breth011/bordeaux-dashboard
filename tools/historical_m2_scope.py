@@ -70,7 +70,15 @@ M36D_MANIFEST = 'data/audit/m3.6d-cuvee-mongravey.jsonl'
 M36D_STAT = 'M3.6D canonical wines'
 M36D_FILES = ('identity/wines.jsonl', 'identity/names.jsonl', 'identity/identity-map.jsonl',
               'state/estate-wine.jsonl', 'state/wine-descriptors.jsonl', 'derived/estate-wines.json')
-ALLOWED = set(M2_FILES) | set(M32_FILES) | set(M34B_FILES) | set(M36D_FILES)
+# M3.6F: the wine's vintages from its held technical sheets, and their class-A values (months, new oak)
+M36F_ACTOR = 'tools/m36f-vintages.py'
+M36F_MANIFEST = 'data/audit/m3.6f-cuvee-vintages.jsonl'
+M36F_STATS = ('M3.6F Cuvée vintages', 'M3.6F Cuvée values')
+M36F_FILES = ('identity/vintages.jsonl', 'observation/observations.jsonl', 'reconciliation/reconciliations.jsonl',
+              'canonical/values.jsonl', 'derived/wine-vintages.json')
+CUVEE_ACTORS = {M36D_ACTOR: 'M3.6D', M36F_ACTOR: 'M3.6F'}  # the later Cuvée Mongravey decisions, set aside alike
+CUVEE_FILES = M36D_FILES + tuple(f for f in M36F_FILES if f not in M36D_FILES)
+ALLOWED = set(M2_FILES) | set(M32_FILES) | set(M34B_FILES) | set(M36D_FILES) | set(M36F_FILES)
 M2_ACTOR = 'tools/extract-document-dates.py'
 M32_ACTOR = 'tools/m32-recovery.py'
 M34B_ACTOR = 'tools/m34b-apply.py'
@@ -202,6 +210,28 @@ def is_m32d_reconciliation(r):
     return r.get('resolver') == M32_ACTOR and r.get('rule') in ('ONLY_CANDIDATE', 'UNANIMOUS')
 
 
+def is_m36f(p):
+    """A provenance row of a value M3.6F added (a Cuvée Mongravey sheet's line, or its reconciliation)."""
+    return p.get('actor') == M36F_ACTOR and (p.get('code_state') or {}).get('stream') == 'M3.6F'
+
+
+def is_m36f_observation(o):
+    return (o.get('extraction') or {}).get('method') == 'm36f-vintages/1'
+
+
+def is_m36f_reconciliation(r):
+    return r.get('resolver') == M36F_ACTOR and r.get('rule') in ('ONLY_CANDIDATE', 'UNANIMOUS')
+
+
+def m36f_applied():
+    """{(vintage, field): value} the M3.6F manifest's applied value rows added to the model."""
+    try:
+        rows = L.jsonl_lines(L.ROOT + M36F_MANIFEST)
+    except FileNotFoundError:
+        return {}
+    return {(r['vintage'], r['field']): r['value'] for r in rows if r['record'] == 'value' and r['applied']}
+
+
 def m32d_applied():
     """{(vintage, field)} the M3.2 audit's APPLY_VALUE rows added to the model."""
     out = set()
@@ -287,20 +317,22 @@ def m36d_wine():
 
 
 def is_m36d_row(rel, r, prov):
-    """A model row M3.6D added: on M3.6D's provenance, or the minted wine's own row or identity-map key."""
+    """A model row M3.6D or M3.6F added: on their provenance, or the minted wine's own row, identity-map key or
+    vintage (a vintage row carries no provenance)."""
     p = prov.get(r.get('provenance')) or {}
-    if p.get('actor') == M36D_ACTOR and (p.get('code_state') or {}).get('stream') == 'M3.6D':
+    if CUVEE_ACTORS.get(p.get('actor'), '-') == (p.get('code_state') or {}).get('stream'):
         return True
     w = m36d_wine()
     return bool(w) and ((rel == 'identity/wines.jsonl' and r['id'] == w) or
-                        (rel == 'identity/identity-map.jsonl' and r.get('stable_id') == w))
+                        (rel == 'identity/identity-map.jsonl' and r.get('stable_id') == w) or
+                        (rel == 'identity/vintages.jsonl' and r.get('wine') == w))
 
 
 def m36d_rows(rel):
     """The rows of `rel` M3.6D added, in file order."""
     prov = {p['id']: p for p in L.read_table('cross/provenance.jsonl')}
     if rel == 'cross/provenance.jsonl':
-        return [p for p in prov.values() if p.get('actor') == M36D_ACTOR]
+        return [p for p in prov.values() if p.get('actor') in CUVEE_ACTORS]
     return [r for r in L.read_table(rel) if is_m36d_row(rel, r, prov)]
 
 
@@ -310,20 +342,22 @@ def unchanged_but_m36d(before, *paths):
     error naming what else changed."""
     for f in _git('diff', '--name-only', before, '--', *paths).split():
         rel = f[len('data/model/'):]
-        assert (rel in M36D_FILES or rel == 'cross/provenance.jsonl') and m36d_wine(), '%s changed, and not by M3.6D' % f
+        assert (rel in CUVEE_FILES or rel == 'cross/provenance.jsonl') and m36d_wine(), '%s changed, and not by M3.6D' % f
         old = _git('show', '%s:%s' % (before, f))
         new = open(L.ROOT + f, encoding='utf-8').read()
         if rel == 'cross/provenance.jsonl':
-            kept = [x for x in new.splitlines() if json.loads(x).get('actor') != M36D_ACTOR]
-            assert kept == old.splitlines(), '%s changed beyond M3.6D\'s provenance' % f
+            # `before` may hold M3.6D's rows already (a later phase's check): both sides without them
+            kept = [[x for x in t.splitlines() if json.loads(x).get('actor') not in CUVEE_ACTORS] for t in (new, old)]
+            assert kept[0] == kept[1], '%s changed beyond M3.6D\'s provenance' % f
         elif rel.endswith('.jsonl'):
             prov = {p['id']: p for p in L.read_table('cross/provenance.jsonl')}
-            kept = [x for x in new.splitlines() if not is_m36d_row(rel, json.loads(x), prov)]
-            assert kept == old.splitlines(), '%s changed beyond M3.6D\'s rows' % f
+            kept = [[x for x in t.splitlines() if not is_m36d_row(rel, json.loads(x), prov)] for t in (new, old)]
+            assert kept[0] == kept[1], '%s changed beyond M3.6D\'s rows' % f
         else:
             w = m36d_wine()
             a, b = json.loads(old), json.loads(new)
-            assert {k: [x for x in v if x != w] for k, v in b.items()} == a, '%s changed beyond M3.6D' % f
+            a, b = ({k: [x for x in v if x != w] for k, v in d.items() if k != w} for d in (a, b))
+            assert b == a, '%s changed beyond M3.6D' % f
     return True
 
 
@@ -334,9 +368,10 @@ def without_m36d(changed, manifest):
     if not m36d_wine():
         return changed, manifest
     files = dict(manifest['files'])
-    for rel in [f for f in M36D_FILES if f.endswith('.jsonl')] + ['cross/provenance.jsonl']:
+    for rel in [f for f in CUVEE_FILES if f.endswith('.jsonl')] + ['cross/provenance.jsonl']:
         files[rel] = dict(files[rel], rows=files[rel]['rows'] - len(m36d_rows(rel)))
-    return [f for f in changed if f not in M36D_FILES], dict(manifest, files=files)
+    # M3.6F's files besides: the reports that call this read from a state after M3.2, so only M3.6F moved them
+    return [f for f in changed if f not in CUVEE_FILES], dict(manifest, files=files)
 
 
 def model_changes_are_m2_only(before):
@@ -353,13 +388,14 @@ def model_changes_are_m2_only(before):
                          and (r.get('code_state') or {}).get('stream') == 'M3.5') or
                         (r['kind'] == 'DOCUMENT' and r['actor'] == M36B_ACTOR
                          and (r.get('code_state') or {}).get('stream') == 'M3.6B') or
-                        (r['kind'] in ('DOCUMENT', 'DERIVATION') and r['actor'] == M36D_ACTOR
-                         and (r.get('code_state') or {}).get('stream') == 'M3.6D') or
+                        (r['kind'] in ('DOCUMENT', 'DERIVATION') and r['actor'] in CUVEE_ACTORS
+                         and (r.get('code_state') or {}).get('stream') == CUVEE_ACTORS[r['actor']]) or
                         (r['kind'] == 'DERIVATION' and r['actor'] == M32_ACTOR
                          and (r.get('code_state') or {}).get('stream') == 'M3.2D')),
                        ('reconciliation/reconciliations.jsonl',
-                        lambda r: r['resolver'] == M32_ACTOR and r['rule'] in ('ONLY_CANDIDATE', 'UNANIMOUS')
-                        and r['status'] in ('SINGLE', 'AGREED') and 'dispositions' not in r)):
+                        lambda r: r['resolver'] in (M32_ACTOR, M36F_ACTOR) and r['rule'] in ('ONLY_CANDIDATE', 'UNANIMOUS')
+                        and r['status'] in ('SINGLE', 'AGREED') and 'dispositions' not in r
+                        and (r['resolver'] == M32_ACTOR or is_m36d_row('reconciliation/reconciliations.jsonl', r, prov)))):
         if rel not in changed:
             continue
         old, new = _lines(before, rel)
@@ -396,6 +432,14 @@ def model_changes_are_m2_only(before):
         moved = {k for k in set(old) | set(new) if old.get(k) != new.get(k)}
         assert all(set(new[k]) - set(old.get(k, [])) == {w} and set(old.get(k, [])) <= set(new[k]) for k in moved), \
             ('derived/estate-wines.json changed beyond M3.6D', sorted(moved))
+    # M3.6F: the wine's vintages added, every existing one kept; the index gains that wine's key alone
+    if 'identity/vintages.jsonl' in changed:
+        old, new = _lines(before, 'identity/vintages.jsonl')
+        o, n = set(old.splitlines()), set(new.splitlines())
+        assert o <= n and all(json.loads(x)['wine'] == m36d_wine() for x in n - o), 'identity/vintages.jsonl beyond M3.6F'
+    if 'derived/wine-vintages.json' in changed:
+        old, new = (json.loads(x) for x in _lines(before, 'derived/wine-vintages.json'))
+        assert {k: v for k, v in new.items() if k != m36d_wine()} == old, 'derived/wine-vintages.json beyond M3.6F'
     # M3.2B: URL placements (and their locators) added, each with an M3.2B provenance
     for rel in ('document/placements.jsonl', 'document/locators.jsonl'):
         if rel not in changed:
@@ -432,9 +476,10 @@ def model_changes_are_m2_only(before):
         assert set(o) <= set(n), '%s: rows removed' % rel
         for k in set(n) - set(o):
             # M3.2D: a recovered value or the observation that states it, each with its M3.2D provenance
+            # M3.6F: Cuvée Mongravey's vintage value or the observation stating it, on its M3.6F provenance
             p = prov.get(n[k]['provenance']) or {}
-            assert p.get('actor') == M32_ACTOR and (p.get('code_state') or {}).get('stream') == 'M3.2D', \
-                '%s %s: an added row is not M3.2D\'s' % (rel, k)
+            assert (p.get('actor'), (p.get('code_state') or {}).get('stream')) in ((M32_ACTOR, 'M3.2D'), (M36F_ACTOR, 'M3.6F')), \
+                '%s %s: an added row is not M3.2D\'s or M3.6F\'s' % (rel, k)
         for k in o:
             if o[k] == n[k]:
                 continue
@@ -454,10 +499,11 @@ def model_changes_are_m2_only(before):
                 a_all, b_all = _sourced_moved(old[k]), _sourced_moved(new[k])
                 for st in set(a_all) | set(b_all):
                     a, b = dict(a_all.get(st, {})), dict(b_all.get(st, {}))
-                    for s in (M2_STAT, M32B_STAT, M32D_STAT, M34B_STAT, M35_STAT, M36B_STAT, M36D_STAT):
+                    had_m36d = M36D_STAT in a                  # `before` already holds M3.6D (a later phase's check)
+                    for s in (M2_STAT, M32B_STAT, M32D_STAT, M34B_STAT, M35_STAT, M36B_STAT, M36D_STAT) + M36F_STATS:
                         a.pop(s, None)
                         b.pop(s, None)
-                    if st == 'M4' and m36d_wine() and 'display names' in b:
+                    if st == 'M4' and m36d_wine() and 'display names' in b and not had_m36d:
                         # M3.6D's wine resolves one more display name (its own, in its estate)
                         b['display names'] = dict(b['display names'], resolved=b['display names']['resolved'] - 1)
                     assert a == b, 'manifest stats %s changed' % st

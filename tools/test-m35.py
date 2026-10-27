@@ -247,8 +247,8 @@ def every_new_attribution_has_explicit_existing_evidence():
 
 @check
 def nothing_else_changed():
-    H.unchanged_but_m36d(BEFORE, *('data/model/' + f for f in H.M36D_FILES))   # M3.6D's wine set aside
-    changed = set(git('diff', '--name-only', BEFORE, '--', 'data/model').split()) - {'data/model/' + f for f in H.M36D_FILES}
+    H.unchanged_but_m36d(BEFORE, *('data/model/' + f for f in H.CUVEE_FILES))   # M3.6D's wine set aside
+    changed = set(git('diff', '--name-only', BEFORE, '--', 'data/model').split()) - {'data/model/' + f for f in H.CUVEE_FILES}
     assert changed <= {'data/model/' + f for f in ('document/attributions.jsonl', 'cross/provenance.jsonl',
                                                     'derived/vintage-documents.json', 'manifest.json')}, sorted(changed)
     H.model_changes_are_m2_only(BEFORE)
@@ -259,8 +259,9 @@ def nothing_else_changed():
                    'data/audit/m3.3-source-acquisition-plan.jsonl').strip()
     H.register_changes_are_m34b_only(BEFORE)
     # no figure: values, observations and reconciliations byte-identical; D1, D5 and every finding open
-    assert not git('diff', '--stat', BEFORE, '--', 'data/model/canonical', 'data/model/observation',
-                   'data/model/reconciliation', 'data/model/cross/findings.jsonl').strip()
+    H.unchanged_but_m36d(BEFORE, 'data/model/canonical', 'data/model/observation',     # M3.6F's Cuvée values aside
+                         'data/model/reconciliation')
+    assert not git('diff', '--stat', BEFORE, '--', 'data/model/cross/findings.jsonl').strip()
     H.unchanged_but_m36d(BEFORE, 'data/model/identity')       # identity: M3.6D's wine only
     f = L.read_table('cross/findings.jsonl')
     assert sum(1 for x in f if x['kind'] == 'AMBIGUOUS_SEMANTICS' and x['status'] == 'OPEN') == 179

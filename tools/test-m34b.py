@@ -203,8 +203,8 @@ def no_open_identity_decision_changed():
 @check
 def no_figure_or_value_was_added():
     # M3.6D's wine set aside: its files hold only its rows beside what was there (unchanged_but_m36d)
-    H.unchanged_but_m36d(BEFORE, *('data/model/' + f for f in H.M36D_FILES))
-    changed = set(git('diff', '--name-only', BEFORE, '--', 'data/model').split()) - {'data/model/' + f for f in H.M36D_FILES}
+    H.unchanged_but_m36d(BEFORE, *('data/model/' + f for f in H.CUVEE_FILES))
+    changed = set(git('diff', '--name-only', BEFORE, '--', 'data/model').split()) - {'data/model/' + f for f in H.CUVEE_FILES}
     assert changed == {'data/model/' + f for f in ('document/attributions.jsonl', 'cross/provenance.jsonl',
                                                     'derived/vintage-documents.json', 'manifest.json')}, sorted(changed)
     assert not git('diff', '--stat', BEFORE, '--', 'data/app', ':(glob)data/*.js', 'data/sources.json', 'data/history',
@@ -212,7 +212,7 @@ def no_figure_or_value_was_added():
     H.model_changes_are_m2_only(BEFORE)
     m0, m1 = json.loads(at_before('data/model/manifest.json')), json.load(open(L.MODEL + 'manifest.json', encoding='utf-8'))
     _, m1 = H.without_m36d([], m1)                            # M3.6D's rows subtracted
-    assert {k: v['rows'] for k, v in m1['files'].items() if m0['files'].get(k) != v and k not in H.M36D_FILES} == {
+    assert {k: v['rows'] for k, v in m1['files'].items() if m0['files'].get(k) != v and k not in H.CUVEE_FILES} == {
         'cross/provenance.jsonl': m0['files']['cross/provenance.jsonl']['rows'] + 39 + len(LATER),
         'document/attributions.jsonl': m0['files']['document/attributions.jsonl']['rows'] + 39 + len(LATER)}
     assert m1['stats']['M6']['M3.4B audited mappings'] == 39

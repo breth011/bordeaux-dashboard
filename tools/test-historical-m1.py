@@ -284,7 +284,7 @@ def c20_every_legacy_row_valid_with_historical_fields_absent():
     # M3.6B likewise, one Attribution and its provenance per applied web-page mapping
     m34b += 2 * len(historical_m2_scope.m36b_applied())
     # M3.6D: one wine, its names, identity keys, relationship, descriptor and their provenance
-    m36d = sum(len(historical_m2_scope.m36d_rows(r)) for r in historical_m2_scope.M36D_FILES + ('cross/provenance.jsonl',)
+    m36d = sum(len(historical_m2_scope.m36d_rows(r)) for r in historical_m2_scope.CUVEE_FILES + ('cross/provenance.jsonl',)
                if r.endswith('.jsonl'))
     assert n == 333022 + m2 + m32 + m34b + m36d and not bad, (n, m2, m32, m34b, m36d, bad[:3])
 
@@ -319,7 +319,7 @@ def the_extension_makes_no_current_fact_historical():
             assert r['validity']['valid_from'] == {'kind': 'UNKNOWN'} and r['validity']['valid_to'] == {'kind': 'OPEN'}, (rel, r['id'])
     import historical_m2_scope                    # M3.6D's names and relationship, as current as the rest
     assert n == 3917 + sum(len(historical_m2_scope.m36d_rows(rel)) for rel in rels
-                           if rel in historical_m2_scope.M36D_FILES), n
+                           if rel in historical_m2_scope.CUVEE_FILES), n
 
 
 @check
@@ -336,7 +336,9 @@ def model_generated_data_and_protected_groups_unchanged():
     # the reconciliations' candidate lists are exactly as they were
     old = [json.loads(l) for l in git('show', BEFORE + ':data/model/reconciliation/reconciliations.jsonl').splitlines() if l.strip()]
     # M3.2D adds its own reconciliations (named); every one there before keeps its candidates
-    now = [r for r in L.read_table('reconciliation/reconciliations.jsonl') if not historical_m2_scope.is_m32d_reconciliation(r)]
+    # ... and M3.6F its Cuvée Mongravey ones (named)
+    now = [r for r in L.read_table('reconciliation/reconciliations.jsonl')
+           if not historical_m2_scope.is_m32d_reconciliation(r) and not historical_m2_scope.is_m36f_reconciliation(r)]
     assert [r['candidates'] for r in old] == [r['candidates'] for r in now] and len(now) == 12959
 
 

@@ -12982,3 +12982,14 @@
 {"field":"months","provenance":"pv_21bca48ff95b","reconciliation":"rc_30d8982dacc0","status":"LEGACY_AMBIGUOUS_SOURCE","subject":"vt:wn_00592:1997","value":"20"}
 {"field":"blend","provenance":"pv_e26619ce731c","reconciliation":"rc_5aa28fdb22d4","status":"LEGACY_FIELD_SOURCE","subject":"vt:wn_00593:2022","value":{"SB":60,"SEM":40}}
 {"field":"pick","provenance":"pv_5f44d6899e6e","reconciliation":"rc_081a456766b7","status":"LEGACY_FIELD_SOURCE","subject":"vt:wn_00593:2022","value":{"ALL":"08-09|08-24"}}
+{"field":"oak","provenance":"pv_2021246512b3","reconciliation":"rc_ba304edcd019","status":"SOURCED","subject":"vt:wn_00640:2015","value":100}
+{"field":"months","provenance":"pv_b6988ef62b69","reconciliation":"rc_b6c255382bbd","status":"SOURCED","subject":"vt:wn_00640:2016","value":"18"}
+{"field":"oak","provenance":"pv_34d47b699bca","reconciliation":"rc_15e530a8c7e4","status":"SOURCED","subject":"vt:wn_00640:2016","value":100}
+{"field":"months","provenance":"pv_dcab30adccd4","reconciliation":"rc_5fc41ca927aa","status":"SOURCED","subject":"vt:wn_00640:2018","value":"18"}
+{"field":"oak","provenance":"pv_30902a3da5ba","reconciliation":"rc_e5d2f002e9e4","status":"SOURCED","subject":"vt:wn_00640:2018","value":100}
+{"field":"months","provenance":"pv_29fcc4b4b069","reconciliation":"rc_4c22fb98a980","status":"SOURCED","subject":"vt:wn_00640:2019","value":"18"}
+{"field":"oak","provenance":"pv_e2dca77354de","reconciliation":"rc_38f9af9c21f8","status":"SOURCED","subject":"vt:wn_00640:2019","value":100}
+{"field":"months","provenance":"pv_98dce25e7733","reconciliation":"rc_3628b57e23b2","status":"SOURCED","subject":"vt:wn_00640:2020","value":"18"}
+{"field":"oak","provenance":"pv_6e2f41e3762b","reconciliation":"rc_b4519f6a6b98","status":"SOURCED","subject":"vt:wn_00640:2020","value":100}
+{"field":"months","provenance":"pv_900be94d36a9","reconciliation":"rc_d9fe7c676ee4","status":"SOURCED","subject":"vt:wn_00640:2022","value":"18"}
+{"field":"oak","provenance":"pv_2f499ca0dd7c","reconciliation":"rc_734ee4e4ea64","status":"SOURCED","subject":"vt:wn_00640:2022","value":100}

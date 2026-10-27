@@ -1,5 +1,14 @@
 # Adding a vintage
 
+> **Note (2026-10-28): this procedure no longer applies as written.** Since Phase 4 (2026-10-25) the legacy
+> files in `data/` are frozen: they are the protected canonical data and the application's rollback source, and
+> `test-phase4` and the historical suites fail if their bytes change, so `read-sheets.py --apply` (which writes
+> `data/fiches.js`) breaks them. There is no supported path yet for adding a new vintage: the value-application
+> runner applies already-approved values only to vintages that already exist (`data/audit/value-application-manifest.jsonl`;
+> `python tools/apply-value-manifest.py --plan`, then `--apply`; see `docs/PHASE-M3.11-VALUE-APPLICATION-RUNNER.md`),
+> and a value applied through it is not yet shown by the application. The procedure below is kept as the
+> historical record.
+
 Once a year the estates publish their new sheets and this dashboard
 needs to grow by one vintage. This is that job, start to finish. It is
 seven commands and one piece of reading.

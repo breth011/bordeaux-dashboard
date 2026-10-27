@@ -201,6 +201,15 @@ where the dataset is but not whether it is moving.
 
 ## Extending it
 
+> **Note (2026-10-28): since Phase 4 (2026-10-25) the legacy files in `data/` are frozen.** They are the
+> protected canonical data and the application's rollback source, and `test-phase4` and the historical suites
+> fail if their bytes change, so the recipes below no longer apply as written; they are kept as the historical
+> record. An already-approved value for an existing vintage goes through the value-application manifest
+> (`data/audit/value-application-manifest.jsonl`; `python tools/apply-value-manifest.py --plan`, then `--apply`;
+> see `docs/PHASE-M3.11-VALUE-APPLICATION-RUNNER.md`). There is no supported path yet for a new vintage, scores,
+> collections or sparse-estate records, and a value applied through the manifest is not yet shown by the
+> application.
+
 - **Fill in a sparse estate**: move it out of the compact list into a full record with
   `blend`, `ha`, `owner`, `second`, `style` and real `lat`/`lng`, and drop `sparse`/`normBlend`.
   The flags disappear on their own.

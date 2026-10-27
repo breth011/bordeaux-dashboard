@@ -234,8 +234,10 @@ def build():
     cx = V.Ctx()
     est = X.legacy_estates()
     canon = collections.defaultdict(dict)
+    later = {p['id'] for p in L.read_table('cross/provenance.jsonl') if p.get('actor') == 'tools/m310c-values.py'}
     for v in L.read_table('canonical/values.jsonl'):
-        canon[v['subject']][v['field']] = v['value']
+        if v.get('provenance') not in later:          # the model as M3.9 read it: M3.10C's values came after
+            canon[v['subject']][v['field']] = v['value']
     vints = {v['id'] if 'id' in v else 'vt:%s:%s' % (v['wine'], v['label']) for v in L.read_table('identity/vintages.jsonl')}
     items = candidates()
     store = Store({i['sha256']: i['url'] for i in items})

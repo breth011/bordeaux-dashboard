@@ -292,6 +292,9 @@ def c20_every_legacy_row_valid_with_historical_fields_absent():
     p = {x['id']: x for x in prov}
     m310a = sum(1 for r in historical_m2_scope.M310A_FILES if r.endswith('.jsonl')
                 for x in L.read_table(r) if historical_m2_scope.is_m310a_row(r, x, p))
+    # M3.10C: per applied value its observations (one per stating document), reconciliation, value and provenance
+    m310a += sum(1 for r in historical_m2_scope.M310C_FILES if r.endswith('.jsonl')
+                 for x in L.read_table(r) if historical_m2_scope.is_m310c_row(r, x, p))
     assert n == 333022 + m2 + m32 + m34b + m36d + m310a and not bad, (n, m2, m32, m34b, m36d, m310a, bad[:3])
 
 
@@ -342,9 +345,10 @@ def model_generated_data_and_protected_groups_unchanged():
     # the reconciliations' candidate lists are exactly as they were
     old = [json.loads(l) for l in git('show', BEFORE + ':data/model/reconciliation/reconciliations.jsonl').splitlines() if l.strip()]
     # M3.2D adds its own reconciliations (named); every one there before keeps its candidates
-    # ... and M3.6F its Cuvée Mongravey ones (named)
+    # ... and M3.6F its Cuvée Mongravey ones, M3.10C its Durfort-Vivens ones (named)
     now = [r for r in L.read_table('reconciliation/reconciliations.jsonl')
-           if not historical_m2_scope.is_m32d_reconciliation(r) and not historical_m2_scope.is_m36f_reconciliation(r)]
+           if not historical_m2_scope.is_m32d_reconciliation(r) and not historical_m2_scope.is_m36f_reconciliation(r)
+           and not historical_m2_scope.is_m310c_reconciliation(r)]
     assert [r['candidates'] for r in old] == [r['candidates'] for r in now] and len(now) == 12959
 
 

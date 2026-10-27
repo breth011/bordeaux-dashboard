@@ -161,6 +161,7 @@ def provenance_is_preserved():
     assert set(old) <= set(new), 'a provenance row changed or was removed'
     added = [json.loads(x) for x in set(new) - set(old)]
     m310a = [p['id'] for p in L.read_table('cross/provenance.jsonl') if H.is_m310a_row('cross/provenance.jsonl', p, {})]
+    m310a += [p['id'] for p in L.read_table('cross/provenance.jsonl') if H.is_m310c(p)]     # and M3.10C's values'
     assert sorted(p['id'] for p in added) == sorted([a['provenance'] for a in MINE + LATER] +
                                                     [p['id'] for p in H.m36d_rows('cross/provenance.jsonl')] +   # and M3.6D's
                                                     m310a)                                                       # and M3.10A's

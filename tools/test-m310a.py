@@ -113,7 +113,8 @@ def t05_registration_is_not_attribution():
     # M3.10B's attributions, a later phase, are the only ones: registration made none
     assert all(H.is_m310b_attribution(a, prov) for a in L.read_table('document/attributions.jsonl')
                if a.get('artifact') in ids)
-    assert not [o for o in L.read_table('observation/observations.jsonl') if o.get('artifact') in ids]
+    assert not [o for o in L.read_table('observation/observations.jsonl') if o.get('artifact') in ids
+                and not H.is_m310c_row('observation/observations.jsonl', o, prov)]    # M3.10C's, a later phase
     assert not [e for e in L.read_table('observation/evidence-links.jsonl') if e.get('artifact') in ids]
     names = {os.path.basename(g['url']) for g in rows('registration')}
     import evidence_store as ST
@@ -126,13 +127,14 @@ def t05_registration_is_not_attribution():
 @check
 def t06_only_the_registration_moved_in_the_model():
     changed = {f[len('data/model/'):] for f in git('diff', '--name-only', BEFORE, '--', 'data/model').split()}
-    later = set(H.M310B_FILES)                       # M3.10B's attributions, a later phase, set aside
+    # M3.10B's attributions and M3.10C's values, later phases, set aside (unchanged_but_m310a: only their rows)
+    later = set(H.M310B_FILES) | set(H.M310C_FILES)
     assert changed <= set(H.M310A_FILES) | later, sorted(changed - set(H.M310A_FILES) - later)
     H.unchanged_but_m310a(BEFORE, 'data/model')
     for rel in ('canonical/values.jsonl', 'observation/observations.jsonl', 'reconciliation/reconciliations.jsonl',
                 'identity/wines.jsonl', 'identity/vintages.jsonl',
                 'observation/evidence-links.jsonl', 'derived/source-documents.json'):
-        assert rel not in changed, rel
+        assert rel not in changed or rel in H.M310C_FILES, rel
     old, new = (json.loads(t) for t in (git('show', '%s:data/model/manifest.json' % BEFORE),
                                          open(L.MODEL + 'manifest.json', encoding='utf-8').read()))
     assert new['stats']['M6'][H.M310A_STAT] == 4

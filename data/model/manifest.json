@@ -10,8 +10,8 @@
   },
   "canonical/values.jsonl": {
    "entity": "CanonicalValue",
-   "rows": 12995,
-   "sha256": "cca2c3532cb598a904e62f2a5f42ae5e5b5cdd47624731336cf847f8a709db67"
+   "rows": 13004,
+   "sha256": "040cc1a03d3f4884aa4501e294620bf1278d412b9224613c3da597e445ba200c"
   },
   "cross/findings.jsonl": {
    "entity": "QualityFinding",
@@ -20,8 +20,8 @@
   },
   "cross/provenance.jsonl": {
    "entity": "Provenance",
-   "rows": 27207,
-   "sha256": "982db87b4244b42426712a425ba5bb80c05a911826c5a102d11c81b2bab3b1a9"
+   "rows": 27228,
+   "sha256": "4513fd3fccd77d344821721e2dde3c5cec7585d997e38c8284fd8e7346c64b91"
   },
   "document/artifact-dates.jsonl": {
    "entity": "ArtifactDate",
@@ -115,13 +115,13 @@
   },
   "observation/observations.jsonl": {
    "entity": "Observation",
-   "rows": 22495,
-   "sha256": "08e243fdb4952abacb902a37a50d7f954b90ff1191c45723ac570d67a3dc9ca6"
+   "rows": 22507,
+   "sha256": "f75981a8056cdb0b839928df9545864d57979376cd880df002485632e9ac18b0"
   },
   "reconciliation/reconciliations.jsonl": {
    "entity": "Reconciliation",
-   "rows": 12995,
-   "sha256": "8fbed1902f698a514fbc33d9331742f9b4a42ee683312e90468b2122707092ec"
+   "rows": 13004,
+   "sha256": "aa8473d55a49ee6d035f4fbcf1bc37362eed1713e54323535fc10e0142c99157"
   },
   "state/appellation-memberships.jsonl": {
    "entity": "AppellationMembership",
@@ -391,7 +391,8 @@
     "translations of an absent field": 5
    },
    "M3.2D recovered values": 25,
-   "M3.6F Cuvée values": 11
+   "M3.6F Cuvée values": 11,
+   "M3.10C Durfort-Vivens values": 9
   }
  }
 }

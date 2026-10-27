@@ -98,8 +98,9 @@ def t04_four_attributions_and_nothing_else():
 @check
 def t05_no_new_wine_estate_value_observation_or_reconciliation():
     changed = {f[len('data/model/'):] for f in git('diff', '--name-only', BEFORE, '--', 'data/model').split()}
-    assert changed == {'document/attributions.jsonl', 'cross/provenance.jsonl', 'derived/vintage-documents.json',
-                       'manifest.json'}, sorted(changed)
+    mine = {'document/attributions.jsonl', 'cross/provenance.jsonl', 'derived/vintage-documents.json', 'manifest.json'}
+    # M3.10C's values, observations and reconciliations, a later phase, set aside (their rows: t06, t07)
+    assert {f for f in changed if f in mine or f not in H.M310C_FILES} == mine, sorted(changed)
     old = set(git('show', '%s:data/model/document/attributions.jsonl' % BEFORE).splitlines())
     new = set(open(L.MODEL + 'document/attributions.jsonl', encoding='utf-8').read().splitlines())
     assert old <= new and {json.loads(x)['artifact'] for x in new - old} == ARTIFACTS and len(new - old) == 4
@@ -111,19 +112,24 @@ def t06_the_2014_pair_is_two_artifacts_of_one_claim():
     assert len(pair) == 2 and len({m['artifact'] for m in pair}) == 2 and len({m['vintage_id'] for m in pair}) == 1
     assert {m['same_claim_as'][0] for m in pair} == {m['artifact'] for m in pair}
     vt = pair[0]['vintage_id']
-    # no observation or reconciliation added for the pair (the vintage's legacy rating observation stands)
+    # no observation or reconciliation added for the pair (the vintage's legacy rating observation stands);
+    # M3.10C's, a later phase, set aside
+    prov = {p['id']: p for p in L.read_table('cross/provenance.jsonl')}
     for rel in ('observation/observations.jsonl', 'reconciliation/reconciliations.jsonl'):
         old = [x for x in git('show', '%s:data/model/%s' % (BEFORE, rel)).splitlines() if json.loads(x)['subject'] == vt]
         new = [json.dumps(r, ensure_ascii=False, sort_keys=True, separators=(',', ':'))
-               for r in L.read_table(rel) if r['subject'] == vt]
+               for r in L.read_table(rel) if r['subject'] == vt and not H.is_m310c_row(rel, r, prov)]
         assert [json.loads(x) for x in old] == [json.loads(x) for x in new], rel
-    assert not [r for r in L.read_table('reconciliation/reconciliations.jsonl') if r['subject'] == vt]
+    assert not [r for r in L.read_table('reconciliation/reconciliations.jsonl') if r['subject'] == vt
+                and not H.is_m310c_row('reconciliation/reconciliations.jsonl', r, prov)]
 
 
 @check
 def t07_no_value_and_no_2024_oak():
-    vals = [v for v in L.read_table('canonical/values.jsonl')
-            if v['subject'] in {m['vintage_id'] for m in decisions()}]
+    prov = {p['id']: p for p in L.read_table('cross/provenance.jsonl')}
+    vals = [v for v in L.read_table('canonical/values.jsonl')        # M3.10C's, a later phase, set aside
+            if v['subject'] in {m['vintage_id'] for m in decisions()}
+            and not H.is_m310c_row('canonical/values.jsonl', v, prov)]
     assert not vals, vals[:2]
     for m in decisions():
         assert m['stages']['value_applied'].startswith('NONE'), m['candidate']

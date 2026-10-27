@@ -320,6 +320,63 @@ def m36f_values(m):
     m.stat('M7', 'M3.6F Cuvée values', n)
 
 
+M310C = 'data/audit/m3.10c-value-application.jsonl'
+M310C_ACTOR = 'tools/m310c-values.py'
+
+
+def m310c_values(m):
+    """M3.10C: Château Durfort-Vivens' nine class-A vintage values from the four documents M3.10B accepted, read
+    from the audited manifest's applied value rows only, as M3.6F's are: each stating document an Observation with
+    its own DOCUMENT provenance quoting its lines and naming its evidence decision; one Reconciliation,
+    ONLY_CANDIDATE (one document) or UNANIMOUS (the 2014 English and French sheets, agreeing); the canonical value
+    SOURCED. A closed world: the applied set must be exactly the manifest's expected set, or the migration stops."""
+    import os
+    if not os.path.exists(L.ROOT + M310C):
+        return
+    rows = L.jsonl_lines(L.ROOT + M310C)
+    [scope] = [r for r in rows if r['record'] == 'scope']
+    expected = {(e['vintage'], e['field']) for e in scope['expected']}
+    applied = set()
+    for r in rows:
+        if r['record'] != 'value' or not r['applied']:
+            continue
+        vt, field = r['vintage'], r['field']
+        oids, provs = [], []
+        for o in r['observations']:
+            pid = m.prov('DOCUMENT', M310C_ACTOR, artifact=o['artifact'], quote=o['quote'],
+                         code_state={'stream': 'M3.10C', 'manifest': M310C, 'vintage': vt, 'field': field,
+                                     'locus': o['locus'], 'evidence_decision': o['evidence_decision'],
+                                     'evidence_version': o['evidence_version']})
+            oid = S.hid('Observation', vt, field, 'm310c', o['artifact'])
+            row = {'id': oid, 'subject': vt, 'field': field, 'value': o['value'], 'raw_value': o['quote'],
+                   'artifact': o['artifact'], 'locus': o['locus'],
+                   'extraction': {'method': 'm310c-values/1', 'file': M310C, 'record': '%s|%s|%s' % (vt, field, o['artifact'])},
+                   'confidence': 'EXPLICIT_LABELLED', 'observed_at': CRAWLED, 'provenance': pid,
+                   'subject_status': 'ESTABLISHED'}
+            for k, v in (('unit', r.get('unit')), ('lang', o['lang'])):
+                if v:
+                    row[k] = v
+            m.add('observation/observations.jsonl', row)
+            oids.append(oid)
+            provs.append(pid)
+        rule = r['rule']
+        rid = S.hid('Reconciliation', vt, field, 'm310c')
+        m.add('reconciliation/reconciliations.jsonl', {
+            'id': rid, 'subject': vt, 'field': field, 'candidates': oids, 'selected': oids[0], 'rule': rule,
+            'status': 'SINGLE' if rule == 'ONLY_CANDIDATE' else 'AGREED',
+            'reason': 'stated under its own heading in %d accepted document(s); %s' % (
+                len(oids), 'the only candidate' if rule == 'ONLY_CANDIDATE' else 'the documents agree'),
+            'resolver': M310C_ACTOR, 'decided_at': CRAWLED,
+            'provenance': m.prov('DERIVATION', M310C_ACTOR, derived_from=sorted(provs),
+                                 code_state={'stream': 'M3.10C', 'vintage': vt, 'field': field, 'rule': rule})})
+        m.add('canonical/values.jsonl', {'subject': vt, 'field': field, 'value': r['value'], 'status': 'SOURCED',
+                                         'reconciliation': rid, 'provenance': provs[0]})
+        applied.add((vt, field))
+    if applied != expected:
+        raise AssertionError('M3.10C: applied %s, expected %s' % (sorted(applied ^ expected), sorted(expected)))
+    m.stat('M7', 'M3.10C Durfort-Vivens values', len(applied))
+
+
 def run(m):
     m.p_rec = m.prov('DERIVATION', ACTOR, quote='legacy values are retained; no reconciliation '
                      'rule chose them (LEGACY_NEVER_OVERWRITE)')
@@ -332,3 +389,4 @@ def run(m):
     m.stat('M7', 'backfill', dict(sorted(n.items())))
     recovered_values(m)
     m36f_values(m)
+    m310c_values(m)

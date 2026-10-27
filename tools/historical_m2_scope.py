@@ -73,6 +73,12 @@ M310B_ACTOR = 'tools/m310b-accept.py'
 M310B_MANIFEST = 'data/audit/m3.10b-evidence-decisions.jsonl'
 M310B_EVIDENCE_VERSION = 9
 M310B_STAT = 'M3.10B accepted external documents'
+# M3.10C: Durfort-Vivens' nine values from M3.10B's accepted documents (observations, reconciliations, values)
+M310C_ACTOR = 'tools/m310c-values.py'
+M310C_MANIFEST = 'data/audit/m3.10c-value-application.jsonl'
+M310C_STAT = 'M3.10C Durfort-Vivens values'
+M310C_FILES = ('canonical/values.jsonl', 'observation/observations.jsonl', 'reconciliation/reconciliations.jsonl',
+               'cross/provenance.jsonl', 'manifest.json')
 # M3.6D: one canonical wine (Cuvée Mongravey), its names, its estate relationship and its descriptor
 M36D_ACTOR = 'tools/m36d-cuvee.py'
 M36D_MANIFEST = 'data/audit/m3.6d-cuvee-mongravey.jsonl'
@@ -269,6 +275,28 @@ def m36f_applied():
     return {(r['vintage'], r['field']): r['value'] for r in rows if r['record'] == 'value' and r['applied']}
 
 
+def is_m310c(p):
+    """A provenance row of a value M3.10C added (a Durfort-Vivens sheet's lines, or its reconciliation)."""
+    return p.get('actor') == M310C_ACTOR and (p.get('code_state') or {}).get('stream') == 'M3.10C'
+
+
+def is_m310c_observation(o):
+    return (o.get('extraction') or {}).get('method') == 'm310c-values/1'
+
+
+def is_m310c_reconciliation(r):
+    return r.get('resolver') == M310C_ACTOR and r.get('rule') in ('ONLY_CANDIDATE', 'UNANIMOUS')
+
+
+def m310c_applied():
+    """{(vintage, field): value} the M3.10C manifest's value rows added to the model."""
+    try:
+        rows = L.jsonl_lines(L.ROOT + M310C_MANIFEST)
+    except FileNotFoundError:
+        return {}
+    return {(r['vintage'], r['field']): r['value'] for r in rows if r['record'] == 'value'}
+
+
 def m32d_applied():
     """{(vintage, field)} the M3.2 audit's APPLY_VALUE rows added to the model."""
     out = set()
@@ -421,6 +449,19 @@ def is_m310b_row(rel, r, prov):
 M310B_FILES = ('document/attributions.jsonl', 'derived/vintage-documents.json', 'cross/provenance.jsonl', 'manifest.json')
 
 
+def is_m310c_row(rel, r, prov):
+    """A model row M3.10C added: on its provenance (an observation, a canonical value), its reconciliation, or the
+    provenance itself."""
+    if rel == 'cross/provenance.jsonl':
+        return r.get('actor') == M310C_ACTOR and (r.get('code_state') or {}).get('stream') == 'M3.10C'
+    if rel == 'reconciliation/reconciliations.jsonl':
+        p = prov.get(r.get('provenance')) or {}
+        return r.get('resolver') == M310C_ACTOR and (p.get('code_state') or {}).get('stream') == 'M3.10C'
+    p = prov.get(r.get('provenance')) or {}
+    return rel in ('canonical/values.jsonl', 'observation/observations.jsonl') and \
+        p.get('actor') == M310C_ACTOR and (p.get('code_state') or {}).get('stream') == 'M3.10C'
+
+
 def _without_m310a_manifest(m):
     """A model manifest with M3.10A's and M3.10B's rows taken out of its counts and their stats set aside."""
     m = json.loads(json.dumps(m))
@@ -437,6 +478,11 @@ def _without_m310a_manifest(m):
     if n:
         for rel in ('document/attributions.jsonl', 'cross/provenance.jsonl'):
             m['files'][rel] = {'rows': m['files'][rel]['rows'] - n}
+    if stats.get('M7', {}).pop(M310C_STAT, None):
+        prov = {p['id']: p for p in L.read_table('cross/provenance.jsonl')}
+        for rel in [f for f in M310C_FILES if f.endswith('.jsonl')]:
+            k = sum(1 for r in L.read_table(rel) if is_m310c_row(rel, r, prov))
+            m['files'][rel] = {'rows': m['files'][rel]['rows'] - k}
     return m
 
 
@@ -448,7 +494,8 @@ def unchanged_but_m310a(before, *paths):
     later = {(r[4], r[1]) for r in m310b_applied()}            # M3.10B's (vintage, artifact) links
     for f in _git('diff', '--name-only', before, '--', *paths).split():
         rel = f[len('data/model/'):]
-        assert rel in set(M310A_FILES) | set(M310B_FILES) and m310a_registrations(), '%s changed, and not by M3.10A' % f
+        assert rel in set(M310A_FILES) | set(M310B_FILES) | set(M310C_FILES) and m310a_registrations(), \
+            '%s changed, and not by M3.10A' % f
         old = _git('show', '%s:%s' % (before, f))
         new = open(L.ROOT + f, encoding='utf-8').read()
         if rel == 'manifest.json':
@@ -463,7 +510,8 @@ def unchanged_but_m310a(before, *paths):
             assert a == b, '%s changed beyond M3.10B\'s links' % f
             continue
         kept = [[x for x in t.splitlines() if not is_m310a_row(rel, json.loads(x), prov)
-                 and not is_m310b_row(rel, json.loads(x), prov)] for t in (new, old)]
+                 and not is_m310b_row(rel, json.loads(x), prov) and not is_m310c_row(rel, json.loads(x), prov)]
+                for t in (new, old)]
         assert kept[0] == kept[1], '%s changed beyond M3.10A\'s and M3.10B\'s rows' % f
     return True
 
@@ -484,12 +532,14 @@ def unchanged_but_m36d(before, *paths):
         if rel == 'cross/provenance.jsonl':
             # `before` may hold M3.6D's rows already (a later phase's check): both sides without them
             kept = [[x for x in t.splitlines() if json.loads(x).get('actor') not in CUVEE_ACTORS
-                     and not is_m310a_row(rel, json.loads(x), prov) and not is_m310b_row(rel, json.loads(x), prov)]
+                     and not is_m310a_row(rel, json.loads(x), prov) and not is_m310b_row(rel, json.loads(x), prov)
+                     and not is_m310c_row(rel, json.loads(x), prov)]
                     for t in (new, old)]
             assert kept[0] == kept[1], '%s changed beyond M3.6D\'s provenance' % f
         elif rel.endswith('.jsonl'):
             kept = [[x for x in t.splitlines() if not is_m36d_row(rel, json.loads(x), prov)
-                     and not is_m310a_row(rel, json.loads(x), prov)] for t in (new, old)]
+                     and not is_m310a_row(rel, json.loads(x), prov) and not is_m310c_row(rel, json.loads(x), prov)]
+                    for t in (new, old)]
             assert kept[0] == kept[1], '%s changed beyond M3.6D\'s rows' % f
         else:
             w = m36d_wine()
@@ -524,6 +574,12 @@ def without_m36d(changed, manifest):
         n = sum(1 for r in L.read_table(rel) if is_m310b_row(rel, r, prov))
         if n:
             files[rel] = dict(files[rel], rows=files[rel]['rows'] - n)
+    # M3.10C's values, observations, reconciliations and their provenance, a later application: its rows out of
+    # the counts (its files besides provenance are M3.6F's, already off the list)
+    for rel in [f for f in M310C_FILES if f.endswith('.jsonl')]:
+        n = sum(1 for r in L.read_table(rel) if is_m310c_row(rel, r, prov))
+        if n:
+            files[rel] = dict(files[rel], rows=files[rel]['rows'] - n)
     return changed, dict(manifest, files=files)
 
 
@@ -547,11 +603,15 @@ def model_changes_are_m2_only(before):
                          and (r.get('code_state') or {}).get('stream') == 'M3.2D') or
                         (r['kind'] == 'DOCUMENT' and is_m310a_row('cross/provenance.jsonl', r, {})) or
                         (r['kind'] == 'DOCUMENT' and r['actor'] == M310B_ACTOR
-                         and (r.get('code_state') or {}).get('stream') == 'M3.10B')),
+                         and (r.get('code_state') or {}).get('stream') == 'M3.10B') or
+                        (r['kind'] in ('DOCUMENT', 'DERIVATION') and r['actor'] == M310C_ACTOR
+                         and (r.get('code_state') or {}).get('stream') == 'M3.10C')),
                        ('reconciliation/reconciliations.jsonl',
-                        lambda r: r['resolver'] in (M32_ACTOR, M36F_ACTOR) and r['rule'] in ('ONLY_CANDIDATE', 'UNANIMOUS')
+                        lambda r: r['resolver'] in (M32_ACTOR, M36F_ACTOR, M310C_ACTOR)
+                        and r['rule'] in ('ONLY_CANDIDATE', 'UNANIMOUS')
                         and r['status'] in ('SINGLE', 'AGREED') and 'dispositions' not in r
-                        and (r['resolver'] == M32_ACTOR or is_m36d_row('reconciliation/reconciliations.jsonl', r, prov)))):
+                        and (r['resolver'] == M32_ACTOR or is_m36d_row('reconciliation/reconciliations.jsonl', r, prov)
+                             or is_m310c_row('reconciliation/reconciliations.jsonl', r, prov)))):
         if rel not in changed:
             continue
         old, new = _lines(before, rel)
@@ -644,7 +704,8 @@ def model_changes_are_m2_only(before):
             # M3.2D: a recovered value or the observation that states it, each with its M3.2D provenance
             # M3.6F: Cuvée Mongravey's vintage value or the observation stating it, on its M3.6F provenance
             p = prov.get(n[k]['provenance']) or {}
-            assert (p.get('actor'), (p.get('code_state') or {}).get('stream')) in ((M32_ACTOR, 'M3.2D'), (M36F_ACTOR, 'M3.6F')), \
+            assert (p.get('actor'), (p.get('code_state') or {}).get('stream')) in (
+                (M32_ACTOR, 'M3.2D'), (M36F_ACTOR, 'M3.6F'), (M310C_ACTOR, 'M3.10C')), \
                 '%s %s: an added row is not M3.2D\'s or M3.6F\'s' % (rel, k)
         for k in o:
             if o[k] == n[k]:
@@ -668,7 +729,7 @@ def model_changes_are_m2_only(before):
                     a, b = dict(a_all.get(st, {})), dict(b_all.get(st, {}))
                     had_m36d = M36D_STAT in a                  # `before` already holds M3.6D (a later phase's check)
                     for s in (M2_STAT, M32B_STAT, M32D_STAT, M34B_STAT, M35_STAT, M36B_STAT, M36D_STAT,
-                              M310B_STAT) + M36F_STATS:
+                              M310B_STAT, M310C_STAT) + M36F_STATS:
                         a.pop(s, None)
                         b.pop(s, None)
                     if st == 'M4' and m36d_wine() and 'display names' in b and not had_m36d:

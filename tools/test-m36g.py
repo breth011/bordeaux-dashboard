@@ -145,7 +145,8 @@ def t07_the_uncorrected_acceptance_is_reported_not_corrected():
 
 @check
 def t08_model_evidence_and_app_unchanged_since_m36f():
-    paths = ('data/model', 'data/app', 'data/sources.json', ':(glob)data/*.js', 'assets', 'index.html') + \
+    H.unchanged_but_m310a(BEFORE, 'data/model')      # M3.10A's registrations, a later phase, set aside
+    paths = ('data/app', 'data/sources.json', ':(glob)data/*.js', 'assets', 'index.html') + \
         tuple('data/evidence/decisions-v%d.jsonl' % v for v in range(1, 8))
     assert not git('diff', '--stat', BEFORE, '--', *paths).strip()
     assert not git('status', '--porcelain', '--', *paths).strip()

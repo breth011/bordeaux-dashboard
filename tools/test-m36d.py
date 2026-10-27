@@ -200,6 +200,9 @@ def t12_every_new_fact_has_its_provenance():
         p = PROV[r['provenance']]
         if rel == 'identity/identity-map.jsonl' and r['namespace'] == 'wine-by-display-name':
             continue                         # the display-name rule every wine shares (M4), not a fact
+        if __import__('historical_m2_scope').is_m310a_row(rel, r, PROV):
+            continue                         # M3.10A's registered artifacts' keys, a later phase
+
         assert p['actor'] == ACTOR and p['code_state']['stream'] == 'M3.6D', (rel, r)
         if p['kind'] == 'DOCUMENT':
             assert p['artifact'] and p['quote'], (rel, r)
@@ -212,7 +215,8 @@ def t12_every_new_fact_has_its_provenance():
 def t13_only_m36d_changed_the_model_and_nothing_else_moved():
     import historical_m2_scope as H                 # M3.6F's vintages and values, a later phase: additions, set aside
     changed = set(git('diff', '--name-only', BEFORE, '--', 'data/model').split())
-    assert {c[len('data/model/'):] for c in changed} <= M36D_TABLES | set(H.M36F_FILES), sorted(changed)
+    assert {c[len('data/model/'):] for c in changed} <= M36D_TABLES | set(H.M36F_FILES) | set(H.M310A_FILES), sorted(changed)
+    H.unchanged_but_m310a(BEFORE, *('data/model/' + f for f in ('identity/artifacts.jsonl', 'document/placements.jsonl', 'document/locators.jsonl')))   # M3.10A, a later phase
     H.unchanged_but_m36d(BEFORE, *('data/model/' + f for f in H.M36F_FILES))
     for rel in M36D_TABLES - {'manifest.json', 'derived/estate-wines.json'}:
         old = {json.dumps(r, sort_keys=True) for r in before(rel)}

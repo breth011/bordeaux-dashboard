@@ -316,6 +316,35 @@ def recovered_placements(m):
     m.stat('M6', 'M3.2B placements (recovered addresses)', n)
 
 
+EXTERNAL_ACTOR = 'tools/m310a-register.py'
+
+
+def external_placements(m):
+    """M3.10A: the address an externally acquired document was fetched from, in M3.2B's shape - one URL
+    placement per registered document, observed on its fetch date, on its M3.7-confirmed source, with a
+    DOCUMENT provenance naming the stream and the registration. It records what M3.8 did (its fetch, the HTTP
+    status, the bytes' sha256) and no crawl fact. Read from the manifest's registration rows only."""
+    regs = M2.external_registrations()
+    n = 0
+    for sha in sorted(regs):
+        r = regs[sha]
+        aid = m.art[('sha256', sha)]
+        pid = m.prov('DOCUMENT', EXTERNAL_ACTOR, artifact=aid,
+                     code_state={'stream': 'M3.10A', 'manifest': M2.EXTERNAL, 'candidate': r['candidate'],
+                                 'url': r['url'], 'fetched_at': r['fetched_at'], 'http_status': r['http_status'],
+                                 'acquired_by': r['acquired_by'], 'origin': r['origin'],
+                                 'correspondence': 'the bytes M3.8 fetched (sha256)'})
+        loc = {'kind': 'URL', 'value': r['url']}
+        m.add('document/locators.jsonl', loc)
+        day = S.bound('EXACT', r['fetched_at'][:10], 'CALENDAR', 'DAY', pid)
+        m.add('document/placements.jsonl', {
+            'id': S.hid('Placement', 'URL', r['url'], aid, 'm310a'), 'locator': loc, 'artifact': aid,
+            'source': r['source'], 'status': 'PRESENT', 'retrieval_method': r['retrieval_method'],
+            'observed': {'valid_from': day, 'valid_to': day}, 'provenance': pid})
+        n += 1
+    m.stat('M6', 'M3.10A placements (externally acquired documents)', n)
+
+
 MAPPINGS = 'data/audit/m3.4b-mapping-application.jsonl'
 MAPPINGS_ACTOR = 'tools/m34b-apply.py'
 
@@ -354,6 +383,7 @@ def run(m):
     prepare_value_prov(m)
     document_dates(m)
     recovered_placements(m)
+    external_placements(m)
     audited_mappings(m)
     held_document_attributions(m)
     m36b_mappings(m)

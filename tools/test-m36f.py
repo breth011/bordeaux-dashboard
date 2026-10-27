@@ -150,9 +150,10 @@ def t07_no_unsupported_value():
 
 @check
 def t08_the_wines_names_and_estate_are_as_they_were():
-    for rel in ('identity/wines.jsonl', 'identity/names.jsonl', 'identity/identity-map.jsonl', 'state/estate-wine.jsonl',
+    for rel in ('identity/wines.jsonl', 'identity/names.jsonl', 'state/estate-wine.jsonl',
                 'state/wine-descriptors.jsonl', 'state/rank-assertions.jsonl'):
         assert not git('diff', '--stat', BEFORE, '--', 'data/model/' + rel).strip(), rel
+    H.unchanged_but_m310a(BEFORE, 'data/model/identity/identity-map.jsonl')   # M3.10A's artifact keys aside
     margaux = RB.fold('Mongravey Cuvée Margaux')
     assert not [n for n in L.read_table('identity/names.jsonl') if RB.fold(n['name']) == margaux]
     assert not [v for v in L.read_table('identity/vintages.jsonl') if v['wine'] == GRAND_VIN and
@@ -164,7 +165,8 @@ def t09_only_m36f_changed_the_model():
     H.unchanged_but_m36d(BEFORE, 'data/model', ':(exclude)data/model/manifest.json')
     H.model_changes_are_m2_only(BEFORE)
     changed = set(git('diff', '--name-only', BEFORE, '--', 'data/model').split())
-    assert changed <= {'data/model/' + f for f in H.M36F_FILES + ('cross/provenance.jsonl', 'manifest.json')}, changed
+    # M3.10A's registrations, a later phase, set aside (unchanged_but_m36d verified they hold only its rows)
+    assert changed <= {'data/model/' + f for f in H.M36F_FILES + H.M310A_FILES + ('cross/provenance.jsonl', 'manifest.json')}, changed
     assert not git('diff', '--stat', BEFORE, '--', 'data/app', ':(glob)data/*.js', 'data/sources.json',
                    'data/audit/data-gap-register.jsonl', 'assets', 'index.html').strip()
 

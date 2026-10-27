@@ -49,3 +49,5 @@ data/audit/m3.8-acquisition-pilot.jsonl text eol=lf
 docs/PHASE-M3.8-ACQUISITION-PILOT.md text eol=lf
 data/audit/m3.9-evidence-review.jsonl text eol=lf
 docs/PHASE-M3.9-EVIDENCE-REVIEW.md text eol=lf
+data/audit/m3.10a-external-artifact-registration.jsonl text eol=lf
+docs/PHASE-M3.10A-ARTIFACT-REGISTRATION.md text eol=lf

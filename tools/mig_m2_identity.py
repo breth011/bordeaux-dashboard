@@ -12,7 +12,9 @@ artifact only when it is proven they hash the same bytes:
   - the discovery harvest computed both over the bytes it fetched; or
   - the contract's evidence-path rule: the manifest records one version at
     that path and every read there (v4, v5) hashed the same sha256.
-Otherwise they stay separate artifacts. One Placement per (locator,
+Otherwise they stay separate artifacts. A document acquired outside the
+crawl and registered by M3.10A's audited manifest is minted by its sha256
+in the same way (external_registrations). One Placement per (locator,
 artifact); a path with several manifest versions keeps every version
 (BYTES_UNAVAILABLE: which one is on disk is not recorded), and the bytes
 the reader hashed there get their own PRESENT placement. The 123
@@ -192,6 +194,18 @@ DISC_STATUS = {'EXTRACTED': 'EXTRACTED', 'STORED_NOT_EXTRACTED': 'STORED_ONLY',
                'UNSUPPORTED': 'UNSUPPORTED', 'EXTRACTION_FAILED': 'FAILED'}
 
 
+EXTERNAL = 'data/audit/m3.10a-external-artifact-registration.jsonl'
+
+
+def external_registrations():
+    """M3.10A: documents acquired outside the discovery crawl, registered by an audited manifest - the fourth
+    input beside data/sources.json, the discovery manifest and the reader's hashed paths. Its `registration`
+    rows only: sha256 -> row (bytes, media type). Minted by sha256 exactly as every other input's digests."""
+    if not os.path.exists(L.ROOT + EXTERNAL):
+        return {}
+    return {r['sha256']: r for r in L.jsonl_lines(L.ROOT + EXTERNAL) if r['record'] == 'registration'}
+
+
 def sources_path(r):
     """The manifest row's path relative to sources/, as the reader records it."""
     return r['folder'] + '/' + r['file'] if r['folder'].startswith('pages/') \
@@ -238,6 +252,7 @@ def documents(m):
     disc = {}
     for d in L.jsonl_lines(L.ROOT + 'data/discovery/artifacts.jsonl'):
         disc[d['sha256']] = d
+    ext = external_registrations()
 
     # Joins. sha256 -> sha1 must be one-to-one or the join is refused.
     join = {}
@@ -281,7 +296,9 @@ def documents(m):
                                             'same fetched bytes',
                                             'evidence': 'the manifest records one version at the path and '
                                             'every v4/v5 read there hashed this sha256'}[basis[s1]]))
+    # the external registrations last, so that no earlier digest's id moves when the model is built from scratch
     all256 = sorted(set(disc) | {h for hs in reads.values() for h in hs})
+    all256 += sorted(set(ext) - set(all256))
     for s256 in all256:
         if ('sha256', s256) in art:
             continue
@@ -310,6 +327,8 @@ def documents(m):
             r['bytes'] = d['bytes']
         elif read_bytes.get(r.get('sha256')) is not None:
             r['bytes'] = read_bytes[r['sha256']]
+        elif r.get('sha256') in ext:
+            r['bytes'] = ext[r['sha256']]['bytes']
         r['bytes_available'] = bool(r.get('sha256'))
         if d:
             r['media_type'] = (d.get('content_types') or [None])[0]
@@ -319,6 +338,8 @@ def documents(m):
             r['extraction_status'] = st
         else:
             r['extraction_status'] = 'EXTRACTED' if r.get('sha256') in read_any else 'PENDING'
+            if r.get('sha256') in ext:
+                r['media_type'] = ext[r['sha256']]['media_type']
         if 'media_type' not in r:
             p = first_path.get(r.get('sha1'), '')
             r['media_type'] = MEDIA.get(os.path.splitext(p)[1].lower())

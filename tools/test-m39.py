@@ -122,7 +122,8 @@ def t06_the_reader_and_the_evidence_store_unchanged():
 
 @check
 def t07_no_model_or_app_mutation():
-    paths = ('data/model', 'data/evidence', 'data/app', 'data/sources.json', 'data/websites.js', ':(glob)data/*.js',
+    __import__('historical_m2_scope').unchanged_but_m310a(BEFORE, 'data/model')   # M3.10A, a later phase
+    paths = ('data/evidence', 'data/app', 'data/sources.json', 'data/websites.js', ':(glob)data/*.js',
              'assets', 'index.html', 'data/audit/data-gap-register.jsonl', 'data/discovery',
              'data/audit/m3.7-source-confirmation.jsonl', 'data/audit/m3.8-acquisition-pilot.jsonl')
     assert not git('diff', '--stat', BEFORE, '--', *paths).strip()

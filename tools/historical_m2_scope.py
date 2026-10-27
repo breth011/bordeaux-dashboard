@@ -39,6 +39,7 @@ file is byte-identical to `before`, and every difference in the files above is o
 import functools
 import hashlib
 import json
+import os
 import re
 import subprocess
 
@@ -81,7 +82,15 @@ M36F_FILES = ('identity/vintages.jsonl', 'observation/observations.jsonl', 'reco
               'canonical/values.jsonl', 'derived/wine-vintages.json')
 CUVEE_ACTORS = {M36D_ACTOR: 'M3.6D', M36F_ACTOR: 'M3.6F'}  # the later Cuvée Mongravey decisions, set aside alike
 CUVEE_FILES = M36D_FILES + tuple(f for f in M36F_FILES if f not in M36D_FILES)
-ALLOWED = set(M2_FILES) | set(M32_FILES) | set(M34B_FILES) | set(M36D_FILES) | set(M36F_FILES)
+# M3.10A: four externally acquired documents registered as artifacts, each with its URL placement - no
+# evidence decision, attribution, observation or value
+M310A_ACTOR = 'tools/m310a-register.py'
+M310A_MANIFEST = 'data/audit/m3.10a-external-artifact-registration.jsonl'
+M310A_STAT = 'M3.10A placements (externally acquired documents)'
+M310A_ARTIFACT_STAT = 'artifacts (manifest sha1, sha256 only)'      # M2's count, which the registrations raise
+M310A_FILES = ('identity/artifacts.jsonl', 'identity/identity-map.jsonl', 'document/placements.jsonl',
+               'document/locators.jsonl', 'cross/provenance.jsonl', 'manifest.json')
+ALLOWED = set(M2_FILES) | set(M32_FILES) | set(M34B_FILES) | set(M36D_FILES) | set(M36F_FILES) | set(M310A_FILES)
 M2_ACTOR = 'tools/extract-document-dates.py'
 M32_ACTOR = 'tools/m32-recovery.py'
 M34B_ACTOR = 'tools/m34b-apply.py'
@@ -339,22 +348,102 @@ def m36d_rows(rel):
     return [r for r in L.read_table(rel) if is_m36d_row(rel, r, prov)]
 
 
+_M310A = {}                      # the manifest's index, for this process only: rebuilt when the file changes
+
+
+def _m310a_index():
+    """M3.10A's registrations and their sha256 and URL sets, read once per process (and again only if the
+    manifest's size or modification time changes); nothing is kept beyond the process."""
+    try:
+        st = os.stat(L.ROOT + M310A_MANIFEST)
+    except FileNotFoundError:
+        return {'regs': [], 'shas': frozenset(), 'urls': frozenset()}
+    key = (st.st_size, st.st_mtime_ns)
+    if _M310A.get('key') != key:
+        regs = [r for r in L.jsonl_lines(L.ROOT + M310A_MANIFEST) if r['record'] == 'registration']
+        _M310A.clear()
+        _M310A.update(key=key, regs=regs, shas=frozenset(g['sha256'] for g in regs),
+                      urls=frozenset(g['url'] for g in regs))
+    return _M310A
+
+
+def m310a_registrations():
+    """The registration rows of M3.10A's manifest (the migration's fourth artifact input), or []."""
+    return list(_m310a_index()['regs'])
+
+
+def is_m310a_row(rel, r, prov):
+    """A model row M3.10A added: on its provenance, or a registered document's artifact, sha256 key or URL locator."""
+    p = prov.get(r.get('provenance')) or {}
+    if rel == 'cross/provenance.jsonl':
+        return r.get('actor') == M310A_ACTOR and (r.get('code_state') or {}).get('stream') == 'M3.10A'
+    if p.get('actor') == M310A_ACTOR and (p.get('code_state') or {}).get('stream') == 'M3.10A':
+        return True
+    idx = _m310a_index()
+    shas, urls = idx['shas'], idx['urls']
+    return ((rel == 'identity/artifacts.jsonl' and r.get('sha256') in shas and 'sha1' not in r) or
+            (rel == 'identity/identity-map.jsonl' and r.get('namespace') == 'artifact-by-sha256' and r.get('legacy_key') in shas) or
+            (rel == 'document/locators.jsonl' and r.get('kind') == 'URL' and r.get('value') in urls))
+
+
+def _without_m310a_manifest(m):
+    """A model manifest with M3.10A's rows taken out of its counts and its stat set aside."""
+    m = json.loads(json.dumps(m))
+    regs = m310a_registrations()
+    stats = m.get('stats') or {}
+    if not regs or M310A_STAT not in (stats.get('M6') or {}):
+        return m
+    stats['M6'].pop(M310A_STAT)
+    a = stats['M2'][M310A_ARTIFACT_STAT]
+    stats['M2'][M310A_ARTIFACT_STAT] = [a[0], a[1] - len(regs)]
+    for rel in M310A_FILES:
+        if rel in m.get('files', {}) and rel != 'manifest.json':
+            m['files'][rel] = {'rows': m['files'][rel]['rows'] - len(regs)}
+    return m
+
+
+def unchanged_but_m310a(before, *paths):
+    """`git diff before -- paths` (under data/model/) is empty but for M3.10A: only its files differ, and with
+    its rows taken out each is exactly as at `before`, line for line and in order (the manifest: its counts and
+    stat set aside, every file's hash aside). True, or an assertion error naming what else changed."""
+    prov = {p['id']: p for p in L.read_table('cross/provenance.jsonl')}
+    for f in _git('diff', '--name-only', before, '--', *paths).split():
+        rel = f[len('data/model/'):]
+        assert rel in M310A_FILES and m310a_registrations(), '%s changed, and not by M3.10A' % f
+        old = _git('show', '%s:%s' % (before, f))
+        new = open(L.ROOT + f, encoding='utf-8').read()
+        if rel == 'manifest.json':
+            a, b = (_without_m310a_manifest(json.loads(t)) for t in (old, new))
+            for d in (a, b):
+                d['files'] = {k: {'rows': v['rows']} for k, v in d['files'].items()}
+            assert a == b, '%s changed beyond M3.10A' % f
+            continue
+        kept = [[x for x in t.splitlines() if not is_m310a_row(rel, json.loads(x), prov)] for t in (new, old)]
+        assert kept[0] == kept[1], '%s changed beyond M3.10A\'s rows' % f
+    return True
+
+
 def unchanged_but_m36d(before, *paths):
     """`git diff before -- paths` (paths under data/model/) is empty but for M3.6D: only its files differ, and
     with its rows taken out each is exactly as at `before`, line for line and in order. True, or an assertion
     error naming what else changed."""
     for f in _git('diff', '--name-only', before, '--', *paths).split():
         rel = f[len('data/model/'):]
+        if rel in M310A_FILES and rel not in CUVEE_FILES and rel != 'cross/provenance.jsonl':
+            unchanged_but_m310a(before, f)            # M3.10A's registrations, a later phase, set aside alike
+            continue
         assert (rel in CUVEE_FILES or rel == 'cross/provenance.jsonl') and m36d_wine(), '%s changed, and not by M3.6D' % f
         old = _git('show', '%s:%s' % (before, f))
         new = open(L.ROOT + f, encoding='utf-8').read()
+        prov = {p['id']: p for p in L.read_table('cross/provenance.jsonl')}
         if rel == 'cross/provenance.jsonl':
             # `before` may hold M3.6D's rows already (a later phase's check): both sides without them
-            kept = [[x for x in t.splitlines() if json.loads(x).get('actor') not in CUVEE_ACTORS] for t in (new, old)]
+            kept = [[x for x in t.splitlines() if json.loads(x).get('actor') not in CUVEE_ACTORS
+                     and not is_m310a_row(rel, json.loads(x), prov)] for t in (new, old)]
             assert kept[0] == kept[1], '%s changed beyond M3.6D\'s provenance' % f
         elif rel.endswith('.jsonl'):
-            prov = {p['id']: p for p in L.read_table('cross/provenance.jsonl')}
-            kept = [[x for x in t.splitlines() if not is_m36d_row(rel, json.loads(x), prov)] for t in (new, old)]
+            kept = [[x for x in t.splitlines() if not is_m36d_row(rel, json.loads(x), prov)
+                     and not is_m310a_row(rel, json.loads(x), prov)] for t in (new, old)]
             assert kept[0] == kept[1], '%s changed beyond M3.6D\'s rows' % f
         else:
             w = m36d_wine()
@@ -368,13 +457,22 @@ def without_m36d(changed, manifest):
     """An earlier phase's report of the model with M3.6D taken out: its files (which only it changes - no earlier
     phase touches identity or state) left off the changed list, and its rows subtracted from the manifest's
     counts. (changed, manifest) unchanged when there is no M3.6D wine."""
-    if not m36d_wine():
-        return changed, manifest
     files = dict(manifest['files'])
-    for rel in [f for f in CUVEE_FILES if f.endswith('.jsonl')] + ['cross/provenance.jsonl']:
-        files[rel] = dict(files[rel], rows=files[rel]['rows'] - len(m36d_rows(rel)))
-    # M3.6F's files besides: the reports that call this read from a state after M3.2, so only M3.6F moved them
-    return [f for f in changed if f not in CUVEE_FILES], dict(manifest, files=files)
+    if m36d_wine():
+        for rel in [f for f in CUVEE_FILES if f.endswith('.jsonl')] + ['cross/provenance.jsonl']:
+            files[rel] = dict(files[rel], rows=files[rel]['rows'] - len(m36d_rows(rel)))
+        # M3.6F's files besides: the reports that call this read from a state after M3.2, so only M3.6F moved them
+        changed = [f for f in changed if f not in CUVEE_FILES]
+    # M3.10A's registrations, a later phase, taken out alike: its rows from the counts, and the files only it
+    # moved since M3.2 (the artifacts, and the placements and locators M3.2B last moved before these reports)
+    prov = {p['id']: p for p in L.read_table('cross/provenance.jsonl')}
+    if m310a_registrations():
+        for rel in [f for f in M310A_FILES if f.endswith('.jsonl')]:
+            n = sum(1 for r in L.read_table(rel) if is_m310a_row(rel, r, prov))
+            files[rel] = dict(files[rel], rows=files[rel]['rows'] - n)
+        only = ('identity/artifacts.jsonl', 'document/placements.jsonl', 'document/locators.jsonl')
+        changed = [f for f in changed if f not in only]
+    return changed, dict(manifest, files=files)
 
 
 def model_changes_are_m2_only(before):
@@ -394,7 +492,8 @@ def model_changes_are_m2_only(before):
                         (r['kind'] in ('DOCUMENT', 'DERIVATION') and r['actor'] in CUVEE_ACTORS
                          and (r.get('code_state') or {}).get('stream') == CUVEE_ACTORS[r['actor']]) or
                         (r['kind'] == 'DERIVATION' and r['actor'] == M32_ACTOR
-                         and (r.get('code_state') or {}).get('stream') == 'M3.2D')),
+                         and (r.get('code_state') or {}).get('stream') == 'M3.2D') or
+                        (r['kind'] == 'DOCUMENT' and is_m310a_row('cross/provenance.jsonl', r, {}))),
                        ('reconciliation/reconciliations.jsonl',
                         lambda r: r['resolver'] in (M32_ACTOR, M36F_ACTOR) and r['rule'] in ('ONLY_CANDIDATE', 'UNANIMOUS')
                         and r['status'] in ('SINGLE', 'AGREED') and 'dispositions' not in r
@@ -427,8 +526,16 @@ def model_changes_are_m2_only(before):
         old, new = _lines(before, rel)
         o, n = set(old.splitlines()), set(new.splitlines())
         assert o <= n, '%s: %d rows changed or removed' % (rel, len(o - n))
-        bad = [r for r in (json.loads(x) for x in n - o) if not is_m36d_row(rel, r, prov)]
-        assert not bad, '%s: an added row is not M3.6D\'s: %s' % (rel, bad[:1])
+        bad = [r for r in (json.loads(x) for x in n - o) if not is_m36d_row(rel, r, prov)
+               and not is_m310a_row(rel, r, prov)]
+        assert not bad, '%s: an added row is not M3.6D\'s or M3.10A\'s: %s' % (rel, bad[:1])
+    # M3.10A: the registered documents' artifacts added, every existing one kept
+    if 'identity/artifacts.jsonl' in changed:
+        old, new = _lines(before, 'identity/artifacts.jsonl')
+        o, n = set(old.splitlines()), set(new.splitlines())
+        assert o <= n, 'identity/artifacts.jsonl: %d rows changed or removed' % len(o - n)
+        bad = [r for r in (json.loads(x) for x in n - o) if not is_m310a_row('identity/artifacts.jsonl', r, prov)]
+        assert not bad, 'identity/artifacts.jsonl: an added artifact is not M3.10A\'s: %s' % bad[:1]
     if 'derived/estate-wines.json' in changed:
         old, new = (json.loads(x) for x in _lines(before, 'derived/estate-wines.json'))
         w = m36d_wine()
@@ -454,8 +561,9 @@ def model_changes_are_m2_only(before):
             r = json.loads(x)
             if rel.endswith('placements.jsonl'):
                 p = prov.get(r['provenance']) or {}
-                assert r['locator']['kind'] == 'URL' and p.get('actor') == M32_ACTOR and \
-                    (p.get('code_state') or {}).get('stream') == 'M3.2B', ('not an M3.2B placement', r['id'])
+                assert r['locator']['kind'] == 'URL' and (
+                    (p.get('actor') == M32_ACTOR and (p.get('code_state') or {}).get('stream') == 'M3.2B') or
+                    is_m310a_row(rel, r, prov)), ('not an M3.2B or M3.10A placement', r['id'])
             else:
                 assert r['kind'] == 'URL', ('not a URL locator', r)
     # M3.2B's derived index: a source may only gain artifacts that M3.2B placed on its host
@@ -493,7 +601,8 @@ def model_changes_are_m2_only(before):
             if 'status' in diff:
                 assert n[k]['status'] == 'SOURCED', (rel, k, n[k]['status'])
     if 'manifest.json' in changed:
-        old, new = (json.loads(x) for x in _lines(before, 'manifest.json'))
+        # M3.10A's registrations, a later phase: its stat and the artifact count it raises set aside
+        old, new = (_without_m310a_manifest(json.loads(x)) for x in _lines(before, 'manifest.json'))
         for k in set(old) | set(new):
             if k == 'files':
                 diff = {f for f in set(old[k]) | set(new[k]) if old[k].get(f) != new[k].get(f)}

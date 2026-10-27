@@ -37065,3 +37065,7 @@
 {"bytes":24112,"bytes_available":true,"extraction_status":"EXTRACTED","id":"ar_037065","media_type":"text/html","sha256":"fff98e24cf5fa200853e8c7858e0df8cc5ec87d8284e68bca5e0e69779b831b9"}
 {"bytes":32468,"bytes_available":true,"extraction_status":"EXTRACTED","id":"ar_037066","media_type":"text/html","sha256":"fffe4ceabac30d2ddf44bb348086ce5769c0982eeba962febde4c8f2ff7639f8"}
 {"bytes":79307,"bytes_available":true,"extraction_status":"EXTRACTED","id":"ar_037067","media_type":"text/html","sha256":"fffef18abba3acfac4e97714a2ad3b46ddea111f73e874b53b0097a9dc9be155"}
+{"bytes":104826,"bytes_available":true,"extraction_status":"PENDING","id":"ar_037068","media_type":"application/pdf","sha256":"3638eac2b0c9bc2baf5cb97b80c5052f6ad3daee2c729890857a8591b42bd4e1"}
+{"bytes":104123,"bytes_available":true,"extraction_status":"PENDING","id":"ar_037069","media_type":"application/pdf","sha256":"409b16155ce16a61b9b45728f629a561d618ec5cd882f31fb1a4195365ef380b"}
+{"bytes":151127,"bytes_available":true,"extraction_status":"PENDING","id":"ar_037070","media_type":"application/pdf","sha256":"8a2e1eba7dc71792157d2329b77969acb584c99f2b9e4060fd7337257db53e69"}
+{"bytes":1175573,"bytes_available":true,"extraction_status":"PENDING","id":"ar_037071","media_type":"application/pdf","sha256":"8ec0df9326b0ec5ce7cb4fd84bdf0e81dec3556dacf3bc242b6758df48903bfc"}

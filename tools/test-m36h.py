@@ -92,7 +92,8 @@ def t04_nothing_attributed_and_the_model_unchanged():
     assert (m['result'], m['outcome'], m['wine'], m['attributed'], m['vintage_created']) == \
         ('APPLIED', 'CUVEE_MONGRAVEY', WINE, False, False) and m['vintage_stated'] == 2015 and not m['failures']
     assert m['linked_to'] == {'estate': 'es_00158', 'wine': GRAND_VIN}
-    paths = ('data/model', 'data/app', 'data/sources.json', ':(glob)data/*.js', 'assets', 'index.html')
+    H.unchanged_but_m310a(BEFORE, 'data/model')      # M3.10A's registrations, a later phase, set aside
+    paths = ('data/app', 'data/sources.json', ':(glob)data/*.js', 'assets', 'index.html')
     assert not git('diff', '--stat', BEFORE, '--', *paths).strip() and not git('status', '--porcelain', '--', *paths).strip()
     # the model reads v4-v5 links only: the grand vin's links are as they were, and no observation uses the sheet
     links = [x for x in L.read_table('observation/evidence-links.jsonl') if x['artifact'] == ART]

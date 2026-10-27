@@ -20,8 +20,8 @@
   },
   "cross/provenance.jsonl": {
    "entity": "Provenance",
-   "rows": 27199,
-   "sha256": "26e0bf0e8596994205af65c397f37bb04ad132c2b892d3761241b696670d5bff"
+   "rows": 27203,
+   "sha256": "2027930fdd4828722d41df5ad3e4f2ee254531d985b62464ff7021bd0962413a"
   },
   "document/artifact-dates.jsonl": {
    "entity": "ArtifactDate",
@@ -55,18 +55,18 @@
   },
   "document/locators.jsonl": {
    "entity": "Locator",
-   "rows": 19020,
-   "sha256": "e2c467fe01ba320aca60279b8885cce4c70f77cf51526caab7f9a056222c93a6"
+   "rows": 19024,
+   "sha256": "a5472567f5312e32e29758dabea19153db7f031ebf4a8a893b7bed0312078eb2"
   },
   "document/placements.jsonl": {
    "entity": "Placement",
-   "rows": 19442,
-   "sha256": "4140a659f9ff2cd89bf72f901de978ddda6a6d9ef18cce8122e963bf7059f289"
+   "rows": 19446,
+   "sha256": "b8cdff84e324680bf2107908c9009966c77ded6f8266991999a2e0e3a9d32c74"
   },
   "identity/artifacts.jsonl": {
    "entity": "Artifact",
-   "rows": 37067,
-   "sha256": "b2469f56b9552f42237083002d704644d758e0002caab7423aa96b19df183138"
+   "rows": 37071,
+   "sha256": "3fbc69f9629e255a655f8cda2321bc37d0a8198d0c5d2f7d95b562a3798c409d"
   },
   "identity/estates.jsonl": {
    "entity": "Estate",
@@ -75,8 +75,8 @@
   },
   "identity/identity-map.jsonl": {
    "entity": "IdentityMap",
-   "rows": 56533,
-   "sha256": "d524ecf3d5c8e4619ee27fe8e9028b78abc0e716eea17f73f4019e2f7221751e"
+   "rows": 56537,
+   "sha256": "578cc8f1379a7ce2eb201fad2ea540ea137f7cff5af74b2a08a3cc7c334601e8"
   },
   "identity/names.jsonl": {
    "entity": "NameRecord",
@@ -213,7 +213,7 @@
    ],
    "artifacts (manifest sha1, sha256 only)": [
     12019,
-    25048
+    25052
    ],
    "placements by status": {
     "BYTES_UNAVAILABLE": 279,
@@ -351,6 +351,7 @@
     "REJECTED_VINTAGE_ONLY": 2875
    },
    "M3.2B placements (recovered addresses)": 48,
+   "M3.10A placements (externally acquired documents)": 4,
    "M3.4B audited mappings": 39,
    "M3.5 held-document attributions": 32,
    "M3.6B audited web-page mappings": 8

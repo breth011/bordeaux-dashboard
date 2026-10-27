@@ -103,7 +103,10 @@ class Held:
             self.sha.setdefault(a['sha256'], 'discovery:%s' % a['sha256'][:12])
             self.name[docname(a['first_url'])].add((a['sha256'], 'discovery:%s' % a['sha256'][:12]))
         self.sha1 = {}
-        arts = L.read_table('identity/artifacts.jsonl')
+        # the model as M3.8 read it: M3.10A's registrations of M3.8's own documents, a later phase, set aside
+        import historical_m2_scope as HS
+        later = {g['sha256'] for g in HS.m310a_registrations()}
+        arts = [a for a in L.read_table('identity/artifacts.jsonl') if a.get('sha256') not in later or a.get('sha1')]
         for a in arts:
             if a.get('sha256'):
                 self.sha.setdefault(a['sha256'], a['id'])
@@ -111,7 +114,7 @@ class Held:
                 self.sha1[(a['sha1'], a.get('bytes'))] = a['id']
         by_id = {a['id']: a for a in arts}
         for p in L.read_table('document/placements.jsonl'):
-            if not p.get('artifact'):          # a legacy placement whose file is missing: no bytes to compare
+            if not p.get('artifact') or p['artifact'] not in by_id:   # a missing file's, or a later phase's
                 continue
             loc = p.get('locator') or {}
             v = loc.get('value') or ''

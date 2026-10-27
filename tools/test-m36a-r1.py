@@ -265,7 +265,7 @@ def r14_nothing_else_changed():
                    'data/audit/m3.6e-cuvee-historical-corrections.jsonl', 'data/audit/m3.6f-cuvee-vintages.jsonl',
                    'data/audit/m3.6g-cuvee-acquisition.jsonl', 'data/audit/m3.6h-cuvee-2015-correction.jsonl',
                    'data/audit/m3.7-source-confirmation.jsonl', 'data/audit/m3.8-acquisition-pilot.jsonl',
-                   'data/audit/m3.9-evidence-review.jsonl'}
+                   'data/audit/m3.9-evidence-review.jsonl', 'data/audit/m3.10a-external-artifact-registration.jsonl'}
     changed = set(git('diff', '--name-only', BEFORE, '--', 'data').split())
     # an existing audit output changes only as later phases record themselves: the gap register by their
     # resolution entries (historical_m2_scope.register_changes_are_m34b_only), its resolutions file by their keys

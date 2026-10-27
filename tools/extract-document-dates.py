@@ -92,7 +92,11 @@ def metadata_dated(d):
 
 
 def main():
-    arts = sorted(L.read_table('identity/artifacts.jsonl'), key=lambda a: a['id'])
+    # the model's artifacts as this historical M2 audit reads them: M3.10A's registrations, a later phase, aside
+    import historical_m2_scope as HS
+    later = {g['sha256'] for g in HS.m310a_registrations()}
+    arts = sorted((a for a in L.read_table('identity/artifacts.jsonl') if a.get('sha256') not in later or a.get('sha1')),
+                  key=lambda a: a['id'])
     places = collections.defaultdict(list)
     for p in L.read_table('document/placements.jsonl'):
         if p.get('artifact'):

@@ -155,7 +155,8 @@ def t08_the_stored_bytes_are_what_the_audit_says():
 
 @check
 def t09_model_evidence_gap_and_app_unchanged():
-    paths = ('data/model', 'data/evidence', 'data/app', 'data/sources.json', 'data/websites.js', ':(glob)data/*.js',
+    __import__('historical_m2_scope').unchanged_but_m310a(BEFORE, 'data/model')   # M3.10A, a later phase
+    paths = ('data/evidence', 'data/app', 'data/sources.json', 'data/websites.js', ':(glob)data/*.js',
              'assets', 'index.html', 'data/audit/data-gap-register.jsonl', 'data/audit/m3.7-source-confirmation.jsonl',
              'data/discovery')
     assert not git('diff', '--stat', BEFORE, '--', *paths).strip()

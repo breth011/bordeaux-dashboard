@@ -156,8 +156,10 @@ def provenance_is_preserved():
         L.MODEL + 'cross/provenance.jsonl', encoding='utf-8').read().splitlines()
     assert set(old) <= set(new), 'a provenance row changed or was removed'
     added = [json.loads(x) for x in set(new) - set(old)]
+    m310a = [p['id'] for p in L.read_table('cross/provenance.jsonl') if H.is_m310a_row('cross/provenance.jsonl', p, {})]
     assert sorted(p['id'] for p in added) == sorted([a['provenance'] for a in MINE + LATER] +
-                                                    [p['id'] for p in H.m36d_rows('cross/provenance.jsonl')])   # and M3.6D's
+                                                    [p['id'] for p in H.m36d_rows('cross/provenance.jsonl')] +   # and M3.6D's
+                                                    m310a)                                                       # and M3.10A's
     for a in MINE:
         p = PROV[a['provenance']]
         r = next(x for x in ROWS if x['attribution'] == a['id'])
@@ -205,14 +207,21 @@ def no_figure_or_value_was_added():
     # M3.6D's wine set aside: its files hold only its rows beside what was there (unchanged_but_m36d)
     H.unchanged_but_m36d(BEFORE, *('data/model/' + f for f in H.CUVEE_FILES))
     changed = set(git('diff', '--name-only', BEFORE, '--', 'data/model').split()) - {'data/model/' + f for f in H.CUVEE_FILES}
+    # M3.10A's registered artifacts and their placements, a later phase, verified and set aside
+    m310a = ['data/model/' + f for f in ('identity/artifacts.jsonl', 'document/placements.jsonl', 'document/locators.jsonl')]
+    H.unchanged_but_m310a(BEFORE, *m310a)
+    changed -= set(m310a)
     assert changed == {'data/model/' + f for f in ('document/attributions.jsonl', 'cross/provenance.jsonl',
                                                     'derived/vintage-documents.json', 'manifest.json')}, sorted(changed)
     assert not git('diff', '--stat', BEFORE, '--', 'data/app', ':(glob)data/*.js', 'data/sources.json', 'data/history',
                    'data/review', 'data/scope', 'data/discovery', 'assets', 'index.html').strip()
     H.model_changes_are_m2_only(BEFORE)
     m0, m1 = json.loads(at_before('data/model/manifest.json')), json.load(open(L.MODEL + 'manifest.json', encoding='utf-8'))
-    _, m1 = H.without_m36d([], m1)                            # M3.6D's rows subtracted
-    assert {k: v['rows'] for k, v in m1['files'].items() if m0['files'].get(k) != v and k not in H.CUVEE_FILES} == {
+    _, m1 = H.without_m36d([], m1)                            # M3.6D's and M3.10A's rows subtracted
+    only_m310a = ('identity/artifacts.jsonl', 'document/placements.jsonl', 'document/locators.jsonl')
+    assert all(m1['files'][k]['rows'] == m0['files'][k]['rows'] for k in only_m310a), 'beyond M3.10A\'s rows'
+    assert {k: v['rows'] for k, v in m1['files'].items() if m0['files'].get(k) != v and k not in H.CUVEE_FILES
+            and k not in only_m310a} == {
         'cross/provenance.jsonl': m0['files']['cross/provenance.jsonl']['rows'] + 39 + len(LATER),
         'document/attributions.jsonl': m0['files']['document/attributions.jsonl']['rows'] + 39 + len(LATER)}
     assert m1['stats']['M6']['M3.4B audited mappings'] == 39

@@ -286,7 +286,11 @@ def c20_every_legacy_row_valid_with_historical_fields_absent():
     # M3.6D: one wine, its names, identity keys, relationship, descriptor and their provenance
     m36d = sum(len(historical_m2_scope.m36d_rows(r)) for r in historical_m2_scope.CUVEE_FILES + ('cross/provenance.jsonl',)
                if r.endswith('.jsonl'))
-    assert n == 333022 + m2 + m32 + m34b + m36d and not bad, (n, m2, m32, m34b, m36d, bad[:3])
+    # M3.10A: per registered document an artifact, its sha256 key, a placement, its locator and its provenance
+    p = {x['id']: x for x in prov}
+    m310a = sum(1 for r in historical_m2_scope.M310A_FILES if r.endswith('.jsonl')
+                for x in L.read_table(r) if historical_m2_scope.is_m310a_row(r, x, p))
+    assert n == 333022 + m2 + m32 + m34b + m36d + m310a and not bad, (n, m2, m32, m34b, m36d, m310a, bad[:3])
 
 
 @check

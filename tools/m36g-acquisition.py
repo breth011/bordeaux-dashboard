@@ -47,6 +47,7 @@ import re
 import sys
 
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+import evidence as EV  # noqa: E402
 import evidence_store as ST  # noqa: E402
 import migration_lib as L  # noqa: E402
 import m35_rubric as RB  # noqa: E402
@@ -58,6 +59,7 @@ _spec.loader.exec_module(F)
 OUT = L.ROOT + 'data/audit/m3.6g-cuvee-acquisition.jsonl'
 ACQ = L.ROOT + 'sources/acquisition/m3.6g/'
 YEARS = L.ROOT + 'sources/discovery/derived/years.jsonl'
+AS_OF = 7                        # the evidence as M3.6F left it (v1-v7); M3.6H's later v8 corrects the finding
 WINE, ALIAS = 'wn_00640', 'Mongravey Cuvée Spéciale'
 FILE = re.compile(r'cuvee.?(de.?)?mongravey|mongravey.?cuvee', re.I)
 SHOP = re.compile(r'/(?:produit|en/product)/mongravey-cuvee-speciale-\d{4}(?:-\d)?/$')
@@ -131,8 +133,13 @@ def documents(inv, media, blobs):
             if r['context'].startswith('https://'):
                 seen.setdefault(r['artifact'], set()).add(r['context'])
     fetched = {f['sha256']: f['url'] for f in inv['fetched']}
+    answer = {}
+    for d in ST.iter_rows([v for v in ST.versions() if v <= AS_OF]):
+        k = EV.row_key(d)[:-1]
+        if k not in answer or (d.get('v') or 0) >= (answer[k].get('v') or 0):
+            answer[k] = d
     latest = {}
-    for d in ST.latest_by_context().values():
+    for d in answer.values():
         latest.setdefault((d.get('read') or {}).get('sha256'), []).append(d)
     m36f = {r['artifact']: r for r in L.jsonl_lines(L.ROOT + 'data/audit/m3.6f-cuvee-vintages.jsonl') if r['record'] == 'document'}
     out = []

@@ -171,8 +171,10 @@ def t09_only_m36f_changed_the_model():
 
 @check
 def t10_evidence_v1_to_v7_byte_for_byte():
-    assert not git('diff', '--stat', BEFORE, '--', 'data/evidence').strip()
-    assert not git('status', '--porcelain', '--', 'data/evidence').strip()
+    # M3.6H's v8, a later correction, verified and set aside: v1-v7 and their index entries as they were
+    H.evidence_unchanged_but_m36h(BEFORE)
+    assert not git('diff', '--stat', BEFORE, '--', *['data/evidence/decisions-v%d.jsonl' % v for v in range(1, 8)]).strip()
+    assert not git('status', '--porcelain', '--', *['data/evidence/decisions-v%d.jsonl' % v for v in range(1, 8)]).strip()
 
 
 @check

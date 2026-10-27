@@ -16,6 +16,7 @@ import sys
 
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 import check_cache as CC  # noqa: E402
+import historical_m2_scope as H  # noqa: E402
 import migration_lib as L  # noqa: E402
 
 BEFORE = 'ddbe7db'               # M3.6F: the state M3.6G is audited against
@@ -144,9 +145,11 @@ def t07_the_uncorrected_acceptance_is_reported_not_corrected():
 
 @check
 def t08_model_evidence_and_app_unchanged_since_m36f():
-    paths = ('data/model', 'data/evidence', 'data/app', 'data/sources.json', ':(glob)data/*.js', 'assets', 'index.html')
+    paths = ('data/model', 'data/app', 'data/sources.json', ':(glob)data/*.js', 'assets', 'index.html') + \
+        tuple('data/evidence/decisions-v%d.jsonl' % v for v in range(1, 8))
     assert not git('diff', '--stat', BEFORE, '--', *paths).strip()
     assert not git('status', '--porcelain', '--', *paths).strip()
+    H.evidence_unchanged_but_m36h(BEFORE)        # M3.6H's v8, a later correction, verified and set aside
 
 
 @check

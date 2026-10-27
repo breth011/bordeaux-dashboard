@@ -39,7 +39,7 @@ def report(maps, sup, flags):
     changed, m1 = H.without_m36d(changed, m1)               # M3.6D's wine, a later decision, taken out
     ev_changed = sorted((set(_git('diff', '--name-only', BEFORE, '--', 'data/evidence').split())
                          | set(_git('ls-files', '--others', '--exclude-standard', '--', 'data/evidence').split()))
-                        - {'data/evidence/decisions-v%d.jsonl' % H.M36E_EVIDENCE_VERSION})   # M3.6E's, a later correction
+                        - {'data/evidence/decisions-v%d.jsonl' % v for v in (H.M36E_EVIDENCE_VERSION, H.M36H_EVIDENCE_VERSION)})   # M3.6E's and M3.6H's, later corrections
     reg = L.jsonl_lines(L.ROOT + 'data/audit/data-gap-register.jsonl')
     regd = [g for g in reg if any(b['phase'] == 'M3.6B' for b in (g.get('resolution') or {}).get('by', []))]
     out = []

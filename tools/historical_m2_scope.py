@@ -36,6 +36,7 @@ M3.5 (held-document review) links a reviewed held document to the vintage its ow
 model_changes_are_m2_only(before) - the name is kept for its callers - holds when every other model
 file is byte-identical to `before`, and every difference in the files above is one of these.
 """
+import collections
 import functools
 import hashlib
 import json
@@ -79,6 +80,15 @@ M310C_MANIFEST = 'data/audit/m3.10c-value-application.jsonl'
 M310C_STAT = 'M3.10C Durfort-Vivens values'
 M310C_FILES = ('canonical/values.jsonl', 'observation/observations.jsonl', 'reconciliation/reconciliations.jsonl',
                'cross/provenance.jsonl', 'manifest.json')
+# V1, the vintage-creation mechanism (tools/apply-vintage-creation-manifest.py): one exception for every vintage it
+# ever creates - a grand vin's vintage shell (M5) and its existence attributions (M6) on their own provenance. A
+# vintage row carries no provenance, so the model manifest's M5 stat, which the mechanism alone writes, names them.
+V1_ACTOR = 'tools/apply-vintage-creation-manifest.py'
+V1_STREAM = 'vintage-creation'
+V1_VINTAGE_STAT = 'vintage-creation manifest vintages'
+V1_ATTRIBUTION_STAT = 'vintage-creation manifest attributions'
+V1_FILES = ('identity/vintages.jsonl', 'document/attributions.jsonl', 'cross/provenance.jsonl',
+            'derived/wine-vintages.json', 'derived/vintage-documents.json', 'manifest.json')
 # M3.6D: one canonical wine (Cuvée Mongravey), its names, its estate relationship and its descriptor
 M36D_ACTOR = 'tools/m36d-cuvee.py'
 M36D_MANIFEST = 'data/audit/m3.6d-cuvee-mongravey.jsonl'
@@ -196,6 +206,9 @@ def legacy_attributions(rows, prov):
         if actor == M310B_ACTOR:
             assert is_m310b_attribution(a, prov), ('an M3.10B attribution not in its manifest', a['id'])
             continue
+        if actor == V1_ACTOR:
+            assert is_v1_row('document/attributions.jsonl', a, prov), ('a V1 attribution off its stream', a['id'])
+            continue
         out.append(a)
     return out
 
@@ -273,6 +286,37 @@ def m36f_applied():
     except FileNotFoundError:
         return {}
     return {(r['vintage'], r['field']): r['value'] for r in rows if r['record'] == 'value' and r['applied']}
+
+
+def v1_created():
+    """{(wine, label)} of the vintages the V1 mechanism created, as the model manifest records them."""
+    m = json.load(open(L.MODEL + 'manifest.json', encoding='utf-8'))
+    return {tuple(v[3:].rsplit(':', 1)) for v in (m.get('stats') or {}).get('M5', {}).get(V1_VINTAGE_STAT, [])}
+
+
+def is_v1_row(rel, r, prov):
+    """A model row the V1 mechanism added: one of its vintages, an existence attribution on its provenance, or
+    that provenance."""
+    if rel == 'identity/vintages.jsonl':
+        return (r.get('wine'), r.get('label')) in v1_created()
+    p = r if rel == 'cross/provenance.jsonl' else (prov.get(r.get('provenance')) or {}) \
+        if rel == 'document/attributions.jsonl' else {}
+    return p.get('actor') == V1_ACTOR and (p.get('code_state') or {}).get('stream') == V1_STREAM
+
+
+def v1_links(prov):
+    """{(vintage ref, artifact)} the V1 mechanism's existence attributions link."""
+    return {(a['vintage'], a['artifact']) for a in L.read_table('document/attributions.jsonl')
+            if is_v1_row('document/attributions.jsonl', a, prov)}
+
+
+def without_v1_vintages(index):
+    """derived/wine-vintages.json with the V1 mechanism's vintages taken out."""
+    made = collections.defaultdict(set)
+    for w, lab in v1_created():
+        made[w].add(lab)
+    out = {k: [x for x in v if str(x) not in made.get(k, ())] for k, v in index.items()}
+    return {k: v for k, v in out.items() if v or k not in made}
 
 
 def is_m310c(p):
@@ -483,6 +527,13 @@ def _without_m310a_manifest(m):
         for rel in [f for f in M310C_FILES if f.endswith('.jsonl')]:
             k = sum(1 for r in L.read_table(rel) if is_m310c_row(rel, r, prov))
             m['files'][rel] = {'rows': m['files'][rel]['rows'] - k}
+    made = stats.get('M5', {}).pop(V1_VINTAGE_STAT, None)
+    n = stats.get('M6', {}).pop(V1_ATTRIBUTION_STAT, None)
+    if made:
+        m['files']['identity/vintages.jsonl'] = {'rows': m['files']['identity/vintages.jsonl']['rows'] - len(made)}
+    if n:
+        for rel in ('document/attributions.jsonl', 'cross/provenance.jsonl'):
+            m['files'][rel] = {'rows': m['files'][rel]['rows'] - n}
     return m
 
 
@@ -494,7 +545,7 @@ def unchanged_but_m310a(before, *paths):
     later = {(r[4], r[1]) for r in m310b_applied()}            # M3.10B's (vintage, artifact) links
     for f in _git('diff', '--name-only', before, '--', *paths).split():
         rel = f[len('data/model/'):]
-        assert rel in set(M310A_FILES) | set(M310B_FILES) | set(M310C_FILES) and m310a_registrations(), \
+        assert rel in set(M310A_FILES) | set(M310B_FILES) | set(M310C_FILES) | set(V1_FILES) and m310a_registrations(), \
             '%s changed, and not by M3.10A' % f
         old = _git('show', '%s:%s' % (before, f))
         new = open(L.ROOT + f, encoding='utf-8').read()
@@ -505,12 +556,18 @@ def unchanged_but_m310a(before, *paths):
             assert a == b, '%s changed beyond M3.10A and M3.10B' % f
             continue
         if rel == 'derived/vintage-documents.json':
-            a, b = ({k: [x for x in v if (k, x) not in later] for k, v in json.loads(t).items()} for t in (old, new))
+            gone = later | v1_links(prov)                   # and the V1 mechanism's existence links
+            a, b = ({k: [x for x in v if (k, x) not in gone] for k, v in json.loads(t).items()} for t in (old, new))
             a, b = ({k: v for k, v in d.items() if v} for d in (a, b))
             assert a == b, '%s changed beyond M3.10B\'s links' % f
             continue
+        if rel == 'derived/wine-vintages.json':
+            assert without_v1_vintages(json.loads(new)) == without_v1_vintages(json.loads(old)), \
+                '%s changed beyond the V1 mechanism\'s vintages' % f
+            continue
         kept = [[x for x in t.splitlines() if not is_m310a_row(rel, json.loads(x), prov)
-                 and not is_m310b_row(rel, json.loads(x), prov) and not is_m310c_row(rel, json.loads(x), prov)]
+                 and not is_m310b_row(rel, json.loads(x), prov) and not is_m310c_row(rel, json.loads(x), prov)
+                 and not is_v1_row(rel, json.loads(x), prov)]
                 for t in (new, old)]
         assert kept[0] == kept[1], '%s changed beyond M3.10A\'s and M3.10B\'s rows' % f
     return True
@@ -522,7 +579,8 @@ def unchanged_but_m36d(before, *paths):
     error naming what else changed."""
     for f in _git('diff', '--name-only', before, '--', *paths).split():
         rel = f[len('data/model/'):]
-        if rel in set(M310A_FILES) | set(M310B_FILES) and rel not in CUVEE_FILES and rel != 'cross/provenance.jsonl':
+        if rel in set(M310A_FILES) | set(M310B_FILES) | {'document/attributions.jsonl', 'derived/vintage-documents.json'} \
+                and rel not in CUVEE_FILES and rel != 'cross/provenance.jsonl':
             unchanged_but_m310a(before, f)            # M3.10A's and M3.10B's rows, later phases, set aside alike
             continue
         assert (rel in CUVEE_FILES or rel == 'cross/provenance.jsonl') and m36d_wine(), '%s changed, and not by M3.6D' % f
@@ -533,17 +591,20 @@ def unchanged_but_m36d(before, *paths):
             # `before` may hold M3.6D's rows already (a later phase's check): both sides without them
             kept = [[x for x in t.splitlines() if json.loads(x).get('actor') not in CUVEE_ACTORS
                      and not is_m310a_row(rel, json.loads(x), prov) and not is_m310b_row(rel, json.loads(x), prov)
-                     and not is_m310c_row(rel, json.loads(x), prov)]
+                     and not is_m310c_row(rel, json.loads(x), prov) and not is_v1_row(rel, json.loads(x), prov)]
                     for t in (new, old)]
             assert kept[0] == kept[1], '%s changed beyond M3.6D\'s provenance' % f
         elif rel.endswith('.jsonl'):
             kept = [[x for x in t.splitlines() if not is_m36d_row(rel, json.loads(x), prov)
-                     and not is_m310a_row(rel, json.loads(x), prov) and not is_m310c_row(rel, json.loads(x), prov)]
+                     and not is_m310a_row(rel, json.loads(x), prov) and not is_m310c_row(rel, json.loads(x), prov)
+                     and not is_v1_row(rel, json.loads(x), prov)]
                     for t in (new, old)]
             assert kept[0] == kept[1], '%s changed beyond M3.6D\'s rows' % f
         else:
             w = m36d_wine()
             a, b = json.loads(old), json.loads(new)
+            if rel == 'derived/wine-vintages.json':
+                a, b = without_v1_vintages(a), without_v1_vintages(b)    # the V1 mechanism's vintages aside
             a, b = ({k: [x for x in v if x != w] for k, v in d.items() if k != w} for d in (a, b))
             assert b == a, '%s changed beyond M3.6D' % f
     return True
@@ -580,6 +641,11 @@ def without_m36d(changed, manifest):
         n = sum(1 for r in L.read_table(rel) if is_m310c_row(rel, r, prov))
         if n:
             files[rel] = dict(files[rel], rows=files[rel]['rows'] - n)
+    # the V1 mechanism's vintages, existence attributions and their provenance, later population: out of the counts
+    for rel in [f for f in V1_FILES if f.endswith('.jsonl')]:
+        n = sum(1 for r in L.read_table(rel) if is_v1_row(rel, r, prov))
+        if n:
+            files[rel] = dict(files[rel], rows=files[rel]['rows'] - n)
     return changed, dict(manifest, files=files)
 
 
@@ -605,7 +671,8 @@ def model_changes_are_m2_only(before):
                         (r['kind'] == 'DOCUMENT' and r['actor'] == M310B_ACTOR
                          and (r.get('code_state') or {}).get('stream') == 'M3.10B') or
                         (r['kind'] in ('DOCUMENT', 'DERIVATION') and r['actor'] == M310C_ACTOR
-                         and (r.get('code_state') or {}).get('stream') == 'M3.10C')),
+                         and (r.get('code_state') or {}).get('stream') == 'M3.10C') or
+                        (r['kind'] == 'DOCUMENT' and is_v1_row('cross/provenance.jsonl', r, {}))),
                        ('reconciliation/reconciliations.jsonl',
                         lambda r: r['resolver'] in (M32_ACTOR, M36F_ACTOR, M310C_ACTOR)
                         and r['rule'] in ('ONLY_CANDIDATE', 'UNANIMOUS')
@@ -627,10 +694,11 @@ def model_changes_are_m2_only(before):
         for x in n - o:
             a = json.loads(x)
             assert is_m34b_attribution(a, prov) or is_m35_attribution(a, prov) or is_m36b_attribution(a, prov) or \
-                is_m310b_attribution(a, prov),                 ('not an M3.4B, M3.5 or M3.6B attribution', a['id'])
+                is_m310b_attribution(a, prov) or is_v1_row('document/attributions.jsonl', a, prov),                 ('not an M3.4B, M3.5 or M3.6B attribution', a['id'])
     if 'derived/vintage-documents.json' in changed:
         old, new = (json.loads(x) for x in _lines(before, 'derived/vintage-documents.json'))
-        linked = {(r[4], r[1]) for r in m34b_applied() | m35_applied() | m36b_applied() | m310b_applied()}
+        linked = {(r[4], r[1]) for r in m34b_applied() | m35_applied() | m36b_applied() | m310b_applied()} | \
+            v1_links(prov)
         for k in set(old) | set(new):
             o, n = set(old.get(k, [])), set(new.get(k, []))
             assert o <= n and {(k, a) for a in n - o} <= linked, ('derived/vintage-documents.json', k, sorted(o - n))
@@ -661,10 +729,12 @@ def model_changes_are_m2_only(before):
     if 'identity/vintages.jsonl' in changed:
         old, new = _lines(before, 'identity/vintages.jsonl')
         o, n = set(old.splitlines()), set(new.splitlines())
-        assert o <= n and all(json.loads(x)['wine'] == m36d_wine() for x in n - o), 'identity/vintages.jsonl beyond M3.6F'
+        assert o <= n and all(json.loads(x)['wine'] == m36d_wine() or is_v1_row('identity/vintages.jsonl', json.loads(x), prov)
+                              for x in n - o), 'identity/vintages.jsonl beyond M3.6F and the V1 mechanism'
     if 'derived/wine-vintages.json' in changed:
         old, new = (json.loads(x) for x in _lines(before, 'derived/wine-vintages.json'))
-        assert {k: v for k, v in new.items() if k != m36d_wine()} == old, 'derived/wine-vintages.json beyond M3.6F'
+        assert {k: v for k, v in without_v1_vintages(new).items() if k != m36d_wine()} == without_v1_vintages(old), \
+            'derived/wine-vintages.json beyond M3.6F and the V1 mechanism'
     # M3.2B: URL placements (and their locators) added, each with an M3.2B provenance
     for rel in ('document/placements.jsonl', 'document/locators.jsonl'):
         if rel not in changed:

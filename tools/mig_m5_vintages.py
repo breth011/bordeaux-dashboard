@@ -106,6 +106,7 @@ def run(m):
     n['vintages'] = len(m.rows('identity/vintages.jsonl'))
     m.stat('M5', 'decomposition', dict(sorted(n.items())))
     m36f_vintages(m)
+    vintage_creation(m)
 
 
 M36F = 'data/audit/m3.6f-cuvee-vintages.jsonl'
@@ -124,3 +125,22 @@ def m36f_vintages(m):
             vintage(m, r['wine'], r['label'])
             n += 1
     m.stat('M5', 'M3.6F Cuvée vintages', n)
+
+
+def vintage_creator():
+    """tools/apply-vintage-creation-manifest.py, loaded once per process (the M5 and M6 hooks share it)."""
+    import importlib.util
+    import sys
+    name = 'apply_vintage_creation_manifest'
+    if name not in sys.modules:
+        spec = importlib.util.spec_from_file_location(name, L.ROOT + 'tools/apply-vintage-creation-manifest.py')
+        sys.modules[name] = importlib.util.module_from_spec(spec)
+        spec.loader.exec_module(sys.modules[name])
+    return sys.modules[name]
+
+
+def vintage_creation(m):
+    """V1: the grand-vin vintages the reviewed vintage-creation manifest (data/audit/vintage-creation-manifest.jsonl)
+    asks for and the model being built lacks - the shell only; their existence attributions are M6's. Planned and
+    applied by the runner itself, so --apply and a rebuild agree; an empty manifest adds nothing."""
+    vintage_creator().m5_hook(m)

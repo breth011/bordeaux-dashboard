@@ -373,6 +373,14 @@ def m310b_attributions(m):
     m.stat('M6', 'M3.10B accepted external documents', n)
 
 
+def vintage_creation_attributions(m):
+    """V1: each vintage-creation row's existence attributions - the accepted document tied to its exact estate,
+    grand vin and vintage, in M3.10B's shape, on a DOCUMENT provenance naming its evidence decision - where the
+    model being built lacks them. Planned by the runner (tools/apply-vintage-creation-manifest.py)."""
+    import mig_m5_vintages as M5
+    M5.vintage_creator().m6_hook(m)
+
+
 MAPPINGS = 'data/audit/m3.4b-mapping-application.jsonl'
 MAPPINGS_ACTOR = 'tools/m34b-apply.py'
 
@@ -416,6 +424,7 @@ def run(m):
     held_document_attributions(m)
     m36b_mappings(m)
     m310b_attributions(m)
+    vintage_creation_attributions(m)
 
 
 HELD_REVIEW = 'data/audit/m3.5-held-document-review.jsonl'

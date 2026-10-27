@@ -66,7 +66,11 @@ def _later_identity():
         prov = {p['id'] for p in T('cross/provenance.jsonl') if p.get('actor') in (M36D_ACTOR, M36F_ACTOR, M310C_ACTOR)}
         wines = {r['stable_id'] for r in T('identity/identity-map.jsonl')
                  if r['namespace'] == 'wine-by-slug' and r.get('provenance') in prov}
-        return prov, wines
+        # V1's created vintages (U2: the register is not theirs), as the model manifest records them, and every row
+        # on one of them
+        made = set(json.load(open(L.MODEL + 'manifest.json', encoding='utf-8')).get('stats', {}).get('M5', {}).get(
+            'vintage-creation manifest vintages', []))
+        return prov, wines | made
     return cached('later-identity', build)
 
 
@@ -76,7 +80,8 @@ def table(rel):
         if not prov:
             return T(rel)
         return [r for r in T(rel) if r.get('provenance') not in prov and r.get('id') not in prov
-                and not wines & {r.get('id'), r.get('wine'), r.get('subject'), r.get('stable_id')}]
+                and not wines & {r.get('id'), r.get('wine'), r.get('subject'), r.get('stable_id'), r.get('vintage'),
+                                 'vt:%s:%s' % (r.get('wine'), r.get('label'))}]
     return cached('t:' + rel, load)
 
 
@@ -374,8 +379,10 @@ M34B_ACTOR = 'tools/m34b-apply.py'
 M35_ACTOR = 'tools/m35-review.py'
 M36B_ACTOR = 'tools/m36b-apply.py'
 M310B_ACTOR = 'tools/m310b-accept.py'
-# the phases that link documents to vintages after the audits (M3.10B's resolution is recorded once its commit exists)
-LATER_ACTORS = (M34B_ACTOR, M35_ACTOR, M36B_ACTOR, M310B_ACTOR)
+V1_ACTOR = 'tools/apply-vintage-creation-manifest.py'   # V1: existence attributions of created vintages
+# the phases that link documents to vintages after the audits (M3.10B's resolution is recorded once its commit exists;
+# V1's existence attributions resolve no gap: U2)
+LATER_ACTORS = (M34B_ACTOR, M35_ACTOR, M36B_ACTOR, M310B_ACTOR, V1_ACTOR)
 
 
 def later_attributions(actors=LATER_ACTORS):
@@ -429,7 +436,8 @@ def vintage_documents(actors=LATER_ACTORS):
                 vd[vt] = [x for x in vd[vt] if x != aid]
                 if not vd[vt]:
                     del vd[vt]
-        return vd
+        made = _later_identity()[1]                     # V1's created vintages, with every link to them (U2)
+        return {k: v for k, v in vd.items() if k not in made}
     return cached('vintage_documents|' + '|'.join(actors), build)
 
 
@@ -702,7 +710,9 @@ def unincorporated_documents():
     def build():
         reviewed = {d['sha256'] for d in decisions() if d['sha256']}
         vdocs = vintage_documents()
-        wvint = json.load(open(L.MODEL + 'derived/wine-vintages.json', encoding='utf-8'))
+        made = _later_identity()[1]                     # V1's created vintages (U2) left out
+        wvint = {w: [y for y in ys if 'vt:%s:%s' % (w, y) not in made]
+                 for w, ys in json.load(open(L.MODEL + 'derived/wine-vintages.json', encoding='utf-8')).items()}
         ew = collections.defaultdict(set)
         for r in table('state/estate-wine.jsonl'):
             ew[r['estate']].add(r['wine'])

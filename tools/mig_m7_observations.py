@@ -377,6 +377,18 @@ def m310c_values(m):
     m.stat('M7', 'M3.10C Durfort-Vivens values', len(applied))
 
 
+def value_application(m):
+    """M3.11: the reviewed value-application manifest (data/audit/value-application-manifest.jsonl), planned
+    against the model being built and applied by the runner itself (tools/apply-value-manifest.py
+    migration_hook), so --apply and a rebuild write the same rows. A row the model already holds adds nothing;
+    an invalid row or a CONFLICT stops the migration."""
+    import importlib.util
+    spec = importlib.util.spec_from_file_location('apply_value_manifest', L.ROOT + 'tools/apply-value-manifest.py')
+    runner = importlib.util.module_from_spec(spec)
+    spec.loader.exec_module(runner)
+    runner.migration_hook(m)
+
+
 def run(m):
     m.p_rec = m.prov('DERIVATION', ACTOR, quote='legacy values are retained; no reconciliation '
                      'rule chose them (LEGACY_NEVER_OVERWRITE)')
@@ -390,3 +402,4 @@ def run(m):
     recovered_values(m)
     m36f_values(m)
     m310c_values(m)
+    value_application(m)

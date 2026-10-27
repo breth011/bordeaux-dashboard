@@ -649,7 +649,8 @@ def t13_nothing_was_mutated():
     import historical_m2_scope as H                 # M3.6D's wine, a later decision, set aside: nothing else moved
     H.unchanged_but_m36d(BEFORE, 'data/model', ':(exclude)data/model/manifest.json')
     H.model_changes_are_m2_only(BEFORE)
-    assert not subprocess.check_output(['git', 'diff', '--stat', BEFORE, '--', 'data/evidence', 'data/app',
+    H.evidence_unchanged_but_m36e(BEFORE)            # M3.6E's v7, a later correction, set aside: v1-v6 as they were
+    assert not subprocess.check_output(['git', 'diff', '--stat', BEFORE, '--', 'data/app',
                                         ':(glob)data/*.js', 'data/sources.json', 'data/audit/data-gap-register.jsonl',
                                         'data/audit/m3.6b-historical-flags.jsonl', 'assets', 'index.html'],
                                        cwd=L.ROOT).decode().strip()

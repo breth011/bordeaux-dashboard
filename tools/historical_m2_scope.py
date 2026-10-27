@@ -61,6 +61,9 @@ M36B_ACTOR = 'tools/m36b-apply.py'
 M36B_MAPPINGS = 'data/audit/m3.6b-mapping-application.jsonl'
 M36B_CORRECTIONS = 'data/audit/m3.6b-correction-application.jsonl'
 M36B_EVIDENCE_VERSION = 6
+# M3.6E: the historical Cuvée Mongravey evidence decisions corrected, as decider version 7
+M36E_MANIFEST = 'data/audit/m3.6e-cuvee-historical-corrections.jsonl'
+M36E_EVIDENCE_VERSION = 7
 # M3.6D: one canonical wine (Cuvée Mongravey), its names, its estate relationship and its descriptor
 M36D_ACTOR = 'tools/m36d-cuvee.py'
 M36D_MANIFEST = 'data/audit/m3.6d-cuvee-mongravey.jsonl'
@@ -519,11 +522,60 @@ def m36b_evidence_rows():
     return rows
 
 
-def evidence_versions_before_m36b():
-    """The store's versions, M3.6B's v6 verified and set aside."""
+def m36e_evidence_rows():
+    """v7, verified to be exactly M3.6E's decisions: every superseding row its manifest names, and no other,
+    each a REFUSED correction."""
     import evidence_store as ST
-    m36b_evidence_rows()
-    return [v for v in ST.versions() if v != M36B_EVIDENCE_VERSION]
+    import mig_m6_provenance as M6
+    if M36E_EVIDENCE_VERSION not in ST.versions():
+        return []
+    rows = list(ST.iter_rows([M36E_EVIDENCE_VERSION]))
+    keys = [M6.row_key(d) for d in rows]
+    want = {r['superseded_by'] for r in L.jsonl_lines(L.ROOT + M36E_MANIFEST) if r['result'] == 'APPLIED'}
+    assert len(keys) == len(set(keys)) and set(keys) == want, 'v7 is not exactly M3.6E\'s decisions'
+    assert all(d.get('kind') == 'correction' and d.get('decision') == 'REFUSED' for d in rows), 'a v7 row of another kind'
+    return rows
+
+
+LATER_EVIDENCE_VERSIONS = {M36B_EVIDENCE_VERSION: m36b_evidence_rows, M36E_EVIDENCE_VERSION: m36e_evidence_rows}
+
+
+def evidence_versions_before_m36b():
+    """The store's versions, M3.6B's v6 and M3.6E's v7 verified and set aside."""
+    import evidence_store as ST
+    for rows in LATER_EVIDENCE_VERSIONS.values():
+        rows()
+    return [v for v in ST.versions() if v not in LATER_EVIDENCE_VERSIONS]
+
+
+def latest_before_m36e():
+    """evidence_store.latest_by_context() as M3.6B left it: v7 verified and set aside."""
+    import evidence as EV
+    import evidence_store as ST
+    m36e_evidence_rows()
+    out = {}
+    for d in ST.iter_rows([v for v in ST.versions() if v != M36E_EVIDENCE_VERSION]):
+        k = EV.row_key(d)[:-1]
+        if k not in out or (d.get('v') or 0) >= (out[k].get('v') or 0):
+            out[k] = d
+    return out
+
+
+def evidence_unchanged_but_m36e(before):
+    """data/evidence as at `before` but for M3.6E: decisions-v7.jsonl and index.json's version 7 entry, v7
+    exactly M3.6E's decisions; every other file, and every other index entry, byte for byte."""
+    v = str(M36E_EVIDENCE_VERSION)
+    changed = set(_git('diff', '--name-only', before, '--', 'data/evidence').split())
+    untracked = set(_git('ls-files', '--others', '--exclude-standard', '--', 'data/evidence').split())
+    assert (changed | untracked) <= {'data/evidence/index.json', 'data/evidence/decisions-v%s.jsonl' % v}, \
+        'the evidence store changed beyond M3.6E: %s' % sorted(changed | untracked)
+    if 'data/evidence/index.json' in changed:
+        old = json.loads(_git('show', '%s:data/evidence/index.json' % before))
+        new = json.load(open(L.ROOT + 'data/evidence/index.json', encoding='utf-8'))
+        assert {k: x for k, x in new.items() if k != 'versions'} == {k: x for k, x in old.items() if k != 'versions'}
+        assert {k: x for k, x in new['versions'].items() if k != v} == old['versions'], 'an earlier version changed'
+    m36e_evidence_rows()
+    return True
 
 
 def evidence_rows_before_m36b():
@@ -537,16 +589,18 @@ def evidence_changes_are_m36b_only(before):
     exactly M3.6B's decisions; no other file. True, or an assertion error saying what else changed."""
     changed = set(_git('diff', '--name-only', before, '--', 'data/evidence').split())
     untracked = set(_git('ls-files', '--others', '--exclude-standard', '--', 'data/evidence').split())
-    assert (changed | untracked) <= {'data/evidence/index.json', 'data/evidence/decisions-v6.jsonl'}, \
+    later = {'data/evidence/decisions-v%d.jsonl' % v for v in LATER_EVIDENCE_VERSIONS}     # M3.6B's v6, M3.6E's v7
+    assert (changed | untracked) <= {'data/evidence/index.json'} | later, \
         'the evidence store changed beyond M3.6B: %s' % sorted(changed | untracked)
     if 'data/evidence/index.json' in changed:
         old = json.loads(_git('show', '%s:data/evidence/index.json' % before))
         new = json.load(open(L.ROOT + 'data/evidence/index.json', encoding='utf-8'))
-        v = str(M36B_EVIDENCE_VERSION)
+        skip = {str(v) for v in LATER_EVIDENCE_VERSIONS}
         assert {k: x for k, x in new.items() if k != 'versions'} == {k: x for k, x in old.items() if k != 'versions'}
-        assert {k: x for k, x in new['versions'].items() if k != v} == \
-            {k: x for k, x in old['versions'].items() if k != v}, 'a historical version changed in the index'
-    m36b_evidence_rows()
+        assert {k: x for k, x in new['versions'].items() if k not in skip} == \
+            {k: x for k, x in old['versions'].items() if k not in skip}, 'a historical version changed in the index'
+    for rows in LATER_EVIDENCE_VERSIONS.values():
+        rows()
     return True
 
 
@@ -558,19 +612,22 @@ def protected_group(name):
     import evidence_store as ST
     if name != 'evidence':
         return L.group_hashes(name)
-    v = M36B_EVIDENCE_VERSION
     files = {}
     for p in L.GROUPS['evidence']():
         r = L.rel(p)
         base = r.rsplit('/', 1)[-1]
-        assert base != 'provenance-failures-v%d.jsonl' % v, 'a v6 provenance failure'
-        if base == 'decisions-v%d.jsonl' % v or base.startswith('decisions-v%d.part' % v):
+        later = False
+        for v in LATER_EVIDENCE_VERSIONS:                   # M3.6B's v6 and M3.6E's v7, set aside alike
+            assert base != 'provenance-failures-v%d.jsonl' % v, 'a v%d provenance failure' % v
+            later = later or base == 'decisions-v%d.jsonl' % v or base.startswith('decisions-v%d.part' % v)
+        if later:
             continue
         if base == 'index.json':
             ix = json.load(open(p, encoding='utf-8'))
-            if str(v) in ix.get('versions', {}):
-                m36b_evidence_rows()
-                del ix['versions'][str(v)]
+            for v, rows in LATER_EVIDENCE_VERSIONS.items():
+                if str(v) in ix.get('versions', {}):
+                    rows()
+                    del ix['versions'][str(v)]
             b = (json.dumps(ix, ensure_ascii=False, indent=1, sort_keys=True) + '\n').encode('utf-8')
             files[r] = hashlib.sha256(b).hexdigest()
             continue

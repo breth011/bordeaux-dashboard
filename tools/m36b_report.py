@@ -37,8 +37,9 @@ def report(maps, sup, flags):
     m1 = json.load(open(L.MODEL + 'manifest.json', encoding='utf-8'))
     changed = sorted(f[len('data/model/'):] for f in _git('diff', '--name-only', BEFORE, '--', 'data/model').split())
     changed, m1 = H.without_m36d(changed, m1)               # M3.6D's wine, a later decision, taken out
-    ev_changed = sorted(set(_git('diff', '--name-only', BEFORE, '--', 'data/evidence').split())
-                        | set(_git('ls-files', '--others', '--exclude-standard', '--', 'data/evidence').split()))
+    ev_changed = sorted((set(_git('diff', '--name-only', BEFORE, '--', 'data/evidence').split())
+                         | set(_git('ls-files', '--others', '--exclude-standard', '--', 'data/evidence').split()))
+                        - {'data/evidence/decisions-v%d.jsonl' % H.M36E_EVIDENCE_VERSION})   # M3.6E's, a later correction
     reg = L.jsonl_lines(L.ROOT + 'data/audit/data-gap-register.jsonl')
     regd = [g for g in reg if any(b['phase'] == 'M3.6B' for b in (g.get('resolution') or {}).get('by', []))]
     out = []

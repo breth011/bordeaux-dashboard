@@ -158,7 +158,7 @@ def exactly_199_superseding_decisions_each_asking_its_v5_question():
 @check
 def the_corrections_are_the_latest_answers_and_the_originals_stand():
     import evidence as EV
-    latest = ST.latest_by_context()
+    latest = H.latest_before_m36e()                  # as M3.6B left it: M3.6E's v7, a later correction, set aside
     v5 = v5_rows()
     for r in CORR:
         old = v5[r['decision']]

@@ -39,3 +39,4 @@ data/audit/m3.6b-historical-flags.jsonl text eol=lf
 data/audit/m3.6c-cuvee-mongravey-identity.jsonl text eol=lf
 # The M3.6D canonical-wine manifest is read by the migration and checked by tools/m36d-cuvee.py --check.
 data/audit/m3.6d-cuvee-mongravey.jsonl text eol=lf
+data/audit/m3.6e-cuvee-historical-corrections.jsonl text eol=lf

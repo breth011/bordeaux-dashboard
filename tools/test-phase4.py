@@ -94,10 +94,12 @@ def baseline_counts_still_hold():
     m = importlib.util.module_from_spec(spec)
     spec.loader.exec_module(m)
     c = m.counts()
-    # M3.6B's evidence version 6, verified to be exactly its decisions, is not one of Phase 4's counts
-    if 'data/evidence/decisions-v6.jsonl' in c.get('evidence_lines', {}):
-        __import__('historical_m2_scope').m36b_evidence_rows()
-        del c['evidence_lines']['data/evidence/decisions-v6.jsonl']
+    # M3.6B's evidence version 6 and M3.6E's version 7, each verified to be exactly its decisions, are not
+    # among Phase 4's counts
+    for v, rows in __import__('historical_m2_scope').LATER_EVIDENCE_VERSIONS.items():
+        if 'data/evidence/decisions-v%d.jsonl' % v in c.get('evidence_lines', {}):
+            rows()
+            del c['evidence_lines']['data/evidence/decisions-v%d.jsonl' % v]
     assert c == baseline()['counts']
 
 

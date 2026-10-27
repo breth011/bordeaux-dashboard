@@ -176,8 +176,8 @@ def t10_the_38_historical_acceptances_are_untouched():
 
 @check
 def t11_no_evidence_decision_was_rewritten():
-    assert not git('diff', '--stat', BEFORE, '--', 'data/evidence').strip()
-    assert not git('status', '--porcelain', '--', 'data/evidence').strip()
+    import historical_m2_scope as H                 # M3.6E's v7, a later correction, set aside: v1-v6 as they were
+    H.evidence_unchanged_but_m36e(BEFORE)
 
 
 @check

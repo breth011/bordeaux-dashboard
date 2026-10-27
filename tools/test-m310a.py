@@ -142,8 +142,9 @@ def t06_only_the_registration_moved_in_the_model():
 @check
 def t07_discovery_evidence_gap_and_app_unchanged():
     H.evidence_unchanged_but_m310b(BEFORE)           # M3.10B's v9, a later phase
+    __import__('historical_m2_scope').register_changes_are_m34b_only(BEFORE)   # M3.10B's resolution, a later linking phase
     paths = ('data/discovery', 'tools/discover.py', 'tools/discover_extract.py', 'data/app',
-             'data/audit/data-gap-register.jsonl', 'data/sources.json', 'data/websites.js', ':(glob)data/*.js',
+             'data/sources.json', 'data/websites.js', ':(glob)data/*.js',
              'assets', 'index.html', 'data/audit/m3.8-acquisition-pilot.jsonl',
              'data/audit/m3.9-evidence-review.jsonl', 'data/audit/m3.7-source-confirmation.jsonl', *READER)
     assert not git('diff', '--stat', BEFORE, '--', *paths).strip()

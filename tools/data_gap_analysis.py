@@ -402,6 +402,11 @@ def m36b_attributions():
     return later_attributions((M36B_ACTOR,))
 
 
+def m310b_attributions():
+    """M3.10B: the attributions that link an accepted, externally acquired document to its exact vintage."""
+    return later_attributions((M310B_ACTOR,))
+
+
 def vintage_documents(actors=LATER_ACTORS):
     """derived/vintage-documents.json as before the later phases (by default M3.4B and M3.5; M3.5's review
     passes its own actor only): a (vintage, artifact) link only those phases made is left out."""

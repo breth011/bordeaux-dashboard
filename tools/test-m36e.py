@@ -137,8 +137,9 @@ def t07_no_model_or_generated_data_changed():
     # M3.6F's vintages, a later phase, set aside: with its rows taken out the model is as at BEFORE
     H.unchanged_but_m36d(BEFORE, 'data/model', ':(exclude)data/model/manifest.json')
     H.model_changes_are_m2_only(BEFORE)
+    __import__('historical_m2_scope').register_changes_are_m34b_only(BEFORE)   # M3.10B's resolution, a later linking phase
     assert not git('diff', '--stat', BEFORE, '--', 'data/app', ':(glob)data/*.js', 'data/sources.json',
-                   'data/audit/data-gap-register.jsonl', 'data/audit/m3.6b-historical-flags.jsonl',
+                   'data/audit/m3.6b-historical-flags.jsonl',
                    'data/audit/m3.6b-correction-application.jsonl', 'data/audit/m3.6c-cuvee-mongravey-identity.jsonl',
                    'data/audit/m3.6d-cuvee-mongravey.jsonl', 'assets', 'index.html').strip()
     # the model reads evidence links from v4-v5 only: a v7 answer cannot reach it

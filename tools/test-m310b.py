@@ -131,9 +131,10 @@ def t07_no_value_and_no_2024_oak():
 
 @check
 def t08_audits_discovery_reader_and_app_unchanged():
+    __import__('historical_m2_scope').register_changes_are_m34b_only(BEFORE)   # M3.10B's resolution, a later linking phase
     paths = ('data/audit/m3.8-acquisition-pilot.jsonl', 'data/audit/m3.9-evidence-review.jsonl',
              'data/audit/m3.10a-external-artifact-registration.jsonl', 'data/discovery', 'data/app',
-             'data/audit/data-gap-register.jsonl', 'data/websites.js', 'assets', 'index.html',
+             'data/websites.js', 'assets', 'index.html',
              'tools/discover.py', 'tools/discover_extract.py', *READER)
     assert not git('diff', '--stat', BEFORE, '--', *paths).strip()
     assert not git('status', '--porcelain', '--', *paths).strip()

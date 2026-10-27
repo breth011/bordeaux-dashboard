@@ -1,5 +1,5 @@
 {
- "_": "M3.2, M3.4B, M3.5 and M3.6B: the commit that applied each recovery stream. tools/build-data-gap-register.py records it on the gaps the stream resolved; the register keeps every gap, with its original id and counts.",
+ "_": "M3.2, M3.4B, M3.5, M3.6B and M3.10B: the commit that applied each recovery stream. tools/build-data-gap-register.py records it on the gaps the stream resolved; the register keeps every gap, with its original id and counts.",
  "M3.2A": {
   "commit": "ba5aaa4",
   "method": "PROVENANCE_REPAIR",
@@ -35,5 +35,10 @@
   "commit": "bc82827",
   "method": "EXISTING_EVIDENCE_REVIEW",
   "what": "document-less vintages an audited fetched web page now documents, by its own main heading (APPLIED rows of data/audit/m3.6b-mapping-application.jsonl); only \"no document\" is resolved, the vintage's figures stay with their own gaps"
+ },
+ "M3.10B": {
+  "commit": "6d91d87",
+  "method": "EXISTING_EVIDENCE_REVIEW",
+  "what": "document-less vintages an accepted, externally acquired document now documents (APPLIED decision rows of data/audit/m3.10b-evidence-decisions.jsonl, evidence version 9); only \"no document\" is resolved, the vintage's figures stay with their own gaps"
  }
 }

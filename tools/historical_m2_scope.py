@@ -681,7 +681,7 @@ def model_changes_are_m2_only(before):
 
 
 REGISTER = 'data/audit/data-gap-register.jsonl'
-LINKING_PHASES = ('M3.4B', 'M3.5', 'M3.6B')
+LINKING_PHASES = ('M3.4B', 'M3.5', 'M3.6B', 'M3.10B')
 
 
 def register_changes_are_m34b_only(before):

@@ -662,8 +662,12 @@ def resolve(rows):
     for vt in sorted(m35):
         recovered[('VINTAGE_NO_DOCUMENT|%s' % wine_estate.get(vt.split(':')[1], '?'), 'M3.5')] += 1
     # M3.6B: likewise, a vintage an audited fetched web page now documents (one no earlier phase did)
-    for vt in sorted({a['vintage'] for a in A.m36b_attributions() if not before.get(a['vintage'])} - m34b - m35):
+    m36b = {a['vintage'] for a in A.m36b_attributions() if not before.get(a['vintage'])} - m34b - m35
+    for vt in sorted(m36b):
         recovered[('VINTAGE_NO_DOCUMENT|%s' % wine_estate.get(vt.split(':')[1], '?'), 'M3.6B')] += 1
+    # M3.10B: likewise, a vintage an accepted external document now documents (one no earlier phase did)
+    for vt in sorted({a['vintage'] for a in A.m310b_attributions() if not before.get(a['vintage'])} - m34b - m35 - m36b):
+        recovered[('VINTAGE_NO_DOCUMENT|%s' % wine_estate.get(vt.split(':')[1], '?'), 'M3.10B')] += 1
     for c in A.table('canonical/values.jsonl'):
         if (pv[c['provenance']].get('code_state') or {}).get('stream') == 'M3.2D' and \
                 '%s|%s' % (c['subject'], c['field']) in fillable:

@@ -222,8 +222,9 @@ def t13_only_m36d_changed_the_model_and_nothing_else_moved():
         old = {json.dumps(r, sort_keys=True) for r in before(rel)}
         new = {json.dumps(r, sort_keys=True) for r in table(rel)}
         assert old <= new, (rel, 'a row changed or was removed')
+    __import__('historical_m2_scope').register_changes_are_m34b_only(BEFORE)   # M3.10B's resolution, a later linking phase
     assert not git('diff', '--stat', BEFORE, '--', 'data/app', 'data/sources.json', ':(glob)data/*.js',
-                   'data/audit/data-gap-register.jsonl', 'index.html', 'assets').strip()
+                   'index.html', 'assets').strip()
     ew = json.load(open(L.MODEL + 'derived/estate-wines.json', encoding='utf-8'))
     assert ew[ESTATE] == sorted([GRAND_VIN, WINE])
 

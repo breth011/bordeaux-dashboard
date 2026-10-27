@@ -141,8 +141,9 @@ def t07_the_inspection_was_narrow():
 def t08_model_evidence_and_app_unchanged():
     __import__('historical_m2_scope').unchanged_but_m310a(BEFORE, 'data/model')   # M3.10A, a later phase
     __import__('historical_m2_scope').evidence_unchanged_but_m310b(BEFORE)   # M3.10B's v9, a later phase
+    __import__('historical_m2_scope').register_changes_are_m34b_only(BEFORE)   # M3.10B's resolution, a later linking phase
     paths = ('data/app', 'data/sources.json', 'data/websites.js', ':(glob)data/*.js',
-             'assets', 'index.html', 'data/audit/data-gap-register.jsonl')
+             'assets', 'index.html')
     assert not git('diff', '--stat', BEFORE, '--', *paths).strip()
     assert not git('status', '--porcelain', '--', *paths).strip()
     # the M3.6 evidence decisions and audits as M3.6H left them

@@ -650,8 +650,9 @@ def t13_nothing_was_mutated():
     H.unchanged_but_m36d(BEFORE, 'data/model', ':(exclude)data/model/manifest.json')
     H.model_changes_are_m2_only(BEFORE)
     H.evidence_unchanged_but_m36e(BEFORE)            # M3.6E's v7, a later correction, set aside: v1-v6 as they were
+    __import__('historical_m2_scope').register_changes_are_m34b_only(BEFORE)   # M3.10B's resolution, a later linking phase
     assert not subprocess.check_output(['git', 'diff', '--stat', BEFORE, '--', 'data/app',
-                                        ':(glob)data/*.js', 'data/sources.json', 'data/audit/data-gap-register.jsonl',
+                                        ':(glob)data/*.js', 'data/sources.json',
                                         'data/audit/m3.6b-historical-flags.jsonl', 'assets', 'index.html'],
                                        cwd=L.ROOT).decode().strip()
     assert not [n for n in A.table('identity/names.jsonl') if CUVEE.search(fold(n['name']))]

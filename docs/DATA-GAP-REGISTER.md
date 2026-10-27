@@ -240,6 +240,7 @@ Gaps a recovery stream reduced. Each keeps its id, tier and original count; the 
 
 | Phase | Commit | Method | Gaps | Items recovered |
 |---|---|---|---:|---:|
+| M3.10B | `6d91d87` | EXISTING_EVIDENCE_REVIEW | 1 | 2 |
 | M3.2A | `ba5aaa4` | PROVENANCE_REPAIR | 58 | 712 |
 | M3.2B | `b4ec482` | DETERMINISTIC_MAPPING | 1 | 71 |
 | M3.2C | `a556a01` | DETERMINISTIC_MAPPING | 27 | 284 |
@@ -248,7 +249,7 @@ Gaps a recovery stream reduced. Each keeps its id, tier and original count; the 
 | M3.5 | `dbca625` | EXISTING_EVIDENCE_REVIEW | 2 | 9 |
 | M3.6B | `bc82827` | EXISTING_EVIDENCE_REVIEW | 3 | 3 |
 
-43 gaps resolved outright, 72 partly; 1,130 of their 1,909 affected items recovered, 779 remain.
+43 gaps resolved outright, 72 partly; 1,132 of their 1,909 affected items recovered, 777 remain.
 
 
 ## Method and limits

@@ -274,7 +274,9 @@ def r14_nothing_else_changed():
                    # the estate-supplied acquisition audit (the registration's second mode)
                    'data/audit/estate-supplied-acquisitions.jsonl',
                    # M3.12's public missing-data sweep (an audit)
-                   'data/audit/public-gap-sweep.jsonl'}
+                   'data/audit/public-gap-sweep.jsonl',
+                   # M3.12's P1 batch review (an audit)
+                   'data/audit/m3.12-p1-review.jsonl'}
     changed = set(git('diff', '--name-only', BEFORE, '--', 'data').split())
     # an existing audit output changes only as later phases record themselves: the gap register by their
     # resolution entries (historical_m2_scope.register_changes_are_m34b_only), its resolutions file by their keys

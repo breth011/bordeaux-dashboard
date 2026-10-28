@@ -66,3 +66,5 @@ data/audit/estate-supplied-acquisitions.jsonl text eol=lf
 docs/PHASE-V2-ESTATE-SUPPLIED-ACQUISITION.md text eol=lf
 data/audit/public-gap-sweep.jsonl text eol=lf
 docs/PHASE-M3.12-PUBLIC-GAP-SWEEP.md text eol=lf
+data/audit/m3.12-p1-review.jsonl text eol=lf
+docs/PHASE-M3.12-P1-REVIEW.md text eol=lf

@@ -39,6 +39,7 @@ import subprocess
 import sys
 
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+import check_cache as CC  # noqa: E402
 import migration_lib as L  # noqa: E402
 import model_schema as S  # noqa: E402
 
@@ -608,8 +609,8 @@ def main():
             if mode == '--check-all':
                 bad = []
                 for cmd in (['migrate.py', '--check'], ['build-indexes.py', '--check'], ['build-app-data.py', '--check']):
-                    out = subprocess.run([sys.executable, L.ROOT + 'tools/' + cmd[0]] + cmd[1:], cwd=L.ROOT,
-                                         capture_output=True, text=True)
+                    # a full test run's shared result when another suite has passed it in this state
+                    out = CC.run([sys.executable, L.ROOT + 'tools/' + cmd[0]] + cmd[1:], cwd=L.ROOT)
                     L.out('  %s' % (out.stdout.strip().splitlines() or ['?'])[-1])
                     if out.returncode:
                         bad.append(cmd[0])

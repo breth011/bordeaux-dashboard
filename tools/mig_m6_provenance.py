@@ -345,6 +345,13 @@ def external_placements(m):
     m.stat('M6', 'M3.10A placements (externally acquired documents)', n)
 
 
+def artifact_registration_placements(m):
+    """The generic registration manifest (data/audit/artifact-registration-manifest.jsonl): each registered
+    location of an externally acquired document, in M3.10A's shape, where the model being built has no placement of
+    that artifact at that URL. Planned by the runner (tools/apply-artifact-registration-manifest.py)."""
+    M2.artifact_registrar().m6_placements(m)
+
+
 M310B = 'data/audit/m3.10b-evidence-decisions.jsonl'
 M310B_ACTOR = 'tools/m310b-accept.py'
 
@@ -420,6 +427,7 @@ def run(m):
     document_dates(m)
     recovered_placements(m)
     external_placements(m)
+    artifact_registration_placements(m)
     audited_mappings(m)
     held_document_attributions(m)
     m36b_mappings(m)

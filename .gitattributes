@@ -59,3 +59,6 @@ data/audit/value-application-manifest.jsonl text eol=lf
 docs/PHASE-M3.11-VALUE-APPLICATION-RUNNER.md text eol=lf
 data/audit/vintage-creation-manifest.jsonl text eol=lf
 docs/PHASE-V1-VINTAGE-CREATION.md text eol=lf
+data/audit/artifact-registration-manifest.jsonl text eol=lf
+data/audit/evidence-acceptance-manifest.jsonl text eol=lf
+docs/PHASE-GENERIC-EVIDENCE-REGISTRATION.md text eol=lf

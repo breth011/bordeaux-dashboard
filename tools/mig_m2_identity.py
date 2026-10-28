@@ -14,7 +14,9 @@ artifact only when it is proven they hash the same bytes:
     that path and every read there (v4, v5) hashed the same sha256.
 Otherwise they stay separate artifacts. A document acquired outside the
 crawl and registered by M3.10A's audited manifest is minted by its sha256
-in the same way (external_registrations). One Placement per (locator,
+in the same way (external_registrations), and after it one registered by
+the generic registration manifest whose bytes no input holds
+(tools/apply-artifact-registration-manifest.py). One Placement per (locator,
 artifact); a path with several manifest versions keeps every version
 (BYTES_UNAVAILABLE: which one is on disk is not recorded), and the bytes
 the reader hashed there get their own PRESENT placement. The 123
@@ -206,6 +208,18 @@ def external_registrations():
     return {r['sha256']: r for r in L.jsonl_lines(L.ROOT + EXTERNAL) if r['record'] == 'registration'}
 
 
+def artifact_registrar():
+    """tools/apply-artifact-registration-manifest.py, loaded once per process (the M2 and M6 hooks share it)."""
+    import importlib.util
+    import sys
+    name = 'apply_artifact_registration_manifest'
+    if name not in sys.modules:
+        spec = importlib.util.spec_from_file_location(name, L.ROOT + 'tools/apply-artifact-registration-manifest.py')
+        sys.modules[name] = importlib.util.module_from_spec(spec)
+        spec.loader.exec_module(sys.modules[name])
+    return sys.modules[name]
+
+
 def sources_path(r):
     """The manifest row's path relative to sources/, as the reader records it."""
     return r['folder'] + '/' + r['file'] if r['folder'].startswith('pages/') \
@@ -299,6 +313,9 @@ def documents(m):
     # the external registrations last, so that no earlier digest's id moves when the model is built from scratch
     all256 = sorted(set(disc) | {h for hs in reads.values() for h in hs})
     all256 += sorted(set(ext) - set(all256))
+    # the generic registrations after M3.10A's, minted only where no input holds the bytes (REUSE mints nothing)
+    gen = artifact_registrar().m2_artifacts(m, set(all256) | {dg for kind, dg in art if kind == 'sha256'})
+    all256 += sorted(gen)
     for s256 in all256:
         if ('sha256', s256) in art:
             continue
@@ -329,6 +346,8 @@ def documents(m):
             r['bytes'] = read_bytes[r['sha256']]
         elif r.get('sha256') in ext:
             r['bytes'] = ext[r['sha256']]['bytes']
+        elif r.get('sha256') in gen:
+            r['bytes'] = gen[r['sha256']]['bytes']
         r['bytes_available'] = bool(r.get('sha256'))
         if d:
             r['media_type'] = (d.get('content_types') or [None])[0]
@@ -340,6 +359,8 @@ def documents(m):
             r['extraction_status'] = 'EXTRACTED' if r.get('sha256') in read_any else 'PENDING'
             if r.get('sha256') in ext:
                 r['media_type'] = ext[r['sha256']]['media_type']
+            elif r.get('sha256') in gen:
+                r['media_type'] = gen[r['sha256']]['media_type']
         if 'media_type' not in r:
             p = first_path.get(r.get('sha1'), '')
             r['media_type'] = MEDIA.get(os.path.splitext(p)[1].lower())

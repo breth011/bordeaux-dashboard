@@ -486,6 +486,8 @@ def is_m310a_row(rel, r, prov):
         return r.get('actor') == M310A_ACTOR and (r.get('code_state') or {}).get('stream') == 'M3.10A'
     if p.get('actor') == M310A_ACTOR and (p.get('code_state') or {}).get('stream') == 'M3.10A':
         return True
+    if rel not in ('identity/artifacts.jsonl', 'identity/identity-map.jsonl', 'document/locators.jsonl'):
+        return False                  # the only tables a registered document's key or URL appears in
     idx = _m310a_index()
     shas, urls = idx['shas'], idx['urls']
     return ((rel == 'identity/artifacts.jsonl' and r.get('sha256') in shas and 'sha1' not in r) or
@@ -547,6 +549,11 @@ def _without_m310a_manifest(m):
     return m
 
 
+def _decoded(text):
+    """(line, its row) for each line of a JSONL text: each line decoded once, however many tests read it."""
+    return [(x, json.loads(x)) for x in text.splitlines()]
+
+
 def unchanged_but_m310a(before, *paths):
     """`git diff before -- paths` (under data/model/) is empty but for M3.10A: only its files differ, and with
     its rows taken out each is exactly as at `before`, line for line and in order (the manifest: its counts and
@@ -575,9 +582,9 @@ def unchanged_but_m310a(before, *paths):
             assert without_v1_vintages(json.loads(new)) == without_v1_vintages(json.loads(old)), \
                 '%s changed beyond the V1 mechanism\'s vintages' % f
             continue
-        kept = [[x for x in t.splitlines() if not is_m310a_row(rel, json.loads(x), prov)
-                 and not is_m310b_row(rel, json.loads(x), prov) and not is_m310c_row(rel, json.loads(x), prov)
-                 and not is_v1_row(rel, json.loads(x), prov)]
+        kept = [[x for x, r in _decoded(t) if not is_m310a_row(rel, r, prov)
+                 and not is_m310b_row(rel, r, prov) and not is_m310c_row(rel, r, prov)
+                 and not is_v1_row(rel, r, prov)]
                 for t in (new, old)]
         assert kept[0] == kept[1], '%s changed beyond M3.10A\'s and M3.10B\'s rows' % f
     return True
@@ -599,15 +606,15 @@ def unchanged_but_m36d(before, *paths):
         prov = {p['id']: p for p in L.read_table('cross/provenance.jsonl')}
         if rel == 'cross/provenance.jsonl':
             # `before` may hold M3.6D's rows already (a later phase's check): both sides without them
-            kept = [[x for x in t.splitlines() if json.loads(x).get('actor') not in CUVEE_ACTORS
-                     and not is_m310a_row(rel, json.loads(x), prov) and not is_m310b_row(rel, json.loads(x), prov)
-                     and not is_m310c_row(rel, json.loads(x), prov) and not is_v1_row(rel, json.loads(x), prov)]
+            kept = [[x for x, r in _decoded(t) if r.get('actor') not in CUVEE_ACTORS
+                     and not is_m310a_row(rel, r, prov) and not is_m310b_row(rel, r, prov)
+                     and not is_m310c_row(rel, r, prov) and not is_v1_row(rel, r, prov)]
                     for t in (new, old)]
             assert kept[0] == kept[1], '%s changed beyond M3.6D\'s provenance' % f
         elif rel.endswith('.jsonl'):
-            kept = [[x for x in t.splitlines() if not is_m36d_row(rel, json.loads(x), prov)
-                     and not is_m310a_row(rel, json.loads(x), prov) and not is_m310c_row(rel, json.loads(x), prov)
-                     and not is_v1_row(rel, json.loads(x), prov)]
+            kept = [[x for x, r in _decoded(t) if not is_m36d_row(rel, r, prov)
+                     and not is_m310a_row(rel, r, prov) and not is_m310c_row(rel, r, prov)
+                     and not is_v1_row(rel, r, prov)]
                     for t in (new, old)]
             assert kept[0] == kept[1], '%s changed beyond M3.6D\'s rows' % f
         else:
@@ -662,7 +669,7 @@ def without_m36d(changed, manifest):
 def model_changes_are_m2_only(before):
     changed = [f[len('data/model/'):] for f in _git('diff', '--name-only', before, '--', 'data/model').split()]
     assert set(changed) <= ALLOWED, 'the model changed beyond M2 and M3.2: %s' % sorted(set(changed) - ALLOWED)
-    prov = {json.loads(x)['id']: json.loads(x) for x in open(L.MODEL + 'cross/provenance.jsonl', encoding='utf-8')}
+    prov = {r['id']: r for r in map(json.loads, open(L.MODEL + 'cross/provenance.jsonl', encoding='utf-8'))}
     for rel, check in (('document/artifact-dates.jsonl',
                         lambda r: r['kind'] == 'STATED_IN_TEXT' and r['value']['axis'] == 'CALENDAR'),
                        ('cross/provenance.jsonl',
@@ -777,8 +784,8 @@ def model_changes_are_m2_only(before):
         if rel not in changed:
             continue
         old, new = _lines(before, rel)
-        o = {key(json.loads(x)): json.loads(x) for x in old.splitlines()}
-        n = {key(json.loads(x)): json.loads(x) for x in new.splitlines()}
+        o = {key(r): r for r in map(json.loads, old.splitlines())}
+        n = {key(r): r for r in map(json.loads, new.splitlines())}
         assert set(o) <= set(n), '%s: rows removed' % rel
         for k in set(n) - set(o):
             # M3.2D: a recovered value or the observation that states it, each with its M3.2D provenance

@@ -29,7 +29,6 @@ document's own words. Nothing is corrected: the decision store is only read.
 No clock, no network, no OCR; the model, the evidence store and the app are only read.
 """
 import collections
-import functools
 import gzip
 import hashlib
 import importlib.util
@@ -48,11 +47,7 @@ import migration_lib as L  # noqa: E402
 import m35_rubric as RB  # noqa: E402
 import web_evidence as WE  # noqa: E402
 
-# norm_name is pure, and the rubric and the page rules ask it of the same names millions of times: remembered
-# here, from outside their files, whose bytes are fingerprinted and stay as they are
-RB.norm_name = functools.lru_cache(maxsize=1 << 17)(RB.norm_name)
-
-PROPOSALS =L.ROOT + 'data/audit/m3.6a-rerun-held-document-proposals.jsonl'
+PROPOSALS = L.ROOT + 'data/audit/m3.6a-rerun-held-document-proposals.jsonl'
 CORRECTIONS = L.ROOT + 'data/audit/m3.6a-rerun-evidence-corrections.jsonl'
 REPORT = L.ROOT + 'docs/PHASE-M3.6A-RERUN.md'
 BLOCKED_RUN = L.ROOT + 'data/audit/m3.6a-blocked-run-summary.json'

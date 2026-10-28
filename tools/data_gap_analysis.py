@@ -5,17 +5,27 @@ Each function recomputes one part of the chain Estate -> Wine -> Vintage -> Docu
 data/audit, the held extraction text) and returns plain data. tools/build-data-gap-register.py
 turns the results into register rows; tools/test-data-gap-register.py recomputes them.
 
-Nothing here changes a file, and nothing here resolves a gap: where a check reads a document
-(is a figure's value printed in its record's sheet), it only measures whether the existing
-evidence is likely to settle the question.
+Nothing here changes a file in the repository, and nothing here resolves a gap: where a check reads
+a document (is a figure's value printed in its record's sheet), it only measures whether the
+existing evidence is likely to settle the question.
+
+The folded text of the held extractions is remembered between processes, outside the repository
+(TEXT_CACHE, in the system's temporary directory): a text is reused only while its extraction file
+keeps the size and modification time it was folded from. Outside the repository, so that
+tools/check_cache.py, which fingerprints every file in it, sees no change. BDX_TEXT_CACHE=0 turns
+it off; deleting the file only costs the next reading.
 """
+import atexit
 import collections
 import functools
 import glob
+import hashlib
 import json
 import os
+import pickle
 import re
 import sys
+import tempfile
 import unicodedata
 
 import migration_lib as L
@@ -89,25 +99,74 @@ def by_id(rel):
     return cached('i:' + rel, lambda: {r['id']: r for r in table(rel)})
 
 
+TEXT_CACHE = os.path.join(tempfile.gettempdir(), 'bdx-text-cache-%s.pickle'
+                          % hashlib.sha1(os.path.abspath(L.ROOT).encode('utf-8')).hexdigest()[:12])
+_TEXTS = {}                      # {sha: ((size, mtime_ns), folded text or None)}, loaded on first need
+
+
+def _texts():
+    if 'held' not in _TEXTS:
+        held = {}
+        if os.environ.get('BDX_TEXT_CACHE') != '0':
+            try:
+                with open(TEXT_CACHE, 'rb') as f:
+                    held = pickle.load(f)
+            except Exception:
+                held = {}
+            atexit.register(_save_texts)
+        _TEXTS.update(held=held, dirty=False)
+    return _TEXTS
+
+
+def _save_texts():
+    # written whole and swapped in, so a reader never sees half a file; two writers: the last one's stands
+    if not _TEXTS.get('dirty'):
+        return
+    tmp = '%s.%d.tmp' % (TEXT_CACHE, os.getpid())
+    try:
+        with open(tmp, 'wb') as f:
+            pickle.dump(_TEXTS['held'], f, protocol=pickle.HIGHEST_PROTOCOL)
+        os.replace(tmp, TEXT_CACHE)
+    except OSError:
+        try:
+            os.remove(tmp)
+        except OSError:
+            pass
+
+
 def text_of(sha):
     """The held extracted text of an artifact (folded), or None when none is held."""
     def load():
         if not sha:
             return None
         p = EXTRACTED + sha + '.json'
-        if not os.path.exists(p):
+        try:
+            st = os.stat(p)
+        except FileNotFoundError:
             return None
-        d = json.load(open(p, encoding='utf-8'))
-        if d.get('status') != 'EXTRACTED':
-            return None
-        parts = [d.get('title') or '']
-        parts += [h.get('text') or '' for h in d.get('headings') or []]
-        parts += [b.get('text') or '' for b in d.get('blocks') or []]
-        parts += [p for p in d.get('pages') or [] if isinstance(p, str)]
-        if isinstance(d.get('text'), str):
-            parts.append(d['text'])
-        return fold('\n'.join(parts))
+        key = (st.st_size, st.st_mtime_ns)
+        T = _texts()
+        hit = T['held'].get(sha)
+        if hit and hit[0] == key:
+            return hit[1]
+        text = _fold_extraction(p)
+        T['held'][sha] = (key, text)
+        T['dirty'] = True
+        return text
     return cached('x:' + str(sha), load)
+
+
+def _fold_extraction(p):
+    d = json.load(open(p, encoding='utf-8'))
+    if d.get('status') != 'EXTRACTED':
+        return None
+    parts = [d.get('title') or '']
+    parts += [h.get('text') or '' for h in d.get('headings') or []]
+    parts += [b.get('text') or '' for b in d.get('blocks') or []]
+    parts += [x for x in d.get('pages') or [] if isinstance(x, str)]
+    if isinstance(d.get('text'), str):
+        parts.append(d['text'])
+    return fold('\n'.join(parts))
 
 
 def raw_text(artifact):

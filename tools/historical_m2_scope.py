@@ -288,10 +288,20 @@ def m36f_applied():
     return {(r['vintage'], r['field']): r['value'] for r in rows if r['record'] == 'value' and r['applied']}
 
 
+_V1 = {}                         # v1_created()'s set, for this process only: rebuilt when the manifest changes
+
+
 def v1_created():
-    """{(wine, label)} of the vintages the V1 mechanism created, as the model manifest records them."""
-    m = json.load(open(L.MODEL + 'manifest.json', encoding='utf-8'))
-    return {tuple(v[3:].rsplit(':', 1)) for v in (m.get('stats') or {}).get('M5', {}).get(V1_VINTAGE_STAT, [])}
+    """{(wine, label)} of the vintages the V1 mechanism created, as the model manifest records them (read once per
+    process, and again only if the manifest's size or modification time changes)."""
+    st = os.stat(L.MODEL + 'manifest.json')
+    key = (st.st_size, st.st_mtime_ns)
+    if _V1.get('key') != key:
+        m = json.load(open(L.MODEL + 'manifest.json', encoding='utf-8'))
+        _V1.clear()
+        _V1.update(key=key, made=frozenset(tuple(v[3:].rsplit(':', 1))
+                                           for v in (m.get('stats') or {}).get('M5', {}).get(V1_VINTAGE_STAT, [])))
+    return _V1['made']
 
 
 def is_v1_row(rel, r, prov):

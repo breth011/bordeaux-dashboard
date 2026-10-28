@@ -119,9 +119,9 @@ def t05_registration_is_not_attribution():
     names = {os.path.basename(g['url']) for g in rows('registration')}
     import evidence_store as ST
     assert [v for v in ST.versions() if v != H.M310B_EVIDENCE_VERSION] == [1, 2, 3, 4, 5, 6, 7, 8] and ST.verify() == []
+    shas = {g['sha256'] for g in rows('registration')}
     assert not [d for d in ST.iter_rows([v for v in ST.versions() if v != H.M310B_EVIDENCE_VERSION])
-                if d.get('artifact') in names
-                or (d.get('read') or {}).get('sha256') in {g['sha256'] for g in rows('registration')}]
+                if d.get('artifact') in names or (d.get('read') or {}).get('sha256') in shas]
 
 
 @check

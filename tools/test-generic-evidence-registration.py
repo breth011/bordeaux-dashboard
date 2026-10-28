@@ -128,6 +128,51 @@ def isolated():
     return d
 
 
+APPLIED = {}
+
+
+def applied(key, rows):
+    """--apply of `rows` on an isolated copy, once per key: (the copy, its files before, the tool's output). Each
+    --apply rebuilds the whole model, so the checks that read one application share it, and none writes to it."""
+    if key not in APPLIED:
+        d = isolated()
+        before = snapshot(d)
+        out = run(REG_TOOL, '--apply', model=d, manifest=rows)
+        assert out.returncode == 0, out.stdout + out.stderr
+        APPLIED[key] = (d, before, out)
+    return APPLIED[key]
+
+
+def three_urls():
+    """M3.8's items of the first PDF fetched from three URLs."""
+    shas = {}
+    for n, it in ITEMS.items():
+        if it['retrieval'] == 'OK':
+            shas.setdefault(it['sha256'], set()).add(n)
+    return sorted(sorted(ns) for s, ns in shas.items() if len({ITEMS[n]['url'] for n in ns}) == 3)[0]
+
+
+def reusable():
+    """The first M3.8 item whose bytes the crawl holds, at a URL its artifact is not yet placed at."""
+    have, placed = RVIEW.index()['by_sha'], RVIEW.index()['placed']
+    return sorted(k for k, it in ITEMS.items() if it['retrieval'] == 'OK' and it['sha256'] in have
+                  and ('URL', it['url']) not in placed.get(have[it['sha256']], ()))[0]
+
+
+def one():
+    """g01's and g06's application: one unheld document."""
+    return applied('one', [reg(1, unheld()[0])])
+
+
+def batch():
+    """g02's, g03's and g05's application, in one manifest: ten unheld documents (g05), one PDF at three URLs (g03)
+    and bytes the crawl holds at a new URL (g02); the rows and (copy, before, output)."""
+    ns = unheld()[:10] + three_urls() + [reusable()]
+    assert len(set(ns)) == len(ns) == 14 and len({ITEMS[n]['sha256'] for n in ns}) == 12, ns
+    rows = [reg(i, n) for i, n in enumerate(ns, 1)]
+    return rows, applied('batch', rows)
+
+
 def snapshot(d):
     out = {}
     for base, _, names in os.walk(d):
@@ -278,10 +323,8 @@ def g01_new_artifact_is_minted_by_sha256_and_placed():
     rows = [reg(1, n)]
     plan = r_plan(rows)
     assert plan['actions'] == {'CREATE': 1, 'REUSE': 0, 'NOOP': 0, 'CONFLICT': 0} and plan['artifacts'] == [rows[0]['sha256']]
-    d = isolated()
-    before = snapshot(d)
-    out = run(REG_TOOL, '--apply', model=d, manifest=rows)
-    assert out.returncode == 0 and 'applied: 1 CREATE' in out.stdout, out.stdout + out.stderr
+    d, before, out = one()
+    assert 'applied: 1 CREATE' in out.stdout, out.stdout + out.stderr
     after = snapshot(d)
     changed = sorted(rel for rel in after if before.get(rel) != after[rel])
     assert set(changed) - {rel for rel in changed if rel.startswith('derived/')} == set(RA.TABLES) | {'manifest.json'}, changed
@@ -308,22 +351,23 @@ def g01_new_artifact_is_minted_by_sha256_and_placed():
 @check
 def g02_existing_content_is_reused_never_duplicated():
     """Bytes the crawl already holds: REUSE - the existing artifact gains the URL placement, no artifact is minted,
-    and the existing artifact row is unchanged."""
+    and the existing artifact row is unchanged. Applied in batch() beside new documents: every artifact and
+    identity-key row the model held is unchanged, and none is added for these bytes."""
     have = RVIEW.index()['by_sha']
-    placed = RVIEW.index()['placed']
-    n = sorted(k for k, it in ITEMS.items() if it['retrieval'] == 'OK' and it['sha256'] in have
-               and ('URL', it['url']) not in placed.get(have[it['sha256']], ()))[0]
-    rows = [reg(1, n)]
-    plan = r_plan(rows)
+    n = reusable()
+    plan = r_plan([reg(1, n)])
     assert plan['actions']['REUSE'] == 1 and plan['artifacts'] == [] and plan['placements'] == 1, plan
-    d = isolated()
-    out = run(REG_TOOL, '--apply', model=d, manifest=rows)
-    assert out.returncode == 0 and 'applied: 0 CREATE, 1 REUSE' in out.stdout, out.stdout + out.stderr
-    aid = have[rows[0]['sha256']]
-    assert table(d, 'identity/artifacts.jsonl') == table(BASE[0], 'identity/artifacts.jsonl')
-    assert table(d, 'identity/identity-map.jsonl') == table(BASE[0], 'identity/identity-map.jsonl')
+    rows, (d, before, out) = batch()
+    assert 'applied: 13 CREATE, 1 REUSE' in out.stdout, out.stdout + out.stderr
+    [row] = [r for r in rows if r['acquisition']['row'] == 'm3.8:%d' % n]
+    aid = have[row['sha256']]
+    for rel, key in (('identity/artifacts.jsonl', 'id'), ('identity/identity-map.jsonl', 'legacy_key')):
+        old, new = table(BASE[0], rel), table(d, rel)
+        assert not {L.dumps(r) for r in old} - {L.dumps(r) for r in new}, rel
+        assert [r for r in new if row['sha256'] in (r.get('sha256'), r.get('legacy_key'))] == \
+            [r for r in old if row['sha256'] in (r.get('sha256'), r.get('legacy_key'))], rel
     assert [p['locator']['value'] for p in table(d, 'document/placements.jsonl')
-            if p.get('artifact') == aid and p['id'] == RA.placement_id(rows[0], aid)] == [rows[0]['url']]
+            if p.get('artifact') == aid and p['id'] == RA.placement_id(row, aid)] == [row['url']]
 
 
 @check
@@ -333,21 +377,15 @@ def g03_one_artifact_many_locations_and_the_same_location_twice():
     rows = [reg(i, r['m38_item']) for i, r in enumerate(M310A, 1)]
     plan = r_plan(rows)
     assert plan['actions'] == {'CREATE': 0, 'REUSE': 0, 'NOOP': 4, 'CONFLICT': 0}, plan['actions']
-    shas = {}
-    for n, it in ITEMS.items():
-        if it['retrieval'] == 'OK':
-            shas.setdefault(it['sha256'], set()).add(n)
-    many = sorted(ns for s, ns in shas.items() if len({ITEMS[n]['url'] for n in ns}) == 3)[0]
-    rows = [reg(i, n) for i, n in enumerate(sorted(many), 1)]
+    many = three_urls()
+    rows = [reg(i, n) for i, n in enumerate(many, 1)]
     plan = r_plan(rows)
     assert plan['actions']['CREATE'] == 3 and len(plan['artifacts']) == 1 and plan['placements'] == 3, plan
-    d = isolated()
-    out = run(REG_TOOL, '--apply', model=d, manifest=rows)
-    assert out.returncode == 0, out.stdout + out.stderr
+    _, (d, _, _) = batch()                    # applied beside batch()'s other rows
     [art] = [a['id'] for a in table(d, 'identity/artifacts.jsonl') if a.get('sha256') == rows[0]['sha256']]
     assert sorted(p['locator']['value'] for p in table(d, 'document/placements.jsonl') if p.get('artifact') == art) == \
         sorted(r['url'] for r in rows)
-    e = r_errors([reg(1, sorted(many)[0]), reg(2, sorted(many)[0])])
+    e = r_errors([reg(1, many[0]), reg(2, many[0])])
     assert len(e) == 2 and all('registered 2 times' in x for x in e), e
 
 
@@ -382,16 +420,14 @@ def g04_contradictory_immutable_metadata_is_a_conflict():
 @check
 def g05_deterministic_ids_plan_and_rebuild():
     """The plan is the same for any row order; ids follow sha256 order after every existing id; the migration
-    rebuilds what --apply wrote, from scratch and with the registry (in a subprocess)."""
-    ns = unheld()[:10]
-    rows = [reg(i, n) for i, n in enumerate(ns, 1)]
+    rebuilds what --apply wrote, from scratch and with the registry (in a subprocess). On batch(): ten new
+    documents, one at three URLs and one reused."""
+    rows, (d, _, _) = batch()
     p1 = r_plan(rows)
     shuffled = rows[:]
     random.Random(7).shuffle(shuffled)
     assert L.dumps(r_plan(shuffled)) == L.dumps(p1)
-    d = isolated()
-    out = run(REG_TOOL, '--apply', model=d, manifest=rows)
-    assert out.returncode == 0, out.stdout + out.stderr
+    assert len(p1['artifacts']) == 11, p1['artifacts']
     last = max(int(a['id'].split('_')[1]) for a in table(BASE[0], 'identity/artifacts.jsonl'))
     by = {a['sha256']: a['id'] for a in table(d, 'identity/artifacts.jsonl') if a.get('sha256')}
     assert [by[s] for s in p1['artifacts']] == ['ar_%06d' % (last + i) for i in range(1, len(p1['artifacts']) + 1)]
@@ -402,11 +438,9 @@ def g05_deterministic_ids_plan_and_rebuild():
 
 @check
 def g06_the_placement_provenance_names_the_registration():
-    n = unheld()[0]
-    r = reg(1, n)
-    d = isolated()
-    assert run(REG_TOOL, '--apply', model=d, manifest=[r]).returncode == 0
-    prov = {p['id']: p for p in table(d, 'cross/provenance.jsonl')}
+    r = reg(1, unheld()[0])
+    d, _, _ = one()                           # g01's application of this row
+    prov ={p['id']: p for p in table(d, 'cross/provenance.jsonl')}
     [pl] = [p for p in table(d, 'document/placements.jsonl') if (prov[p['provenance']].get('actor') == RA.ACTOR)]
     p = prov[pl['provenance']]
     assert p['kind'] == 'DOCUMENT' and p['artifact'] == pl['artifact']

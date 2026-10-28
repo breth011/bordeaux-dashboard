@@ -21,6 +21,17 @@ generator's; no crawl fact is written. A source relationship is recorded only wh
 attributes the fetch to one (M3.7's confirmed relationships). Registration decides no identity: a row names no
 estate, wine or vintage, and no evidence decision, attribution or value follows from it.
 
+AN ESTATE-SUPPLIED ROW (the second mode) registers a file the estate itself sent, never fetched: its acquisition
+record is an `item` of data/audit/estate-supplied-acquisitions.jsonl (tools/record-estate-supplied-acquisition.py,
+which hashes the held file itself). The mode is the audit's, not the row's: a supplied row must not carry url,
+final_url, http_status or fetched_at, an HTTP row must not carry received_at, original_filename or supply_channel,
+and each record's retrieval (SUPPLIED or OK) and the row's origin (ESTATE_SUPPLIED or EXTERNAL_ACQUISITION) must
+be its mode's. The supplier must be the first party: the row's source relationship a confirmed M3.7 one
+(CONFIRMED_FIRST_PARTY or CONFIRMED_ESTATE_CONTROLLED) of the supplier estate, its source in the model, and the
+sender's domain that source's own host. The file is held at sources/acquisition/supplied/<sha256>/<original
+filename> and placed there (a LOCAL_PATH locator, on the source, observed the day it was received, DOCUMENT
+provenance stating the supply).
+
 Each valid row is CREATE (its bytes are not a model artifact: one is minted by sha256, then the placement), REUSE
 (the bytes are an artifact already, from the crawl or an earlier registration: its URL placement only - never a
 second artifact because the URL differs), NOOP (the artifact and this URL placement are held) or CONFLICT (the
@@ -34,6 +45,7 @@ migration on the current model and writes it only if exactly the plan's rows wer
 nothing and records nothing.
 """
 import collections
+import datetime
 import hashlib
 import json
 import os
@@ -53,17 +65,38 @@ MANIFEST = 'data/audit/artifact-registration-manifest.jsonl'
 PATH = [L.ROOT + MANIFEST]                     # the manifest the migration's hooks read (--manifest replaces it)
 ARTIFACT_STAT = 'artifact-registration manifest artifacts'    # M2: artifacts minted from the manifest
 PLACEMENT_STAT = 'artifact-registration manifest placements'  # M6: URL placements added from it
-REQUIRED = ('registration_id', 'sha256', 'bytes', 'media_type', 'held_path', 'url', 'final_url', 'http_status',
-            'fetched_at', 'retrieval_method', 'acquired_by', 'origin', 'acquisition')
+COMMON = ('registration_id', 'sha256', 'bytes', 'media_type', 'held_path', 'retrieval_method', 'acquired_by', 'origin',
+          'acquisition')
+HTTP_ONLY = ('url', 'final_url', 'http_status', 'fetched_at')
+SUPPLIED_ONLY = ('received_at', 'original_filename', 'supply_channel')
+REQUIRED = COMMON[:5] + HTTP_ONLY + COMMON[5:]            # HTTP mode, as before
 OPTIONAL = ('source', 'source_relationship', 'notes')
 ORIGIN = 'EXTERNAL_ACQUISITION'
-# The acquisition audits whose `item` rows a registration may rest on, each with what it establishes about how its
-# documents were fetched and held. Another audit is added here, by name, when a later acquisition produces one.
+SUPPLIED = 'ESTATE_SUPPLIED'
+# A row's mode is its acquisition audit's, never its own fields': HTTP (a fetch, M3.8's records) or ESTATE_SUPPLIED
+# (a file the estate itself sent, recorded by tools/record-estate-supplied-acquisition.py). Each mode's fields are
+# required in it and forbidden in the other; a supplied row must name its source and relationship.
+MODES = {
+    'HTTP': {'origin': ORIGIN, 'retrieval': 'OK', 'required': REQUIRED, 'optional': OPTIONAL,
+             'forbidden': SUPPLIED_ONLY},
+    SUPPLIED: {'origin': SUPPLIED, 'retrieval': 'SUPPLIED', 'required': COMMON + SUPPLIED_ONLY + ('source', 'source_relationship'),
+               'optional': ('notes',), 'forbidden': HTTP_ONLY},
+}
+SUPPLY_CHANNELS = {'EMAIL_ATTACHMENT'}       # a link the estate sends is a fetch: an HTTP acquisition, not a supply
+SUPPLIER_STATUSES = {'CONFIRMED_FIRST_PARTY', 'CONFIRMED_ESTATE_CONTROLLED'}
+SUPPLIED_AUDIT = 'data/audit/estate-supplied-acquisitions.jsonl'
+# The acquisition audits whose `item` rows a registration may rest on, each with its mode and what it establishes
+# about how its documents were acquired and held. Another audit is added here, by name, when a later acquisition
+# produces one. `file` (tests only) reads the audit from elsewhere.
 ACQUISITION_AUDITS = {
     'data/audit/m3.8-acquisition-pilot.jsonl': {
-        'prefix': 'm3.8', 'acquired_by': 'M3.8', 'held': 'sources/acquisition/m3.8/blobs/',
+        'mode': 'HTTP', 'prefix': 'm3.8', 'acquired_by': 'M3.8', 'held': 'sources/acquisition/m3.8/blobs/',
         'retrieval_method': 'confirmed-source acquisition (tools/m38-acquire.py, the discovery fetch discover/1.0)'},
+    SUPPLIED_AUDIT: {
+        'mode': SUPPLIED, 'prefix': 'sup', 'acquired_by': 'the estate (supplied)', 'held': 'sources/acquisition/supplied/',
+        'retrieval_method': 'supplied by the estate (%s)'},
 }
+HELD_ROOT = [L.ROOT]                        # where held_path resolves (tests point it at a temporary copy)
 RELATIONSHIPS = 'data/audit/m3.7-source-confirmation.jsonl'
 MAGIC = {'application/pdf': b'%PDF-'}
 TABLES = ('identity/artifacts.jsonl', 'identity/identity-map.jsonl', 'document/locators.jsonl',
@@ -98,26 +131,101 @@ class Acquisitions:
         if audit not in ACQUISITION_AUDITS:
             return None
         if audit not in self._rows:
-            prefix = ACQUISITION_AUDITS[audit]['prefix']
-            self._rows[audit] = {'%s:%d' % (prefix, r['n']): r for r in L.jsonl_lines(L.ROOT + audit)
+            conf = ACQUISITION_AUDITS[audit]
+            path = conf.get('file') or L.ROOT + audit
+            rows = L.jsonl_lines(path) if os.path.exists(path) else []
+            self._rows[audit] = {'%s:%d' % (conf['prefix'], r['n']): r for r in rows
                                  if r.get('record') == 'item' and isinstance(r.get('n'), int)}
         return self._rows[audit].get(row)
 
 
 class Relationships:
-    """M3.7's confirmed source relationships, by id."""
+    """M3.7's confirmed source relationships, by id, and each source's host."""
 
     def __init__(self):
-        self._rows = None
+        self._rows = self._hosts = None
+
+    def _load(self):
+        if self._rows is None:
+            rows = L.jsonl_lines(L.ROOT + RELATIONSHIPS)
+            self._rows = {r['id']: r for r in rows
+                          if r.get('record') == 'relationship' and str(r.get('status', '')).startswith('CONFIRMED_')}
+            self._hosts = {r['source']: r.get('canonical_host') for r in rows if r.get('record') == 'source'}
 
     def get(self, rid):
-        if self._rows is None:
-            self._rows = {r['id']: r for r in L.jsonl_lines(L.ROOT + RELATIONSHIPS)
-                          if r.get('record') == 'relationship' and str(r.get('status', '')).startswith('CONFIRMED_')}
+        self._load()
         return self._rows.get(rid)
+
+    def host(self, source):
+        self._load()
+        return self._hosts.get(source)
+
+
+def mode_of(r):
+    """The row's mode: its acquisition audit's, or None when the reference names no listed audit."""
+    ref = r.get('acquisition')
+    if isinstance(ref, dict) and set(ref) == {'audit', 'row'} and ref['audit'] in ACQUISITION_AUDITS:
+        return ACQUISITION_AUDITS[ref['audit']]['mode']
+    return None
+
+
+def locator_of(r):
+    """(kind, value) of the row's placement: the URL it was fetched from, or the held file a supplied row names."""
+    if mode_of(r) == SUPPLIED:
+        return 'LOCAL_PATH', r['held_path'][len('sources/'):]
+    return 'URL', r['url']
+
+
+UNSAFE = re.compile(r'[\x00-\x1f\x7f/\\<>:"|?*]')
+
+
+def safe_segment(name):
+    """A received file's original name, usable as exactly one path segment on every platform, kept as received."""
+    return isinstance(name, str) and 0 < len(name) <= 200 and name not in ('.', '..') and not UNSAFE.search(name) \
+        and name == name.strip() and not name.endswith('.')
+
+
+def _host(h):
+    h = str(h or '').strip().lower()
+    return h[4:] if h.startswith('www.') else h
 
 
 # ---------------------------------------------------------------- validate
+
+def check_supplied(r, it, conf, rels):
+    """An estate-supplied row: every fact the supplied record's, and the supplier the first party of the source it
+    names - a confirmed M3.7 relationship of that estate, the sender's domain the source's own host."""
+    if it.get('retrieval') != 'SUPPLIED' or it.get('origin') != SUPPLIED:
+        raise Invalid('the acquisition record is not an estate-supplied one (retrieval %r, origin %r)' % (
+            it.get('retrieval'), it.get('origin')))
+    sup = it.get('supplier') if isinstance(it.get('supplier'), dict) else {}
+    stated = {'sha256': it.get('sha256'), 'bytes': it.get('bytes'), 'media_type': it.get('content_type'),
+              'held_path': it.get('held_path'), 'received_at': it.get('received_at'),
+              'original_filename': it.get('original_filename'), 'supply_channel': it.get('supply_channel'),
+              'source': sup.get('source'), 'source_relationship': sup.get('relationship'),
+              'acquired_by': conf['acquired_by'], 'retrieval_method': conf['retrieval_method'] % it.get('supply_channel')}
+    differ = sorted(k for k, v in stated.items() if r[k] != v)
+    if differ:
+        raise Invalid('not what the acquisition record establishes: %s' % ', '.join(
+            '%s %r (the record: %r)' % (k, r[k], stated[k]) for k in differ))
+    if r['held_path'] != conf['held'] + '%s/%s' % (r['sha256'], r['original_filename']):
+        raise Invalid('held_path must be %s<sha256>/<original_filename>' % conf['held'])
+    rc = it.get('receipt')
+    if not (isinstance(rc, dict) and set(rc) == {'held', 'sha256'} and re.fullmatch(r'[0-9a-f]{64}', str(rc['sha256']))
+            and str(rc['held']).startswith(conf['held'] + r['sha256'] + '/')) or not str(it.get('statement') or '').strip():
+        raise Invalid('the supplied record lacks its hashed receipt or its supplied statement')
+    x = rels.get(r['source_relationship'])
+    if x is None or x.get('status') not in SUPPLIER_STATUSES:
+        raise Invalid('%s is not a confirmed first-party or estate-controlled relationship (M3.7)' % r['source_relationship'])
+    if x.get('source') != r['source']:
+        raise Invalid('%s is a relationship of source %s, not %s' % (r['source_relationship'], x.get('source'), r['source']))
+    if x.get('estate') != sup.get('estate'):
+        raise Invalid('the supplier estate %r is not %s\'s estate %s' % (sup.get('estate'), r['source_relationship'],
+                                                                         x.get('estate')))
+    host = rels.host(r['source'])
+    if not host or _host(it.get('sender_domain')) != _host(host):
+        raise Invalid('the sender domain %r is not the host of source %s (%r)' % (it.get('sender_domain'), r['source'], host))
+
 
 def check_acquisition(r, acq, rels):
     """Every fact the row states is the acquisition record's; the source relationship only where it attributes one."""
@@ -129,6 +237,8 @@ def check_acquisition(r, acq, rels):
     if conf is None or it is None:
         raise Invalid('no acquisition record (the audit is not one of %s, or the row is not in it)'
                       % sorted(ACQUISITION_AUDITS))
+    if conf['mode'] == SUPPLIED:
+        return check_supplied(r, it, conf, rels)
     if it.get('retrieval') != 'OK':
         raise Invalid('the acquisition did not retrieve it (%s)' % it.get('retrieval'))
     stated = {'url': it.get('url'), 'final_url': it.get('final_url'), 'http_status': it.get('status'),
@@ -157,18 +267,30 @@ def structural(rows, acq=None, rels=None):
     acq, rels = acq or Acquisitions(), rels or Relationships()
     errors, ok = [], []
     ids = collections.Counter(r.get('registration_id') for r in rows)
-    places = collections.Counter((r.get('sha256'), r.get('url')) for r in rows)
     media = media_types()
+    shaped = []
     for n, r in enumerate(rows, 1):
         rid = r.get('registration_id') if isinstance(r.get('registration_id'), str) else 'row %d' % n
 
-        def bad(msg):
+        def bad(msg, rid=rid):
             errors.append('%s: %s' % (rid, msg))
-        missing = [k for k in REQUIRED if k not in r]
-        extra = sorted(set(r) - set(REQUIRED) - set(OPTIONAL))
+        # the mode is the acquisition audit's; a reference to no listed audit is judged by HTTP's fields and refused
+        # by check_acquisition
+        mode = mode_of(r) or 'HTTP'
+        spec = MODES[mode]
+        forbidden = sorted(k for k in spec['forbidden'] if k in r)
+        if forbidden:
+            bad('%s in a %s acquisition: forbidden (the other mode\'s fields)' % (forbidden, mode))
+            continue
+        missing = [k for k in spec['required'] if k not in r]
+        extra = sorted(set(r) - set(spec['required']) - set(spec['optional']))
         if missing or extra:
             bad('missing %s; unknown %s (a registration names no estate, wine or vintage)' % (missing, extra))
             continue
+        shaped.append((rid, r, mode, bad))
+    places = collections.Counter((r['sha256'], locator_of(r)) for _, r, _, _ in shaped)
+    for rid, r, mode, bad in shaped:
+        spec = MODES[mode]
         before = len(errors)
         if not re.fullmatch(r'arm_\d{6}', str(r['registration_id'])):
             bad('registration_id is not arm_NNNNNN')
@@ -180,12 +302,25 @@ def structural(rows, acq=None, rels=None):
             bad('bytes %r is not a size' % (r['bytes'],))
         if r['media_type'] not in media:
             bad('media type %r is not one the model records' % (r['media_type'],))
-        if r['origin'] != ORIGIN:
-            bad('origin %r: only %s is registered here (the crawl\'s documents are its manifest\'s)' % (r['origin'], ORIGIN))
-        if not str(r['url']).startswith(('http://', 'https://')):
+        if r['origin'] != spec['origin']:
+            bad('origin %r: only %s is registered from a %s acquisition audit (the crawl\'s documents are its '
+                'manifest\'s)' % (r['origin'], spec['origin'], mode))
+        if mode == 'HTTP' and not str(r['url']).startswith(('http://', 'https://')):
             bad('url is not a URL')
-        if places[(r['sha256'], r['url'])] > 1:
-            bad('the same bytes at the same URL are registered %d times' % places[(r['sha256'], r['url'])])
+        if mode == SUPPLIED:
+            if not safe_segment(r['original_filename']):
+                bad('original_filename %r is not one safe path segment' % (r['original_filename'],))
+            if r['supply_channel'] not in SUPPLY_CHANNELS:
+                bad('supply_channel %r is not one of %s' % (r['supply_channel'], sorted(SUPPLY_CHANNELS)))
+            try:
+                datetime.date.fromisoformat(str(r['received_at']))
+                if not re.fullmatch(r'\d{4}-\d{2}-\d{2}', str(r['received_at'])):
+                    raise ValueError
+            except ValueError:
+                bad('received_at %r is not a date (YYYY-MM-DD)' % (r['received_at'],))
+        if places[(r['sha256'], locator_of(r))] > 1:
+            bad('the same bytes at the same %s are registered %d times' % (
+                'URL' if mode == 'HTTP' else 'held path', places[(r['sha256'], locator_of(r))]))
         if len(errors) == before:
             try:
                 check_acquisition(r, acq, rels)
@@ -198,8 +333,8 @@ def structural(rows, acq=None, rels=None):
 
 def held_bytes(r):
     """The held file is the row's bytes: its sha256, size and media type."""
-    p = L.ROOT + r['held_path']
-    if not r['held_path'].startswith('sources/') or not os.path.isfile(p):
+    p = HELD_ROOT[0] + r['held_path']
+    if not r['held_path'].startswith('sources/') or '..' in r['held_path'].split('/') or not os.path.isfile(p):
         raise Invalid('the held file %s is missing' % r['held_path'])
     b = open(p, 'rb').read()
     if hashlib.sha256(b).hexdigest() != r['sha256'] or len(b) != r['bytes']:
@@ -222,8 +357,8 @@ class View:
                       if r['namespace'] == 'artifact-by-sha256' and r.get('stable_id') and r['status'] == 'ACTIVE'}
             placed = collections.defaultdict(set)
             for p in self._rows('document/placements.jsonl'):
-                if p.get('artifact') and p['locator']['kind'] == 'URL':
-                    placed[p['artifact']].add(p['locator']['value'])
+                if p.get('artifact'):
+                    placed[p['artifact']].add((p['locator']['kind'], p['locator']['value']))
             self._ix = {'by_sha': by_sha, 'placed': placed,
                         'artifacts': {a['id']: a for a in self._rows('identity/artifacts.jsonl')},
                         'sources': {s['id'] for s in self._rows('identity/sources.jsonl')}}
@@ -261,22 +396,26 @@ def classify(r, ix, batch):
     differ = [k for k in ('bytes', 'media_type') if a.get(k) is not None and a[k] != r[k]]
     if differ:
         return 'CONFLICT', 'artifact %s records %s' % (aid, ', '.join('%s %r' % (k, a[k]) for k in differ)), aid
-    if r['url'] in ix['placed'].get(aid, ()):
-        return 'NOOP', 'artifact %s is held at this URL' % aid, aid
-    return 'REUSE', 'artifact %s holds these bytes; this URL is a new placement of it' % aid, aid
+    loc = locator_of(r)
+    where = 'URL' if loc[0] == 'URL' else 'held path'
+    if loc in ix['placed'].get(aid, ()):
+        return 'NOOP', 'artifact %s is held at this %s' % (aid, where), aid
+    return 'REUSE', 'artifact %s holds these bytes; this %s is a new placement of it' % (aid, where), aid
 
 
 def plan_manifest(rows, view):
-    """The deterministic plan, read-only: rows in (sha256, url, id) order, each with its action."""
+    """The deterministic plan, read-only: rows in (sha256, locator, id) order, each with its action."""
     ix = view.index()
     batch = collections.defaultdict(list)
     for r in rows:
         batch[r['sha256']].append(r)
     items, counts = [], collections.Counter()
-    for r in sorted(rows, key=lambda r: (r['sha256'], r['url'], r['registration_id'])):
+    for r in sorted(rows, key=lambda r: (r['sha256'], locator_of(r)[1], r['registration_id'])):
         action, reason, aid = classify(r, ix, batch)
         counts[action] += 1
-        items.append({'registration_id': r['registration_id'], 'sha256': r['sha256'], 'url': r['url'],
+        kind, value = locator_of(r)
+        items.append({'registration_id': r['registration_id'], 'sha256': r['sha256'], 'url': r.get('url'),
+                      'locator': {'kind': kind, 'value': value}, 'mode': mode_of(r),
                       'artifact': aid, 'action': action, 'reason': reason})
     new = sorted({it['sha256'] for it in items if it['action'] == 'CREATE'})
     return {'rows': items, 'actions': {a: counts[a] for a in ACTIONS}, 'artifacts': new,
@@ -284,7 +423,7 @@ def plan_manifest(rows, view):
 
 
 def verify_plan(plan):
-    conflicts = ['%s %s: %s' % (it['registration_id'], it['url'], it['reason'])
+    conflicts = ['%s %s: %s' % (it['registration_id'], it['locator']['value'], it['reason'])
                  for it in plan['rows'] if it['action'] == 'CONFLICT']
     if conflicts:
         raise Conflict('%d conflict(s):\n  %s' % (len(conflicts), '\n  '.join(conflicts)))
@@ -341,10 +480,32 @@ def m2_artifacts(m, known):
 
 
 def placement_id(r, aid):
-    return S.hid('Placement', 'URL', r['url'], aid, 'arm')
+    kind, value = locator_of(r)
+    return S.hid('Placement', kind, value, aid, 'arm')
+
+
+def add_supplied_placement(m, r, aid):
+    """The held file an estate supplied, as a LOCAL_PATH placement on the source it came from, observed on the day it
+    was received; its DOCUMENT provenance states the supply and no fetch."""
+    kind, value = locator_of(r)
+    pid = m.prov('DOCUMENT', ACTOR, artifact=aid,
+                 code_state={'stream': STREAM, 'runner': RUNNER, 'manifest': MANIFEST,
+                             'registration_id': r['registration_id'], 'acquisition': r['acquisition'],
+                             'origin': r['origin'], 'source_relationship': r['source_relationship'],
+                             'supply_channel': r['supply_channel'], 'received_at': r['received_at'],
+                             'original_filename': r['original_filename'], 'acquired_by': r['acquired_by'],
+                             'correspondence': 'the bytes the estate supplied (sha256)'})
+    loc = {'kind': kind, 'value': value}
+    m.add('document/locators.jsonl', loc)
+    day = S.bound('EXACT', r['received_at'], 'CALENDAR', 'DAY', pid)
+    m.add('document/placements.jsonl', {
+        'id': placement_id(r, aid), 'locator': loc, 'artifact': aid, 'source': r['source'], 'status': 'PRESENT',
+        'retrieval_method': r['retrieval_method'], 'observed': {'valid_from': day, 'valid_to': day}, 'provenance': pid})
 
 
 def add_placement(m, r, aid):
+    if mode_of(r) == SUPPLIED:
+        return add_supplied_placement(m, r, aid)
     pid = m.prov('DOCUMENT', ACTOR, artifact=aid,
                  code_state={'stream': STREAM, 'runner': RUNNER, 'manifest': MANIFEST,
                              'registration_id': r['registration_id'], 'acquisition': r['acquisition'],
@@ -363,19 +524,20 @@ def add_placement(m, r, aid):
 
 
 def m6_placements(m):
-    """mig_m6_provenance.artifact_registration_placements: each row's URL placement, where the model being built
-    has none of that artifact at that URL (M3.2B's, M3.10A's or an earlier row's)."""
+    """mig_m6_provenance.artifact_registration_placements: each row's placement - its URL, or for a supplied row its
+    held file - where the model being built has none of that artifact at that locator (M3.2B's, M3.10A's or an
+    earlier row's)."""
     rows = _hook_rows()
     if not rows:
         return
-    placed = {(p.get('artifact'), p['locator']['value']) for p in m.rows('document/placements.jsonl')
-              if p['locator']['kind'] == 'URL'}
+    placed = {(p.get('artifact'), p['locator']['kind'], p['locator']['value']) for p in m.rows('document/placements.jsonl')}
     n = 0
-    for r in sorted(rows, key=lambda r: (r['sha256'], r['url'], r['registration_id'])):
+    for r in sorted(rows, key=lambda r: (r['sha256'], locator_of(r)[1], r['registration_id'])):
         aid = m.art[('sha256', r['sha256'])]
-        if (aid, r['url']) in placed:
+        key = (aid,) + locator_of(r)
+        if key in placed:
             continue
-        placed.add((aid, r['url']))
+        placed.add(key)
         add_placement(m, r, aid)
         n += 1
     if n:
@@ -480,7 +642,7 @@ class Clock:
 def render_plan(plan, n_rows):
     out = []
     for it in (plan or {'rows': []})['rows']:
-        out.append('%s  %s' % (it['registration_id'], it['url']))
+        out.append('%s  %s %s' % (it['registration_id'], it['locator']['kind'], it['locator']['value']))
         out.append('  sha256: %s' % it['sha256'])
         out.append('  action: %s (%s)' % (it['action'], it['reason']))
         out.append('')

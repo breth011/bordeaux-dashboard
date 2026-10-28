@@ -312,7 +312,7 @@ def g02_existing_content_is_reused_never_duplicated():
     have = RVIEW.index()['by_sha']
     placed = RVIEW.index()['placed']
     n = sorted(k for k, it in ITEMS.items() if it['retrieval'] == 'OK' and it['sha256'] in have
-               and it['url'] not in placed.get(have[it['sha256']], ()))[0]
+               and ('URL', it['url']) not in placed.get(have[it['sha256']], ()))[0]
     rows = [reg(1, n)]
     plan = r_plan(rows)
     assert plan['actions']['REUSE'] == 1 and plan['artifacts'] == [] and plan['placements'] == 1, plan

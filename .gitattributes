@@ -62,3 +62,5 @@ docs/PHASE-V1-VINTAGE-CREATION.md text eol=lf
 data/audit/artifact-registration-manifest.jsonl text eol=lf
 data/audit/evidence-acceptance-manifest.jsonl text eol=lf
 docs/PHASE-GENERIC-EVIDENCE-REGISTRATION.md text eol=lf
+data/audit/estate-supplied-acquisitions.jsonl text eol=lf
+docs/PHASE-V2-ESTATE-SUPPLIED-ACQUISITION.md text eol=lf

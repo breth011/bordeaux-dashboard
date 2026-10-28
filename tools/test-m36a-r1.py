@@ -270,7 +270,9 @@ def r14_nothing_else_changed():
                    # M3.11's value-application manifest and V1's vintage-creation manifest (both mechanisms' inputs)
                    'data/audit/value-application-manifest.jsonl', 'data/audit/vintage-creation-manifest.jsonl',
                    # the generic registration and acceptance manifests (both mechanisms' inputs)
-                   'data/audit/artifact-registration-manifest.jsonl', 'data/audit/evidence-acceptance-manifest.jsonl'}
+                   'data/audit/artifact-registration-manifest.jsonl', 'data/audit/evidence-acceptance-manifest.jsonl',
+                   # the estate-supplied acquisition audit (the registration's second mode)
+                   'data/audit/estate-supplied-acquisitions.jsonl'}
     changed = set(git('diff', '--name-only', BEFORE, '--', 'data').split())
     # an existing audit output changes only as later phases record themselves: the gap register by their
     # resolution entries (historical_m2_scope.register_changes_are_m34b_only), its resolutions file by their keys

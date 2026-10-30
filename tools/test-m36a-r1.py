@@ -280,7 +280,9 @@ def r14_nothing_else_changed():
                    # M3.12's reading of the P1 identity refusals (an audit)
                    'data/audit/m3.12-identity-refusal-audit.jsonl',
                    # the identity / reader / statement v2 / C6 integration dry run (an audit)
-                   'data/audit/integration-dryrun.jsonl'}
+                   'data/audit/integration-dryrun.jsonl',
+                   # the independent review of R4's listing entries (an audit)
+                   'data/audit/r4-listing-review.jsonl'}
     changed = set(git('diff', '--name-only', BEFORE, '--', 'data').split())
     # an existing audit output changes only as later phases record themselves: the gap register by their
     # resolution entries (historical_m2_scope.register_changes_are_m34b_only), its resolutions file by their keys

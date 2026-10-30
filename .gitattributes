@@ -73,3 +73,6 @@ docs/PHASE-M3.12-IDENTITY-REFUSAL-AUDIT.md text eol=lf
 # The integration dry-run is checked byte for byte by tools/integration-dryrun.py --check and tools/test-integration-dryrun.py.
 data/audit/integration-dryrun.jsonl text eol=lf
 docs/PHASE-INTEGRATION-DRYRUN.md text eol=lf
+# The R4 listing review is checked byte for byte by tools/r4-listing-review.py --check and tools/test-recording-policy.py.
+data/audit/r4-listing-review.jsonl text eol=lf
+docs/PHASE-R4-LISTING-REVIEW.md text eol=lf

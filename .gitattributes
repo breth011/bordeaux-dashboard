@@ -70,3 +70,6 @@ data/audit/m3.12-p1-review.jsonl text eol=lf
 docs/PHASE-M3.12-P1-REVIEW.md text eol=lf
 data/audit/m3.12-identity-refusal-audit.jsonl text eol=lf
 docs/PHASE-M3.12-IDENTITY-REFUSAL-AUDIT.md text eol=lf
+# The integration dry-run is checked byte for byte by tools/integration-dryrun.py --check and tools/test-integration-dryrun.py.
+data/audit/integration-dryrun.jsonl text eol=lf
+docs/PHASE-INTEGRATION-DRYRUN.md text eol=lf

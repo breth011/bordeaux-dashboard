@@ -228,7 +228,8 @@ def t08_nothing_in_production_changes():
     assert not git('status', '--porcelain', '--', 'data', 'sources')
     own = ('identity_rules.py', 'test-identity-rules.py')
     users = [p for p in sorted(os.listdir(L.ROOT + 'tools')) if p.endswith('.py') and p not in own
-             and re.search(r'(?m)^\s*(?:import|from)\s+identity_rules\b(?!_)|identity_rules\.py',
+             and re.search(r'(?m)^\s*(?:import|from)\s+identity_rules\b(?!_)|'
+                           r'spec_from_file_location\([^)]*identity_rules\.py',     # a use, not a guard naming it
                            open(L.ROOT + 'tools/' + p, encoding='utf-8').read())]
     assert not users, users
     src = open(L.ROOT + 'tools/identity_rules.py', encoding='utf-8').read()

@@ -427,7 +427,14 @@ def the_audit_is_reproducible():
 @check
 def no_event_entity_and_no_new_concept():
     assert 'Event' not in S.ENTITIES and 'HistoricalEvent' not in S.ENTITIES
-    assert not git('diff', '--stat', BEFORE, '--', 'docs/phase34-model.json', 'docs/schema').strip()
+    # one later change is named exactly: the recording policy's AttributionMethod REVIEWED_LISTING (a323055,
+    # docs/DECISION-RECORDING-POLICY.md), an enum value through the M1 extension contract; nothing else moves
+    ext = 'docs/schema/historical-m1-contract.json'
+    assert not git('diff', '--stat', BEFORE, '--', 'docs/phase34-model.json', 'docs/schema', ':!' + ext).strip()
+    now, then = json.load(open(L.ROOT + ext, encoding='utf-8')), json.loads(git('show', '%s:%s' % (BEFORE, ext)))
+    added = now['enum_values_added'].pop('AttributionMethod', None)
+    assert added is None or added['add'] == ['REVIEWED_LISTING'], added
+    assert now == then
 
 
 def main():

@@ -150,3 +150,23 @@ None of these is decided here. The dry run's report gives the counts.
    - Taillan's partial blend;
    - multi-estate brochures (identity refuses them; no attribution of a blend list to one wine is attempted);
    - C5 (Issan's "Alcool (en % vol.)").
+
+## 6. Implementation status
+
+The four blockers in [DECISION-RECORDING-POLICY.md](DECISION-RECORDING-POLICY.md) stand in this order:
+
+1. **The identity wrapper: built, not wired.** `tools/identity_rules.py` (`identity-rules/1`) holds the adopted rules beside `decide`:
+   - `identify(m34a_module, args)` calls the module's own `decide` and never assigns it;
+   - the rewritten text reaches `decide` through `document_text`, the `text_hook` seam, and is restored on every exit;
+   - R2 reads only `NAMED_BLOCK`;
+   - R4 goes through `recording_policy.listing_identity`, so only `APPROVED_R4` entries attribute or veto;
+   - `CLAIM_DECISIONS` (two holds, three refusals) replaces `REVIEW_HOLD`, and a listed claim is never `SAFE_TO_MAP`.
+
+   Every R4 step is marked `entry_signoff: AGENT_REVIEW_ONLY` until the user signs the 13 approved entries off.
+
+   `tools/test-identity-rules.py` (8 checks) replays every `decide` call over the dry run's corpus. It finds the candidate rules' answer everywhere except at Chapelle 1998, Paloumey 2022, Issan 2004 and Issan 2010, which are no longer settled, and Caillou 2014, which is refused for a different reason. That takes the dry run's 57 candidates to 51. `tools/identity_rules_candidate.py` is unchanged, so the committed dry run still reproduces.
+2. **The `REVIEWED_LISTING` enum value:** not started.
+3. **A listing branch in `check_review`:** not started.
+4. **A C6 branch in the value runner:** not started.
+
+Nothing in production calls `identity_rules.py`.

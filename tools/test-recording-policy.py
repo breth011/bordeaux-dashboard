@@ -209,7 +209,8 @@ def c8_a_source_that_prints_hl_per_ha_is_the_reader_path():
 def z1_nothing_in_production_changes():
     assert not git('diff', '--name-only', BEFORE, '--', *FINGERPRINTED)
     assert not git('status', '--porcelain', '--', 'data', 'sources', ':!data/audit/r4-listing-review.jsonl')
-    own = ('recording_policy.py', 'test-recording-policy.py', 'r4-listing-review.py')
+    own = ('recording_policy.py', 'test-recording-policy.py', 'r4-listing-review.py', 'identity_rules.py',
+           'test-identity-rules.py')
     users = [p for p in sorted(os.listdir(L.ROOT + 'tools')) if p.endswith('.py') and p not in own
              and re.search(r'(?m)^\s*(?:import|from)\s+recording_policy\b|'
                            r'spec_from_file_location\([^)]*r4-listing-review\.py', open(L.ROOT + 'tools/' + p, encoding='utf-8').read())]

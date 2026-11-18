@@ -266,7 +266,7 @@ def t13_nothing_in_production_changes():
                          ('yield_layout.py', 'test-yield-layout.py', 'test-recording-policy.py')),
         'identity_rules_candidate': (r'(?m)^\s*(?:import|from)\s+identity_rules_candidate\b|identity_rules_candidate\.py',
                                      ('identity_rules_candidate.py', 'r4-listing-review.py', 'recording_policy.py',
-                                      'test-recording-policy.py')),
+                                      'test-recording-policy.py', 'identity_rules.py', 'test-identity-rules.py')),
         'integration-dryrun': (r'spec_from_file_location\([^)]*integration-dryrun\.py', ()),
     }
     for mod, (rx, own) in uses.items():

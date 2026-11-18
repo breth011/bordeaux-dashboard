@@ -24,6 +24,12 @@ provenance quoting it and naming its evidence decision; one Reconciliation per r
 or UNANIMOUS (several, which state the one fact), with a DERIVATION provenance - the application provenance, naming
 the manifest row, its artifacts, observations and evidence version; one canonical value, SOURCED.
 
+C6 (source_basis layout_derived_unit, yld only; docs/DECISION-RECORDING-POLICY.md, Part C): each source location
+also holds c6 = {raw_value: the two printed lines, evidence: recording_policy.c6_observation's code state}. The
+observation's raw_value is the two lines, its confidence UNIT_FROM_LAYOUT, its extraction the layout reader's; the
+DOCUMENT provenance quotes "NNhl | NNha" and keeps the lines, labels, page, table, guards and arithmetic; the
+canonical value carries derivation UNIT_FROM_LAYOUT. Nothing reads "hl/ha" from the source, which never prints it.
+
 Evidence (all of it read from the model and the store, never from a file name, URL or domain): each artifact
 exists; an ACCEPTED attribution ties it to the row's exact estate, wine and vintage; that attribution's provenance
 names an evidence decision of the row's evidence_version; that decision is ACCEPTED, is still the latest for its
@@ -61,7 +67,16 @@ REQUIRED = ('manifest_id', 'estate_id', 'wine_id', 'vintage', 'field', 'value', 
             'observation_group', 'application_class', 'source_basis', 'source_locations')
 OPTIONAL = ('unit', 'raw_statement', 'notes')          # audit only: never parsed
 CLASSES = {'SOURCED'}
-BASES = {'explicit_document_statement'}
+BASES = {'explicit_document_statement', 'layout_derived_unit'}
+# The C6 branch (docs/DECISION-RECORDING-POLICY.md, Part C): a yield whose number the sheet prints on two lines, French
+# "NNhl" level with RENDEMENT and English "NNha" level with YIELD, and whose unit hl/ha is derived from that layout
+# (C6, yield-layout/1; this runner reads no document). The two printed lines are the raw value, never "NN hl/ha"; the observation's confidence and
+# the canonical value's derivation are UNIT_FROM_LAYOUT. A source that prints "NN hl/ha" is a literal statement and
+# takes the ordinary path.
+C6_BASIS = 'layout_derived_unit'
+C6_FIELDS = {'yld'}
+C6_MARK = 'UNIT_FROM_LAYOUT'
+LOCATION_KEYS = {'artifact', 'quote', 'locus', 'lang'}
 TABLES = ('canonical/values.jsonl', 'cross/provenance.jsonl', 'observation/observations.jsonl',
           'reconciliation/reconciliations.jsonl')
 ACTIONS = ('APPLY', 'NOOP_EXISTING_IDENTICAL', 'CONFLICT')
@@ -207,6 +222,38 @@ class Evidence:
                 self.latest[ctx] = d
 
 
+def c6_location(loc, value):
+    """None when a C6 source location is the layout's evidence for `value`, else why not."""
+    c = loc.get('c6')
+    if not (isinstance(c, dict) and set(c) == {'raw_value', 'evidence'}):
+        return 'c6 must be {raw_value, evidence}'
+    rawv, ev = c['raw_value'], c['evidence']
+    if not (isinstance(rawv, list) and len(rawv) == 2 and all(isinstance(x, str) for x in rawv)):
+        return 'c6 raw_value must be the two printed lines'
+    hl = re.fullmatch(r'(\d{1,3}(?:[.,]\d+)?)\s*hl', rawv[0].strip(), re.I)
+    ha = re.fullmatch(r'(\d{1,3}(?:[.,]\d+)?)\s*ha', rawv[1].strip(), re.I)
+    if not (hl and ha):
+        return 'c6 raw_value is not a "NNhl" line and a "NNha" line (%s)' % rawv
+    nums = {float(x.group(1).replace(',', '.')) for x in (hl, ha)}
+    if len(nums) != 1 or not _num(1, 150)(value) or float(value) not in nums:
+        return 'the printed lines %s do not both state %s' % (rawv, L.dumps(value))
+    if loc['quote'] != '%s | %s' % (rawv[0], rawv[1]):
+        return 'the quote must be the two lines as printed, "%s | %s"' % (rawv[0], rawv[1])
+    if not isinstance(ev, dict):
+        return 'c6 evidence must be an object'
+    if (ev.get('unit_derived'), ev.get('source_prints_hl_per_ha')) != (True, False):
+        return 'c6 evidence must mark the unit derived and the source as not printing hl/ha'
+    if not str(ev.get('c6') or '').startswith('yield-layout/') or not ev.get('unit_basis'):
+        return 'c6 evidence must name the layout reader and its unit basis'
+    if ((ev.get('french_line') or {}).get('text'), (ev.get('english_line') or {}).get('text')) != tuple(rawv):
+        return 'c6 evidence lines are not the raw value\'s'
+    if not all(k in ev for k in ('labels', 'page', 'table', 'guards', 'arithmetic')):
+        return 'c6 evidence must hold the labels, page, table, guards and arithmetic'
+    if 'harvest' in L.dumps(loc).lower():
+        return 'a layout-derived yield is never called a harvested yield'
+    return None
+
+
 def evidence_of(art, estate, wine, vt, year, version, ix, ev):
     """The evidence decision key establishing `art` as this exact wine's vintage at `version`, or Invalid."""
     a = ix['artifacts'].get(art)
@@ -307,10 +354,21 @@ def validate_manifest(rows, view, ev=None, scope=None):
         locs = r['source_locations']
         if ok and not (isinstance(locs, list) and sorted(l.get('artifact') for l in locs if isinstance(l, dict)) == sorted(arts)
                        and all(isinstance(l.get('quote'), str) and l['quote'].strip() and isinstance(l.get('locus'), str)
-                               and isinstance(l.get('lang'), str) and set(l) == {'artifact', 'quote', 'locus', 'lang'}
+                               and isinstance(l.get('lang'), str)
+                               and set(l) == LOCATION_KEYS | ({'c6'} if r['source_basis'] == C6_BASIS else set())
                                for l in locs)):
-            bad('source_locations must hold one {artifact, locus, quote, lang} per artifact')
+            bad('source_locations must hold one {artifact, locus, quote, lang%s} per artifact'
+                % (', c6' if r['source_basis'] == C6_BASIS else ''))
             ok = False
+        elif ok and r['source_basis'] == C6_BASIS:
+            if f not in C6_FIELDS:
+                bad('a layout-derived unit is recorded for %s only, not %s' % (sorted(C6_FIELDS), f))
+                ok = False
+            for l in sorted(locs, key=lambda l: l['artifact']):
+                why = c6_location(l, r['value'])
+                if why:
+                    bad('artifact %s: %s' % (l['artifact'], why))
+                    ok = False
         v = r['evidence_version']
         if not isinstance(v, int) or v not in ev.versions:
             bad('evidence_version %r is not a version of the store' % (v,))
@@ -353,18 +411,25 @@ def materialize(m, r, res):
     vt, f, arts = res['vintage'], r['field'], sorted(r['artifact_ids'])
     loc = {l['artifact']: l for l in r['source_locations']}
     unit = FIELDS[f][0]
+    c6 = r['source_basis'] == C6_BASIS
     oids, provs = [], []
     for a in arts:
-        pid = m.prov('DOCUMENT', ACTOR, artifact=a, quote=loc[a]['quote'],
-                     code_state={'stream': STREAM, 'runner': RUNNER, 'manifest': MANIFEST,
-                                 'manifest_id': r['manifest_id'], 'vintage': vt, 'field': f, 'locus': loc[a]['locus'],
-                                 'evidence_decision': res['evidence'][a], 'evidence_version': r['evidence_version']})
+        cs = {'stream': STREAM, 'runner': RUNNER, 'manifest': MANIFEST,
+              'manifest_id': r['manifest_id'], 'vintage': vt, 'field': f, 'locus': loc[a]['locus'],
+              'evidence_decision': res['evidence'][a], 'evidence_version': r['evidence_version']}
+        if c6:
+            cs = dict(cs, **loc[a]['c6']['evidence'])
+        pid = m.prov('DOCUMENT', ACTOR, artifact=a, quote=loc[a]['quote'], code_state=cs)
         oid = S.hid('Observation', vt, f, STREAM, a)
         row = {'id': oid, 'subject': vt, 'field': f, 'value': r['value'], 'raw_value': loc[a]['quote'],
                'artifact': a, 'locus': loc[a]['locus'],
                'extraction': {'method': RUNNER, 'file': MANIFEST, 'record': '%s|%s' % (r['manifest_id'], a)},
                'confidence': 'EXPLICIT_LABELLED', 'observed_at': OBSERVED, 'provenance': pid,
                'subject_status': 'ESTABLISHED', 'lang': loc[a]['lang']}
+        if c6:
+            row.update(raw_value=list(loc[a]['c6']['raw_value']), confidence=C6_MARK,
+                       extraction={'method': loc[a]['c6']['evidence']['c6'], 'runner': RUNNER, 'file': MANIFEST,
+                                   'record': '%s|%s' % (r['manifest_id'], a)})
         if unit:
             row['unit'] = unit
         m.add('observation/observations.jsonl', row)
@@ -385,8 +450,11 @@ def materialize(m, r, res):
                                          'evidence_version': r['evidence_version'],
                                          'application_class': r['application_class'],
                                          'source_basis': r['source_basis']})})
-    m.add('canonical/values.jsonl', {'subject': vt, 'field': f, 'value': r['value'], 'status': 'SOURCED',
-                                     'reconciliation': rid, 'provenance': provs[0]})
+    cv = {'subject': vt, 'field': f, 'value': r['value'], 'status': 'SOURCED', 'reconciliation': rid,
+          'provenance': provs[0]}
+    if c6:
+        cv['derivation'] = C6_MARK
+    m.add('canonical/values.jsonl', cv)
 
 
 def classify(r, res, ix):

@@ -21,6 +21,10 @@
     "TransitionKind": {
       "add": ["RELATED_UNSPECIFIED"],
       "note": "Provisional name (decision O3; the brief's RELATED_NOT_ESTABLISHED names the same meaning). Related, the relationship not established; always certainty UNRESOLVED."
+    },
+    "AttributionMethod": {
+      "add": ["REVIEWED_LISTING"],
+      "note": "docs/DECISION-RECORDING-POLICY.md (6e86290). The estate's own page for one wine links the document, and that page is an entry of the independent R4 review, APPROVED_R4 and signed off by the user. The identity is the listing's, never the document text's (DOCUMENT_TEXT) and never the filename's; the vintage still comes from the document's own text. SITE_LIBRARY, PAGE_NAME and CRAWL_CONTEXT mean other, weaker things and are not reused."
     }
   },
   "value_types_added": {

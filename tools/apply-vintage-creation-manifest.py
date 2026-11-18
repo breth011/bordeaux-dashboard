@@ -24,6 +24,14 @@ written. The shell is {wine, label}; the attribution is M3.10B's shape (DOCUMENT
 DOCUMENT provenance naming the decision, which is what the value runner's evidence chain reads. Nothing else is
 created: no estate, wine, name, identity key, transition, statement, observation or value.
 
+THE LISTING BRANCH (docs/DECISION-RECORDING-POLICY.md, Part B). A reviewed row whose identity_source is R4 is checked
+by recording_policy.check_listing_review instead of the text rule: the estate's own page for the wine links the
+document, every linking entry APPROVED_R4 and signed off, and the vintage still the document's own text. Its
+attribution is REVIEWED_LISTING on an ESTATE_PUBLICATION provenance (the estate's OFFICIAL_SITE source, the page's
+heading, the listing and the sign-off), derived from a DOCUMENT provenance of the text that states the vintage; the
+evidence decision is named the same way, so the value runner's chain reads it unchanged. The text branch is as it was.
+No review audit that holds R4 rows is admitted yet (REVIEW_AUDITS), so no manifest row reaches the branch.
+
 The migration applies the same plan: mig_m5_vintages.vintage_creation adds the shells (recording the vintages it
 created as an M5 stat - a vintage row carries no provenance) and mig_m6_provenance.vintage_creation_attributions
 the attributions, so a rebuild writes what --apply wrote. An empty manifest adds nothing and records nothing.
@@ -60,6 +68,11 @@ REVIEW_AUDITS = {'data/audit/m3.9-evidence-review.jsonl': 'm3.9'}
 TEXT_RULES = {'M34A', 'T'}                     # a document's own text: M34A (names the wine beside the year), T1-T7
 TEXT_PAGE_SOURCES = {'h1'}                     # a web page's own main heading (W1-W6)
 TEXT_VINTAGE = ('statement ', 'wine and year ')  # the year as the document states it (M3.8's vintage basis)
+# The listing branch (docs/DECISION-RECORDING-POLICY.md): the estate's own page for one wine links the document, the
+# page an approved and signed-off entry of the independent R4 review. Its identity is recorded as REVIEWED_LISTING on
+# an ESTATE_PUBLICATION provenance, derived from the DOCUMENT provenance of the text that states the vintage.
+LISTING_RULES = {'R4'}
+METHOD = {'TEXT': 'DOCUMENT_TEXT', 'LISTING': 'REVIEWED_LISTING'}
 OPEN_IDENTITY = {'IDENTITY_UNCERTAIN', 'AMBIGUOUS_SEMANTICS', 'CONFLICT'}
 FIRST_YEAR = 1950
 TABLES = ('cross/provenance.jsonl', 'document/attributions.jsonl', 'identity/vintages.jsonl')
@@ -191,12 +204,37 @@ def check_review(rv, sha, estate, wine, year):
     doc = c.get('evidence_of_document') or {}
     text = (doc.get('kind') == 'DOCUMENT' and doc.get('rule') in TEXT_RULES) or \
         (doc.get('kind') == 'WEB_PAGE' and (doc.get('page') or {}).get('identity_source') in TEXT_PAGE_SOURCES)
-    if not text or rv.get('identity_source') not in TEXT_RULES | TEXT_PAGE_SOURCES:
+    if rv.get('identity_source') in LISTING_RULES:
+        import recording_policy as P        # the listing branch only: the text branch below is unchanged
+        why = P.check_listing_review(c, sha, estate, wine)
+        if why:
+            raise Invalid('the listing does not establish the identity: %s' % why)
+    elif not text or rv.get('identity_source') not in TEXT_RULES | TEXT_PAGE_SOURCES:
         raise Invalid('identity is not established by the document\'s own text (%s)' % rv.get('identity_source'))
     if not str(rv.get('vintage_evidence') or '').startswith(TEXT_VINTAGE):
         raise Invalid('the vintage is not stated in the document (%r)' % rv.get('vintage_evidence'))
     if not (c.get('reader') or {}).get('decision') == 'ACCEPTED':
         raise Invalid('the reader did not accept it')
+
+
+def method_of(rv):
+    return METHOD['LISTING'] if rv.get('identity_source') in LISTING_RULES else METHOD['TEXT']
+
+
+def host_of(url):
+    return re.sub(r'^www\.', '', re.sub(r'^[a-z]+://', '', url.lower()).split('/')[0])
+
+
+def listing_source(view, rv, estate):
+    """The model's OFFICIAL_SITE source of `estate` on the listing's host: the estate's own publication."""
+    [c] = [c for c in rv['claims'] if c.get('disposition') == 'SAFE_TO_MAP']
+    host = c['evidence_of_document']['listing']['provenance']['site']
+    hosts = {s['id']: {host_of(b) for b in s.get('base_urls') or []} for s in view.table('identity/sources.jsonl')}
+    got = sorted({r['source'] for r in view.table('state/source-estate.jsonl') if r.get('kind') == 'OFFICIAL_SITE'
+                  and r.get('estate') == estate and host in hosts.get(r['source'], ())})
+    if len(got) != 1:
+        raise Invalid('the listing\'s host %s is not one official source of %s (%s)' % (host, estate, got))
+    return got[0]
 
 
 def check_decision(key, version, art, estate_slug, wine_name, year, ev):
@@ -297,7 +335,7 @@ def validate_manifest(rows, view, ev=None, reviews=None, last=None):
             continue
         vt = vref(w, y)
         vintages[(w, y)].append(r['manifest_id'])
-        rres = {'vintage': vt, 'evidence': {}, 'review': {}}
+        rres = {'vintage': vt, 'evidence': {}, 'review': {}, 'source': {}}
         for a in sorted(arts):
             claimed[a].add(vt)
             art = ix['artifacts'].get(a)
@@ -309,6 +347,8 @@ def validate_manifest(rows, view, ev=None, reviews=None, last=None):
                 rv = reviews.get(revs[a]['audit'], revs[a]['row'])
                 check_review(rv, art['sha256'], e, w, y)
                 check_decision(keys[a], v, art, ix['estate_slug'][e], ix['names'][w][0], y, ev)
+                if method_of(rv) == METHOD['LISTING']:
+                    rres['source'][a] = listing_source(view, rv, e)
                 rres['evidence'][a], rres['review'][a] = keys[a], dict(rv, _ref=revs[a])
             except Invalid as x:
                 bad('artifact %s: %s' % (a, x))
@@ -329,11 +369,12 @@ def attribution_id(a, vt):
     return S.hid('Attribution', a, 'vcm', vt)
 
 
-def exact(ix, a, e, w, vt, key):
-    """An ACCEPTED attribution of `a` to exactly this estate, wine and vintage whose provenance names `key`."""
+def exact(ix, a, e, w, vt, key, method=METHOD['TEXT']):
+    """An ACCEPTED attribution of `a` to exactly this estate, wine and vintage, by `method`, whose provenance names
+    `key`."""
     for x in ix['attributions'].get(a, []):
         cs = (ix['prov'].get(x['provenance']) or {}).get('code_state') or {}
-        if (x.get('estate'), x.get('wine'), x.get('vintage'), x.get('method')) == (e, w, vt, 'DOCUMENT_TEXT') \
+        if (x.get('estate'), x.get('wine'), x.get('vintage'), x.get('method')) == (e, w, vt, method) \
                 and key in (cs.get('evidence_decisions') or []):
             return True
     return False
@@ -349,7 +390,8 @@ def classify(r, res, ix):
                         if (x.get('wine'), x.get('vintage')) != (w, vt)}, key=str)
         if other:
             return 'CONFLICT', 'artifact %s is ACCEPTED-attributed to %s' % (a, other), []
-    missing = [a for a in sorted(r['artifact_ids']) if not exact(ix, a, e, w, vt, res['evidence'][a])]
+    missing = [a for a in sorted(r['artifact_ids'])
+               if not exact(ix, a, e, w, vt, res['evidence'][a], method_of(res['review'][a]))]
     if (w, vt.rsplit(':', 1)[1]) not in ix['vintages']:
         return 'CREATE', 'no vintage %s' % vt, missing
     if missing:
@@ -363,6 +405,8 @@ def add_shell(m, r):
 
 def add_attribution(m, r, res, a, ix):
     vt, rv = res['vintage'], res['review'][a]
+    if method_of(rv) == METHOD['LISTING']:
+        return add_listing_attribution(m, r, res, a, ix)
     pid = m.prov('DOCUMENT', ACTOR, artifact=a, quote=rv['reason'],
                  code_state={'stream': STREAM, 'runner': RUNNER, 'manifest': MANIFEST, 'manifest_id': r['manifest_id'],
                              'review': rv['_ref']['audit'], 'candidate': rv['_ref']['row'],
@@ -372,6 +416,33 @@ def add_attribution(m, r, res, a, ix):
     m.add('document/attributions.jsonl', {
         'id': attribution_id(a, vt), 'artifact': a, 'estate': r['estate_id'], 'wine': r['wine_id'], 'vintage': vt,
         'role': 'FIRST', 'method': 'DOCUMENT_TEXT', 'status': 'ACCEPTED', 'provenance': pid})
+
+
+def add_listing_attribution(m, r, res, a, ix):
+    """A listing identity (DECISION-RECORDING-POLICY.md, Part B): REVIEWED_LISTING on an ESTATE_PUBLICATION
+    provenance - the listing page's heading as its quote, the listing record and the sign-off in its code state -
+    derived from the DOCUMENT provenance of the text that states the vintage."""
+    import recording_policy as P
+    vt, rv = res['vintage'], res['review'][a]
+    [c] = [c for c in rv['claims'] if c.get('disposition') == 'SAFE_TO_MAP']
+    doc, sha = c['evidence_of_document'], ix['artifacts'][a]['sha256']
+    listing = doc['listing']['provenance']
+    common = {'stream': STREAM, 'runner': RUNNER, 'manifest': MANIFEST, 'manifest_id': r['manifest_id'],
+              'review': rv['_ref']['audit'], 'candidate': rv['_ref']['row'], 'sha256': sha}
+    text = m.prov('DOCUMENT', ACTOR, artifact=a, quote=rv['vintage_evidence'],
+                  code_state=dict(common, role='the document\'s own text, which states the vintage',
+                                  vintage_source=rv['vintage_evidence']))
+    first = listing['listing'][0]['entry']
+    pid = m.prov('ESTATE_PUBLICATION', ACTOR, source=res['source'][a], quote=doc['headings'][first],
+                 derived_from=[text],
+                 code_state=dict(common, evidence_decisions=[res['evidence'][a]], evidence_version=r['evidence_version'],
+                                 identity_source=rv['identity_source'], vintage_source=rv['vintage_evidence'],
+                                 listing=listing, headings=doc['headings'],
+                                 signoff={'by': P.SIGNOFF['by'], 'date': P.SIGNOFF['date'],
+                                          'review_version': P.SIGNOFF['review_version']}))
+    m.add('document/attributions.jsonl', {
+        'id': attribution_id(a, vt), 'artifact': a, 'estate': r['estate_id'], 'wine': r['wine_id'], 'vintage': vt,
+        'role': 'FIRST', 'method': METHOD['LISTING'], 'status': 'ACCEPTED', 'provenance': pid})
 
 
 def plan_manifest(rows, resolved, view):
@@ -409,11 +480,12 @@ def verify_plan(plan):
     assert set(plan['adds']) <= set(TABLES), 'the plan touches %s' % sorted(set(plan['adds']) - set(TABLES))
     for it in plan['rows']:
         got = {rel: len(xs) for rel, xs in it['adds'].items()}
+        # a text attribution has one provenance; a listing attribution two (its own and the text's it derives from)
+        n = sum(2 if x.get('method') == METHOD['LISTING'] else 1 for x in it['adds'].get('document/attributions.jsonl', []))
         if it['action'] == 'CREATE':
-            n = got.get('document/attributions.jsonl', 0)
             assert got.get('identity/vintages.jsonl') == 1 and got.get('cross/provenance.jsonl') == n, it['manifest_id']
         elif it['action'] == 'ATTRIBUTION_ONLY':
-            assert 'identity/vintages.jsonl' not in got and got['cross/provenance.jsonl'] == \
+            assert 'identity/vintages.jsonl' not in got and got['cross/provenance.jsonl'] == n and \
                 got['document/attributions.jsonl'] >= 1, it['manifest_id']
         else:
             assert not got, it['manifest_id']

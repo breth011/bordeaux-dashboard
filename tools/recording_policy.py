@@ -82,6 +82,77 @@ def listing_identity(target_wine, doc_urls, linked, entries, artifact=None, sha2
             'version': VERSION}
 
 
+# The user's sign-off of the independent review's APPROVED_R4 entries (2026-11-18). An entry approved later, or the
+# review at another version, is not signed off until it is added here.
+SIGNOFF = {'by': 'user', 'date': '2026-11-18', 'review_version': 'r4-listing-review/1',
+           'entries': frozenset({
+               'desmirail.com/nos-vins/chateau-desmirail/', 'desmirail.com/en/our-wines/chateau-desmirail/',
+               'desmirail.com/nos-vins/initial-de-desmirail/', 'desmirail.com/en/our-wines/initial-de-desmirail/',
+               'desmirail.com/nos-vins/iris-pourpre-de-desmirail/', 'desmirail.com/en/our-wines/iris-pourpre-de-desmirail/',
+               'desmirail.com/nos-vins/la-perle-de-desmirail/', 'desmirail.com/en/our-wines/la-perle-de-desmirail/',
+               'desmirail.com/nos-vins/rose-de-desmirail/', 'desmirail.com/en/our-wines/rose-de-desmirail/',
+               'chateau-issan.com/fr/vin_moulin_d_issan.html', 'chateau-issan.com/en/vin_moulin_d_issan.html',
+               'chateau-issan.com/zh/vin_moulin_d_issan.html'})}
+LISTING_RULE = 'R4'
+
+
+def check_listing_review(c, sha, estate, wine, entries=None):
+    """The listing branch of the acceptance path (apply-vintage-creation-manifest.check_review): None when the
+    reviewed claim `c` may be recorded as a REVIEWED_LISTING identity of exactly this estate and wine for these
+    bytes, else why not. Only the identity is checked here; the caller checks the vintage, which must be the text's.
+
+    The claim's evidence_of_document is {kind: DOCUMENT, rule: R4, basis, listing, headings}: `listing` is
+    listing_identity's record, `headings` the main heading of each linking page, {entry: heading}. Each entry is
+    read again from the independent review, as it stands now, and must be APPROVED_R4 at the signed-off version,
+    signed off, able to attribute (not VETO_ONLY), of this wine and estate, and hold the pages and heading recorded."""
+    doc = c.get('evidence_of_document') or {}
+    if (doc.get('kind'), doc.get('rule')) != ('DOCUMENT', LISTING_RULE):
+        return 'the listing branch needs a DOCUMENT claim by rule %s (%s, %s)' % (LISTING_RULE, doc.get('kind'), doc.get('rule'))
+    li = doc.get('listing') or {}
+    if (li.get('status'), li.get('wine'), li.get('estate')) != (LISTING_IDENTITY, wine, estate):
+        return 'the listing identity is %s for %s of %s' % (li.get('status'), li.get('wine'), li.get('estate'))
+    if li.get('attribution_method') != ATTRIBUTION_METHOD[LISTING_IDENTITY]:
+        return 'the listing identity is not recorded as %s' % ATTRIBUTION_METHOD[LISTING_IDENTITY]
+    pv = li.get('provenance') or {}
+    if (pv.get('identity_basis'), pv.get('rule'), pv.get('relationship')) != (
+            LISTING_IDENTITY, LISTING_RULE, 'THE_LISTING_PAGE_LINKS_THE_DOCUMENT'):
+        return 'the listing provenance is not a reviewed listing relationship'
+    if pv.get('filename_used_as_identity_evidence') is not False:
+        return 'the filename was used as identity evidence'
+    if pv.get('sha256') != sha:
+        return 'the listing identity is for other bytes'
+    listing = pv.get('listing') or []
+    if not listing:
+        return 'no listing entry links the document'
+    entries = reviewed_entries() if entries is None else entries
+    by_id = {r['entry']: (k, r) for k, r in entries.items()}
+    heads = doc.get('headings') or {}
+    if set(heads) != {x.get('entry') for x in listing}:
+        return 'the headings do not match the linking entries'
+    for x in listing:
+        eid = x.get('entry')
+        if eid not in by_id:
+            return 'entry %s is not in the independent review' % eid
+        k, r = by_id[eid]
+        if r['disposition'] != 'APPROVED_R4' or r['version'] != SIGNOFF['review_version']:
+            return 'entry %s is %s at %s, not APPROVED_R4 at %s' % (eid, r['disposition'], r['version'],
+                                                                   SIGNOFF['review_version'])
+        if eid not in SIGNOFF['entries']:
+            return 'entry %s is approved but not signed off' % eid
+        if r.get('effect') != 'ATTRIBUTE_AND_VETO':
+            return 'entry %s can only veto (%s)' % (eid, r.get('effect'))
+        if (r['wine'], r['estate']) != (wine, estate):
+            return 'entry %s is the page of %s of %s' % (eid, r['wine'], r['estate'])
+        if (x.get('review') or {}).get('disposition') != 'APPROVED_R4':
+            return 'the recorded review of entry %s is not APPROVED_R4' % eid
+        if not x.get('pages') or any(entry_of(p, entries) != k for p in x['pages']):
+            return 'a page recorded for entry %s is not under it' % eid
+        held = {p['heading'] for p in r.get('pages') or [] if p.get('names_the_wine')}
+        if heads[eid] not in held:
+            return 'the heading recorded for entry %s is not the review\'s' % eid
+    return None
+
+
 def c6_observation(c6, identity_status, reader_yld, subject, artifact, lang=None):
     """The observation a C6 read would record, or why none. Identity is the caller's and must be settled; a value the
     reader read is the reader's own path (C6 never ran, and a source that prints "37 hl/ha" is literal evidence)."""

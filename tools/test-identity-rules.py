@@ -226,7 +226,7 @@ def t07_the_text_seam_is_restored_when_decide_fails():
 def t08_nothing_in_production_changes():
     assert not git('diff', '--name-only', BEFORE, '--', *FINGERPRINTED)
     assert not git('status', '--porcelain', '--', 'data', 'sources')
-    own = ('identity_rules.py', 'test-identity-rules.py')
+    own = ('identity_rules.py', 'test-identity-rules.py', 'test-recording-branches.py')
     users = [p for p in sorted(os.listdir(L.ROOT + 'tools')) if p.endswith('.py') and p not in own
              and re.search(r'(?m)^\s*(?:import|from)\s+identity_rules\b(?!_)|'
                            r'spec_from_file_location\([^)]*identity_rules\.py',     # a use, not a guard naming it

@@ -165,8 +165,33 @@ The four blockers in [DECISION-RECORDING-POLICY.md](DECISION-RECORDING-POLICY.md
    The user signed the 13 approved R4 entries off on 2026-11-18. Every R4 step is marked `entry_signoff: USER_SIGNED_OFF_2026-11-18`. An entry approved later needs its own sign-off.
 
    `tools/test-identity-rules.py` (8 checks) replays every `decide` call over the dry run's corpus. It finds the candidate rules' answer everywhere except at Chapelle 1998, Paloumey 2022, Issan 2004 and Issan 2010, which are no longer settled, and Caillou 2014, which is refused for a different reason. That takes the dry run's 57 candidates to 51. `tools/identity_rules_candidate.py` is unchanged, so the committed dry run still reproduces.
-2. **The `REVIEWED_LISTING` enum value:** not started.
-3. **A listing branch in `check_review`:** not started.
-4. **A C6 branch in the value runner:** not started.
+2. **The `REVIEWED_LISTING` enum value: in force.** It is added to `AttributionMethod` through `docs/schema/historical-m1-contract.json` `enum_values_added`. The protected Phase 3.4 contract and `model_schema.py` are unchanged.
+3. **The listing branch: built.** In `apply-vintage-creation-manifest.check_review`, a reviewed row whose `identity_source` is R4 goes to `recording_policy.check_listing_review`. That check:
+   - reads every linking entry again from the independent review;
+   - requires each entry to be `APPROVED_R4` at the signed-off version, in `recording_policy.SIGNOFF`, able to attribute (not `VETO_ONLY`), and the page of this wine and estate;
+   - requires the listing record to be for these bytes, with `filename_used_as_identity_evidence: false`;
+   - leaves the vintage to the text check, unchanged.
 
-Nothing in production calls `identity_rules.py`.
+   The attribution is `REVIEWED_LISTING` on an `ESTATE_PUBLICATION` provenance. That provenance carries:
+   - the estate's `OFFICIAL_SITE` source on the listing's host;
+   - the page heading as its quote;
+   - the listing, the sign-off and the evidence decision in its code state;
+   - `derived_from`: the `DOCUMENT` provenance of the text that states the vintage.
+
+   The value runner's evidence chain reads it unchanged. The text branch is unchanged: every M3.9 reviewed row gets the same verdict as before. **No review audit holding R4 rows is admitted yet** (`REVIEW_AUDITS`, `REVIEW_CHECKS`), so no manifest row can reach the branch.
+4. **The C6 branch: built.** `apply-value-manifest.py` accepts `source_basis: layout_derived_unit` for `yld` only. Each source location carries `c6: {raw_value, evidence}` from `recording_policy.c6_observation`. The runner checks that:
+   - both printed lines state the value, one "NNhl" and one "NNha";
+   - the quote is the two lines as printed;
+   - the unit is marked derived, and the source as not printing hl/ha;
+   - the evidence holds the labels, page, table, guards and arithmetic;
+   - the word "harvest" appears nowhere.
+
+   The observation is recorded with raw_value set to the two lines, confidence `UNIT_FROM_LAYOUT` and the layout reader's extraction. The canonical value carries `derivation: UNIT_FROM_LAYOUT`. The explicit-statement path writes the same rows as before.
+
+`tools/test-recording-branches.py` (12 checks) covers blockers 2–4.
+
+**What remains before anything is recorded:**
+- a review audit that writes the adopted rules' identities (text rules and R4) as reviewed rows, with its own `--check`, admitted to both runners;
+- the C6 rows, and the manifests themselves.
+
+Nothing has been applied: no manifest row uses either branch.

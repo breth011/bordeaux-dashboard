@@ -210,7 +210,9 @@ def z1_nothing_in_production_changes():
     assert not git('diff', '--name-only', BEFORE, '--', *FINGERPRINTED)
     assert not git('status', '--porcelain', '--', 'data', 'sources', ':!data/audit/r4-listing-review.jsonl')
     own = ('recording_policy.py', 'test-recording-policy.py', 'r4-listing-review.py', 'identity_rules.py',
-           'test-identity-rules.py')
+           'test-identity-rules.py',
+           # the acceptance path's listing branch and its tests (blockers 3 and 4)
+           'apply-vintage-creation-manifest.py', 'test-recording-branches.py')
     users = [p for p in sorted(os.listdir(L.ROOT + 'tools')) if p.endswith('.py') and p not in own
              and re.search(r'(?m)^\s*(?:import|from)\s+recording_policy\b|'
                            r'spec_from_file_location\([^)]*r4-listing-review\.py', open(L.ROOT + 'tools/' + p, encoding='utf-8').read())]

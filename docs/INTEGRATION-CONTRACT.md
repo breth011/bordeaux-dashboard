@@ -162,7 +162,7 @@ The four blockers in [DECISION-RECORDING-POLICY.md](DECISION-RECORDING-POLICY.md
    - R4 goes through `recording_policy.listing_identity`, so only `APPROVED_R4` entries attribute or veto;
    - `CLAIM_DECISIONS` (two holds, three refusals) replaces `REVIEW_HOLD`, and a listed claim is never `SAFE_TO_MAP`.
 
-   Every R4 step is marked `entry_signoff: AGENT_REVIEW_ONLY` until the user signs the 13 approved entries off.
+   The user signed the 13 approved R4 entries off on 2026-11-18. Every R4 step is marked `entry_signoff: USER_SIGNED_OFF_2026-11-18`. An entry approved later needs its own sign-off.
 
    `tools/test-identity-rules.py` (8 checks) replays every `decide` call over the dry run's corpus. It finds the candidate rules' answer everywhere except at Chapelle 1998, Paloumey 2022, Issan 2004 and Issan 2010, which are no longer settled, and Caillou 2014, which is refused for a different reason. That takes the dry run's 57 candidates to 51. `tools/identity_rules_candidate.py` is unchanged, so the committed dry run still reproduces.
 2. **The `REVIEWED_LISTING` enum value:** not started.

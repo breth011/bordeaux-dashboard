@@ -22,8 +22,9 @@ still reproduces):
 
 R1, R1b, R3 and G1 are the candidate module's own functions and patterns, unchanged, in the same order.
 
-The R4 entries are approved by the agent's independent review. The user has not yet signed them off; every R4 step
-carries entry_signoff = AGENT_REVIEW_ONLY so that whatever records it can tell.
+The R4 entries are approved by the agent's independent review, and the user signed the 13 APPROVED_R4 entries off on
+2026-11-18; every R4 step carries entry_signoff = USER_SIGNED_OFF_2026-11-18 so that whatever records it can tell.
+An entry approved later needs its own sign-off before it runs here.
 """
 import os
 import re
@@ -39,7 +40,7 @@ RULES = ('R1', 'R1b', 'R2', 'R3', 'R4')
 SAFE = 'SAFE_TO_MAP'
 HOLD, REFUSE = 'HOLD_FOR_MORE_EVIDENCE', 'REFUSE'
 HELD, REFUSED = 'REVIEW_REQUIRED', 'CLAIM_REFUSED'       # the dispositions identify gives a listed claim
-ENTRY_SIGNOFF = 'AGENT_REVIEW_ONLY'
+ENTRY_SIGNOFF = 'USER_SIGNED_OFF_2026-11-18'
 
 # (sha256 prefix, wine, vintage) -> (decision, reason): DECISION-CANDIDATE-IDENTITY-RULES.md section 3
 CLAIM_DECISIONS = {

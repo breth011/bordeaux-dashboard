@@ -69,10 +69,12 @@ REVIEW_AUDITS = {'data/audit/m3.9-evidence-review.jsonl': 'm3.9',
                  'data/audit/integration-review.jsonl': 'ir'}
 TEXT_RULES = {'M34A', 'T'}                     # a document's own text: M34A (names the wine beside the year), T1-T7
 TEXT_PAGE_SOURCES = {'h1'}                     # a web page's own main heading (W1-W6)
-TEXT_VINTAGE = ('statement ', 'wine and year ',  # the year as the document states it (M3.8's vintage basis)
-                # and, by the user's decision of 2026-11-18 (INTEGRATION-CONTRACT.md section 6), the title block R2
-                # reads and the estate's short name beside the year R1b reads: still the document's own text
-                'title block ', 'short name and year ')
+TEXT_VINTAGE = ('statement ', 'wine and year ')  # the year as the document states it (M3.8's vintage basis)
+# The adopted vintage forms (the user's decisions of 2026-11-18 and 2026-11-19, INTEGRATION-CONTRACT.md section 6):
+# the title block R2 reads and the estate's short name beside the year R1b reads. Still the document's own text, but
+# accepted only from a claim the adopted identity rules decided (its evidence carries their trace), and the short
+# name only where R1b read it. They do not redefine the vintage recognition of any other review audit.
+ADOPTED_VINTAGE = {'title block ': None, 'short name and year ': 'R1b'}
 # The listing branch (docs/DECISION-RECORDING-POLICY.md): the estate's own page for one wine links the document, the
 # page an approved and signed-off entry of the independent R4 review. Its identity is recorded as REVIEWED_LISTING on
 # an ESTATE_PUBLICATION provenance, derived from the DOCUMENT provenance of the text that states the vintage.
@@ -216,10 +218,22 @@ def check_review(rv, sha, estate, wine, year):
             raise Invalid('the listing does not establish the identity: %s' % why)
     elif not text or rv.get('identity_source') not in TEXT_RULES | TEXT_PAGE_SOURCES:
         raise Invalid('identity is not established by the document\'s own text (%s)' % rv.get('identity_source'))
-    if not str(rv.get('vintage_evidence') or '').startswith(TEXT_VINTAGE):
+    ve = str(rv.get('vintage_evidence') or '')
+    if not ve.startswith(TEXT_VINTAGE) and not adopted_vintage(ve, doc):
         raise Invalid('the vintage is not stated in the document (%r)' % rv.get('vintage_evidence'))
     if not (c.get('reader') or {}).get('decision') == 'ACCEPTED':
         raise Invalid('the reader did not accept it')
+
+
+def adopted_vintage(ve, doc):
+    """True when `ve` is an adopted vintage form and the claim's evidence is the adopted identity rules' own."""
+    rules = doc.get('identity_rules') or {}
+    if not str(rules.get('version') or '').startswith('identity-rules/'):
+        return False
+    for form, rule in ADOPTED_VINTAGE.items():
+        if ve.startswith(form):
+            return rule is None or any(t and t[0] == rule for t in rules.get('trace') or [])
+    return False
 
 
 def method_of(rv):
@@ -353,7 +367,11 @@ def validate_manifest(rows, view, ev=None, reviews=None, last=None):
                 check_review(rv, art['sha256'], e, w, y)
                 check_decision(keys[a], v, art, ix['estate_slug'][e], ix['names'][w][0], y, ev)
                 if method_of(rv) == METHOD['LISTING']:
-                    rres['source'][a] = listing_source(view, rv, e)
+                    # the migration's M5 stage plans the shells before M6 builds the sources; a listing never makes
+                    # a shell, and every step that writes its attribution (M6, --apply) holds the sources and checks
+                    # the official source here - apply_plan refuses to write one without it
+                    rres['source'][a] = (listing_source(view, rv, e) if view.table('state/source-estate.jsonl')
+                                         else None)
                     if r['creation_class'] != 'REVIEWED_LISTING':
                         raise Invalid('the listing names the wine: the row\'s creation_class must be REVIEWED_LISTING')
                 rres['evidence'][a], rres['review'][a] = keys[a], dict(rv, _ref=revs[a])
@@ -361,6 +379,11 @@ def validate_manifest(rows, view, ev=None, reviews=None, last=None):
                 bad('artifact %s: %s' % (a, x))
         if r['creation_class'] == 'REVIEWED_LISTING' and len(rres['evidence']) == len(arts) and not rres['source']:
             bad('creation_class REVIEWED_LISTING, but no artifact\'s identity is the listing\'s')
+        elif len(rres['evidence']) == len(arts) and (w, str(y)) not in ix['vintages'] and \
+                all(method_of(rres['review'][a]) == METHOD['LISTING'] for a in arts):
+            # REVIEWED_LISTING is ATTRIBUTION_ONLY: a listing never proves that a vintage exists (the user's decision
+            # of 2026-11-19); a CREATE needs at least one artifact whose own text names the wine beside the year
+            bad('%s does not exist, and a reviewed listing alone never creates a vintage' % vref(w, y))
         elif len(rres['evidence']) == len(arts):
             resolved[r['manifest_id']] = rres
     for (w, y), where in sorted(vintages.items()):
@@ -510,6 +533,10 @@ def apply_plan(m, plan, shells=True, attributions=True):
                 continue
             if rel in ('document/attributions.jsonl', 'cross/provenance.jsonl') and not attributions:
                 continue
+            if rel == 'cross/provenance.jsonl':
+                unsourced = [x['id'] for x in it['adds'][rel] if x.get('kind') == 'ESTATE_PUBLICATION' and not x.get('source')]
+                if unsourced:
+                    raise Conflict('%s: a listing attribution without its official source %s' % (it['manifest_id'], unsourced))
             for x in it['adds'][rel]:
                 m.add(rel, x)
             if rel == 'identity/vintages.jsonl':

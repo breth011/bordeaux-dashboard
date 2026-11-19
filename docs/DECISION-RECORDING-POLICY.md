@@ -220,3 +220,19 @@ The 13 unresolved R4 entries do not block integration. R4 simply does not run on
 - Nothing pushed.
 
 RECORDING POLICY COMPLETE — NO PRODUCTION MUTATION
+
+## Status since this decision (2026-11-19)
+
+The record above stands as decided. Since then the four remaining blockers have been built (2607da1, a323055), the listing branch and the `REVIEWED_LISTING` value are in force, and the work is pushed through 0ef5a85.
+
+1. **R4 is a separate identity evidence method.** A listing identity passes its own gate, `recording_policy.check_listing_review`. That gate requires:
+   - an approved review row and the exact reviewed entry;
+   - a single wine, with no shared-document or other-wine veto;
+   - the recorded sign-off;
+   - the exact sha256 of the artifact.
+
+   It never passes R1's gate as M34A, and `decide` is never its identity source. `decide`'s verdict on the text that R4 annotated is kept as a veto only (`text_check`).
+2. **R4 is attribution-only for this integration.** A vintage-creation row whose artifacts all rest on a listing identity is refused when the vintage does not exist. Creating a vintage needs at least one artifact whose own text names the wine beside the year.
+3. **C6 (`UNIT_FROM_LAYOUT`) is implemented in the value runner** (`source_basis: layout_derived_unit`). It has no production records.
+4. **The adopted vintage forms are not a global change.** The title block and the short name beside the year are accepted only from a claim that the adopted identity rules decided, and the short name only where R1b read it. M3.9's recognition and results are unchanged.
+5. **The 13 approved R4 entries are signed off** by the user (2026-11-18, `recording_policy.SIGNOFF`). The 13 entries marked `REQUIRES_REVIEW` and the 5 rejected entries establish nothing.

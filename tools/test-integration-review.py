@@ -68,7 +68,14 @@ def t02_the_documents_and_their_identities():
         if r['identity_source'] == 'R4':
             assert r['wine'] == 'wn_00254', r['n']                 # the listing names Chateau Desmirail only
             [c] = [c for c in r['claims'] if c['disposition'] == 'SAFE_TO_MAP']
-            assert c['r1_gate_rule'].startswith('M34A') and c['evidence_of_document']['listing']['status'] == 'LISTING_IDENTITY'
+            ev = c['evidence_of_document']
+            # a separate identity method: its own gate, a listing basis, decide's verdict a veto only - never M34A
+            assert c['identity_gate'] == 'REVIEWED_LISTING' and 'r1_gate_rule' not in c and ev['rule'] == 'R4'
+            assert ev['basis'].startswith('the reviewed listing files the document under') and 'M34A' not in ev['basis']
+            assert ev['text_check']['role'].startswith('veto only') and ev['listing']['status'] == 'LISTING_IDENTITY'
+        elif r['disposition'] == 'SAFE_TO_MAP':
+            [c] = [c for c in r['claims'] if c['disposition'] == 'SAFE_TO_MAP']
+            assert c['identity_gate'] == 'R1 (M34A)' and 'listing' not in c['evidence_of_document'], r['n']
 
 
 @check
@@ -90,7 +97,9 @@ def t04_the_vintage_is_the_documents_own():
         if r['disposition'] != 'SAFE_TO_MAP':
             continue
         ve = r['vintage_evidence']
-        assert ve.startswith(V1.TEXT_VINTAGE) and str(r['vintage']) in ve, (r['n'], ve)
+        [c] = [c for c in r['claims'] if c['disposition'] == 'SAFE_TO_MAP']
+        assert (ve.startswith(V1.TEXT_VINTAGE) or V1.adopted_vintage(ve, c['evidence_of_document'])) \
+            and str(r['vintage']) in ve, (r['n'], ve)
         form = ve.split(' "')[0]
         forms[form] += 1
         if form == 'title block':
@@ -144,6 +153,78 @@ def t06_the_manifests_build_and_validate():
                  else 'REVIEWED_LISTING') for v in vin]
     errs, res = V1.validate_manifest(swap, V1.View(), ev=ev)
     assert {e.split(':')[0] for e in errs} == {v['manifest_id'] for v in vin} and not res, errs[:3]
+
+
+def refused(rv, part, sha=None):
+    try:
+        V1.check_review(rv, sha or rv['sha256'], rv['estate'], rv['wine'], rv['vintage'])
+    except V1.Invalid as x:
+        assert part in str(x), (part, str(x))
+        return
+    raise AssertionError('accepted: %s' % part)
+
+
+@check
+def t08_the_adopted_vintage_forms_are_scoped():
+    import copy
+    by = {(r['estate'], r['vintage'], r['disposition']): r for r in rows()}
+    gm = by[('es_00414', 1988, 'SAFE_TO_MAP')]                    # a title block
+    issan = by[('es_00283', 2008, 'SAFE_TO_MAP')]                 # the short name beside the year
+    for r in (gm, issan):
+        V1.check_review(r, r['sha256'], r['estate'], r['wine'], r['vintage'])
+        bare = copy.deepcopy(r)                                   # the same row as if no adopted rule decided it
+        for c in bare['claims']:
+            c['evidence_of_document'].pop('identity_rules', None)
+        refused(bare, 'the vintage is not stated in the document')
+    no_r1b = copy.deepcopy(issan)                                 # the short name, where R1b did not read it
+    for c in no_r1b['claims']:
+        tr = (c['evidence_of_document'].get('identity_rules') or {}).get('trace') or []
+        tr[:] = [t for t in tr if t[0] != 'R1b']
+    refused(no_r1b, 'the vintage is not stated in the document')
+    # an M3.9 row given an adopted form is refused: the forms do not redefine M3.9's vintage recognition
+    m39 = [r for r in L.jsonl_lines(L.ROOT + 'data/audit/m3.9-evidence-review.jsonl') if r.get('record') == 'review'
+           and r.get('disposition') == 'SAFE_TO_MAP']
+    assert m39
+    for r in m39:
+        x = dict(r, vintage_evidence='title block "%s %d" (line 1 of 2)' % (r['estate_name'], r['vintage']))
+        refused(x, 'the vintage is not stated in the document')
+
+
+@check
+def t09_a_reviewed_listing_never_creates_a_vintage():
+    import copy
+    import mig_m6_provenance as M6
+    acc, vin, _ = IRV.manifests()
+    EA = _load('ea_ir_t9', 'tools/apply-evidence-acceptance-manifest.py')
+    view = V1.View()
+    errs, resolved = EA.validate_manifest(acc, EA.V.View(), EA.Store(), read_bytes=False)
+    assert not errs, errs
+    held = {(v['wine'], v['label']) for v in view.table('identity/vintages.jsonl')}
+    listing = [v for v in vin if v['creation_class'] == 'REVIEWED_LISTING' and len(v['artifact_ids']) == 1][0]
+    w = listing['wine_id']
+    y = next(y for y in range(1990, 2000) if (w, str(y)) not in held)        # a year the model holds no vintage for
+    [a] = listing['artifact_ids']
+    ref = listing['review'][a]
+    [d0] = [x['decision'] for x in resolved.values() if x['decision']['ctx']['target_vintage'] == listing['vintage']
+            and 'discovery:' in x['decision']['ctx']['folder'] and x['key'] == listing['evidence_decisions'][a]]
+    d = copy.deepcopy(d0)
+    d['ctx'].update(vintage=y, target_vintage=y, evaluated_as=d['ctx']['evaluated_as'].replace(str(listing['vintage']), str(y)))
+    key = M6.row_key(d)
+    ev = type('Ev', (), {'versions': {10}, 'by_key': {key: d}, 'latest': {L.dumps(json.loads(key)[:-1]): d}})()
+    rv = copy.deepcopy(V1.Reviews().get(ref['audit'], ref['row']))
+    rv['vintage'], rv['vintage_evidence'] = y, 'statement "millesime %d"' % y
+    reviews = type('Rv', (), {'get': lambda self, audit, row: rv if (audit, row) == (ref['audit'], ref['row']) else None})()
+    absent = dict(listing, vintage=y, evidence_decisions={a: key})
+    errs, res = V1.validate_manifest([absent], view, ev=ev, reviews=reviews)
+    assert errs == ['%s: vt:%s:%d does not exist, and a reviewed listing alone never creates a vintage'
+                    % (listing['manifest_id'], w, y)] and not res, errs
+    # the same listing row for the vintage the model holds is an attribution, nothing more
+    ev2 = type('Ev', (), {'versions': {10}, 'by_key': {listing['evidence_decisions'][a]: d0},
+                          'latest': {L.dumps(json.loads(listing['evidence_decisions'][a])[:-1]): d0}})()
+    errs, res = V1.validate_manifest([listing], view, ev=ev2)
+    assert not errs, errs
+    plan = V1.plan_manifest([listing], res, view)
+    assert plan['actions']['ATTRIBUTION_ONLY'] == 1 and plan['actions']['CREATE'] == 0, plan['actions']
 
 
 @check

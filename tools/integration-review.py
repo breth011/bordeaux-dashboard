@@ -19,8 +19,10 @@ the reader raises no objection, R1's gate passes. A document the rules leave uns
 dry run's count is not assumed.
 
 THE IDENTITY SOURCE is M34A where decide accepts the text as the rules leave it (R1, R1b, R2, R3 rewrite or mask
-it; their trace is kept as identity_rules), R4 where the reviewed listing names the wine (the listing record and the
-pages' headings are kept, for recording_policy.check_listing_review).
+it; their trace is kept as identity_rules; R1's gate applies), R4 where the reviewed listing names the wine: a
+separate identity method with its own gate, recording_policy.check_listing_review (the listing record and the
+pages' headings are kept). For R4, decide's verdict on the text R4 annotated is a veto only (text_check), never the
+identity, and R1's gate is not asked.
 
 THE VINTAGE is the document's own: M3.8's statement or wine-and-year form (the P1 review's vintage_basis), else, by
 the user's decision of 2026-11-18, the title block R2 reads ('title block ...') or the estate's short name beside the
@@ -153,7 +155,13 @@ class Review:
               'identity_rules': {'version': IR.VERSION, 'settled_by': rec['settled_by'],
                                  'trace': [list(t) for t in rec['trace']], 'notes': rec['notes']}}
         if r4:
-            ev['listing'] = rec['listing']
+            # the identity is the listing's: decide's verdict on the text R4 annotated is kept as a veto only
+            li = rec['listing']
+            ev['basis'] = ('the reviewed listing files the document under %s (%s), entries approved in the independent '
+                           'review and signed off' % (cx.nm.get(w), ', '.join(x['entry'] for x in li['provenance']['listing'])))
+            ev['text_check'] = {'role': 'veto only, not the identity: decide on the text R4 annotated with the '
+                                        'listing\'s wine', 'disposition': DISP.get(disp, disp), 'basis': basis or reason}
+            ev['listing'] = li
             by = {r['entry']: r for r in self.ents.values()}
             ev['headings'] = {x['entry']: [p['heading'] for p in by[x['entry']]['pages'] if p['names_the_wine']][0]
                               for x in rec['listing']['provenance']['listing']}
@@ -176,12 +184,16 @@ class Review:
         else:
             disp, why = ev['disposition'], ev['basis']
         gate = None
-        if disp == 'SAFE_TO_MAP':
-            # R1's gate asks that a text rule decided it: for R4, decide (M34A) did, on the text R4 annotated
-            gev = dict(ev, rule='M34A') if ev.get('rule') == 'R4' else ev
-            if gev is not ev:
-                claim['r1_gate_rule'] = 'M34A: decide accepted the text R4 annotated with the listing\'s wine'
-            gate = X.r1_gate({'wine': w, 'wine_name': self.cx.nm.get(w), 'vintage': y, 'evidence_of_document': gev,
+        if disp == 'SAFE_TO_MAP' and ev.get('rule') == 'R4':
+            # a listing identity has its own gate (the user's decision of 2026-11-19): R1's gate asks whether a text
+            # rule decided it, which a listing identity never claims
+            claim['identity_gate'] = 'REVIEWED_LISTING'
+            why_l = RP.check_listing_review(claim, sha, e, w, self.ents)
+            gate = (['listing gate: %s' % why_l] if why_l else []) + (
+                ['the year stands only in a dated line'] if dated else [])
+        elif disp == 'SAFE_TO_MAP':
+            claim['identity_gate'] = 'R1 (%s)' % ev.get('rule')
+            gate = X.r1_gate({'wine': w, 'wine_name': self.cx.nm.get(w), 'vintage': y, 'evidence_of_document': ev,
                               'reader': claim['reader'], 'claim_year_dated': bool(dated)})
             if gate:
                 disp, why = 'EVIDENCE_INSUFFICIENT', 'R1 gate: %s' % '; '.join(gate)

@@ -1,6 +1,6 @@
 # Integration contract: identity, reader, statement v2, C6
 
-Status: **design and dry run only.** Nothing in production calls the modules below. The dry run is `tools/integration-dryrun.py`, its tests are `tools/test-integration-dryrun.py` and its report is [PHASE-INTEGRATION-DRYRUN.md](PHASE-INTEGRATION-DRYRUN.md).
+Status: **the integration branches are built in the production runners. No production record uses them yet.** The dry run (`tools/integration-dryrun.py`) is unchanged; see §6 for what is built. Its tests are `tools/test-integration-dryrun.py` and its report is [PHASE-INTEGRATION-DRYRUN.md](PHASE-INTEGRATION-DRYRUN.md).
 
 The dry run:
 - writes no model, evidence, provenance, source, gap-register or app data;
@@ -131,18 +131,18 @@ A candidate is not a canonical value and not accepted evidence.
 
 ## 5. Unresolved decisions
 
-None of these is decided here. The dry run's report gives the counts.
+The dry run's report gives the counts. Items 1, 4, 5 and 6 have since been decided; each says where.
 
-1. **Adopting the candidate identity rules.** Every candidate in the dry run is settled by the candidate rules, and none by production identity. Integration therefore means changing how M3.4A's `decide` is used, and that file is fingerprinted and hashed into the M3.5–M3.12 evidence.
+1. **Adopting the candidate identity rules.** *Decided: 5589f7c.* Every candidate in the dry run is settled by the candidate rules, and none by production identity. Integration therefore means changing how M3.4A's `decide` is used, and that file is fingerprinted and hashed into the M3.5–M3.12 evidence.
 2. **The review hold.** These five claims stay `REVIEW_REQUIRED` until each is decided:
    - Paloumey 2022 (a heading that may be a table label);
    - Chapelle 1998 (identity from the listing alone, the year from a bare last line);
    - Brane-Cantenac 2023 ×2 (critics' score sheets);
    - Corbin 2003 (a press compilation).
 3. **G1 on critic prose.** G1 refuses Grand Mayne 2005 because a quoted review says "This cuvee tends to be made in a dense, chewy style". The cuvée is the grand vin itself. G1 is conservative by design: narrowing it is a rule change, not something the integration should do.
-4. **Recording a C6 value.** No production path records a value whose unit is derived from layout, together with the printed lines as its evidence. A provenance shape for that is needed before any C6 value can be applied.
-5. **Identity from the file listing (R4).** R4 settles the Desmirail and Issan candidates. The P1 review's acceptance path counts identity that is not from a text rule as blocked. Recording R4 identities needs a policy.
-6. **No stated vintage form.** Some candidates' documents state the vintage in a form M3.8's vintage basis does not recognise. The acceptance runner blocks those.
+4. **Recording a C6 value.** *Decided: 6e86290, built in a323055.* No production path records a value whose unit is derived from layout, together with the printed lines as its evidence. A provenance shape for that is needed before any C6 value can be applied.
+5. **Identity from the file listing (R4).** *Decided: 6e86290, a323055 and the R4 gate decision of 2026-11-19.* R4 settles the Desmirail and Issan candidates. The P1 review's acceptance path counts identity that is not from a text rule as blocked. Recording R4 identities needs a policy.
+6. **No stated vintage form.** *Decided: the user's decision of 2026-11-18, scoped on 2026-11-19.* Some candidates' documents state the vintage in a form M3.8's vintage basis does not recognise. The acceptance runner blocks those.
 7. **Outside the P1 corpus**, source admissibility is not assessed. The extra claims (the brochure and the C6 negatives) are there to test the boundaries, not to become candidates.
 8. **Still deferred, unchanged:**
    - La Clarté identity;
@@ -194,13 +194,13 @@ The four blockers in [DECISION-RECORDING-POLICY.md](DECISION-RECORDING-POLICY.md
 - the title block that R2 reads: the wine's name, a classification and the year, on two to four short lines (Grand Mayne);
 - the estate's short name beside the year, as R1b reads it ("issan 2008").
 
-Both are the document's own text, never the filename or the listing. `TEXT_VINTAGE` in the V1 runner now includes them, as `title block ` and `short name and year `.
+Both are the document's own text, never the filename or the listing. The V1 runner accepts them through `ADOPTED_VINTAGE`, and only from a claim that the adopted identity rules decided (the short name only where R1b read it). `TEXT_VINTAGE` keeps M3.8's two forms, so no other review audit's vintage recognition changes.
 
 **The review audit: built.** `tools/integration-review.py` writes `data/audit/integration-review.jsonl` in M3.9's review format, with its own `--check`. It is admitted to the V1 runner (`REVIEW_AUDITS`, prefix `ir`) and to the acceptance runner (`REVIEW_CHECKS`). Its 36 documents are the dry run's acceptable claims:
 - 34 documents are `SAFE_TO_MAP`: 17 Château Desmirail sheets by the listing (R4), and 17 by text (Calon-Ségur 2018, Issan 2008 and 15 Grand Mayne sheets);
 - 2 are `ESTATE_ONLY`: Issan 2004 and 2010, whose listing entries are unresolved.
 
-The R1 gate is asked about R4 rows as M34A: `decide` accepted the text that R4 annotated, and the claim says so (`r1_gate_rule`). The gate is unchanged.
+R4 rows do not pass R1's gate. They pass the listing gate (`identity_gate: REVIEWED_LISTING`), and their basis is the reviewed listing. `decide`'s verdict on the annotated text is a veto only (`text_check`). Text rows pass R1's gate as before (`identity_gate: R1 (M34A)`).
 
 There are 51 figures, each a dry-run value:
 - 36 are the reader's, each confirmed by statement verification v2 and quoted as the whole held lines that state it;
@@ -210,6 +210,8 @@ There are 51 figures, each a dry-run value:
 - 34 acceptances (evidence version v10);
 - 33 vintage-creation rows: 17 `REVIEWED_LISTING` and 16 `EXPLICIT_DOCUMENT_TEXT`, all `ATTRIBUTION_ONLY`;
 - 51 value rows: 36 from explicit statements and 15 layout-derived.
+
+**REVIEWED_LISTING is attribution-only.** V1 refuses a row whose artifacts all rest on a listing identity when the vintage does not exist.
 
 A rehearsal on copies of the model and the store applied all three in order, and each runner's `--check` held:
 - 34 decisions;

@@ -67,7 +67,8 @@ CLOSED_THROUGH = 9          # v1-v5 the reader's passes, v6 M3.6B, v7 M3.6E, v8 
 FOLDER_STORES = ('acquisition', 'discovery')
 FOLDERS_FROM = 6
 # The review audits' own checks: each recomputes its rows with the existing reader and compares them.
-REVIEW_CHECKS = {'data/audit/m3.9-evidence-review.jsonl': ['tools/m39-evidence-review.py', '--check']}
+REVIEW_CHECKS = {'data/audit/m3.9-evidence-review.jsonl': ['tools/m39-evidence-review.py', '--check'],
+                 'data/audit/integration-review.jsonl': ['tools/integration-review.py', '--check']}
 DECIDER_FILES = ('tools/m35_rubric.py', 'tools/web_evidence.py')
 ACTIONS = ('APPEND', 'NOOP', 'CONFLICT')
 

@@ -212,7 +212,9 @@ def z1_nothing_in_production_changes():
     own = ('recording_policy.py', 'test-recording-policy.py', 'r4-listing-review.py', 'identity_rules.py',
            'test-identity-rules.py',
            # the acceptance path's listing branch and its tests (blockers 3 and 4)
-           'apply-vintage-creation-manifest.py', 'test-recording-branches.py')
+           'apply-vintage-creation-manifest.py', 'test-recording-branches.py',
+           # the integration review, which writes the reviewed rows the branches read
+           'integration-review.py', 'test-integration-review.py')
     users = [p for p in sorted(os.listdir(L.ROOT + 'tools')) if p.endswith('.py') and p not in own
              and re.search(r'(?m)^\s*(?:import|from)\s+recording_policy\b|'
                            r'spec_from_file_location\([^)]*r4-listing-review\.py', open(L.ROOT + 'tools/' + p, encoding='utf-8').read())]

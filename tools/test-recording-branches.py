@@ -362,7 +362,7 @@ def z1_nothing_else_changes():
     assert not git('status', '--porcelain', '--', 'data', 'sources')
     users = [p for p in sorted(os.listdir(L.ROOT + 'tools')) if p.endswith('.py')
              and p not in ('recording_policy.py', 'apply-vintage-creation-manifest.py', 'apply-value-manifest.py',
-                          'test-recording-branches.py')
+                          'test-recording-branches.py', 'integration-review.py', 'test-integration-review.py')
              and re.search(r'check_listing_review|C6_BASIS|layout_derived_unit', open(L.ROOT + 'tools/' + p, encoding='utf-8').read())]
     assert not users, users
     for f in ('data/audit/vintage-creation-manifest.jsonl', 'data/audit/value-application-manifest.jsonl',

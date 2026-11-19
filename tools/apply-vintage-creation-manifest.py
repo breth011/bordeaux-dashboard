@@ -60,14 +60,19 @@ ATTRIBUTION_STAT = 'vintage-creation manifest attributions'   # M6: the existenc
 REQUIRED = ('manifest_id', 'estate_id', 'wine_id', 'vintage', 'artifact_ids', 'evidence_version',
             'evidence_decisions', 'review', 'creation_class')
 OPTIONAL = ('notes',)
-CLASSES = {'EXPLICIT_DOCUMENT_TEXT'}
+CLASSES = {'EXPLICIT_DOCUMENT_TEXT', 'REVIEWED_LISTING'}   # REVIEWED_LISTING: a row any of whose artifacts the listing names
 # The reviewed reader rows a creation may rest on: M3.9's review format (the existing prerequisite path for an
 # acquired document), each row the reader's own verdict on the document's text. Another review audit is added
 # here, by name, when a later phase produces one.
-REVIEW_AUDITS = {'data/audit/m3.9-evidence-review.jsonl': 'm3.9'}
+REVIEW_AUDITS = {'data/audit/m3.9-evidence-review.jsonl': 'm3.9',
+                 # the adopted identity rules' review (tools/integration-review.py; docs/INTEGRATION-CONTRACT.md)
+                 'data/audit/integration-review.jsonl': 'ir'}
 TEXT_RULES = {'M34A', 'T'}                     # a document's own text: M34A (names the wine beside the year), T1-T7
 TEXT_PAGE_SOURCES = {'h1'}                     # a web page's own main heading (W1-W6)
-TEXT_VINTAGE = ('statement ', 'wine and year ')  # the year as the document states it (M3.8's vintage basis)
+TEXT_VINTAGE = ('statement ', 'wine and year ',  # the year as the document states it (M3.8's vintage basis)
+                # and, by the user's decision of 2026-11-18 (INTEGRATION-CONTRACT.md section 6), the title block R2
+                # reads and the estate's short name beside the year R1b reads: still the document's own text
+                'title block ', 'short name and year ')
 # The listing branch (docs/DECISION-RECORDING-POLICY.md): the estate's own page for one wine links the document, the
 # page an approved and signed-off entry of the independent R4 review. Its identity is recorded as REVIEWED_LISTING on
 # an ESTATE_PUBLICATION provenance, derived from the DOCUMENT provenance of the text that states the vintage.
@@ -349,10 +354,14 @@ def validate_manifest(rows, view, ev=None, reviews=None, last=None):
                 check_decision(keys[a], v, art, ix['estate_slug'][e], ix['names'][w][0], y, ev)
                 if method_of(rv) == METHOD['LISTING']:
                     rres['source'][a] = listing_source(view, rv, e)
+                    if r['creation_class'] != 'REVIEWED_LISTING':
+                        raise Invalid('the listing names the wine: the row\'s creation_class must be REVIEWED_LISTING')
                 rres['evidence'][a], rres['review'][a] = keys[a], dict(rv, _ref=revs[a])
             except Invalid as x:
                 bad('artifact %s: %s' % (a, x))
-        if len(rres['evidence']) == len(arts):
+        if r['creation_class'] == 'REVIEWED_LISTING' and len(rres['evidence']) == len(arts) and not rres['source']:
+            bad('creation_class REVIEWED_LISTING, but no artifact\'s identity is the listing\'s')
+        elif len(rres['evidence']) == len(arts):
             resolved[r['manifest_id']] = rres
     for (w, y), where in sorted(vintages.items()):
         if len(where) > 1:

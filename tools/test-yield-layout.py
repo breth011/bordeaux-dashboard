@@ -242,7 +242,7 @@ def t08_isolated_and_nothing_in_production_changes():
     assert not git('diff', '--name-only', BEFORE, '--', *FINGERPRINTED)
     users = [p for p in sorted(os.listdir(L.ROOT + 'tools')) if p.endswith('.py') and p not in
              ('yield_layout.py', 'test-yield-layout.py', 'integration-dryrun.py', 'test-integration-dryrun.py',
-              'test-recording-policy.py', 'test-recording-branches.py')
+              'test-recording-policy.py', 'test-recording-branches.py', 'integration-review.py', 'test-integration-review.py')
              and re.search(r'(?m)^\s*(?:import|from)\s+yield_layout\b|yield_layout\.py',
                            open(L.ROOT + 'tools/' + p, encoding='utf-8').read())]
     assert not users, users

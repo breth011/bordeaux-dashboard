@@ -344,7 +344,8 @@ def t11_negative_controls_stay_refused():
 def t12_nothing_in_production_changes():
     assert not git('diff', '--name-only', BEFORE, '--', *FINGERPRINTED)
     users = [p for p in sorted(os.listdir(L.ROOT + 'tools')) if p.endswith('.py') and p not in
-             ('statement_check.py', 'test-statement-check.py', 'integration-dryrun.py', 'test-integration-dryrun.py')
+             ('statement_check.py', 'test-statement-check.py', 'integration-dryrun.py', 'test-integration-dryrun.py',
+              'integration-review.py', 'test-integration-review.py')
              and re.search(r'(?m)^\s*(?:import|from)\s+statement_check\b|statement_check\.py',
                            open(L.ROOT + 'tools/' + p, encoding='utf-8').read())]
     assert not users, users

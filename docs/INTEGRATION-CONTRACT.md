@@ -190,8 +190,32 @@ The four blockers in [DECISION-RECORDING-POLICY.md](DECISION-RECORDING-POLICY.md
 
 `tools/test-recording-branches.py` (12 checks) covers blockers 2–4.
 
-**What remains before anything is recorded:**
-- a review audit that writes the adopted rules' identities (text rules and R4) as reviewed rows, with its own `--check`, admitted to both runners;
-- the C6 rows, and the manifests themselves.
+**Decision (user, 2026-11-18): the vintage forms.** Besides M3.8's statement and wine-and-year forms, two more count as the document stating its vintage:
+- the title block that R2 reads: the wine's name, a classification and the year, on two to four short lines (Grand Mayne);
+- the estate's short name beside the year, as R1b reads it ("issan 2008").
 
-Nothing has been applied: no manifest row uses either branch.
+Both are the document's own text, never the filename or the listing. `TEXT_VINTAGE` in the V1 runner now includes them, as `title block ` and `short name and year `.
+
+**The review audit: built.** `tools/integration-review.py` writes `data/audit/integration-review.jsonl` in M3.9's review format, with its own `--check`. It is admitted to the V1 runner (`REVIEW_AUDITS`, prefix `ir`) and to the acceptance runner (`REVIEW_CHECKS`). Its 36 documents are the dry run's acceptable claims:
+- 34 documents are `SAFE_TO_MAP`: 17 Château Desmirail sheets by the listing (R4), and 17 by text (Calon-Ségur 2018, Issan 2008 and 15 Grand Mayne sheets);
+- 2 are `ESTATE_ONLY`: Issan 2004 and 2010, whose listing entries are unresolved.
+
+The R1 gate is asked about R4 rows as M34A: `decide` accepted the text that R4 annotated, and the claim says so (`r1_gate_rule`). The gate is unchanged.
+
+There are 51 figures, each a dry-run value:
+- 36 are the reader's, each confirmed by statement verification v2 and quoted as the whole held lines that state it;
+- 15 are C6 yields.
+
+**The manifests: built, not committed.** `integration-review.py --manifests` writes:
+- 34 acceptances (evidence version v10);
+- 33 vintage-creation rows: 17 `REVIEWED_LISTING` and 16 `EXPLICIT_DOCUMENT_TEXT`, all `ATTRIBUTION_ONLY`;
+- 51 value rows: 36 from explicit statements and 15 layout-derived.
+
+A rehearsal on copies of the model and the store applied all three in order, and each runner's `--check` held:
+- 34 decisions;
+- 34 attributions with 51 provenance rows;
+- 51 observations, reconciliations and values, and 102 provenance rows.
+
+The 9 M3.10C values stayed `NOOP`. The legacy model attributes 17 of the Desmirail `FT-DM` sheets to Initial de Desmirail (`LEGACY_UNKNOWN`, not ACCEPTED). As the recording policy says, the listing attribution stands beside that one and does not overwrite it.
+
+**Nothing has been applied.** The manifests in `data/audit` are as they were, the store ends at v9 and the model is unchanged. Applying is the user's next decision.

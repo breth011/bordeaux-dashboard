@@ -261,10 +261,10 @@ def t13_nothing_in_production_changes():
     assert not git('status', '--porcelain', '--', 'data', 'sources', ':!data/audit/integration-dryrun.jsonl')
     uses = {   # a module by its import or its file name; the hyphenated dry run can only be loaded by its path
         'statement_check': (r'(?m)^\s*(?:import|from)\s+statement_check\b|statement_check\.py',
-                            ('statement_check.py', 'test-statement-check.py')),
+                            ('statement_check.py', 'test-statement-check.py', 'integration-review.py', 'test-integration-review.py')),
         'yield_layout': (r'(?m)^\s*(?:import|from)\s+yield_layout\b|yield_layout\.py',
                          ('yield_layout.py', 'test-yield-layout.py', 'test-recording-policy.py',
-                          'test-recording-branches.py')),
+                          'test-recording-branches.py', 'integration-review.py', 'test-integration-review.py')),
         'identity_rules_candidate': (r'(?m)^\s*(?:import|from)\s+identity_rules_candidate\b|identity_rules_candidate\.py',
                                      ('identity_rules_candidate.py', 'r4-listing-review.py', 'recording_policy.py',
                                       'test-recording-policy.py', 'identity_rules.py', 'test-identity-rules.py')),

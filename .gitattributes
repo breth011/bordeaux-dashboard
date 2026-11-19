@@ -76,3 +76,6 @@ docs/PHASE-INTEGRATION-DRYRUN.md text eol=lf
 # The R4 listing review is checked byte for byte by tools/r4-listing-review.py --check and tools/test-recording-policy.py.
 data/audit/r4-listing-review.jsonl text eol=lf
 docs/PHASE-R4-LISTING-REVIEW.md text eol=lf
+# The integration review is checked byte for byte by tools/integration-review.py --check (the acceptance runner's REVIEW_CHECKS).
+data/audit/integration-review.jsonl text eol=lf
+docs/PHASE-INTEGRATION-REVIEW.md text eol=lf

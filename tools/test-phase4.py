@@ -1066,10 +1066,11 @@ def t20_legacy_and_unsourced_values_remain_marked():
                        'LEGACY_UNSOURCED'} | ({'SOURCED'} if m32 else set()), st
     assert st['LEGACY_UNSOURCED'] == 171 and st.get('SOURCED', 0) == m32 and 'MANUAL_UNSOURCED' not in st
     # every migrated observation is LEGACY; M3.2D's recovered ones and M3.6F's are named (EXPLICIT_LABELLED)
+    prov = _prov()                     # once for the check, not once per observation
     assert {o['confidence'] for o in T('observation/observations.jsonl')
             if not historical_m2_scope.is_m32d_observation(o) and not historical_m2_scope.is_m36f_observation(o)
             and not historical_m2_scope.is_m310c_observation(o)
-            and not historical_m2_scope.IA.is_row('observation/observations.jsonl', o, _prov())} == {'LEGACY'}
+            and not historical_m2_scope.IA.is_row('observation/observations.jsonl', o, prov)} == {'LEGACY'}
 
 
 @check

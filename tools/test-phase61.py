@@ -166,6 +166,8 @@ def measure():
         p = pv[c['provenance']]
         if (p.get('code_state') or {}).get('stream') == 'M3.2D':
             continue          # M3.2D: a value added to the model, not a legacy figure (not shown by the page)
+        if historical_m2_scope.IA.is_row('canonical/values.jsonl', c, pv):
+            continue          # the integration application's, likewise (tools/integration_application.py)
         shown = src(rec_of[s], c['field'])
         if p['kind'] == 'LEGACY_FIELD_SOURCE':
             own = urls[p['artifact']]

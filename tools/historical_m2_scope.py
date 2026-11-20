@@ -33,6 +33,11 @@ M3.5 (held-document review) links a reviewed held document to the vintage its ow
     derived/vintage-documents.json  a vintage gains only the artifacts those attributions link to it
     manifest.json                   those files' counts and hashes, one M6 stat
 
+The integration application (tools/integration_application.py) adds attributions, observations,
+reconciliations, canonical values and their provenance through the generic runners, each row on a
+provenance that names one of its pinned manifest ids, and evidence version 10; it is set aside here
+exactly as M3.10C is, by those rows and no others.
+
 model_changes_are_m2_only(before) - the name is kept for its callers - holds when every other model
 file is byte-identical to `before`, and every difference in the files above is one of these.
 """
@@ -44,6 +49,7 @@ import os
 import re
 import subprocess
 
+import integration_application as IA
 import migration_lib as L
 
 M2_FILES = ('cross/provenance.jsonl', 'document/artifact-dates.jsonl', 'manifest.json')
@@ -541,12 +547,52 @@ def _without_m310a_manifest(m):
             m['files'][rel] = {'rows': m['files'][rel]['rows'] - k}
     made = stats.get('M5', {}).pop(V1_VINTAGE_STAT, None)
     n = stats.get('M6', {}).pop(V1_ATTRIBUTION_STAT, None)
+    if stats.get('M7', {}).pop(IA.STATS['M7'], None) or n:
+        # the integration application: its attributions are V1 attributions (counted in V1's stat), but each of its
+        # listing attributions stands on two provenance rows, and its values on their own; its rows out exactly
+        ia = {rel: len(IA.row_ids(rel)) for rel in IA.FILES if rel.endswith('.jsonl')}
+        if ia['document/attributions.jsonl']:
+            for rel, k in ia.items():
+                m['files'][rel] = {'rows': m['files'][rel]['rows'] - k}
+            n = (n or 0) - ia['document/attributions.jsonl']
     if made:
         m['files']['identity/vintages.jsonl'] = {'rows': m['files']['identity/vintages.jsonl']['rows'] - len(made)}
     if n:
         for rel in ('document/attributions.jsonl', 'cross/provenance.jsonl'):
             m['files'][rel] = {'rows': m['files'][rel]['rows'] - n}
     return m
+
+
+QUALITY = 'checks/quality-audit.json'           # Phase 4's quality audit of the live model (tools/quality-audit.py)
+
+
+def quality_audit_unchanged_but_ia(old_text, new_text):
+    """The quality audit as at an earlier state, but for the integration application: the documents its attributions
+    newly assign to an estate leave 'orphan documents', and its count drops by as many; every other entry as it was.
+    True, or an assertion error."""
+    a, b = json.loads(old_text), json.loads(new_text)
+    prov = {p['id']: p for p in L.read_table('cross/provenance.jsonl')}
+    attributed = {x['artifact'] for x in L.read_table('document/attributions.jsonl')
+                  if IA.is_row('document/attributions.jsonl', x, prov) and x.get('estate')}
+    orphans = a['proposals']['orphan documents']
+    kept = [x for x in orphans if x['target'] not in attributed]
+    a['proposals']['orphan documents'] = kept
+    a['summary']['orphan documents'] -= len(orphans) - len(kept)
+    assert a == b, '%s changed beyond the integration application\'s attributed documents' % QUALITY
+    return True
+
+
+def quality_set_aside(changed, before):
+    """A list of changed model files (as given: 'data/model/...' or model-relative) without the quality audit, once
+    its change is verified to be exactly the integration application's attributed documents."""
+    out = []
+    for f in changed:
+        if f in (QUALITY, 'data/model/' + QUALITY):
+            quality_audit_unchanged_but_ia(_git('show', '%s:data/model/%s' % (before, QUALITY)),
+                                           open(L.ROOT + 'data/model/' + QUALITY, encoding='utf-8').read())
+            continue
+        out.append(f)
+    return type(changed)(out)
 
 
 def _decoded(text):
@@ -562,10 +608,14 @@ def unchanged_but_m310a(before, *paths):
     later = {(r[4], r[1]) for r in m310b_applied()}            # M3.10B's (vintage, artifact) links
     for f in _git('diff', '--name-only', before, '--', *paths).split():
         rel = f[len('data/model/'):]
-        assert rel in set(M310A_FILES) | set(M310B_FILES) | set(M310C_FILES) | set(V1_FILES) and m310a_registrations(), \
+        assert rel in set(M310A_FILES) | set(M310B_FILES) | set(M310C_FILES) | set(V1_FILES) | set(IA.FILES) | {QUALITY} \
+            and m310a_registrations(), \
             '%s changed, and not by M3.10A' % f
         old = _git('show', '%s:%s' % (before, f))
         new = open(L.ROOT + f, encoding='utf-8').read()
+        if rel == QUALITY:
+            quality_audit_unchanged_but_ia(old, new)
+            continue
         if rel == 'manifest.json':
             a, b = (_without_m310a_manifest(json.loads(t)) for t in (old, new))
             for d in (a, b):
@@ -584,7 +634,7 @@ def unchanged_but_m310a(before, *paths):
             continue
         kept = [[x for x, r in _decoded(t) if not is_m310a_row(rel, r, prov)
                  and not is_m310b_row(rel, r, prov) and not is_m310c_row(rel, r, prov)
-                 and not is_v1_row(rel, r, prov)]
+                 and not is_v1_row(rel, r, prov) and not IA.is_row(rel, r, prov)]
                 for t in (new, old)]
         assert kept[0] == kept[1], '%s changed beyond M3.10A\'s and M3.10B\'s rows' % f
     return True
@@ -596,6 +646,9 @@ def unchanged_but_m36d(before, *paths):
     error naming what else changed."""
     for f in _git('diff', '--name-only', before, '--', *paths).split():
         rel = f[len('data/model/'):]
+        if rel == QUALITY:              # the integration application's attributed documents, set aside exactly
+            quality_audit_unchanged_but_ia(_git('show', '%s:%s' % (before, f)), open(L.ROOT + f, encoding='utf-8').read())
+            continue
         if rel in set(M310A_FILES) | set(M310B_FILES) | {'document/attributions.jsonl', 'derived/vintage-documents.json'} \
                 and rel not in CUVEE_FILES and rel != 'cross/provenance.jsonl':
             unchanged_but_m310a(before, f)            # M3.10A's and M3.10B's rows, later phases, set aside alike
@@ -608,13 +661,14 @@ def unchanged_but_m36d(before, *paths):
             # `before` may hold M3.6D's rows already (a later phase's check): both sides without them
             kept = [[x for x, r in _decoded(t) if r.get('actor') not in CUVEE_ACTORS
                      and not is_m310a_row(rel, r, prov) and not is_m310b_row(rel, r, prov)
-                     and not is_m310c_row(rel, r, prov) and not is_v1_row(rel, r, prov)]
+                     and not is_m310c_row(rel, r, prov) and not is_v1_row(rel, r, prov)
+                     and not IA.is_row(rel, r, prov)]
                     for t in (new, old)]
             assert kept[0] == kept[1], '%s changed beyond M3.6D\'s provenance' % f
         elif rel.endswith('.jsonl'):
             kept = [[x for x, r in _decoded(t) if not is_m36d_row(rel, r, prov)
                      and not is_m310a_row(rel, r, prov) and not is_m310c_row(rel, r, prov)
-                     and not is_v1_row(rel, r, prov)]
+                     and not is_v1_row(rel, r, prov) and not IA.is_row(rel, r, prov)]
                     for t in (new, old)]
             assert kept[0] == kept[1], '%s changed beyond M3.6D\'s rows' % f
         else:
@@ -658,9 +712,17 @@ def without_m36d(changed, manifest):
         n = sum(1 for r in L.read_table(rel) if is_m310c_row(rel, r, prov))
         if n:
             files[rel] = dict(files[rel], rows=files[rel]['rows'] - n)
+    # the quality audit the integration application moves: off the list (its change verified by the callers' guards)
+    changed = [f for f in changed if f != QUALITY]
     # the V1 mechanism's vintages, existence attributions and their provenance, later population: out of the counts
     for rel in [f for f in V1_FILES if f.endswith('.jsonl')]:
         n = sum(1 for r in L.read_table(rel) if is_v1_row(rel, r, prov))
+        if n:
+            files[rel] = dict(files[rel], rows=files[rel]['rows'] - n)
+    # the integration application's values, observations, reconciliations and their provenance: out of the counts
+    # (its attributions and their provenance are V1's, just counted)
+    for rel in [f for f in IA.FILES if f.endswith('.jsonl')]:
+        n = sum(1 for r in L.read_table(rel) if IA.is_row(rel, r, prov) and not is_v1_row(rel, r, prov))
         if n:
             files[rel] = dict(files[rel], rows=files[rel]['rows'] - n)
     return changed, dict(manifest, files=files)
@@ -668,6 +730,10 @@ def without_m36d(changed, manifest):
 
 def model_changes_are_m2_only(before):
     changed = [f[len('data/model/'):] for f in _git('diff', '--name-only', before, '--', 'data/model').split()]
+    if QUALITY in changed:              # the integration application's attributed documents, set aside exactly
+        quality_audit_unchanged_but_ia(_git('show', '%s:data/model/%s' % (before, QUALITY)),
+                                       open(L.MODEL + QUALITY, encoding='utf-8').read())
+        changed.remove(QUALITY)
     assert set(changed) <= ALLOWED, 'the model changed beyond M2 and M3.2: %s' % sorted(set(changed) - ALLOWED)
     prov = {r['id']: r for r in map(json.loads, open(L.MODEL + 'cross/provenance.jsonl', encoding='utf-8'))}
     for rel, check in (('document/artifact-dates.jsonl',
@@ -689,9 +755,11 @@ def model_changes_are_m2_only(before):
                          and (r.get('code_state') or {}).get('stream') == 'M3.10B') or
                         (r['kind'] in ('DOCUMENT', 'DERIVATION') and r['actor'] == M310C_ACTOR
                          and (r.get('code_state') or {}).get('stream') == 'M3.10C') or
-                        (r['kind'] == 'DOCUMENT' and is_v1_row('cross/provenance.jsonl', r, {}))),
+                        (r['kind'] == 'DOCUMENT' and is_v1_row('cross/provenance.jsonl', r, {})) or
+                        IA.is_provenance(r)),
                        ('reconciliation/reconciliations.jsonl',
-                        lambda r: r['resolver'] in (M32_ACTOR, M36F_ACTOR, M310C_ACTOR)
+                        lambda r: IA.is_row('reconciliation/reconciliations.jsonl', r, prov) or
+                        r['resolver'] in (M32_ACTOR, M36F_ACTOR, M310C_ACTOR)
                         and r['rule'] in ('ONLY_CANDIDATE', 'UNANIMOUS')
                         and r['status'] in ('SINGLE', 'AGREED') and 'dispositions' not in r
                         and (r['resolver'] == M32_ACTOR or is_m36d_row('reconciliation/reconciliations.jsonl', r, prov)
@@ -792,7 +860,7 @@ def model_changes_are_m2_only(before):
             # M3.6F: Cuvée Mongravey's vintage value or the observation stating it, on its M3.6F provenance
             p = prov.get(n[k]['provenance']) or {}
             assert (p.get('actor'), (p.get('code_state') or {}).get('stream')) in (
-                (M32_ACTOR, 'M3.2D'), (M36F_ACTOR, 'M3.6F'), (M310C_ACTOR, 'M3.10C')), \
+                (M32_ACTOR, 'M3.2D'), (M36F_ACTOR, 'M3.6F'), (M310C_ACTOR, 'M3.10C')) or IA.is_provenance(p), \
                 '%s %s: an added row is not M3.2D\'s or M3.6F\'s' % (rel, k)
         for k in o:
             if o[k] == n[k]:
@@ -829,7 +897,7 @@ def model_changes_are_m2_only(before):
 
 
 REGISTER = 'data/audit/data-gap-register.jsonl'
-LINKING_PHASES = ('M3.4B', 'M3.5', 'M3.6B', 'M3.10B')
+LINKING_PHASES = ('M3.4B', 'M3.5', 'M3.6B', 'M3.10B', IA.PHASE)    # the integration application records itself alike
 
 
 def register_changes_are_m34b_only(before):
@@ -930,7 +998,8 @@ def m310b_evidence_rows():
 
 
 LATER_EVIDENCE_VERSIONS = {M36B_EVIDENCE_VERSION: m36b_evidence_rows, M36E_EVIDENCE_VERSION: m36e_evidence_rows,
-                           M36H_EVIDENCE_VERSION: m36h_evidence_rows, M310B_EVIDENCE_VERSION: m310b_evidence_rows}
+                           M36H_EVIDENCE_VERSION: m36h_evidence_rows, M310B_EVIDENCE_VERSION: m310b_evidence_rows,
+                           IA.EVIDENCE_VERSION: IA.evidence_rows}
 
 
 def evidence_versions_before_m36b():
@@ -949,8 +1018,9 @@ def latest_before_m36e():
     m36h_evidence_rows()
     out = {}
     m310b_evidence_rows()
+    IA.evidence_rows()
     for d in ST.iter_rows([v for v in ST.versions() if v not in (M36E_EVIDENCE_VERSION, M36H_EVIDENCE_VERSION,
-                                                                 M310B_EVIDENCE_VERSION)]):
+                                                                 M310B_EVIDENCE_VERSION, IA.EVIDENCE_VERSION)]):
         k = EV.row_key(d)[:-1]
         if k not in out or (d.get('v') or 0) >= (out[k].get('v') or 0):
             out[k] = d
@@ -980,19 +1050,20 @@ def evidence_unchanged_but_m36e(before):
     """data/evidence as at `before` but for M3.6E: decisions-v7.jsonl and index.json's version 7 entry, v7
     exactly M3.6E's decisions; every other file, and every other index entry, byte for byte. M3.6H's v8, a
     later correction, is verified and set aside alike."""
-    return _evidence_unchanged_but(before, (M36E_EVIDENCE_VERSION, M36H_EVIDENCE_VERSION, M310B_EVIDENCE_VERSION), 'M3.6E')
+    return _evidence_unchanged_but(before, (M36E_EVIDENCE_VERSION, M36H_EVIDENCE_VERSION, M310B_EVIDENCE_VERSION,
+                                            IA.EVIDENCE_VERSION), 'M3.6E')
 
 
 def evidence_unchanged_but_m36h(before):
     """data/evidence as at `before` but for M3.6H: decisions-v8.jsonl and index.json's version 8 entry, v8
     exactly M3.6H's decision; v1-v7 and their index entries byte for byte."""
-    return _evidence_unchanged_but(before, (M36H_EVIDENCE_VERSION, M310B_EVIDENCE_VERSION), 'M3.6H')
+    return _evidence_unchanged_but(before, (M36H_EVIDENCE_VERSION, M310B_EVIDENCE_VERSION, IA.EVIDENCE_VERSION), 'M3.6H')
 
 
 def evidence_unchanged_but_m310b(before):
     """data/evidence as at `before` but for M3.10B: decisions-v9.jsonl and index.json's version 9 entry, v9
     exactly M3.10B's decisions; v1-v8 and their index entries byte for byte."""
-    return _evidence_unchanged_but(before, (M310B_EVIDENCE_VERSION,), 'M3.10B')
+    return _evidence_unchanged_but(before, (M310B_EVIDENCE_VERSION, IA.EVIDENCE_VERSION), 'M3.10B')
 
 
 def evidence_rows_before_m36b():

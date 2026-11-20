@@ -28,6 +28,7 @@ import sys
 import tempfile
 import unicodedata
 
+import integration_application as IA
 import migration_lib as L
 
 EXTRACTED = L.ROOT + 'sources/discovery/extracted/'
@@ -71,9 +72,12 @@ def _later_identity():
     """M3.6D's, M3.6F's and M3.10C's provenance records and the wine M3.6D minted: the audits read the model as it
     stood before those decisions, as vintage_documents() reads it before the later linking phases. The wine's rows
     go with it: its vintages (by `wine`), their observations, reconciliations and values (on M3.6F's provenance);
-    and M3.10C's observations, reconciliations and values (on its own)."""
+    and M3.10C's observations, reconciliations and values (on its own). The integration application's provenance
+    (tools/integration_application.py: its pinned manifest rows only) goes the same way, and with it its
+    attributions, observations, reconciliations and values."""
     def build():
-        prov = {p['id'] for p in T('cross/provenance.jsonl') if p.get('actor') in (M36D_ACTOR, M36F_ACTOR, M310C_ACTOR)}
+        prov = {p['id'] for p in T('cross/provenance.jsonl') if p.get('actor') in (M36D_ACTOR, M36F_ACTOR, M310C_ACTOR)
+                or IA.is_provenance(p)}
         wines = {r['stable_id'] for r in T('identity/identity-map.jsonl')
                  if r['namespace'] == 'wine-by-slug' and r.get('provenance') in prov}
         # V1's created vintages (U2: the register is not theirs), as the model manifest records them, and every row
@@ -97,6 +101,11 @@ def table(rel):
 
 def by_id(rel):
     return cached('i:' + rel, lambda: {r['id']: r for r in table(rel)})
+
+
+def pv_all():
+    """Every provenance row, the later phases' included (to recognise their rows, never to measure with)."""
+    return cached('pv-all', lambda: {r['id']: r for r in T('cross/provenance.jsonl')})
 
 
 TEXT_CACHE = os.path.join(tempfile.gettempdir(), 'bdx-text-cache-%s.pickle'
@@ -489,7 +498,9 @@ def vintage_documents(actors=LATER_ACTORS):
             p = pv[o['provenance']]
             if o['subject'].startswith('vt:') and p.get('artifact') and p['kind'] == 'LEGACY_FIELD_SOURCE':
                 other.add((o['subject'], p['artifact']))
-        for a in mine:
+        # the integration application's links go always, as its rows do from table(): read from the raw table
+        ia = [a for a in T('document/attributions.jsonl') if IA.is_row('document/attributions.jsonl', a, pv_all())]
+        for a in mine + ia:
             vt, aid = a['vintage'], a['artifact']
             if (vt, aid) not in other and aid in vd.get(vt, []):
                 vd[vt] = [x for x in vd[vt] if x != aid]

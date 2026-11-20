@@ -101,6 +101,7 @@ def no_extra_mapping_exists():
     old_vd = json.loads(at_before('data/model/derived/vintage-documents.json'))
     new_vd = json.load(open(L.MODEL + 'derived/vintage-documents.json', encoding='utf-8'))
     gained = {(k, x) for k in new_vd for x in set(new_vd[k]) - set(old_vd.get(k, []))}
+    gained -= H.IA.links({p['id']: p for p in L.read_table('cross/provenance.jsonl')})   # the integration application's
     assert gained == {(a['vintage'], a['artifact']) for a in MINE + LATER}, 'a vintage gained a document beyond M3.4B (and M3.5)'
     gained = {(a['vintage'], a['artifact']) for a in MINE}
     assert all(set(old_vd[k]) <= set(new_vd.get(k, [])) for k in old_vd), 'a link was removed'
@@ -162,6 +163,7 @@ def provenance_is_preserved():
     added = [json.loads(x) for x in set(new) - set(old)]
     m310a = [p['id'] for p in L.read_table('cross/provenance.jsonl') if H.is_m310a_row('cross/provenance.jsonl', p, {})]
     m310a += [p['id'] for p in L.read_table('cross/provenance.jsonl') if H.is_m310c(p)]     # and M3.10C's values'
+    m310a += [p['id'] for p in L.read_table('cross/provenance.jsonl') if H.IA.is_provenance(p)]   # and the integration application's
     assert sorted(p['id'] for p in added) == sorted([a['provenance'] for a in MINE + LATER] +
                                                     [p['id'] for p in H.m36d_rows('cross/provenance.jsonl')] +   # and M3.6D's
                                                     m310a)                                                       # and M3.10A's
@@ -212,6 +214,7 @@ def no_figure_or_value_was_added():
     # M3.6D's wine set aside: its files hold only its rows beside what was there (unchanged_but_m36d)
     H.unchanged_but_m36d(BEFORE, *('data/model/' + f for f in H.CUVEE_FILES))
     changed = set(git('diff', '--name-only', BEFORE, '--', 'data/model').split()) - {'data/model/' + f for f in H.CUVEE_FILES}
+    changed = H.quality_set_aside(changed, BEFORE)            # the integration application's, a later phase
     # M3.10A's registered artifacts and their placements, a later phase, verified and set aside
     m310a = ['data/model/' + f for f in ('identity/artifacts.jsonl', 'document/placements.jsonl', 'document/locators.jsonl')]
     H.unchanged_but_m310a(BEFORE, *m310a)

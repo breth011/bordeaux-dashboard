@@ -164,7 +164,7 @@ def t09_model_evidence_gap_and_app_unchanged():
     assert not git('diff', '--stat', BEFORE, '--', *paths).strip()
     assert not git('status', '--porcelain', '--', *paths).strip()
     import evidence_store as ST
-    assert [v for v in ST.versions() if v != __import__('historical_m2_scope').M310B_EVIDENCE_VERSION] == [1, 2, 3, 4, 5, 6, 7, 8] and ST.verify() == []
+    assert [v for v in ST.versions() if v not in (__import__('historical_m2_scope').M310B_EVIDENCE_VERSION, __import__('historical_m2_scope').IA.EVIDENCE_VERSION)] == [1, 2, 3, 4, 5, 6, 7, 8] and ST.verify() == []
 
 
 def main():

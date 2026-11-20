@@ -45,9 +45,15 @@ def git(*a):
     return subprocess.check_output(['git'] + list(a), cwd=L.ROOT).decode('utf-8')
 
 
+PHASE = H.IA.phase()                # the integration application, a later phase (tools/integration_application.py)
+
+
 def added(rel):
+    """The rows `rel` gained since BEFORE: M3.10C's (the integration application's, a later phase, set aside)."""
     old = set(git('show', '%s:data/model/%s' % (BEFORE, rel)).splitlines())
-    return [json.loads(x) for x in open(L.MODEL + rel, encoding='utf-8').read().splitlines() if x not in old]
+    prov = {p['id']: p for p in L.read_table('cross/provenance.jsonl')}
+    return [r for r in (json.loads(x) for x in open(L.MODEL + rel, encoding='utf-8').read().splitlines() if x not in old)
+            if not H.IA.is_row(rel, r, prov)]
 
 
 @check
@@ -129,14 +135,23 @@ def t05_every_value_has_field_level_provenance():
 def t06_evidence_attributions_and_identities_unchanged():
     paths = ['data/evidence', 'data/model/document/attributions.jsonl', 'data/model/identity',
              'data/model/state', 'data/model/derived', 'data/model/document']
-    assert not git('diff', '--stat', BEFORE, '--', *paths).strip()
-    assert ST.versions()[-1] == 9 and ST.verify() == []
+    if PHASE == 'PRE_APPLY':
+        assert not git('diff', '--stat', BEFORE, '--', *paths).strip()
+        assert ST.versions()[-1] == 9 and ST.verify() == []
+        return
+    # POST_APPLY: the integration application's attributions, their provenance and links, and its v10, exactly
+    H.unchanged_but_m310a(BEFORE, *paths[1:])
+    H._evidence_unchanged_but(BEFORE, (H.IA.EVIDENCE_VERSION,), H.IA.NAME)
+    assert ST.versions() == list(range(1, 11)) and ST.verify() == []
 
 
 @check
 def t07_no_unrelated_vintage_or_field_changed():
     changed = {f[len('data/model/'):] for f in git('diff', '--name-only', BEFORE, '--', 'data/model').split()}
-    assert changed == set(H.M310C_FILES), sorted(changed)
+    # the integration application, a later phase: its attributions, their links, and the quality audit it moves
+    later = {'PRE_APPLY': set(),
+             'POST_APPLY': {'document/attributions.jsonl', 'derived/vintage-documents.json', H.QUALITY}}[PHASE]
+    assert changed == set(H.M310C_FILES) | later, sorted(changed)
     for rel in ('canonical/values.jsonl', 'observation/observations.jsonl', 'reconciliation/reconciliations.jsonl'):
         old = set(git('show', '%s:data/model/%s' % (BEFORE, rel)).splitlines())
         new = set(open(L.MODEL + rel, encoding='utf-8').read().splitlines())
@@ -162,6 +177,12 @@ def t09_audits_reader_discovery_and_register_unchanged():
     paths = ('data/audit/m3.8-acquisition-pilot.jsonl', 'data/audit/m3.9-evidence-review.jsonl',
              'data/audit/m3.10a-external-artifact-registration.jsonl', 'data/audit/m3.10b-evidence-decisions.jsonl',
              'data/audit/data-gap-register.jsonl', 'docs/DATA-GAP-REGISTER.md', 'data/discovery', *READER)
+    if PHASE == 'POST_APPLY':
+        # the register records the integration application's resolutions (a later linking phase), its report with it
+        H.register_changes_are_m34b_only(BEFORE)
+        out = CC.run([sys.executable, L.ROOT + 'tools/build-data-gap-register.py', '--check-all'], cwd=L.ROOT)
+        assert out.returncode == 0, out.stdout + out.stderr
+        paths = paths[:4] + paths[6:]
     assert not git('diff', '--stat', BEFORE, '--', *paths).strip()
     assert not git('ls-files', '--', 'sources/acquisition').strip()
 

@@ -118,15 +118,18 @@ def t05_registration_is_not_attribution():
     assert not [e for e in L.read_table('observation/evidence-links.jsonl') if e.get('artifact') in ids]
     names = {os.path.basename(g['url']) for g in rows('registration')}
     import evidence_store as ST
-    assert [v for v in ST.versions() if v != H.M310B_EVIDENCE_VERSION] == [1, 2, 3, 4, 5, 6, 7, 8] and ST.verify() == []
+    H.IA.evidence_rows()                # the integration application's v10, a later phase: verified and set aside
+    later = (H.M310B_EVIDENCE_VERSION, H.IA.EVIDENCE_VERSION)
+    assert [v for v in ST.versions() if v not in later] == [1, 2, 3, 4, 5, 6, 7, 8] and ST.verify() == []
     shas = {g['sha256'] for g in rows('registration')}
-    assert not [d for d in ST.iter_rows([v for v in ST.versions() if v != H.M310B_EVIDENCE_VERSION])
+    assert not [d for d in ST.iter_rows([v for v in ST.versions() if v not in later])
                 if d.get('artifact') in names or (d.get('read') or {}).get('sha256') in shas]
 
 
 @check
 def t06_only_the_registration_moved_in_the_model():
     changed = {f[len('data/model/'):] for f in git('diff', '--name-only', BEFORE, '--', 'data/model').split()}
+    changed = H.quality_set_aside(changed, BEFORE)            # the integration application's, a later phase
     # M3.10B's attributions and M3.10C's values, later phases, set aside (unchanged_but_m310a: only their rows)
     later = set(H.M310B_FILES) | set(H.M310C_FILES)
     assert changed <= set(H.M310A_FILES) | later, sorted(changed - set(H.M310A_FILES) - later)

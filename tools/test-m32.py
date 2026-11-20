@@ -104,6 +104,7 @@ def units_are_preserved():
     added = {(r['target']['subject'], r['target']['field']): r for r in a if r['disposition'] == 'APPLY_VALUE'}
     m36f = H.m36f_applied()                 # M3.6F's Cuvée Mongravey values, a later phase: new, as its manifest says
     m36f.update(H.m310c_applied())          # ... and M3.10C's Durfort-Vivens values, likewise
+    m36f.update(H.IA.applied_values())      # ... and the integration application's, likewise
     for c in L.read_table('canonical/values.jsonl'):
         if (c['subject'], c['field']) in m36f:
             assert c['value'] == m36f[(c['subject'], c['field'])] and (c['subject'], c['field']) not in old
@@ -124,9 +125,12 @@ def units_are_preserved():
             assert o.get('raw_value') and o.get('unit') == {'alc': '%', 'yld': 'hl/ha', 'blend': '%', 'oak': '%',
                                                             'months': None, 'pick': None}[o['field']]
     obs_old = {json.loads(l)['id']: json.loads(l) for l in git('show', BEFORE + ':data/model/observation/observations.jsonl').splitlines()}
+    prov = {p['id']: p for p in L.read_table('cross/provenance.jsonl')}
     for o in L.read_table('observation/observations.jsonl'):
         if H.is_m32d_observation(o) or H.is_m36f_observation(o) or H.is_m310c_observation(o):
             continue                                  # checked above: added, not changed
+        if H.IA.is_row('observation/observations.jsonl', o, prov):
+            continue                                  # the integration application's: added, on its own provenance
         p = obs_old[o['id']]
         assert (o['value'], o.get('unit'), o.get('qualifier')) == (p['value'], p.get('unit'), p.get('qualifier')), o['id']
     assert a
@@ -241,8 +245,10 @@ def open_decisions_stay_open():
     assert sum(1 for x in f if x['kind'] == 'AMBIGUOUS_SEMANTICS' and x['status'] == 'OPEN') == 179, 'D1'
     assert sum(1 for x in f if x['kind'] == 'CONFLICT' and x['status'] == 'OPEN') == 7, 'D5'
     recs = L.read_table('reconciliation/reconciliations.jsonl')
+    prov = {p['id']: p for p in L.read_table('cross/provenance.jsonl')}
     later = lambda r: (H.is_m32d_reconciliation(r) or H.is_m36f_reconciliation(r)    # M3.2D's, M3.6F's
-                       or H.is_m310c_reconciliation(r))                               # and M3.10C's
+                       or H.is_m310c_reconciliation(r)                                # and M3.10C's
+                       or H.IA.is_row('reconciliation/reconciliations.jsonl', r, prov))   # and the integration application's
     assert {r['rule'] for r in recs if not later(r)} == {'LEGACY_NEVER_OVERWRITE'}
     # M3.2D (and M3.6F, M3.10C) chose no winner: one sheet, or several that agree; never newest-wins or source priority (D5)
     assert {r['rule'] for r in recs if later(r)} <= {'ONLY_CANDIDATE', 'UNANIMOUS'}

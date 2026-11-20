@@ -35,6 +35,7 @@ import time
 
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 import identity_rules_candidate as IRC  # noqa: E402
+import integration_application as IA  # noqa: E402
 import migration_lib as L  # noqa: E402
 import statement_check as S2  # noqa: E402
 import yield_layout as Y  # noqa: E402
@@ -388,9 +389,14 @@ def build_claims():
     for r in L.read_table('state/estate-wine.jsonl'):
         if r.get('status') == 'ESTABLISHED':
             ew[r['estate']].add(r['wine'])
+    # the model as the dry run read it: the integration application's own rows (tools/integration_application.py),
+    # which this dry run's review later authorised, set aside - none exist before it is applied
+    prov = {p['id']: p for p in L.read_table('cross/provenance.jsonl')}
     ctx = {'names': names, 'ew': ew,
-           'values': {(c['subject'], c['field']): c['value'] for c in L.read_table('canonical/values.jsonl')},
-           'linked': {(a['artifact'], a.get('vintage')) for a in L.read_table('document/attributions.jsonl') if a.get('vintage')}}
+           'values': {(c['subject'], c['field']): c['value'] for c in L.read_table('canonical/values.jsonl')
+                      if not IA.is_row('canonical/values.jsonl', c, prov)},
+           'linked': {(a['artifact'], a.get('vintage')) for a in L.read_table('document/attributions.jsonl')
+                      if a.get('vintage') and not IA.is_row('document/attributions.jsonl', a, prov)}}
     ly = Layers()
     rows = []
     try:

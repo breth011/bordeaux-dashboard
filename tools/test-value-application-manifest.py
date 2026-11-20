@@ -18,6 +18,8 @@ import sys
 import tempfile
 
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+import historical_m2_scope as H  # noqa: E402
+import integration_application as IA  # noqa: E402
 import migration_lib as L  # noqa: E402
 
 BEFORE = '128263f'               # M3.10B and its gap-register record: the state M3.10C applied to
@@ -57,6 +59,14 @@ def _runner():
 R = _runner()
 PROD = L.jsonl_lines(L.ROOT + R.MANIFEST)
 VIEW = R.View()
+# The integration application (tools/integration_application.py), explicitly: before it, the production manifest is
+# M3.10C's nine rows; after it, those nine and the application's 51. This suite's synthetic cases are built on the
+# state before it - the nine rows and the model the application started from - in either phase.
+PHASE = IA.phase()
+if PHASE == 'POST_APPLY':
+    assert PROD[9:] == IA.manifest_rows('value') and len(PROD) == 60
+    PROD = PROD[:9]
+    VIEW = R.View(IA.read_before)
 EV = R.Evidence({9})
 SCOPE = R.load_scope(M310C)
 
@@ -104,6 +114,8 @@ def run(*args, model=None, manifest=None):
     env.pop('BDX_MODEL_DIR', None)
     if model:
         env['BDX_MODEL_DIR'] = model
+        if manifest is None and PHASE == 'POST_APPLY':
+            manifest = PROD                 # an isolated copy is before the application: so is its manifest
     a = list(args)
     if manifest is not None:
         p = tempfile.mktemp(prefix='m311-manifest-', suffix='.jsonl')
@@ -126,7 +138,10 @@ def c01_the_nine_row_m310c_manifest_validates():
         assert sorted((l['artifact'], l['locus'], l['quote'], l['lang']) for l in r['source_locations']) == \
             sorted((o['artifact'], o['locus'], o['quote'], o['lang']) for o in x['observations'])
     out = run('--validate')
-    assert out.returncode == 0 and '9 manifest row(s) in 3 packet(s) valid' in out.stdout, out.stdout + out.stderr
+    # the production manifest: M3.10C's nine rows (PRE_APPLY), and the application's 51 beside them (POST_APPLY)
+    want = {'PRE_APPLY': '9 manifest row(s) in 3 packet(s) valid',
+            'POST_APPLY': '60 manifest row(s) in 36 packet(s) valid'}[PHASE]
+    assert out.returncode == 0 and want in out.stdout, out.stdout + out.stderr
 
 
 @check
@@ -307,13 +322,20 @@ def c16_idempotent_second_application():
 
 @check
 def c17_existing_identical_in_production():
+    # every production row is held: M3.10C's nine (PRE_APPLY), and the application's 51 besides (POST_APPLY)
+    held = {'PRE_APPLY': 9, 'POST_APPLY': 60}[PHASE]
     out = run('--plan')
-    assert out.returncode == 0 and '0 APPLY, 9 NOOP_EXISTING_IDENTICAL, 0 CONFLICT' in out.stdout, out.stdout + out.stderr
+    assert out.returncode == 0 and '0 APPLY, %d NOOP_EXISTING_IDENTICAL, 0 CONFLICT' % held in out.stdout, out.stdout + out.stderr
     assert '0 source observation(s), 0 reconciliation(s), 0 canonical value(s), 0 provenance row(s)' in out.stdout
     out = run('--apply')
     assert out.returncode == 0 and 'nothing to apply' in out.stdout, out.stdout + out.stderr
     assert not git('status', '--porcelain', '--', 'data/model', 'data/app').strip()
-    assert not git('diff', '--stat', GOLDEN, '--', 'data/model', 'data/app').strip()
+    if PHASE == 'PRE_APPLY':
+        assert not git('diff', '--stat', GOLDEN, '--', 'data/model', 'data/app').strip()
+    else:                       # the model since M3.10C: the application's rows exactly; the app unchanged
+        IA.verify()
+        H.unchanged_but_m310a(GOLDEN, 'data/model')
+        assert not git('diff', '--stat', GOLDEN, '--', 'data/app').strip()
     assert run('--check').returncode == 0
 
 
@@ -375,7 +397,7 @@ def c19_multi_artifact_row_is_one_fact():
 def c20_deterministic_plan():
     a, b = run('--plan'), run('--plan')
     assert a.returncode == 0 and a.stdout == b.stdout
-    shuffled = list(PROD)
+    shuffled = L.jsonl_lines(L.ROOT + R.MANIFEST)          # the production manifest's rows, in another order
     random.Random(311).shuffle(shuffled)
     assert run('--plan', manifest=shuffled).stdout == a.stdout
     d = isolated()
@@ -471,6 +493,10 @@ def c22_m310c_golden_equivalence():
         files = migrate.render(migrate.run('M7'), 'M7')
     finally:
         M7.M310C = keep
+    if PHASE == 'POST_APPLY':
+        # the rebuild replays the integration application's manifests too (a later phase): its rows taken out, and
+        # its stats and counts out of the model manifest, the rebuild is this copy byte for byte all the same
+        files = IA.without_rows(files)
     for rel, b in files.items():
         assert open(os.path.join(d, rel), 'rb').read() == b, ('the rebuild differs', rel)
     env = dict(os.environ, BDX_MODEL_DIR=d)
@@ -481,7 +507,15 @@ def c22_m310c_golden_equivalence():
 
 @check
 def c23_production_is_untouched_and_the_runner_checks():
-    assert not git('diff', '--stat', GOLDEN, '--', 'data/model', 'data/app', 'data/evidence', 'data/discovery').strip()
+    if PHASE == 'PRE_APPLY':
+        assert not git('diff', '--stat', GOLDEN, '--', 'data/model', 'data/app', 'data/evidence', 'data/discovery').strip()
+    else:
+        # POST_APPLY: since M3.10C the model moved by the application's rows exactly, the store by its v10 exactly;
+        # the app and the discovery data not at all
+        IA.verify()
+        H.unchanged_but_m310a(GOLDEN, 'data/model')
+        H._evidence_unchanged_but(GOLDEN, (IA.EVIDENCE_VERSION,), IA.NAME)
+        assert not git('diff', '--stat', GOLDEN, '--', 'data/app', 'data/discovery').strip()
     assert not git('status', '--porcelain', '--', 'data/model', 'data/app', 'data/evidence').strip()
     out = run('--check-all')
     assert out.returncode == 0 and 'model at M7 rebuilds byte for byte' in out.stdout, out.stdout + out.stderr

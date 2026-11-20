@@ -24,6 +24,7 @@ import sys
 import tempfile
 
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+import integration_application as IA  # noqa: E402
 import migration_lib as L  # noqa: E402
 
 TOOL = L.ROOT + 'tools/apply-vintage-creation-manifest.py'
@@ -32,7 +33,7 @@ REVIEW = 'data/audit/m3.9-evidence-review.jsonl'
 ESTATE, WINE, ART, VT = 'es_00263', 'wn_00263', 'ar_037071', 'vt:wn_00263:2024'
 M310B_ATTRIBUTION = 'at_118b7dcaeeb1'
 VINTAGE_SCOPED = ('canonical/values.jsonl', 'observation/observations.jsonl', 'reconciliation/reconciliations.jsonl')
-CHECKS, TMP, BASE = [], [], []
+CHECKS, TMP, BASES = [], [], {}
 
 
 def check(f):
@@ -59,6 +60,12 @@ KEY = PROV[[a for a in L.read_table('document/attributions.jsonl') if a['id'] ==
     'code_state']['evidence_decisions'][0]
 EV = R11.Evidence({9})
 VIEW = V.View()
+# The integration application (tools/integration_application.py), explicitly: this suite's synthetic cases are built on
+# the model as it stood before it (IA.fixture_rev(): HEAD before the application, the commit it started from after).
+PHASE = IA.phase()
+FIXTURE = IA.fixture_rev()
+if PHASE == 'POST_APPLY' and IA.reads_repository_model():     # (a synthetic subprocess reads its own copy)
+    VIEW = V.View(IA.read_before)
 
 
 def row(**kw):
@@ -133,23 +140,25 @@ def gone(rel, rows, attribution_only=False):
 
 
 def gone_view(attribution_only=False):
-    return V.View(lambda rel: gone(rel, L.read_table(rel), attribution_only))
+    read = IA.read_before if PHASE == 'POST_APPLY' and IA.reads_repository_model() else L.read_table
+    return V.View(lambda rel: gone(rel, read(rel), attribution_only))
 
 
-def isolated(attribution_only=None):
-    """A copy of the committed model (HEAD) in a temporary directory; with attribution_only False or True,
-    Durfort-Vivens 2024 taken out of it as gone() does."""
-    if not BASE:
+def isolated(attribution_only=None, rev=None):
+    """A copy of the committed model at `rev` (default FIXTURE: HEAD, or before the integration application) in a
+    temporary directory; with attribution_only False or True, Durfort-Vivens 2024 taken out of it as gone() does."""
+    rev = rev or FIXTURE
+    if rev not in BASES:
         d = tempfile.mkdtemp(prefix='v1-base-')
-        for f in git('ls-tree', '-r', '--name-only', 'HEAD', 'data/model').decode().split():
+        for f in git('ls-tree', '-r', '--name-only', rev, 'data/model').decode().split():
             p = os.path.join(d, f[len('data/model/'):])
             os.makedirs(os.path.dirname(p), exist_ok=True)
-            open(p, 'wb').write(git('show', 'HEAD:' + f))
+            open(p, 'wb').write(git('show', '%s:%s' % (rev, f)))
         TMP.append(d)
-        BASE.append(d)
+        BASES[rev] = d
     d = tempfile.mkdtemp(prefix='v1-')
     shutil.rmtree(d)
-    shutil.copytree(BASE[0], d)
+    shutil.copytree(BASES[rev], d)
     TMP.append(d)
     if attribution_only is not None:
         for rel in ('identity/vintages.jsonl', 'document/attributions.jsonl') + VINTAGE_SCOPED:
@@ -210,9 +219,9 @@ def c02_c03_c04_creation_application_is_the_shell_and_its_exact_attribution_with
     changed = sorted(k for k in after if after[k] != before.get(k))
     assert changed == ['cross/provenance.jsonl', 'document/attributions.jsonl', 'identity/vintages.jsonl',
                        'manifest.json'], changed
-    # the indexes were rebuilt: the copy's (taken from HEAD, which holds 2024) come out the same, and are current
+    # the indexes were rebuilt: the copy's (taken from FIXTURE, which holds 2024) come out the same, and are current
     for rel in ('derived/vintage-documents.json', 'derived/wine-vintages.json'):
-        assert after[rel] == git('show', 'HEAD:data/model/' + rel), rel
+        assert after[rel] == git('show', '%s:data/model/%s' % (FIXTURE, rel)), rel
     assert run('--check', model=d, manifest=[row()], tool=L.ROOT + 'tools/build-indexes.py').returncode == 0
     assert added(d, before, 'identity/vintages.jsonl') == [{'label': '2024', 'wine': WINE}]
     [a] = added(d, before, 'document/attributions.jsonl')
@@ -427,7 +436,7 @@ def c28_deterministic_rebuild_scope_exception_and_gap_register():
     """In a subprocess (its own module state): a synthetic 2025 vintage on fabricated evidence, applied to an
     isolated copy; two migration rebuilds fed the same manifest must equal that copy byte for byte; the
     historical-scope exception and the gap register must set it aside."""
-    d = isolated()
+    d = isolated(rev='HEAD')            # the committed model: its register must be current for it (below)
     out = subprocess.run([sys.executable, os.path.abspath(__file__), '--synthetic', d], cwd=L.ROOT,
                          env=dict(os.environ, BDX_MODEL_DIR=d), capture_output=True, text=True)
     assert out.returncode == 0 and out.stdout.strip().endswith('synthetic: all pass'), (out.stdout + out.stderr)[-1500:]
@@ -473,13 +482,23 @@ def c29_m311_needs_the_vintage_and_its_existence_attribution():
 
 @check
 def c30_production_manifest_empty_and_model_unchanged():
-    assert os.path.getsize(L.ROOT + V.MANIFEST) == 0
+    # PRE_APPLY: the production manifest is empty; POST_APPLY: it is the integration application's 33 rows, every one
+    # held (ATTRIBUTION_ONLY when applied: no vintage created), the 34 attributions its only V1 rows
+    n = {'PRE_APPLY': 0, 'POST_APPLY': 33}[PHASE]
+    assert len(L.jsonl_lines(L.ROOT + V.MANIFEST)) == n and (n or os.path.getsize(L.ROOT + V.MANIFEST) == 0)
     out = run('--check-all')
-    assert out.returncode == 0 and '0 row(s) held' in out.stdout and 'model at M7 rebuilds byte for byte' in out.stdout \
+    assert out.returncode == 0 and '%d row(s) held' % n in out.stdout and 'model at M7 rebuilds byte for byte' in out.stdout \
         and 'data/app is the model, byte for byte' in out.stdout, out.stdout + out.stderr
-    assert run('--plan').stdout.startswith('0 manifest row(s)')
+    plan = run('--plan').stdout
+    if PHASE == 'PRE_APPLY':
+        assert plan.startswith('0 manifest row(s)'), plan[:200]
+    else:
+        assert '33 manifest row(s): 0 CREATE, 0 ATTRIBUTION_ONLY, 33 NOOP, 0 CONFLICT' in plan, plan[-400:]
     m = json.load(open(L.MODEL + 'manifest.json', encoding='utf-8'))
-    assert V.VINTAGE_STAT not in m['stats'].get('M5', {}) and V.ATTRIBUTION_STAT not in m['stats'].get('M6', {})
+    assert V.VINTAGE_STAT not in m['stats'].get('M5', {})
+    assert m['stats'].get('M6', {}).get(V.ATTRIBUTION_STAT) == {'PRE_APPLY': None, 'POST_APPLY': 34}[PHASE]
+    if PHASE == 'POST_APPLY':
+        assert IA.verify() == 'POST_APPLY' and IA.manifest_rows('vintage') == L.jsonl_lines(L.ROOT + V.MANIFEST)
     assert not git('status', '--porcelain', '--', 'data/model', 'data/app', 'data/evidence', 'data/discovery').strip()
     assert not git('diff', '--stat', 'HEAD', '--', 'data/model', 'data/app', 'data/evidence').strip()
 
@@ -509,7 +528,9 @@ def synthetic(d):
     rv.update(vintage=2025, sha256=sha, n=900, reason=rv['reason'].replace('2024', '2025'),
               vintage_evidence='statement "2025 vintage"')
     reviews = FixedReviews({(REVIEW, 'm3.9:900'): rv})
-    r = row(vintage=2025, artifact_ids=[art], evidence_decisions={art: key}, review={art: {'audit': REVIEW, 'row': 'm3.9:900'}})
+    # the next manifest id after the production rows (vcm_000001 before the integration application)
+    r = row(manifest_id='vcm_%06d' % (len(IA.manifest_rows('vintage')) + 1), vintage=2025, artifact_ids=[art],
+            evidence_decisions={art: key}, review={art: {'audit': REVIEW, 'row': 'm3.9:900'}})
     view = V.View()
     e, res = V.validate_manifest([r], view, ev, reviews)
     assert e == [], e
@@ -519,7 +540,8 @@ def synthetic(d):
     applied = snapshot(d)
     # the migration, fed the same manifest and evidence through the runner instance its hooks share
     W = M5.vintage_creator()
-    W.load_manifest = lambda path: [r]
+    # the production manifest (empty, or the integration application's rows after it), and the synthetic row
+    W.load_manifest = lambda path: IA.manifest_rows('vintage') + [r]
     W.VR.Evidence = lambda versions: ev
     W.Reviews = lambda: reviews
     builds = [migrate.render(migrate.run('M7'), 'M7') for _ in range(2)]
@@ -530,7 +552,7 @@ def synthetic(d):
     # the historical-scope exception: exactly these rows are V1's, and the earlier checks set them aside
     prov = {p['id']: p for p in L.read_table('cross/provenance.jsonl')}
     assert H.v1_created() == {(WINE, '2025')}
-    mine = {rel: [x for x in L.read_table(rel) if H.is_v1_row(rel, x, prov)] for rel in
+    mine = {rel: [x for x in L.read_table(rel) if H.is_v1_row(rel, x, prov) and not IA.is_row(rel, x, prov)] for rel in
             ('identity/vintages.jsonl', 'document/attributions.jsonl', 'cross/provenance.jsonl')}
     assert {k: len(v) for k, v in mine.items()} == {'identity/vintages.jsonl': 1, 'document/attributions.jsonl': 1,
                                                     'cross/provenance.jsonl': 1}, mine

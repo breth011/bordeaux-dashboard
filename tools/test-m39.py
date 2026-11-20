@@ -124,8 +124,9 @@ def t06_the_reader_and_the_evidence_store_unchanged():
         'beyond the set-aside'
     [scope] = audit('scope')
     assert scope['reader_fingerprint'] == M.EV.reader_fingerprint()
+    __import__('historical_m2_scope').IA.evidence_rows()   # the integration application's v10: exactly its decisions
     import evidence_store as ST
-    assert [v for v in ST.versions() if v != __import__('historical_m2_scope').M310B_EVIDENCE_VERSION] == [1, 2, 3, 4, 5, 6, 7, 8] and ST.verify() == []
+    assert [v for v in ST.versions() if v not in (__import__('historical_m2_scope').M310B_EVIDENCE_VERSION, __import__('historical_m2_scope').IA.EVIDENCE_VERSION)] == [1, 2, 3, 4, 5, 6, 7, 8] and ST.verify() == []
     [s] = audit('summary')
     assert s['evidence_decisions_written'] == 0 and s['model_changes'] == 0
 

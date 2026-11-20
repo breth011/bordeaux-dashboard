@@ -249,6 +249,7 @@ def every_new_attribution_has_explicit_existing_evidence():
 def nothing_else_changed():
     H.unchanged_but_m36d(BEFORE, *('data/model/' + f for f in H.CUVEE_FILES))   # M3.6D's wine set aside
     changed = set(git('diff', '--name-only', BEFORE, '--', 'data/model').split()) - {'data/model/' + f for f in H.CUVEE_FILES}
+    changed = H.quality_set_aside(changed, BEFORE)            # the integration application's, a later phase
     # M3.10A's registered artifacts and their placements, a later phase, verified and set aside
     m310a = ['data/model/' + f for f in ('identity/artifacts.jsonl', 'document/placements.jsonl', 'document/locators.jsonl')]
     H.unchanged_but_m310a(BEFORE, *m310a)

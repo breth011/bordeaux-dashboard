@@ -42,6 +42,7 @@ import sys
 
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 import identity_rules as IR  # noqa: E402
+import integration_application as IA  # noqa: E402
 import migration_lib as L  # noqa: E402
 import recording_policy as RP  # noqa: E402
 import statement_check as S2  # noqa: E402
@@ -333,7 +334,13 @@ def manifests():
     EA = _load('ea_integration_review', 'tools/apply-evidence-acceptance-manifest.py')
     rows = [r for r in L.jsonl_lines(OUT) if r.get('record') == 'review' and r['disposition'] == 'SAFE_TO_MAP']
     store = EA.Store()
-    version = store.versions[-1] + 1
+    # the application's own evidence version (tools/integration_application.py): the store's next before it is
+    # appended, and after, exactly the application's decisions - so the manifests build the same at every point
+    version = IA.EVIDENCE_VERSION
+    if version in store.versions:
+        IA.evidence_rows()
+    else:
+        assert store.versions[-1] + 1 == version, (version, store.versions)
     reader = EA.decider_fingerprint()
     view = EA.V.View()
     names = EA.names_of(view)
@@ -369,7 +376,7 @@ def manifests():
             if f['recordable']:
                 facts[(r['estate'], r['wine'], r['vintage'], f['field'])].append((r, f))
     VR = EA.V.VR
-    n = len(L.jsonl_lines(L.ROOT + MANIFESTS['value'])) if os.path.exists(L.ROOT + MANIFESTS['value']) else 0
+    n = len(_value_rows_before())                       # numbered after the rows that are not the application's
     for i, ((e, w, y, fld), xs) in enumerate(sorted(facts.items()), n + 1):
         values = {L.dumps(f['value']) for _, f in xs}
         srcs = {f['source'] for _, f in xs}
@@ -393,9 +400,15 @@ def manifests():
     return acc, vin, val
 
 
+def _value_rows_before():
+    """The value manifest's rows other than the application's (M3.10C's nine, held)."""
+    rows = L.jsonl_lines(L.ROOT + MANIFESTS['value']) if os.path.exists(L.ROOT + MANIFESTS['value']) else []
+    return [r for r in rows if r['manifest_id'] not in IA.IDS['value']]
+
+
 def write_manifests():
     acc, vin, val = manifests()
-    old = L.jsonl_lines(L.ROOT + MANIFESTS['value']) if os.path.exists(L.ROOT + MANIFESTS['value']) else []
+    old = _value_rows_before()
     for k, rows in (('acceptance', acc), ('vintage', vin), ('value', old + val)):
         io.open(L.ROOT + MANIFESTS[k], 'w', encoding='utf-8', newline='\n').write(''.join(L.dumps(r) + '\n' for r in rows))
     print('acceptance %d, vintage %d, value %d (+%d)' % (len(acc), len(vin), len(old) + len(val), len(val)))

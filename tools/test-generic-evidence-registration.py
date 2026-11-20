@@ -24,6 +24,8 @@ import sys
 import tempfile
 
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+import historical_m2_scope as H  # noqa: E402
+import integration_application as IA  # noqa: E402
 import migration_lib as L  # noqa: E402
 
 REG_TOOL = L.ROOT + 'tools/apply-artifact-registration-manifest.py'
@@ -63,6 +65,10 @@ M310A = [r for r in L.jsonl_lines(L.ROOT + 'data/audit/m3.10a-external-artifact-
 M310B = {r['artifact']: r for r in L.jsonl_lines(L.ROOT + 'data/audit/m3.10b-evidence-decisions.jsonl')}
 RVIEW = RA.View()
 AVIEW = V.View()
+# The integration application (tools/integration_application.py), explicitly: this suite's synthetic acceptances are
+# built on a store whose next version is v10 - in POST_APPLY a copy of the production store without the application's
+# v10, verified to be exactly its decisions. (Its model copies are the committed model, as before.)
+PHASE = IA.phase()
 
 
 # ---------------------------------------------------------------- registration rows, acquisitions, model copies
@@ -254,6 +260,8 @@ def store_copy(drop=()):
     d = tempfile.mkdtemp(prefix='gen-store-')
     TMP.append(d)
     ix = json.load(open(PROD_STORE[1], encoding='utf-8'))
+    if PHASE == 'POST_APPLY':               # the store before the integration application: its v10 set aside
+        drop = tuple(drop) + (IA.EVIDENCE_VERSION,)
     for v in drop:
         ix['versions'].pop(str(v))
     for v, meta in ix['versions'].items():
@@ -271,21 +279,41 @@ def store_copy(drop=()):
     return d
 
 
+def _paths(d):
+    return d.replace('\\', '/') + '/', d.replace('\\', '/') + '/index.json'
+
+
+BASE_STORE = PROD_STORE
+_PRE = []
+
+
+def _pre_store():
+    """POST_APPLY: a copy of the production store without the integration application's v10 (verified first), for
+    the synthetic validations that read the production store: their next version is v10, as before it."""
+    if not _PRE:
+        IA.evidence_rows()
+        _PRE.append(store_copy())
+    return _PRE[0]
+
+
 @contextlib.contextmanager
 def store(d, closed=None):
     """The store module (and the runners) pointed at copy d; `closed` replaces CLOSED_THROUGH."""
     was = EA.CLOSED_THROUGH
-    ST.DIR, ST.INDEX = d.replace('\\', '/') + '/', d.replace('\\', '/') + '/index.json'
+    ST.DIR, ST.INDEX = _paths(d)
     if closed is not None:
         EA.CLOSED_THROUGH = closed
     try:
         yield
     finally:
-        ST.DIR, ST.INDEX = PROD_STORE
+        ST.DIR, ST.INDEX = BASE_STORE
         EA.CLOSED_THROUGH = was
 
 
 def a_validate(rows, reviews=None, view=None):
+    if PHASE == 'POST_APPLY' and ST.DIR == PROD_STORE[0]:       # not inside a store copy of the case's own
+        with store(_pre_store()):
+            return EA.validate_manifest(rows, view or AVIEW, EA.Store(), reviews)
     return EA.validate_manifest(rows, view or AVIEW, EA.Store(), reviews)
 
 
@@ -696,7 +724,9 @@ def g24_m310b_golden_decisions():
     ix = json.load(open(os.path.join(d, 'index.json'), encoding='utf-8'))['versions']
     prod = json.load(open(PROD_STORE[1], encoding='utf-8'))['versions']
     assert ix['9']['readers'] == prod['9']['readers'] and ix['9']['rows'] == prod['9']['rows'] == 4
-    assert {k: x for k, x in ix.items() if k != '9'} == {k: x for k, x in prod.items() if k != '9'}
+    # the integration application's v10, a later version, is not in the replayed store: set aside in production's
+    aside = {'9'} | ({str(IA.EVIDENCE_VERSION)} if PHASE == 'POST_APPLY' else set())
+    assert {k: x for k, x in ix.items() if k not in aside} == {k: x for k, x in prod.items() if k not in aside}
     assert {f: sha(os.path.join(d, f)) for f in before} == before
 
 
@@ -756,20 +786,38 @@ def g25_g26_v1_and_m311_consume_a_generic_decision():
 def g27_historical_evidence_byte_for_byte():
     assert not git('status', '--porcelain', '--', 'data/evidence').strip()
     assert not git('diff', '--stat', 'HEAD', '--', 'data/evidence').strip()
-    assert ST.DIR == PROD_STORE[0] and ST.verify() == [] and ST.versions() == list(range(1, 10))
+    if PHASE == 'PRE_APPLY':
+        assert ST.DIR == PROD_STORE[0] and ST.verify() == [] and ST.versions() == list(range(1, 10))
+        return
+    # POST_APPLY: production holds v1-v9 as before the application, byte for byte, and its v10 exactly
+    ST.DIR, ST.INDEX = PROD_STORE
+    try:
+        assert ST.verify() == [] and ST.versions() == list(range(1, 11))
+        H._evidence_unchanged_but(IA.PRE_APPLY_COMMIT, (IA.EVIDENCE_VERSION,), IA.NAME)
+    finally:
+        ST.DIR, ST.INDEX = BASE_STORE
 
 
 @check
 def g28_no_production_data_changed():
-    for p in (RA.MANIFEST, EA.MANIFEST):
-        assert os.path.getsize(L.ROOT + p) == 0, p
+    # the registration manifest is empty in both phases; the acceptance manifest is empty (PRE_APPLY) or the
+    # integration application's 34 rows, every one held by the store (POST_APPLY)
+    n = {'PRE_APPLY': 0, 'POST_APPLY': 34}[PHASE]
+    assert os.path.getsize(L.ROOT + RA.MANIFEST) == 0
+    assert len(L.jsonl_lines(L.ROOT + EA.MANIFEST)) == n and (n or os.path.getsize(L.ROOT + EA.MANIFEST) == 0)
+    if n:
+        assert IA.manifest_rows('acceptance') == L.jsonl_lines(L.ROOT + EA.MANIFEST)
     out = run(REG_TOOL, '--check-all')
     assert out.returncode == 0 and '0 row(s) held' in out.stdout and 'model at M7 rebuilds byte for byte' in out.stdout \
         and 'data/app is the model, byte for byte' in out.stdout, out.stdout + out.stderr
     out = run(ACC_TOOL, '--check')
-    assert out.returncode == 0 and '0 row(s) held by the store' in out.stdout, out.stdout + out.stderr
+    assert out.returncode == 0 and '%d row(s) held by the store' % n in out.stdout, out.stdout + out.stderr
     assert run(REG_TOOL, '--plan').stdout.startswith('0 manifest row(s)')
-    assert run(ACC_TOOL, '--plan').stdout.startswith('0 manifest row(s)')
+    plan = run(ACC_TOOL, '--plan').stdout
+    if PHASE == 'PRE_APPLY':
+        assert plan.startswith('0 manifest row(s)'), plan[:200]
+    else:
+        assert '34 manifest row(s): 0 APPEND, 34 NOOP, 0 CONFLICT' in plan, plan[-300:]
     m = json.load(open(L.MODEL + 'manifest.json', encoding='utf-8'))
     assert RA.ARTIFACT_STAT not in m['stats'].get('M2', {}) and RA.PLACEMENT_STAT not in m['stats'].get('M6', {})
     assert not git('status', '--porcelain', '--', 'data/model', 'data/app', 'data/evidence', 'data/discovery').strip()

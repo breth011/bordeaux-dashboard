@@ -18,6 +18,7 @@ import warnings
 
 warnings.filterwarnings('ignore')
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+import integration_application as IA  # noqa: E402
 import migration_lib as L  # noqa: E402
 
 
@@ -134,25 +135,34 @@ def t06_the_manifests_build_and_validate():
     assert collections.Counter(v['source_basis'] for v in val) == {'explicit_document_statement': 36,
                                                                   'layout_derived_unit': 15}
     assert {a['evidence_version'] for a in acc} == {v['evidence_version'] for v in vin} == {10}
-    # V1 against the decisions the acceptance runner would append (a stub store holding exactly those)
+    # V1 against the decisions the acceptance runner would append (a stub store holding exactly those), on the model
+    # the manifests were reviewed for: before the integration application (BEFORE_VIEW)
     EA = _load('ea_ir_t', 'tools/apply-evidence-acceptance-manifest.py')
-    view = EA.V.View()
+    view = BEFORE_VIEW(EA.V)
     errs, resolved = EA.validate_manifest(acc, view, EA.Store(), read_bytes=False)
     assert not errs, errs
     by_key = {x['key']: dict(x['decision'], v=10) for x in resolved.values()}
     ev = type('Ev', (), {'versions': {10}, 'by_key': by_key,
                          'latest': {L.dumps(json.loads(k)[:-1]): d for k, d in by_key.items()}})()
-    errs, res = V1.validate_manifest(vin, V1.View(), ev=ev)
+    errs, res = V1.validate_manifest(vin, BEFORE_VIEW(V1), ev=ev)
     assert not errs and len(res) == 33, errs
-    plan = V1.plan_manifest(vin, res, V1.View())
+    plan = V1.plan_manifest(vin, res, BEFORE_VIEW(V1))
     assert plan['actions'] == {'CREATE': 0, 'ATTRIBUTION_ONLY': 33, 'NOOP': 0, 'CONFLICT': 0}, plan['actions']
     assert plan['adds'] == {'cross/provenance.jsonl': 51, 'document/attributions.jsonl': 34}, plan['adds']
     V1.verify_plan(plan)
     # the class must say what the identities are
     swap = [dict(v, creation_class='EXPLICIT_DOCUMENT_TEXT' if v['creation_class'] == 'REVIEWED_LISTING'
                  else 'REVIEWED_LISTING') for v in vin]
-    errs, res = V1.validate_manifest(swap, V1.View(), ev=ev)
+    errs, res = V1.validate_manifest(swap, BEFORE_VIEW(V1), ev=ev)
     assert {e.split(':')[0] for e in errs} == {v['manifest_id'] for v in vin} and not res, errs[:3]
+    if IA.phase() == 'POST_APPLY':
+        # the committed manifests are these, and the live model holds every row: nothing left to apply
+        for k, rows in (('acceptance', acc), ('vintage', vin), ('value', val)):
+            assert IA.manifest_rows(k) == rows, k
+        errs, res = V1.validate_manifest(vin, V1.View())      # the store's own v10 (the runner's default)
+        assert not errs, errs[:3]
+        assert V1.plan_manifest(vin, res, V1.View())['actions'] == {'CREATE': 0, 'ATTRIBUTION_ONLY': 0, 'NOOP': 33,
+                                                                    'CONFLICT': 0}
 
 
 def refused(rv, part, sha=None):
@@ -196,8 +206,8 @@ def t09_a_reviewed_listing_never_creates_a_vintage():
     import mig_m6_provenance as M6
     acc, vin, _ = IRV.manifests()
     EA = _load('ea_ir_t9', 'tools/apply-evidence-acceptance-manifest.py')
-    view = V1.View()
-    errs, resolved = EA.validate_manifest(acc, EA.V.View(), EA.Store(), read_bytes=False)
+    view = BEFORE_VIEW(V1)                  # the model the manifests were reviewed for
+    errs, resolved = EA.validate_manifest(acc, BEFORE_VIEW(EA.V), EA.Store(), read_bytes=False)
     assert not errs, errs
     held = {(v['wine'], v['label']) for v in view.table('identity/vintages.jsonl')}
     listing = [v for v in vin if v['creation_class'] == 'REVIEWED_LISTING' and len(v['artifact_ids']) == 1][0]
@@ -227,9 +237,25 @@ def t09_a_reviewed_listing_never_creates_a_vintage():
     assert plan['actions']['ATTRIBUTION_ONLY'] == 1 and plan['actions']['CREATE'] == 0, plan['actions']
 
 
+def BEFORE_VIEW(runner):
+    """A runner's View of the model as it stood before the integration application (the live model before it)."""
+    return runner.View() if IA.phase() == 'PRE_APPLY' else runner.View(IA.read_before)
+
+
 @check
 def t07_nothing_is_applied():
     assert not git('status', '--porcelain', '--', 'data', 'sources')
+    if IA.phase() == 'POST_APPLY':
+        # applied, exactly: the three manifests are the reviewed rows, every figure of both states exact
+        assert IA.verify() == 'POST_APPLY'
+        for k in ('acceptance', 'vintage'):
+            assert L.jsonl_lines(L.ROOT + IRV.MANIFESTS[k]) == IA.manifest_rows(k), k
+        rows = L.jsonl_lines(L.ROOT + IRV.MANIFESTS['value'])
+        assert rows[9:] == IA.manifest_rows('value') and all(
+            r['source_basis'] == 'explicit_document_statement' and r['manifest_id'] <= 'vam_000009' for r in rows[:9])
+        import evidence_store as ST
+        assert ST.versions() == list(range(1, 11))
+        return
     for k in ('acceptance', 'vintage'):
         assert not L.jsonl_lines(L.ROOT + IRV.MANIFESTS[k]), k               # no manifest row is committed
     assert all(r['source_basis'] == 'explicit_document_statement' and r['manifest_id'] <= 'vam_000009'

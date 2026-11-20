@@ -47,7 +47,8 @@ def t01_v1_to_v7_are_byte_for_byte():
     H.evidence_unchanged_but_m36h(BEFORE)
     old = ['data/evidence/decisions-v%d.jsonl' % v for v in range(1, 8)]
     assert not git('diff', '--stat', BEFORE, '--', *old).strip() and not git('status', '--porcelain', '--', *old).strip()
-    assert ST.verify() == [] and [v for v in ST.versions() if v != H.M310B_EVIDENCE_VERSION] == [1, 2, 3, 4, 5, 6, 7, 8]   # M3.10B's v9, a later phase, aside
+    assert ST.verify() == [] and [v for v in ST.versions() if v not in (H.M310B_EVIDENCE_VERSION, H.IA.EVIDENCE_VERSION)] == \
+        [1, 2, 3, 4, 5, 6, 7, 8]   # M3.10B's v9 and the integration application's v10, later phases, aside
 
 
 @check

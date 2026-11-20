@@ -88,6 +88,7 @@ def no_extra_mapping_exists():
     new_vd = json.load(open(L.MODEL + 'derived/vintage-documents.json', encoding='utf-8'))
     gained = {(k, x) for k in new_vd for x in set(new_vd[k]) - set(old_vd.get(k, []))}
     gained -= {(a['vintage'], a['artifact']) for a in later}
+    gained -= H.IA.links({p['id']: p for p in L.read_table('cross/provenance.jsonl')})   # the integration application's
     assert gained == {(a['vintage'], a['artifact']) for a in MINE}
 
 

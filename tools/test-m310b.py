@@ -60,7 +60,8 @@ def t01_exactly_m310as_four_artifacts_and_m39s_verdicts():
 @check
 def t02_v9_is_exactly_the_four_acceptances():
     rows = H.m310b_evidence_rows()
-    assert ST.versions()[-1] == H.M310B_EVIDENCE_VERSION == 9 and len(rows) == 4
+    H.IA.evidence_rows()                # the integration application's v10, a later phase: verified and set aside
+    assert [v for v in ST.versions() if v != H.IA.EVIDENCE_VERSION][-1] == H.M310B_EVIDENCE_VERSION == 9 and len(rows) == 4
     by = {M6.row_key(d): d for d in rows}
     for m in decisions():
         d = by[m['evidence_decision']]
@@ -100,9 +101,13 @@ def t05_no_new_wine_estate_value_observation_or_reconciliation():
     changed = {f[len('data/model/'):] for f in git('diff', '--name-only', BEFORE, '--', 'data/model').split()}
     mine = {'document/attributions.jsonl', 'cross/provenance.jsonl', 'derived/vintage-documents.json', 'manifest.json'}
     # M3.10C's values, observations and reconciliations, a later phase, set aside (their rows: t06, t07)
-    assert {f for f in changed if f in mine or f not in H.M310C_FILES} == mine, sorted(changed)
+    # ... and the integration application's values and the quality audit it moves, a later phase (rows: below)
+    later = set(H.M310C_FILES) | set(H.IA.FILES) | {H.QUALITY}
+    assert {f for f in changed if f in mine or f not in later} == mine, sorted(changed)
     old = set(git('show', '%s:data/model/document/attributions.jsonl' % BEFORE).splitlines())
-    new = set(open(L.MODEL + 'document/attributions.jsonl', encoding='utf-8').read().splitlines())
+    prov = {p['id']: p for p in L.read_table('cross/provenance.jsonl')}
+    new = {x for x in open(L.MODEL + 'document/attributions.jsonl', encoding='utf-8').read().splitlines()
+           if not H.IA.is_row('document/attributions.jsonl', json.loads(x), prov)}
     assert old <= new and {json.loads(x)['artifact'] for x in new - old} == ARTIFACTS and len(new - old) == 4
 
 

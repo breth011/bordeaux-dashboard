@@ -18,6 +18,7 @@ import sys
 
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 import data_gap_analysis as A  # noqa: E402
+import integration_application as IA  # noqa: E402
 import migration_lib as L  # noqa: E402
 
 OUT = L.ROOT + 'data/audit/data-gap-register.jsonl'
@@ -672,6 +673,17 @@ def resolve(rows):
         if (pv[c['provenance']].get('code_state') or {}).get('stream') == 'M3.2D' and \
                 '%s|%s' % (c['subject'], c['field']) in fillable:
             recovered[('FILLABLE|%s' % wine_estate.get(c['subject'].split(':')[1], '?'), 'M3.2D')] += 1
+    # the integration application (tools/integration_application.py), set aside from the measurement like M3.10C:
+    # a fillable slot one of its values now holds, and a document-less vintage one of its attributions now documents
+    # (one no earlier phase did). Its rows are read from the raw tables, by their own provenance only.
+    raw_pv = A.pv_all()
+    for c in L.read_table('canonical/values.jsonl'):
+        if IA.is_row('canonical/values.jsonl', c, raw_pv) and '%s|%s' % (c['subject'], c['field']) in fillable:
+            recovered[('FILLABLE|%s' % wine_estate.get(c['subject'].split(':')[1], '?'), IA.PHASE)] += 1
+    earlier = m34b | m35 | m36b | {a['vintage'] for a in A.m310b_attributions()}
+    for vt in sorted({a['vintage'] for a in L.read_table('document/attributions.jsonl')
+                      if IA.is_row('document/attributions.jsonl', a, raw_pv) and not before.get(a['vintage'])} - earlier):
+        recovered[('VINTAGE_NO_DOCUMENT|%s' % wine_estate.get(vt.split(':')[1], '?'), IA.PHASE)] += 1
     for r in rows:
         done = {s: n for (k, s), n in recovered.items() if k == r['gap_key'] and s in applied}
         if not done:

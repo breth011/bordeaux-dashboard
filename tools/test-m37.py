@@ -150,7 +150,7 @@ def t08_model_evidence_and_app_unchanged():
     m36 = [p for p in git('ls-files', '--', 'data/audit').split() if '/m3.6' in p]
     assert len(m36) >= 12 and not git('diff', '--stat', BEFORE, '--', *m36).strip()
     import evidence_store as ST
-    assert [v for v in ST.versions() if v != __import__('historical_m2_scope').M310B_EVIDENCE_VERSION] == [1, 2, 3, 4, 5, 6, 7, 8] and ST.verify() == []
+    assert [v for v in ST.versions() if v not in (__import__('historical_m2_scope').M310B_EVIDENCE_VERSION, __import__('historical_m2_scope').IA.EVIDENCE_VERSION)] == [1, 2, 3, 4, 5, 6, 7, 8] and ST.verify() == []
 
 
 def main():

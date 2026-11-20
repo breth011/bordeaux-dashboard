@@ -365,10 +365,21 @@ def z1_nothing_else_changes():
                           'test-recording-branches.py', 'integration-review.py', 'test-integration-review.py')
              and re.search(r'check_listing_review|C6_BASIS|layout_derived_unit', open(L.ROOT + 'tools/' + p, encoding='utf-8').read())]
     assert not users, users
-    for f in ('data/audit/vintage-creation-manifest.jsonl', 'data/audit/value-application-manifest.jsonl',
-              'data/audit/evidence-acceptance-manifest.jsonl'):
+    import integration_application as IA
+    phase = IA.phase()
+    for kind, f in (('vintage', 'data/audit/vintage-creation-manifest.jsonl'),
+                    ('value', 'data/audit/value-application-manifest.jsonl'),
+                    ('acceptance', 'data/audit/evidence-acceptance-manifest.jsonl')):
         txt = open(L.ROOT + f, encoding='utf-8').read() if os.path.exists(L.ROOT + f) else ''
-        assert 'layout_derived_unit' not in txt and '"R4"' not in txt, f      # no manifest row uses a branch yet
+        if phase == 'PRE_APPLY':
+            assert 'layout_derived_unit' not in txt and '"R4"' not in txt, f      # no manifest row uses a branch yet
+            continue
+        # POST_APPLY: the rows that use a branch are the integration application's, and only they
+        used = [r for r in L.jsonl_lines(L.ROOT + f) if 'layout_derived_unit' in L.dumps(r) or '"R4"' in L.dumps(r)]
+        mine = IA.manifest_rows(kind)
+        assert all(r in mine for r in used), f
+    if phase == 'POST_APPLY':
+        assert sum(r['source_basis'] == 'layout_derived_unit' for r in IA.manifest_rows('value')) == 15
 
 
 def main():

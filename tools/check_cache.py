@@ -11,7 +11,7 @@ is given the first one's answer.
 A result is reused only when all of these hold; otherwise the command runs as it always did:
 - tools/run-tests.py made the cache for this run (BDX_CHECK_CACHE): a suite run by hand, or a run
   with --no-cache, runs every check;
-- the command is a check: it carries --check or --verify, or it is a test-*.py suite;
+- the command is a check: it carries --check, --check-all or --verify, or it is a test-*.py suite;
 - the result came from another suite: a suite that runs a check twice to prove it deterministic
   runs it twice;
 - the state is the one it was computed in: the command, its directory, the environment, HEAD and
@@ -33,7 +33,7 @@ WAIT = 900                       # seconds to wait for another suite's run of th
 ENV = 'BDX_CHECK_CACHE'
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SKIP = {'.git', '__pycache__', 'node_modules'}
-CHECK_ARGS = ('--check', '--verify')
+CHECK_ARGS = ('--check', '--check-all', '--verify')
 
 
 def caller():

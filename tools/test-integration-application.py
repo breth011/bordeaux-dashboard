@@ -15,6 +15,7 @@ import subprocess
 import sys
 
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+import check_cache as CC  # noqa: E402
 import integration_application as IA  # noqa: E402
 import migration_lib as L  # noqa: E402
 
@@ -131,8 +132,8 @@ def s06_the_gap_register_records_what_it_resolved():
         return
     assert res.get(IA.PHASE) == IA.resolution_entry(), res.get(IA.PHASE)
     assert len(by) == 4 and sum(b['items'] for _, b in by) == 32 and {b['commit'] for _, b in by} == {IA.applying_commit()}
-    out = subprocess.run([sys.executable, L.ROOT + 'tools/build-data-gap-register.py', '--check-all'], cwd=L.ROOT,
-                         capture_output=True, text=True)
+    # a full test run's shared result when another suite has passed it in this state (tools/check_cache.py)
+    out = CC.run([sys.executable, L.ROOT + 'tools/build-data-gap-register.py', '--check-all'], cwd=L.ROOT)
     assert out.returncode == 0 and out.stdout.count('is current') == 2, out.stdout + out.stderr
 
 

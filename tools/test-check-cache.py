@@ -71,6 +71,15 @@ def another_suite_is_given_the_result():
         a = e.run('test-a.py')
         b = e.run('test-b.py')
         assert e.runs() == 1 and a.stdout == b.stdout == 'run 1\n' and b.returncode == 0
+    # --check-all is a check too: the first suite's call runs it (a miss), another suite's is given the result (a
+    # hit), and the first suite asking again runs it again
+    with Env() as e:
+        a = e.run('test-a.py', flag='--check-all')
+        assert e.runs() == 1 and a.stdout == 'run 1\n'
+        b = e.run('test-b.py', flag='--check-all')
+        assert e.runs() == 1 and b.stdout == 'run 1\n' and b.returncode == 0
+        e.run('test-a.py', flag='--check-all')
+        assert e.runs() == 2
 
 
 @check

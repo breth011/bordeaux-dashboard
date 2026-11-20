@@ -10,8 +10,8 @@
   },
   "canonical/values.jsonl": {
    "entity": "CanonicalValue",
-   "rows": 13004,
-   "sha256": "040cc1a03d3f4884aa4501e294620bf1278d412b9224613c3da597e445ba200c"
+   "rows": 13055,
+   "sha256": "2421f32c6f0b0bd5eac6653e6d03c2016a7a7795c1024570afd27946d2320c35"
   },
   "cross/findings.jsonl": {
    "entity": "QualityFinding",
@@ -20,8 +20,8 @@
   },
   "cross/provenance.jsonl": {
    "entity": "Provenance",
-   "rows": 27228,
-   "sha256": "4513fd3fccd77d344821721e2dde3c5cec7585d997e38c8284fd8e7346c64b91"
+   "rows": 27381,
+   "sha256": "a6de1884b7daafb5bf5985072c99431a33bb264291604d6b61745f0db2fa3ec7"
   },
   "document/artifact-dates.jsonl": {
    "entity": "ArtifactDate",
@@ -40,8 +40,8 @@
   },
   "document/attributions.jsonl": {
    "entity": "Attribution",
-   "rows": 12211,
-   "sha256": "9c03c1d4c2e13c4512d799f5f63ae69ae85056f12003ac31b1d8b83f88e8a9be"
+   "rows": 12245,
+   "sha256": "28d48046bbb5024d448863b157171861d00d86127503c19dd9113e8fcf3afa6d"
   },
   "document/families.jsonl": {
    "entity": "DocumentFamily",
@@ -115,13 +115,13 @@
   },
   "observation/observations.jsonl": {
    "entity": "Observation",
-   "rows": 22507,
-   "sha256": "f75981a8056cdb0b839928df9545864d57979376cd880df002485632e9ac18b0"
+   "rows": 22558,
+   "sha256": "deb7bac409af70f24527eb0dcf3fbc5991c6305d99efb029f70748005b5767e7"
   },
   "reconciliation/reconciliations.jsonl": {
    "entity": "Reconciliation",
-   "rows": 13004,
-   "sha256": "aa8473d55a49ee6d035f4fbcf1bc37362eed1713e54323535fc10e0142c99157"
+   "rows": 13055,
+   "sha256": "1d2576469fd2539df3045edd6fc9aa0936cf26e56d325e1f350544c1001b1243"
   },
   "state/appellation-memberships.jsonl": {
    "entity": "AppellationMembership",
@@ -355,7 +355,8 @@
    "M3.4B audited mappings": 39,
    "M3.5 held-document attributions": 32,
    "M3.6B audited web-page mappings": 8,
-   "M3.10B accepted external documents": 4
+   "M3.10B accepted external documents": 4,
+   "vintage-creation manifest attributions": 34
   },
   "M7": {
    "backfill": {
@@ -392,7 +393,8 @@
    },
    "M3.2D recovered values": 25,
    "M3.6F Cuvée values": 11,
-   "M3.10C Durfort-Vivens values": 9
+   "M3.10C Durfort-Vivens values": 9,
+   "value-application manifest values": 51
   }
  }
 }

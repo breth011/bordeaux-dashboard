@@ -9,7 +9,7 @@
   "overlapping mutually exclusive rank claims": 5,
   "classification contradictions": 212,
   "appellation contradictions": 0,
-  "orphan documents": 723,
+  "orphan documents": 722,
   "orphan observations": 0,
   "provenance-less canonical values": 0,
   "unresolved legacy references": 320,
@@ -5191,12 +5191,6 @@
    },
    {
     "target": "ar_010520",
-    "detail": "a manifest artifact no attribution assigns to an estate",
-    "proposed_action": "attribute it, or record it as UNATTRIBUTED once examined (I17)",
-    "status": "PROPOSED"
-   },
-   {
-    "target": "ar_010530",
     "detail": "a manifest artifact no attribution assigns to an estate",
     "proposed_action": "attribute it, or record it as UNATTRIBUTED once examined (I17)",
     "status": "PROPOSED"

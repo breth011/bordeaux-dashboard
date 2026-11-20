@@ -40,5 +40,10 @@
   "commit": "6d91d87",
   "method": "EXISTING_EVIDENCE_REVIEW",
   "what": "document-less vintages an accepted, externally acquired document now documents (APPLIED decision rows of data/audit/m3.10b-evidence-decisions.jsonl, evidence version 9); only \"no document\" is resolved, the vintage's figures stay with their own gaps"
+ },
+ "INTEGRATION": {
+  "commit": "c5eb096",
+  "method": "EXISTING_EVIDENCE_REVIEW",
+  "what": "vintage figures the model lacked, stated in accepted documents the integration review read (36 statements, 15 C6 layout-derived yields; value-application manifest vam_000010-vam_000060), and document-less vintages its attributions now document (vintage-creation manifest vcm_000001-vcm_000033, all ATTRIBUTION_ONLY; evidence version 10)"
  }
 }

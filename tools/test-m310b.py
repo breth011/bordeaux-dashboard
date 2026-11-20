@@ -178,6 +178,48 @@ def t12_the_generated_views_are_current():
         assert out.returncode == 0, (cmd, (out.stdout + out.stderr)[-300:])
 
 
+@check
+def t13_the_manifest_is_parsed_once_per_state_of_the_file():
+    """H.m310b_applied(), asked once per candidate row, parses the manifest once while the file is unchanged, gives
+    the same keys as a direct read, a set of its own each call, and reads the file again once it changes. The
+    change is made to a copy in a temporary root, never to the repository's manifest."""
+    import shutil
+    import tempfile
+    direct = {(r['attribution'], r['artifact'], r['estate'], r['wine'], r['vintage_id'])
+              for r in L.jsonl_lines(MANIFEST) if r['record'] == 'decision' and r['result'] == 'APPLIED'}
+    reads = []
+    real = L.jsonl_lines
+
+    def counting(p):
+        reads.append(p)
+        return real(p)
+    root, tmp = L.ROOT, tempfile.mkdtemp(prefix='m310b-memo-')
+    try:
+        L.jsonl_lines = counting
+        H._M310B_APPLIED.clear()
+        a, b = H.m310b_applied(), H.m310b_applied()
+        assert a == b == direct and len(reads) == 1, (len(reads), len(a), len(direct))
+        a.add('x')
+        assert H.m310b_applied() == direct and len(reads) == 1, 'a caller\'s change leaked into the next call'
+        # a changed file is read again: a copy under a temporary root, one APPLIED decision row appended
+        os.makedirs(os.path.join(tmp, os.path.dirname(H.M310B_MANIFEST)))
+        copy = os.path.join(tmp, H.M310B_MANIFEST)
+        shutil.copyfile(MANIFEST, copy)
+        L.ROOT = tmp.replace('\\', '/') + '/'
+        assert H.m310b_applied() == direct and len(reads) == 2
+        row = dict(next(r for r in real(MANIFEST) if r['record'] == 'decision' and r['result'] == 'APPLIED'),
+                   attribution='at_memo_test')
+        with open(copy, 'a', encoding='utf-8') as f:
+            f.write(json.dumps(row) + '\n')
+        got = H.m310b_applied()
+        assert len(reads) == 3 and got - direct == {('at_memo_test', row['artifact'], row['estate'], row['wine'],
+                                                     row['vintage_id'])}, got - direct
+    finally:
+        L.jsonl_lines, L.ROOT = real, root
+        H._M310B_APPLIED.clear()
+        shutil.rmtree(tmp, ignore_errors=True)
+
+
 def main():
     fails = 0
     for f in CHECKS:

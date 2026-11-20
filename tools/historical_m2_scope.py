@@ -154,14 +154,30 @@ def m36b_applied():
             if r['result'] == 'APPLIED'}
 
 
+_M310B_APPLIED = {}                   # (path, size, mtime) -> the manifest's APPLIED keys, this process only
+
+
 def m310b_applied():
-    """(attribution id, artifact, estate, wine, vintage) of every APPLIED decision row of the M3.10B manifest."""
+    """(attribution id, artifact, estate, wine, vintage) of every APPLIED decision row of the M3.10B manifest.
+
+    is_m310b_attribution asks once per candidate row, so the manifest is parsed once per state of the file (its
+    path, size and modification time; a manifest written later in the process is read again). Each call returns
+    its own set."""
+    path = L.ROOT + M310B_MANIFEST
     try:
-        rows = L.jsonl_lines(L.ROOT + M310B_MANIFEST)
+        st = os.stat(path)
     except FileNotFoundError:
         return set()
-    return {(r['attribution'], r['artifact'], r['estate'], r['wine'], r['vintage_id']) for r in rows
-            if r['record'] == 'decision' and r['result'] == 'APPLIED'}
+    key = (path, st.st_size, st.st_mtime_ns)
+    if key not in _M310B_APPLIED:
+        try:
+            rows = L.jsonl_lines(path)
+        except FileNotFoundError:
+            return set()
+        _M310B_APPLIED.clear()
+        _M310B_APPLIED[key] = frozenset((r['attribution'], r['artifact'], r['estate'], r['wine'], r['vintage_id'])
+                                        for r in rows if r['record'] == 'decision' and r['result'] == 'APPLIED')
+    return set(_M310B_APPLIED[key])
 
 
 def is_m310b_attribution(a, prov):
